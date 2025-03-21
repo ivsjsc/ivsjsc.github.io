@@ -3,209 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Card - Minh Triet Nguyen</title>
-    <!-- Thêm Font Awesome để sử dụng icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <title>Profile Card - Minh Triet Nguyen</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
-            background-color: #1a1a1a;
-            overflow: auto;
-            color: #ffffff;
-            padding-bottom: 80px; /* Thêm padding để tránh footer che nội dung */
+            background: linear-gradient(45deg, #1a1a2e, #16213e);
+            overflow: hidden;
         }
-        /* Hiệu ứng ngôi sao lấp lánh */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            background: transparent;
-            animation: twinkle 4s infinite;
+
+        .card {
+            position: relative;
+            width: 350px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            color: #fff;
+            overflow: hidden;
         }
-        .stars::before {
+
+        .card::before {
             content: '';
             position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #ffffff;
-            border-radius: 50%;
-            box-shadow: 
-                100px 100px #fff, 200px 150px #fff, 300px 50px #fff,
-                50px 300px #fff, 150px 200px #fff, 250px 250px #fff,
-                400px 100px #fff, 450px 200px #fff, 500px 300px #fff,
-                600px 150px #fff, 700px 50px #fff, 800px 250px #fff;
-            animation: twinkle 3s infinite;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+            transform: rotate(45deg);
+            pointer-events: none;
         }
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 0.3; }
-        }
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            width: 90%;
-            max-width: 350px;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            margin: 20px 0;
-        }
-        .card img {
+
+        .logo {
+            position: relative;
             width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            background: #fff;
             border-radius: 50%;
-            margin-bottom: 15px;
-        }
-        .card h2 {
-            margin: 5px 0;
-            color: #ffffff;
-            font-size: 24px;
-        }
-        .card .title {
-            margin: 10px 0;
-            color: #ffd700;
-            font-size: 18px;
-            font-weight: bold;
-            font-style: italic;
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
-        }
-        .card p {
-            margin: 5px 0;
-            color: #e0e0e0;
-            font-size: 14px;
-        }
-        .card a {
-            color: #00ccff;
-            text-decoration: none;
-        }
-        .card a:hover {
-            text-decoration: underline;
-        }
-        .contact {
-            margin-top: 15px;
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
-        .contact a {
-            display: inline-block;
-            text-decoration: none;
-            color: #ffffff;
-            background: #007BFF;
-            padding: 8px;
-            border-radius: 50%;
-            font-size: 16px;
-            width: 32px;
-            height: 32px;
-            line-height: 32px;
-            text-align: center;
+
+        .logo::before {
+            content: 'IVS';
+            font-size: 30px;
+            font-weight: bold;
+            color: #1a1a2e;
         }
-        .contact a:hover {
-            background: #0056b3;
+
+        .wings {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 50px;
+            background: url('https://img.icons8.com/ios-filled/50/ffffff/angel-wings.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.7;
         }
-        /* Tùy chỉnh màu cho từng icon */
-        .contact a.facebook { background: #3b5998; }
-        .contact a.facebook:hover { background: #2d4373; }
-        .contact a.zalo { background: #0068ff; }
-        .contact a.zalo:hover { background: #0056d3; }
-        .contact a.whatsapp { background: #25d366; }
-        .contact a.whatsapp:hover { background: #1da851; }
-        /* Footer sang trọng - Cố định dưới cùng */
-        .footer {
-            background-color: #1a1a1a;
-            padding: 10px 0;
-            text-align: center;
-            font-family: 'Roboto', sans-serif;
-            font-size: 13px;
-            color: #d4d4d4;
-            border-top: 2px solid #3a3a3a;
+
+        .stars {
+            position: absolute;
             width: 100%;
-            position: fixed; /* Cố định footer ở dưới cùng */
-            bottom: 0;
+            height: 100%;
+            top: 0;
             left: 0;
+            pointer-events: none;
         }
-        .footer p {
-            margin: 3px 0;
-            font-weight: 300;
+
+        .stars span {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #fff, 0 0 20px #fff;
+            animation: sparkle 3s infinite;
         }
-        .footer .company-en {
-            font-style: italic;
-            color: #b0b0b0;
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
-        /* Đảm bảo bố cục trên thiết bị di động */
-        @media (max-width: 400px) {
-            .card {
-                width: 85%;
-                padding: 15px;
-            }
-            .card h2 {
-                font-size: 20px;
-            }
-            .card .title {
-                font-size: 16px;
-            }
-            .card p {
-                font-size: 12px;
-            }
-            .contact a {
-                width: 28px;
-                height: 28px;
-                line-height: 28px;
-                font-size: 14px;
-            }
-            .footer {
-                font-size: 11px;
-                padding: 8px 0;
-            }
+
+        .stars span:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .stars span:nth-child(2) { top: 30%; left: 80%; animation-delay: 0.5s; }
+        .stars span:nth-child(3) { top: 60%; left: 20%; animation-delay: 1s; }
+        .stars span:nth-child(4) { top: 70%; left: 70%; animation-delay: 1.5s; }
+        .stars span:nth-child(5) { top: 40%; left: 50%; animation-delay: 2s; }
+
+        .card h1 {
+            margin: 20px 0;
+            font-size: 24px;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .card h2 {
+            font-size: 18px;
+            color: #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .card p {
+            font-size: 14px;
+            margin: 10px 0;
+            color: #d3d3d3;
+        }
+
+        .card p strong {
+            color: #ffd700;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            line-height: 40px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: #ffd700;
+            box-shadow: 0 0 15px #ffd700;
+            transform: translateY(-5px);
+        }
+
+        .social-icons a img {
+            width: 20px;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
-    <div class="stars"></div>
     <div class="card">
-        <a href="index.html">
-            <img src="favicon.ico" alt="Logo ICO" />
-        </a>
-        <h2>Minh Triet Nguyen</h2>
-        <p class="title">Chairman & CEO - IVS JSC</p>
-        <p>Email: <a href="mailto:ivscorp.vn@gmail.com">ivscorp.vn@gmail.com</a></p>
-        <p>Phone: 0795 555 789</p>
-        <p>Phone: 0896 920 547</p>
-        <p>Address: Dat Moi Hamlet, Long Phuoc Commune, Long Thanh District, Dong Nai, Vietnam</p>
-        <p>Website: <a href="https://ivs.id.vn" target="_blank">ivs.id.vn</a></p>
-        <div class="contact">
-            <a href="https://www.facebook.com/ivsmastery/" target="_blank" class="facebook" title="Fanpage Facebook">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://zalo.me/ivsjsc" target="_blank" class="zalo" title="Zalo Official">
-                <i class="fas fa-comment"></i>
-            </a>
-            <a href="https://www.facebook.com/share/1A3JnxFEtK/?mibextid=wwXIfr" target="_blank" class="facebook" title="Facebook cá nhân">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://zalo.me/nmt5555789" target="_blank" class="zalo" title="Zalo cá nhân">
-                <i class="fas fa-comment"></i>
-            </a>
-            <a href="https://wa.link/uay53k/" target="_blank" class="whatsapp" title="WhatsApp">
-                <i class="fab fa-whatsapp"></i>
-            </a>
+        <div class="stars">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-    </div>
-    <div class="footer">
-        <p>Công ty cổ phần dịch vụ thương mại Integrate Vision Synergy</p>
-        <p class="company-en">Integrate Vision Synergy Trading Services Joint Stock Company</p>
+        <div class="wings"></div>
+        <div class="logo"></div>
+        <h1>MINH TRIET NGUYEN</h1>
+        <h2>Chairman & CEO - IVS JSC</h2>
+        <p><strong>Email:</strong> ivscorp.vn@gmail.com</p>
+        <p><strong>Phone:</strong> 0795 555 789 / 0896 920 547</p>
+        <p><strong>Address:</strong> Dat Moi Hamlet, Long Phuoc Commune, Long Thanh District, Dong Nai, Vietnam</p>
+        <p><strong>Website:</strong> ivs.id.vn</p>
+        <div class="social-icons">
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/speech-bubble.png" alt="Chat"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png" alt="Facebook"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/speech-bubble.png" alt="Chat"></a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp"></a>
+        </div>
     </div>
 </body>
 </html>
