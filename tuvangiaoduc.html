@@ -5,17 +5,316 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LIFEMinds - Tư vấn thành lập trung tâm giáo dục</title>
     <meta name="description" content="LIFEMinds: Tư vấn và hỗ trợ thành lập trung tâm, cơ sở giáo dục chuyên nghiệp. Đồng hành từ ý tưởng đến vận hành thành công.">
-    <!-- Thêm meta Open Graph cho SEO và chia sẻ mạng xã hội -->
+    <!-- Open Graph Meta Tags for SEO and Social Sharing -->
     <meta property="og:title" content="LIFEMinds - Tư vấn thành lập trung tâm giáo dục">
     <meta property="og:description" content="LIFEMinds: Tư vấn và hỗ trợ thành lập trung tâm, cơ sở giáo dục chuyên nghiệp. Đồng hành từ ý tưởng đến vận hành thành công.">
     <meta property="og:image" content="Media.png">
     <meta property="og:url" content="https://yourwebsite.com/lifeminds">
     <meta property="og:type" content="website">
     <link rel="icon" href="Media.png" type="image/x-icon">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <!-- Google Fonts for Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        /* Navigation Bar */
+        .nav-tabs {
+            background-color: #007bff;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-tabs a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .nav-tabs a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            background: linear-gradient(to bottom, #007bff, #0056b3);
+            color: white;
+            padding: 50px 20px;
+        }
+
+        header img {
+            width: 80px;
+            margin-bottom: 10px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header h3 {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Section Styling */
+        .section {
+            margin: 40px 0;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            color: #555;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Services Section */
+        .services-section .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .service-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .service-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-box h3 {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .service-box p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Why Choose Us Section */
+        .why-choose-us ul {
+            list-style: none;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .why-choose-us li {
+            font-size: 1.1rem;
+            color: #555;
+            margin: 10px 0;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .why-choose-us li::before {
+            content: "✔";
+            color: #ff4d4d;
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .testimonial-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .testimonial-box p {
+            font-style: italic;
+            color: #666;
+        }
+
+        .testimonial-box h4 {
+            margin-top: 10px;
+            color: #007bff;
+            font-size: 1.1rem;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-form h3 {
+            font-size: 1.5rem;
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .contact-form label {
+            display: block;
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .contact-form button {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .contact-form button:hover {
+            background-color: #e60000;
+        }
+
+        /* Call to Action */
+        .cta {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .cta-button {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background-color: #e60000;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        footer img {
+            width: 50px;
+            margin-bottom: 10px;
+        }
+
+        .footer-info p {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .footer-info a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header h3 {
+                font-size: 1rem;
+            }
+
+            .nav-tabs a {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
+            .section h2 {
+                font-size: 1.5rem;
+            }
+
+            .service-box h3 {
+                font-size: 1.2rem;
+            }
+
+            .cta-button {
+                font-size: 1rem;
+                padding: 10px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Thanh điều hướng ngang -->
+    <!-- Navigation Bar -->
     <nav class="nav-tabs">
         <a href="index.html" aria-label="Trang chủ của LIFEMinds">Trang chủ</a>
         <a href="about.html" aria-label="Giới thiệu về LIFEMinds">Về chúng tôi</a>
@@ -31,33 +330,110 @@
         <h3>Tư vấn & Hỗ trợ thành lập trung tâm, cơ sở giáo dục</h3>
     </header>
 
-    <!-- Nội dung chính -->
+    <!-- Main Content -->
     <main>
-        <!-- Section Giới thiệu -->
-        <section class="section">
-            <h2>Giới thiệu về LIFEMinds</h2>
-            <p>LIFEMinds là đơn vị chuyên cung cấp giải pháp tư vấn và hỗ trợ thành lập các trung tâm, cơ sở giáo dục chuyên nghiệp. Chúng tôi cam kết đồng hành cùng bạn từ ý tưởng ban đầu đến khi vận hành thành công.</p>
-            <p><a href="https://www.facebook.com/share/191RufHZ87/?mibextid=wwXIfr" target="_blank">Tham gia Fanpage LIFEMinds</a></p>
-        </section>
+        <div class="container">
+            <!-- Introduction Section -->
+            <section class="section">
+                <h2>Giới thiệu về LIFEMinds</h2>
+                <p>LIFEMinds, một thương hiệu thuộc IVS JSC, là đơn vị chuyên cung cấp giải pháp tư vấn và hỗ trợ thành lập các trung tâm, cơ sở giáo dục chuyên nghiệp. Chúng tôi cam kết đồng hành cùng bạn từ ý tưởng ban đầu đến khi vận hành thành công, đảm bảo trung tâm của bạn hoạt động hiệu quả và bền vững.</p>
+                <p><a href="https://www.facebook.com/share/191RufHZ87/?mibextid=wwXIfr" target="_blank">Tham gia Fanpage LIFEMinds</a></p>
+            </section>
 
-        <!-- Section Dịch vụ -->
-        <section class="section services-section">
-            <h2>Dịch vụ của chúng tôi</h2>
-            <div class="services">
-                <div class="service-box">
-                    <h3>Tư vấn pháp lý</h3>
-                    <p>Hỗ trợ hoàn thiện giấy phép, thủ tục pháp lý để thành lập trung tâm giáo dục theo đúng quy định.</p>
+            <!-- Services Section -->
+            <section class="section services-section">
+                <h2>Dịch vụ của chúng tôi</h2>
+                <div class="services">
+                    <div class="service-box">
+                        <h3>Tư vấn pháp lý</h3>
+                        <p>Hỗ trợ hoàn thiện giấy phép, thủ tục pháp lý để thành lập trung tâm giáo dục theo đúng quy định của pháp luật Việt Nam.</p>
+                    </div>
+                    <div class="service-box">
+                        <h3>Lập kế hoạch kinh doanh</h3>
+                        <p>Xây dựng chiến lược phát triển, kế hoạch tài chính và vận hành hiệu quả, giúp trung tâm của bạn đạt được mục tiêu dài hạn.</p>
+                    </div>
+                    <div class="service-box">
+                        <h3>Thiết kế chương trình đào tạo</h3>
+                        <p>Tư vấn và phát triển nội dung giáo dục phù hợp với mục tiêu và đối tượng học viên, đảm bảo chất lượng giảng dạy.</p>
+                    </div>
+                    <div class="service-box">
+                        <h3>Đào tạo nhân sự</h3>
+                        <p>Cung cấp các khóa đào tạo chuyên sâu cho giáo viên và nhân viên, giúp đội ngũ của bạn sẵn sàng vận hành trung tâm hiệu quả.</p>
+                    </div>
+                    <div class="service-box">
+                        <h3>Hỗ trợ marketing</h3>
+                        <p>Xây dựng chiến lược marketing, quảng bá thương hiệu và thu hút học viên thông qua các kênh truyền thông hiệu quả.</p>
+                    </div>
+                    <div class="service-box">
+                        <h3>Tích hợp công nghệ</h3>
+                        <p>Hỗ trợ triển khai các giải pháp công nghệ như hệ thống quản lý học tập (LMS), phần mềm quản lý trung tâm, và các công cụ học trực tuyến.</p>
+                    </div>
+                    <div class="service-box">
+                        <h3>Hỗ trợ vận hành</h3>
+                        <p>Đồng hành trong giai đoạn đầu vận hành, tư vấn quản lý và giải quyết các vấn đề phát sinh để đảm bảo hoạt động ổn định.</p>
+                    </div>
+                    <div class="service-box">
+                        <h3>Tư vấn mở rộng quy mô</h3>
+                        <p>Hỗ trợ lập kế hoạch mở rộng chi nhánh, phát triển thương hiệu và nâng cao vị thế trên thị trường giáo dục.</p>
+                    </div>
                 </div>
-                <div class="service-box">
-                    <h3>Lập kế hoạch kinh doanh</h3>
-                    <p>XCome Xây dựng chiến lược phát triển, kế hoạch tài chính và vận hành hiệu quả.</p>
+            </section>
+
+            <!-- Why Choose Us Section -->
+            <section class="section why-choose-us">
+                <h2>Tại sao chọn LIFEMinds?</h2>
+                <ul>
+                    <li>Kinh nghiệm dày dặn trong lĩnh vực giáo dục, với đội ngũ chuyên gia từ IVS JSC.</li>
+                    <li>Giải pháp toàn diện, từ pháp lý, tài chính đến vận hành và marketing.</li>
+                    <li>Đồng hành lâu dài, đảm bảo trung tâm của bạn phát triển bền vững.</li>
+                    <li>Mạng lưới đối tác rộng lớn, hỗ trợ kết nối với các tổ chức giáo dục quốc tế.</li>
+                    <li>Cam kết chất lượng với các dự án đã thành công trên toàn quốc.</li>
+                </ul>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section class="section">
+                <h2>Câu chuyện thành công</h2>
+                <div class="testimonials">
+                    <div class="testimonial-box">
+                        <p>"Nhờ LIFEMinds, trung tâm của tôi đã được thành lập chỉ trong 3 tháng và hiện đang hoạt động rất hiệu quả. Đội ngũ hỗ trợ rất chuyên nghiệp!"</p>
+                        <h4>Anh Đỗ Đức Công - Giám đốc Trung tâm Anh ngữ ABC</h4>
+                    </div>
+                    <div class="testimonial-box">
+                        <p>"LIFEMinds không chỉ giúp tôi hoàn thiện pháp lý mà còn hỗ trợ xây dựng chương trình đào tạo chất lượng. Tôi rất hài lòng!"</p>
+                        <h4>Lưu Bích - Chủ Trung tâm Kỹ năng sống tiềm năng tương lai</h4>
+                    </div>
                 </div>
-                <div class="service-box">
-                    <h3>Thiết kế chương trình đào tạo</h3>
-                    <p>Tư vấn và phát triển nội dung giáo dục phù hợp với mục tiêu và đối tượng học viên.</p>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="cta">
+                <a href="https://forms.gle/QyBUQPnthqHDWRLf9" target="_blank" class="cta-button">📞 Liên hệ ngay để được tư vấn miễn phí!</a>
+            </section>
+
+            <!-- Contact Form -->
+            <section class="section">
+                <h2>Liên hệ với chúng tôi</h2>
+                <div class="contact-form">
+                    <h3>Gửi thông tin của bạn</h3>
+                    <form action="submit_form.php" method="POST">
+                        <label for="name">Họ và tên:</label>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+
+                        <label for="phone">Số điện thoại:</label>
+                        <input type="tel" id="phone" name="phone" required>
+
+                        <label for="message">Tin nhắn:</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+
+                        <button type="submit">Gửi</button>
+                    </form>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 
     <!-- Footer -->
