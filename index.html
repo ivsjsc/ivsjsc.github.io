@@ -30,6 +30,7 @@
     </header>
     <main>
         <p>Website sẽ tự động chuyển đến Fanpage IVS Academy trong vòng 2 phút...</p>
+        <button id="cancel-redirect">Hủy chuyển hướng</button>
 
         <!-- Video -->
         <section class="video-section">
@@ -62,7 +63,7 @@
             <img src="favicon.ico" alt="Logo IVS Education trong footer">
         </a>
         <div class="footer-info">
-            <p>© 2025 IVS JSC. Mọi quyền được bảo lưu.</p>
+            <p>© 2025 IVS JSC. All rights reserved.</p>
             <!-- Thêm thông tin liên hệ -->
             <p>Liên hệ: <a href="mailto:info@ivs.edu.vn">info@ivs.edu.vn</a> | <a href="tel:+84-123-456-789">+84 123 456 789</a></p>
             <!-- Thêm liên kết mạng xã hội -->
@@ -74,11 +75,19 @@
         </div>
     </footer>
 
-    <!-- JavaScript để tự động chuyển hướng -->
+    <!-- JavaScript để tự động chuyển hướng và hủy chuyển hướng -->
     <script>
-        setTimeout(function() {
-            window.location.href = "https://facebook.com/ivsacademy"; // Thay bằng URL Fanpage thực tế
+        // Lưu trữ timer của chuyển hướng
+        const redirectTimer = setTimeout(function() {
+            window.location.href = "https://facebook.com/hr.ivsacademy"; // Thay bằng URL Fanpage thực tế
         }, 120000); // 2 phút = 120000ms
+
+        // Thêm sự kiện cho nút hủy
+        document.getElementById("cancel-redirect").addEventListener("click", function() {
+            clearTimeout(redirectTimer); // Hủy timer
+            this.textContent = "Đã hủy chuyển hướng"; // Cập nhật nội dung nút
+            this.disabled = true; // Vô hiệu hóa nút sau khi hủy
+        });
     </script>
 </body>
 </html>
