@@ -10,6 +10,8 @@ body {
     background-color: #f4f4f4;
     text-align: center;
     line-height: 1.6;
+    padding-top: 200px; /* Khoảng cách phía trên để tránh bị che bởi nav */
+    padding-bottom: 60px; /* Khoảng cách phía dưới để tránh bị che bởi footer */
 }
 
 /* Header */
@@ -47,9 +49,9 @@ header h3 {
     width: 100%;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    display: flex; /* Sử dụng flex để căn chỉnh các tab */
-    justify-content: center; /* Căn giữa các tab */
-    flex-wrap: wrap; /* Cho phép các tab xuống dòng nếu không đủ chỗ */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .nav-tabs a {
@@ -62,6 +64,7 @@ header h3 {
     background: #0056b3;
     border-radius: 5px;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align: center;
 }
 
 .nav-tabs a:hover {
@@ -69,14 +72,10 @@ header h3 {
     transform: scale(1.05);
 }
 
-/* Đảm bảo nội dung không bị che */
+/* Đảm bảo nội dung chính không bị che */
 main {
-    padding: 6rem 2rem 2rem; /* Tăng padding-top để tránh bị che bởi thanh điều hướng */
-}
-
-/* Đảm bảo nội dung chính không bị che bởi footer */
-main {
-    min-height: calc(100vh - 120px); /* Đảm bảo nội dung chính chiếm toàn bộ chiều cao trừ header và footer */
+    padding: 2rem;
+    min-height: calc(100vh - 260px); /* Đảm bảo nội dung chính chiếm toàn bộ chiều cao trừ nav và footer */
 }
 
 main p {
@@ -92,7 +91,7 @@ main p {
 
 .video-container {
     position: relative;
-    padding-bottom: 56.25%;
+    padding-bottom: 56.25%; /* Tỷ lệ 16:9 cho video */
     height: 0;
     overflow: hidden;
     margin: 1rem auto;
@@ -122,12 +121,11 @@ footer {
     color: white;
     padding: 20px;
     font-size: 0.9rem;
-    position: fixed; /* Đặt footer cố định ở dưới cùng */
-    bottom: 0;
+    position: relative; /* Đặt footer ở vị trí tương đối để không che nội dung */
     width: 100%;
-    display: flex; /* Sử dụng flex để căn chỉnh logo và nội dung */
+    display: flex;
     flex-direction: column;
-    align-items: center; /* Căn giữa nội dung trong footer */
+    align-items: center;
     justify-content: center;
 }
 
@@ -154,6 +152,11 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    body {
+        padding-top: 250px; /* Tăng khoảng cách trên di động nếu nav cao hơn */
+        padding-bottom: 80px; /* Tăng khoảng cách dưới di động nếu footer cao hơn */
+    }
+
     header h1 {
         font-size: 2em;
     }
@@ -163,28 +166,41 @@ footer {
     }
 
     .nav-tabs {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         padding: 5px 0;
     }
 
     .nav-tabs a {
-        margin: 5px;
-        padding: 10px 15px;
+        width: 80%;
+        margin: 5px 0;
+        padding: 12px;
         font-size: 0.9em;
+    }
+
+    main {
+        padding: 1rem;
     }
 
     .video-container {
         max-width: 100%;
     }
 
-    main {
-        padding: 5rem 1rem 2rem; /* Điều chỉnh padding cho màn hình nhỏ */
+    .video-container iframe {
+        width: 100%;
+        height: auto;
+    }
+
+    footer {
+        padding: 15px;
     }
 }
 
 @media (max-width: 480px) {
+    body {
+        padding-top: 300px; /* Tăng thêm khoảng cách trên màn hình rất nhỏ */
+    }
+
     header {
         padding: 1.5rem;
     }
@@ -197,47 +213,12 @@ footer {
         font-size: 0.9em;
     }
 
-    .nav-tabs {
-        flex-direction: column;
-        align-items: center;
-    }
-
     .nav-tabs a {
-        width: 80%;
-        margin: 5px 0;
-        padding: 12px;
-    }
-
-    main {
-        padding: 6rem 1rem 2rem; /* Đảm bảo khoảng trống dưới thanh điều hướng */
+        width: 90%;
+        padding: 10px;
     }
 
     main p {
         font-size: 1em;
-    }
-
-    footer {
-        padding: 15px; /* Giảm padding cho footer trên màn hình nhỏ */
-    }
-    .nav-tabs {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background-color: #007bff; /* Màu nền của thanh điều hướng */
-        z-index: 1000; /* Đảm bảo thanh điều hướng nằm trên cùng */
-        display: flex;
-        flex-direction: column; /* Hiển thị dọc trên di động */
-    }
-    
-    .nav-tabs a {
-        color: white;
-        padding: 15px;
-        text-decoration: none;
-        text-align: center;
-    }
-    
-    body {
-        padding-top: 200px; /* Khoảng cách phía trên để tránh bị che bởi nav (điều chỉnh theo chiều cao thực tế của nav) */
     }
 }
