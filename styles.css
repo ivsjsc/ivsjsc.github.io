@@ -47,6 +47,9 @@ header h3 {
     width: 100%;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex; /* Sử dụng flex để căn chỉnh các tab */
+    justify-content: center; /* Căn giữa các tab */
+    flex-wrap: wrap; /* Cho phép các tab xuống dòng nếu không đủ chỗ */
 }
 
 .nav-tabs a {
@@ -68,7 +71,12 @@ header h3 {
 
 /* Đảm bảo nội dung không bị che */
 main {
-    padding: 4rem 2rem 2rem; /* Thêm padding-top để tránh bị che */
+    padding: 6rem 2rem 2rem; /* Tăng padding-top để tránh bị che bởi thanh điều hướng */
+}
+
+/* Đảm bảo nội dung chính không bị che bởi footer */
+main {
+    min-height: calc(100vh - 120px); /* Đảm bảo nội dung chính chiếm toàn bộ chiều cao trừ header và footer */
 }
 
 main p {
@@ -114,9 +122,13 @@ footer {
     color: white;
     padding: 20px;
     font-size: 0.9rem;
-    position: relative;
+    position: fixed; /* Đặt footer cố định ở dưới cùng */
     bottom: 0;
     width: 100%;
+    display: flex; /* Sử dụng flex để căn chỉnh logo và nội dung */
+    flex-direction: column;
+    align-items: center; /* Căn giữa nội dung trong footer */
+    justify-content: center;
 }
 
 .footer-logo {
@@ -166,6 +178,10 @@ footer {
     .video-container {
         max-width: 100%;
     }
+
+    main {
+        padding: 5rem 1rem 2rem; /* Điều chỉnh padding cho màn hình nhỏ */
+    }
 }
 
 @media (max-width: 480px) {
@@ -193,10 +209,14 @@ footer {
     }
 
     main {
-        padding: 5rem 1rem 2rem; /* Đảm bảo khoảng trống dưới thanh điều hướng */
+        padding: 6rem 1rem 2rem; /* Đảm bảo khoảng trống dưới thanh điều hướng */
     }
 
     main p {
         font-size: 1em;
+    }
+
+    footer {
+        padding: 15px; /* Giảm padding cho footer trên màn hình nhỏ */
     }
 }
