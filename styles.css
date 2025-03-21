@@ -14,7 +14,14 @@ body {
     padding-bottom: 60px; /* Khoảng cách phía dưới để tránh bị che bởi footer */
 }
 
-/* Header */
+/* Container (from new CSS) */
+.container {
+    max-width: 1000px; /* Limit the maximum width */
+    margin: 0 auto; /* Center the content */
+    padding: 20px;
+}
+
+/* Header (from current CSS) */
 header {
     background-image: url('banner.png');
     background-size: cover;
@@ -39,7 +46,7 @@ header h3 {
     font-size: 1.2em;
 }
 
-/* Thanh điều hướng */
+/* Thanh điều hướng (from current CSS) */
 .nav-tabs {
     background: #007bff;
     padding: 10px 0;
@@ -72,7 +79,7 @@ header h3 {
     transform: scale(1.05);
 }
 
-/* Đảm bảo nội dung chính không bị che */
+/* Đảm bảo nội dung chính không bị che (from current CSS) */
 main {
     padding: 2rem;
     min-height: calc(100vh - 260px); /* Đảm bảo nội dung chính chiếm toàn bộ chiều cao trừ nav và footer */
@@ -84,7 +91,53 @@ main p {
     color: #555;
 }
 
-/* Video */
+/* Images (from new CSS) */
+.banner-img, .content-img {
+    width: 100%; /* Make images responsive */
+    height: auto;
+    max-width: 100%; /* Prevent overflow */
+    display: block;
+    margin: 0 auto;
+}
+
+/* Sections (from new CSS) */
+.info-section, .special-offer {
+    margin: 20px 0;
+}
+
+/* Button (merged from both CSS files) */
+.button-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.register-button, #cancel-redirect {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.register-button:hover, #cancel-redirect:hover {
+    background-color: #cc0000;
+}
+
+#cancel-redirect:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Highlight (from new CSS) */
+.highlight {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+/* Video Section (merged from both CSS files) */
 .video-section {
     margin: 2rem 0;
 }
@@ -98,6 +151,7 @@ main p {
     max-width: 80%;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .video-container iframe {
@@ -106,22 +160,23 @@ main p {
     left: 0;
     width: 100%;
     height: 100%;
+    max-width: 500px; /* Limit iframe width from new CSS */
 }
 
-/* GIF cảm ơn */
+/* GIF cảm ơn (from current CSS) */
 .thank-you-gif {
     max-width: 100px;
     margin: 1rem auto;
     display: block;
 }
 
-/* Footer */
+/* Footer (from current CSS) */
 footer {
     background-color: #333;
     color: white;
     padding: 20px;
     font-size: 0.9rem;
-    position: relative; /* Đặt footer ở vị trí tương đối để không che nội dung */
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -150,7 +205,7 @@ footer {
     text-decoration: underline;
 }
 
-/* Responsive Design */
+/* Responsive Design (merged from both CSS files) */
 @media (max-width: 768px) {
     body {
         padding-top: 250px; /* Tăng khoảng cách trên di động nếu nav cao hơn */
@@ -194,6 +249,28 @@ footer {
     footer {
         padding: 15px;
     }
+
+    /* From new CSS */
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    .register-button, #cancel-redirect {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -220,37 +297,5 @@ footer {
 
     main p {
         font-size: 1em;
-    }
-    .footer-info a {
-    color: #007bff;
-    text-decoration: none;
-    margin: 0 10px;
-    transition: color 0.3s ease;
-    }
-    
-    .footer-info a:hover {
-        color: #fff;
-        text-decoration: underline;
-    }
-    /* Định dạng nút hủy chuyển hướng */
-#cancel-redirect {
-    background-color: #ff4d4d; /* Màu đỏ để nổi bật */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1em;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 10px 0;
-    transition: background-color 0.3s ease;
-    }
-    
-    #cancel-redirect:hover {
-        background-color: #cc0000; /* Màu đỏ đậm hơn khi hover */
-    }
-    
-    #cancel-redirect:disabled {
-        background-color: #cccccc; /* Màu xám khi nút bị vô hiệu hóa */
-        cursor: not-allowed;
     }
 }
