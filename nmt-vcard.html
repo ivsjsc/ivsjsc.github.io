@@ -11,15 +11,49 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f4f4f4;
+            margin: 0;
+            background-color: #1a1a1a; /* Màu nền đen tối */
+            overflow: hidden; /* Ẩn thanh cuộn nếu có */
+            color: #ffffff; /* Chữ trắng mặc định */
+        }
+        /* Hiệu ứng ngôi sao lấp lánh */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: transparent;
+            animation: twinkle 4s infinite;
+        }
+        .stars::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #ffffff;
+            border-radius: 50%;
+            box-shadow: 
+                100px 100px #fff, 200px 150px #fff, 300px 50px #fff,
+                50px 300px #fff, 150px 200px #fff, 250px 250px #fff,
+                400px 100px #fff, 450px 200px #fff, 500px 300px #fff,
+                600px 150px #fff, 700px 50px #fff, 800px 250px #fff;
+            animation: twinkle 3s infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.3; }
         }
         .card {
-            background: white;
+            background: rgba(255, 255, 255, 0.1); /* Nền thẻ mờ nhẹ */
             width: 350px;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             text-align: center;
+            backdrop-filter: blur(5px); /* Hiệu ứng mờ nền */
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         .card img {
             width: 100px;
@@ -28,11 +62,18 @@
         }
         .card h2 {
             margin: 5px 0;
-            color: #333;
+            color: #ffffff; /* Chữ trắng */
         }
         .card p {
             margin: 5px 0;
-            color: #555;
+            color: #e0e0e0; /* Chữ trắng xám nhạt */
+        }
+        .card a {
+            color: #00ccff; /* Màu xanh sáng cho liên kết */
+            text-decoration: none;
+        }
+        .card a:hover {
+            text-decoration: underline;
         }
         .contact {
             margin-top: 15px;
@@ -40,11 +81,11 @@
         .contact a {
             display: inline-block;
             text-decoration: none;
-            color: white;
+            color: #ffffff;
             background: #007BFF;
             padding: 8px 15px;
             border-radius: 5px;
-            margin-top: 10px;
+            margin: 5px;
         }
         .contact a:hover {
             background: #0056b3;
@@ -52,26 +93,25 @@
     </style>
 </head>
 <body>
-
-<div class="card">
-    <a href="index.html">
-        <img src="favicon.ico" alt="Logo ICO" />
-    </a>
-    <h2>Minh Triet Nguyen</h2>
-    <p>Chairman & CEO - IVS JSC</p>
-    <p>Email: <a href="mailto:ivscorp.vn@gmail.com">ivscorp.vn@gmail.com</a></p>
-    <p>Phone: 0795 555 789</p>
-    <p>Phone: 0896 920 547</p>
-    <p>Address: Dat Moi Hamlet, Long Phuoc Commune, Long Thanh District, Dong Nai, Vietnam</p>
-    <p>Website: <a href="https://ivs.id.vn" target="_blank">ivs.id.vn</a></p>
-    <div class="contact">
-        <a href="https://www.facebook.com/ivsmastery/" target="_blank">Facebook Fanpage</a>
-        <a href="https://zalo.me/ivsjsc" target="_blank">Zalo Official</a>
-        <a href="https://www.facebook.com/share/1A3JnxFEtK/?mibextid=wwXIfr" target="_blank">Personal Facebook</a>
-        <a href="https://zalo.me/nmt5555789" target="_blank">Personal Zalo</a>
-        <a href="https://wa.link/uay53k/" target="_blank">WhatsApp</a>
+    <div class="stars"></div> <!-- Lớp ngôi sao lấp lánh -->
+    <div class="card">
+        <a href="index.html">
+            <img src="favicon.ico" alt="Logo ICO" />
+        </a>
+        <h2>Minh Triet Nguyen</h2>
+        <p>Chairman & CEO - IVS JSC</p>
+        <p>Email: <a href="mailto:ivscorp.vn@gmail.com">ivscorp.vn@gmail.com</a></p>
+        <p>Phone: 0795 555 789</p>
+        <p>Phone: 0896 920 547</p>
+        <p>Address: Dat Moi Hamlet, Long Phuoc Commune, Long Thanh District, Dong Nai, Vietnam</p>
+        <p>Website: <a href="https://ivs.id.vn" target="_blank">ivs.id.vn</a></p>
+        <div class="contact">
+            <a href="https://www.facebook.com/ivsmastery/" target="_blank">Facebook Fanpage</a>
+            <a href="https://zalo.me/ivsjsc" target="_blank">Zalo Official</a>
+            <a href="https://www.facebook.com/share/1A3JnxFEtK/?mibextid=wwXIfr" target="_blank">Personal Facebook</a>
+            <a href="https://zalo.me/nmt5555789" target="_blank">Personal Zalo</a>
+            <a href="https://wa.link/uay53k/" target="_blank">WhatsApp</a>
+        </div>
     </div>
-</div>
-
 </body>
 </html>
