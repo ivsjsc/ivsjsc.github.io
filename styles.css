@@ -1,111 +1,284 @@
-/* styles.css */
-
-body {
-    font-family: Arial, sans-serif;
+/* Reset mặc định để loại bỏ margin/padding không mong muốn */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Thiết lập kiểu chữ và nền cho toàn bộ trang */
+body {
+    font-family: Arial, sans-serif;
     line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
 }
 
-header {
-    background-image: url('banner.png'); /* Đảm bảo đường dẫn đúng */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 2rem;
+/* Container chính để giới hạn nội dung */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.header {
+    background-color: #007bff;
     color: white;
-    text-align: center;
-    position: relative;
-    background-color: rgba(0, 0, 0, 0.5);
-    background-blend-mode: overlay;
-}
-
-header img {
-    max-width: 150px;
-    display: block;
-    margin: 0 auto 1rem auto;
-}
-
-header h2,
-header h3,
-header p {
-    position: relative;
-    z-index: 1;
-    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
-    font-size: 1rem;
-}
-
-main {
-    padding: 2rem;
+    padding: 20px 0;
     text-align: center;
 }
 
-main p {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+.back-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s ease;
 }
 
-main .banner {
+.back-button:hover {
+    background-color: #ddd;
+}
+
+/* Tiêu đề */
+h1, h2, h3, h4, h5 {
+    color: #0056b3;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 2.2em;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+h3 {
+    font-size: 1.4em;
+}
+
+h4, h5 {
+    font-size: 1.2em;
+}
+
+/* Hình ảnh */
+.banner-img, .content-img {
     max-width: 100%;
     height: auto;
-    margin: 1rem 0;
+    border-radius: 5px;
+    margin-bottom: 15px;
 }
 
-main .video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    margin: 1rem 0;
-    max-width: 100%;
+/* Các section thông tin */
+.info-section, .special-offer, .facility-section, .rule-section, .refund-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: transform 0.2s ease;
 }
 
-main .video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
+.info-section:hover, .facility-section:hover, .rule-section:hover, .refund-section:hover {
+    transform: translateY(-5px);
+}
+
+.special-offer {
+    background-color: #e9ecef;
+}
+
+/* Định dạng cho các phần giảm giá và nổi bật */
+.discount {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.highlight {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Nút đăng ký */
+.button-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.register-button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.register-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Danh sách */
+ul {
+    list-style-type: square;
+    margin-left: 20px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+/* Bảng thời khóa biểu */
+.timetable {
     width: 100%;
-    height: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
 }
 
-footer {
+.timetable th, .timetable td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.timetable th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.timetable td {
+    background-color: #fff;
+}
+
+/* Hashtag và slogan */
+.hashtag {
+    color: #6c757d;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.slogan {
+    font-style: italic;
+    color: #28a745;
+    text-align: center;
+    margin: 15px 0;
+}
+
+/* Video */
+.video-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.video-container iframe {
+    border-radius: 5px;
+}
+
+/* Footer */
+.footer {
     background-color: #333;
     color: white;
-    padding: 20px;
-    width: 100%;
-    font-size: 0.8rem;
+    padding: 20px 0;
     text-align: center;
+    margin-top: 30px;
 }
 
-footer img {
-    max-width: 100px;
+.footer-logo {
+    width: 40px;
+    margin-bottom: 10px;
 }
 
 .footer-info {
     margin-top: 10px;
 }
 
+.footer-info p {
+    margin: 5px 0;
+}
+
 .footer-info a {
-    color: white;
+    color: #007bff;
     text-decoration: none;
-    margin: 0 10px;
+    transition: color 0.3s ease;
 }
 
-/* CSS cho nút */
-button.button {
-    background-color: #007bff; /* Màu xanh dương */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px; /* Kích thước chữ đã tăng */
-    margin: 5px;
-    text-decoration: none; /* Loại bỏ gạch chân nếu nút được đặt trong thẻ <a> */
+.footer-info a:hover {
+    color: #fff;
+    text-decoration: underline;
 }
 
-button.button:hover {
-    background-color: #0056b3; /* Màu xanh dương đậm hơn khi di chuột qua */
+/* Các màu đặc biệt cho section */
+.facility-section h4 {
+    color: #28a745;
+}
+
+.rule-section h4 {
+    color: #dc3545;
+}
+
+.refund-section h4 {
+    color: #ffc107;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .register-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .video-container iframe {
+        width: 100%;
+        height: auto;
+    }
+
+    .timetable th, .timetable td {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+
+    .back-button {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+
+    .register-button {
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+
+    .info-section, .special-offer, .facility-section, .rule-section, .refund-section {
+        padding: 10px;
+    }
 }
