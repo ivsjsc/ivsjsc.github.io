@@ -1,204 +1,122 @@
-/* Reset mặc định để loại bỏ margin/padding không mong muốn */
+/* Reset mặc định */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Thiết lập kiểu chữ và nền cho toàn bộ trang */
 body {
     font-family: Arial, sans-serif;
-    line-height: 1.6;
     background-color: #f4f4f4;
-    color: #333;
+    text-align: center;
+    line-height: 1.6;
 }
 
-/* Container chính để giới hạn nội dung */
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
+/* Header */
+header {
+    background-image: url('banner.png');
+    background-size: cover;
+    background-position: center;
+    padding: 2rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    background-blend-mode: overlay;
+}
+
+header img {
+    max-width: 150px;
+    margin-bottom: 1rem;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.5rem;
+}
+
+header h3 {
+    font-size: 1.2em;
+}
+
+/* Thanh điều hướng */
+.nav-tabs {
+    background: #007bff;
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.nav-tabs a {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    padding: 12px 20px;
+    margin: 5px 10px;
+    font-size: 1rem;
+    background: #0056b3;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-tabs a:hover {
+    background: #003f7f;
+    transform: scale(1.05);
+}
+
+/* Nội dung chính */
+main {
+    padding: 2rem;
+}
+
+main p {
+    font-size: 1.1em;
+    margin-bottom: 1.5rem;
+    color: #555;
+}
+
+/* Video */
+.video-section {
+    margin: 2rem 0;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    margin: 1rem auto;
+    max-width: 80%;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Header */
-.header {
-    background-color: #007bff;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-}
-
-.back-button {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-decoration: none;
-    color: #333;
-    transition: background-color 0.3s ease;
-}
-
-.back-button:hover {
-    background-color: #ddd;
-}
-
-/* Tiêu đề */
-h1, h2, h3, h4, h5 {
-    color: #0056b3;
-    margin-bottom: 15px;
-}
-
-h1 {
-    font-size: 2.2em;
-}
-
-h2 {
-    font-size: 1.8em;
-}
-
-h3 {
-    font-size: 1.4em;
-}
-
-h4, h5 {
-    font-size: 1.2em;
-}
-
-/* Hình ảnh */
-.banner-img, .content-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 15px;
-}
-
-/* Các section thông tin */
-.info-section, .special-offer, .facility-section, .rule-section, .refund-section {
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    transition: transform 0.2s ease;
-}
-
-.info-section:hover, .facility-section:hover, .rule-section:hover, .refund-section:hover {
-    transform: translateY(-5px);
-}
-
-.special-offer {
-    background-color: #e9ecef;
-}
-
-/* Định dạng cho các phần giảm giá và nổi bật */
-.discount {
-    color: #28a745;
-    font-weight: bold;
-}
-
-.highlight {
-    color: #007bff;
-    font-weight: bold;
-}
-
-/* Nút đăng ký */
-.button-container {
-    text-align: center;
-    margin: 20px 0;
-}
-
-.register-button {
-    background-color: #007bff;
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.register-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-}
-
-/* Danh sách */
-ul {
-    list-style-type: square;
-    margin-left: 20px;
-}
-
-li {
-    margin-bottom: 5px;
-}
-
-/* Bảng thời khóa biểu */
-.timetable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
-
-.timetable th, .timetable td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-}
-
-.timetable th {
-    background-color: #f2f2f2;
-    color: #333;
-}
-
-.timetable td {
-    background-color: #fff;
-}
-
-/* Hashtag và slogan */
-.hashtag {
-    color: #6c757d;
-    font-size: 0.9em;
-    margin-top: 10px;
-}
-
-.slogan {
-    font-style: italic;
-    color: #28a745;
-    text-align: center;
-    margin: 15px 0;
-}
-
-/* Video */
-.video-container {
-    text-align: center;
-    margin: 20px 0;
-}
-
 .video-container iframe {
-    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* GIF cảm ơn */
+.thank-you-gif {
+    max-width: 100px;
+    margin: 1rem auto;
+    display: block;
 }
 
 /* Footer */
-.footer {
+footer {
     background-color: #333;
     color: white;
-    padding: 20px 0;
-    text-align: center;
-    margin-top: 30px;
+    padding: 20px;
+    font-size: 0.9rem;
 }
 
 .footer-logo {
-    width: 40px;
+    max-width: 40px;
     margin-bottom: 10px;
-}
-
-.footer-info {
-    margin-top: 10px;
 }
 
 .footer-info p {
@@ -208,6 +126,7 @@ li {
 .footer-info a {
     color: #007bff;
     text-decoration: none;
+    margin: 0 10px;
     transition: color 0.3s ease;
 }
 
@@ -216,69 +135,62 @@ li {
     text-decoration: underline;
 }
 
-/* Các màu đặc biệt cho section */
-.facility-section h4 {
-    color: #28a745;
-}
-
-.rule-section h4 {
-    color: #dc3545;
-}
-
-.refund-section h4 {
-    color: #ffc107;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
-    .container {
-        padding: 15px;
+    header h1 {
+        font-size: 2em;
     }
 
-    h1 {
-        font-size: 1.8em;
+    header h3 {
+        font-size: 1em;
     }
 
-    h2 {
-        font-size: 1.5em;
+    .nav-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
-    .register-button {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
-
-    .video-container iframe {
-        width: 100%;
-        height: auto;
-    }
-
-    .timetable th, .timetable td {
-        padding: 8px;
+    .nav-tabs a {
+        margin: 5px;
+        padding: 10px 15px;
         font-size: 0.9em;
     }
 
-    .back-button {
-        padding: 8px 12px;
-        font-size: 14px;
+    .video-container {
+        max-width: 100%;
     }
 }
 
 @media (max-width: 480px) {
-    h1 {
+    header {
+        padding: 1.5rem;
+    }
+
+    header h1 {
         font-size: 1.5em;
     }
 
-    h2 {
-        font-size: 1.3em;
+    header h3 {
+        font-size: 0.9em;
     }
 
-    .register-button {
-        padding: 8px 15px;
-        font-size: 12px;
+    .nav-tabs {
+        flex-direction: column;
+        align-items: center;
     }
 
-    .info-section, .special-offer, .facility-section, .rule-section, .refund-section {
-        padding: 10px;
+    .nav-tabs a {
+        width: 80%;
+        margin: 5px 0;
+        padding: 12px;
+    }
+
+    main {
+        padding: 1rem;
+    }
+
+    main p {
+        font-size: 1em;
     }
 }
