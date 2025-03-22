@@ -15,43 +15,6 @@ body {
   min-height: 100vh;
 }
 
-/* Style thanh điều hướng */
-.nav-container {
-  background-color: #f5f5f5;
-  padding: 10px;
-  position: relative;
-}
-.nav-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  list-style: none;
-}
-.nav-tabs li a {
-  text-decoration: none;
-  color: #fff;
-  font-weight: bold;
-  padding: 10px 20px;
-  background-color: #007bff;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-.nav-tabs li a:hover {
-  background-color: #0056b3;
-}
-
-/* Hamburger menu */
-.hamburger {
-  display: none;
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
 /* Style header */
 header {
   text-align: center;
@@ -89,6 +52,46 @@ header h3 {
   position: relative;
   z-index: 1;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* Style thanh điều hướng (bên trong header) */
+.nav-container {
+  background-color: #f5f5f5;
+  padding: 10px;
+  position: relative;
+  z-index: 1;
+  margin-top: 20px; /* Thêm khoảng cách giữa tiêu đề và NAV tab */
+}
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  list-style: none;
+}
+.nav-tabs li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 20px;
+  background-color: #007bff;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+.nav-tabs li a:hover {
+  background-color: #0056b3;
+}
+
+/* Hamburger menu */
+.hamburger {
+  display: none !important;
+  font-size: 24px !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  color: #fff !important; /* Đảm bảo nút hamburger hiển thị rõ trên nền header */
 }
 
 /* Main content */
@@ -218,10 +221,19 @@ footer {
   color: #ffd700;
 }
 
+/* Section GIF cảm ơn */
+.thank-you-section {
+  text-align: center;
+}
+.thank-you-gif {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Responsive styles */
 @media (max-width: 600px) {
   .hamburger {
-    display: block;
+    display: block !important;
   }
   .nav-tabs {
     flex-direction: column;
@@ -234,7 +246,7 @@ footer {
     flex-direction: column;
     background-color: #fff;
     position: absolute;
-    top: 60px;
+    top: 100%; /* Đặt ngay dưới header */
     left: 0;
     right: 0;
     z-index: 1000;
