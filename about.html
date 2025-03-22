@@ -5,22 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Về Chúng Tôi - IVS JSC</title>
     <meta name="description" content="Tìm hiểu về IVS JSC - Đơn vị tiên phong trong giáo dục và công nghệ, cung cấp các giải pháp đào tạo quốc tế, chương trình STEAM và kỹ năng mềm tại Long Thành, Đồng Nai.">
+    <meta property="og:title" content="Về Chúng Tôi - IVS JSC">
+    <meta property="og:description" content="Tìm hiểu về IVS JSC - Đơn vị tiên phong trong giáo dục và công nghệ, cung cấp các giải pháp đào tạo quốc tế, chương trình STEAM và kỹ năng mềm tại Long Thành, Đồng Nai.">
+    <meta property="og:image" content="Media.png">
+    <meta property="og:url" content="https://ivs.id.vn/about.html">
+    <meta property="og:type" content="website">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Reset mặc định */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             line-height: 1.6;
         }
-        header {
-            background-color: #0056b3;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-size: 24px;
+
+        /* Style thanh điều hướng */
+        .nav-container {
+            background-color: #f5f5f5;
+            padding: 10px;
+            position: relative;
         }
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            list-style: none;
+        }
+        .nav-tabs li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            padding: 10px 20px;
+            background-color: #007bff;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .nav-tabs li a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Hamburger menu */
+        .hamburger {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Style header */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: url('banner.png') no-repeat center center; /* Sử dụng banner.png làm hình nền */
+            background-size: cover;
+            color: #fff;
+            position: relative;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        header img {
+            width: 10vw;
+            max-width: 60px;
+            height: auto;
+            position: relative;
+            z-index: 1;
+        }
+        header h1 {
+            font-size: 24px;
+            margin: 10px 0;
+            position: relative;
+            z-index: 1;
+        }
+        header h3 {
+            font-size: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Main content */
         .container {
             width: 80%;
             margin: auto;
@@ -51,133 +131,175 @@
         .program-section, .plan-section {
             margin-top: 20px;
         }
+
+        /* Footer */
         footer {
-            background-color: #0056b3;
-            color: white;
+            background: #f5f5f5;
+            padding: 20px;
             text-align: center;
-            padding: 10px;
-            margin-top: 20px;
+        }
+        footer img {
+            width: 30px;
+            margin-bottom: 10px;
         }
         .footer-info p {
             margin: 5px 0;
         }
         .footer-info a {
-            color: white;
+            color: #007bff;
             text-decoration: none;
+            display: inline-block;
+            margin: 0 5px;
         }
         .footer-info a:hover {
             text-decoration: underline;
         }
+
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            .hamburger {
+                display: block;
+            }
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+                display: none;
+                padding: 20px;
+            }
+            .nav-tabs.active {
+                display: flex;
+            }
+            .nav-tabs li {
+                margin: 10px 0;
+            }
+            .nav-tabs li a {
+                display: block;
+                text-align: center;
+            }
+            header h1 {
+                font-size: 20px;
+            }
+            header h3 {
+                font-size: 16px;
+            }
+            .container {
+                width: 90%;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="nav-tabs">
-        <a href="index.html" aria-label="Trang chủ của LIFEMinds">Trang chủ</a>
-        <a href="about.html" aria-label="Giới thiệu về LIFEMinds">Về chúng tôi</a>
-        <a href="https://forms.gle/QyBUQPnthqHDWRLf9" target="_blank" aria-label="Đối tác và tài trợ">Đối tác - Tài trợ</a>
-        <a href="tuvangiaoduc.html" target="_blank" aria-label="Tư vấn giáo dục">Tư vấn Giáo dục</a>
-        <a href="nmt-vcard.html" aria-label="Liên hệ với LIFEMinds">Liên hệ</a>
-    </nav>
-<header>
-    Về Chúng Tôi - IVS JSC
-</header>
+    <!-- Nơi để chèn header -->
+    <div id="header"></div>
 
-<div class="container">
-    <h2>Giới thiệu về IVS JSC</h2>
-    <p>Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy (IVS JSC) là một tổ chức tiên phong trong lĩnh vực giáo dục và công nghệ giáo dục quốc tế, hợp tác đầu tư, phát triển kinh doanh, thương mại và dịch vụ. Với sứ mệnh nâng cao chất lượng giáo dục và đào tạo, IVS JSC tập trung vào việc cung cấp các giải pháp giáo dục toàn diện, từ các chương trình ngoại ngữ, kỹ năng mềm, đến các mô hình giáo dục tiên tiến như STEAM và công nghệ học tập hiện đại.</p>
-    <p>IVS JSC hoạt động mạnh mẽ tại Long Thành, Đồng Nai, với các dự án nổi bật như IVS Academy, IVS Kindergarten, và chương trình "Hãy Nói", nhằm tạo ra một hệ sinh thái giáo dục toàn diện, kết nối cộng đồng và thúc đẩy sự phát triển bền vững.</p>
+    <!-- Main content -->
+    <div class="container">
+        <h2>Giới thiệu về IVS JSC</h2>
+        <p>Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy (IVS JSC) là một tổ chức tiên phong trong lĩnh vực giáo dục và công nghệ giáo dục quốc tế, hợp tác đầu tư, phát triển kinh doanh, thương mại và dịch vụ. Với sứ mệnh nâng cao chất lượng giáo dục và đào tạo, IVS JSC tập trung vào việc cung cấp các giải pháp giáo dục toàn diện, từ các chương trình ngoại ngữ, kỹ năng mềm, đến các mô hình giáo dục tiên tiến như STEAM và công nghệ học tập hiện đại.</p>
+        <p>IVS JSC hoạt động mạnh mẽ tại Long Thành, Đồng Nai, với các dự án nổi bật như IVS Academy, IVS Kindergarten, và chương trình "Hãy Nói", nhằm tạo ra một hệ sinh thái giáo dục toàn diện, kết nối cộng đồng và thúc đẩy sự phát triển bền vững.</p>
 
-    <h2>Sứ mệnh</h2>
-    <p>IVS JSC cam kết nâng cao chất lượng nguồn nhân lực Việt Nam thông qua các chương trình đào tạo tiên tiến, ứng dụng công nghệ hiện đại và xây dựng kết nối quốc tế trong giáo dục. Chúng tôi hướng tới việc tạo ra một thế hệ trẻ tự tin, sáng tạo và sẵn sàng hội nhập toàn cầu.</p>
+        <h2>Sứ mệnh</h2>
+        <p>IVS JSC cam kết nâng cao chất lượng nguồn nhân lực Việt Nam thông qua các chương trình đào tạo tiên tiến, ứng dụng công nghệ hiện đại và xây dựng kết nối quốc tế trong giáo dục. Chúng tôi hướng tới việc tạo ra một thế hệ trẻ tự tin, sáng tạo và sẵn sàng hội nhập toàn cầu.</p>
 
-    <h2>Tầm nhìn</h2>
-    <p>Trở thành tổ chức giáo dục hàng đầu tại Đông Nam Á, kiến tạo giá trị bền vững cho cộng đồng và xã hội, đồng thời dẫn đầu xu hướng giáo dục quốc tế với các mô hình đào tạo tiên tiến và sáng tạo.</p>
+        <h2>Tầm nhìn</h2>
+        <p>Trở thành tổ chức giáo dục hàng đầu tại Đông Nam Á, kiến tạo giá trị bền vững cho cộng đồng và xã hội, đồng thời dẫn đầu xu hướng giáo dục quốc tế với các mô hình đào tạo tiên tiến và sáng tạo.</p>
 
-    <h2>Giá trị cốt lõi</h2>
-    <ul>
-        <li><span class="highlight">Chất lượng vượt trội:</span> Đảm bảo các chương trình đào tạo đạt tiêu chuẩn quốc tế, mang lại giá trị thực tiễn cho học viên.</li>
-        <li><span class="highlight">Đổi mới sáng tạo:</span> Không ngừng cải tiến phương pháp và công nghệ giáo dục, ứng dụng AI, VR/AR để cá nhân hóa trải nghiệm học tập.</li>
-        <li><span class="highlight">Hợp tác toàn cầu:</span> Phát triển mối quan hệ với các tổ chức giáo dục uy tín tại Hoa Kỳ, Đài Loan, Philippines và châu Âu.</li>
-        <li><span class="highlight">Bền vững:</span> Xây dựng nền giáo dục toàn diện, hướng tới tương lai, kết nối các thế hệ và cộng đồng.</li>
-    </ul>
-
-    <h2>Các lĩnh vực hoạt động chính</h2>
-    <div class="program-section">
-        <h3>IVS Academy</h3>
-        <p>IVS Academy cung cấp các khóa đào tạo ngoại ngữ (tiếng Anh, tiếng Trung, tiếng Nhật), các chương trình STEAM, và các khóa học kỹ năng mềm cho học sinh, sinh viên và người đi làm. Một trong những chương trình nổi bật là <strong>"Hãy Nói"</strong> - diễn đàn chia sẻ tiếng nói tuổi trẻ tại Long Thành, Đồng Nai, giúp học sinh phát triển kỹ năng giao tiếp, thuyết trình và tự duy phản biện.</p>
+        <h2>Giá trị cốt lõi</h2>
         <ul>
-            <li><strong>Chương trình "Hãy Nói":</strong> Diễn đàn xuyên suốt năm học, kết hợp sân khấu thực tế và đăng ký trực tuyến, tạo không gian an toàn để học sinh bày tỏ suy nghĩ, cảm xúc, và quan điểm cá nhân. Chương trình cũng tổ chức các dự án cộng đồng như "Trồng cây xanh", "Giảm rác thải nhựa", và các talkshow "Lắng nghe để thấu hiểu" nhằm kết nối học sinh, phụ huynh và giáo viên.</li>
-            <li><strong>Đối tượng tham gia:</strong> Học sinh từ lớp 4 đến lớp 12, giáo viên, phụ huynh, chuyên gia tâm lý và cộng đồng địa phương.</li>
-            <li><strong>Mục tiêu:</strong> Phát triển kỹ năng giao tiếp, xây dựng môi trường chia sẻ an toàn, tăng cường sự thấu hiểu giữa các thế hệ, và đưa IVS Academy trở thành đơn vị tiên phong trong giáo dục kỹ năng tại Đồng Nai.</li>
+            <li><span class="highlight">Chất lượng vượt trội:</span> Đảm bảo các chương trình đào tạo đạt tiêu chuẩn quốc tế, mang lại giá trị thực tiễn cho học viên.</li>
+            <li><span class="highlight">Đổi mới sáng tạo:</span> Không ngừng cải tiến phương pháp và công nghệ giáo dục, ứng dụng AI, VR/AR để cá nhân hóa trải nghiệm học tập.</li>
+            <li><span class="highlight">Hợp tác toàn cầu:</span> Phát triển mối quan hệ với các tổ chức giáo dục uy tín tại Hoa Kỳ, Đài Loan, Philippines và châu Âu.</li>
+            <li><span class="highlight">Bền vững:</span> Xây dựng nền giáo dục toàn diện, hướng tới tương lai, kết nối các thế hệ và cộng đồng.</li>
         </ul>
-    </div>
 
-    <div class="program-section">
-        <h3>IVS Kindergarten</h3>
-        <p>IVS Kindergarten là dự án giáo dục mầm non quốc tế, áp dụng mô hình <strong>STEAM+Intelligence Model</strong>, kết hợp giữa STEAM (Khoa học, Công nghệ, Kỹ thuật, Nghệ thuật, Toán học) và lý thuyết Trí thông minh Đa dạng của Howard Gardner. Chương trình tập trung vào việc phát triển tiềm năng riêng biệt của từng trẻ thông qua các hoạt động thực hành liên môn và ứng dụng công nghệ tiên tiến như AI, VR/AR.</p>
+        <h2>Các lĩnh vực hoạt động chính</h2>
+        <div class="program-section">
+            <h3>IVS Academy</h3>
+            <p>IVS Academy cung cấp các khóa đào tạo ngoại ngữ (tiếng Anh, tiếng Trung, tiếng Nhật), các chương trình STEAM, và các khóa học kỹ năng mềm cho học sinh, sinh viên và người đi làm. Một trong những chương trình nổi bật là <strong>"Hãy Nói"</strong> - diễn đàn chia sẻ tiếng nói tuổi trẻ tại Long Thành, Đồng Nai, giúp học sinh phát triển kỹ năng giao tiếp, thuyết trình và tự duy phản biện.</p>
+            <ul>
+                <li><strong>Chương trình "Hãy Nói":</strong> Diễn đàn xuyên suốt năm học, kết hợp sân khấu thực tế và đăng ký trực tuyến, tạo không gian an toàn để học sinh bày tỏ suy nghĩ, cảm xúc, và quan điểm cá nhân. Chương trình cũng tổ chức các dự án cộng đồng như "Trồng cây xanh", "Giảm rác thải nhựa", và các talkshow "Lắng nghe để thấu hiểu" nhằm kết nối học sinh, phụ huynh và giáo viên.</li>
+                <li><strong>Đối tượng tham gia:</strong> Học sinh từ lớp 4 đến lớp 12, giáo viên, phụ huynh, chuyên gia tâm lý và cộng đồng địa phương.</li>
+                <li><strong>Mục tiêu:</strong> Phát triển kỹ năng giao tiếp, xây dựng môi trường chia sẻ an toàn, tăng cường sự thấu hiểu giữa các thế hệ, và đưa IVS Academy trở thành đơn vị tiên phong trong giáo dục kỹ năng tại Đồng Nai.</li>
+            </ul>
+        </div>
+
+        <div class="program-section">
+            <h3>IVS Kindergarten</h3>
+            <p>IVS Kindergarten là dự án giáo dục mầm non quốc tế, áp dụng mô hình <strong>STEAM+Intelligence Model</strong>, kết hợp giữa STEAM (Khoa học, Công nghệ, Kỹ thuật, Nghệ thuật, Toán học) và lý thuyết Trí thông minh Đa dạng của Howard Gardner. Chương trình tập trung vào việc phát triển tiềm năng riêng biệt của từng trẻ thông qua các hoạt động thực hành liên môn và ứng dụng công nghệ tiên tiến như AI, VR/AR.</p>
+            <ul>
+                <li><strong>Cơ sở vật chất:</strong> 22 phòng chức năng (6 phòng lớn, 16 phòng nhỏ), bao gồm phòng học, phòng STEAM, phòng y tế, phòng hành chính, và khu vực vui chơi. Tầng 1 và tầng 2 được phân bổ hợp lý cho các hoạt động học tập và hành chính.</li>
+                <li><strong>Giáo trình độc quyền:</strong> IVS LIFE Minds - Kỹ năng sống tích hợp tiếng Anh, giúp trẻ phát triển kỹ năng giao tiếp, tư duy phản biện, làm việc nhóm và sử dụng tiếng Anh tự nhiên.</li>
+                <li><strong>Đặc điểm nổi bật:</strong> Cá nhân hóa học tập, ứng dụng công nghệ hiện đại, và kết nối với các chương trình của IVS Academy như "Hãy Nói" để tăng cường kỹ năng giao tiếp và sự tự tin cho trẻ.</li>
+            </ul>
+        </div>
+
+        <div class="program-section">
+            <h3>IVS Celestech</h3>
+            <p>IVS Celestech phát triển các giải pháp công nghệ giáo dục tiên tiến, bao gồm nền tảng E-learning, hệ thống quản lý học tập LMS, và các ứng dụng tích hợp AI, VR/AR, nhằm nâng cao hiệu quả học tập và cá nhân hóa trải nghiệm giáo dục.</p>
+        </div>
+
+        <div class="program-section">
+            <h3>Hợp tác Giáo dục Quốc tế</h3>
+            <p>IVS JSC sở hữu mạng lưới đối tác rộng khắp với các tổ chức giáo dục uy tín tại Hoa Kỳ, Đài Loan, Philippines và châu Âu. Chúng tôi triển khai các chương trình đào tạo quốc tế, du học liên kết, trại hè quốc tế (như trại hè tại Philippines với IU English Academy), và trao đổi giáo viên, học sinh.</p>
+        </div>
+
+        <h2>Kế hoạch phát triển: Hướng tới IVS Global School</h2>
+        <div class="plan-section">
+            <p>IVS JSC đặt mục tiêu xây dựng hệ thống giáo dục liên cấp <strong>IVS Global School</strong> trong vòng 10 năm, bắt đầu từ nền tảng vững chắc của IVS Kindergarten. Lộ trình phát triển cụ thể như sau:</p>
+            <ul>
+                <li><strong>Giai đoạn 1 (Năm 1-3):</strong> Tập trung xây dựng và phát triển IVS Kindergarten tại Long Thành, Đồng Nai, đạt được chất lượng giáo dục và uy tín hàng đầu trong khu vực.</li>
+                <li><strong>Giai đoạn 2 (Năm 3-5):</strong> Mở rộng quy mô IVS Kindergarten và triển khai cấp Tiểu học (IVS Global Primary School) tại cùng địa điểm hoặc địa điểm lân cận.</li>
+                <li><strong>Giai đoạn 3 (Năm 5-7):</strong> Tiếp tục phát triển cấp Tiểu học và mở rộng lên cấp Trung học Cơ sở (IVS Global Junior High School).</li>
+                <li><strong>Giai đoạn 4 (Năm 7-10):</strong> Hoàn thiện hệ thống giáo dục liên cấp với việc thành lập cấp Trung học Phổ thông (IVS Global High School), cung cấp các chương trình đào tạo quốc tế và du học liên kết, tận dụng mạng lưới đối tác tại Hoa Kỳ, Đài Loan, Philippines và châu Âu.</li>
+            </ul>
+        </div>
+
+        <h2>Giá trị đặc biệt của IVS</h2>
         <ul>
-            <li><strong>Cơ sở vật chất:</strong> 22 phòng chức năng (6 phòng lớn, 16 phòng nhỏ), bao gồm phòng học, phòng STEAM, phòng y tế, phòng hành chính, và khu vực vui chơi. Tầng 1 và tầng 2 được phân bổ hợp lý cho các hoạt động học tập và hành chính.</li>
-            <li><strong>Giáo trình độc quyền:</strong> IVS LIFE Minds - Kỹ năng sống tích hợp tiếng Anh, giúp trẻ phát triển kỹ năng giao tiếp, tư duy phản biện, làm việc nhóm và sử dụng tiếng Anh tự nhiên.</li>
-            <li><strong>Đặc điểm nổi bật:</strong> Cá nhân hóa học tập, ứng dụng công nghệ hiện đại, và kết nối với các chương trình của IVS Academy như "Hãy Nói" để tăng cường kỹ năng giao tiếp và sự tự tin cho trẻ.</li>
+            <li><span class="highlight">Thương hiệu uy tín:</span> IVS đã xây dựng danh tiếng vững chắc trong lĩnh vực giáo dục thông qua các chương trình thành công như IVS Academy và các hợp tác quốc tế.</li>
+            <li><span class="highlight">Mô hình giáo dục tiên tiến:</span> STEAM+Intelligence Model kết hợp với lý thuyết Trí thông minh Đa dạng, cá nhân hóa học tập và phát triển toàn diện cho từng học sinh.</li>
+            <li><span class="highlight">Công nghệ hiện đại:</span> Ứng dụng AI, VR/AR để tạo môi trường học tập trực quan, sinh động, và hiệu quả.</li>
+            <li><span class="highlight">Mạng lưới đối tác quốc tế:</span> Hợp tác với các tổ chức giáo dục uy tín, mở ra cơ hội trao đổi giáo viên, học sinh và du học liên kết.</li>
+            <li><span class="highlight">Hệ sinh thái giáo dục toàn diện:</span> Kết nối giữa IVS Academy, IVS Kindergarten, IVS Celestech và các chương trình cộng đồng như "Hãy Nói", tạo môi trường học tập đa dạng và phong phú.</li>
         </ul>
+
+        <h2>Đội ngũ lãnh đạo</h2>
+        <p><strong>Ông Nguyễn Minh Triết - Chủ tịch kiêm Tổng Giám đốc IVS JSC:</strong> Với nền tảng học vấn vững chắc (Cử nhân Tiếng Anh và Quản trị Kinh doanh, Thạc sĩ Quản trị Kinh doanh MBA, chứng chỉ quản lý giáo dục phổ thông) và kinh nghiệm quản lý trong các lĩnh vực giáo dục, hàng không, nhà hàng, khách sạn và du lịch, ông Triết mang đến tầm nhìn chiến lược và sự tận tâm cho sự phát triển của giáo dục Việt Nam theo chuẩn quốc tế. Nguyên tắc làm việc của ông - "Nói thẳng, không vòng vo, không che đậy; Tầm nhìn xa, tư duy chiến lược, hành động thực tế" - là kim chỉ nam cho mọi hoạt động của IVS JSC.</p>
+
+        <h2>Liên hệ</h2>
+        <p><strong>Địa chỉ:</strong> Số 1104, Tổ 6, Ấp Đất Mới, Xã Long Phước, Huyện Long Thành, Tỉnh Đồng Nai, Việt Nam</p>
+        <p><strong>Email:</strong> <a href="mailto:ivscorp.vn@gmail.com">ivscorp.vn@gmail.com</a></p>
+        <p><strong>Điện thoại:</strong> <a href="tel:+84-795-555-789">+84 795 555 789</a></p>
+        <p><strong>Website:</strong> <a href="https://ivs.id.vn" target="_blank">ivs.id.vn</a></p>
     </div>
 
-    <div class="program-section">
-        <h3>IVS Celestech</h3>
-        <p>IVS Celestech phát triển các giải pháp công nghệ giáo dục tiên tiến, bao gồm nền tảng E-learning, hệ thống quản lý học tập LMS, và các ứng dụng tích hợp AI, VR/AR, nhằm nâng cao hiệu quả học tập và cá nhân hóa trải nghiệm giáo dục.</p>
-    </div>
+    <!-- Nơi để chèn footer -->
+    <div id="footer"></div>
 
-    <div class="program-section">
-        <h3>Hợp tác Giáo dục Quốc tế</h3>
-        <p>IVS JSC sở hữu mạng lưới đối tác rộng khắp với các tổ chức giáo dục uy tín tại Hoa Kỳ, Đài Loan, Philippines và châu Âu. Chúng tôi triển khai các chương trình đào tạo quốc tế, du học liên kết, trại hè quốc tế (như trại hè tại Philippines với IU English Academy), và trao đổi giáo viên, học sinh.</p>
-    </div>
+    <!-- JavaScript: tải header và footer -->
+    <script>
+        // Tải header
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+                // Sau khi tải header, gắn sự kiện cho hamburger menu
+                const hamburger = document.querySelector(".hamburger");
+                const navTabs = document.querySelector(".nav-tabs");
+                if (hamburger && navTabs) {
+                    hamburger.addEventListener("click", function() {
+                        navTabs.classList.toggle("active");
+                        this.textContent = navTabs.classList.contains("active") ? "✖" : "☰";
+                    });
+                }
+            });
 
-    <h2>Kế hoạch phát triển: Hướng tới IVS Global School</h2>
-    <div class="plan-section">
-        <p>IVS JSC đặt mục tiêu xây dựng hệ thống giáo dục liên cấp <strong>IVS Global School</strong> trong vòng 10 năm, bắt đầu từ nền tảng vững chắc của IVS Kindergarten. Lộ trình phát triển cụ thể như sau:</p>
-        <ul>
-            <li><strong>Giai đoạn 1 (Năm 1-3):</strong> Tập trung xây dựng và phát triển IVS Kindergarten tại Long Thành, Đồng Nai, đạt được chất lượng giáo dục và uy tín hàng đầu trong khu vực.</li>
-            <li><strong>Giai đoạn 2 (Năm 3-5):</strong> Mở rộng quy mô IVS Kindergarten và triển khai cấp Tiểu học (IVS Global Primary School) tại cùng địa điểm hoặc địa điểm lân cận.</li>
-            <li><strong>Giai đoạn 3 (Năm 5-7):</strong> Tiếp tục phát triển cấp Tiểu học và mở rộng lên cấp Trung học Cơ sở (IVS Global Junior High School).</li>
-            <li><strong>Giai đoạn 4 (Năm 7-10):</strong> Hoàn thiện hệ thống giáo dục liên cấp với việc thành lập cấp Trung học Phổ thông (IVS Global High School), cung cấp các chương trình đào tạo quốc tế và du học liên kết, tận dụng mạng lưới đối tác tại Hoa Kỳ, Đài Loan, Philippines và châu Âu.</li>
-        </ul>
-    </div>
-
-    <h2>Giá trị đặc biệt của IVS</h2>
-    <ul>
-        <li><span class="highlight">Thương hiệu uy tín:</span> IVS đã xây dựng danh tiếng vững chắc trong lĩnh vực giáo dục thông qua các chương trình thành công như IVS Academy và các hợp tác quốc tế.</li>
-        <li><span class="highlight">Mô hình giáo dục tiên tiến:</span> STEAM+Intelligence Model kết hợp với lý thuyết Trí thông minh Đa dạng, cá nhân hóa học tập và phát triển toàn diện cho từng học sinh.</li>
-        <li><span class="highlight">Công nghệ hiện đại:</span> Ứng dụng AI, VR/AR để tạo môi trường học tập trực quan, sinh động, và hiệu quả.</li>
-        <li><span class="highlight">Mạng lưới đối tác quốc tế:</span> Hợp tác với các tổ chức giáo dục uy tín, mở ra cơ hội trao đổi giáo viên, học sinh và du học liên kết.</li>
-        <li><span class="highlight">Hệ sinh thái giáo dục toàn diện:</span> Kết nối giữa IVS Academy, IVS Kindergarten, IVS Celestech và các chương trình cộng đồng như "Hãy Nói", tạo môi trường học tập đa dạng và phong phú.</li>
-    </ul>
-
-    <h2>Đội ngũ lãnh đạo</h2>
-    <p><strong>Ông Nguyễn Minh Triết - Chủ tịch kiêm Tổng Giám đốc IVS JSC:</strong> Với nền tảng học vấn vững chắc (Cử nhân Tiếng Anh và Quản trị Kinh doanh, Thạc sĩ Quản trị Kinh doanh MBA, chứng chỉ quản lý giáo dục phổ thông) và kinh nghiệm quản lý trong các lĩnh vực giáo dục, hàng không, nhà hàng, khách sạn và du lịch, ông Triết mang đến tầm nhìn chiến lược và sự tận tâm cho sự phát triển của giáo dục Việt Nam theo chuẩn quốc tế. Nguyên tắc làm việc của ông - "Nói thẳng, không vòng vo, không che đậy; Tầm nhìn xa, tư duy chiến lược, hành động thực tế" - là kim chỉ nam cho mọi hoạt động của IVS JSC.</p>
-
-    <h2>Liên hệ</h2>
-    <p><strong>Địa chỉ:</strong> Số 1104, Tổ 6, Ấp Đất Mới, Xã Long Phước, Huyện Long Thành, Tỉnh Đồng Nai, Việt Nam</p>
-    <p><strong>Email:</strong> <a href="mailto:ivscorp.vn@gmail.com">ivscorp.vn@gmail.com</a></p>
-    <p><strong>Điện thoại:</strong> <a href="tel:+84-795-555-789">+84 795 555 789</a></p>
-    <p><strong>Website:</strong> <a href="https://ivs.id.vn" target="_blank">ivs.id.vn</a></p>
-</div>
-
-<!-- Footer giống của index -->
-<footer>
-    <a href="index.html" aria-label="Quay lại trang chủ IVS JSC">
-        <img src="favicon.ico" alt="Logo IVS JSC trong footer">
-    </a>
-    <div class="footer-info">
-        <p>© 2025 IVS JSC. All rights reserved.</p>
-        <p>Liên hệ: <a href="mailto:ivscorp.vn@gmail.com">ivscorp.vn@gmail.com</a> | <a href="tel:+84-795-555-789">+84 795 555 789</a></p>
-        <p>
-            Theo dõi chúng tôi: 
-            <a href="https://facebook.com/ivsmastery" target="_blank" aria-label="Fanpage IVS JSC trên Facebook">Facebook</a> | 
-            <a href="https://instagram.com/ivs.jsc" target="_blank" aria-label="Instagram của IVS JSC">Instagram</a>
-        </p>
-    </div>
-</footer>
-
+        // Tải footer
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            });
+    </script>
 </body>
 </html>
