@@ -10,24 +10,23 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
-  line-height: 1.6;
-  padding-bottom: 200px; /* Thêm padding-bottom để tránh footer che nội dung */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-/* Thanh điều hướng */
+/* Style thanh điều hướng */
 .nav-container {
   background-color: #f5f5f5;
   padding: 10px;
   position: relative;
 }
-
 .nav-tabs {
   display: flex;
   justify-content: center;
   gap: 20px;
   list-style: none;
 }
-
 .nav-tabs li a {
   text-decoration: none;
   color: #fff;
@@ -37,11 +36,11 @@ body {
   border-radius: 5px;
   transition: background-color 0.3s;
 }
-
 .nav-tabs li a:hover {
   background-color: #0056b3;
 }
 
+/* Hamburger menu */
 .hamburger {
   display: none;
   font-size: 24px;
@@ -53,7 +52,7 @@ body {
   right: 10px;
 }
 
-/* Header */
+/* Style header */
 header {
   text-align: center;
   padding: 60px 20px;
@@ -62,7 +61,6 @@ header {
   color: #fff;
   position: relative;
 }
-
 header::before {
   content: '';
   position: absolute;
@@ -72,7 +70,6 @@ header::before {
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
 }
-
 header img {
   width: 10vw;
   max-width: 60px;
@@ -80,7 +77,6 @@ header img {
   position: relative;
   z-index: 1;
 }
-
 header h1 {
   font-size: 28px;
   margin: 10px 0;
@@ -88,7 +84,6 @@ header h1 {
   z-index: 1;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
-
 header h3 {
   font-size: 20px;
   position: relative;
@@ -99,8 +94,11 @@ header h3 {
 /* Main content */
 main {
   padding: 20px;
+  flex: 1;
+  padding-bottom: 200px; /* Đảm bảo không bị footer che */
 }
 
+/* Bộ bố cục video dạng lưới */
 .video-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -111,7 +109,6 @@ main {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
 }
-
 .video-container {
   background: #fff;
   border-radius: 8px;
@@ -121,18 +118,15 @@ main {
   scroll-snap-align: start;
   transition: transform 0.3s;
 }
-
 .video-container:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
-
 .video-container iframe {
   width: 100%;
   aspect-ratio: 16 / 9;
   border: none;
 }
-
 .video-caption {
   padding: 10px;
   text-align: center;
@@ -140,24 +134,21 @@ main {
   font-weight: 500;
   background-color: #fafafa;
 }
-
 .video-caption a {
   color: #007bff;
   text-decoration: none;
   transition: color 0.3s;
 }
-
 .video-caption a:hover {
   color: #0056b3;
   text-decoration: underline;
 }
-
+/* Section thông báo, button chuyển hướng */
 main p {
   text-align: center;
   font-size: 1rem;
   margin-bottom: 10px;
 }
-
 #cancel-redirect {
   display: block;
   margin: 10px auto;
@@ -171,104 +162,76 @@ main p {
   border-radius: 5px;
   transition: background-color 0.3s;
 }
-
 #cancel-redirect:hover {
   background-color: #e03e00;
 }
 
-.thank-you-gif {
-  max-width: 100%;
-  height: auto;
-  margin: 1rem auto;
-  display: block;
-}
-
 /* Footer */
-.footer {
-  background-color: #1a3c6d;
+footer {
+  background: #1a3c6d;
+  padding: 30px 20px;
   color: #fff;
-  padding: 10px 0; /* Giảm padding để footer nhỏ hơn */
-  font-size: 0.9rem;
-  position: fixed;
+  text-align: center;
+  font-size: 16px;
+  position: relative;
   bottom: 0;
-  left: 0;
   width: 100%;
-  z-index: 999;
 }
-
 .footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-  padding: 0 10px; /* Giảm padding */
-  gap: 10px; /* Giảm khoảng cách giữa các phần tử */
+  max-width: 1200px;
+  margin: 0 auto;
 }
-
 .footer-logo img {
-  max-width: 40px; /* Giảm kích thước logo trên di động */
-  height: auto;
+  width: 40px;
+  margin-bottom: 10px;
 }
-
-.footer-info {
-  flex: 1;
-  min-width: 250px; /* Giảm min-width để footer gọn hơn */
-  text-align: center;
-}
-
 .footer-info p {
-  margin: 3px 0; /* Giảm margin để tiết kiệm không gian */
-  color: #fff;
-  font-size: 0.8rem; /* Giảm font-size */
+  margin: 10px 0;
+  line-height: 1.5;
 }
-
-.contact-list {
-  list-style: none;
-  padding: 0;
-  margin: 3px 0;
-}
-
-.contact-list li {
-  margin: 3px 0;
-}
-
-.contact-list a {
+.footer-info a {
   color: #ffd700;
   text-decoration: none;
   transition: color 0.3s;
-  font-size: 0.8rem; /* Giảm font-size */
 }
-
-.contact-list a:hover {
+.footer-info a:hover {
   color: #fff;
+  text-decoration: underline;
+}
+.footer-info i {
+  margin-right: 5px;
+}
+.footer-social p {
+  margin-bottom: 10px;
+}
+.footer-social a {
+  color: #fff;
+  font-size: 22px;
+  margin: 0 15px;
+  transition: color 0.3s;
+}
+.footer-social a:hover {
+  color: #ffd700;
 }
 
-.address {
-  font-size: 0.75rem; /* Giảm font-size cho địa chỉ */
-  color: #ccc;
-}
-
-/* Responsive */
+/* Responsive styles */
 @media (max-width: 600px) {
-  body {
-    padding-bottom: 250px; /* Tăng padding-bottom để nội dung không bị che */
-  }
-
   .hamburger {
     display: block;
   }
-
   .nav-tabs {
     flex-direction: column;
     align-items: center;
     display: none;
     padding: 20px;
   }
-
   .nav-tabs.active {
     display: flex;
+    flex-direction: column;
     background-color: #fff;
     position: absolute;
     top: 60px;
@@ -277,46 +240,36 @@ main p {
     z-index: 1000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
-
   .nav-tabs li {
     margin: 15px 0;
   }
-
   .nav-tabs li a {
+    display: block;
     padding: 15px;
     width: 100%;
     text-align: center;
   }
-
   header h1 {
     font-size: 20px;
   }
-
   header h3 {
     font-size: 16px;
   }
-
   .video-section {
     grid-template-columns: 1fr;
     overflow-x: hidden;
   }
-
-  .footer {
-    padding: 5px 0; /* Giảm padding trên di động */
-  }
-
   .footer-container {
     flex-direction: column;
     text-align: center;
-    padding: 5px; /* Giảm padding */
-    gap: 5px; /* Giảm khoảng cách */
   }
-
-  .footer-info {
-    margin: 5px 0; /* Giảm margin */
+  .footer-logo, .footer-info, .footer-social {
+    margin-bottom: 20px;
   }
-
-  .footer-logo {
-    margin: 0 auto;
+  .footer-social a {
+    margin: 0 15px;
+  }
+  main {
+    padding-bottom: 300px; /* Tăng padding trên mobile để tránh footer che */
   }
 }
