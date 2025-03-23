@@ -65,12 +65,61 @@ body::before {
 
 /* Style header */
 header {
-  background-color: #f8f8f8;
-  border-bottom: 1px solid #ddd;
+  background-image: url('../images/header.png'); /* Đường dẫn đến hình ảnh header.png */
+  background-size: cover; /* Hình nền phủ toàn bộ header */
+  background-position: center; /* Căn giữa hình nền */
+  background-repeat: no-repeat; /* Không lặp lại hình nền */
+  position: relative; /* Để thêm overlay */
   padding: 15px 20px;
   text-align: left;
-  position: relative;
+  border-bottom: 1px solid #ddd;
 }
+
+/* Thêm lớp phủ (overlay) để làm mờ nền, giúp nội dung dễ đọc */
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Lớp phủ đen mờ, opacity 0.5 */
+  z-index: 0; /* Đặt lớp phủ dưới nội dung */
+}
+
+/* Đảm bảo các nội dung trong header nằm trên lớp phủ */
+.header-top,
+.nav-container,
+.hamburger {
+  position: relative;
+  z-index: 1;
+}
+
+/* Định dạng phần logo và tiêu đề */
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.header-top img {
+  width: 60px;
+  height: auto;
+}
+
+.header-text h1 {
+  font-size: 28px;
+  color: #fff; /* Đổi màu chữ thành trắng để nổi trên nền tối */
+  margin: 0;
+  font-weight: 700;
+}
+
+.header-text h3 {
+  font-size: 16px;
+  color: #ddd; /* Màu xám nhạt để nổi trên nền tối
+}
+
 
 /* Hamburger menu */
 .hamburger {
