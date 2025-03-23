@@ -16,5 +16,19 @@ document.addEventListener('DOMContentLoaded', function () {
     hamburger.addEventListener('click', function () {
       navContent.classList.toggle('active');
     });
-  }
+      }
+      hamburger.addEventListener("click", function() {
+      navMenu.classList.add("active");
+      overlay.classList.add("active");
+    });
+    
+    closeMenu.addEventListener("click", function() {
+      navMenu.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+    
+    overlay.addEventListener("click", function() {
+      navMenu.classList.remove("active");
+      overlay.classList.remove("active");
+    });
 });
