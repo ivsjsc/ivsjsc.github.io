@@ -88,6 +88,13 @@ fetch('posts.json')
   })
   .then(posts => {
     const postList = document.getElementById("post-list");
+    // Kiểm tra nếu không có bài viết nào
+    if (!posts || posts.length === 0) {
+      postList.innerHTML = "<p style='text-align: center; color: #666;'>Hiện tại không có bài viết nổi bật nào.</p>";
+      return;
+    }
+
+    // Thêm các bài viết vào danh sách
     posts.forEach(post => {
       const postDiv = document.createElement("div");
       postDiv.className = "post-preview";
@@ -110,6 +117,12 @@ fetch('posts.json')
       let currentSlide = 0;
       const slides = document.querySelectorAll('.post-preview');
       const totalSlides = slides.length;
+
+      // Ẩn nút điều hướng nếu không có bài viết
+      if (totalSlides === 0) {
+        document.querySelector('.carousel-controls').style.display = 'none';
+        return;
+      }
 
       function showSlide(index) {
         if (index >= totalSlides) currentSlide = 0;
@@ -142,5 +155,5 @@ fetch('posts.json')
   })
   .catch(error => {
     console.error('Lỗi:', error);
-    document.getElementById("post-list").innerHTML = "<p>Không thể tải danh sách bài viết.</p>";
+    document.getElementById("post-list").innerHTML = "<p style='text-align: center; color: red;'>Không thể tải danh sách bài viết. Vui lòng kiểm tra file posts.json.</p>";
   });
