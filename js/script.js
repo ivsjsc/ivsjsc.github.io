@@ -1,4 +1,3 @@
-// script.js
 document.addEventListener('DOMContentLoaded', function () {
   // Tải nội dung của header.html và chèn vào placeholder
   fetch('header.html')
@@ -11,17 +10,17 @@ document.addEventListener('DOMContentLoaded', function () {
   // Xử lý sự kiện cho nút hamburger
   const hamburger = document.querySelector('.hamburger');
   const navContent = document.querySelector('.nav-content');
+  const navMenu = document.querySelector('.nav-menu');
+  const overlay = document.querySelector('.overlay');
+  const closeMenu = document.querySelector('.close-menu');
 
   if (hamburger && navContent) {
     hamburger.addEventListener('click', function () {
       navContent.classList.toggle('active');
-    });
-      }
-      hamburger.addEventListener("click", function() {
       navMenu.classList.add("active");
       overlay.classList.add("active");
     });
-    
+
     closeMenu.addEventListener("click", function() {
       navMenu.classList.remove("active");
       overlay.classList.remove("active");
@@ -31,4 +30,5 @@ document.addEventListener('DOMContentLoaded', function () {
       navMenu.classList.remove("active");
       overlay.classList.remove("active");
     });
+  }
 });
