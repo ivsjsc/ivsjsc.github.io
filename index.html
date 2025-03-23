@@ -103,6 +103,14 @@
     <section class="thank-you-section">
       <img src="https://media4.giphy.com/media/nftYWGEVbLf8ckNdEc/giphy.gif" width="30" height="20" alt="GIF cảm ơn bạn đã theo dõi IVS Academy" class="thank-you-gif">
     </section>
+    
+    <!-- Section for featured-box -->
+    <section class="featured-box">
+        <h2>Thông tin nổi bật</h2>
+        <div id="post-list">
+            <!-- Danh sách bài viết sẽ được thêm bằng JavaScript -->
+        </div>
+    </section>
   </main>
 
   <footer>
@@ -159,6 +167,35 @@
       this.disabled = true;
       document.getElementById('redirect-timer').textContent = "Chuyển hướng đã bị hủy.";
     });
+
+    // Lấy dữ liệu từ posts.json
+    fetch('posts.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Không thể tải file posts.json');
+            }
+            return response.json();
+        })
+        .then(posts => {
+            const postList = document.getElementById("post-list");
+            posts.forEach(post => {
+                const postDiv = document.createElement("div");
+                postDiv.className = "post-preview";
+                postDiv.innerHTML = `
+                    <img src="${post.image}" alt="${post.title}">
+                    <div class="content">
+                        <h3><a href="${post.url}">${post.title}</a></h3>
+                        <p>${post.excerpt}</p>
+                        <a href="${post.url}" class="view-more">Xem thêm</a>
+                    </div>
+                `;
+                postList.appendChild(postDiv);
+            });
+        })
+        .catch(error => {
+            console.error('Lỗi:', error);
+            document.getElementById("post-list").innerHTML = "<p>Không thể tải danh sách bài viết.</p>";
+        });
   </script>
 </body>
 </html>
