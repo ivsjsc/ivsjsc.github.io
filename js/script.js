@@ -800,4 +800,75 @@ img {
   .timeline li {
     padding-left: 30px;
   }
+fetch('posts.json')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Không thể tải file posts.json');
+    }
+    return response.json();
+  })
+  .then(posts => {
+    const postList = document.getElementById("post-list");
+    posts.forEach(post => {
+      const postDiv = document.createElement("div");
+      postDiv.className = "post-preview";
+      postDiv.innerHTML = `
+        <div class="post-image">
+          <img src="${post.image}" alt="${post.title}">
+          <span class="hot-label">HOT</span>
+        </div>
+        <div class="content">
+          <h3><a href="${post.url}">${post.title}</a></h3>
+          <p>${post.excerpt}</p>
+          <a href="${post.url}" class="view-more">Xem thêm</a>
+        </div>
+      `;
+      postList.appendChild(postDiv);
+    });
+
+    // Chỉ khởi tạo carousel trên máy tính
+    if (window.innerWidth > 600) {
+      let currentSlide = 0;
+      const slides = document.querySelectorAll('.post-preview');
+      const totalSlides = slides.length;
+
+      function showSlide(index) {
+        if (index >= totalSlides) currentSlide = 0;
+        if (index < 0) currentSlide = totalSlides - 1;
+        slides.forEach((slide, i) => {
+          slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`;
+        });
+      }
+
+      // Tự động chuyển slide
+      setInterval(() => {
+        currentSlide++;
+        showSlide(currentSlide);
+      }, 5000);
+
+      // Nút điều hướng
+      document.getElementById('prev-slide').addEventListener('click', () => {
+        currentSlide--;
+        showSlide(currentSlide);
+      });
+
+      document.getElementById('next-slide').addEventListener('click', () => {
+        currentSlide++;
+        showSlide(currentSlide);
+      });
+
+      showSlide(currentSlide);
+    } else {
+      // Trên di động, đảm bảo tất cả slide hiển thị trong lưới
+      const slides = document.querySelectorAll('.post-preview');
+      slides.forEach(slide => {
+        slide.style.transform = 'none'; // Xóa transform
+        slide.style.position = 'static'; // Đảm bảo định vị tĩnh
+      });
+    }
+  })
+  .catch(error => {
+    console.error('Lỗi:', error);
+    document.getElementById("post-list").innerHTML = "<p>Không thể tải danh sách bài viết.</p>";
+  });
 }
