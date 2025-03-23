@@ -1,11 +1,20 @@
 // script.js
 document.addEventListener('DOMContentLoaded', function () {
-  // Tìm nút hamburger và phần nội dung điều hướng
+  // Tải nội dung của header.html và chèn vào placeholder
+  fetch('header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header-placeholder').innerHTML = data;
+    })
+    .catch(error => console.error('Lỗi khi tải header:', error));
+
+  // Xử lý sự kiện cho nút hamburger
   const hamburger = document.querySelector('.hamburger');
   const navContent = document.querySelector('.nav-content');
 
-  // Thêm sự kiện click cho nút hamburger
-  hamburger.addEventListener('click', function () {
-    navContent.classList.toggle('active');
-  });
+  if (hamburger && navContent) {
+    hamburger.addEventListener('click', function () {
+      navContent.classList.toggle('active');
+    });
+  }
 });
