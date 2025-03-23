@@ -22,20 +22,27 @@
   <main>
   <p id="redirect-timer">Website sẽ tự động chuyển đến Fanpage IVS Academy trong 2 phút...</p>
   <button id="cancel-redirect">Hủy chuyển hướng</button>
-  <section class="featured-posts">
-        <h2>Các Bài Báo Nổi Bật</h2>
-        <div class="post-preview">
-            <h3>TRẠI HÈ QUỐC TẾ TẠI PHILIPPINES 2025</h3>
-                <!-- Nhúng bài viết từ trang khác bằng iframe -->
-            <iframe src="summercamp.html" width="100%" height="250" frameborder="0"></iframe>
-        </div>
-            <!-- Có thể thêm các bài khác -->
-        <div class="post-preview">
-            <h3>Bài viết khác</h3>
-            <iframe src="path/to/bai-viet-khac.html" width="100%" height="250" frameborder="0"></iframe>
-        </div>
-    </section>
-    <!-- Phần Video sử dụng layout dạng grid -->
+
+    <script>
+      // Hàm lấy dữ liệu từ file JSON
+      fetch('posts.json')
+          .then(response => response.json())
+          .then(posts => {
+              const postList = document.getElementById("post-list");
+              posts.forEach(post => {
+                  const postDiv = document.createElement("div");
+                  postDiv.className = "post-preview";
+                  postDiv.innerHTML = `
+                      <h3><a href="${post.url}">${post.title}</a></h3>
+                      <p>${post.excerpt}</p>
+                      <a href="${post.url}">Xem thêm</a>
+                  `;
+                  postList.appendChild(postDiv);
+              });
+          })
+          .catch(error => console.error('Lỗi khi tải posts:', error));
+  </script>
+      <!-- Phần Video sử dụng layout dạng grid -->
     <section class="video-section">
       <!-- Video 1: Talkshow "Hãy Nói" -->
       <div class="video-container">
