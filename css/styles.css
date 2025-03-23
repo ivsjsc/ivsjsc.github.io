@@ -679,4 +679,80 @@ img {
     padding-bottom: 300px;
   }
 
-  /* Danh sách cuộn ngang cho phần "Thông
+@media (max-width: 600px) {
+  /* Danh sách cuộn ngang cho phần "Thông tin nổi bật" */
+  #post-list {
+    display: flex; /* Sử dụng flexbox */
+    flex-wrap: nowrap; /* Không xuống dòng, xếp ngang */
+    overflow-x: auto; /* Cho phép cuộn ngang */
+    gap: 15px; /* Khoảng cách giữa các bài viết */
+    max-width: 100%; /* Chiếm toàn bộ chiều rộng */
+    padding: 0 10px; /* Khoảng cách lề */
+    position: static; /* Xóa định vị tuyệt đối */
+    min-height: auto; /* Chiều cao tự động */
+    scroll-snap-type: x mandatory; /* Tạo hiệu ứng cuộn snap (tùy chọn) */
+    -webkit-overflow-scrolling: touch; /* Cải thiện cuộn trên iOS */
+  }
+
+  .post-preview {
+    flex: 0 0 200px; /* Chiều rộng cố định 200px cho mỗi bài viết */
+    display: block !important; /* Đảm bảo hiển thị dạng block */
+    position: static !important; /* Xóa định vị tuyệt đối */
+    transform: none !important; /* Vô hiệu hóa transform từ carousel */
+    margin: 0; /* Xóa margin không cần thiết */
+    padding: 10px; /* Khoảng cách bên trong */
+    text-align: center; /* Căn giữa nội dung */
+    transition: transform 0.3s ease; /* Hiệu ứng phóng to khi hover */
+    min-height: auto; /* Chiều cao tự động */
+    box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước */
+    background-color: #fff; /* Đảm bảo nền trắng */
+    border: 1px solid #ddd; /* Đảm bảo viền */
+    border-radius: 8px; /* Đảm bảo bo góc */
+    scroll-snap-align: start; /* Tùy chọn: Căn chỉnh khi cuộn snap */
+  }
+
+  .post-preview:hover {
+    transform: scale(1.05); /* Hiệu ứng phóng to khi hover */
+  }
+
+  .post-image img {
+    width: 100%; /* Hình ảnh chiếm toàn bộ chiều rộng của bài viết */
+    height: 120px; /* Chiều cao cố định để đồng bộ */
+    object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+    margin-right: 0; /* Xóa margin bên phải */
+    margin-bottom: 10px; /* Thêm khoảng cách dưới hình ảnh */
+    border-radius: 5px; /* Bo góc hình ảnh */
+  }
+
+  .post-preview .content {
+    text-align: center; /* Căn giữa nội dung */
+  }
+
+  .post-preview h3 {
+    font-size: 16px; /* Giảm kích thước chữ */
+    margin: 0 0 5px; /* Khoảng cách dưới tiêu đề */
+    color: #007bff; /* Màu tiêu đề */
+  }
+
+  .post-preview p {
+    display: none; /* Ẩn đoạn trích trên di động để tiết kiệm không gian */
+  }
+
+  .post-preview .view-more {
+    font-size: 14px; /* Giảm kích thước chữ */
+    color: #ff6200; /* Màu liên kết "Xem thêm" */
+  }
+
+  .carousel-controls {
+    display: none; /* Ẩn nút điều hướng trên di động */
+  }
+@media (max-width: 600px) {
+  .consult-btn {
+    display: block;
+    margin: 10px auto; /* Căn giữa và thêm khoảng cách */
+    padding: 10px 20px; /* Giảm kích thước padding cho phù hợp với di động */
+    font-size: 14px; /* Giảm kích thước chữ */
+    max-width: 200px; /* Giới hạn chiều rộng để không quá lớn */
+  }
+}
+}
