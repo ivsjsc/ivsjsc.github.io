@@ -73,6 +73,7 @@ header {
   padding: 15px 20px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  min-height: 200px; /* Đặt chiều cao tối thiểu để hình nền hiển thị rõ ràng */
 }
 
 /* Thêm lớp phủ (overlay) để làm mờ nền, giúp nội dung dễ đọc */
@@ -83,7 +84,7 @@ header::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Lớp phủ đen mờ, opacity 0.5 */
+  background-color: rgba(0, 0, 0, 0.7); /* Tăng độ mờ lên 0.7 để nội dung dễ đọc hơn */
   z-index: 0; /* Đặt lớp phủ dưới nội dung */
 }
 
@@ -115,6 +116,13 @@ header::before {
   font-weight: 700;
 }
 
+.header-text h3 {
+  font-size: 16px;
+  color: #ddd; /* Màu xám nhạt để nổi trên nền tối */
+  margin: 2px 0;
+  font-weight: 400;
+}
+
 /* Hamburger menu */
 .hamburger {
   display: none;
@@ -125,7 +133,7 @@ header::before {
   position: absolute;
   top: 15px;
   left: 15px;
-  color: #333;
+  color: #fff; /* Đổi màu nút hamburger thành trắng để nổi trên nền tối */
   z-index: 1001;
 }
 
@@ -217,33 +225,6 @@ header::before {
   font-size: 14px;
 }
 
-/* Định dạng phần logo và tiêu đề */
-.header-top {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 15px;
-}
-
-.header-top img {
-  width: 60px;
-  height: auto;
-}
-
-.header-text h1 {
-  font-size: 28px;
-  color: #333;
-  margin: 0;
-  font-weight: 700;
-}
-
-.header-text h3 {
-  font-size: 16px;
-  color: #666;
-  margin: 2px 0;
-  font-weight: 400;
-}
-
 /* Định dạng container của thanh điều hướng (trên PC) */
 .nav-container {
   width: 100%;
@@ -256,7 +237,7 @@ header::before {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.9); /* Nền trắng mờ để nổi trên hình nền */
   padding: 12px 25px;
   border-radius: 8px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
@@ -278,7 +259,7 @@ header::before {
 
 .nav-content .nav-tabs a {
   text-decoration: none;
-  color: #333;
+  color: #333; /* Màu chữ đen để nổi trên nền trắng mờ */
   font-size: 16px;
   font-weight: 600;
   padding: 10px 15px;
@@ -376,6 +357,7 @@ main {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
+  height: 200px; /* Đặt chiều cao cố định để carousel hiển thị đúng */
 }
 
 /* Các slide trong carousel (trên PC) */
@@ -393,6 +375,7 @@ main {
   position: absolute;
   left: 0;
   top: 0;
+  height: 100%; /* Đảm bảo slide chiếm toàn bộ chiều cao của container */
 }
 
 .post-image {
@@ -646,6 +629,11 @@ img {
     display: none !important; /* Đảm bảo ẩn trên mobile */
   }
 
+  header {
+    min-height: 150px; /* Giảm chiều cao trên mobile */
+    padding: 10px 15px;
+  }
+
   .header-text h1 {
     font-size: 24px;
   }
@@ -691,6 +679,7 @@ img {
     padding: 0 10px;
     position: static;
     overflow: visible;
+    height: auto; /* Đặt chiều cao tự động trên mobile */
   }
 
   .post-preview {
@@ -701,6 +690,7 @@ img {
     padding: 10px;
     text-align: center;
     transition: transform 0.3s ease;
+    height: auto; /* Đặt chiều cao tự động trên mobile */
   }
 
   .post-preview:hover {
