@@ -27,36 +27,6 @@
     <p id="redirect-timer">Website sẽ tự động chuyển đến Fanpage IVS Academy trong 2 phút...</p>
     <button id="cancel-redirect">Hủy chuyển hướng</button>
     
-    <script>
-      // Hàm lấy dữ liệu từ file JSON
-      fetch('posts.json')
-          .then(response => {
-              if (!response.ok) {
-                  throw new Error('Network response was not ok');
-              }
-              return response.json();
-          })
-          .then(posts => {
-              const postList = document.getElementById("post-list");
-              if (!postList) {
-                  console.error('Element with id "post-list" not found');
-                  return;
-              }
-              posts.forEach(post => {
-                  const postDiv = document.createElement("div");
-                  postDiv.className = "post-preview";
-                  postDiv.innerHTML = `
-                      <h3><a href="${post.url}">${post.title}</a></h3>
-                      <p>${post.excerpt}</p>
-                      <a href="${post.url}">Xem thêm</a>
-                  `;
-                  postList.appendChild(postDiv);
-              });
-          })
-          .catch(error => console.error('Lỗi khi tải posts:', error));
-    </script>
-    
-    <!-- Section for featured posts -->
     <section class="featured-posts">
         <h2>Thông tin nổi bật</h2>
         <div id="post-list">
@@ -104,19 +74,6 @@
       <img src="https://media4.giphy.com/media/nftYWGEVbLf8ckNdEc/giphy.gif" width="30" height="20" alt="GIF cảm ơn bạn đã theo dõi IVS Academy" class="thank-you-gif">
     </section>
     
-    <!-- Section for featured-box -->
-    <section class="featured-box">
-        <h2>Thông tin nổi bật</h2>
-        <div id="post-list">
-            <!-- Danh sách bài viết sẽ được thêm bằng JavaScript -->
-        </div>
-    </section>
-  </main>
-
-  <footer>
-      <p style="text-align: center; padding: 20px;">© 2025 IVS Academy</p>
-  </footer>
-
   <!-- Nơi để chèn footer -->
   <div id="footer"></div>
 
