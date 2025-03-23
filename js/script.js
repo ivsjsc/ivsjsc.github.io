@@ -1,159 +1,803 @@
-// script.js
+/* styles.css */
 
-// Tải header
-document.getElementById('header').innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải header...</p>';
-fetch('header.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('header').innerHTML = data;
-    // Gắn sự kiện cho hamburger menu và close button
-    const hamburger = document.querySelector(".hamburger");
-    const navMenu = document.querySelector(".nav-menu");
-    const closeMenu = document.querySelector(".close-menu");
-    const overlay = document.querySelector(".overlay");
+/* Reset mặc định */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    if (hamburger && navMenu && closeMenu && overlay) {
-      // Chỉ cho phép mở menu trên mobile (dưới 600px)
-      hamburger.addEventListener("click", function() {
-        if (window.innerWidth <= 600) {
-          navMenu.classList.add("active");
-          overlay.classList.add("active");
-        }
-      });
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  line-height: 1.6;
+  color: #333;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
 
-      // Đóng menu khi nhấp vào nút đóng
-      closeMenu.addEventListener("click", function() {
-        navMenu.classList.remove("active");
-        overlay.classList.remove("active");
-      });
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../images/logo.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  opacity: 0.3;
+  z-index: -1;
+}
 
-      // Đóng menu khi nhấp vào overlay
-      overlay.addEventListener("click", function() {
-        navMenu.classList.remove("active");
-        overlay.classList.remove("active");
-      });
+/* Overlay khi menu mở trên mobile */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
 
-      // Đóng menu khi thay đổi kích thước màn hình (nếu đang mở trên PC)
-      window.addEventListener("resize", function() {
-        if (window.innerWidth > 600) {
-          navMenu.classList.remove("active");
-          overlay.classList.remove("active");
-        }
-      });
+.overlay.active {
+  display: block;
+}
 
-      // Đảm bảo menu dọc không mở trên PC khi tải trang
-      if (window.innerWidth > 600) {
-        navMenu.classList.remove("active");
-        overlay.classList.remove("active");
-      }
-    }
-  })
-  .catch(() => document.getElementById('header').innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải header!</p>');
+/* Container chính */
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  z-index: 1;
+}
 
-// Tải footer
-document.getElementById('footer').innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải footer...</p>';
-fetch('footer.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('footer').innerHTML = data;
-  })
-  .catch(() => document.getElementById('footer').innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải footer!</p>');
+/* Style header */
+header {
+  background-image: url('../images/header.png'); /* Đường dẫn đến hình ảnh header.png */
+  background-size: cover; /* Hình nền phủ toàn bộ header */
+  background-position: center; /* Căn giữa hình nền */
+  background-repeat: no-repeat; /* Không lặp lại hình nền */
+  position: relative; /* Để thêm overlay */
+  padding: 15px 20px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  min-height: 200px; /* Đặt chiều cao tối thiểu để hình nền hiển thị rõ ràng */
+}
 
-// Đồng hồ đếm ngược chuyển hướng
-let timeLeft = 120; // 120 giây
-const timer = setInterval(() => {
-  timeLeft--;
-  document.getElementById('redirect-timer').textContent = `Website sẽ tự động chuyển đến Fanpage IVS Academy trong ${Math.floor(timeLeft / 60)} phút ${timeLeft % 60} giây...`;
-  if (timeLeft <= 0) {
-    clearInterval(timer);
-    window.location.href = "https://facebook.com/hr.ivsacademy";
+/* Thêm lớp phủ (overlay) để làm mờ nền, giúp nội dung dễ đọc */
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Tăng độ mờ lên 0.7 để nội dung dễ đọc hơn */
+  z-index: 0; /* Đặt lớp phủ dưới nội dung */
+}
+
+/* Đảm bảo các nội dung trong header nằm trên lớp phủ */
+.header-top,
+.nav-container,
+.hamburger {
+  position: relative;
+  z-index: 1;
+}
+
+/* Định dạng phần logo và tiêu đề */
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 15px;
+}
+
+.header-top img {
+  width: 60px;
+  height: auto;
+}
+
+.header-text h1 {
+  font-size: 28px;
+  color: #fff; /* Đổi màu chữ thành trắng để nổi trên nền tối */
+  margin: 0;
+  font-weight: 700;
+}
+
+.header-text h3 {
+  font-size: 16px;
+  color: #ddd; /* Màu xám nhạt để nổi trên nền tối */
+  margin: 2px 0;
+  font-weight: 400;
+}
+
+/* Hamburger menu */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  color: #fff; /* Đổi màu nút hamburger thành trắng để nổi trên nền tối */
+  z-index: 1001;
+}
+
+/* Menu dọc trên mobile */
+.nav-menu {
+  display: none; /* Ẩn mặc định trên PC */
+  position: fixed;
+  top: 0;
+  left: -250px; /* Ẩn menu ra ngoài bên trái */
+  width: 250px;
+  height: 100vh;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: left 0.3s ease; /* Hiệu ứng slide */
+}
+
+.nav-menu.active {
+  left: 0; /* Hiển thị menu */
+}
+
+.nav-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-menu-header span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.close-menu {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Định dạng danh sách các tab trong menu dọc */
+.nav-menu .nav-tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-menu .nav-tabs li {
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-menu .nav-tabs a {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-menu .nav-tabs a i {
+  margin-right: 10px;
+  color: #ff5733;
+}
+
+.nav-menu .nav-tabs a:hover {
+  background-color: #f8f8f8;
+  color: #ff5733;
+  transform: scale(1.05);
+}
+
+.nav-menu .dropdown-menu {
+  display: none;
+  background-color: #f8f8f8;
+  padding-left: 20px;
+}
+
+.nav-menu .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.nav-menu .dropdown-menu a {
+  padding: 10px 20px;
+  font-size: 14px;
+}
+
+/* Định dạng container của thanh điều hướng (trên PC) */
+.nav-container {
+  width: 100%;
+  position: relative;
+  margin-top: 10px;
+}
+
+/* Định dạng nội dung thanh điều hướng (các tab + nút) trên PC */
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9); /* Nền trắng mờ để nổi trên hình nền */
+  padding: 12px 25px;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Định dạng danh sách các tab trên PC */
+.nav-content .nav-tabs {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+}
+
+/* Định dạng từng tab trên PC */
+.nav-content .nav-tabs li {
+  position: relative;
+}
+
+.nav-content .nav-tabs a {
+  text-decoration: none;
+  color: #333; /* Màu chữ đen để nổi trên nền trắng mờ */
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 15px;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.nav-content .nav-tabs a:hover {
+  color: #ff5733;
+  border-bottom: 2px solid #ff5733;
+}
+
+/* Định dạng menu con (dropdown) trên PC */
+.nav-content .dropdown .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  list-style: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  min-width: 220px;
+  z-index: 1000;
+}
+
+/* Hiển thị menu con khi di chuột trên PC */
+.nav-content .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Định dạng các mục trong menu con trên PC */
+.nav-content .dropdown-menu li {
+  display: block;
+}
+
+.nav-content .dropdown-menu a {
+  display: block;
+  padding: 12px 18px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.nav-content .dropdown-menu a:hover {
+  background-color: #f8f8f8;
+  color: #ff5733;
+}
+
+/* Định dạng nút "TEST TIẾNG ANH 6 BẬC" trên PC */
+.consult-btn {
+  background-color: #ff5733;
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.consult-btn:hover {
+  background-color: #e04e2d;
+  transform: scale(1.05);
+}
+
+/* Main content */
+main {
+  padding: 20px;
+  flex: 1;
+  padding-bottom: 200px;
+}
+
+/* Phần "Thông tin nổi bật" */
+.featured-posts {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
+  min-height: 200px; /* Đặt chiều cao tối thiểu để tránh khoảng trống lớn nếu không có bài viết */
+}
+
+.featured-posts h2 {
+  font-size: 28px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ff5733;
+  padding-bottom: 10px;
+}
+
+/* Carousel container (trên PC) */
+#post-list {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 150px; /* Đặt chiều cao tối thiểu để tránh khoảng trống lớn nếu không có bài viết */
+}
+
+/* Các slide trong carousel (trên PC) */
+.post-preview {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+  transition: transform 0.5s ease;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  min-height: 150px; /* Đảm bảo slide có chiều cao tối thiểu */
+}
+
+.post-image {
+  position: relative;
+}
+
+.post-image img {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 15px;
+  border-radius: 5px;
+}
+
+.post-image .hot-label {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: #ff4500;
+  color: #fff;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.post-preview .content {
+  flex: 1;
+}
+
+.post-preview h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: #007bff;
+}
+
+.post-preview p {
+  margin: 0 0 10px;
+  color: #666;
+  font-size: 16px;
+}
+
+.post-preview a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.post-preview a:hover {
+  text-decoration: underline;
+}
+
+.post-preview .view-more {
+  color: #ff6200;
+}
+
+/* Nút điều hướng carousel (trên PC) */
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.carousel-controls button {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 50%;
+}
+
+.carousel-controls button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Bộ bố cục video dạng lưới */
+.video-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.video-container {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  scroll-snap-align: start;
+  transition: transform 0.3s;
+}
+
+.video-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.video-container iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+}
+
+.video-caption {
+  padding: 10px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: #fafafa;
+}
+
+.video-caption a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.video-caption a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Section thông báo, button chuyển hướng */
+main p {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+#cancel-redirect {
+  display: block;
+  margin: 10px auto;
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  min-width: 150px;
+  cursor: pointer;
+  background-color: #ff4500;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+#cancel-redirect:hover {
+  background-color: #e03e00;
+  transform: scale(1.05);
+}
+
+/* Footer */
+footer {
+  background: #1a3c6d;
+  padding: 30px 20px;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-logo img {
+  width: 40px;
+  margin-bottom: 10px;
+}
+
+.footer-info p {
+  margin: 10px 0;
+  line-height: 1.5;
+}
+
+.footer-info a {
+  color: #ffd700;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-info a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer-info i {
+  margin-right: 5px;
+}
+
+.footer-social p {
+  margin-bottom: 10px;
+}
+
+.footer-social a {
+  color: #fff;
+  font-size: 22px;
+  margin: 0 15px;
+  transition: color 0.3s;
+}
+
+.footer-social a:hover {
+  color: #ffd700;
+}
+
+/* Section GIF cảm ơn */
+.thank-you-section {
+  text-align: center;
+}
+
+.thank-you-gif {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Đảm bảo tất cả các hình ảnh đính kèm vào các trang đều scale theo chiều rộng của màn hình */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  /* Hiển thị nút hamburger và menu dọc trên mobile */
+  .hamburger {
+    display: block !important;
   }
-}, 1000);
 
-// Sự kiện hủy chuyển hướng
-document.getElementById("cancel-redirect").addEventListener("click", function() {
-  clearInterval(timer);
-  this.textContent = "Đã hủy chuyển hướng";
-  this.disabled = true;
-  document.getElementById('redirect-timer').textContent = "Chuyển hướng đã bị hủy.";
-});
+  .nav-menu {
+    display: block !important; /* Hiển thị menu dọc trên mobile */
+  }
 
-// Lấy dữ liệu từ posts.json và tạo carousel/grid
-fetch('posts.json')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Không thể tải file posts.json');
-    }
-    return response.json();
-  })
-  .then(posts => {
-    const postList = document.getElementById("post-list");
-    // Kiểm tra nếu không có bài viết nào
-    if (!posts || posts.length === 0) {
-      postList.innerHTML = "<p style='text-align: center; color: #666;'>Hiện tại không có bài viết nổi bật nào.</p>";
-      return;
-    }
+  /* Ẩn thanh điều hướng mặc định trên mobile */
+  .nav-content {
+    display: none !important; /* Đảm bảo ẩn trên mobile */
+  }
 
-    // Thêm các bài viết vào danh sách
-    posts.forEach(post => {
-      const postDiv = document.createElement("div");
-      postDiv.className = "post-preview";
-      postDiv.innerHTML = `
-        <div class="post-image">
-          <img src="${post.image}" alt="${post.title}">
-          <span class="hot-label">HOT</span>
-        </div>
-        <div class="content">
-          <h3><a href="${post.url}">${post.title}</a></h3>
-          <p>${post.excerpt}</p>
-          <a href="${post.url}" class="view-more">Xem thêm</a>
-        </div>
-      `;
-      postList.appendChild(postDiv);
-    });
+  header {
+    min-height: 150px; /* Giảm chiều cao trên mobile */
+    padding: 10px 15px;
+  }
 
-    // Khởi tạo carousel (chỉ trên PC)
-    if (window.innerWidth > 600) {
-      let currentSlide = 0;
-      const slides = document.querySelectorAll('.post-preview');
-      const totalSlides = slides.length;
+  .header-text h1 {
+    font-size: 24px;
+  }
 
-      // Ẩn nút điều hướng nếu không có bài viết
-      if (totalSlides === 0) {
-        document.querySelector('.carousel-controls').style.display = 'none';
-        return;
-      }
+  .header-text h3 {
+    font-size: 14px;
+  }
 
-      function showSlide(index) {
-        if (index >= totalSlides) currentSlide = 0;
-        if (index < 0) currentSlide = totalSlides - 1;
-        slides.forEach((slide, i) => {
-          slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`;
-        });
-      }
+  .header-top img {
+    width: 50px;
+  }
 
-      // Tự động chuyển slide
-      setInterval(() => {
-        currentSlide++;
-        showSlide(currentSlide);
-      }, 5000); // Chuyển slide mỗi 5 giây
+  .video-section {
+    grid-template-columns: 1fr;
+    overflow-x: hidden;
+  }
 
-      // Nút điều hướng
-      document.getElementById('prev-slide').addEventListener('click', () => {
-        currentSlide--;
-        showSlide(currentSlide);
-      });
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
 
-      document.getElementById('next-slide').addEventListener('click', () => {
-        currentSlide++;
-        showSlide(currentSlide);
-      });
+  .footer-logo,
+  .footer-info,
+  .footer-social {
+    margin-bottom: 20px;
+  }
 
-      // Hiển thị slide đầu tiên
-      showSlide(currentSlide);
-    }
-  })
-  .catch(error => {
-    console.error('Lỗi:', error);
-    document.getElementById("post-list").innerHTML = "<p style='text-align: center; color: red;'>Không thể tải danh sách bài viết. Vui lòng kiểm tra file posts.json.</p>";
-  });
+  .footer-social a {
+    margin: 0 15px;
+  }
+
+  main {
+    padding-bottom: 300px;
+  }
+
+  /* Chuyển carousel thành grid trên mobile */
+  #post-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    max-width: 100%;
+    padding: 0 10px;
+    position: static;
+    overflow: visible;
+    min-height: auto; /* Đặt chiều cao tự động trên mobile */
+  }
+
+  .post-preview {
+    display: block;
+    position: static;
+    transform: none !important;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    min-height: auto; /* Đặt chiều cao tự động trên mobile */
+  }
+
+  .post-preview:hover {
+    transform: scale(1.05);
+  }
+
+  .post-image img {
+    width: 100%;
+    height: 120px;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .post-preview .content {
+    text-align: center;
+  }
+
+  .post-preview h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .post-preview p {
+    display: none; /* Ẩn đoạn trích trên mobile để gọn gàng */
+  }
+
+  .post-preview .view-more {
+    font-size: 14px;
+  }
+
+  .carousel-controls {
+    display: none; /* Ẩn nút điều hướng trên mobile */
+  }
+}
+
+@media (min-width: 601px) {
+  .nav-menu {
+    display: none !important; /* Đảm bảo ẩn trên PC */
+  }
+
+  .hamburger {
+    display: none !important; /* Đảm bảo ẩn nút hamburger trên PC */
+  }
+
+  .nav-menu.active {
+    display: none !important; /* Đảm bảo menu không hiển thị ngay cả khi có class active */
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  p,
+  ul li {
+    font-size: 0.95rem;
+  }
+
+  .program-section {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px 10px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  h3 {
+    font-size: 1.4rem;
+  }
+
+  p,
+  .contact-info p {
+    font-size: 0.95rem;
+  }
+
+  .intro-section,
+  .mission-vision,
+  .program-section {
+    flex-direction: column;
+  }
+
+  .intro-image,
+  .program-image {
+    width: 100%;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline li {
+    padding-left: 30px;
+  }
+}
