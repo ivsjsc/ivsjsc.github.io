@@ -1149,6 +1149,74 @@ img {
   .timeline li {
     padding-left: 30px;
   }
+/* Hamburger menu */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  color: #333;
+  z-index: 1001;
+}
+
+/* Menu dọc trên mobile */
+.nav-menu {
+  display: none; /* Ẩn mặc định trên PC */
+  position: fixed;
+  top: 0;
+  left: -250px; /* Ẩn menu ra ngoài bên trái */
+  width: 250px;
+  height: 100vh;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: left 0.3s ease; /* Hiệu ứng slide */
+}
+
+.nav-menu.active {
+  left: 0; /* Hiển thị menu */
+}
+
+/* Định dạng nội dung thanh điều hướng (các tab + nút) trên PC */
+.nav-content {
+  display: flex; /* Hiển thị mặc định trên PC */
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 12px 25px;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  /* Hiển thị nút hamburger và menu dọc trên mobile */
+  .hamburger {
+    display: block;
+  }
+
+  .nav-menu {
+    display: block; /* Hiển thị menu dọc trên mobile */
+  }
+
+  /* Ẩn thanh điều hướng mặc định trên mobile */
+  .nav-content {
+    display: none !important; /* Đảm bảo ẩn trên mobile */
+  }
+}
+
+@media (min-width: 601px) {
+  .nav-menu {
+    display: none !important; /* Đảm bảo ẩn trên PC */
+  }
+
+  .hamburger {
+    display: none !important; /* Đảm bảo ẩn nút hamburger trên PC */
+  }
 }
 }
 
