@@ -40,6 +40,12 @@ fetch('header.html')
           overlay.classList.remove("active");
         }
       });
+
+      // Đảm bảo menu dọc không mở trên PC khi tải trang
+      if (window.innerWidth > 600) {
+        navMenu.classList.remove("active");
+        overlay.classList.remove("active");
+      }
     }
   })
   .catch(() => document.getElementById('header').innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải header!</p>');
