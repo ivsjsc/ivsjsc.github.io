@@ -1,149 +1,168 @@
 // JSON data for featured posts
 const posts = [
-    {
-      title: "TRẠI HÈ QUỐC TẾ TẠI PHILIPPINES 2025",
-      excerpt: "🎉Tin vui cho các bậc phụ huynh và các em học sinh! IVS Academy thông báo về chương trình Học bổng Trại hè Quốc tế...",
-      url: "summercamp.html",
-      image: "images/summerbanner.jpg",
-    },
-    {
-      title: "TƯ VẤN THỦ TỤC THÀNH LẬP TRUNG TÂM, CƠ SỞ GIÁO DỤC",
-      excerpt: "🎉Tư vấn, hỗ trợ thủ tục, hồ sơ pháp lý, tài liệu, chương trình đào tạo, từ A tới Z.",
-      url: "tuvan.html",
-      image: "images/lifeminds.png",
-    },
-    {
-      title: "HỢP TÁC ĐẦU TƯ",
-      excerpt: "🎉Cơ hội bức phá cùng ngành giáo dục, một tương lai bền vững",
-      url: "hop-tac-dau-tu.html",
-      image: "images/ivs-celestech.jpg",
-    },
-    {
-      title: "TUYỂN DỤNG",
-      excerpt: "🎉Tin tuyển dụng từ IVS JSC",
-      url: "career.html",
-      image: "images/logo.png",
-    },
-  ];
-  
-  // Function to render posts dynamically
-  function renderPosts() {
-    const postList = document.getElementById("post-list");
-    if (!postList) {
-      console.error("Error: #post-list element not found in the DOM.");
-      return;
-    }
-  
-    // Clear existing content
-    postList.innerHTML = "";
-  
-    // Render each post
-    posts.forEach((post, index) => {
-      const postElement = document.createElement("div");
-      postElement.classList.add("post-preview");
-      postElement.setAttribute("role", "article"); // Accessibility: Define as an article
-      postElement.setAttribute("aria-labelledby", `post-title-${index}`); // Link to the title for screen readers
-  
-      postElement.innerHTML = `
-        <div class="post-image">
-          <img src="${post.image}" alt="${post.title}" loading="lazy">
-          ${index === 0 ? '<span class="hot-label">HOT</span>' : ""}
-        </div>
-        <div class="content">
-          <h3 id="post-title-${index}">${post.title}</h3>
-          <p>${post.excerpt}</p>
-          <a href="${post.url}" class="view-more" aria-label="Xem thêm về ${post.title}">Xem thêm</a>
-        </div>
-      `;
-  
-      postList.appendChild(postElement);
-    });
+  {
+    title: "TRẠI HÈ QUỐC TẾ TẠI PHILIPPINES 2025",
+    excerpt: "🎉 Tin vui cho các bậc phụ huynh và các em học sinh! IVS Academy thông báo về chương trình Học bổng Trại hè Quốc tế...",
+    url: "summercamp.html",
+    image: "images/summerbanner.jpg",
+  },
+  {
+    title: "TƯ VẤN THỦ TỤC THÀNH LẬP TRUNG TÂM, CƠ SỞ GIÁO DỤC",
+    excerpt: "🎉 Tư vấn, hỗ trợ thủ tục, hồ sơ pháp lý, tài liệu, chương trình đào tạo, từ A tới Z.",
+    url: "tuvan.html",
+    image: "images/lifeminds.png",
+  },
+  {
+    title: "HỢP TÁC ĐẦU TƯ",
+    excerpt: "🎉 Cơ hội bức phá cùng ngành giáo dục, một tương lai bền vững",
+    url: "hop-tac-dau-tu.html",
+    image: "images/ivs-celestech.jpg",
+  },
+  {
+    title: "TUYỂN DỤNG",
+    excerpt: "🎉 Tin tuyển dụng từ IVS JSC",
+    url: "career.html",
+    image: "images/logo.png",
+  },
+];
+
+// Function to render posts dynamically
+function renderPosts() {
+  const postList = document.getElementById("post-list");
+  if (!postList) {
+    console.error("Error: #post-list element not found in the DOM.");
+    return;
   }
-  
-  // Function to initialize the carousel
-  function initializeCarousel() {
-    const postList = document.getElementById("post-list");
-    const prevButton = document.getElementById("prev-post");
-    const nextButton = document.getElementById("next-post");
-  
-    // Error handling: Check if elements exist
-    if (!postList || !prevButton || !nextButton) {
-      console.error("Error: Required carousel elements not found in the DOM.");
+
+  // Nếu không có bài viết nào
+  if (!posts.length) {
+    postList.innerHTML = '<p>Không có bài viết nào để hiển thị. Vui lòng thử lại sau.</p>';
+    return;
+  }
+
+  // Clear existing content
+  postList.innerHTML = "";
+
+  // Render each post
+  posts.forEach((post, index) => {
+    const postElement = document.createElement("div");
+    postElement.classList.add("post-preview");
+    postElement.setAttribute("role", "article");
+    postElement.setAttribute("aria-labelledby", `post-title-${index}`);
+
+    postElement.innerHTML = `
+      <div class="post-image">
+        <img src="${post.image}" alt="${post.title}" loading="lazy">
+        ${index === 0 ? '<span class="hot-label">HOT</span>' : ""}
+      </div>
+      <div class="content">
+        <h3 id="post-title-${index}">${post.title}</h3>
+        <p>${post.excerpt}</p>
+        <a href="${post.url}" class="view-more" aria-label="Xem thêm về ${post.title}">Xem thêm</a>
+      </div>
+    `;
+
+    postList.appendChild(postElement);
+  });
+}
+
+// Function to initialize the carousel
+function initializeCarousel() {
+  const postList = document.getElementById("post-list");
+  const prevButton = document.getElementById("prev-post");
+  const nextButton = document.getElementById("next-post");
+
+  // Error handling: Check if elements exist
+  if (!postList || !prevButton || !nextButton) {
+    console.error("Error: Required carousel elements not found in the DOM.");
+    return;
+  }
+
+  let currentIndex = 0;
+  const postsPerPage = 3; // Number of posts to show at a time on desktop
+  const totalPosts = posts.length;
+
+  // Function to update the carousel position
+  function updateCarousel() {
+    if (totalPosts <= postsPerPage) {
+      prevButton.disabled = true;
+      nextButton.disabled = true;
       return;
     }
-  
-    let currentIndex = 0;
-    const postsPerPage = 3; // Number of posts to show at a time on desktop
-    const totalPosts = posts.length;
-  
-    // Function to update the carousel position
-    function updateCarousel() {
-      const offset = currentIndex * (100 / postsPerPage);
-      postList.style.transform = `translateX(-${offset}%)`;
-      postList.style.transition = "transform 0.5s ease-in-out"; // Smooth transition
-  
-      // Update button states
-      prevButton.disabled = currentIndex === 0;
-      nextButton.disabled = currentIndex >= totalPosts - postsPerPage;
-  
-      // Accessibility: Update ARIA attributes
-      prevButton.setAttribute("aria-disabled", currentIndex === 0 ? "true" : "false");
-      nextButton.setAttribute("aria-disabled", currentIndex >= totalPosts - postsPerPage ? "true" : "false");
+
+    const offset = currentIndex * (100 / postsPerPage);
+    postList.style.transform = `translateX(-${offset}%)`;
+    postList.style.transition = "transform 0.5s ease-in-out";
+
+    // Update button states
+    prevButton.disabled = currentIndex === 0;
+    nextButton.disabled = currentIndex >= totalPosts - postsPerPage;
+
+    // Accessibility: Update ARIA attributes
+    prevButton.setAttribute("aria-disabled", currentIndex === 0 ? "true" : "false");
+    nextButton.setAttribute("aria-disabled", currentIndex >= totalPosts - postsPerPage ? "true" : "false");
+  }
+
+  // Event listeners for navigation buttons
+  prevButton.addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCarousel();
     }
-  
-    // Event listeners for navigation buttons
-    prevButton.addEventListener("click", () => {
+  });
+
+  nextButton.addEventListener("click", () => {
+    if (currentIndex < totalPosts - postsPerPage) {
+      currentIndex++;
+      updateCarousel();
+    }
+  });
+
+  // Keyboard navigation for accessibility
+  prevButton.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
       if (currentIndex > 0) {
         currentIndex--;
         updateCarousel();
       }
-    });
-  
-    nextButton.addEventListener("click", () => {
+    }
+  });
+
+  nextButton.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
       if (currentIndex < totalPosts - postsPerPage) {
         currentIndex++;
         updateCarousel();
       }
-    });
-  
-    // Keyboard navigation for accessibility
-    prevButton.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        if (currentIndex > 0) {
-          currentIndex--;
-          updateCarousel();
-        }
-      }
-    });
-  
-    nextButton.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        if (currentIndex < totalPosts - postsPerPage) {
-          currentIndex++;
-          updateCarousel();
-        }
-      }
-    });
-  
-    // Initial update
-    updateCarousel();
-  
-    // Disable carousel on mobile (max-width: 600px)
-    const mediaQuery = window.matchMedia("(max-width: 600px)");
-    function handleMediaChange(e) {
-      if (e.matches) {
-        // On mobile, reset transform and transition for horizontal scrolling
-        postList.style.transform = "translateX(0)";
-        postList.style.transition = "none";
-        prevButton.disabled = true;
-        nextButton.disabled = true;
-      } else {
-        // On desktop, re-enable carousel
-        updateCarousel();
-      }
-    if (!posts.length) {
-      document.getElementById('post-list').innerHTML = '<p>Không có bài viết nào để hiển thị. Vui lòng thử lại sau.</p>';
     }
-    // Initial check
+  });
+
+  // Handle responsive behavior
+  const mediaQuery = window.matchMedia("(max-width: 600px)");
+  function handleMediaChange(e) {
+    if (e.matches) {
+      // On mobile: disable carousel, enable horizontal scrolling
+      postList.style.transform = "translateX(0)";
+      postList.style.transition = "none";
+      prevButton.disabled = true;
+      nextButton.disabled = true;
+    } else {
+      // On desktop: re-enable carousel
+      updateCarousel();
+    }
+  }
+
+  // Add event listener for media query changes
+  mediaQuery.addEventListener("change", handleMediaChange);
+  // Initial check
+  handleMediaChange(mediaQuery);
+
+  // Initial render and carousel setup
+  renderPosts();
+  updateCarousel();
+}
+
+// Initialize everything when the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", initializeCarousel);
