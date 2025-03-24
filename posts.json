@@ -1,6 +1,5 @@
-<script>
-  // JSON data for featured posts
-  const posts = [
+// JSON data for featured posts
+const posts = [
     {
       title: "TRẠI HÈ QUỐC TẾ TẠI PHILIPPINES 2025",
       excerpt: "🎉Tin vui cho các bậc phụ huynh và các em học sinh! IVS Academy thông báo về chương trình Học bổng Trại hè Quốc tế...",
@@ -26,56 +25,124 @@
       image: "images/logo.png",
     },
   ];
-
-  // Render posts dynamically
-  const postList = document.getElementById("post-list");
-  posts.forEach((post, index) => {
-    const postElement = document.createElement("div");
-    postElement.classList.add("post-preview");
-    postElement.innerHTML = `
-      <div class="post-image">
-        <img src="${post.image}" alt="${post.title}">
-        ${index === 0 ? '<span class="hot-label">HOT</span>' : ""}
-      </div>
-      <div class="content">
-        <h3>${post.title}</h3>
-        <p>${post.excerpt}</p>
-        <a href="${post.url}" class="view-more">Xem thêm</a>
-      </div>
-    `;
-    postList.appendChild(postElement);
-  });
-
-  // Carousel navigation for desktop
-  const prevButton = document.getElementById("prev-post");
-  const nextButton = document.getElementById("next-post");
-  let currentIndex = 0;
-  const postsPerPage = 3; // Number of posts to show at a time on desktop
-  const totalPosts = posts.length;
-
-  function updateCarousel() {
-    const offset = currentIndex * (100 / postsPerPage);
-    postList.style.transform = `translateX(-${offset}%)`;
-
-    // Disable buttons when at the start or end
-    prevButton.disabled = currentIndex === 0;
-    nextButton.disabled = currentIndex >= totalPosts - postsPerPage;
+  
+  // Function to render posts dynamically
+  function renderPosts() {
+    const postList = document.getElementById("post-list");
+    if (!postList) {
+      console.error("Error: #post-list element not found in the DOM.");
+      return;
+    }
+  
+    // Clear existing content
+    postList.innerHTML = "";
+  
+    // Render each post
+    posts.forEach((post, index) => {
+      const postElement = document.createElement("div");
+      postElement.classList.add("post-preview");
+      postElement.setAttribute("role", "article"); // Accessibility: Define as an article
+      postElement.setAttribute("aria-labelledby", `post-title-${index}`); // Link to the title for screen readers
+  
+      postElement.innerHTML = `
+        <div class="post-image">
+          <img src="${post.image}" alt="${post.title}" loading="lazy">
+          ${index === 0 ? '<span class="hot-label">HOT</span>' : ""}
+        </div>
+        <div class="content">
+          <h3 id="post-title-${index}">${post.title}</h3>
+          <p>${post.excerpt}</p>
+          <a href="${post.url}" class="view-more" aria-label="Xem thêm về ${post.title}">Xem thêm</a>
+        </div>
+      `;
+  
+      postList.appendChild(postElement);
+    });
   }
-
-  prevButton.addEventListener("click", () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-      updateCarousel();
+  
+  // Function to initialize the carousel
+  function initializeCarousel() {
+    const postList = document.getElementById("post-list");
+    const prevButton = document.getElementById("prev-post");
+    const nextButton = document.getElementById("next-post");
+  
+    // Error handling: Check if elements exist
+    if (!postList || !prevButton || !nextButton) {
+      console.error("Error: Required carousel elements not found in the DOM.");
+      return;
     }
-  });
-
-  nextButton.addEventListener("click", () => {
-    if (currentIndex < totalPosts - postsPerPage) {
-      currentIndex++;
-      updateCarousel();
+  
+    let currentIndex = 0;
+    const postsPerPage = 3; // Number of posts to show at a time on desktop
+    const totalPosts = posts.length;
+  
+    // Function to update the carousel position
+    function updateCarousel() {
+      const offset = currentIndex * (100 / postsPerPage);
+      postList.style.transform = `translateX(-${offset}%)`;
+      postList.style.transition = "transform 0.5s ease-in-out"; // Smooth transition
+  
+      // Update button states
+      prevButton.disabled = currentIndex === 0;
+      nextButton.disabled = currentIndex >= totalPosts - postsPerPage;
+  
+      // Accessibility: Update ARIA attributes
+      prevButton.setAttribute("aria-disabled", currentIndex === 0 ? "true" : "false");
+      nextButton.setAttribute("aria-disabled", currentIndex >= totalPosts - postsPerPage ? "true" : "false");
     }
-  });
-
-  // Initial update
-  updateCarousel();
-</script>
+  
+    // Event listeners for navigation buttons
+    prevButton.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateCarousel();
+      }
+    });
+  
+    nextButton.addEventListener("click", () => {
+      if (currentIndex < totalPosts - postsPerPage) {
+        currentIndex++;
+        updateCarousel();
+      }
+    });
+  
+    // Keyboard navigation for accessibility
+    prevButton.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        if (currentIndex > 0) {
+          currentIndex--;
+          updateCarousel();
+        }
+      }
+    });
+  
+    nextButton.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        if (currentIndex < totalPosts - postsPerPage) {
+          currentIndex++;
+          updateCarousel();
+        }
+      }
+    });
+  
+    // Initial update
+    updateCarousel();
+  
+    // Disable carousel on mobile (max-width: 600px)
+    const mediaQuery = window.matchMedia("(max-width: 600px)");
+    function handleMediaChange(e) {
+      if (e.matches) {
+        // On mobile, reset transform and transition for horizontal scrolling
+        postList.style.transform = "translateX(0)";
+        postList.style.transition = "none";
+        prevButton.disabled = true;
+        nextButton.disabled = true;
+      } else {
+        // On desktop, re-enable carousel
+        updateCarousel();
+      }
+    }
+  
+    // Initial check
