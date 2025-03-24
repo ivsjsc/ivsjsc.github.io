@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IVS Education</title>
+  <title>Trang chủ - IVS Education</title>
   <meta name="description" content="IVS Education: Đào tạo ngoại ngữ, kỹ năng sống, hợp tác quốc tế, du học liên kết, trại hè quốc tế.">
   <meta property="og:title" content="IVS Education">
   <meta property="og:description" content="IVS Education: Đào tạo ngoại ngữ, kỹ năng sống, hợp tác quốc tế, du học liên kết, trại hè quốc tế.">
@@ -13,7 +13,7 @@
   <link rel="icon" href="images/Media.png" type="image/x-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* CSS từ tài liệu thứ 3 */
+    /* Reset mặc định */
     * {
       margin: 0;
       padding: 0;
@@ -74,13 +74,25 @@
 
     /* Header Styles */
     header {
-      position: relative;
       background-color: #1a3c6d;
       background-image: url('images/header.png');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      padding: 20px 0;
+      padding: 10px 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    @media (min-width: 601px) {
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+      body {
+        padding-top: 60px;
+      }
     }
 
     header::before {
@@ -101,17 +113,40 @@
       z-index: 1;
     }
 
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      padding: 10px 20px;
+    }
+
+    .header-logo img {
+      width: 150px;
+      height: 50px;
+    }
+
     .hamburger {
       display: none;
       font-size: 24px;
       background: none;
       border: none;
       cursor: pointer;
-      position: absolute;
-      top: 15px;
-      left: 15px;
       color: #fff;
       z-index: 1001;
+    }
+
+    @media (max-width: 600px) {
+      .header-top {
+        justify-content: space-between;
+      }
+      .hamburger {
+        display: block;
+      }
+      .header-logo img {
+        width: 120px;
+        height: 40px;
+      }
     }
 
     .nav-menu {
@@ -231,6 +266,7 @@
       border-radius: 5px;
     }
 
+    /* Featured Posts Section */
     .featured-posts h2 {
       font-size: 28px;
       color: #333;
@@ -241,31 +277,61 @@
     }
 
     #post-list {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
       padding: 10px 0;
-      gap: 15px;
     }
 
     .post-preview {
-      flex: 0 0 300px;
-      scroll-snap-align: start;
-      margin: 0 5px;
       background: #fff;
       border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       overflow: hidden;
+      position: relative;
+    }
+
+    .post-preview .hot-label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #ff5733;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: bold;
     }
 
     .post-image img {
-      width: 150px;
-      height: 100px;
+      width: 100%;
+      height: 150px;
       object-fit: cover;
-      margin-right: 15px;
-      border-radius: 5px;
     }
 
+    .post-content {
+      padding: 15px;
+    }
+
+    .post-content h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .post-content p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .post-content .view-more {
+      display: inline-block;
+      color: #ff5733;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Video Section */
     .video-section {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -275,15 +341,51 @@
       margin: 0 auto;
     }
 
-    .video-container iframe {
+    .video-container {
+      position: relative;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .video-container img {
       width: 100%;
-      aspect-ratio: 16 / 9;
-      border: none;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .video-play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 40px;
+      color: #fff;
+      opacity: 0.8;
     }
 
     .video-caption {
       padding: 10px;
-      text-align: center;
+    }
+
+    .video-caption a {
+      text-decoration: none;
+      color: #333;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .video-actions {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    .video-actions a {
+      color: #666;
+      font-size: 14px;
+      text-decoration: none;
     }
 
     /* Footer Styles */
@@ -307,8 +409,11 @@
 
     /* Responsive Styles */
     @media (max-width: 600px) {
-      .hamburger {
-        display: block;
+      header {
+        position: relative;
+      }
+      body {
+        padding-top: 0;
       }
       .nav-content {
         display: none;
@@ -322,7 +427,12 @@
 <body>
   <!-- Header -->
   <header>
-    <button class="hamburger">☰</button>
+    <div class="header-top">
+      <button class="hamburger">☰</button>
+      <div class="header-logo">
+        <img src="images/logo.png" alt="IVS Logo">
+      </div>
+    </div>
     <div class="nav-menu">
       <div class="nav-menu-header">
         <button class="close-menu">✖</button>
@@ -342,7 +452,41 @@
             <li><a href="philoinhuan.html">Phi Lợi Nhuận</a></li>
           </ul>
         </li>
-        <!-- Thêm các mục khác từ tài liệu header -->
+        <li class="dropdown">
+          <a href="javascript:void(0)"><i class="fas fa-info-circle"></i>HỢP TÁC QUỐC TẾ</a>
+          <ul class="dropdown-menu">
+            <li><a href="hocbong.html">Học bổng Du học</a></li>
+            <li><a href="summercamp.html">Trại hè Quốc tế</a></li>
+            <li><a href="lien-ket-quoc-te.html">Liên kết Quốc tế</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="javascript:void(0)"><i class="fas fa-info-circle"></i>ĐANG HOẠT ĐỘNG</a>
+          <ul class="dropdown-menu">
+            <li><a href="dau-tu.html">Hoạt động vì cộng đồng</a></li>
+            <li><a href="tai-tro.html">Chương trình "Hãy Nói"</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="javascript:void(0)"><i class="fas fa-info-circle"></i>TƯ VẤN GIÁO DỤC</a>
+          <ul class="dropdown-menu">
+            <li><a href="tuvan.html">Tư vấn thủ tục, pháp lý Doanh nghiệp</a></li>
+            <li><a href="thanhlaptrungtam.html">Thành lập Trung Tâm Ngoại Ngữ</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="javascript:void(0)"><i class="fas fa-heart"></i>TIỆN ÍCH</a>
+          <ul class="dropdown-menu">
+            <li><a href="https://aistudio.instagram.com/ai/663072466085450/?utm_source=mshare">Chatbot Talkie-Talkie hỗ trợ các thành viên "Hãy Nói"</a></li>
+            <li><a href="https://www.facebook.com/haynoi.tuoitredongnai">Fanpage "Hãy Nói"</a></li>
+            <li><a href="https://www.facebook.com/groups/500998409540367/">Cộng đồng Let's Talk Đồng Nai</a></li>
+            <li><a href="https://zalo.me/g/ktxjdw182">Hồ sơ Giáo viên nước ngoài tại Việt Nam</a></li>
+            <li><a href="https://www.facebook.com/groups/500998409540367/">Tìm hiểu thêm tại Zalo Official & Zalo Mini App</a></li>
+          </ul>
+        </li>
+        <li><a href="career.html"><i class="fas fa-briefcase"></i>TUYỂN DỤNG</a></li>
+        <li><a href="nmt-vcard.html"><i class="fas fa-briefcase"></i>LIÊN HỆ</a></li>
+        <li><a href="english-placement.html"><i class="fas fa-clipboard-check"></i>BÀI TEST TIẾNG ANH 6 BẬC</a></li>
       </ul>
     </div>
     <div class="nav-container">
@@ -354,8 +498,47 @@
             <ul class="dropdown-menu">
               <li><a href="about.html">About us</a></li>
               <li><a href="ivsmeaning.html">Ý nghĩa IVS</a></li>
+              <li><a href="sumenh.html">Sứ mệnh</a></li>
+              <li><a href="doingu.html">Đội ngũ</a></li>
+              <li><a href="co-hoi-dau-tu.html">Cơ hội đầu tư</a></li>
+              <li><a href="doi-tac.html">Đối tác đồng hành</a></li>
+              <li><a href="philoinhuan.html">Phi Lợi Nhuận</a></li>
             </ul>
           </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">HỢP TÁC QUỐC TẾ</a>
+            <ul class="dropdown-menu">
+              <li><a href="hocbong.html">Học bổng Du học</a></li>
+              <li><a href="summercamp.html">Trại hè Quốc tế</a></li>
+              <li><a href="lien-ket-quoc-te.html">Liên kết Quốc tế</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">ĐANG HOẠT ĐỘNG</a>
+            <ul class="dropdown-menu">
+              <li><a href="dau-tu.html">Hoạt động vì cộng đồng</a></li>
+              <li><a href="tai-tro.html">Chương trình "Hãy Nói"</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">TƯ VẤN GIÁO DỤC</a>
+            <ul class="dropdown-menu">
+              <li><a href="tuvan.html">Tư vấn thủ tục, pháp lý Doanh nghiệp</a></li>
+              <li><a href="thanhlaptrungtam.html">Thành lập Trung Tâm Ngoại Ngữ</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">TIỆN ÍCH</a>
+            <ul class="dropdown-menu">
+              <li><a href="https://aistudio.instagram.com/ai/663072466085450/?utm_source=mshare">Chatbot Talkie-Talkie hỗ trợ các thành viên "Hãy Nói"</a></li>
+              <li><a href="https://www.facebook.com/haynoi.tuoitredongnai">Fanpage "Hãy Nói"</a></li>
+              <li><a href="https://www.facebook.com/groups/500998409540367/">Cộng đồng Let's Talk Đồng Nai</a></li>
+              <li><a href="https://zalo.me/g/ktxjdw182">Hồ sơ Giáo viên nước ngoài tại Việt Nam</a></li>
+              <li><a href="https://www.facebook.com/groups/500998409540367/">Tìm hiểu thêm tại Zalo Official & Zalo Mini App</a></li>
+            </ul>
+          </li>
+          <li><a href="career.html">TUYỂN DỤNG</a></li>
+          <li><a href="nmt-vcard.html">LIÊN HỆ</a></li>
         </ul>
         <a href="english-placement.html" class="consult-btn">TEST TIẾNG ANH 6 BẬC</a>
       </div>
@@ -364,7 +547,7 @@
 
   <!-- Main -->
   <main class="container">
-    <p id="redirect-timer">Website sẽ tự động chuyển đến Fanpage IVS Academy trong 2 phút...</p>
+    <p id="redirect-timer">Website sẽ tự động chuyển đến Fanpage IVS Academy trong 1 phút 37 giây...</p>
     <button id="cancel-redirect">Hủy chuyển hướng</button>
 
     <!-- Featured Posts Section -->
@@ -373,24 +556,30 @@
       <div id="post-list" class="post-list">
         <!-- Posts will be dynamically inserted here -->
       </div>
-      <div class="carousel-controls">
-        <button id="prev-post" aria-label="Previous Post">&#10094;</button>
-        <button id="next-post" aria-label="Next Post">&#10095;</button>
-      </div>
     </section>
 
     <!-- Video Section -->
     <section class="video-section">
       <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/-U9JQvUYB94" title="Về chương trình Phi lợi nhuận Hãy Nói" allowfullscreen></iframe>
+        <img src="https://img.youtube.com/vi/-U9JQvUYB94/maxresdefault.jpg" alt="Thumbnail Video 1">
+        <i class="fas fa-play-circle video-play-icon"></i>
         <div class="video-caption">
-          <a href="https://forms.gle/TH9n3MV5Ty4E46TL7" target="_blank">Đăng ký Talkshow 'Hãy Nói'</a>
+          <a href="https://www.youtube.com/watch?v=-U9JQvUYB94" target="_blank">Về chương trình Phi lợi nhuận Hãy Nói</a>
+        </div>
+        <div class="video-actions">
+          <a href="#">Xem sau</a>
+          <a href="#">Chia sẻ</a>
         </div>
       </div>
       <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/2qktCUrScMs" title="Trại hè Quốc tế tại Philippines" allowfullscreen></iframe>
+        <img src="https://img.youtube.com/vi/2qktCUrScMs/maxresdefault.jpg" alt="Thumbnail Video 2">
+        <i class="fas fa-play-circle video-play-icon"></i>
         <div class="video-caption">
-          <a href="summercamp.html">Thông tin chi tiết về Trại hè Quốc tế tại CEBU</a>
+          <a href="https://www.youtube.com/watch?v=2qktCUrScMs" target="_blank">Trại hè Quốc tế tại Philippines</a>
+        </div>
+        <div class="video-actions">
+          <a href="#">Xem sau</a>
+          <a href="#">Chia sẻ</a>
         </div>
       </div>
     </section>
@@ -473,7 +662,7 @@
               <img src="${post.image}" alt="${post.title}">
               <span class="hot-label">HOT</span>
             </div>
-            <div class="content">
+            <div class="post-content">
               <h3><a href="${post.url}">${post.title}</a></h3>
               <p>${post.excerpt}</p>
               <a href="${post.url}" class="view-more">Xem thêm</a>
@@ -481,37 +670,6 @@
           `;
           postList.appendChild(postDiv);
         });
-
-        if (window.innerWidth > 600) {
-          let currentSlide = 0;
-          const slides = document.querySelectorAll('.post-preview');
-          const totalSlides = slides.length;
-
-          function showSlide(index) {
-            if (index >= totalSlides) currentSlide = 0;
-            if (index < 0) currentSlide = totalSlides - 1;
-            slides.forEach((slide, i) => {
-              slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`;
-            });
-          }
-
-          setInterval(() => {
-            currentSlide++;
-            showSlide(currentSlide);
-          }, 5000);
-
-          document.getElementById('prev-post').addEventListener('click', () => {
-            currentSlide--;
-            showSlide(currentSlide);
-          });
-
-          document.getElementById('next-post').addEventListener('click', () => {
-            currentSlide++;
-            showSlide(currentSlide);
-          });
-
-          showSlide(currentSlide);
-        }
       });
   </script>
 </body>
