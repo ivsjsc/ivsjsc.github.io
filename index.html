@@ -13,487 +13,8 @@
   <link rel="icon" href="images/Media.png" type="image/x-icon">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    /* Reset mặc định */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    /* CSS cho body */
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      line-height: 1.6;
-      color: #333;
-      position: relative;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('images/logo/logo.png');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-position: center;
-      opacity: 0.3;
-      z-index: -1;
-    }
-
-    /* Overlay cho sidebar */
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 999;
-    }
-
-    .overlay.active {
-      display: block;
-    }
-
-    /* Header Styles */
-    header {
-      background-color: #1a3c6d;
-      background-image: url('images/header.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      padding: 10px 0;
-      width: 100%;
-      z-index: 1000;
-    }
-
-    @media (min-width: 601px) {
-      header {
-        position: fixed;
-        top: 0;
-        left: 0;
-      }
-    }
-
-    header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 0;
-    }
-
-    .header-top,
-    .nav-container,
-    .hamburger {
-      position: relative;
-      z-index: 1;
-    }
-
-    .header-top {
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 20px;
-    }
-
-    .header-logo img {
-      width: 150px;
-      height: 50px;
-      object-fit: contain;
-    }
-
-    .hamburger {
-      display: none;
-      font-size: 24px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #fff;
-      z-index: 1001;
-    }
-
-    @media (max-width: 600px) {
-      .header-top {
-        display: flex;
-      }
-      .hamburger {
-        display: block;
-      }
-      .header-logo img {
-        width: 120px;
-        height: 40px;
-      }
-    }
-
-    .nav-menu {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: -250px;
-      width: 250px;
-      height: 100vh;
-      background-color: #fff;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-      z-index: 1000;
-      transition: left 0.3s ease;
-    }
-
-    .nav-menu.active {
-      left: 0;
-    }
-
-    .nav-menu-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px;
-      background-color: #f8f8f8;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .close-menu {
-      font-size: 20px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #333;
-    }
-
-    .nav-menu .nav-tabs {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .nav-menu .nav-tabs li {
-      border-bottom: 1px solid #ddd;
-    }
-
-    .nav-menu .nav-tabs a {
-      display: flex;
-      align-items: center;
-      padding: 12px 20px;
-      text-decoration: none;
-      color: #333;
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .nav-menu .nav-tabs a i {
-      margin-right: 8px;
-      color: #ff5733;
-    }
-
-    .nav-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: rgba(255, 255, 255, 0.95);
-      padding: 8px 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .nav-content .header-logo {
-      display: block;
-    }
-
-    .nav-content .nav-tabs {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin: 0;
-      flex-wrap: nowrap;
-      white-space: nowrap;
-    }
-
-    .nav-content .nav-tabs a {
-      text-decoration: none;
-      color: #333;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 5px 8px;
-    }
-
-    .nav-content .nav-tabs a:hover {
-      color: #ff5733;
-    }
-
-    .consult-btn {
-      background-color: #ff5733;
-      color: #fff;
-      padding: 8px 15px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 600;
-      white-space: nowrap;
-      transition: background-color 0.3s ease;
-    }
-
-    .consult-btn:hover {
-      background-color: #e04e2d;
-    }
-
-    @media (max-width: 600px) {
-      .nav-content {
-        display: none;
-      }
-      .nav-menu {
-        display: block;
-      }
-    }
-
-    .dropdown {
-      position: relative;
-    }
-
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      z-index: 1000;
-    }
-
-    .dropdown:hover .dropdown-menu {
-      display: block;
-    }
-
-    .dropdown-menu li {
-      border-bottom: 1px solid #ddd;
-    }
-
-    .dropdown-menu a {
-      display: block;
-      padding: 10px 20px;
-      text-decoration: none;
-      color: #333;
-      font-size: 14px;
-    }
-
-    .dropdown-menu a:hover {
-      background-color: #f8f8f8;
-    }
-
-    .nav-menu .dropdown-menu {
-      position: static;
-      box-shadow: none;
-      display: none;
-      background-color: #f8f8f8;
-    }
-
-    .nav-menu .dropdown.active .dropdown-menu {
-      display: block;
-    }
-
-    /* Main Styles */
-    .container {
-      max-width: 1200px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      background: #fff;
-      z-index: 1;
-      flex: 1;
-    }
-
-    main p {
-      text-align: center;
-      font-size: 1rem;
-      margin-bottom: 10px;
-    }
-
-    #cancel-redirect {
-      display: block;
-      margin: 10px auto;
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      min-width: 150px;
-      cursor: pointer;
-      background-color: #ff4500;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-    }
-
-    /* Featured Posts Section */
-    .featured-posts h2 {
-      font-size: 28px;
-      color: #333;
-      text-align: center;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #ff5733;
-      padding-bottom: 10px;
-    }
-
-    #post-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      padding: 10px 0;
-    }
-
-    .post-preview {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .post-preview .hot-label {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background-color: #ff5733;
-      color: #fff;
-      padding: 2px 8px;
-      border-radius: 3px;
-      font-size: 12px;
-      font-weight: bold;
-    }
-
-    .post-image img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-    }
-
-    .post-content {
-      padding: 15px;
-    }
-
-    .post-content h3 {
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-
-    .post-content p {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 10px;
-    }
-
-    .post-content .view-more {
-      display: inline-block;
-      color: #ff5733;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    /* Video Section */
-    .video-section {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .video-container {
-      position: relative;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-    }
-
-    .video-container iframe {
-      width: 100%;
-      height: 200px;
-      border: none;
-    }
-
-    .video-caption {
-      padding: 10px;
-    }
-
-    .video-caption a {
-      text-decoration: none;
-      color: #333;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    /* Thank You Section */
-    .thank-you-section {
-      text-align: center;
-      padding: 20px;
-    }
-
-    .thank-you-gif {
-      width: 100%;
-      max-width: 300px;
-      height: auto;
-    }
-
-    /* Footer Styles */
-    footer {
-      background-color: #1a3c6d;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-      position: relative;
-      bottom: 0;
-      width: 100%;
-    }
-
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .footer-links {
-      list-style: none;
-      padding: 0;
-      margin: 10px 0 0;
-    }
-
-    .footer-links li {
-      display: inline;
-      margin: 0 10px;
-    }
-
-    .footer-links a {
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .footer-links a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 600px) {
-      body {
-        padding-top: 0;
-      }
-    }
-  </style>
+  
+  
 </head>
 <body>
   <!-- Header -->
@@ -623,9 +144,6 @@
 
   <div
 <!---->  
-<br>
-<br>
-<br>
 
 </div>
 
@@ -692,18 +210,617 @@
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <p>© 2025 IVS Education. All rights reserved.</p>
-      <ul class="footer-links">
-        <li><a href="nmt-vcard.html">Liên hệ</a></li>
-        <li><a href="https://www.facebook.com/hr.ivsacademy">Fanpage</a></li>
-      </ul>
-    </div>
-  </footer>
+    <!-- JavaScript: tải header và footer, chuyển hướng tự động, toggle menu, carousel -->
+    <script>
+      // Tải header
+      document.getElementById('header').innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải header...</p>';
+      fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('header').innerHTML = data;
+          // Gắn sự kiện cho hamburger menu và close button
+          const hamburger = document.querySelector(".hamburger");
+          const navMenu = document.querySelector(".nav-menu");
+          const closeMenu = document.querySelector(".close-menu");
 
-  <!-- Gọi file scripts.js -->
-  <script src="js/scripts.js"></script>
-</body>
+          if (hamburger && navMenu && closeMenu) {
+            // Mở menu khi nhấp vào hamburger
+            hamburger.addEventListener("click", function() {
+              navMenu.classList.add("active");
+            });
+
+            // Đóng menu khi nhấp vào nút đóng
+            closeMenu.addEventListener("click", function() {
+              navMenu.classList.remove("active");
+            });
+
+            // Đóng menu khi nhấp ra ngoài
+            document.addEventListener("click", function(event) {
+              if (!navMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                navMenu.classList.remove("active");
+              }
+            });
+          }
+        })
+        .catch(() => document.getElementById('header').innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải header!</p>');
+
+      // Tải footer
+      document.getElementById('footer').innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải footer...</p>';
+      fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('footer').innerHTML = data;
+        })
+        .catch(() => document.getElementById('footer').innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải footer!</p>');
+
+      // Đồng hồ đếm ngược chuyển hướng
+      let timeLeft = 120; // 120 giây
+      const timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('redirect-timer').textContent = `Website sẽ tự động chuyển đến Fanpage IVS Academy trong ${Math.floor(timeLeft / 60)} phút ${timeLeft % 60} giây...`;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          window.location.href = "https://facebook.com/hr.ivsacademy";
+        }
+      }, 1000);
+
+      // Sự kiện hủy chuyển hướng
+      document.getElementById("cancel-redirect").addEventListener("click", function() {
+        clearInterval(timer);
+        this.textContent = "Đã hủy chuyển hướng";
+        this.disabled = true;
+        document.getElementById('redirect-timer').textContent = "Chuyển hướng đã bị hủy.";
+      });
+
+      // Lấy dữ liệu từ posts.json và tạo carousel/grid
+      fetch('posts.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Không thể tải file posts.json');
+          }
+          return response.json();
+        })
+        .then(posts => {
+          const postList = document.getElementById("post-list");
+          posts.forEach(post => {
+            const postDiv = document.createElement("div");
+            postDiv.className = "post-preview";
+            postDiv.innerHTML = `
+              <div class="post-image">
+                <img src="${post.image}" alt="${post.title}">
+                <span class="hot-label">HOT</span>
+              </div>
+              <div class="content">
+                <h3><a href="${post.url}">${post.title}</a></h3>
+                <p>${post.excerpt}</p>
+                <a href="${post.url}" class="view-more">Xem thêm</a>
+              </div>
+            `;
+            postList.appendChild(postDiv);
+          });
+
+          // Khởi tạo carousel (chỉ trên PC)
+          if (window.innerWidth > 600) {
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.post-preview');
+            const totalSlides = slides.length;
+
+            function showSlide(index) {
+              if (index >= totalSlides) currentSlide = 0;
+              if (index < 0) currentSlide = totalSlides - 1;
+              slides.forEach((slide, i) => {
+                slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`;
+              });
+            }
+
+            // Tự động chuyển slide
+            setInterval(() => {
+              currentSlide++;
+              showSlide(currentSlide);
+            }, 5000); // Chuyển slide mỗi 5 giây
+
+            // Nút điều hướng
+            document.getElementById('prev-slide').addEventListener('click', () => {
+              currentSlide--;
+              showSlide(currentSlide);
+            });
+
+            document.getElementById('next-slide').addEventListener('click', () => {
+              currentSlide++;
+              showSlide(currentSlide);
+            });
+
+            // Hiển thị slide đầu tiên
+            showSlide(currentSlide);
+          }
+        })
+        .catch(error => {
+          console.error('Lỗi:', error);
+          document.getElementById("post-list").innerHTML = "<p>Không thể tải danh sách bài viết.</p>";
+        });
+    </script>
+  </body>
+</html>
+
+<style>
+  /* Reset mặc định */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* CSS cho body */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    line-height: 1.6;
+    color: #333;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/logo/logo.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    opacity: 0.3;
+    z-index: -1;
+  }
+
+  /* Overlay cho sidebar */
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .overlay.active {
+    display: block;
+  }
+
+  /* Header Styles */
+  header {
+    background-color: #1a3c6d;
+    background-image: url('images/header.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 10px 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  @media (min-width: 601px) {
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+  }
+
+  .header-top,
+  .nav-container,
+  .hamburger {
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-top {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+
+  .header-logo img {
+    width: 150px;
+    height: 50px;
+    object-fit: contain;
+  }
+
+  .hamburger {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    z-index: 1001;
+  }
+
+  @media (max-width: 600px) {
+    .header-top {
+      display: flex;
+    }
+    .hamburger {
+      display: block;
+    }
+    .header-logo img {
+      width: 120px;
+      height: 40px;
+    }
+  }
+
+  .nav-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .nav-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .close-menu {
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+  }
+
+  .nav-menu .nav-tabs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-menu .nav-tabs li {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .nav-menu .nav-tabs a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .nav-menu .nav-tabs a i {
+    margin-right: 8px;
+    color: #ff5733;
+  }
+
+  .nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 8px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .nav-content .header-logo {
+    display: block;
+  }
+
+  .nav-content .nav-tabs {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+
+  .nav-content .nav-tabs a {
+    text-decoration: none;
+    color: #333;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 8px;
+  }
+
+  .nav-content .nav-tabs a:hover {
+    color: #ff5733;
+  }
+
+  .consult-btn {
+    background-color: #ff5733;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color 0.3s ease;
+  }
+
+  .consult-btn:hover {
+    background-color: #e04e2d;
+  }
+
+  @media (max-width: 600px) {
+    .nav-content {
+      display: none;
+    }
+    .nav-menu {
+      display: block;
+    }
+  }
+
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+  }
+
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-menu li {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .dropdown-menu a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+  }
+
+  .dropdown-menu a:hover {
+    background-color: #f8f8f8;
+  }
+
+  .nav-menu .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    display: none;
+    background-color: #f8f8f8;
+  }
+
+  .nav-menu .dropdown.active .dropdown-menu {
+    display: block;
+  }
+
+  /* Main Styles */
+  .container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    z-index: 1;
+    flex: 1;
+  }
+
+  main p {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  #cancel-redirect {
+    display: block;
+    margin: 10px auto;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    min-width: 150px;
+    cursor: pointer;
+    background-color: #ff4500;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+  }
+
+  /* Featured Posts Section */
+  .featured-posts h2 {
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ff5733;
+    padding-bottom: 10px;
+  }
+
+  #post-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 10px 0;
+  }
+
+  .post-preview {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .post-preview .hot-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff5733;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .post-image img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .post-content {
+    padding: 15px;
+  }
+
+  .post-content h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .post-content p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+
+  .post-content .view-more {
+    display: inline-block;
+    color: #ff5733;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* Video Section */
+  .video-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .video-container {
+    position: relative;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .video-container iframe {
+    width: 100%;
+    height: 200px;
+    border: none;
+  }
+
+  .video-caption {
+    padding: 10px;
+  }
+
+  .video-caption a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* Thank You Section */
+  .thank-you-section {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .thank-you-gif {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+  }
+
+  /* Footer Styles */
+  footer {
+    background-color: #1a3c6d;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+  }
+
+  .footer-links li {
+    display: inline;
+    margin: 0 10px;
+  }
+
+  .footer-links a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    body {
+      padding-top: 0;
+    }
+  }
+</style>
 </html>
