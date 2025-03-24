@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Về Chúng Tôi - IVS JSC</title>
+    <meta name="description" content="Tìm hiểu về IVS JSC - Đơn vị tiên phong trong giáo dục và công nghệ, cung cấp các giải pháp đào tạo quốc tế, chương trình STEAM và kỹ năng mềm tại Long Thành, Đồng Nai.">
+    <meta property="og:title" content="Liên Kết Quốc Tế - IVS JSC">
+    <meta property="og:description" content="Tìm hiểu về IVS JSC - Đơn vị tiên phong trong giáo dục và công nghệ, cung cấp các giải pháp đào tạo quốc tế, chương trình STEAM và kỹ năng mềm tại Long Thành, Đồng Nai.">
+    <meta property="og:image" content="/images/Media.png">
+    <meta property="og:url" content="https://ivs.id.vn/about.html">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- Chèn header -->
+    <div id="header"></div>
+    <div class="container">
+        <h2>Liên kết Quốc tế cùng IVS JSC</h2>
+        <p>IVS JSC tự hào xây dựng các mối quan hệ hợp tác quốc tế nhằm mang đến những cơ hội học tập và trải nghiệm toàn cầu cho học sinh, giáo viên và đối tác tại Việt Nam. Chúng tôi liên kết với các tổ chức giáo dục uy tín từ nhiều quốc gia để phát triển các chương trình đào tạo chất lượng cao, đáp ứng xu hướng hội nhập quốc tế.</p>
+
+        <h3>Các Chương trình Liên kết Quốc tế</h3>
+
+        <div class="international-link">
+            <h3>Trại hè Quốc tế</h3>
+            <p>Chương trình Trại hè Quốc tế của IVS JSC mang đến cho học sinh cơ hội trải nghiệm văn hóa, học tập và giao lưu với bạn bè quốc tế. Các trại hè được tổ chức tại nhiều quốc gia như Hoa Kỳ, Singapore, và Philippines, kết hợp giữa học thuật và hoạt động ngoại khóa phong phú.</p>
+            <p><a href="summercamp.html" class="detail-button">Xem chi tiết</a></p>
+        </div>
+
+        <div class="international-link">
+            <h3>Du học Liên kết</h3>
+            <p>Chúng tôi hợp tác với các trường đại học và tổ chức giáo dục tại Hoa Kỳ, Đài Loan, và châu Âu để cung cấp các chương trình du học liên kết. Học sinh có thể tham gia các khóa học ngắn hạn hoặc dài hạn với lộ trình chuyển tiếp linh hoạt và hỗ trợ tối đa.</p>
+            <p><a href="#" class="detail-button">Xem chi tiết</a></p>
+        </div>
+
+        <div class="international-link">
+            <h3>Trao đổi Học sinh và Giáo viên</h3>
+            <p>Chương trình trao đổi quốc tế giúp học sinh và giáo viên trải nghiệm môi trường giáo dục đa văn hóa. IVS JSC phối hợp với các đối tác quốc tế để tổ chức các đợt trao đổi định kỳ, nâng cao kỹ năng và mở rộng tầm nhìn toàn cầu.</p>
+            <p><a href="#" class="detail-button">Xem chi tiết</a></p>
+        </div>
+
+        <div class="international-link">
+            <h3>Hợp tác Phát triển Giáo dục Công nghệ</h3>
+            <p>IVS JSC liên kết với các tổ chức EdTech quốc tế để phát triển các nền tảng học tập số như E-learning, ứng dụng AI và VR/AR. Đây là bước tiến quan trọng để đưa giáo dục Việt Nam vươn tầm thế giới.</p>
+            <p><a href="#" class="detail-button">Xem chi tiết</a></p>
+        </div>
+
+        <h3>Lợi ích của Liên kết Quốc tế</h3>
+        <ul>
+            <li>Tiếp cận các chương trình giáo dục tiên tiến từ các quốc gia phát triển.</li>
+            <li>Mở rộng cơ hội học tập và phát triển cá nhân trên phạm vi toàn cầu.</li>
+            <li>Tăng cường kỹ năng giao tiếp đa văn hóa và ngoại ngữ.</li>
+            <li>Đóng góp vào sự phát triển của giáo dục Việt Nam thông qua hợp tác quốc tế.</li>
+        </ul>
+
+        <a href="index.html" class="back-button">Quay lại Trang chủ</a>
+    </div>
+
+    <!-- Chèn footer -->
+    <div id="footer"></div>
+
+    <!-- Tải header và footer bằng JavaScript -->
+    <script>
+        // Ép buộc HTTPS
+        if (window.location.protocol !== 'https:') {
+            window.location.replace('https://' + window.location.hostname + window.location.pathname + window.location.search);
+        }
+
+        // Tải header
+        fetch('/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+                const hamburger = document.querySelector('.hamburger');
+                const navTabs = document.querySelector('.nav-tabs');
+                if (hamburger && navTabs) {
+                    hamburger.addEventListener('click', () => {
+                        navTabs.classList.toggle('active');
+                        hamburger.textContent = navTabs.classList.contains('active') ? '✖' : '☰';
+                    });
+                }
+            })
+            .catch(error => console.error('Lỗi khi tải header:', error));
+
+        // Tải footer
+        fetch('/footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer').innerHTML = data)
+            .catch(error => console.error('Lỗi khi tải footer:', error));
+    </script>
+</body>
+</html>
