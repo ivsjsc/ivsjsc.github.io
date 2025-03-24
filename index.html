@@ -14,7 +14,14 @@
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* CSS cần thiết cho index.html */
+    /* Reset mặc định */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* CSS cho body */
     body {
       font-family: Arial, sans-serif;
       background-color: #f9f9f9;
@@ -42,6 +49,7 @@
       z-index: -1;
     }
 
+    /* Overlay cho sidebar */
     .overlay {
       display: none;
       position: fixed;
@@ -57,6 +65,251 @@
       display: block;
     }
 
+    /* Header Styles */
+    header {
+      background-color: #1a3c6d;
+      background-image: url('images/header.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      padding: 10px 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    @media (min-width: 601px) {
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+      }
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+    .header-top,
+    .nav-container,
+    .hamburger {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-top {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+    }
+
+    .header-logo img {
+      width: 150px;
+      height: 50px;
+      object-fit: contain;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      z-index: 1001;
+    }
+
+    @media (max-width: 600px) {
+      .header-top {
+        display: flex;
+      }
+      .hamburger {
+        display: block;
+      }
+      .header-logo img {
+        width: 120px;
+        height: 40px;
+      }
+    }
+
+    .nav-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100vh;
+      background-color: #fff;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      transition: left 0.3s ease;
+    }
+
+    .nav-menu.active {
+      left: 0;
+    }
+
+    .nav-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background-color: #f8f8f8;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .close-menu {
+      font-size: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .nav-menu .nav-tabs {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-menu .nav-tabs li {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .nav-menu .nav-tabs a {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      text-decoration: none;
+      color: #333;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .nav-menu .nav-tabs a i {
+      margin-right: 8px;
+      color: #ff5733;
+    }
+
+    .nav-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 8px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .nav-content .header-logo {
+      display: block;
+    }
+
+    .nav-content .nav-tabs {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+    }
+
+    .nav-content .nav-tabs a {
+      text-decoration: none;
+      color: #333;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 8px;
+    }
+
+    .nav-content .nav-tabs a:hover {
+      color: #ff5733;
+    }
+
+    .consult-btn {
+      background-color: #ff5733;
+      color: #fff;
+      padding: 8px 15px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: background-color 0.3s ease;
+    }
+
+    .consult-btn:hover {
+      background-color: #e04e2d;
+    }
+
+    @media (max-width: 600px) {
+      .nav-content {
+        display: none;
+      }
+      .nav-menu {
+        display: block;
+      }
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      z-index: 1000;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu li {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #f8f8f8;
+    }
+
+    .nav-menu .dropdown-menu {
+      position: static;
+      box-shadow: none;
+      display: none;
+      background-color: #f8f8f8;
+    }
+
+    .nav-menu .dropdown.active .dropdown-menu {
+      display: block;
+    }
+
+    /* Main Styles */
     .container {
       max-width: 1200px;
       width: 100%;
@@ -68,7 +321,6 @@
       flex: 1;
     }
 
-    /* Main Styles */
     main p {
       text-align: center;
       font-size: 1rem;
@@ -244,8 +496,130 @@
   </style>
 </head>
 <body>
-  <!-- Nơi để chèn header -->
-  <div id="header"></div>
+  <!-- Header -->
+  <header>
+    <div class="header-top">
+      <button class="hamburger">☰</button>
+      <div class="header-logo">
+        <img src="images/ivs-education-logo.png" alt="IVS Education Logo">
+      </div>
+    </div>
+
+    <div class="nav-menu">
+      <div class="nav-menu-header">
+        <button class="close-menu">✖</button>
+        <span>Menu</span>
+      </div>
+      <ul class="nav-tabs">
+        <li><a href="index.html"><i class="fas fa-home"></i> TRANG CHỦ</a></li>
+        <li class="dropdown">
+          <a href="javascript:void(0)"><i class="fas fa-info-circle"></i> VỀ CHÚNG TÔI</a>
+          <ul class="dropdown-menu">
+            <li><a href="about.html">About us</a></li>            
+            <li><a href="ivsmeaning.html">Ý nghĩa IVS</a></li>
+            <li><a href="sumenh.html">Sứ mệnh</a></li>
+            <li><a href="doingu.html">Đội ngũ</a></li>
+            <li><a href="co-hoi-dau-tu.html">Cơ hội đầu tư</a></li>
+            <li><a href="doi-tac.html">Đối tác đồng hành</a></li> 
+            <li><a href="philoinhuan.html">Phi Lợi Nhuận</a></li>
+          </ul>
+        </li> 
+        <li class="dropdown">
+          <a href="javascript:void(0)"><i class="fas fa-info-circle"></i> HỢP TÁC QUỐC TẾ</a>
+          <ul class="dropdown-menu">
+            <li><a href="hocbong.html">Học bổng Du học</a></li>
+            <li><a href="summercamp.html">Trại hè Quốc tế</a></li>
+            <li><a href="lien-ket-quoc-te.html">Liên kết Quốc tế</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="javascript:void(0)"><i class="fas fa-info-circle"></i> ĐANG HOẠT ĐỘNG</a>
+          <ul class="dropdown-menu">
+            <li><a href="dau-tu.html">Hoạt động vì cộng đồng</a></li> 
+            <li><a href="tai-tro.html">Chương trình "Hãy Nói"</a></li>
+          </ul>  
+        </li>
+        <li class="dropdown">
+          <a href="javascript:void(0)"><i class="fas fa-info-circle"></i> TƯ VẤN GIÁO DỤC</a>
+          <ul class="dropdown-menu">
+            <li><a href="tuvan.html">Tư vấn thủ tục, pháp lý Doanh nghiệp</a></li> 
+            <li><a href="thanhlaptrungtam.html">Thành lập Trung Tâm Ngoại Ngữ</a></li>  
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="javascript:void(0)"><i class="fas fa-heart"></i> TIỆN ÍCH</a>
+          <ul class="dropdown-menu">
+            <li><a href="https://aistudio.instagram.com/ai/663072466085450/?utm_source=mshare">Chatbot Talkie-Talkie hỗ trợ các thành viên "Hãy Nói"</a></li> 
+            <li><a href="https://www.facebook.com/haynoi.tuoitredongnai">Fanpage "Hãy Nói"</a></li> 
+            <li><a href="https://www.facebook.com/groups/500998409540367/">Cộng đồng Let's Talk Đồng Nai</a></li>  
+            <li><a href="https://zalo.me/g/ktxjdw182">Hồ sơ Giáo viên nước ngoài tại Việt Nam</a></li>  
+            <li><a href="https://www.facebook.com/groups/500998409540367/">Tìm hiểu thêm tại Zalo Official & Zalo Mini App</a></li>  
+          </ul>
+        </li>                     
+        <li><a href="career.html"><i class="fas fa-briefcase"></i> TUYỂN DỤNG</a></li>
+        <li><a href="nmt-vcard.html"><i class="fas fa-briefcase"></i> LIÊN HỆ</a></li>     
+        <li><a href="english-placement.html"><i class="fas fa-clipboard-check"></i> BÀI TEST TIẾNG ANH 6 BẬC</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-container">
+      <div class="nav-content">
+        <div class="header-logo">
+          <img src="images/ivs-education-logo.png" alt="IVS Education Logo">
+        </div>
+        <ul class="nav-tabs">
+          <li><a href="index.html">TRANG CHỦ</a></li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">VỀ CHÚNG TÔI</a>
+            <ul class="dropdown-menu">
+              <li><a href="about.html">About us</a></li>            
+              <li><a href="ivsmeaning.html">Ý nghĩa IVS</a></li>
+              <li><a href="sumenh.html">Sứ mệnh</a></li>
+              <li><a href="doingu.html">Đội ngũ</a></li>
+              <li><a href="co-hoi-dau-tu.html">Cơ hội đầu tư</a></li>
+              <li><a href="doi-tac.html">Đối tác đồng hành</a></li> 
+              <li><a href="philoinhuan.html">Phi Lợi Nhuận</a></li>
+            </ul>
+          </li>   
+          <li class="dropdown">
+            <a href="javascript:void(0)">HỢP TÁC QUỐC TẾ</a>
+            <ul class="dropdown-menu">
+              <li><a href="hocbong.html">Học bổng Du học</a></li>
+              <li><a href="summercamp.html">Trại hè Quốc tế</a></li>
+              <li><a href="lien-ket-quoc-te.html">Liên kết Quốc tế</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">ĐANG HOẠT ĐỘNG</a>
+            <ul class="dropdown-menu">
+              <li><a href="dau-tu.html">Hoạt động vì cộng đồng</a></li> 
+              <li><a href="tai-tro.html">Chương trình "Hãy Nói"</a></li>
+            </ul>  
+          </li>     
+          <li class="dropdown">
+            <a href="javascript:void(0)">TƯ VẤN GIÁO DỤC</a>
+            <ul class="dropdown-menu">
+              <li><a href="tuvan.html">Tư vấn thủ tục, pháp lý Doanh nghiệp</a></li> 
+              <li><a href="thanhlaptrungtam.html">Thành lập Trung Tâm Ngoại Ngữ</a></li>  
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="javascript:void(0)">TIỆN ÍCH</a>
+            <ul class="dropdown-menu">
+              <li><a href="https://aistudio.instagram.com/ai/663072466085450/?utm_source=mshare">Chatbot Talkie-Talkie hỗ trợ các thành viên "Hãy Nói"</a></li> 
+              <li><a href="https://www.facebook.com/haynoi.tuoitredongnai">Fanpage "Hãy Nói"</a></li> 
+              <li><a href="https://www.facebook.com/groups/500998409540367/">Cộng đồng Let's Talk Đồng Nai</a></li>  
+              <li><a href="https://zalo.me/g/ktxjdw182">Hồ sơ Giáo viên nước ngoài tại Việt Nam</a></li>  
+              <li><a href="https://www.facebook.com/groups/500998409540367/">Tìm hiểu thêm tại Zalo Official & Zalo Mini App</a></li>  
+            </ul>
+          </li> 
+          <li><a href="career.html">TUYỂN DỤNG</a></li>
+          <li><a href="nmt-vcard.html">LIÊN HỆ</a></li>
+        </ul>
+        <a href="english-placement.html" class="consult-btn">TEST TIẾNG ANH 6 BẬC</a>
+      </div>
+    </div>
+  </header>
 
   <!-- Main -->
   <main class="container">
@@ -309,8 +683,16 @@
     </section>
   </main>
 
-  <!-- Nơi để chèn footer -->
-  <div id="footer"></div>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>© 2025 IVS Education. All rights reserved.</p>
+      <ul class="footer-links">
+        <li><a href="nmt-vcard.html">Liên hệ</a></li>
+        <li><a href="https://www.facebook.com/hr.ivsacademy">Fanpage</a></li>
+      </ul>
+    </div>
+  </footer>
 
   <!-- Gọi file scripts.js -->
   <script src="js/scripts.js"></script>
