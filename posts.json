@@ -1,27 +1,81 @@
-[
+<script>
+  // JSON data for featured posts
+  const posts = [
+    {
+      title: "TRẠI HÈ QUỐC TẾ TẠI PHILIPPINES 2025",
+      excerpt: "🎉Tin vui cho các bậc phụ huynh và các em học sinh! IVS Academy thông báo về chương trình Học bổng Trại hè Quốc tế...",
+      url: "summercamp.html",
+      image: "images/summerbanner.jpg",
+    },
+    {
+      title: "TƯ VẤN THỦ TỤC THÀNH LẬP TRUNG TÂM, CƠ SỞ GIÁO DỤC",
+      excerpt: "🎉Tư vấn, hỗ trợ thủ tục, hồ sơ pháp lý, tài liệu, chương trình đào tạo, từ A tới Z.",
+      url: "tuvan.html",
+      image: "images/lifeminds.png",
+    },
+    {
+      title: "HỢP TÁC ĐẦU TƯ",
+      excerpt: "🎉Cơ hội bức phá cùng ngành giáo dục, một tương lai bền vững",
+      url: "hop-tac-dau-tu.html",
+      image: "images/ivs-celestech.jpg",
+    },
+    {
+      title: "TUYỂN DỤNG",
+      excerpt: "🎉Tin tuyển dụng từ IVS JSC",
+      url: "career.html",
+      image: "images/logo.png",
+    },
+  ];
 
-    {
-        "title": "TRẠI HÈ QUỐC TẾ TẠI PHILIPPINES 2025",
-        "excerpt": "🎉Tin vui cho các bậc phụ huynh và các em học sinh! IVS Academy thông báo về chương trình Học bổng Trại hè Quốc tế...",
-        "url": "summercamp.html",
-        "image": "images/summerbanner.jpg"
-    },
-    {
-        "title": "TƯ VẤN THỦ TỤC THÀNH LẬP TRUNG TÂM, CƠ SỞ GIÁO DỤC",
-        "excerpt": "🎉Tư vấn, hỗ trợ thủ tục, hồ sơ pháp lý, tài liệu, chương trình đào tạo, từ A tới Z.",
-        "url": "tuvan.html",
-        "image": "images/lifeminds.png"
-    },
-    {
-        "title": "HỢP TÁC ĐẦU TƯ",
-        "excerpt": "🎉Cơ hội bức phá cùng ngành giáo dục, một tương lai bền vững",
-        "url": "hop-tac-dau-tu.html",
-        "image": "images/ivs-celestech.jpg"
-    },
-    {
-        "title": "TUYỂN DỤNG",
-        "excerpt": "🎉Tin tuyển dụng từ IVS JSC",
-        "url": "career.html",
-        "image": "images/logo.png"
+  // Render posts dynamically
+  const postList = document.getElementById("post-list");
+  posts.forEach((post, index) => {
+    const postElement = document.createElement("div");
+    postElement.classList.add("post-preview");
+    postElement.innerHTML = `
+      <div class="post-image">
+        <img src="${post.image}" alt="${post.title}">
+        ${index === 0 ? '<span class="hot-label">HOT</span>' : ""}
+      </div>
+      <div class="content">
+        <h3>${post.title}</h3>
+        <p>${post.excerpt}</p>
+        <a href="${post.url}" class="view-more">Xem thêm</a>
+      </div>
+    `;
+    postList.appendChild(postElement);
+  });
+
+  // Carousel navigation for desktop
+  const prevButton = document.getElementById("prev-post");
+  const nextButton = document.getElementById("next-post");
+  let currentIndex = 0;
+  const postsPerPage = 3; // Number of posts to show at a time on desktop
+  const totalPosts = posts.length;
+
+  function updateCarousel() {
+    const offset = currentIndex * (100 / postsPerPage);
+    postList.style.transform = `translateX(-${offset}%)`;
+
+    // Disable buttons when at the start or end
+    prevButton.disabled = currentIndex === 0;
+    nextButton.disabled = currentIndex >= totalPosts - postsPerPage;
+  }
+
+  prevButton.addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCarousel();
     }
-]
+  });
+
+  nextButton.addEventListener("click", () => {
+    if (currentIndex < totalPosts - postsPerPage) {
+      currentIndex++;
+      updateCarousel();
+    }
+  });
+
+  // Initial update
+  updateCarousel();
+</script>
