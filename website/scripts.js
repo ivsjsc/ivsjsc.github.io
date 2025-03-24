@@ -33,6 +33,17 @@ fetch('header.html')
           dropdownMenu.style.display = isActive ? "none" : "block";
         });
       }
+      const dropdowns = document.querySelectorAll(".nav-menu ul li");
+      dropdowns.forEach(dropdown => {
+        const dropdownMenu = dropdown.querySelector("ul");
+        if (dropdownMenu) {
+          dropdown.addEventListener("click", function(e) {
+            e.stopPropagation();
+            const isActive = dropdownMenu.style.display === "block";
+            dropdownMenu.style.display = isActive ? "none" : "block";
+    });
+  }
+});
     });
   })
   .catch(() => document.getElementById('header').innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải header!</p>');
