@@ -1355,4 +1355,67 @@ main {
   .nav-bar .dropdown:hover .dropdown-menu {
     display: block;
   }
+  /* styles.css */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Đảm bảo header cố định */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Đảm bảo footer luôn ở dưới cùng */
+footer {
+  position: relative;
+  z-index: 1000;
+}
+
+/* Khoảng trống cho nội dung chính */
+main {
+  padding: 20px;
+  min-height: calc(100vh - 300px);
+}
+
+/* Responsive cho header */
+@media (max-width: 768px) {
+  .nav-bar .hamburger {
+    display: block;
+  }
+  .nav-bar > div:last-child {
+    display: none;
+  }
+  .nav-menu {
+    display: none;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: #333;
+    z-index: 1001;
+  }
+  .nav-menu.active {
+    display: block;
+  }
+  .nav-menu .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .nav-menu .dropdown.active .dropdown-menu {
+    max-height: 500px;
+  }
+  .header-background {
+    height: 100px;
+  }
+}
+
+@media (min-width: 769px) {
+  .nav-bar .dropdown:hover .dropdown-menu {
+    display: block !important;
+  }
 }
