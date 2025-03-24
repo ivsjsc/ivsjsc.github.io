@@ -163,6 +163,12 @@
       transition: left 0.3s ease;
     }
 
+    @media (max-width: 600px) {
+      .nav-menu {
+        display: block; /* Chỉ hiển thị trên mobile */
+      }
+    }
+
     .nav-menu.active {
       left: 0;
     }
@@ -255,9 +261,6 @@
     @media (max-width: 600px) {
       .nav-content {
         display: none;
-      }
-      .nav-menu {
-        display: block;
       }
     }
 
@@ -640,6 +643,10 @@
     const overlay = document.createElement("div");
     overlay.className = "overlay";
     document.body.appendChild(overlay);
+
+    // Đảm bảo sidebar không tự động mở khi trang tải
+    navMenu.classList.remove("active");
+    overlay.classList.remove("active");
 
     hamburger.addEventListener("click", () => {
       navMenu.classList.add("active");
