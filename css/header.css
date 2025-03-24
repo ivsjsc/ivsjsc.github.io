@@ -1,254 +1,297 @@
 /* Reset mặc định */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Header Styles */
-  header {
-    background-color: #1a3c6d;
-    background-image: url('../images/header.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 10px 0;
-    width: 100%;
-    z-index: 1000;
-  }
-  
-  @media (min-width: 601px) {
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-    }
-  }
-  
-  header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 0;
-  }
-  
-  .header-top,
-  .nav-container,
-  .hamburger {
-    position: relative;
-    z-index: 1;
-  }
-  
-  /* Header trên mobile */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Header Styles */
+header {
+  background-color: #1a3c6d;
+  background-image: url('../images/logo/logo1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 10px 0;
+  width: 100%;
+  z-index: 1000;
+  position: relative;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+.header-top,
+.nav-container,
+.hamburger {
+  position: relative;
+  z-index: 1;
+}
+
+/* Header trên mobile */
+.header-top {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px; /* Giảm padding để tiết kiệm không gian trên mobile */
+}
+
+/* Logo */
+.header-logo img {
+  width: 150px;
+  height: 50px;
+  object-fit: contain;
+}
+
+/* Nút hamburger */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  z-index: 1001;
+}
+
+/* Sidebar menu trên mobile */
+.nav-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100vh;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: left 0.3s ease;
+}
+
+.nav-menu.active {
+  left: 0;
+}
+
+.nav-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+}
+
+.close-menu {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.nav-menu .nav-tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-menu .nav-tabs li {
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-menu .nav-tabs a {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background-color 0.2s ease; /* Thêm hiệu ứng hover */
+}
+
+.nav-menu .nav-tabs a:hover {
+  background-color: #f0f0f0; /* Hiệu ứng hover cho sidebar */
+}
+
+.nav-menu .nav-tabs a i {
+  margin-right: 8px;
+  color: #ff5733;
+}
+
+/* Menu ngang trên PC */
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 8px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.nav-content .header-logo {
+  display: block;
+}
+
+.nav-content .nav-tabs {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.nav-content .nav-tabs a {
+  text-decoration: none;
+  color: #333;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 8px;
+  transition: color 0.3s ease; /* Hiệu ứng hover mượt mà */
+}
+
+.nav-content .nav-tabs a:hover {
+  color: #ff5733;
+}
+
+/* Nút tư vấn */
+.consult-btn {
+  background-color: #ff5733;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+
+.consult-btn:hover {
+  background-color: #e04e2d;
+}
+
+/* Dropdown menu */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 1000;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu li {
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  transition: background-color 0.2s ease; /* Hiệu ứng hover */
+}
+
+.dropdown-menu a:hover {
+  background-color: #f8f8f8;
+}
+
+/* Dropdown trong sidebar */
+.nav-menu .dropdown-menu {
+  position: static;
+  box-shadow: none;
+  display: none;
+  background-color: #f8f8f8;
+}
+
+.nav-menu .dropdown.active .dropdown-menu {
+  display: block;
+}
+
+/* Media query cho mobile */
+@media (max-width: 600px) {
+  /* Hiển thị header-top và hamburger trên mobile */
   .header-top {
-    display: none;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
+    display: flex;
   }
-  
-  .header-logo img {
-    width: 150px;
-    height: 50px;
-    object-fit: contain;
-  }
-  
+
   .hamburger {
+    display: block;
+    color: #333; /* Đổi màu hamburger để nổi trên nền trắng */
+  }
+
+  .header-logo img {
+    width: 120px;
+    height: 40px;
+  }
+
+  /* Ẩn menu ngang và hiển thị sidebar */
+  .nav-content {
     display: none;
-    font-size: 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #fff;
-    z-index: 1001;
   }
-  
-  @media (max-width: 600px) {
-    .header-top {
-      display: flex;
-    }
-    .hamburger {
-      display: block;
-    }
-    .header-logo img {
-      width: 120px;
-      height: 40px;
-    }
-  }
-  
+
   .nav-menu {
-    display: none;
+    display: block;
+  }
+
+  /* Đổi màu nền header trên mobile thành trắng */
+  header {
+    background-color: #ffffff;
+    background-image: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Thêm bóng để nổi bật */
+  }
+
+  header::before {
+    background-color: transparent; /* Xóa lớp phủ */
+  }
+}
+
+/* Media query cho desktop */
+@media (min-width: 601px) {
+  header {
     position: fixed;
     top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100vh;
-    background-color: #fff;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    transition: left 0.3s ease;
-  }
-  
-  .nav-menu.active {
     left: 0;
   }
-  
-  .nav-menu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background-color: #f8f8f8;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .close-menu {
-    font-size: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #333;
-  }
-  
-  .nav-menu .nav-tabs {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .nav-menu .nav-tabs li {
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .nav-menu .nav-tabs a {
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    text-decoration: none;
-    color: #333;
-    font-size: 15px;
-    font-weight: 600;
-  }
-  
-  .nav-menu .nav-tabs a i {
-    margin-right: 8px;
-    color: #ff5733;
-  }
-  
-  /* Menu ngang trên PC */
-  .nav-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 8px 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  
-  .nav-content .header-logo {
-    display: block;
-  }
-  
+
+  /* Tăng khoảng cách giữa các mục menu trên desktop */
   .nav-content .nav-tabs {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 0;
-    flex-wrap: nowrap;
-    white-space: nowrap;
+    gap: 15px; /* Tăng khoảng cách giữa các mục */
   }
-  
+
   .nav-content .nav-tabs a {
-    text-decoration: none;
-    color: #333;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 5px 8px;
+    font-size: 14px; /* Tăng kích thước chữ cho dễ đọc */
   }
-  
-  .nav-content .nav-tabs a:hover {
-    color: #ff5733;
-  }
-  
+
   .consult-btn {
-    background-color: #ff5733;
-    color: #fff;
-    padding: 8px 15px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 600;
-    white-space: nowrap;
-    transition: background-color 0.3s ease;
+    font-size: 14px; /* Tăng kích thước chữ cho nút tư vấn */
+    padding: 10px 20px; /* Tăng padding cho nút */
   }
-  
-  .consult-btn:hover {
-    background-color: #e04e2d;
-  }
-  
-  @media (max-width: 600px) {
-    .nav-content {
-      display: none;
-    }
-    .nav-menu {
-      display: block;
-    }
-  }
-  
-  /* Dropdown menu */
-  .dropdown {
-    position: relative;
-  }
-  
-  .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    z-index: 1000;
-  }
-  
-  .dropdown:hover .dropdown-menu {
-    display: block;
-  }
-  
-  .dropdown-menu li {
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .dropdown-menu a {
-    display: block;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #333;
-    font-size: 14px;
-  }
-  
-  .dropdown-menu a:hover {
-    background-color: #f8f8f8;
-  }
-  
-  /* Dropdown trong sidebar */
-  .nav-menu .dropdown-menu {
-    position: static;
-    box-shadow: none;
-    display: none;
-    background-color: #f8f8f8;
-  }
-  
-  .nav-menu .dropdown.active .dropdown-menu {
-    display: block;
-  }
+}
