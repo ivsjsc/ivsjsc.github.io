@@ -20,9 +20,11 @@ const initHeaderEvents = () => {
   const hamburger = document.querySelector(".hamburger");
   const navMenu = document.querySelector(".nav-menu");
   const closeMenu = document.querySelector(".close-menu");
-  const overlay = document.querySelector(".overlay");
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+  document.body.appendChild(overlay);
 
-  if (!hamburger || !navMenu || !closeMenu || !overlay) {
+  if (!hamburger || !navMenu || !closeMenu) {
     console.warn("Không tìm thấy một số phần tử trong header!");
     return;
   }
@@ -49,6 +51,16 @@ const initHeaderEvents = () => {
       navMenu.classList.remove("active");
       overlay.classList.remove("active");
     }
+  });
+
+  // Toggle dropdown trong sidebar
+  const dropdowns = document.querySelectorAll(".nav-menu .dropdown > a");
+  dropdowns.forEach(dropdown => {
+    dropdown.addEventListener("click", function(e) {
+      e.preventDefault();
+      const parent = this.parentElement;
+      parent.classList.toggle("active");
+    });
   });
 };
 
