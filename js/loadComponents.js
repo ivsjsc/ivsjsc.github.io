@@ -5,7 +5,10 @@ document.addEventListener("DOMContentLoaded", function () {
   if (headerElement) {
     headerElement.innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải header...</p>';
     fetch('header.html')
-      .then(response => response.text())
+      .then(response => {
+        if (!response.ok) throw new Error("Không thể tải header.html");
+        return response.text();
+      })
       .then(data => {
         headerElement.innerHTML = data;
 
@@ -35,16 +38,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const dropdowns = document.querySelectorAll(".nav-menu .dropdown");
         dropdowns.forEach(dropdown => {
           dropdown.addEventListener("click", function (e) {
-            e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
+            e.stopPropagation();
             const isActive = dropdown.classList.contains("active");
-            dropdowns.forEach(d => d.classList.remove("active")); // Đóng các dropdown khác
+            dropdowns.forEach(d => d.classList.remove("active"));
             if (!isActive) {
               dropdown.classList.add("active");
             }
           });
         });
       })
-      .catch(() => {
+      .catch(error => {
+        console.error("Error loading header:", error);
         headerElement.innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải header!</p>';
       });
   }
@@ -54,11 +58,15 @@ document.addEventListener("DOMContentLoaded", function () {
   if (footerElement) {
     footerElement.innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải footer...</p>';
     fetch('footer.html')
-      .then(response => response.text())
+      .then(response => {
+        if (!response.ok) throw new Error("Không thể tải footer.html");
+        return response.text();
+      })
       .then(data => {
         footerElement.innerHTML = data;
       })
-      .catch(() => {
+      .catch(error => {
+        console.error("Error loading footer:", error);
         footerElement.innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải footer!</p>';
       });
   }
