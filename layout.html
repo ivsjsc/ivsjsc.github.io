@@ -113,17 +113,18 @@
       z-index: 1;
     }
 
+    /* Header trên mobile */
     .header-top {
-      display: flex;
+      display: none;
       align-items: center;
-      justify-content: center;
-      gap: 15px;
+      justify-content: space-between;
       padding: 10px 20px;
     }
 
     .header-logo img {
       width: 150px;
       height: 50px;
+      object-fit: contain;
     }
 
     .hamburger {
@@ -138,7 +139,7 @@
 
     @media (max-width: 600px) {
       .header-top {
-        justify-content: space-between;
+        display: flex;
       }
       .hamburger {
         display: block;
@@ -208,16 +209,21 @@
       color: #ff5733;
     }
 
+    /* Menu ngang trên PC */
     .nav-content {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       background-color: rgba(255, 255, 255, 0.95);
       padding: 8px 20px;
       border-radius: 8px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       max-width: 1200px;
       margin: 0 auto;
+    }
+
+    .nav-content .header-logo {
+      display: block;
     }
 
     .nav-content .nav-tabs {
@@ -244,6 +250,15 @@
       text-decoration: none;
       font-size: 14px;
       font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      .nav-content {
+        display: none;
+      }
+      .nav-menu {
+        display: block;
+      }
     }
 
     /* Main Styles */
@@ -406,33 +421,20 @@
       max-width: 1200px;
       margin: 0 auto;
     }
-
-    /* Responsive Styles */
-    @media (max-width: 600px) {
-      header {
-        position: relative;
-      }
-      body {
-        padding-top: 0;
-      }
-      .nav-content {
-        display: none;
-      }
-      .nav-menu {
-        display: block;
-      }
-    }
   </style>
 </head>
 <body>
   <!-- Header -->
   <header>
+    <!-- Header trên mobile -->
     <div class="header-top">
       <button class="hamburger">☰</button>
       <div class="header-logo">
-        <img src="images/logo.png" alt="IVS Logo">
+        <img src="images/ivs-education-logo.png" alt="IVS Education Logo">
       </div>
     </div>
+
+    <!-- Sidebar trên mobile -->
     <div class="nav-menu">
       <div class="nav-menu-header">
         <button class="close-menu">✖</button>
@@ -489,8 +491,13 @@
         <li><a href="english-placement.html"><i class="fas fa-clipboard-check"></i>BÀI TEST TIẾNG ANH 6 BẬC</a></li>
       </ul>
     </div>
+
+    <!-- Menu ngang trên PC -->
     <div class="nav-container">
       <div class="nav-content">
+        <div class="header-logo">
+          <img src="images/ivs-education-logo.png" alt="IVS Education Logo">
+        </div>
         <ul class="nav-tabs">
           <li><a href="index.html">TRANG CHỦ</a></li>
           <li class="dropdown">
