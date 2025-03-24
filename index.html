@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trang chủ - IVS Education</title>
+  <title>IVS Education</title>
   <meta name="description" content="IVS Education: Đào tạo ngoại ngữ, kỹ năng sống, hợp tác quốc tế, du học liên kết, trại hè quốc tế.">
   <meta property="og:title" content="IVS Education">
   <meta property="og:description" content="IVS Education: Đào tạo ngoại ngữ, kỹ năng sống, hợp tác quốc tế, du học liên kết, trại hè quốc tế.">
@@ -11,9 +11,14 @@
   <meta property="og:url" content="https://www.facebook.com/hr.ivsacademy">
   <meta property="og:type" content="website">
   <link rel="icon" href="images/Media.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    /* Reset mặc định */
+</head>
+<body>
+  <!-- Nơi để chèn header -->
+  <div id="header"></div>
+   
+   /* Reset mặc định */
     * {
       margin: 0;
       padding: 0;
@@ -592,6 +597,40 @@
     </section>
   </main>
 
+  <!-- Main -->
+  <main class="container">
+    <p id="redirect-timer">Website sẽ tự động chuyển đến Fanpage IVS Academy trong 2 phút...</p>
+    <button id="cancel-redirect">Hủy chuyển hướng</button>
+
+    <!-- Featured Posts Section -->
+    <section class="featured-posts">
+      <h2>Thông tin nổi bật</h2>
+      <div id="post-list" class="post-list">
+        <!-- Posts will be dynamically inserted here -->
+      </div>
+      <div class="carousel-controls">
+        <button id="prev-post" aria-label="Previous Post">&#10094;</button>
+        <button id="next-post" aria-label="Next Post">&#10095;</button>
+      </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/-U9JQvUYB94" title="Về chương trình Phi lợi nhuận Hãy Nói" allowfullscreen></iframe>
+        <div class="video-caption">
+          <a href="https://forms.gle/TH9n3MV5Ty4E46TL7" target="_blank">Đăng ký Talkshow 'Hãy Nói'</a>
+        </div>
+      </div>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/2qktCUrScMs" title="Trại hè Quốc tế tại Philippines" allowfullscreen></iframe>
+        <div class="video-caption">
+          <a href="summercamp.html">Thông tin chi tiết về Trại hè Quốc tế tại CEBU</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
   <!-- Footer -->
   <footer>
     <div class="footer-container">
@@ -669,7 +708,7 @@
               <img src="${post.image}" alt="${post.title}">
               <span class="hot-label">HOT</span>
             </div>
-            <div class="post-content">
+            <div class="content">
               <h3><a href="${post.url}">${post.title}</a></h3>
               <p>${post.excerpt}</p>
               <a href="${post.url}" class="view-more">Xem thêm</a>
@@ -677,6 +716,37 @@
           `;
           postList.appendChild(postDiv);
         });
+
+        if (window.innerWidth > 600) {
+          let currentSlide = 0;
+          const slides = document.querySelectorAll('.post-preview');
+          const totalSlides = slides.length;
+
+          function showSlide(index) {
+            if (index >= totalSlides) currentSlide = 0;
+            if (index < 0) currentSlide = totalSlides - 1;
+            slides.forEach((slide, i) => {
+              slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`;
+            });
+          }
+
+          setInterval(() => {
+            currentSlide++;
+            showSlide(currentSlide);
+          }, 5000);
+
+          document.getElementById('prev-post').addEventListener('click', () => {
+            currentSlide--;
+            showSlide(currentSlide);
+          });
+
+          document.getElementById('next-post').addEventListener('click', () => {
+            currentSlide++;
+            showSlide(currentSlide);
+          });
+
+          showSlide(currentSlide);
+        }
       });
   </script>
 </body>
