@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Học bổng Trại hè Quốc tế - IVS JSC</title>
-    <meta name="description" content="Tìm hiểu về IVS JSC - Đơn vị tiên phong trong giáo dục và công nghệ, cung cấp các giải pháp đào tạo quốc tế, chương trình STEAM...">
-    <meta property="og:title" content="Trại Hè Quốc Tế - IVS JSC">
-    <meta property="og:description" content="Tìm hiểu về IVS JSC - Đơn vị tiên phong trong giáo dục và công nghệ, cung cấp các giải pháp đào tạo quốc tế, chương trình...">
-    <meta property="og:image" content="/images/Media.png">
-    <meta property="og:url" content="https://ivs.id.vn/about.html">
-    <meta property="og:type" content="website">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IVS Education</title>
+  <meta name="description" content="IVS Education: Đào tạo ngoại ngữ, kỹ năng sống, hợp tác quốc tế, du học liên kết, trại hè quốc tế.">
+  <meta property="og:title" content="IVS Education">
+  <meta property="og:description" content="IVS Education: Đào tạo ngoại ngữ, kỹ năng sống, hợp tác quốc tế, du học liên kết, trại hè quốc tế.">
+  <meta property="og:image" content="images/Media.png">
+  <meta property="og:url" content="https://yourwebsite.com">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="images/Media.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Chèn header -->
-    <div id="header"></div> 
+  <!-- Nơi để chèn header -->
+  <div id="header"></div>
+
         <div class="container">
             <a href="index.html" class="back-button">⬅️ Trang chủ</a>
             <h1>🌟 Mùa Hè Bùng Nổ - Chinh Phục Tiếng Anh Tại Philippines! 🌟</h1>
@@ -429,34 +431,137 @@
     <!-- Chèn footer -->
     <div id="footer"></div>
 
-    <!-- Tải header và footer bằng JavaScript -->
+    <!-- Nơi để chèn footer -->
+    <div id="footer"></div>
+
+    <!-- JavaScript: tải header và footer, chuyển hướng tự động, toggle menu, carousel -->
     <script>
-        // Ép buộc HTTPS
-        if (window.location.protocol !== 'https:') {
-            window.location.replace('https://' + window.location.hostname + window.location.pathname + window.location.search);
+      // Tải header
+      document.getElementById('header').innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải header...</p>';
+      fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('header').innerHTML = data;
+          // Gắn sự kiện cho hamburger menu và close button
+          const hamburger = document.querySelector(".hamburger");
+          const navMenu = document.querySelector(".nav-menu");
+          const closeMenu = document.querySelector(".close-menu");
+
+          if (hamburger && navMenu && closeMenu) {
+            // Mở menu khi nhấp vào hamburger
+            hamburger.addEventListener("click", function() {
+              navMenu.classList.add("active");
+            });
+
+            // Đóng menu khi nhấp vào nút đóng
+            closeMenu.addEventListener("click", function() {
+              navMenu.classList.remove("active");
+            });
+
+            // Đóng menu khi nhấp ra ngoài
+            document.addEventListener("click", function(event) {
+              if (!navMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                navMenu.classList.remove("active");
+              }
+            });
+          }
+        })
+        .catch(() => document.getElementById('header').innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải header!</p>');
+
+      // Tải footer
+      document.getElementById('footer').innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải footer...</p>';
+      fetch('footer.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('footer').innerHTML = data;
+        })
+        .catch(() => document.getElementById('footer').innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải footer!</p>');
+
+      // Đồng hồ đếm ngược chuyển hướng
+      let timeLeft = 120; // 120 giây
+      const timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('redirect-timer').textContent = `Website sẽ tự động chuyển đến Fanpage IVS Academy trong ${Math.floor(timeLeft / 60)} phút ${timeLeft % 60} giây...`;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          window.location.href = "https://facebook.com/hr.ivsacademy";
         }
+      }, 1000);
 
-        // Tải header
-        fetch('/header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header').innerHTML = data;
-                const hamburger = document.querySelector('.hamburger');
-                const navTabs = document.querySelector('.nav-tabs');
-                if (hamburger && navTabs) {
-                    hamburger.addEventListener('click', () => {
-                        navTabs.classList.toggle('active');
-                        hamburger.textContent = navTabs.classList.contains('active') ? '✖' : '☰';
-                    });
-                }
-            })
-            .catch(error => console.error('Lỗi khi tải header:', error));
+      // Sự kiện hủy chuyển hướng
+      document.getElementById("cancel-redirect").addEventListener("click", function() {
+        clearInterval(timer);
+        this.textContent = "Đã hủy chuyển hướng";
+        this.disabled = true;
+        document.getElementById('redirect-timer').textContent = "Chuyển hướng đã bị hủy.";
+      });
 
-        // Tải footer
-        fetch('/footer.html')
-            .then(response => response.text())
-            .then(data => document.getElementById('footer').innerHTML = data)
-            .catch(error => console.error('Lỗi khi tải footer:', error));
+      // Lấy dữ liệu từ posts.json và tạo carousel/grid
+      fetch('posts.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Không thể tải file posts.json');
+          }
+          return response.json();
+        })
+        .then(posts => {
+          const postList = document.getElementById("post-list");
+          posts.forEach(post => {
+            const postDiv = document.createElement("div");
+            postDiv.className = "post-preview";
+            postDiv.innerHTML = `
+              <div class="post-image">
+                <img src="${post.image}" alt="${post.title}">
+                <span class="hot-label">HOT</span>
+              </div>
+              <div class="content">
+                <h3><a href="${post.url}">${post.title}</a></h3>
+                <p>${post.excerpt}</p>
+                <a href="${post.url}" class="view-more">Xem thêm</a>
+              </div>
+            `;
+            postList.appendChild(postDiv);
+          });
+
+          // Khởi tạo carousel (chỉ trên PC)
+          if (window.innerWidth > 600) {
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.post-preview');
+            const totalSlides = slides.length;
+
+            function showSlide(index) {
+              if (index >= totalSlides) currentSlide = 0;
+              if (index < 0) currentSlide = totalSlides - 1;
+              slides.forEach((slide, i) => {
+                slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`;
+              });
+            }
+
+            // Tự động chuyển slide
+            setInterval(() => {
+              currentSlide++;
+              showSlide(currentSlide);
+            }, 5000); // Chuyển slide mỗi 5 giây
+
+            // Nút điều hướng
+            document.getElementById('prev-slide').addEventListener('click', () => {
+              currentSlide--;
+              showSlide(currentSlide);
+            });
+
+            document.getElementById('next-slide').addEventListener('click', () => {
+              currentSlide++;
+              showSlide(currentSlide);
+            });
+
+            // Hiển thị slide đầu tiên
+            showSlide(currentSlide);
+          }
+        })
+        .catch(error => {
+          console.error('Lỗi:', error);
+          document.getElementById("post-list").innerHTML = "<p>Không thể tải danh sách bài viết.</p>";
+        });
     </script>
-</body>
+  </body>
 </html>
