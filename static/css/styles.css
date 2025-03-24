@@ -35,7 +35,10 @@ body::before {
   opacity: 0.3;
   z-index: -1;
 }
-
+/* Đảm bảo nội dung bên dưới không bị che khuất bởi header cố định */
+body {
+  padding-top: 80px; /* Điều chỉnh dựa trên chiều cao của header */
+}
 /* Overlay khi menu mở trên mobile */
 .overlay {
   display: none;
@@ -122,7 +125,16 @@ header::before {
   margin: 2px 0;
   font-weight: 400;
 }
-
+/* Đảm bảo header cố định ở trên cùng */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Đảm bảo header nằm trên các phần tử khác */
+  background-color: #fff; /* Màu nền để tránh nội dung bên dưới hiển thị qua */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Thêm bóng để tạo chiều sâu */
+}
 /* Hamburger menu */
 .hamburger {
   display: none;
@@ -308,7 +320,52 @@ header::before {
   background-color: #f8f8f8;
   color: #ff5733;
 }
+/* Dropdown menu */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-width: 200px;
+}
 
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu li a {
+  padding: 10px 20px;
+  font-weight: normal;
+  color: #333;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #f8f9fa;
+  color: #007bff;
+}
+
+/* Consult button */
+.consult-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.consult-btn:hover {
+  background-color: #0056b3;
+}
+
+.consult-btn i {
+  margin-right: 5px;
+}
 /* Định dạng nút "TEST TIẾNG ANH 6 BẬC" trên PC */
 .consult-btn {
   background-color: #ff5733;
@@ -628,7 +685,43 @@ img {
   .nav-content {
     display: none !important; /* Đảm bảo ẩn trên mobile */
   }
-
+  /* Đảm bảo nav-container và nav-content hiển thị đúng */
+.nav-container {
+  width: 100%;
+  max-width: 1200px; /* Giới hạn chiều rộng tối đa */
+  margin: 0 auto;
+  padding: 0 15px;
+  }
+  
+  .nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-tabs {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-tabs li {
+    position: relative;
+  }
+  
+  .nav-tabs li a {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-tabs li a:hover {
+    color: #007bff; /* Màu khi hover */
+  }
   /* Thêm đoạn này để hiển thị nút "TEST TIẾNG ANH 6 BẬC" */
   .consult-btn {
     display: block;
