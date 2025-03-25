@@ -35,4 +35,15 @@ const loadPosts = async () => {
       console.error('Lỗi khi tải posts:', error);
       postList.innerHTML = "<p>Không thể tải danh sách bài viết.</p>";
     }
-  };
+    let touchStartX = 0;
+let touchEndX = 0;
+
+postList.addEventListener('touchstart', e => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+postList.addEventListener('touchend', e => {
+  touchEndX = e.changedTouches[0].screenX;
+  if (touchStartX - touchEndX > 50) showSlide(++currentSlide); // Swipe left
+  if (touchEndX - touchStartX > 50) showSlide(--currentSlide); // Swipe right
+});

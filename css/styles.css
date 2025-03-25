@@ -1974,44 +1974,29 @@ details[open] summary {
       padding: 15px;
     }
   }
+.post-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
 
-  @media (max-width: 480px) {
-    .team-section h2 {
-      font-size: 20px;
-    }
+.post-preview {
+  flex: 1 1 100%; /* Mobile: full width */
+  max-width: 100%;
+}
 
-    .team-content h3 {
-      font-size: 16px;
-    }
-
-    .team-member-image {
-      width: 60px;
-      height: 60px;
-    }
-
-    .team-member-info h4 {
-      font-size: 14px;
-    }
-
-    .team-member-info p {
-      font-size: 12px;
-    }
+@media (min-width: 600px) {
+  .post-preview {
+    flex: 1 1 33%; /* Desktop: 3 cột */
+    max-width: 33%;
   }
-  @media (max-width: 600px) {
-    .post-preview {
-      flex-direction: column;
-    }
-    .post-image img {
-      width: 100%;
-    }
+  .post-list {
+    overflow: hidden; /* Cho carousel */
   }
-  
-  @media (min-width: 601px) {
-    .post-preview {
-      display: flex;
-    }
-    .post-image img {
-      width: auto;
-    }
+}
+
+@media (max-width: 600px) {
+  .carousel-controls {
+    display: none; /* Ẩn nút điều hướng trên mobile */
   }
 }
