@@ -1,48 +1,52 @@
-  <script>
-    // Toggle Hamburger Menu
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    const closeMenu = document.querySelector('.close-menu');
+<script>
+  // Hamburger Menu Functionality
+  const hamburger = document.querySelector('.hamburger');
+  const navMenu = document.querySelector('.nav-menu');
+  const closeMenu = document.querySelector('.close-menu');
 
-    hamburger.addEventListener('click', () => {
-      navMenu.classList.add('active');
-    });
+  // Mở menu khi click vào hamburger
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.add('active');
+  });
 
-    closeMenu.addEventListener('click', () => {
-      navMenu.classList.remove('active');
-    });
+  // Đóng menu khi click vào nút close
+  closeMenu.addEventListener('click', () => {
+    navMenu.classList.remove('active');
+  });
 
-    // Toggle Dropdown Menu (Mobile)
-    document.querySelectorAll('.dropdown-toggle').forEach(item => {
-      item.addEventListener('click', function (e) {
-        e.preventDefault();
+  // Dropdown Menu Functionality (Mobile)
+  document.querySelectorAll('.dropdown-toggle').forEach(item => {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
 
-        // Đóng tất cả submenu khác
-        document.querySelectorAll('.dropdown-menu').forEach(sub => {
-          if (sub !== this.nextElementSibling) {
-            sub.classList.remove('active');
-          }
-        });
-
-        // Toggle submenu hiện tại
-        const submenu = this.nextElementSibling;
-        submenu.classList.toggle('active');
-      });
-    });
-
-    // Ngăn chạm nhầm trên submenu (Mobile)
-    document.querySelectorAll('.dropdown-menu a').forEach(link => {
-      let touchStartTime;
-
-      link.addEventListener('touchstart', function (e) {
-        touchStartTime = new Date().getTime();
-      });
-
-      link.addEventListener('touchend', function (e) {
-        const touchDuration = new Date().getTime() - touchStartTime;
-        if (touchDuration < 200) {
-          e.preventDefault();
+      // Đóng tất cả các submenu khác trước khi mở submenu mới
+      document.querySelectorAll('.dropdown-menu').forEach(sub => {
+        if (sub !== this.nextElementSibling) {
+          sub.classList.remove('active');
         }
       });
+
+      // Toggle trạng thái submenu hiện tại
+      const submenu = this.nextElementSibling;
+      submenu.classList.toggle('active');
     });
-  </script>
+  });
+
+  // Xử lý sự kiện touch để ngăn chạm nhầm trên mobile
+  document.querySelectorAll('.dropdown-menu a').forEach(link => {
+    let touchStartTime;
+
+    // Ghi lại thời điểm bắt đầu chạm
+    link.addEventListener('touchstart', function(e) {
+      touchStartTime = new Date().getTime();
+    });
+
+    // Kiểm tra thời gian chạm để ngăn hành vi không mong muốn
+    link.addEventListener('touchend', function(e) {
+      const touchDuration = new Date().getTime() - touchStartTime;
+      if (touchDuration < 200) {
+        e.preventDefault();
+      }
+    });
+  });
+</script>
