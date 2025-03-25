@@ -4,10 +4,210 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="css/header.css">
+  <style>
+    /* Reset CSS */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Header Top (Mobile) */
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+      background-color: #f8f8f8;
+      position: relative;
+    }
+
+    .hamburger {
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .header-logo img {
+      max-height: 50px;
+      width: auto;
+    }
+
+    /* Nav Menu (Mobile Hamburger Menu) */
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 80%;
+      max-width: 300px;
+      height: 100%;
+      background-color: #fff;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+      transition: left 0.3s ease;
+      z-index: 1000;
+    }
+
+    .nav-menu.active {
+      left: 0;
+    }
+
+    .nav-menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px;
+      background-color: #f1f1f1;
+    }
+
+    .close-menu {
+      font-size: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .nav-tabs {
+      list-style: none;
+    }
+
+    .nav-tabs li {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .nav-tabs li a {
+      display: block;
+      padding: 15px;
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
+    }
+
+    .nav-tabs li a i {
+      margin-right: 10px;
+    }
+
+    /* Dropdown Menu (Submenu) */
+    .dropdown-menu {
+      display: none;
+      list-style: none;
+      background-color: #f9f9f9;
+      padding-left: 20px;
+    }
+
+    .dropdown-menu.active {
+      display: block;
+    }
+
+    .dropdown-menu li a {
+      padding: 10px 15px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    /* Nav Container (Desktop) */
+    .nav-container {
+      display: none;
+      background-color: #fff;
+      padding: 10px 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    .nav-content .nav-tabs {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-content .nav-tabs li {
+      position: relative;
+      margin-right: 20px;
+    }
+
+    .nav-content .nav-tabs li a {
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
+      padding: 10px;
+    }
+
+    .nav-content .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .nav-content .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      min-width: 200px;
+    }
+
+    .nav-content .dropdown-menu li {
+      margin: 0;
+    }
+
+    .nav-content .dropdown-menu li a {
+      padding: 10px 15px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .consult-btn {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    /* Responsive */
+    @media (min-width: 769px) {
+      .header-top {
+        display: none;
+      }
+
+      .nav-menu {
+        display: none;
+      }
+
+      .nav-container {
+        display: block;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-logo img {
+        max-width: 150px; /* Đảm bảo logo không bị cắt */
+      }
+
+      .nav-tabs li a {
+        font-size: 14px; /* Giảm kích thước chữ trên mobile */
+      }
+
+      .dropdown-menu li a {
+        font-size: 13px;
+        padding: 12px 15px; /* Tăng padding để dễ chạm */
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
+    <!-- Header Top (Mobile) -->
     <div class="header-top">
       <button class="hamburger">☰</button>
       <div class="header-logo">
@@ -17,6 +217,7 @@
       </div>
     </div>
 
+    <!-- Nav Menu (Mobile Hamburger Menu) -->
     <div class="nav-menu">
       <div class="nav-menu-header">
         <button class="close-menu">✖</button>
@@ -25,7 +226,7 @@
       <ul class="nav-tabs">
         <li><a href="index.html"><i class="fas fa-home"></i> TRANG CHỦ</a></li>
         <li class="dropdown">
-          <a href="javascript:void(0)"><i class="fas fa-info-circle"></i> VỀ CHÚNG TÔI</a>
+          <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-info-circle"></i> VỀ CHÚNG TÔI</a>
           <ul class="dropdown-menu">
             <li><a href="about.html">About us</a></li>            
             <li><a href="ivsmeaning.html">Ý nghĩa IVS</a></li>
@@ -37,7 +238,7 @@
           </ul>
         </li> 
         <li class="dropdown">
-          <a href="javascript:void(0)"><i class="fas fa-info-circle"></i> HỢP TÁC QUỐC TẾ</a>
+          <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-info-circle"></i> HỢP TÁC QUỐC TẾ</a>
           <ul class="dropdown-menu">
             <li><a href="hocbong.html">Học bổng Du học</a></li>
             <li><a href="summercamp.html">Trại hè Quốc tế</a></li>
@@ -45,21 +246,21 @@
           </ul>
         </li>
         <li class="dropdown">
-          <a href="javascript:void(0)"><i class="fas fa-info-circle"></i> ĐANG HOẠT ĐỘNG</a>
+          <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-info-circle"></i> ĐANG HOẠT ĐỘNG</a>
           <ul class="dropdown-menu">
             <li><a href="dau-tu.html">Hoạt động vì cộng đồng</a></li> 
             <li><a href="tai-tro.html">Chương trình "Hãy Nói"</a></li>
           </ul>  
         </li>
         <li class="dropdown">
-          <a href="javascript:void(0)"><i class="fas fa-info-circle"></i> TƯ VẤN GIÁO DỤC</a>
+          <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-info-circle"></i> TƯ VẤN GIÁO DỤC</a>
           <ul class="dropdown-menu">
             <li><a href="tuvan.html">Tư vấn thủ tục, pháp lý Doanh nghiệp</a></li> 
             <li><a href="thanhlaptrungtam.html">Thành lập Trung Tâm Ngoại Ngữ</a></li>  
           </ul>
         </li>
         <li class="dropdown">
-          <a href="javascript:void(0)"><i class="fas fa-heart"></i> TIỆN ÍCH</a>
+          <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-heart"></i> TIỆN ÍCH</a>
           <ul class="dropdown-menu">
             <li><a href="https://aistudio.instagram.com/ai/663072466085450/?utm_source=mshare">Chatbot Talkie-Talkie hỗ trợ các thành viên "Hãy Nói"</a></li> 
             <li><a href="https://www.facebook.com/haynoi.tuoitredongnai">Fanpage "Hãy Nói"</a></li> 
@@ -74,6 +275,7 @@
       </ul>
     </div>
 
+    <!-- Nav Container (Desktop) -->
     <div class="nav-container">
       <div class="nav-content">
         <div class="header-logo">
@@ -134,5 +336,54 @@
       </div>
     </div>
   </header>
+
+  <script>
+    // Toggle Hamburger Menu
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const closeMenu = document.querySelector('.close-menu');
+
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.add('active');
+    });
+
+    closeMenu.addEventListener('click', () => {
+      navMenu.classList.remove('active');
+    });
+
+    // Toggle Dropdown Menu (Mobile)
+    document.querySelectorAll('.dropdown-toggle').forEach(item => {
+      item.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        // Đóng tất cả submenu khác
+        document.querySelectorAll('.dropdown-menu').forEach(sub => {
+          if (sub !== this.nextElementSibling) {
+            sub.classList.remove('active');
+          }
+        });
+
+        // Toggle submenu hiện tại
+        const submenu = this.nextElementSibling;
+        submenu.classList.toggle('active');
+      });
+    });
+
+    // Ngăn chạm nhầm trên submenu (Mobile)
+    document.querySelectorAll('.dropdown-menu a').forEach(link => {
+      let touchStartTime;
+
+      link.addEventListener('touchstart', function (e) {
+        touchStartTime = new Date().getTime();
+      });
+
+      link.addEventListener('touchend', function (e) {
+        const touchDuration = new Date().getTime() - touchStartTime;
+        if (touchDuration < 200) {
+          e.preventDefault();
+        }
+      });
+    });
+  </script>
 </body>
 </html>
