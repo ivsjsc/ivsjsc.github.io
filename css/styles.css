@@ -144,7 +144,7 @@
     position: absolute;
     top: 15px;
     left: 15px;
-    z-index: 1001;
+    z-index: 2200; /* Tăng để vượt qua dropdown-menu */
   }
   
   /* Sidebar menu trên mobile */
@@ -159,7 +159,7 @@
     background-color: #fff;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
     transition: left 0.3s ease;
-    z-index: 1000;
+    z-index: 2000; /* Tăng để vượt qua header và overlay */
   }
   
   .nav-menu.active {
@@ -192,6 +192,8 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    position: relative; /* Đảm bảo z-index hoạt động */
+    z-index: 2000; /* Thêm để ở trên */
   }
   
   .nav-menu .nav-tabs li {
@@ -226,6 +228,8 @@
     background-color: #fff;
     padding: 10px 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative; /* Đảm bảo z-index hoạt động */
+    z-index: 2000; /* Thêm để ở trên header và overlay */
   }
   
   .nav-content {
@@ -234,10 +238,12 @@
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 8px 25px;
+    padding: 8px 25px; /* Lấy giá trị cuối cùng từ file gốc */
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 8px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    position: relative; /* Đảm bảo z-index hoạt động */
+    z-index: 2000; /* Thêm để ở trên */
   }
   
   .nav-content .nav-tabs {
@@ -246,6 +252,8 @@
     align-items: center;
     gap: 20px;
     margin: 0;
+    position: relative; /* Đảm bảo z-index hoạt động */
+    z-index: 2000; /* Thêm để ở trên */
   }
   
   .nav-content .nav-tabs li {
@@ -301,40 +309,23 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    z-index: 1000;
+    z-index: 2100; /* Tăng để vượt qua nav-tabs và các phần tử khác */
   }
   
-  .dropdown:hover .dropdown-menu {
-    display: block;
-  }
-  
-  .dropdown-menu li {
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .dropdown-menu a {
-    display: block;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #333;
-    font-size: 14px;
-    transition: background-color 0.2s ease;
-  }
-  
-  .dropdown-menu a:hover {
+  .nav-menu .dropdown-menu {
+    position: static;
+    box-shadow: none;
+    display: none;
     background-color: #f8f8f8;
+    padding-left: 20px;
+    z-index: 2100; /* Tăng để vượt qua nav-tabs mobile */
   }
   
   .nav-content .dropdown .dropdown-menu {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     min-width: 220px;
-  }
-  
-  .nav-content .dropdown-menu a {
-    padding: 12px 18px;
-    font-weight: 400;
-    text-transform: none;
+    z-index: 2100; /* Tăng để vượt qua nav-tabs PC */
   }
   
   /* Dropdown trong sidebar */
