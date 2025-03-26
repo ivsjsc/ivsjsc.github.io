@@ -18,24 +18,23 @@ const initHeaderEvents = () => {
   const hamburger = document.querySelector(".hamburger");
   const navMenu = document.querySelector(".nav-menu");
   const closeMenu = document.querySelector(".close-menu");
-  let overlay = document.querySelector(".overlay");
-
-  // Tạo overlay nếu chưa tồn tại
-  if (!overlay) {
-    overlay = document.createElement("div");
-    overlay.className = "overlay";
-    document.body.appendChild(overlay);
-  }
+  const overlay = document.createElement("div");
+  overlay.className = "overlay";
+  document.body.appendChild(overlay);
 
   if (!hamburger || !navMenu || !closeMenu) {
     console.warn("Không tìm thấy một số phần tử trong header!");
     return;
   }
 
-  // Mở/đóng menu mobile
+  // Xử lý hamburger menu với overlay (tích hợp từ đoạn code cũ)
   hamburger.addEventListener("click", () => {
-    navMenu.classList.toggle("active");
-    overlay.classList.toggle("active");
+    if (window.innerWidth <= 600) {
+      navMenu.classList.toggle("active");
+      overlay.classList.toggle("active");
+    } else {
+      navMenu.classList.add("active"); // Hành vi từ đoạn code mới
+    }
   });
 
   closeMenu.addEventListener("click", () => {
@@ -48,7 +47,6 @@ const initHeaderEvents = () => {
     overlay.classList.remove("active");
   });
 
-  // Đóng menu khi resize qua breakpoint
   window.addEventListener("resize", () => {
     if (window.innerWidth > 600 && navMenu.classList.contains("active")) {
       navMenu.classList.remove("active");
@@ -56,16 +54,42 @@ const initHeaderEvents = () => {
     }
   });
 
-  // Toggle dropdown trong nav-menu
-  const dropdowns = document.querySelectorAll(".nav-menu .dropdown");
+  // Dropdown từ đoạn code cũ
+  const dropdowns = document.querySelectorAll(".nav-menu .dropdown > a");
   dropdowns.forEach(dropdown => {
-    const toggle = dropdown.querySelector("a");
-    if (toggle) {
-      toggle.addEventListener("click", (e) => {
-        e.preventDefault();
-        dropdown.classList.toggle("active");
+    dropdown.addEventListener("click", function(e) {
+      e.preventDefault();
+      const parent = this.parentElement;
+      parent.classList.toggle("active");
+    });
+  });
+
+  // Dropdown từ đoạn code mới (Mobile)
+  document.querySelectorAll(".dropdown-toggle").forEach(item => {
+    item.addEventListener("click", function(e) {
+      e.preventDefault();
+      document.querySelectorAll(".dropdown-menu").forEach(sub => {
+        if (sub !== this.nextElementSibling) {
+          sub.classList.remove("active");
+        }
       });
-    }
+      const submenu = this.nextElementSibling;
+      submenu.classList.toggle("active");
+    });
+  });
+
+  // Xử lý sự kiện touch từ đoạn code mới
+  document.querySelectorAll(".dropdown-menu a").forEach(link => {
+    let touchStartTime;
+    link.addEventListener("touchstart", function(e) {
+      touchStartTime = new Date().getTime();
+    });
+    link.addEventListener("touchend", function(e) {
+      const touchDuration = new Date().getTime() - touchStartTime;
+      if (touchDuration < 200) {
+        e.preventDefault();
+      }
+    });
   });
 };
 
@@ -131,15 +155,15 @@ const loadPosts = async () => {
       postList.appendChild(postDiv);
     });
 
-    initCarousel(postList);
+    initCarousel();
   } catch (error) {
     console.error("Lỗi khi tải posts:", error);
     postList.innerHTML = "<p>Không thể tải danh sách bài viết.</p>";
   }
 };
 
-const initCarousel = (postList) => {
-  const slides = postList.querySelectorAll(".post-preview");
+const initCarousel = () => {
+  const slides = document.querySelectorAll(".post-preview");
   const totalSlides = slides.length;
   if (totalSlides === 0) return;
 
@@ -152,8 +176,6 @@ const initCarousel = (postList) => {
       slides.forEach((slide, i) => {
         slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`;
       });
-    } else {
-      slides.forEach(slide => slide.style.transform = "none");
     }
   };
 
@@ -169,17 +191,24 @@ const initCarousel = (postList) => {
   const prevBtn = document.getElementById("prev-post");
   const nextBtn = document.getElementById("next-post");
 
-  if (prevBtn) prevBtn.addEventListener("click", () => {
-    stopAutoSlide();
-    showSlide(--currentSlide);
-    startAutoSlide();
-  });
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      stopAutoSlide();
+      showSlide(--currentSlide);
+      startAutoSlide();
+    });
+  }
 
-  if (nextBtn) nextBtn.addEventListener("click", () => {
-    stopAutoSlide();
-    showSlide(++currentSlide);
-    startAutoSlide();
-  });
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      stopAutoSlide();
+      showSlide(++currentSlide);
+      startAutoSlide();
+    });
+  }
+
+  let touchStartX = 0;
+  let touchEndX = 0;
 
   postList.addEventListener("touchstart", (e) => {
     touchStartX = e.changedTouches[0].screenX;
@@ -196,6 +225,7 @@ const initCarousel = (postList) => {
       showSlide(currentSlide);
       startAutoSlide();
     } else {
+      slides.forEach(slide => (slide.style.transform = "none"));
       stopAutoSlide();
     }
   });
@@ -211,11 +241,9 @@ const initCarousel = (postList) => {
   });
 };
 
-// Khởi động khi trang tải
 document.addEventListener("DOMContentLoaded", () => {
-  // Gọi các hàm khởi tạo nếu cần
-  loadContent("header", "../header.html", "Không thể tải header.");
-  loadContent("footer", "../footer.html", "Không thể tải footer.");
-  loadPosts();
+  loadContent("header", "header.html", "Lỗi khi tải header!");
+  loadContent("footer", "footer.html", "Lỗi khi tải footer!");
   startRedirectTimer();
+  loadPosts();
 });
