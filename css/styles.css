@@ -159,12 +159,83 @@
     background-color: #fff;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
     transition: left 0.3s ease;
-    z-index: 2000; /* Tăng để vượt qua header và overlay */
+    z-index: 2000; /* Đảm bảo vượt qua header và overlay */
   }
-  
+
+  /* Khi menu mobile mở */
   .nav-menu.active {
     left: 0;
   }
+
+  /* Các tab trong menu mobile */
+  .nav-menu .nav-tabs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    z-index: 2000; /* Đồng bộ với nav-menu */
+  }
+
+  /* Dropdown menu trong mobile */
+  .nav-menu .dropdown-menu {
+    position: static; /* Giữ nguyên để hiển thị trong luồng tài liệu */
+    box-shadow: none;
+    display: none; /* Ẩn mặc định */
+    background-color: #f8f8f8;
+    padding-left: 20px;
+    z-index: 2100; /* Cao hơn nav-tabs để không bị che */
+  }
+
+  /* Hiển thị menu con khi dropdown active (yêu cầu JS toggle class 'active') */
+  .nav-menu .dropdown.active .dropdown-menu {
+    display: block; /* Đảm bảo menu con hiện khi click */
+  }
+
+  /* Nút hamburger */
+  .hamburger {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 2200; /* Cao nhất để luôn ở trên */
+  }
+
+  /* Overlay */
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1500; /* Thấp hơn nav-menu */
+  }
+
+  .overlay.active {
+    display: block;
+  }
+
+  /* Media Queries cho mobile */
+  @media (max-width: 600px) {
+    .hamburger {
+      display: block !important;
+      color: #333;
+    }
+
+    .nav-menu {
+      display: block !important;
+    }
+
+    .nav-content {
+      display: none !important;
+    }
+  }  
   
   .nav-menu-header {
     display: flex;

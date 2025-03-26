@@ -241,9 +241,22 @@ const initCarousel = () => {
   });
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadContent("header", "header.html", "Lỗi khi tải header!");
-  loadContent("footer", "footer.html", "Lỗi khi tải footer!");
-  startRedirectTimer();
-  loadPosts();
+document.addEventListener('DOMContentLoaded', () => {
+  const dropdowns = document.querySelectorAll('.nav-menu .dropdown');
+
+  dropdowns.forEach(dropdown => {
+    dropdown.addEventListener('click', (e) => {
+      e.preventDefault(); // Ngăn chặn hành vi mặc định nếu là link
+      dropdown.classList.toggle('active');
+    });
+  });
+
+  // Đóng menu con khi click ra ngoài
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-menu')) {
+      dropdowns.forEach(dropdown => {
+        dropdown.classList.remove('active');
+      });
+    }
+  });
 });
