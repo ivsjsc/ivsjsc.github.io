@@ -27,10 +27,13 @@ const initHeaderEvents = () => {
     return;
   }
 
+  // Xử lý hamburger menu với overlay (tích hợp từ đoạn code cũ)
   hamburger.addEventListener("click", () => {
     if (window.innerWidth <= 600) {
       navMenu.classList.toggle("active");
       overlay.classList.toggle("active");
+    } else {
+      navMenu.classList.add("active"); // Hành vi từ đoạn code mới
     }
   });
 
@@ -51,12 +54,41 @@ const initHeaderEvents = () => {
     }
   });
 
+  // Dropdown từ đoạn code cũ
   const dropdowns = document.querySelectorAll(".nav-menu .dropdown > a");
   dropdowns.forEach(dropdown => {
     dropdown.addEventListener("click", function(e) {
       e.preventDefault();
       const parent = this.parentElement;
       parent.classList.toggle("active");
+    });
+  });
+
+  // Dropdown từ đoạn code mới (Mobile)
+  document.querySelectorAll(".dropdown-toggle").forEach(item => {
+    item.addEventListener("click", function(e) {
+      e.preventDefault();
+      document.querySelectorAll(".dropdown-menu").forEach(sub => {
+        if (sub !== this.nextElementSibling) {
+          sub.classList.remove("active");
+        }
+      });
+      const submenu = this.nextElementSibling;
+      submenu.classList.toggle("active");
+    });
+  });
+
+  // Xử lý sự kiện touch từ đoạn code mới
+  document.querySelectorAll(".dropdown-menu a").forEach(link => {
+    let touchStartTime;
+    link.addEventListener("touchstart", function(e) {
+      touchStartTime = new Date().getTime();
+    });
+    link.addEventListener("touchend", function(e) {
+      const touchDuration = new Date().getTime() - touchStartTime;
+      if (touchDuration < 200) {
+        e.preventDefault();
+      }
     });
   });
 };
@@ -102,7 +134,7 @@ const loadPosts = async () => {
   }
 
   try {
-    const response = await fetch("../posts.json"); // Đường dẫn đúng từ js/
+    const response = await fetch("../posts.json");
     if (!response.ok) throw new Error("Không thể tải file posts.json");
     const posts = await response.json();
 
@@ -123,7 +155,7 @@ const loadPosts = async () => {
       postList.appendChild(postDiv);
     });
 
-    initCarousel(); // Khởi tạo carousel ngay sau khi tải bài viết
+    initCarousel();
   } catch (error) {
     console.error("Lỗi khi tải posts:", error);
     postList.innerHTML = "<p>Không thể tải danh sách bài viết.</p>";
@@ -156,7 +188,6 @@ const initCarousel = () => {
 
   const stopAutoSlide = () => clearInterval(intervalId);
 
-  // Nút điều hướng
   const prevBtn = document.getElementById("prev-post");
   const nextBtn = document.getElementById("next-post");
 
@@ -176,7 +207,6 @@ const initCarousel = () => {
     });
   }
 
-  // Swipe cho mobile
   let touchStartX = 0;
   let touchEndX = 0;
 
@@ -186,22 +216,20 @@ const initCarousel = () => {
 
   postList.addEventListener("touchend", (e) => {
     touchEndX = e.changedTouches[0].screenX;
-    if (touchStartX - touchEndX > 50) showSlide(++currentSlide); // Swipe trái
-    if (touchEndX - touchStartX > 50) showSlide(--currentSlide); // Swipe phải
+    if (touchStartX - touchEndX > 50) showSlide(++currentSlide);
+    if (touchEndX - touchStartX > 50) showSlide(--currentSlide);
   });
 
-  // Responsive
   window.addEventListener("resize", () => {
     if (window.innerWidth > 600) {
       showSlide(currentSlide);
       startAutoSlide();
     } else {
-      slides.forEach(slide => (slide.style.transform = "none")); // Tắt transform trên mobile
+      slides.forEach(slide => (slide.style.transform = "none"));
       stopAutoSlide();
     }
   });
 
-  // Khởi động
   if (window.innerWidth > 600) {
     showSlide(currentSlide);
     startAutoSlide();
