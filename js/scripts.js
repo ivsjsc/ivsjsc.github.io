@@ -14,81 +14,67 @@ const loadContent = async (elementId, url, errorMessage) => {
   }
 };
 
+const closeMenu = (navMenu, overlay) => {
+  navMenu.classList.remove("active");
+  overlay.classList.remove("active");
+};
+
 const initHeaderEvents = () => {
   const hamburger = document.querySelector(".hamburger");
   const navMenu = document.querySelector(".nav-menu");
-  const closeMenu = document.querySelector(".close-menu");
-  const overlay = document.createElement("div");
-  overlay.className = "overlay";
-  document.body.appendChild(overlay);
+  const closeMenuBtn = document.querySelector(".close-menu");
+  let overlay = document.querySelector(".overlay");
 
-  if (!hamburger || !navMenu || !closeMenu) {
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.className = "overlay";
+    document.body.appendChild(overlay);
+  }
+
+  if (!hamburger || !navMenu || !closeMenuBtn) {
     console.warn("Không tìm thấy một số phần tử trong header!");
     return;
   }
 
-  // Xử lý hamburger menu với overlay (tích hợp từ đoạn code cũ)
   hamburger.addEventListener("click", () => {
     if (window.innerWidth <= 600) {
       navMenu.classList.toggle("active");
       overlay.classList.toggle("active");
     } else {
-      navMenu.classList.add("active"); // Hành vi từ đoạn code mới
+      navMenu.classList.add("active");
     }
   });
 
-  closeMenu.addEventListener("click", () => {
-    navMenu.classList.remove("active");
-    overlay.classList.remove("active");
-  });
+  closeMenuBtn.addEventListener("click", () => closeMenu(navMenu, overlay));
+  overlay.addEventListener("click", () => closeMenu(navMenu, overlay));
 
-  overlay.addEventListener("click", () => {
-    navMenu.classList.remove("active");
-    overlay.classList.remove("active");
-  });
-
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 600 && navMenu.classList.contains("active")) {
-      navMenu.classList.remove("active");
-      overlay.classList.remove("active");
-    }
-  });
-
-  // Dropdown từ đoạn code cũ
   const dropdowns = document.querySelectorAll(".nav-menu .dropdown > a");
   dropdowns.forEach(dropdown => {
-    dropdown.addEventListener("click", function(e) {
+    dropdown.addEventListener("click", (e) => {
       e.preventDefault();
-      const parent = this.parentElement;
-      parent.classList.toggle("active");
+      dropdown.parentElement.classList.toggle("active");
     });
   });
 
-  // Dropdown từ đoạn code mới (Mobile)
   document.querySelectorAll(".dropdown-toggle").forEach(item => {
-    item.addEventListener("click", function(e) {
+    item.addEventListener("click", (e) => {
       e.preventDefault();
+      const submenu = item.nextElementSibling;
       document.querySelectorAll(".dropdown-menu").forEach(sub => {
-        if (sub !== this.nextElementSibling) {
-          sub.classList.remove("active");
-        }
+        if (sub !== submenu) sub.classList.remove("active");
       });
-      const submenu = this.nextElementSibling;
       submenu.classList.toggle("active");
     });
   });
 
-  // Xử lý sự kiện touch từ đoạn code mới
   document.querySelectorAll(".dropdown-menu a").forEach(link => {
     let touchStartTime;
-    link.addEventListener("touchstart", function(e) {
+    link.addEventListener("touchstart", (e) => {
       touchStartTime = new Date().getTime();
     });
-    link.addEventListener("touchend", function(e) {
+    link.addEventListener("touchend", (e) => {
       const touchDuration = new Date().getTime() - touchStartTime;
-      if (touchDuration < 200) {
-        e.preventDefault();
-      }
+      if (touchDuration < 200) e.preventDefault();
     });
   });
 };
@@ -155,20 +141,22 @@ const loadPosts = async () => {
       postList.appendChild(postDiv);
     });
 
-    initCarousel();
+    initCarousel(postList);
   } catch (error) {
     console.error("Lỗi khi tải posts:", error);
     postList.innerHTML = "<p>Không thể tải danh sách bài viết.</p>";
   }
 };
 
-const initCarousel = () => {
-  const slides = document.querySelectorAll(".post-preview");
+const initCarousel = (postList) => {
+  const slides = postList.querySelectorAll(".post-preview");
   const totalSlides = slides.length;
   if (totalSlides === 0) return;
 
   let currentSlide = 0;
   let intervalId = null;
+  let touchStartX = 0;
+  let touchEndX = 0;
 
   const showSlide = (index) => {
     currentSlide = index >= totalSlides ? 0 : index < 0 ? totalSlides - 1 : index;
@@ -176,6 +164,8 @@ const initCarousel = () => {
       slides.forEach((slide, i) => {
         slide.style.transform = `translateX(${(i - currentSlide) * 100}%)`;
       });
+    } else {
+      slides.forEach(slide => slide.style.transform = "none");
     }
   };
 
@@ -191,24 +181,17 @@ const initCarousel = () => {
   const prevBtn = document.getElementById("prev-post");
   const nextBtn = document.getElementById("next-post");
 
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      stopAutoSlide();
-      showSlide(--currentSlide);
-      startAutoSlide();
-    });
-  }
+  if (prevBtn) prevBtn.addEventListener("click", () => {
+    stopAutoSlide();
+    showSlide(--currentSlide);
+    startAutoSlide();
+  });
 
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      stopAutoSlide();
-      showSlide(++currentSlide);
-      startAutoSlide();
-    });
-  }
-
-  let touchStartX = 0;
-  let touchEndX = 0;
+  if (nextBtn) nextBtn.addEventListener("click", () => {
+    stopAutoSlide();
+    showSlide(++currentSlide);
+    startAutoSlide();
+  });
 
   postList.addEventListener("touchstart", (e) => {
     touchStartX = e.changedTouches[0].screenX;
@@ -220,30 +203,30 @@ const initCarousel = () => {
     if (touchEndX - touchStartX > 50) showSlide(--currentSlide);
   });
 
-  window.addEventListener("resize", () => {
-    if (window.innerWidth > 600) {
-      showSlide(currentSlide);
-      startAutoSlide();
-    } else {
-      slides.forEach(slide => (slide.style.transform = "none"));
-      stopAutoSlide();
-    }
+  slides.forEach(slide => {
+    slide.addEventListener("mouseenter", stopAutoSlide);
+    slide.addEventListener("mouseleave", startAutoSlide);
   });
 
   if (window.innerWidth > 600) {
     showSlide(currentSlide);
     startAutoSlide();
   }
-
-  slides.forEach(slide => {
-    slide.addEventListener("mouseenter", stopAutoSlide);
-    slide.addEventListener("mouseleave", startAutoSlide);
-  });
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadContent("header", "header.html", "Lỗi khi tải header!");
-  loadContent("footer", "footer.html", "Lỗi khi tải footer!");
-  startRedirectTimer();
+  loadContent("header", "../header.html", "Không thể tải header.");
+  loadContent("footer", "../footer.html", "Không thể tải footer.");
   loadPosts();
+  startRedirectTimer();
+
+  const navMenu = document.querySelector(".nav-menu");
+  const overlay = document.querySelector(".overlay") || document.querySelector(".overlay");
+  if (navMenu && overlay) {
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 600 && navMenu.classList.contains("active")) {
+        closeMenu(navMenu, overlay);
+      }
+    });
+  }
 });
