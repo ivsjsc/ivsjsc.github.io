@@ -134,166 +134,168 @@
   }
   
   /* Nút hamburger */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333; /* Màu tối ưu cho mobile */
+  position: absolute;
+  top: 15px;
+  left: 0; /* Nằm hẳn bên trái */
+  padding: 10px; /* Thêm padding để dễ bấm */
+  z-index: 2200; /* Cao nhất để luôn ở trên */
+}
+
+/* Sidebar menu trên mobile */
+.nav-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100vh;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease;
+  z-index: 2000; /* Vượt qua header và overlay */
+  overflow-y: auto; /* Cho phép cuộn nếu menu dài */
+}
+
+.nav-menu.active {
+  left: 0;
+}
+
+/* Header của menu mobile */
+.nav-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+  position: sticky; /* Giữ cố định khi cuộn */
+  top: 0;
+  z-index: 2100; /* Cao hơn nav-tabs nhưng dưới hamburger */
+}
+
+.nav-menu-header span {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.close-menu {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  padding: 5px;
+}
+
+/* Các tab trong menu mobile */
+.nav-menu .nav-tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-menu .nav-tabs li {
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-menu .nav-tabs a {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.nav-menu .nav-tabs a:hover,
+.nav-menu .nav-tabs a:focus {
+  background-color: #f8f8f8;
+  color: #ff5733;
+}
+
+.nav-menu .nav-tabs a i {
+  margin-right: 8px;
+  color: #ff5733;
+}
+
+/* Dropdown menu trong mobile */
+.nav-menu .dropdown-menu {
+  position: static;
+  display: none;
+  background-color: #f8f8f8;
+  padding-left: 20px;
+  box-shadow: none;
+  z-index: 2100; /* Cao hơn nav-tabs */
+}
+
+.nav-menu .dropdown.active .dropdown-menu {
+  display: block; /* Hiện khi click */
+}
+
+/* Overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1500; /* Thấp hơn nav-menu */
+}
+
+.overlay.active {
+  display: block;
+}
+
+/* Header trên mobile */
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Logo ở trung tâm */
+  gap: 15px;
+  padding: 10px 15px;
+  background-color: #f8f8f8;
+  position: relative; /* Để hamburger nằm trên cùng */
+  z-index: 1000; /* Thấp hơn nav-menu */
+}
+
+.header-top img {
+  max-height: 50px; /* Đảm bảo logo hiển thị đầy đủ */
+  width: auto;
+  object-fit: contain;
+}
+
+/* Media Queries cho mobile */
+@media (max-width: 600px) {
   .hamburger {
-    display: none;
-    font-size: 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #fff;
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    z-index: 2200; /* Tăng để vượt qua dropdown-menu */
+    display: block; /* Hiển thị nút hamburger */
   }
-  
-  /* Sidebar menu trên mobile */
+
   .nav-menu {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: -250px;
-    width: 250px;
-    max-width: 300px;
-    height: 100vh;
-    background-color: #fff;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    transition: left 0.3s ease;
-    z-index: 2000; /* Đảm bảo vượt qua header và overlay */
+    display: block; /* Hiển thị menu mobile */
   }
 
-  /* Khi menu mobile mở */
-  .nav-menu.active {
-    left: 0;
+  .nav-content {
+    display: none; /* Ẩn menu PC */
   }
 
-  /* Các tab trong menu mobile */
-  .nav-menu .nav-tabs {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    z-index: 2000; /* Đồng bộ với nav-menu */
+  .header-top {
+    display: flex; /* Đảm bảo logo hiển thị */
+    justify-content: center; /* Logo ở trung tâm */
+    padding-left: 50px; /* Đẩy logo sang phải để tránh chồng lấp hamburger */
   }
-
-  /* Dropdown menu trong mobile */
-  .nav-menu .dropdown-menu {
-    position: static; /* Giữ nguyên để hiển thị trong luồng tài liệu */
-    box-shadow: none;
-    display: none; /* Ẩn mặc định */
-    background-color: #f8f8f8;
-    padding-left: 20px;
-    z-index: 2100; /* Cao hơn nav-tabs để không bị che */
-  }
-
-  /* Hiển thị menu con khi dropdown active (yêu cầu JS toggle class 'active') */
-  .nav-menu .dropdown.active .dropdown-menu {
-    display: block; /* Đảm bảo menu con hiện khi click */
-  }
-
-  /* Nút hamburger */
-  .hamburger {
-    display: none;
-    font-size: 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #fff;
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    z-index: 2200; /* Cao nhất để luôn ở trên */
-  }
-
-  /* Overlay */
-  .overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1500; /* Thấp hơn nav-menu */
-  }
-
-  .overlay.active {
-    display: block;
-  }
-
-  /* Media Queries cho mobile */
-  @media (max-width: 600px) {
-    .hamburger {
-      display: block !important;
-      color: #333;
-    }
-
-    .nav-menu {
-      display: block !important;
-    }
-
-    .nav-content {
-      display: none !important;
-    }
-  }  
-  
-  .nav-menu-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-    background-color: #f8f8f8;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .nav-menu-header span {
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .close-menu {
-    font-size: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #333;
-  }
-  
-  .nav-menu .nav-tabs {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    position: relative; /* Đảm bảo z-index hoạt động */
-    z-index: 2000; /* Thêm để ở trên */
-  }
-  
-  .nav-menu .nav-tabs li {
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .nav-menu .nav-tabs a {
-    display: flex;
-    align-items: center;
-    padding: 12px 20px;
-    text-decoration: none;
-    color: #333;
-    font-size: 15px;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .nav-menu .nav-tabs a:hover {
-    background-color: #f8f8f8;
-    color: #ff5733;
-    transform: scale(1.02);
-  }
-  
-  .nav-menu .nav-tabs a i {
-    margin-right: 8px;
-    color: #ff5733;
-  }
-  
-  /* Menu ngang trên PC */
+ 
+    /* Menu ngang trên PC */
   .nav-container {
     display: none;
     background-color: #fff;

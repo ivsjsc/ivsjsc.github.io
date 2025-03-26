@@ -242,21 +242,36 @@ const initCarousel = () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  const hamburger = document.querySelector('.hamburger');
+  const navMenu = document.querySelector('.nav-menu');
+  const closeMenu = document.querySelector('.close-menu');
+  const overlay = document.querySelector('.overlay');
   const dropdowns = document.querySelectorAll('.nav-menu .dropdown');
 
+  // Mở menu
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.add('active');
+    overlay.classList.add('active');
+  });
+
+  // Đóng menu
+  closeMenu.addEventListener('click', () => {
+    navMenu.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+
+  // Toggle dropdown
   dropdowns.forEach(dropdown => {
     dropdown.addEventListener('click', (e) => {
-      e.preventDefault(); // Ngăn chặn hành vi mặc định nếu là link
+      e.stopPropagation(); // Ngăn đóng menu khi click dropdown
       dropdown.classList.toggle('active');
     });
   });
 
-  // Đóng menu con khi click ra ngoài
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.nav-menu')) {
-      dropdowns.forEach(dropdown => {
-        dropdown.classList.remove('active');
-      });
-    }
+  // Đóng menu khi click overlay
+  overlay.addEventListener('click', () => {
+    navMenu.classList.remove('active');
+    overlay.classList.remove('active');
+    dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
   });
 });
