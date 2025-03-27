@@ -76,48 +76,92 @@ header {
   min-height: 200px;
 }
 
-header::before {
-  content: '';
-  position: absolute;
+/* Đảm bảo body không có margin thừa */
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif; /* Phông chữ mặc định */
+}
+
+/* Cố định header ở trên cùng */
+header {
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background-color: rgba(5, 23, 83, 0.7);
-  z-index: 10;
+  background-color: #fff; /* Màu nền của header */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  z-index: 1000; /* Đảm bảo header ở lớp trên cùng */
 }
 
-.header-top,
-.nav-container,
-.hamburger {
-  position: relative;
-  z-index: 1;
-}
-
+/* Định dạng header-top (logo và slogan) */
 .header-top {
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin-bottom: 15px;
+  padding: 10px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.header-top img {
-  width: 120px;
-  height: auto;
+.header-logo img {
+  height: 40px; /* Điều chỉnh kích thước logo */
 }
 
-.header-text h1 {
-  font-size: 28px;
-  color: #ffffff;
-  margin: 0;
-  font-weight: 700;
+.header-text {
+  margin-left: 20px;
 }
 
-.header-text h3 {
+.header-text h0 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.header-text h2 {
   font-size: 16px;
-  color: #ffffff;
-  margin: 2px 0;
-  font-weight: 400;
+  color: #666;
+}
+
+/* Định dạng menu */
+.nav-container {
+  background-color: #f8f9fa; /* Màu nền của menu */
+  padding: 10px 0;
+}
+
+.nav-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.nav-tabs li a {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-tabs li a i {
+  margin-right: 8px;
+}
+
+/* Đẩy nội dung bên dưới header */
+main {
+  margin-top: 120px; /* Khoảng cách từ đỉnh trang, tùy chỉnh dựa trên chiều cao header */
+  padding: 20px;
+}
 }
 
 /* Hamburger menu */
