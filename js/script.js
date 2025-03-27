@@ -34,6 +34,13 @@ dropdownToggles.forEach((toggle, index) => {
         const currentMenu = dropdownMenus[index];
         if (currentMenu) {
             currentMenu.classList.toggle('show');
+            // Thêm hiệu ứng fade in/out cho dropdown
+            currentMenu.style.transition = 'opacity 0.3s ease';
+            if (currentMenu.classList.contains('show')) {
+                currentMenu.style.opacity = '1';
+            } else {
+                currentMenu.style.opacity = '0';
+            }
         }
     });
 });
@@ -42,6 +49,12 @@ document.addEventListener('click', (e) => {
     dropdownMenus.forEach(menu => {
         if (menu.classList.contains('show') && !menu.contains(e.target) && e.target.className !== 'dropdown-toggle') {
             menu.classList.remove('show');
+            // Thêm hiệu ứng fade in/out cho dropdown
+            menu.style.transition = 'opacity 0.3s ease';
+            menu.style.opacity = '0';
+            setTimeout(() => {
+                menu.style.transition = ''; // reset transition sau khi ẩn
+            }, 300);
         }
     });
 });
