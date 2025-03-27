@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IVS Education</title>
+  <meta name="description" content="IVS Education: Đào tạo ngoại ngữ, kỹ năng sống, hợp tác quốc tế, du học liên kết, trại hè quốc tế.">
+  <meta property="og:title" content="IVS Education">
+  <meta property="og:description" content="IVS Education: Đào tạo ngoại ngữ, kỹ năng sống, hợp tác quốc tế, du học liên kết, trại hè quốc tế.">
+  <meta property="og:image" content="images/logo/logo.png">
+  <meta property="og:url" content="https://www.facebook.com/hr.ivsacademy">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div id="header"></div>
+  
+  
+  <main>
+
+  </main>
+  
+  <!-- Nơi để chèn footer -->
+  <div id="footer"></div>
+
+  <!-- JavaScript: tải header và footer, chuyển hướng tự động, toggle menu -->
+  <script>
+    // Run script after DOM is fully loaded
+    document.addEventListener("DOMContentLoaded", () => {
+      // Tải header
+      const headerElement = document.getElementById('header');
+      headerElement.innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải header...</p>';
+      fetch('header.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Không thể tải header.html');
+          return response.text();
+        })
+        .then(data => {
+          headerElement.innerHTML = data;
+          // Gắn sự kiện cho hamburger menu và close button
+          const hamburger = document.querySelector(".hamburger");
+          const navMenu = document.querySelector(".nav-menu");
+          const closeMenu = document.querySelector(".close-menu");
+
+          if (hamburger && navMenu && closeMenu) {
+            // Mở menu khi nhấp vào hamburger
+            hamburger.addEventListener("click", () => {
+              navMenu.classList.add("active");
+            });
+
+            // Đóng menu khi nhấp vào nút đóng
+            closeMenu.addEventListener("click", () => {
+              navMenu.classList.remove("active");
+            });
+
+            // Đóng menu khi nhấp ra ngoài
+            document.addEventListener("click", (event) => {
+              if (!navMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                navMenu.classList.remove("active");
+              }
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Lỗi khi tải header:', error);
+          headerElement.innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải header!</p>';
+        });
+
+      // Tải footer
+      const footerElement = document.getElementById('footer');
+      footerElement.innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải footer...</p>';
+      fetch('footer.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Không thể tải footer.html');
+          return response.text();
+        })
+        .then(data => {
+          footerElement.innerHTML = data;
+        })
+        .catch(error => {
+          console.error('Lỗi khi tải footer:', error);
+          footerElement.innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải footer!</p>';
+        });
+
+      // Đồng hồ đếm ngược chuyển hướng
+      let timeLeft = 120; // 120 giây
+      const redirectTimer = document.getElementById('redirect-timer');
+      const cancelButton = document.getElementById("cancel-redirect");
+
+      if (redirectTimer && cancelButton) {
+        const timer = setInterval(() => {
+          timeLeft--;
+          redirectTimer.textContent = `Website sẽ tự động chuyển đến Fanpage IVS Academy trong ${Math.floor(timeLeft / 60)} phút ${timeLeft % 60} giây...`;
+          if (timeLeft <= 0) {
+            clearInterval(timer);
+            window.location.href = "https://facebook.com/hr.ivsacademy";
+          }
+        }, 1000);
+
+        // Sự kiện hủy chuyển hướng
+        cancelButton.addEventListener("click", () => {
+          clearInterval(timer);
+          cancelButton.textContent = "Đã hủy chuyển hướng";
+          cancelButton.disabled = true;
+          redirectTimer.textContent = "Chuyển hướng đã bị hủy.";
+        });
+      }
+    });
+  </script>
+</body>
+</html>
