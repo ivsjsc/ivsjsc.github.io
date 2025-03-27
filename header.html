@@ -6,88 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <style>
-        /* CSS cơ bản để đảm bảo responsive */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        nav {
-            background: #1b1b1b;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 20px;
-        }
-        nav .logo {
-            color: #fff;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-        }
-        nav ul li {
-            position: relative;
-        }
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 15px;
-            display: block;
-        }
-        nav ul li:hover > a {
-            background: #333;
-        }
-        nav ul ul {
-            display: none;
-            position: absolute;
-            background: #333;
-            top: 100%;
-            flex-direction: column;
-            min-width: 200px;
-        }
-        nav ul li:hover > ul {
-            display: block;
-        }
-        .checkbtn {
-            font-size: 30px;
-            color: #fff;
-            cursor: pointer;
-            display: none;
-        }
-        #check {
-            display: none;
-        }
-        @media (max-width: 768px) {
-            .checkbtn {
-                display: block;
-            }
-            nav ul {
-                position: fixed;
-                width: 100%;
-                height: 100vh;
-                background: #2c3e50;
-                top: 60px;
-                left: -100%;
-                flex-direction: column;
-                transition: all 0.3s;
-            }
-            nav ul li {
-                width: 100%;
-                text-align: center;
-            }
-            nav ul ul {
-                position: static;
-                display: none;
-            }
-            #check:checked ~ ul {
-                left: 0;
-            }
-        }
-    </style>
+
 </head>
 <body>
     <nav>
@@ -147,5 +66,39 @@
             <li><a href="english-placement.html"><i class="fas fa-clipboard-check"></i> BÀI TEST TIẾNG ANH 6 BẬC</a></li>
         </ul>
     </nav>
+
+    <script>
+        // JavaScript để xử lý dropdown trên mobile và desktop
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdowns = document.querySelectorAll('.dropdown-toggle');
+
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const parentLi = this.parentElement;
+                    const submenu = parentLi.querySelector('.dropdown-menu');
+
+                    // Đóng các submenu khác trước khi mở submenu hiện tại
+                    document.querySelectorAll('.nav-tabs li').forEach(li => {
+                        if (li !== parentLi) {
+                            li.classList.remove('active');
+                        }
+                    });
+
+                    // Toggle class 'active' để hiển thị/ẩn submenu
+                    parentLi.classList.toggle('active');
+                });
+            });
+
+            // Đóng menu mobile khi nhấp vào ngoài
+            document.addEventListener('click', function(e) {
+                const nav = document.querySelector('nav');
+                const check = document.getElementById('check');
+                if (!nav.contains(e.target) && check.checked) {
+                    check.checked = false;
+                }
+            });
+        });
+    </script>
 </body>
 </html>
