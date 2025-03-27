@@ -1,17 +1,48 @@
 // script.js
 
 // Tải header
-document.getElementById('header').innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải header...</p>';
-fetch('header.html')
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById('header').innerHTML = data;
-    // Gắn sự kiện cho hamburger menu và close button
-    const hamburger = document.querySelector(".hamburger");
-    const navMenu = document.querySelector(".nav-menu");
-    const closeMenu = document.querySelector(".close-menu");
-    const overlay = document.querySelector(".overlay");
+document.addEventListener('DOMContentLoaded', function() {
+  // Xử lý dropdown cho cả desktop và mobile
+  const dropdowns = document.querySelectorAll('.dropdown');
 
+  dropdowns.forEach(dropdown => {
+    const toggle = dropdown.querySelector('.dropdown-toggle');
+    const menu = dropdown.querySelector('.dropdown-menu');
+
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Đóng các dropdown khác
+      document.querySelectorAll('.dropdown-menu').forEach(otherMenu => {
+        if (otherMenu !== menu) {
+          otherMenu.style.display = 'none';
+        }
+      });
+      // Toggle dropdown hiện tại
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    });
+  });
+
+  // Đóng dropdown khi click ra ngoài
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.dropdown')) {
+      document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        menu.style.display = 'none';
+      });
+    }
+  });
+
+  // Xử lý nút hamburger và close menu
+  const hamburger = document.querySelector('.hamburger');
+  const navMenu = document.querySelector('.nav-menu');
+  const closeMenu = document.querySelector('.close-menu');
+
+  hamburger.addEventListener('click', function() {
+    navMenu.style.display = 'block';
+  });
+
+  closeMenu.addEventListener('click', function() {
+    navMenu.style.display = 'none';
+  });
     if (hamburger && navMenu && closeMenu && overlay) {
       // Chỉ cho phép mở menu trên mobile (dưới 600px)
       hamburger.addEventListener("click", function() {
@@ -138,3 +169,16 @@ fetch('posts.json')
     console.error('Lỗi:', error);
     document.getElementById("post-list").innerHTML = "<p>Không thể tải danh sách bài viết.</p>";
   });
+  $(document).ready(function() {
+    $('.dropdown').click(function(e) {
+      e.preventDefault();
+      $(this).find('.dropdown-menu').toggle();
+    });
+  
+    $(document).click(function(e) {
+      if (!$(e.target).closest('.dropdown').length) {
+        $('.dropdown-menu').hide();
+      }
+    });
+  });
+  
