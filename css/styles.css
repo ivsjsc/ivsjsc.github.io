@@ -76,55 +76,66 @@ header {
   min-height: 200px;
 }
 
-/* Đảm bảo body không có margin thừa */
-body {
+/* styles.css */
+* {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Cố định header ở trên cùng */
+body {
+  font-family: Arial, sans-serif;
+}
+
 header {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  background-color: #f8f9fa;
 }
 
-/* Định dạng header-top */
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+}
+
+/* Header Top */
 .header-top {
   display: flex;
   align-items: center;
-  padding: 10px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  justify-content: space-between;
+  padding: 20px 40px;
 }
 
 .header-logo img {
-  height: 40px;
+  height: 50px;
 }
 
 .header-text {
-  margin-left: 20px;
+  text-align: right;
 }
 
 .header-text h3 {
   font-size: 24px;
-  font-weight: bold;
   color: #333;
 }
 
 .header-text h2 {
-  font-size: 16px;
+  font-size: 18px;
   color: #666;
+  font-weight: normal;
 }
 
-/* Định dạng menu */
+/* Navigation Bar */
 .nav-container {
-  background-color: #f8f9fa;
-  padding: 10px 0;
+  background-color: #2c3e50;
 }
 
 .nav-content {
@@ -133,75 +144,43 @@ header {
 }
 
 .nav-tabs {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   display: flex;
-  flex-wrap: nowrap; /* Ngăn các tab xuống dòng */
-  overflow-x: auto; /* Cho phép cuộn ngang trên màn hình nhỏ */
-  white-space: nowrap; /* Đảm bảo nội dung không xuống dòng */
-  gap: 10px; /* Khoảng cách giữa các tab */
+  list-style: none;
+  justify-content: center;
 }
 
-/* Ẩn thanh cuộn trên Webkit (Chrome, Safari) */
-.nav-tabs::-webkit-scrollbar {
-  display: none;
-}
-
-/* Ẩn thanh cuộn trên Firefox */
-.nav-tabs {
-  -ms-overflow-style: none; /* IE và Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-/* Định dạng từng tab */
 .nav-tabs li {
   position: relative;
 }
 
 .nav-tabs li a {
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px; /* Kích thước chữ nhỏ hơn để vừa hàng ngang */
-  font-weight: 500;
-  color: #333;
-  text-transform: uppercase;
   display: flex;
   align-items: center;
-  padding: 8px 12px;
+  padding: 15px 20px;
+  color: white;
   text-decoration: none;
-  cursor: pointer;
-  border-radius: 5px; /* Bo góc nhẹ */
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 16px;
+  transition: background-color 0.3s;
 }
 
-/* Xóa biểu tượng hình tròn màu tím */
-.nav-tabs li::before {
-  content: none !important;
-}
-
-/* Định dạng biểu tượng trong tab */
 .nav-tabs li a i {
-  margin-right: 6px;
-  font-size: 14px;
+  margin-right: 8px;
 }
 
-/* Hiệu ứng hover để phân tách rõ ràng */
-.nav-tabs li a:hover {
-  background-color: #e0e0e0;
-  color: #ff5733;
+.nav-tabs li:hover > a {
+  background-color: #34495e;
 }
 
-/* Định dạng dropdown menu */
+/* Dropdown Menu */
 .dropdown-menu {
   display: none;
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  background-color: #34495e;
+  list-style: none;
   min-width: 200px;
-  border-radius: 5px;
+  z-index: 1000;
 }
 
 .dropdown-menu.show {
@@ -209,24 +188,121 @@ header {
 }
 
 .dropdown-menu li a {
-  font-family: 'Roboto', sans-serif;
+  padding: 10px 20px;
   font-size: 14px;
-  color: #333;
-  padding: 10px 15px;
-  display: block;
-  text-decoration: none;
-  text-transform: none;
+  color: white;
 }
 
 .dropdown-menu li a:hover {
-  background-color: #f0f0f0;
-  color: #ff5733;
+  background-color: #3e5c76;
 }
 
-/* Đẩy nội dung bên dưới header */
-main {
-  margin-top: 120px; /* Điều chỉnh dựa trên chiều cao header */
+.dropdown-toggle i.fa-chevron-down {
+  margin-left: 5px;
+  transition: transform 0.3s;
+}
+
+.dropdown:hover .dropdown-toggle i.fa-chevron-down,
+.dropdown.active .dropdown-toggle i.fa-chevron-down {
+  transform: rotate(180deg);
+}
+
+/* Mobile Menu */
+.nav-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 250px;
+  height: 100%;
+  background-color: #2c3e50;
+  transition: left 0.3s;
+  z-index: 1001;
+}
+
+.nav-menu.active {
+  display: block;
+  left: 0;
+}
+
+.nav-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 20px;
+  background-color: #34495e;
+  color: white;
+}
+
+.close-menu {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.nav-menu .nav-tabs {
+  flex-direction: column;
+}
+
+.nav-menu .nav-tabs li a {
+  padding: 15px 20px;
+  border-bottom: 1px solid #34495e;
+}
+
+.nav-menu .dropdown-menu {
+  position: static;
+  background-color: #3e5c76;
+  display: none;
+}
+
+.nav-menu .dropdown.active .dropdown-menu {
+  display: block;
+}
+
+/* Overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.overlay.active {
+  display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hamburger {
+      display: block;
+  }
+
+  .header-top {
+      justify-content: center;
+      text-align: center;
+  }
+
+  .header-logo {
+      margin-bottom: 10px;
+  }
+
+  .header-text {
+      text-align: center;
+  }
+
+  .nav-content {
+      display: none;
+  }
+
+  .nav-menu {
+      display: block;
+  }
 }
 /* Hamburger menu */
 .hamburger {
