@@ -179,7 +179,7 @@ header::before {
 }
 
 /* Danh sách tab trong menu dọc */
-/* CSS chung cho cả desktop và mobile */
+/* CSS chung */
 .nav-tabs {
   list-style: none;
   padding: 0;
@@ -187,7 +187,7 @@ header::before {
 }
 
 .nav-tabs li {
-  position: relative; /* Đảm bảo dropdown căn chỉnh dựa trên li */
+  position: relative;
 }
 
 .nav-tabs a {
@@ -222,8 +222,28 @@ header::before {
 }
 
 .nav-tabs .dropdown-menu li a:hover {
-  background-color: #ff5733; /* Màu cam */
+  background-color: #ff5733;
   color: #fff;
+}
+.nav-menu .nav-tabs a {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Khoảng cách giữa biểu tượng và chữ */
+}
+
+.nav-menu .nav-tabs a i {
+  font-size: 20px;
+}
+
+.nav-menu .nav-tabs .dropdown-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-menu .nav-tabs .dropdown-menu li a {
+  padding-left: 40px; /* Thụt lề cho các mục con */
+  font-size: 14px;
 }
 
 /* CSS cho desktop (.nav-content) */
@@ -238,15 +258,40 @@ header::before {
 
 /* CSS cho mobile (.nav-menu) */
 .nav-menu {
-  display: none; /* Ẩn mặc định, hiển thị khi bấm hamburger */
+  display: none; /* Ẩn mặc định */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: #fff; /* Đảm bảo nền trắng */
   z-index: 1000;
   overflow-y: auto;
+}
+
+.nav-menu.active {
+  display: block; /* Hiển thị khi active */
+}
+
+.nav-menu .nav-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #f8f8f8; /* Nền nhẹ cho header */
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-menu .nav-menu-header span {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.nav-menu .nav-menu-header .close-menu {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
 }
 
 .nav-menu .nav-tabs {
@@ -254,7 +299,7 @@ header::before {
 }
 
 .nav-menu .dropdown .dropdown-menu {
-  position: static; /* Trên mobile, bỏ position absolute */
+  position: static;
   width: 100%;
   min-width: unset;
   box-shadow: none;
@@ -274,8 +319,12 @@ header::before {
 }
 
 @media (min-width: 769px) {
-  .hamburger, .nav-menu {
-    display: none; /* Ẩn menu mobile trên desktop */
+  .hamburger {
+    display: none !important; /* Ẩn nút hamburger trên desktop */
+  }
+
+  .nav-menu {
+    display: none !important; /* Ẩn menu mobile trên desktop */
   }
 
   .nav-content {
