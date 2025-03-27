@@ -79,7 +79,7 @@ header {
 /* Đảm bảo body không có margin thừa */
 body {
   margin: 0;
-  font-family: 'Roboto', sans-serif; /* Phông chữ mặc định */
+  font-family: 'Roboto', sans-serif;
 }
 
 /* Cố định header ở trên cùng */
@@ -88,12 +88,12 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #fff; /* Màu nền của header */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
-  z-index: 1000; /* Đảm bảo header ở lớp trên cùng */
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
-/* Định dạng header-top (logo và slogan) */
+/* Định dạng header-top */
 .header-top {
   display: flex;
   align-items: center;
@@ -103,14 +103,14 @@ header {
 }
 
 .header-logo img {
-  height: 40px; /* Điều chỉnh kích thước logo */
+  height: 40px;
 }
 
 .header-text {
   margin-left: 20px;
 }
 
-.header-text h0 {
+.header-text h3 {
   font-size: 24px;
   font-weight: bold;
   color: #333;
@@ -123,7 +123,7 @@ header {
 
 /* Định dạng menu */
 .nav-container {
-  background-color: #f8f9fa; /* Màu nền của menu */
+  background-color: #f8f9fa;
   padding: 10px 0;
 }
 
@@ -137,29 +137,95 @@ header {
   padding: 0;
   margin: 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* Ngăn các tab xuống dòng */
+  overflow-x: auto; /* Cho phép cuộn ngang trên màn hình nhỏ */
+  white-space: nowrap; /* Đảm bảo nội dung không xuống dòng */
+  gap: 10px; /* Khoảng cách giữa các tab */
+}
+
+/* Ẩn thanh cuộn trên Webkit (Chrome, Safari) */
+.nav-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ẩn thanh cuộn trên Firefox */
+.nav-tabs {
+  -ms-overflow-style: none; /* IE và Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Định dạng từng tab */
+.nav-tabs li {
+  position: relative;
 }
 
 .nav-tabs li a {
   font-family: 'Roboto', sans-serif;
-  font-size: 16px;
+  font-size: 14px; /* Kích thước chữ nhỏ hơn để vừa hàng ngang */
   font-weight: 500;
   color: #333;
   text-transform: uppercase;
   display: flex;
   align-items: center;
-  padding: 10px 15px;
+  padding: 8px 12px;
   text-decoration: none;
   cursor: pointer;
+  border-radius: 5px; /* Bo góc nhẹ */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Xóa biểu tượng hình tròn màu tím */
+.nav-tabs li::before {
+  content: none !important;
+}
+
+/* Định dạng biểu tượng trong tab */
 .nav-tabs li a i {
-  margin-right: 8px;
+  margin-right: 6px;
+  font-size: 14px;
+}
+
+/* Hiệu ứng hover để phân tách rõ ràng */
+.nav-tabs li a:hover {
+  background-color: #e0e0e0;
+  color: #ff5733;
+}
+
+/* Định dạng dropdown menu */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  min-width: 200px;
+  border-radius: 5px;
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-menu li a {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  color: #333;
+  padding: 10px 15px;
+  display: block;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #f0f0f0;
+  color: #ff5733;
 }
 
 /* Đẩy nội dung bên dưới header */
 main {
-  margin-top: 120px; /* Khoảng cách từ đỉnh trang, tùy chỉnh dựa trên chiều cao header */
+  margin-top: 120px; /* Điều chỉnh dựa trên chiều cao header */
   padding: 20px;
 }
 /* Hamburger menu */

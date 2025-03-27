@@ -5,10 +5,29 @@ document.addEventListener('DOMContentLoaded', function() {
   const closeMenu = document.querySelector('.close-menu');
   const overlay = document.querySelector('.overlay');
 
-  hamburger.addEventListener('click', () => {
-      navMenu.classList.add('active');
-      overlay.classList.add('active');
-  });
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.dropdown-toggle').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const parent = item.parentElement;
+            const dropdownMenu = parent.querySelector('.dropdown-menu');
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                if (menu !== dropdownMenu) {
+                    menu.classList.remove('show');
+                }
+            });
+            dropdownMenu.classList.toggle('show');
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.dropdown')) {
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.remove('show');
+            });
+        }
+    });
+});
 
   closeMenu.addEventListener('click', () => {
       navMenu.classList.remove('active');
