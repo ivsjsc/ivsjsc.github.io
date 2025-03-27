@@ -1,5 +1,3 @@
-Dưới đây là phiên bản cập nhật của các file HTML, CSS và JavaScript:
-
 **1. `index.html`**
 
 ```html
@@ -123,7 +121,7 @@ Dưới đây là phiên bản cập nhật của các file HTML, CSS và JavaSc
                     <ul class="dropdown-menu">
                         <li><a href="philoinhuan.html">Phi Lợi Nhuận</a></li>
                         <li><a href="tai-tro.html">Chương trình "Hãy Nói"</a></li>
-                       
+                        
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -161,7 +159,7 @@ Dưới đây là phiên bản cập nhật của các file HTML, CSS và JavaSc
 </header>
 ```
 
-**6. `styles.css`**
+**7. `styles.css`**
 
 ```css
 /* styles.css */
@@ -216,13 +214,14 @@ header {
 }
 
 .header-text h3 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin-bottom: 5px;
     font-weight: bold;
+    color: #003366;
 }
 
 .header-text h2 {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #555;
 }
 
@@ -235,7 +234,7 @@ nav {
 
 .nav-content {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     padding: 10px 20px;
     max-width: 1200px;
@@ -252,12 +251,13 @@ nav {
 .nav-tabs li {
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
 .nav-tabs li a {
     color: #333;
     text-decoration: none;
-    padding: 10px 15px;
+    padding: 12px 15px;
     display: block;
     font-size: 1rem;
     font-weight: 500;
@@ -266,12 +266,12 @@ nav {
 }
 
 .nav-tabs li a:hover {
-    color: #ff6600;
-    background-color: #e0e0e0;
+    color: #007bff;
+    background-color: #e9ecef;
 }
 
-.nav-tabs li.dropdown {
-    position: relative;
+.nav-tabs li.dropdown > a {
+    padding-right: 25px;
 }
 
 .nav-tabs li a.dropdown-toggle::after {
@@ -308,6 +308,7 @@ nav {
     visibility: hidden;
     transform: translateY(-10px);
     transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    min-width: 200px;
 }
 
 .nav-tabs li:hover > .dropdown-menu {
@@ -320,18 +321,19 @@ nav {
 
 .dropdown-menu li a {
     color: #333;
-    padding: 10px 15px;
+    padding: 12px 18px;
     display: block;
     text-decoration: none;
     font-size: 1rem;
     transition: color 0.3s ease, background-color 0.3s ease;
     border-bottom: 1px solid #eee;
     white-space: nowrap;
+    border-radius: 0;
 }
 
 .dropdown-menu li a:hover {
-    color: #ff6600;
-    background-color: #f8f8f8;
+    color: #007bff;
+    background-color: #f8f9fa;
 }
 
 .dropdown-menu li:last-child a {
@@ -339,19 +341,19 @@ nav {
 }
 
 .consult-btn {
-    background-color: #ff6600;
+    background-color: #007bff;
     color: #fff;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border-radius: 8px;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.3s ease;
     border: none;
 }
 
 .consult-btn:hover {
-    background-color: #cc5200;
+    background-color: #0056b3;
     transform: scale(1.05);
 }
 
@@ -360,6 +362,26 @@ main {
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
+}
+
+.banner {
+    background-color: #007bff;
+    color: #fff;
+    padding: 100px 20px;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+
+.banner-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.banner-content p {
+    font-size: 1.2rem;
+    line-height: 1.8;
 }
 
 .featured-posts {
@@ -376,15 +398,15 @@ main {
 
 #post-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
     margin-top: 20px;
 }
 
 .post-preview {
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -393,9 +415,8 @@ main {
 
 .post-preview:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
-
 
 .post-image {
     position: relative;
@@ -405,30 +426,30 @@ main {
 
 .post-image img {
     width: 100%;
-    height: 200px;
+    height: 250px;
     object-fit: cover;
     border-radius: 8px 8px 0 0;
     transition: transform 0.3s ease;
 }
 
 .post-image:hover img {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .post-image .hot-label {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 15px;
+    left: 15px;
     background-color: #ff6600;
     color: #fff;
-    padding: 5px 10px;
+    padding: 8px 12px;
     border-radius: 4px;
     font-size: 0.9rem;
     font-weight: bold;
 }
 
 .post-preview .content {
-    padding: 15px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -436,16 +457,16 @@ main {
 }
 
 .post-preview h3 {
-    margin: 0 0 10px;
-    font-size: 1.2rem;
+    margin: 0 0 15px;
+    font-size: 1.5rem;
     color: #007bff;
 }
 
 .post-preview p {
-    margin: 0 0 15px;
+    margin: 0 0 20px;
     color: #555;
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 1rem;
+    line-height: 1.7;
 }
 
 .post-preview .view-more {
@@ -476,8 +497,8 @@ main {
 
 .video-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
     margin-top: 20px;
 }
 
@@ -496,15 +517,15 @@ main {
 
 .video-container iframe {
     width: 100%;
-    height: 200px;
+    height: 300px;
     border: none;
     border-radius: 8px 8px 0 0;
 }
 
 .video-caption {
-    padding: 10px;
+    padding: 15px;
     text-align: center;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 500;
     background-color: #f8f8f8;
     border-radius: 0 0 8px 8px;
@@ -563,12 +584,12 @@ footer {
 }
 
 .footer-logo img {
-    height: 40px;
+    height: 50px;
     margin-bottom: 15px;
 }
 
 .footer-info {
-    font-size: 0.9rem;
+    font-size: 1rem;
     line-height: 1.8;
     margin-bottom: 15px;
 }
@@ -593,15 +614,15 @@ footer {
 }
 
 .footer-social p {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 .footer-social a {
     color: #fff;
-    font-size: 1.5rem;
-    margin: 0 10px;
+    font-size: 1.7rem;
+    margin: 0 15px;
     transition: color 0.3s ease;
 }
 
