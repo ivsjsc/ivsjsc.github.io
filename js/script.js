@@ -178,4 +178,3 @@ function loadPosts() {
 }
 
 loadPosts();
-</script>
