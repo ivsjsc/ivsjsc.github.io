@@ -1,114 +1,151 @@
-<header>
-  <button class="hamburger">☰</button>
-  <div class="nav-menu">
-    <div class="nav-menu-header">
-      <button class="close-menu">✖</button>
-      <span>Menu</span>
-    </div>
-    <ul class="nav-tabs">
-      <li><a href="index.html"><i class="fas fa-graduation-cap"></i>TRANG CHỦ</a></li>
-      <li class="dropdown">
-        <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-info-circle"></i>VỀ CHÚNG TÔI <i class="fas fa-chevron-down"></i></a>
-        <ul class="dropdown-menu">
-          <li><a href="about.html">About us</a></li>            
-          <li><a href="ivsmeaning.html">Ý nghĩa IVS</a></li>
-          <li><a href="sumenh.html">Sứ mệnh</a></li>
-          <li><a href="doingu.html">Đội ngũ</a></li>
-          <li><a href="co-hoi-dau-tu.html">Cơ hội đầu tư</a></li>
-          <li><a href="doi-tac.html">Đối tác đồng hành</a></li> 
-          <li><a href="philoinhuan.html">Phi Lợi Nhuận</a></li>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>IVS JSC - Navigation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <style>
+        /* CSS cơ bản để đảm bảo responsive */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        nav {
+            background: #1b1b1b;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+        nav .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+        nav ul li {
+            position: relative;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+        nav ul li:hover > a {
+            background: #333;
+        }
+        nav ul ul {
+            display: none;
+            position: absolute;
+            background: #333;
+            top: 100%;
+            flex-direction: column;
+            min-width: 200px;
+        }
+        nav ul li:hover > ul {
+            display: block;
+        }
+        .checkbtn {
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            display: none;
+        }
+        #check {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .checkbtn {
+                display: block;
+            }
+            nav ul {
+                position: fixed;
+                width: 100%;
+                height: 100vh;
+                background: #2c3e50;
+                top: 60px;
+                left: -100%;
+                flex-direction: column;
+                transition: all 0.3s;
+            }
+            nav ul li {
+                width: 100%;
+                text-align: center;
+            }
+            nav ul ul {
+                position: static;
+                display: none;
+            }
+            #check:checked ~ ul {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <label class="logo">IVS JSC</label>
+        <ul class="nav-tabs">
+            <li><a href="index.html"><i class="fas fa-graduation-cap"></i> TRANG CHỦ</a></li>
+            <li>
+                <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-info-circle"></i> VỀ CHÚNG TÔI <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="about.html">About us</a></li>
+                    <li><a href="ivsmeaning.html">Ý nghĩa IVS</a></li>
+                    <li><a href="sumenh.html">Sứ mệnh</a></li>
+                    <li><a href="doingu.html">Đội ngũ</a></li>
+                    <li><a href="co-hoi-dau-tu.html">Cơ hội đầu tư</a></li>
+                    <li><a href="doi-tac.html">Đối tác đồng hành</a></li>
+                    <li><a href="philoinhuan.html">Phi Lợi Nhuận</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-book"></i> HỢP TÁC QUỐC TẾ <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="hocbong.html">Học bổng Du học</a></li>
+                    <li><a href="summercamp.html">Trại hè Quốc tế</a></li>
+                    <li><a href="lien-ket-quoc-te.html">Liên kết Quốc tế</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-lightbulb"></i> ĐANG HOẠT ĐỘNG <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="dau-tu.html">Hoạt động vì cộng đồng</a></li>
+                    <li><a href="tai-tro.html">Chương trình "Hãy Nói"</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-tools"></i> TƯ VẤN GIÁO DỤC <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="tuvan.html">Tư vấn thủ tục, pháp lý Doanh nghiệp</a></li>
+                    <li><a href="thanhlaptrungtam.html">Thành lập Trung Tâm Ngoại Ngữ</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-heart"></i> TIỆN ÍCH <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                    <li><a href="https://aistudio.instagram.com/ai/663072466085450/?utm_source=mshare">Chatbot Talkie-Talkie hỗ trợ các thành viên "Hãy Nói"</a></li>
+                    <li><a href="https://www.facebook.com/haynoi.tuoitredongnai">Fanpage "Hãy Nói"</a></li>
+                    <li><a href="https://www.facebook.com/groups/500998409540367/">Cộng đồng Let's Talk Đồng Nai</a></li>
+                    <li><a href="https://zalo.me/g/ktxjdw182">Hồ sơ Giáo viên nước ngoài tại Việt Nam</a></li>
+                    <li><a href="https://www.facebook.com/groups/500998409540367/">Tìm hiểu thêm tại Zalo Official & Zalo Mini App</a></li>
+                </ul>
+            </li>
+            <li><a href="career.html"><i class="fas fa-briefcase"></i> TUYỂN DỤNG</a></li>
+            <li><a href="nmt-vcard.html"><i class="fas fa-question-circle"></i> LIÊN HỆ</a></li>
+            <li><a href="english-placement.html"><i class="fas fa-clipboard-check"></i> BÀI TEST TIẾNG ANH 6 BẬC</a></li>
         </ul>
-      </li> 
-      <li class="dropdown">
-        <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-book"></i>HỢP TÁC QUỐC TẾ <i class="fas fa-chevron-down"></i></a>
-        <ul class="dropdown-menu">
-          <li><a href="hocbong.html">Học bổng Du học</a></li>
-          <li><a href="summercamp.html">Trại hè Quốc tế</a></li>
-          <li><a href="lien-ket-quoc-te.html">Liên kết Quốc tế</a></li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-lightbulb"></i>ĐANG HOẠT ĐỘNG <i class="fas fa-chevron-down"></i></a>
-        <ul class="dropdown-menu">
-          <li><a href="dau-tu.html">Hoạt động vì cộng đồng</a></li> 
-          <li><a href="tai-tro.html">Chương trình "Hãy Nói"</a></li>
-        </ul>  
-      </li>
-      <li class="dropdown">
-        <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-tools"></i>TƯ VẤN GIÁO DỤC <i class="fas fa-chevron-down"></i></a>
-        <ul class="dropdown-menu">
-          <li><a href="tuvan.html">Tư vấn thủ tục, pháp lý Doanh nghiệp</a></li> 
-          <li><a href="thanhlaptrungtam.html">Thành lập Trung Tâm Ngoại Ngữ</a></li>  
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a href="javascript:void(0)" class="dropdown-toggle"><i class="fas fa-heart"></i>TIỆN ÍCH <i class="fas fa-chevron-down"></i></a>
-        <ul class="dropdown-menu">
-          <li><a href="https://aistudio.instagram.com/ai/663072466085450/?utm_source=mshare">Chatbot Talkie-Talkie hỗ trợ các thành viên "Hãy Nói"</a></li> 
-          <li><a href="https://www.facebook.com/haynoi.tuoitredongnai">Fanpage "Hãy Nói"</a></li> 
-          <li><a href="https://www.facebook.com/groups/500998409540367/">Cộng đồng Let's Talk Đồng Nai</a></li>  
-          <li><a href="https://zalo.me/g/ktxjdw182">Hồ sơ Giáo viên nước ngoài tại Việt Nam</a></li>  
-          <li><a href="https://www.facebook.com/groups/500998409540367/">Tìm hiểu thêm tại Zalo Official & Zalo Mini App</a></li>  
-        </ul>
-      </li>                     
-      <li><a href="career.html"><i class="fas fa-briefcase"></i>TUYỂN DỤNG</a></li>
-      <li><a href="nmt-vcard.html"><i class="fas fa-question-circle"></i>LIÊN HỆ</a></li>     
-      <li><a href="english-placement.html"><i class="fas fa-clipboard-check"></i>BÀI TEST TIẾNG ANH 6 BẬC</a></li>
-    </ul>
-  </div>
-
-  <div class="nav-container">
-    <div class="nav-content">
-      <ul class="nav-tabs">
-        <li><a href="index.html">TRANG CHỦ</a></li>
-        <li class="dropdown">
-          <a href="javascript:void(0)" class="dropdown-toggle">VỀ CHÚNG TÔI <i class="fas fa-chevron-down"></i></a>
-          <ul class="dropdown-menu">
-            <li><a href="about.html">About us</a></li>            
-            <li><a href="ivsmeaning.html">Ý nghĩa IVS</a></li>
-            <li><a href="sumenh.html">Sứ mệnh</a></li>
-            <li><a href="doingu.html">Đội ngũ</a></li>
-            <li><a href="co-hoi-dau-tu.html">Cơ hội đầu tư</a></li>
-            <li><a href="doi-tac.html">Đối tác đồng hành</a></li> 
-            <li><a href="philoinhuan.html">Phi Lợi Nhuận</a></li>
-          </ul>
-        </li>   
-        <li class="dropdown">
-          <a href="javascript:void(0)" class="dropdown-toggle">HỢP TÁC QUỐC TẾ <i class="fas fa-chevron-down"></i></a>
-          <ul class="dropdown-menu">
-            <li><a href="hocbong.html">Học bổng Du học</a></li>
-            <li><a href="summercamp.html">Trại hè Quốc tế</a></li>
-            <li><a href="lien-ket-quoc-te.html">Liên kết Quốc tế</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="javascript:void(0)" class="dropdown-toggle">ĐANG HOẠT ĐỘNG <i class="fas fa-chevron-down"></i></a>
-          <ul class="dropdown-menu">
-            <li><a href="dau-tu.html">Hoạt động vì cộng đồng</a></li> 
-            <li><a href="tai-tro.html">Chương trình "Hãy Nói"</a></li>
-          </ul>  
-        </li>     
-        <li class="dropdown">
-          <a href="javascript:void(0)" class="dropdown-toggle">TƯ VẤN GIÁO DỤC <i class="fas fa-chevron-down"></i></a>
-          <ul class="dropdown-menu">
-            <li><a href="tuvan.html">Tư vấn thủ tục, pháp lý Doanh nghiệp</a></li> 
-            <li><a href="thanhlaptrungtam.html">Thành lập Trung Tâm Ngoại Ngữ</a></li>  
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="javascript:void(0)" class="dropdown-toggle">TIỆN ÍCH <i class="fas fa-chevron-down"></i></a>
-          <ul class="dropdown-menu">
-            <li><a href="https://aistudio.instagram.com/ai/663072466085450/?utm_source=mshare">Chatbot Talkie-Talkie hỗ trợ các thành viên "Hãy Nói"</a></li> 
-            <li><a href="https://www.facebook.com/haynoi.tuoitredongnai">Fanpage "Hãy Nói"</a></li> 
-            <li><a href="https://www.facebook.com/groups/500998409540367/">Cộng đồng Let's Talk Đồng Nai</a></li>  
-            <li><a href="https://zalo.me/g/ktxjdw182">Hồ sơ Giáo viên nước ngoài tại Việt Nam</a></li>  
-            <li><a href="https://www.facebook.com/groups/500998409540367/">Tìm hiểu thêm tại Zalo Official & Zalo Mini App</a></li>  
-          </ul>
-        </li> 
-        <li><a href="career.html">TUYỂN DỤNG</a></li>
-        <li><a href="nmt-vcard.html">LIÊN HỆ</a></li>
-      </ul>
-      <a href="english-placement.html" class="consult-btn">TEST TIẾNG ANH 6 BẬC</a>
-    </div>
-  </div>
-</header>
+    </nav>
+</body>
+</html>
