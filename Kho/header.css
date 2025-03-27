@@ -1,0 +1,323 @@
+/* Reset mặc định */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Header Styles */
+header {
+  background-color: #1a3c6d;
+  background-image: url('../images/logo/logo.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 100px 0;
+  width: 100%;
+  z-index: 1000;
+  position: relative;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+/* Các phần tử trong header */
+.header-top,
+.nav-container,
+.hamburger {
+  position: relative;
+  z-index: 1;
+}
+
+/* Header trên mobile */
+.header-top {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background-color: #f8f8f8;
+}
+
+/* Logo */
+.header-logo img {
+  max-height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Nút hamburger */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* Sidebar menu trên mobile */
+.nav-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 80%;
+  max-width: 300px;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.nav-menu.active {
+  left: 0;
+}
+
+.nav-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #ddd;
+}
+
+.close-menu {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.nav-menu .nav-tabs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-menu .nav-tabs li {
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-menu .nav-tabs a {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.nav-menu .nav-tabs a:hover {
+  background-color: #f0f0f0;
+}
+
+.nav-menu .nav-tabs a i {
+  margin-right: 10px;
+  color: #ff5733;
+}
+
+/* Menu ngang trên PC */
+.nav-container {
+  display: none;
+  background-color: #fff;
+  padding: 10px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 8px 20px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-content .nav-tabs {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.nav-content .nav-tabs a {
+  text-decoration: none;
+  color: #333;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 8px;
+  transition: color 0.3s ease;
+}
+
+.nav-content .nav-tabs a:hover {
+  color: #ff5733;
+}
+
+/* Nút tư vấn */
+.consult-btn {
+  background-color: #ff5733;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+}
+
+.consult-btn:hover {
+  background-color: #e04e2d;
+}
+
+/* Dropdown menu */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  z-index: 1000;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu li {
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f8f8f8;
+}
+
+/* Dropdown trong sidebar */
+.nav-menu .dropdown-menu {
+  position: static;
+  box-shadow: none;
+  display: none;
+  background-color: #f8f8f8;
+  padding-left: 20px;
+}
+
+.nav-menu .dropdown.active .dropdown-menu {
+  display: block;
+}
+
+/* Media query cho mobile */
+@media (max-width: 768px) {
+  .header-top {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+    color: #333;
+  }
+
+  .header-logo img {
+    max-width: 150px;
+  }
+
+  .nav-content {
+    display: none;
+  }
+
+  .nav-menu {
+    display: block;
+  }
+
+  header {
+    background-color: #ffffff;
+    background-image: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  header::before {
+    background-color: transparent;
+  }
+
+  .nav-tabs li a {
+    font-size: 14px;
+  }
+
+  .dropdown-menu li a {
+    font-size: 13px;
+    padding: 12px 15px;
+  }
+}
+
+/* Media query cho desktop */
+@media (min-width: 769px) {
+  .header-top {
+    display: none;
+  }
+
+  .nav-menu {
+    display: none;
+  }
+
+  .nav-container {
+    display: block;
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+
+  .nav-content .nav-tabs {
+    gap: 15px;
+  }
+
+  .nav-content .nav-tabs a {
+    font-size: 14px;
+  }
+
+  .consult-btn {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
