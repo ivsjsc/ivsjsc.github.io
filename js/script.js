@@ -27,7 +27,29 @@ document.addEventListener('DOMContentLoaded', function() {
             overlay.classList.remove('active');
         });
     }
-
+    // Thêm hàm initMobileMenu
+    function initMobileMenu() {
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const overlay = document.querySelector('.overlay');
+        
+        if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
+        
+        overlay.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        }
+    }
+  
+  // Gọi hàm này khi DOM loaded
+  document.addEventListener('DOMContentLoaded', initMobileMenu);
     // Hiển thị/ẩn dropdown menu với hiệu ứng fade in/out và đóng khi click ra ngoài
     dropdownToggles.forEach((toggle, index) => {
         toggle.addEventListener('click', (e) => {
