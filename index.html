@@ -29,8 +29,8 @@
         <!-- Danh sách bài viết sẽ được thêm bằng JavaScript -->
       </div>
       <div class="carousel-controls">
-        <button id="prev-slide">❮</button>
-        <button id="next-slide">❯</button>
+        <button id="prev-slide"></button>
+        <button id="next-slide"></button>
       </div>
     </section>
 
@@ -85,7 +85,34 @@
     <!-- Nơi để chèn footer -->
     <div id="footer"></div>
  
-    <script>
+    <script>   
+        document.addEventListener("DOMContentLoaded", () => {
+            // Tải header
+            const headerElement = document.getElementById('header');
+            headerElement.innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải header...</p>';
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => {
+                    headerElement.innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Lỗi khi tải header:', error);
+                    headerElement.innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải header!</p>';
+                });
+
+            // Tải footer
+            const footerElement = document.getElementById('footer');
+            footerElement.innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải footer...</p>';
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(data => {
+                    footerElement.innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Lỗi khi tải footer:', error);
+                    footerElement.innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải footer!</p>';
+                });
+        }); 
         document.addEventListener("DOMContentLoaded", () => {
             // Tải header
             const headerElement = document.getElementById('header');

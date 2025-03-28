@@ -3,9 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const navMenu = document.querySelector('.main-navigation');
     const closeMenu = document.querySelector('.close-menu');
     const overlay = document.querySelector('.overlay');
-    const navLinks = document.querySelectorAll('.main-navigation .nav-tabs a'); // Cập nhật selector
-    const dropdownToggles = document.querySelectorAll('.main-navigation .nav-tabs .dropdown-toggle'); // Cập nhật selector
-    const dropdownMenus = document.querySelectorAll('.main-navigation .nav-tabs .dropdown-menu'); // Cập nhật selector
+    const dropdownToggles = document.querySelectorAll('.main-navigation .nav-tabs .dropdown-toggle');
+    const dropdownMenus = document.querySelectorAll('.main-navigation .nav-tabs .dropdown-menu');
 
     // Toggle menu mobile
     if (hamburger) {
