@@ -82,15 +82,25 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+/* styles.css */
+
 /* Cố định header ở trên cùng */
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #fff;
+    background-image: url('../images/background-ivs-office.jpg'); /* Thay thế bằng hình nền mới */
+    background-size: cover; /* Hình nền phủ toàn bộ header */
+    background-position: center; /* Căn giữa hình nền */
+    background-repeat: no-repeat; /* Không lặp lại hình nền */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    min-height: 200px; /* Giữ chiều cao tối thiểu */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #ddd; /* Bổ sung lại border-bottom */
 }
 
 /* Định dạng header-top */
@@ -100,32 +110,20 @@ header {
     padding: 10px 20px;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative; /* Đảm bảo nội dung nằm trên hình nền */
+    z-index: 1; /* Đặt z-index để nội dung nằm trên hình nền */
 }
 
-header {
-    background-image: url('../images/logo/logo.png'); /* Sử dụng logo làm nền */
-    background-size: cover; /* Hoặc contain, tùy thuộc vào hiệu ứng bạn muốn */
-    background-position: center;
-    background-repeat: no-repeat;
-    position: relative;
-    padding: 15px 20px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    min-height: 200px;
-    display: flex; /* Sử dụng flexbox để căn chỉnh logo */
-    align-items: center;
-    justify-content: center; /* Căn giữa logo */
-}
-
+/* Định dạng logo */
 .header-logo img {
-    max-height: 150px; /* Tăng kích thước logo */
-    width: auto; /* Giữ tỷ lệ khung hình */
-    opacity: 0.6; /* Làm mờ logo một chút nếu cần */
+    max-height: 150px;
+    width: auto;
+    opacity: 0.8; /* Tăng độ trong suốt nhẹ để hòa hợp với hình nền */
 }
 
+/* Định dạng header-text */
 .header-text {
-    /* ... (các thuộc tính hiện tại) ... */
-    position: absolute; /* Đặt header-text ở vị trí tuyệt đối */
+    position: absolute;
     top: 50%;
     left: 20px;
     transform: translateY(-50%);
@@ -134,19 +132,15 @@ header {
 .header-text h3 {
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: #fff; /* Đổi màu chữ thành trắng để nổi bật trên hình nền */
 }
 
 .header-text h2 {
     font-size: 16px;
-    color: #666;
+    color: #ddd; /* Màu sáng hơn để nổi bật */
 }
 
-/* styles.css */
-
-/* ... (các phần CSS khác giữ nguyên) ... */
-
-/* Định dạng menu (nav-tab) trên desktop */
+/* Định dạng container của thanh điều hướng (trên PC) */
 .nav-container {
     width: 100%;
     position: relative;
@@ -157,129 +151,29 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.8); /* Làm mờ nền của menu để nổi bật trên hình nền */
     padding: 12px 25px;
     border-radius: 8px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
-
-.nav-content .nav-tabs {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin: 0;
-}
-
-.nav-content .nav-tabs li {
     position: relative;
+    z-index: 1; /* Đảm bảo menu nằm trên hình nền */
 }
 
 .nav-content .nav-tabs a {
-    text-decoration: none;
     color: #333;
     font-size: 16px;
     font-weight: 600;
     padding: 10px 15px;
-    transition: color 0.3s ease, border-bottom 0.3s ease;
-    border: none;
+    transition: color 0.3s ease, border-bottom 0.3s ease, background-color 0.3s ease;
 }
 
-.nav-content .nav-tabs a:hover {
+.nav-content .nav-tabs a:hover,
+.nav-content .nav-tabs a:active {
     color: #ff5733;
     border-bottom: 2px solid #ff5733;
+    background-color: rgba(255, 255, 255, 0.5); /* Hiệu ứng hover nhẹ */
 }
 
-.nav-content .dropdown .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
-    list-style: none;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    min-width: 220px;
-    z-index: 1000;
-    padding: 0;
-    border: 1px solid #ddd;
-    /* Thêm transition cho hiệu ứng fade in/out */
-    transition: opacity 0.3s ease;
-    opacity: 0;
-}
-
-.nav-content .dropdown:hover .dropdown-menu {
-    display: block;
-    opacity: 1; /* Hiển thị dropdown với hiệu ứng fade in */
-}
-
-.nav-content .dropdown-menu li {
-    display: block;
-    padding: 0;
-}
-
-.nav-content .dropdown-menu a {
-    display: block;
-    padding: 12px 18px;
-    color: #333;
-    font-size: 14px;
-    font-weight: 400;
-    text-transform: none;
-    border-bottom: 1px solid #eee;
-    border-radius: 0;
-}
-
-.nav-content .dropdown-menu li:last-child a {
-    border-bottom: none;
-}
-
-.nav-content .dropdown-menu a:hover {
-    background-color: #f8f8f8;
-    color: #ff5733;
-}
-
-/* Hamburger menu và menu dọc trên mobile */
-.hamburger {
-    /* ... (giữ nguyên) ... */
-}
-
-.nav-menu {
-    /* ... (giữ nguyên) ... */
-}
-
-/* Thêm transition cho hiệu ứng fade in/out trên mobile */
-.nav-menu .dropdown-menu {
-    /* ... (giữ nguyên) ... */
-    transition: opacity 0.3s ease;
-    opacity: 0;
-}
-
-.nav-menu .dropdown:hover .dropdown-menu {
-    display: block;
-    opacity: 1; /* Hiển thị dropdown với hiệu ứng fade in */
-}
-
-/* ... (các phần CSS khác giữ nguyên) ... */
-
-/* Responsive styles */
-@media (max-width: 600px) {
-    /* ... (giữ nguyên) ... */
-    .nav-content {
-        display: none !important;
-    }
-
-    .nav-menu {
-        display: block !important;
-    }
-    /* ... (giữ nguyên) ... */
-}
-
-/* ... (các phần CSS khác giữ nguyên) ... */
-/* Đẩy nội dung bên dưới header */
-main {
-    margin-top: 120px;
-    padding: 20px;
-}
 /* Hamburger menu */
 .hamburger {
     display: none;
@@ -288,31 +182,25 @@ main {
     border: none;
     cursor: pointer;
     position: absolute;
-    top: 15px;
-    left: 15px;
-    color: #fff;
+    top: 10px; /* Bổ sung lại vị trí cũ */
+    right: 10px; /* Bổ sung lại vị trí cũ */
+    color: #fff; /* Đổi màu icon thành trắng để nổi bật trên hình nền */
     z-index: 2001;
+    width: 30px; /* Bổ sung lại */
+    height: 30px; /* Bổ sung lại */
+    padding: 5px; /* Bổ sung lại */
+    font-size: 16px; /* Bổ sung lại */
+    display: flex; /* Bổ sung lại */
+    align-items: center; /* Bổ sung lại */
+    justify-content: center; /* Bổ sung lại */
+    border: none; /* Bổ sung lại */
+    background: transparent; /* Bổ sung lại */
 }
-.hamburger {
-    width: 30px;
-    height: 30px;
-    padding: 5px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-}
+
 .hamburger .fas.fa-bars {
-    font-size: 16px;
+    font-size: 16px; /* Bổ sung lại */
 }
-.hamburger {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
+
 /* Menu dọc trên mobile */
 .nav-menu {
     display: none;
@@ -331,196 +219,29 @@ main {
     left: 0;
 }
 
-.nav-menu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    background-color: #f8f8f8;
-    border-bottom: 1px solid #ddd;
+/* Responsive styles */
+@media (max-width: 600px) {
+    .nav-content {
+        display: none !important;
+    }
+
+    .nav-menu {
+        display: block !important;
+    }
+
+    .hamburger {
+        display: flex; /* Hiển thị hamburger trên mobile */
+    }
+
+    header {
+        min-height: 150px; /* Giảm chiều cao header trên mobile */
+    }
 }
 
-.nav-menu-header span {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.close-menu {
-    font-size: 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #333;
-}
-
-.nav-menu .nav-tabs {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.nav-menu .nav-tabs li {
-    border-bottom: 1px solid #ddd;
-}
-
-.nav-menu .nav-tabs a {
-    display: flex;
-    align-items: center;
-    padding: 15px 20px;
-    text-decoration: none;
-    color: #333;
-    font-size: 16px;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-.nav-menu {
-    width: 250px;
-    font-size: 10px;
-    padding: 8px;
-}
-
-.nav-menu .nav-tabs li a {
-    font-size: 10px;
-    padding: 8px 10px;
-}
-
-.nav-menu .nav-tabs li a i {
-    font-size: 12px;
-    margin-right: 4px;
-}
-.nav-tabs li:last-child,
-.nav-tabs li:nth-last-child(2),
-.nav-tabs li:nth-last-child(3) {
-    position: relative;
-}
-.nav-menu .nav-tabs a i {
-    margin-right: 10px;
-    color: #ff5733;
-}
-
-.nav-menu .nav-tabs a:hover {
-    background-color: #f8f8f8;
-    color: #ff5733;
-    transform: scale(1.05);
-}
-
-.nav-menu .dropdown-menu {
-    display: none;
-    background-color: #f8f8f8;
-    padding-left: 20px;
-}
-
-.nav-menu .dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-.nav-menu .dropdown-menu a {
-    padding: 10px 20px;
-    font-size: 14px;
-}
-
-/* Định dạng container của thanh điều hướng (trên PC) */
-.nav-container {
-    width: 100%;
-    position: relative;
-    margin-top: 10px;
-}
-
-.nav-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 12px 25px;
-    border-radius: 8px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
-
-.nav-content .nav-tabs {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin: 0;
-}
-
-.nav-content .nav-tabs li {
-    position: relative;
-}
-
-.nav-content .nav-tabs a {
-    text-decoration: none;
-    color: #333;
-    font-size: 16px;
-    font-weight: 600;
-    padding: 10px 15px;
-    transition: color 0.3s ease, border-bottom 0.3s ease;
-    border: none;
-}
-
-.nav-content .nav-tabs a:hover {
-    color: #ff5733;
-    border-bottom: 2px solid #ff5733;
-}
-
-.nav-content .dropdown .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #fff;
-    list-style: none;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    min-width: 220px;
-    z-index: 1000;
-    padding: 0;
-    border: 1px solid #ddd;
-}
-
-.nav-content .dropdown:hover .dropdown-menu {
-    display: block;
-}
-
-.nav-content .dropdown-menu li {
-    display: block;
-    padding: 0;
-}
-
-.nav-content .dropdown-menu a {
-    display: block;
-    padding: 12px 18px;
-    color: #333;
-    font-size: 14px;
-    font-weight: 400;
-    text-transform: none;
-    border-bottom: 1px solid #eee;
-    border-radius: 0;
-}
-
-.nav-content .dropdown-menu li:last-child a {
-    border-bottom: none;
-}
-
-
-.nav-content .dropdown-menu a:hover {
-    background-color: #f8f8f8;
-    color: #ff5733;
-}
-/* styles.css */
-
-/* ... (các phần CSS khác giữ nguyên) ... */
-
-.nav-content .nav-tabs a {
-    /* ... (các thuộc tính hiện tại) ... */
-    transition: color 0.3s ease, border-bottom 0.3s ease, background-color 0.3s ease; /* Thêm transition cho background-color */
-}
-
-.nav-content .nav-tabs a:hover,
-.nav-content .nav-tabs a:active { /* Thêm selector cho active */
-    color: #ff5733;
-    border-bottom: 2px solid #ff5733;
-    background-color: #f0f0f0; /* Thêm background-color khi hover/active */
+/* Đẩy nội dung bên dưới header */
+main {
+    margin-top: 120px; /* Khôi phục giá trị cũ */
+    padding: 20px;
 }
 
 .consult-btn {
