@@ -780,11 +780,14 @@ header {
   }
   
   .nav-menu .nav-tabs a:hover {
-    background-color: #f8f8f8;
+    background-color: #748fd953;
     color: #ff5733;
     transform: scale(1.05);
   }
-  
+  .nav-tabs a:hover {
+    color: #ff5733;
+    transform: translateY(-2px);
+  }
   .nav-menu .dropdown-menu {
     display: none;
     background-color: #f8f8f8;
@@ -799,7 +802,46 @@ header {
     padding: 10px 20px;
     font-size: 14px;
   }
-  
+  .dropdown-menu {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 0 0 8px 8px;
+  }
+  * {
+    transition: all 0.2s ease;
+  }
+  @media (max-width: 992px) {
+      /* Styles for tablets */
+  }
+/* Fix menu item text */
+.nav-tabs > li > a {
+  white-space: nowrap;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+}
+
+/* Fix dropdown */
+.dropdown-menu {
+  min-width: 200px;
+  white-space: normal;
+}
+
+/* Responsive text */
+@media (max-width: 1200px) {
+  .nav-tabs > li > a {
+    font-size: 14px;
+    padding: 10px 8px;
+  }
+
+  /* Ngăn chữ bị tách dòng */
+  .nav-tabs > li > a span {
+    display: inline-block;
+    text-align: center;
+    line-height: 1.2;
+  }
+  @media (max-width: 768px) {
+      /* Styles for mobile */
+  } 
   /* Định dạng container của thanh điều hướng (trên PC) */
   .nav-container {
     width: 100%;
