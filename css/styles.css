@@ -58,18 +58,27 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    background-image: url('../images/background-ivs-office.jpg'); /* Thay thế bằng hình nền mới */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     min-height: 100px; /* Điều chỉnh chiều cao header */
     display: flex;
+    flex-direction: column; /* Thay đổi hướng flex thành cột */
     align-items: center;
-    justify-content: space-between;
     padding: 0 20px;
     border-bottom: 1px solid #ddd;
+    background-color: transparent; /* Đặt màu nền header là trong suốt */
+}
+
+.header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200px; /* Điều chỉnh chiều cao hình nền theo ý muốn */
+    background-image: url('../images/background-ivs-office.jpg'); /* Đường dẫn đến hình nền của bạn */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1; /* Đưa hình nền xuống dưới nội dung header */
 }
 
 .header-top {
@@ -77,6 +86,8 @@ header {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    position: relative; /* Đảm bảo header-top nằm trên hình nền */
+    padding-top: 20px; /* Điều chỉnh khoảng cách từ đỉnh header */
 }
 
 .header-logo img {
@@ -88,6 +99,8 @@ header {
 .header-text {
     display: none; /* Ẩn text header mặc định */
 }
+
+/* ... Các định стили khác của header-top và navigation ... */
 
 /* Hamburger menu */
 .hamburger {
