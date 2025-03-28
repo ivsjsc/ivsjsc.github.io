@@ -923,28 +923,83 @@ header {
     display: none !important;
   }
   
-  .hamburger {
-    display: block !important;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1001;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+ /* Mobile menu styles */
+@media (max-width: 768px) {
+    .hamburger {
+      display: block !important;
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 1001;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      font-size: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  
+    .nav-content {
+      display: none !important;
+    }
+  
+    .nav-menu {
+      width: 80%;
+      left: -80%;
+    }
+  
+    /* Hiệu ứng khi menu mở */
+    .nav-menu.active {
+      left: 0;
+    }
+    
+    /* Điều chỉnh bố cục chính */
+    main {
+      padding: 15px;
+    }
+    
+    /* Điều chỉnh thông báo chuyển hướng */
+    #redirect-timer {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    
+    #cancel-redirect {
+      width: 100%;
+      padding: 10px;
+    }
+    
+    /* Điều chỉnh danh sách bài viết */
+    .post-preview {
+      flex-direction: column;
+      height: auto;
+    }
+    
+    .post-image {
+      width: 100%;
+      height: 150px;
+    }
+  }
+  /* Thêm vào styles.css */
+.redirect-notice {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  
+  #cancel-redirect {
+    background: #ff5733;
     color: white;
-    font-size: 1.5rem;
     border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: bold;
   }
-  
-  .nav-menu {
-    display: block !important;
-  }
-  
   /* Thêm overlay khi menu mở */
   .overlay {
     position: fixed;

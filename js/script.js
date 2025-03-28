@@ -27,27 +27,28 @@ document.addEventListener('DOMContentLoaded', function() {
             overlay.classList.remove('active');
         });
     }
-    // Thêm hàm initMobileMenu
+
+    // Mobile menu toggle
     function initMobileMenu() {
         const hamburger = document.querySelector('.hamburger');
         const navMenu = document.querySelector('.nav-menu');
-        const overlay = document.querySelector('.overlay');
+        const closeMenu = document.querySelector('.close-menu');
         
-        if (hamburger && navMenu) {
+        if (hamburger && navMenu && closeMenu) {
         hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            overlay.classList.toggle('active');
-            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+            navMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
         });
         
-        overlay.addEventListener('click', () => {
+        closeMenu.addEventListener('click', () => {
             navMenu.classList.remove('active');
-            overlay.classList.remove('active');
             document.body.style.overflow = '';
         });
         }
     }
-  
+    
+    // Gọi hàm khi trang load
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
   // Gọi hàm này khi DOM loaded
   document.addEventListener('DOMContentLoaded', initMobileMenu);
     // Hiển thị/ẩn dropdown menu với hiệu ứng fade in/out và đóng khi click ra ngoài
