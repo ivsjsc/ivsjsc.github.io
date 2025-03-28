@@ -46,7 +46,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         }
     }
-    
+        // Thêm vào hàm xử lý dropdown
+    const submenuToggles = document.querySelectorAll('.dropdown-submenu > a');
+
+    submenuToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            if (window.innerWidth <= 992) { // Chỉ áp dụng cho mobile
+                e.preventDefault();
+                const parent = this.parentElement;
+                const submenu = parent.querySelector('.dropdown-submenu');
+                
+                parent.classList.toggle('active');
+                submenu.classList.toggle('show');
+            }
+        });
+    });
     // Gọi hàm khi trang load
     document.addEventListener('DOMContentLoaded', initMobileMenu);
   // Gọi hàm này khi DOM loaded
