@@ -153,6 +153,30 @@ function createPostElement(post) {
     return postPreview;
 }
 
+let postPreviews = []; // Khai báo toàn cục
+
+// Toggle menu
+function toggleMenu() {
+    navMenu.classList.toggle('active');
+    overlay.classList.toggle('active');
+}
+
+// Redirect countdown
+function startRedirectCountdown() {
+    let timeLeft = countdownDuration / 1000;
+    const timerDisplay = document.getElementById('redirect-timer');
+    redirectTimeout = setInterval(() => {
+        if (timeLeft <= 0) {
+            clearInterval(redirectTimeout);
+            window.location.href = redirectUrl;
+        } else {
+            timerDisplay.textContent = `Chuyển hướng sau ${timeLeft} giây...`;
+            timeLeft--;
+        }
+    }, 1000);
+}
+
+// Load posts
 function loadPosts() {
     fetch('posts.json')
         .then(response => response.json())
@@ -177,8 +201,6 @@ function loadPosts() {
                         nextPost();
                         startCarousel();
                     });
-                    postList.addEventListener('mouseenter', stopCarousel);
-                    postList.addEventListener('mouseleave', startCarousel);
                 }
             } else {
                 postList.innerHTML = '<p>Không có bài viết nào.</p>';
@@ -186,8 +208,10 @@ function loadPosts() {
         })
         .catch(error => {
             console.error('Lỗi khi tải bài viết:', error);
-            postList.innerHTML = '<p>Đã xảy ra lỗi khi tải bài viết.</p>';
+            postList.innerHTML = '<p>Xin lỗi, không thể tải bài viết. Vui lòng thử lại sau!</p>';
         });
 }
 
+// Gọi các hàm khởi tạo
+startRedirectCountdown();
 loadPosts();
