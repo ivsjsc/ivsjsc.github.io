@@ -11,182 +11,76 @@
   <meta property="og:url" content="https://www.facebook.com/hr.ivsacademy">
   <meta property="og:type" content="website">
   <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="js/script.js"></script>
+  <link rel="preload" href="header.html" as="fetch">
+  <link rel="preload" href="footer.html" as="fetch">
+  <link rel="preload" href="posts.json" as="fetch">
 </head>
 <body>
   <div id="header"></div>
-  <div class="hero-image">
-  <!-- Main -->
+
   <main>
-    <p id="redirect-timer">Website sẽ tự động chuyển đến Fanpage IVS Academy trong 2 phút...</p>
-    <button id="cancel-redirect">Hủy chuyển hướng</button>
+    <div class="redirect-notice">
+      <p id="redirect-timer">Website sẽ tự động chuyển đến Fanpage IVS Academy trong 2 phút...</p>
+      <button id="cancel-redirect" class="btn btn-warning">Hủy chuyển hướng</button>
+    </div>
     
     <section class="featured-posts">
-      <h2>Thông tin nổi bật</h2>
+      <h2 class="section-title">Thông tin nổi bật</h2>
       <div id="post-list" class="carousel">
         <!-- Danh sách bài viết sẽ được thêm bằng JavaScript -->
       </div>
       <div class="carousel-controls">
-        <button id="prev-slide"></button>
-        <button id="next-slide"></button>
+        <button id="prev-slide" class="carousel-btn" aria-label="Previous slide">❮</button>
+        <button id="next-slide" class="carousel-btn" aria-label="Next slide">❯</button>
       </div>
     </section>
 
-    <!-- Phần Video sử dụng layout dạng grid -->
     <section class="video-section">
-      <!-- Video 1: Talkshow "Hãy Nói" -->
       <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/-U9JQvUYB94" title="Về chương trình Phi lợi nhuận Hãy Nói" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/-U9JQvUYB94" title="Về chương trình Phi lợi nhuận Hãy Nói" allowfullscreen loading="lazy"></iframe>
         <div class="video-caption">
-          <a href="https://forms.gle/TH9n3MV5Ty4E46TL7" target="_blank">Đăng ký Talkshow 'Hãy Nói'</a>
+          <a href="https://forms.gle/TH9n3MV5Ty4E46TL7" target="_blank" rel="noopener">Đăng ký Talkshow 'Hãy Nói'</a>
         </div>
       </div>
 
-      <!-- Video 2: Trại hè Quốc tế tại Philippines -->
       <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/2qktCUrScMs" title="Trại hè Quốc tế tại Philippines" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/2qktCUrScMs" title="Trại hè Quốc tế tại Philippines" allowfullscreen loading="lazy"></iframe>
         <div class="video-caption">
-          <a href="summercamp.html">Thông tin chi tiết về Trại hè Quốc tế tại CEBU</a>
+          <a href="summercamp.html">Thông tin chi tiết về Trại hè quốc tế tại CEBU</a>
         </div>
       </div>
 
-      <!-- Video 3: STEAM+ Intelligence Model -->
       <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/_T8ObF-rz8U" title="Video giới thiệu STEAM+ Intelligence Model" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/_T8ObF-rz8U" title="Video giới thiệu STEAM+ Intelligence Model" allowfullscreen loading="lazy"></iframe>
         <div class="video-caption">
-          <a href="https://docs.google.com/spreadsheets/d/1HMeKvzgCEa-4NJSqEp7jUZsXqirKApi4yCLXBRJ8L60/" target="_blank">Chi tiết nội dung 'Hãy Nói'</a>
+          <a href="https://docs.google.com/spreadsheets/d/1HMeKvzgCEa-4NJSqEp7jUZsXqirKApi4yCLXBRJ8L60/" target="_blank" rel="noopener">Chi tiết nội dung 'Hãy Nói'</a>
         </div>
       </div>
 
-      <!-- Video 4: IVS Academy giới thiệu -->
       <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/3XzfJboNwcQ" title="Video giới thiệu IVS Academy" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/3XzfJboNwcQ" title="Video giới thiệu IVS Academy" allowfullscreen loading="lazy"></iframe>
         <div class="video-caption">
-          <a href="https://aistudio.instagram.com/ai/663072466085450/" target="_blank">Chatbot Talkie - Tư vấn tâm lý học sinh</a>
+          <a href="https://aistudio.instagram.com/ai/663072466085450/" target="_blank" rel="noopener">Chatbot Talkie - Tư vấn tâm lý học sinh</a>
         </div>             
       </div>
       
-      <!-- Video 5: Playlist IVS's song -->
       <div class="video-container">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=pT0XACyTQeygHNm2&list=PLwqdiwWIIO2ea6HZlKDVsCBTSJ-vooIOC" title="Playlist IVS's song" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/videoseries?si=pT0XACyTQeygHNm2&list=PLwqdiwWIIO2ea6HZlKDVsCBTSJ-vooIOC" title="Playlist IVS's song" allowfullscreen loading="lazy"></iframe>
         <div class="video-caption">
-          <a href="https://www.youtube.com/@integratevisionsynergy" target="_blank">Kênh Youtube IVS Academy</a>
+          <a href="https://www.youtube.com/@integratevisionsynergy" target="_blank" rel="noopener">Kênh Youtube IVS Academy</a>
         </div>             
       </div>
     </section>
 
-    <!-- Section GIF cảm ơn -->
     <section class="thank-you-section">
-      <img src="https://media4.giphy.com/media/nftYWGEVbLf8ckNdEc/giphy.gif" width="30" height="20" alt="GIF cảm ơn bạn đã theo dõi IVS Academy" class="thank-you-gif">
+      <img src="https://media4.giphy.com/media/nftYWGEVbLf8ckNdEc/giphy.gif" alt="GIF cảm ơn bạn đã theo dõi IVS Academy" class="thank-you-gif" loading="lazy">
     </section>
 
-    <!-- Nơi để chèn footer -->
     <div id="footer"></div>
- 
-    <script>   
-        document.addEventListener("DOMContentLoaded", () => {
-            // Tải header
-            const headerElement = document.getElementById('header');
-            headerElement.innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải header...</p>';
-            fetch('header.html')
-                .then(response => response.text())
-                .then(data => {
-                    headerElement.innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Lỗi khi tải header:', error);
-                    headerElement.innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải header!</p>';
-                });
+  </main>
 
-            // Tải footer
-            const footerElement = document.getElementById('footer');
-            footerElement.innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải footer...</p>';
-            fetch('footer.html')
-                .then(response => response.text())
-                .then(data => {
-                    footerElement.innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Lỗi khi tải footer:', error);
-                    footerElement.innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải footer!</p>';
-                });
-        }); 
-        document.addEventListener("DOMContentLoaded", () => {
-            // Tải header
-            const headerElement = document.getElementById('header');
-            headerElement.innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải header...</p>';
-            fetch('header.html')
-                .then(response => {
-                    if (!response.ok) throw new Error('Không thể tải header.html');
-                    return response.text();
-                })
-                .then(data => {
-                    headerElement.innerHTML = data;
-                    // Gắn sự kiện cho hamburger menu và close button (nếu cần, bạn có thể di chuyển phần này vào script.js)
-                    const hamburger = document.querySelector(".hamburger");
-                    const navMenu = document.querySelector(".main-navigation");
-                    const closeMenu = document.querySelector(".close-menu");
-                    const overlay = document.querySelector(".overlay");
-
-                    if (hamburger && navMenu && closeMenu && overlay) {
-                        hamburger.addEventListener("click", () => {
-                            navMenu.classList.add("active");
-                            overlay.classList.add("active");
-                        });
-
-                        closeMenu.addEventListener("click", () => {
-                            navMenu.classList.remove("active");
-                            overlay.classList.remove("active");
-                        });
-
-                        overlay.addEventListener("click", () => {
-                            navMenu.classList.remove("active");
-                            overlay.classList.remove("active");
-                        });
-                    }
-
-                    // Xử lý dropdown (nếu cần, bạn có thể di chuyển phần này vào script.js)
-                    const dropdownToggles = document.querySelectorAll('.main-navigation .nav-tabs .dropdown-toggle');
-                    dropdownToggles.forEach(toggle => {
-                        toggle.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            const dropdownMenu = toggle.nextElementSibling;
-                            dropdownMenu.classList.toggle('show');
-                        });
-                    });
-
-                    document.addEventListener('click', (e) => {
-                        const dropdownMenus = document.querySelectorAll('.main-navigation .nav-tabs .dropdown-menu');
-                        dropdownMenus.forEach(menu => {
-                            if (menu.classList.contains('show') && !menu.previousElementSibling.contains(e.target) && !menu.contains(e.target)) {
-                                menu.classList.remove('show');
-                            }
-                        });
-                    });
-                })
-                .catch(error => {
-                    console.error('Lỗi khi tải header:', error);
-                    headerElement.innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải header!</p>';
-                });
-
-            // Tải footer
-            const footerElement = document.getElementById('footer');
-            footerElement.innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải footer...</p>';
-            fetch('footer.html')
-                .then(response => {
-                    if (!response.ok) throw new Error('Không thể tải footer.html');
-                    return response.text();
-                })
-                .then(data => {
-                    footerElement.innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Lỗi khi tải footer:', error);
-                    footerElement.innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải footer!</p>';
-                });
-        });
-    </script>
+  <script src="js/main.min.js" defer></script>
 </body>
 </html>
