@@ -13,6 +13,8 @@
   <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preload" href="header.html" as="fetch">
+  <link rel="preload" href="footer.html" as="fetch">
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -98,12 +100,8 @@
     }
   </style>
 </head>
-
 <body>
   <div id="header"></div>
-
-</head>
-<body>
   <header>
     <h1>HOẠT ĐỘNG LIÊN KẾT ĐỐI NGOẠI</h1>
     <p>IVS JSC - Kết nối giáo dục Việt Nam với thế giới</p>
@@ -148,30 +146,6 @@
     </div>
   </section>
 
-  <div class="highlight">
-    <h3>Thành tựu nổi bật</h3>
-    <p>Trong 1 năm qua, IVS JSC đã giúp hơn 50 học sinh, sinh viên Việt Nam nhận được các suất học bổng nhiều giá trị từ các chương trình hợp tác quốc tế.</p>
-  </div>
-
-  <section class="stats">
-    <div class="stat-item">
-      <div class="stat-number">5+</div>
-      <div>Đối tác quốc tế</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">50+</div>
-      <div>Học bổng trao tặng</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">1M+</div>
-      <div>USD giá trị học bổng</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">3+</div>
-      <div>Quốc gia hợp tác</div>
-    </div>
-  </section>
-
   <section>
     <h2>Quy trình hợp tác</h2>
     <ol>
@@ -183,14 +157,92 @@
     </ol>
   </section>
 
-  <footer>
-    <h3>Liên hệ với chúng tôi</h3>
-    <div class="contact-info">
-      <p><i class="fas fa-envelope"></i> Email: <a href="mailto:info@ivsjsc.edu.vn">info@ivsjsc.edu.vn</a></p>
-      <p><i class="fas fa-phone"></i> Điện thoại: +84 24 1234 5678</p>
-      <p><i class="fas fa-map-marker-alt"></i> Địa chỉ: Tòa nhà IVS, số 123 đường ABC, Hà Nội, Việt Nam</p>
-    </div>
-    <p>© 2023 IVS JSC. Tất cả các quyền được bảo lưu.</p>
-  </footer>
+  <!-- Nơi để chèn footer -->
+  <div id="footer"></div>
+
+  <!-- JavaScript: tải header và footer, chuyển hướng tự động, toggle menu -->
+  <script>
+    // Run script after DOM is fully loaded
+    document.addEventListener("DOMContentLoaded", () => {
+      // Tải header
+      const headerElement = document.getElementById('header');
+      headerElement.innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải header...</p>';
+      fetch('header.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Không thể tải header.html');
+          return response.text();
+        })
+        .then(data => {
+          headerElement.innerHTML = data;
+          // Gắn sự kiện cho hamburger menu và close button
+          const hamburger = document.querySelector(".hamburger");
+          const navMenu = document.querySelector(".nav-menu");
+          const closeMenu = document.querySelector(".close-menu");
+
+          if (hamburger && navMenu && closeMenu) {
+            // Mở menu khi nhấp vào hamburger
+            hamburger.addEventListener("click", () => {
+              navMenu.classList.add("active");
+            });
+
+            // Đóng menu khi nhấp vào nút đóng
+            closeMenu.addEventListener("click", () => {
+              navMenu.classList.remove("active");
+            });
+
+            // Đóng menu khi nhấp ra ngoài
+            document.addEventListener("click", (event) => {
+              if (!navMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                navMenu.classList.remove("active");
+              }
+            });
+          }
+        })
+        .catch(error => {
+          console.error('Lỗi khi tải header:', error);
+          headerElement.innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải header!</p>';
+        });
+
+      // Tải footer
+      const footerElement = document.getElementById('footer');
+      footerElement.innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải footer...</p>';
+      fetch('footer.html')
+        .then(response => {
+          if (!response.ok) throw new Error('Không thể tải footer.html');
+          return response.text();
+        })
+        .then(data => {
+          footerElement.innerHTML = data;
+        })
+        .catch(error => {
+          console.error('Lỗi khi tải footer:', error);
+          footerElement.innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải footer!</p>';
+        });
+
+      // Đồng hồ đếm ngược chuyển hướng
+      let timeLeft = 120; // 120 giây
+      const redirectTimer = document.getElementById('redirect-timer');
+      const cancelButton = document.getElementById("cancel-redirect");
+
+      if (redirectTimer && cancelButton) {
+        const timer = setInterval(() => {
+          timeLeft--;
+          redirectTimer.textContent = `Website sẽ tự động chuyển đến Fanpage IVS Academy trong ${Math.floor(timeLeft / 60)} phút ${timeLeft % 60} giây...`;
+          if (timeLeft <= 0) {
+            clearInterval(timer);
+            window.location.href = "https://facebook.com/hr.ivsacademy";
+          }
+        }, 1000);
+
+        // Sự kiện hủy chuyển hướng
+        cancelButton.addEventListener("click", () => {
+          clearInterval(timer);
+          cancelButton.textContent = "Đã hủy chuyển hướng";
+          cancelButton.disabled = true;
+          redirectTimer.textContent = "Chuyển hướng đã bị hủy.";
+        });
+      }
+    });
+  </script>
 </body>
 </html>
