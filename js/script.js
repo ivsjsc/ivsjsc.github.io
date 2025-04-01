@@ -8,7 +8,7 @@ fetch('header.html')
     })
     .catch(() => document.getElementById('header').innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải header!</p>');
 
-// Load footer (single fetch call)
+// Load footer
 document.getElementById('footer').innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải footer...</p>';
 fetch('footer.html')
     .then(response => response.text())
