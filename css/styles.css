@@ -17,34 +17,46 @@ body {
 }
 
 /* Header */
+/* Header */
 header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-image: url('../images/background-ivs-office.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  min-height: 140px;
+  min-height: 200px; /* Tăng chiều cao để chứa banner */
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 15px 20px;
 }
 
-/* Header top */
-.header-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  max-width: 1200px;
+/* Banner */
+.header-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  position: relative;
-  z-index: 1;
+  height: 100%;
+  z-index: -1; /* Đặt banner phía sau các phần tử khác */
+}
+
+.header-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+}
+
+/* Đảm bảo menu có nền trong suốt để thấy banner */
+.nav-content {
+  background-color: rgba(255, 255, 255, 0.8); /* Nền bán trong suốt */
+  padding: 12px 25px;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Đảm bảo header-top không bị ảnh hưởng */
+.header-top {
+  z-index: 1; /* Đặt header-top phía trên banner */
 }
 
 .header-logo img {
