@@ -452,7 +452,6 @@ footer {
   color: #ffd700;
 }
 
-/* Redirect Notice */
 .redirect-notice {
   background: #fff;
   padding: 15px;
@@ -478,8 +477,196 @@ footer {
   background-color: #e04e2d;
   transform: scale(1.05);
 }
+.btn {
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+}
 
-/* Các phần khác không liên quan đến header (giữ nguyên) */
+.btn-warning {
+  background-color: var(--secondary-color);
+  color: #fff;
+}
+
+.btn-warning:hover {
+  background-color: #e04e2d;
+}
+main {
+  margin-top: 120px;
+  flex: 1;
+  padding: 20px;
+}
+@media (max-width: 576px) {
+  main {
+      margin-top: 100px;
+      padding: 15px;
+  }
+}
+.thank-you-section {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.thank-you-gif {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+}
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: -80%;
+  width: 80%;
+  height: 100vh;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: left 0.3s ease;
+  overflow-y: auto;
+}
+
+.mobile-menu.active {
+  display: block;
+  left: 0;
+}
+
+.mobile-nav-tabs a i {
+  margin-right: 8px;
+  color: #ff5733;
+}
+.carousel {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.post-preview {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: transform 0.5s ease;
+  overflow: hidden;
+}
+
+.post-image {
+  flex: 0 0 40%;
+  position: relative;
+}
+
+.post-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hot-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: var(--secondary-color);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+@media (max-width: 600px) {
+  #post-list {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 15px;
+      max-width: 100%;
+      padding: 0 10px;
+      position: static;
+      min-height: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+  }
+
+  .post-preview {
+      flex: 0 0 200px;
+      display: block;
+      position: static;
+      transform: none;
+      margin: 0;
+      padding: 10px;
+      text-align: center;
+      min-height: auto;
+      scroll-snap-align: start;
+  }
+}
+.video-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.video-container {
+  background: #fff;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
+}
+
+.video-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.video-container iframe {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border: none;
+}
+
+.video-caption {
+  padding: 15px;
+  text-align: center;
+}
+@media (max-width: 576px) {
+  .video-section {
+      grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 992px) {
+  .nav-content {
+      display: none;
+  }
+
+  .hamburger {
+      display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-logo img {
+      height: 60px;
+  }
+}
+
+@media (max-width: 576px) {
+  .header-logo img {
+      height: 50px;
+  }
+}
 main {
   flex: 1;
   padding: 20px;
@@ -637,7 +824,47 @@ main {
   .footer-social {
     margin-bottom: 20px;
   }
+  footer {
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 30px 0;
+    margin-top: 50px;
+}
 
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.footer-logo img {
+    width: 60px;
+    margin-bottom: 15px;
+}
+
+.footer-social {
+    display: flex;
+    flex-direction: column;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+@media (max-width: 768px) {
+  .footer-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+  }
+
+  .social-links {
+      justify-content: center;
+  }
+}
   #post-list {
     display: flex;
     flex-wrap: nowrap;
