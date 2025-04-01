@@ -12,7 +12,6 @@
   <meta property="og:type" content="website">
   <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
   <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/styles.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preload" href="header.html" as="fetch">
   <link rel="preload" href="footer.html" as="fetch">
@@ -22,11 +21,13 @@
   <div id="header"></div>
 
   <main>
-    <div class="redirect-notice">
-      <p id="redirect-timer">Website sẽ tự động chuyển đến Fanpage IVS Academy trong 2 phút...</p>
-      <button id="cancel-redirect" class="btn btn-warning">Hủy chuyển hướng</button>
-    </div>
-    
+    <section class="redirect-notice">
+      <div id="redirect-timer">
+        <p>Website sẽ tự động chuyển đến Fanpage IVS Academy trong 2 phút...</p>
+        <button id="cancel-redirect" class="btn btn-warning">Hủy chuyển hướng</button>
+      </div>  
+    </section>
+
     <section class="featured-posts">
       <h2 class="section-title">Thông tin nổi bật</h2>
       <div id="post-list" class="carousel">
@@ -83,6 +84,26 @@
     <div id="footer"></div>
   </main>
 
-  <script src="js/main.min.js" defer></script>
+  <!-- Script để load header và footer -->
+  <script>
+    // Load header
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading header:', error));
+
+    // Load footer
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading footer:', error));
+  </script>
+
+  <!-- Script chính -->
+  <script src="script.js" defer></script>
 </body>
 </html>
