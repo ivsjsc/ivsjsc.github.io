@@ -101,6 +101,61 @@
         document.getElementById('footer').innerHTML = data;
       })
       .catch(error => console.error('Error loading footer:', error));
+
+    // Load và chèn posts vào carousel
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('posts.json')
+        .then(response => response.json())
+        .then(posts => {
+          const postList = document.getElementById('post-list');
+          let currentIndex = 0;
+
+          // Chèn các bài viết vào carousel
+          posts.forEach((post, index) => {
+            const postElement = document.createElement('div');
+            postElement.classList.add('post-preview');
+            if (index !== 0) postElement.style.display = 'none'; // Ẩn các slide không phải slide đầu tiên
+            postElement.innerHTML = `
+              <div class="post-image">
+                <img src="${post.image}" alt="${post.title}">
+              </div>
+              <div class="content">
+                <h3>${post.title}</h3>
+                <p>${post.description}</p>
+                <a href="${post.link}">${post.linkText}</a>
+              </div>
+            `;
+            postList.appendChild(postElement);
+          });
+
+          // Logic cho carousel
+          const slides = document.querySelectorAll('.post-preview');
+          const totalSlides = slides.length;
+
+          function showSlide(index) {
+            slides.forEach((slide, i) => {
+              slide.style.display = i === index ? 'flex' : 'none';
+            });
+          }
+
+          document.getElementById('next-slide').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            showSlide(currentIndex);
+          });
+
+          document.getElementById('prev-slide').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentIndex);
+          });
+
+          // Tự động chuyển slide (tùy chọn)
+          setInterval(() => {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            showSlide(currentIndex);
+          }, 5000); // Chuyển slide mỗi 5 giây
+        })
+        .catch(error => console.error('Error loading posts:', error));
+    });
   </script>
 
   <!-- Script chính -->
