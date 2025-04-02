@@ -6,11 +6,14 @@
     <title>IVS JSC - Integrate Vision Synergy</title>
     <meta name="description" content="IVS JSC - Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy. Cung cấp giải pháp giáo dục toàn diện, đào tạo quốc tế, công nghệ giáo dục và hợp tác đầu tư.">
     <meta name="keywords" content="IVS JSC, Integrate Vision Synergy, Giáo dục quốc tế, Đào tạo ngoại ngữ, STEAM, Kỹ năng mềm, Du học, Hợp tác quốc tế, Công nghệ giáo dục, EdTech, IVS Academy, IVS Kindergarten, IVS Celestech, Nguyễn Minh Triết">
-    <link rel="stylesheet" href="css/styles.min.css?v=1.5"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.min.css?v=1.6"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
     <script>
-        // Function to load HTML components (Header, Footer)
+        /**
+         * Tải các thành phần HTML (header, footer) từ các tệp riêng biệt.
+         */
         function includeHTML() {
             var z, i, elmnt, file, xhttp;
             z = document.getElementsByTagName("*");
@@ -24,24 +27,32 @@
                             if (this.status == 200) {elmnt.innerHTML = this.responseText;}
                             if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
                             elmnt.removeAttribute("data-include");
-                            includeHTML(); // Call again to process nested includes if any
+                            includeHTML(); // Gọi lại để xử lý các include lồng nhau (nếu có)
                         }
                     }
                     xhttp.open("GET", file, true);
                     xhttp.send();
-                    return; // Exit after finding one element to include
+                    return; // Thoát sau khi tìm thấy một phần tử để include
                 }
             }
-            // Add active class to nav links based on current page
+            // Thêm class 'active' cho link điều hướng hiện tại sau khi include xong
             setActiveNavLink();
         }
 
-        // Function to set active navigation link
+        /**
+         * Đánh dấu link điều hướng đang hoạt động dựa trên trang hiện tại.
+         */
         function setActiveNavLink() {
+            // Đảm bảo header đã được tải xong trước khi tìm link
+            const header = document.querySelector('header');
+            if (!header || header.getAttribute('data-include')) return; // Chờ header tải xong
+
             const navLinks = document.querySelectorAll('header nav ul li a');
-            const currentPath = window.location.pathname.split('/').pop() || 'index.html'; // Get current file name
+            // Lấy tên tệp hiện tại (index.html nếu là trang gốc)
+            const currentPath = window.location.pathname.split('/').pop() || 'index.html';
             navLinks.forEach(link => {
-                const linkPath = link.getAttribute('href').split('/').pop();
+                // Lấy tên tệp từ thuộc tính href
+                const linkPath = (link.getAttribute('href') || '').split('/').pop();
                 if (linkPath === currentPath) {
                     link.classList.add('active');
                 } else {
@@ -50,27 +61,32 @@
             });
         }
 
-        // Function to load latest posts from posts.json
+        /**
+         * Tải và hiển thị các bài viết mới nhất từ posts.json.
+         */
         function loadLatestPosts() {
             const postsContainer = document.getElementById('latest-posts-container');
-            if (!postsContainer) return; // Exit if container not found
+            if (!postsContainer) {
+                console.warn('Latest posts container not found.');
+                return;
+            }
+            postsContainer.innerHTML = '<p>Đang tải bài viết...</p>'; // Hiển thị trạng thái tải
 
-            fetch('posts.json') // Fetch the JSON file
+            fetch('posts.json')
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Network response was not ok ' + response.statusText);
+                        throw new Error(`HTTP error! status: ${response.status}`);
                     }
-                     // Check content type before parsing
                     const contentType = response.headers.get("content-type");
                      if (!contentType || !contentType.includes("application/json")) {
-                        throw new TypeError("Oops, we haven't got JSON!");
+                        throw new TypeError("Received non-JSON response for posts.json");
                     }
                     return response.json();
                 })
                 .then(posts => {
-                    // Sort posts by date descending (newest first)
+                    // Sắp xếp bài viết theo ngày giảm dần (mới nhất trước)
                     posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-                    // Get the latest 3 posts (or however many you want for this section)
+                    // Lấy 3 bài viết mới nhất
                     const latestPosts = posts.slice(0, 3);
 
                     let postsHTML = '';
@@ -78,54 +94,60 @@
                          postsHTML = '<p>Chưa có bài viết nào.</p>';
                     } else {
                         latestPosts.forEach(post => {
+                            // Tạo HTML cho mỗi thẻ bài viết
                             postsHTML += `
                                 <div class="post-card">
-                                    <img src="${post.image || 'https://placehold.co/600x400/eee/ccc?text=Post'}" alt="${post.title}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/eee/ccc?text=Image+Error';">
+                                    <img src="${post.image || 'https://placehold.co/600x400/eee/ccc?text=Post'}" alt="${post.title || 'Bài viết'}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/eee/ccc?text=Image+Error';">
                                     <div class="post-content">
-                                        <h3>${post.title}</h3>
-                                        <p class="post-meta">Ngày đăng: ${new Date(post.date).toLocaleDateString('vi-VN')}</p>
-                                        <p>${post.excerpt}</p>
-                                        <a href="${post.url}" class="read-more">Đọc thêm</a>
+                                        <h3>${post.title || 'Tiêu đề bài viết'}</h3>
+                                        <p class="post-meta">Ngày đăng: ${post.date ? new Date(post.date).toLocaleDateString('vi-VN') : 'Không rõ'}</p>
+                                        <p>${post.excerpt || ''}</p>
+                                        <a href="${post.url || '#'}" class="read-more">Đọc thêm</a>
                                     </div>
                                 </div>
                             `;
                         });
                     }
-                    postsContainer.innerHTML = postsHTML;
+                    postsContainer.innerHTML = postsHTML; // Hiển thị các bài viết
                 })
                 .catch(error => {
                     console.error('Error loading latest posts:', error);
-                    postsContainer.innerHTML = `<p class="error-message">Không thể tải danh sách bài viết. (${error.message})</p>`;
+                    postsContainer.innerHTML = `<p class="error-message">Không thể tải danh sách bài viết. (${error.message})</p>`; // Hiển thị lỗi
                 });
         }
 
-        // Function to load FEATURED posts from posts.json into Swiper
+        /**
+         * Tải và hiển thị các bài viết nổi bật (hot: true) từ posts.json vào Swiper slider.
+         */
         function loadFeaturedPosts() {
             const swiperWrapper = document.querySelector('.featured-swiper-container .swiper-wrapper');
-            if (!swiperWrapper) return;
+            if (!swiperWrapper) {
+                 console.warn('Featured posts swiper wrapper not found.');
+                 return;
+            }
+             swiperWrapper.innerHTML = '<p class="text-center p-4">Đang tải thông tin nổi bật...</p>'; // Trạng thái tải
 
             fetch('posts.json')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
-                    // Check content type before parsing
                     const contentType = response.headers.get("content-type");
                      if (!contentType || !contentType.includes("application/json")) {
-                        throw new TypeError("Oops, we haven't got JSON!");
+                        throw new TypeError("Received non-JSON response for posts.json");
                     }
                     return response.json();
                 })
                 .then(posts => {
-                    // Filter for featured posts
+                    // Lọc các bài viết có hot: true
                     const featuredPosts = posts.filter(post => post.hot === true);
 
                     let slidesHTML = '';
+                    const swiperContainer = document.querySelector('.featured-swiper-container'); // Lấy container để ẩn/hiện nav/pag
+
                     if (featuredPosts.length === 0) {
-                        slidesHTML = '<p class="text-center p-4">Hiện chưa có thông tin nổi bật.</p>'; // Message if no featured posts
-                         swiperWrapper.innerHTML = slidesHTML; // Display message directly
-                         // Optionally hide navigation/pagination if no slides
-                         const swiperContainer = document.querySelector('.featured-swiper-container');
+                        slidesHTML = '<p class="text-center p-4">Hiện chưa có thông tin nổi bật.</p>';
+                         // Ẩn navigation/pagination nếu không có slide
                          if(swiperContainer) {
                              const pagination = swiperContainer.querySelector('.swiper-pagination');
                              const nextBtn = swiperContainer.querySelector('.swiper-button-next');
@@ -134,31 +156,39 @@
                              if(nextBtn) nextBtn.style.display = 'none';
                              if(prevBtn) prevBtn.style.display = 'none';
                          }
-                         return; // Stop if no featured posts
-                    }
-
-                    featuredPosts.forEach(post => {
-                        slidesHTML += `
-                            <div class="swiper-slide">
-                                <div class="featured-card">
-                                    <img src="${post.image || 'https://placehold.co/400x250/eee/ccc?text=Featured'}" alt="${post.title}" onerror="this.onerror=null;this.src='https://placehold.co/400x250/eee/ccc?text=Image+Error';">
-                                    <h3>${post.title}</h3>
-                                    <p>${post.excerpt}</p>
-                                    <a href="${post.url}" class="read-more">Xem chi tiết</a>
+                    } else {
+                         // Hiện navigation/pagination nếu có slide
+                         if(swiperContainer) {
+                             const pagination = swiperContainer.querySelector('.swiper-pagination');
+                             const nextBtn = swiperContainer.querySelector('.swiper-button-next');
+                             const prevBtn = swiperContainer.querySelector('.swiper-button-prev');
+                             if(pagination) pagination.style.display = 'block'; // Hoặc giá trị display mặc định
+                             if(nextBtn) nextBtn.style.display = 'flex'; // Hoặc giá trị display mặc định
+                             if(prevBtn) prevBtn.style.display = 'flex'; // Hoặc giá trị display mặc định
+                         }
+                        featuredPosts.forEach(post => {
+                             // Tạo HTML cho mỗi slide
+                            slidesHTML += `
+                                <div class="swiper-slide">
+                                    <div class="featured-card">
+                                        <img src="${post.image || 'https://placehold.co/400x250/eee/ccc?text=Featured'}" alt="${post.title || 'Nổi bật'}" onerror="this.onerror=null;this.src='https://placehold.co/400x250/eee/ccc?text=Image+Error';">
+                                        <h3>${post.title || 'Tiêu đề'}</h3>
+                                        <p>${post.excerpt || ''}</p>
+                                        <a href="${post.url || '#'}" class="read-more">Xem chi tiết</a>
+                                    </div>
                                 </div>
-                            </div>
-                        `;
-                    });
-                    swiperWrapper.innerHTML = slidesHTML;
+                            `;
+                        });
+                         // Khởi tạo Swiper CHỈ KHI có slide
+                        initializeFeaturedSwiper();
+                    }
+                    swiperWrapper.innerHTML = slidesHTML; // Hiển thị các slide hoặc thông báo
 
-                    // Initialize Swiper AFTER adding slides
-                    initializeFeaturedSwiper();
                 })
                 .catch(error => {
                     console.error('Error loading featured posts:', error);
-                    // Display error message inside the wrapper
                     swiperWrapper.innerHTML = `<p class="error-message text-center p-4">Không thể tải thông tin nổi bật. (${error.message})</p>`;
-                     // Optionally hide navigation/pagination on error
+                     // Ẩn navigation/pagination khi có lỗi
                      const swiperContainer = document.querySelector('.featured-swiper-container');
                      if(swiperContainer) {
                          const pagination = swiperContainer.querySelector('.swiper-pagination');
@@ -171,42 +201,44 @@
                 });
         }
 
-        // Function to initialize Swiper (called after slides are loaded)
+        /**
+         * Khởi tạo Swiper slider cho khu vực nổi bật.
+         * Chỉ được gọi sau khi các slide đã được tạo và thêm vào DOM.
+         */
         function initializeFeaturedSwiper() {
+             // Kiểm tra xem Swiper đã được khởi tạo trên element này chưa
+             const swiperContainer = document.querySelector('.featured-swiper-container');
+             if (swiperContainer && swiperContainer.swiper) {
+                 // Nếu đã có, có thể cập nhật hoặc hủy và tạo mới nếu cần
+                 // swiperContainer.swiper.update();
+                 return; // Hoặc return nếu không muốn khởi tạo lại
+             }
+
              const featuredSwiper = new Swiper('.featured-swiper-container', {
-                // --- OPTIONS FOR MOBILE FIRST ---
                 slidesPerView: 2.0,   // Hiển thị 2 thẻ trên mobile
                 spaceBetween: 12,     // Giảm khoảng cách trên mobile
-                loop: true,           // Cho phép lặp vô hạn (đặt false nếu ít hơn 3-4 slide)
-                // centeredSlides: false, // Không cần căn giữa khi > 1 slide
+                // Chỉ bật loop nếu có đủ slide (ví dụ: nhiều hơn số slide hiển thị)
+                // loop: featuredPosts.length > 3, // Ví dụ logic kiểm tra số lượng slide
+                loop: true, // Tạm thời để true, có thể chỉnh lại logic nếu cần
 
-                // Breakpoints cho responsive
                 breakpoints: {
-                    // Khi chiều rộng màn hình >= 640px
                     640: {
-                      slidesPerView: 2.3, // Hiển thị 2 slide và 1 phần
+                      slidesPerView: 2.3,
                       spaceBetween: 20,
                     },
-                    // Khi chiều rộng màn hình >= 1024px
                     1024: {
-                      slidesPerView: 3, // Hiển thị 3 slide
+                      slidesPerView: 3,
                       spaceBetween: 30,
                     }
                 },
-
-                // Pagination (dấu chấm tròn)
                 pagination: {
                     el: '.swiper-pagination',
                     clickable: true,
                 },
-
-                // Navigation (mũi tên)
                 navigation: {
                     nextEl: '.swiper-button-next',
                     prevEl: '.swiper-button-prev',
                 },
-
-                // Tùy chọn thêm
                 grabCursor: true,
                 keyboard: {
                     enabled: true,
@@ -214,53 +246,13 @@
                 autoplay: {
                     delay: 5000,
                     disableOnInteraction: false,
+                    pauseOnMouseEnter: true, // Tạm dừng khi hover chuột
                 },
             });
         }
 
     </script>
-    <style>
-        /* Add small CSS fix for potential header/footer load flash */
-        header[data-include], footer[data-include] { min-height: 50px; }
-        .error-message { color: red; font-style: italic; } /* Style for error messages */
-
-        /* === Consultation Form Section Styles (Keep these) === */
-        .consultation-form-section {
-            padding: 60px 20px;
-            background-color: #e9ecef; /* Màu nền hơi khác biệt */
-        }
-        .consultation-form-section h2 {
-            text-align: center;
-            color: var(--primary-color, #0056b3);
-            margin-bottom: 15px;
-        }
-        .consultation-form-section .section-subtitle {
-             text-align: center;
-             color: var(--text-light, #666);
-             margin-bottom: 40px;
-             max-width: 700px;
-             margin-left: auto;
-             margin-right: auto;
-        }
-        /* Style for the iframe container (optional, but good for centering/spacing) */
-        .google-form-container {
-             max-width: 800px; /* Hoặc chiều rộng bạn muốn */
-             margin: 0 auto; /* Căn giữa */
-             /* Thêm bóng đổ nhẹ cho khung iframe */
-             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-             border-radius: 8px; /* Bo góc nhẹ nếu muốn */
-             overflow: hidden; /* Đảm bảo iframe không tràn ra ngoài nếu có lỗi */
-        }
-         /* Đảm bảo iframe chiếm đủ chiều rộng container */
-         .google-form-container iframe {
-            display: block; /* Loại bỏ khoảng trắng thừa dưới iframe */
-            border: none; /* Bỏ viền mặc định của iframe */
-            width: 100%; /* Chiếm đủ chiều rộng */
-            /* Chiều cao sẽ được đặt trực tiếp trong thuộc tính height của iframe */
-         }
-
-    </style>
-</head>
+    </head>
 <body>
     <header data-include="header.html"></header>
 
@@ -275,8 +267,7 @@
             <h2>Thông Tin Nổi Bật</h2>
             <div class="swiper featured-swiper-container">
                 <div class="swiper-wrapper">
-                    <p class="text-center p-4">Đang tải thông tin nổi bật...</p>
-                </div>
+                    </div>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-next"></div>
                 <div class="swiper-button-prev"></div>
@@ -286,8 +277,7 @@
         <section id="latest-posts" class="latest-posts">
             <h2>Bài viết mới nhất</h2>
             <div id="latest-posts-container" class="posts-grid">
-                <p>Đang tải bài viết...</p>
-            </div>
+                 </div>
         </section>
 
         <section class="consultation-form-section">
@@ -297,11 +287,9 @@
                     Bạn quan tâm đến các chương trình đào tạo, du học, hợp tác đầu tư hay các giải pháp giáo dục khác của IVS JSC?
                     Hãy để lại thông tin qua biểu mẫu dưới đây, chúng tôi sẽ liên hệ lại với bạn sớm nhất!
                 </p>
-
                 <div class="google-form-container">
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfZYlHLmWEzkB4jEFAoyNUi0GlP1HyCwafN_thY8tVkH_h6uQ/viewform?embedded=true" width="100%" height="1346" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfZYlHLmWEzkB4jEFAoyNUi0GlP1HyCwafN_thY8tVkH_h6uQ/viewform?embedded=true" width="100%" height="1000" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>
                     </div>
-
             </div>
         </section>
         </main>
@@ -309,14 +297,13 @@
     <footer data-include="footer.html"></footer>
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="js/main.min.js?v=1.1"></script> <script>
-        // Wait for the DOM to be fully loaded
-        document.addEventListener("DOMContentLoaded", function() {
-            includeHTML(); // Load header/footer first
 
-            // Load dynamic content
-            loadFeaturedPosts(); // Load featured posts dynamically
-            loadLatestPosts(); // Load latest posts
+    <script src="js/main.min.js?v=1.1"></script> <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            includeHTML(); // Tải header/footer trước
+            // Sau đó tải nội dung động
+            loadFeaturedPosts();
+            loadLatestPosts();
         });
     </script>
 </body>
