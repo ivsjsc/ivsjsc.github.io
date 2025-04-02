@@ -6,413 +6,12 @@
     <title>IVS JSC - Integrate Vision Synergy</title>
     <meta name="description" content="IVS JSC - Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy. Cung cấp giải pháp giáo dục toàn diện, đào tạo quốc tế, công nghệ giáo dục và hợp tác đầu tư.">
     <meta name="keywords" content="IVS JSC, Integrate Vision Synergy, Giáo dục quốc tế, Đào tạo ngoại ngữ, STEAM, Kỹ năng mềm, Du học, Hợp tác quốc tế, Công nghệ giáo dục, EdTech, IVS Academy, IVS Kindergarten, IVS Celestech, Nguyễn Minh Triết">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="/images/logo/logo.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    <style>
-        /* Kế thừa biến từ styles.css */
-        :root {
-            --subtle-shadow: 0 6px 18px rgba(0, 0, 0, 0.06); /* Bóng đổ nhẹ nhàng hơn */
-            --subtle-shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.09);
-            --card-border-color: #e9ecef;
-            --input-focus-color: rgba(0, 123, 255, 0.2); /* Nhạt hơn */
-            --section-bg-light: #f8f9fa; /* Màu nền section sáng */
-            --section-bg-white: #ffffff;
-        }
-
-        /* === Cải tiến chung === */
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--section-bg-white); /* Nền trắng mặc định */
-            line-height: 1.7; /* Tăng nhẹ line-height chung */
-        }
-        section {
-             padding: 70px 20px; /* Tăng padding section */
-        }
-
-        /* === Hero Section === */
-        .hero {
-             /* Sử dụng ảnh nền thực tế nếu có, ví dụ: */
-             /* background: linear-gradient(rgba(26, 60, 109, 0.8), rgba(44, 90, 158, 0.7)), url('/images/your-hero-image.jpg') center center / cover no-repeat; */
-             background: linear-gradient(135deg, rgba(26, 60, 109, 0.9) 0%, rgba(44, 90, 158, 0.8) 100%); /* Gradient đậm hơn */
-             background-color: var(--primary-color); /* Fallback */
-            padding: 120px 20px; /* Tăng padding */
-            min-height: 60vh; /* Cao hơn một chút */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .hero h1 {
-            font-size: 3rem; /* To hơn */
-            font-weight: 700;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.4);
-            color: var(--white);
-            margin-bottom: 20px; /* Tăng khoảng cách */
-        }
-        .hero p {
-            font-size: 1.25rem; /* To hơn */
-            font-weight: 300;
-            opacity: 0.95;
-            color: var(--white);
-            max-width: 750px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.8; /* Giãn dòng */
-             margin-bottom: 35px; /* Tăng khoảng cách */
-        }
-        .hero .cta-button {
-            padding: 15px 40px; /* Nút to hơn */
-            font-size: 1.15rem; /* Chữ to hơn */
-            border-radius: 50px;
-            background: var(--secondary-color); /* Màu cam chính */
-            /* Bỏ gradient nếu muốn đơn giản */
-            /* background: linear-gradient(145deg, var(--secondary-color), #f56f4e); */
-            color: var(--white);
-            box-shadow: 0 5px 18px rgba(255, 87, 51, 0.35); /* Bóng rõ hơn */
-            transition: all 0.3s ease;
-            border: none;
-            display: inline-block;
-            margin-top: 0; /* Reset margin */
-            font-weight: 500; /* Đậm vừa */
-        }
-        .hero .cta-button:hover {
-            background: #e04e2d; /* Cam đậm hơn */
-            transform: translateY(-4px) scale(1.05); /* Hiệu ứng rõ hơn */
-            box-shadow: 0 8px 25px rgba(255, 87, 51, 0.45);
-            color: var(--white);
-            text-decoration: none;
-        }
-
-        /* === Tin nổi bật Section === */
-        .latest-posts {
-            padding: 70px 20px;
-            background-color: var(--section-bg-light); /* Nền sáng */
-        }
-        .latest-posts h2 {
-            text-align: center;
-            margin-bottom: 50px; /* Tăng khoảng cách */
-            color: var(--primary-color);
-            font-size: 2.3rem; /* To hơn */
-            font-weight: 700;
-             position: relative;
-             padding-bottom: 18px; /* Tăng padding */
-        }
-         .latest-posts h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90px; /* Dài hơn */
-            height: 4px; /* Dày hơn */
-            background-color: var(--secondary-color);
-            border-radius: 2px;
-        }
-
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px; /* Tăng khoảng cách */
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .post-card {
-            background-color: var(--white);
-            border-radius: 10px; /* Bo tròn hơn */
-            box-shadow: var(--subtle-shadow);
-            overflow: hidden;
-            transition: all 0.35s ease;
-            display: flex;
-            flex-direction: column;
-            border: none; /* Bỏ viền */
-        }
-        .post-card:hover {
-            box-shadow: var(--subtle-shadow-hover);
-            transform: translateY(-8px); /* Nâng cao hơn */
-        }
-        .post-card img {
-            width: 100%;
-            height: 220px; /* Cao hơn */
-            object-fit: cover;
-            border-radius: 10px 10px 0 0; /* Bo góc trên */
-        }
-        .post-content {
-            padding: 25px 30px; /* Tăng padding */
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-        .post-content h3 {
-            font-size: 1.3rem; /* To hơn */
-            margin-bottom: 12px;
-            color: var(--primary-color);
-            font-weight: 600;
-            line-height: 1.45; /* Tăng nhẹ */
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            line-clamp: 2;
-            -webkit-line-clamp: 2;
-        }
-        .post-meta {
-            font-size: 0.8rem;
-            color: var(--text-light);
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .post-content p {
-            font-size: 1rem; /* To hơn */
-            color: var(--text-secondary);
-            margin-bottom: 25px; /* Tăng khoảng cách */
-            flex-grow: 1;
-            line-height: 1.75; /* Giãn dòng hơn */
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            line-clamp: 3;
-             -webkit-line-clamp: 3;
-        }
-        /* Nút đọc thêm kiểu mới */
-        .post-content .read-more {
-            display: inline-block;
-            padding: 10px 22px; /* Padding mới */
-            background-color: var(--primary-color); /* Nền xanh */
-            color: var(--white); /* Chữ trắng */
-            border: none; /* Bỏ viền */
-            border-radius: 50px;
-            text-decoration: none !important;
-            transition: all 0.3s ease;
-            align-self: flex-start;
-            margin-top: auto;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-        .post-content .read-more:hover {
-            background-color: var(--secondary-color); /* Đổi màu cam khi hover */
-            color: var(--white);
-            text-decoration: none;
-            transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-
-        /* === Video Section === */
-        .video-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 80px auto;
-            padding: 0 20px;
-        }
-        .video-container {
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: var(--subtle-shadow);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition);
-            border: none; /* Bỏ viền */
-        }
-         .video-container:hover {
-             box-shadow: var(--subtle-shadow-hover);
-             transform: translateY(-8px);
-         }
-        .video-container iframe {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            border: none;
-            display: block;
-            border-radius: 10px 10px 0 0;
-        }
-        .video-caption {
-            padding: 20px 25px; /* Tăng padding */
-            text-align: center;
-            background-color: var(--section-bg-light); /* Đồng bộ nền */
-            /* border-top: 1px solid var(--card-border-color); */ /* Bỏ viền trên */
-            margin-top: auto;
-        }
-        .video-caption a {
-            display: block;
-            margin-bottom: 12px; /* Tăng khoảng cách */
-            color: var(--primary-color);
-            font-weight: 500;
-            font-size: 1rem; /* To hơn */
-            line-height: 1.5;
-            transition: color 0.3s ease;
-        }
-        .video-caption a:last-child { margin-bottom: 0; }
-        .video-caption a:hover {
-            color: var(--secondary-color);
-            text-decoration: none;
-        }
-
-        /* === Thank You Section === */
-        .thank-you-section {
-            text-align: center;
-            padding: 40px 20px 60px 20px; /* Tăng padding dưới */
-            margin-top: 0;
-        }
-        .thank-you-gif {
-            max-width: 230px;
-            height: auto;
-            border-radius: 15px; /* Bo tròn hơn */
-            margin: 0 auto;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        /* === Consultation Form Section === */
-        .consultation-form-section {
-            padding: 90px 20px; /* Tăng padding */
-            background-color: var(--section-bg-light);
-        }
-        .consultation-form-section h2 {
-            text-align: center;
-            color: var(--primary-color);
-            margin-bottom: 25px; /* Tăng khoảng cách */
-            font-weight: 700;
-            font-size: 2.2rem; /* To hơn */
-        }
-        .consultation-form-section .section-subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            margin-bottom: 50px; /* Tăng khoảng cách */
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 1.1rem; /* To hơn */
-            line-height: 1.8; /* Giãn dòng */
-        }
-        #consultation-form {
-            max-width: 680px; /* Rộng hơn */
-            margin: 0 auto;
-            background-color: var(--white);
-            padding: 45px; /* Tăng padding */
-            border-radius: 15px; /* Bo tròn nhiều hơn */
-            box-shadow: var(--subtle-shadow);
-            border: none;
-        }
-        .form-group {
-            margin-bottom: 28px; /* Tăng khoảng cách */
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 12px; /* Tăng khoảng cách */
-            color: var(--primary-color);
-            font-weight: 500;
-            font-size: 1rem;
-        }
-        .form-group input[type="text"],
-        .form-group input[type="tel"],
-        .form-group input[type="email"],
-        .form-group textarea {
-            width: 100%;
-            padding: 15px 20px; /* Tăng padding */
-            border: 1px solid #ced4da;
-            border-radius: 8px;
-            font-size: 1rem;
-            color: var(--text-color);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            background-color: #fdfdfd;
-        }
-         .form-group input::placeholder,
-         .form-group textarea::placeholder {
-             color: #adb5bd;
-             font-weight: 300;
-         }
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px var(--input-focus-color);
-            background-color: var(--white);
-        }
-        .form-group textarea {
-            resize: vertical;
-            min-height: 130px; /* Cao hơn */
-        }
-        .form-submit {
-            text-align: center;
-            margin-top: 40px; /* Tăng khoảng cách */
-        }
-        #consultation-form .cta-button {
-             cursor: pointer;
-             padding: 15px 45px; /* Nút to hơn */
-             font-size: 1.1rem; /* Chữ to hơn */
-             border-radius: 50px;
-             background: var(--primary-color);
-             color: var(--white);
-             box-shadow: 0 5px 20px rgba(26, 60, 109, 0.3); /* Tăng bóng */
-             transition: all 0.3s ease;
-             border: none;
-             font-weight: 500;
-        }
-         #consultation-form .cta-button:hover {
-             background: #2c5a9e;
-             transform: translateY(-4px) scale(1.03);
-             box-shadow: 0 8px 25px rgba(26, 60, 109, 0.4);
-             color: var(--white);
-             text-decoration: none;
-         }
-         #consultation-form .cta-button i {
-             margin-right: 12px; /* Tăng khoảng cách icon */
-         }
-        .form-note {
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-light);
-            margin-top: 25px; /* Tăng khoảng cách */
-        }
-
-         /* Responsive */
-        @media (max-width: 992px) {
-            .posts-grid, .video-section { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); } /* Điều chỉnh minmax */
-        }
-        @media (max-width: 768px) {
-            section { padding: 50px 15px; }
-            .posts-grid, .video-section { grid-template-columns: 1fr; gap: 30px; }
-            .consultation-form-section { padding: 60px 15px; }
-            #consultation-form { padding: 30px; }
-            .video-section { margin: 60px auto; padding: 0 15px; }
-            .hero { padding: 100px 15px; min-height: 50vh;}
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1.1rem; }
-            .latest-posts h2 { font-size: 2rem; }
-            .consultation-form-section h2 {font-size: 1.8rem;}
-            .consultation-form-section .section-subtitle { font-size: 1rem; margin-bottom: 40px;}
-        }
-        @media (max-width: 576px) {
-            section { padding: 40px 15px; }
-            .posts-grid, .video-section { gap: 25px; }
-            .video-section { margin: 50px auto; }
-            .post-card img { height: 200px; }
-            .post-content { padding: 20px; }
-            .post-content h3 { font-size: 1.15rem; }
-            .hero { padding: 80px 15px; }
-            .hero h1 { font-size: 2.2rem; }
-            .hero p { font-size: 1rem; }
-             #consultation-form { padding: 25px; }
-             .form-group input, .form-group textarea { padding: 14px 16px; }
-             #consultation-form .cta-button { padding: 12px 35px; font-size: 1rem;}
-        }
-        /* Placeholder Styling */
-        #header-placeholder, #footer-placeholder {
-            min-height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            font-style: italic;
-        }
-    </style>
-</head>
+    </head>
 <body>
     <header id="header-placeholder">Đang tải header...</header>
 
@@ -423,61 +22,66 @@
             <a href="about.html" class="cta-button">Tìm hiểu thêm</a>
         </section>
 
-        <section id="latest-posts" class="latest-posts">
-             <h2>Tin nổi bật</h2>
-            <div id="latest-posts-container" class="posts-grid">
-                 <p class="loading-placeholder" style="text-align: center; padding: 20px; color: #888;">Đang tải tin nổi bật...</p>
-            </div>
+        <section id="latest-posts" class="latest-posts content-section" style="background-color: var(--section-bg-light);">
+             <div class="container">
+                 <h2 class="section-heading">Tin nổi bật</h2>
+                 <div id="latest-posts-container" class="posts-grid">
+                      <p class="loading-placeholder" style="text-align: center; padding: 20px; color: #888;">Đang tải tin nổi bật...</p>
+                 </div>
+             </div>
         </section>
 
-        <section class="video-section">
-          <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/-U9JQvUYB94" title="Về chương trình Phi lợi nhuận Hãy Nói" allowfullscreen loading="lazy"></iframe>
-            <div class="video-caption">
-              <a href="https://forms.gle/TH9n3MV5Ty4E46TL7" target="_blank" rel="noopener">Đăng ký Talkshow 'Hãy Nói'</a>
-              <a href="https://aistudio.instagram.com/ai/663072466085450/" target="_blank" rel="noopener">Chatbot Talkie - Tư vấn tâm lý học sinh</a>
-            </div>
-          </div>
+        <section class="video-section content-section">
+          <div class="container">
+              <h2 class="section-heading">Video & Hoạt động</h2>
+              <div class="info-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));"> <div class="video-container card"> <iframe src="https://www.youtube.com/embed/-U9JQvUYB94" title="Về chương trình Phi lợi nhuận Hãy Nói" allowfullscreen loading="lazy"></iframe>
+                    <div class="video-caption card-footer"> <a href="https://forms.gle/TH9n3MV5Ty4E46TL7" target="_blank" rel="noopener">Đăng ký Talkshow 'Hãy Nói'</a>
+                      <a href="https://aistudio.instagram.com/ai/663072466085450/" target="_blank" rel="noopener">Chatbot Talkie - Tư vấn tâm lý</a>
+                    </div>
+                  </div>
 
-          <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/2qktCUrScMs" title="Trại hè Quốc tế tại Philippines" allowfullscreen loading="lazy"></iframe>
-            <div class="video-caption">
-              <a href="summercamp.html">Thông tin chi tiết về Trại hè quốc tế tại CEBU</a>
-            </div>
-          </div>
+                  <div class="video-container card">
+                    <iframe src="https://www.youtube.com/embed/2qktCUrScMs" title="Trại hè Quốc tế tại Philippines" allowfullscreen loading="lazy"></iframe>
+                    <div class="video-caption card-footer">
+                      <a href="summercamp.html">Thông tin chi tiết Trại hè Cebu</a>
+                    </div>
+                  </div>
 
-          <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/_T8ObF-rz8U" title="Video giới thiệu STEAM+ Intelligence Model" allowfullscreen loading="lazy"></iframe>
-            <div class="video-caption">
-              <a href="https://drive.google.com/file/d/19EcVr6rAlCYfnqPuwcqfiryDB3Z2CEQB/view?usp=drive_link" target="_blank" rel="noopener">Tham khảo chương trình STEAM+ Intelligence Model</a>
-            </div>
-          </div>
+                  <div class="video-container card">
+                    <iframe src="https://www.youtube.com/embed/_T8ObF-rz8U" title="Video giới thiệu STEAM+ Intelligence Model" allowfullscreen loading="lazy"></iframe>
+                    <div class="video-caption card-footer">
+                      <a href="https://drive.google.com/file/d/19EcVr6rAlCYfnqPuwcqfiryDB3Z2CEQB/view?usp=drive_link" target="_blank" rel="noopener">Tham khảo STEAM+ Intelligence</a>
+                    </div>
+                  </div>
 
-          <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/3XzfJboNwcQ" title="Video giới thiệu IVS Academy" allowfullscreen loading="lazy"></iframe>
-            <div class="video-caption">
-              <a href="https://drive.google.com/file/d/1BE_IwpPVQMB8tOVMrIsIMB9YCDvWPaQr/view?usp=drive_link" target="_blank" rel="noopener">Tham khảo chương trình KNS tích hợp tiếng Anh LIFEMinds</a>
-            </div>
-          </div>
+                  <div class="video-container card">
+                    <iframe src="https://www.youtube.com/embed/3XzfJboNwcQ" title="Video giới thiệu IVS Academy" allowfullscreen loading="lazy"></iframe>
+                    <div class="video-caption card-footer">
+                      <a href="https://drive.google.com/file/d/1BE_IwpPVQMB8tOVMrIsIMB9YCDvWPaQr/view?usp=drive_link" target="_blank" rel="noopener">Tham khảo KNS LIFEMinds</a>
+                    </div>
+                  </div>
 
-          <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/videoseries?si=pT0XACyTQeygHNm2&list=PLwqdiwWIIO2ea6HZlKDVsCBTSJ-vooIOC" title="Playlist IVS's song" allowfullscreen loading="lazy"></iframe>
-            <div class="video-caption">
-              <a href="https://www.youtube.com/@integratevisionsynergy" target="_blank" rel="noopener">Kênh Youtube IVS Academy</a>
-            </div>
+                  <div class="video-container card">
+                    <iframe src="https://www.youtube.com/embed/videoseries?si=pT0XACyTQeygHNm2&list=PLwqdiwWIIO2ea6HZlKDVsCBTSJ-vooIOC" title="Playlist IVS's song" allowfullscreen loading="lazy"></iframe>
+                    <div class="video-caption card-footer">
+                      <a href="https://www.youtube.com/@integratevisionsynergy" target="_blank" rel="noopener">Kênh Youtube IVS Academy</a>
+                    </div>
+                  </div>
+              </div>
           </div>
         </section>
+
         <section class="thank-you-section">
           <img src="https://media4.giphy.com/media/nftYWGEVbLf8ckNdEc/giphy.gif" alt="GIF cảm ơn bạn đã theo dõi IVS Academy" class="thank-you-gif" loading="lazy">
         </section>
-        <div id="redirect-timer" class="redirect-notice" style="display: none;">
-            <p>Website sẽ tự động chuyển đến Fanpage IVS Academy trong 2 phút 00 giây...</p>
-            <button id="cancel-redirect" class="btn btn-warning">Hủy Chuyển Hướng</button>
-        </div>
 
-        <section class="consultation-form-section">
+        <div id="redirect-timer" class="redirect-notice" style="display: none; text-align: center; padding: 15px; background-color: #f0f0f0; border-radius: 5px; margin: 20px auto; max-width: 600px;">
+            <p>Website sẽ tự động chuyển đến Fanpage IVS Academy trong 2 phút 00 giây...</p>
+            <button id="cancel-redirect" class="btn btn-warning btn-sm">Hủy Chuyển Hướng</button> </div>
+
+        <section class="consultation-form-section content-section" style="background-color: var(--section-bg-light);">
             <div class="container">
-                <h2>Nhận Tư Vấn Miễn Phí</h2>
+                <h2 class="section-heading">Nhận Tư Vấn Miễn Phí</h2>
                 <p class="section-subtitle">
                     Để lại thông tin của bạn, đội ngũ IVS sẽ liên hệ lại sớm nhất!
                 </p>
@@ -499,7 +103,7 @@
                          <textarea id="message" name="NoiDungTuVan" rows="5" placeholder="Nhập nội dung bạn muốn được tư vấn..." required></textarea>
                      </div>
                      <div class="form-group form-submit">
-                         <button type="submit" class="cta-button">
+                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-paper-plane"></i> Gửi Yêu Cầu Tư Vấn
                          </button>
                      </div>
@@ -511,7 +115,7 @@
 
     <footer id="footer-placeholder">Đang tải footer...</footer>
 
-    <script src="js/script.js" defer></script>
+    <script src="/js/script.js" defer></script>
 
 </body>
 </html>
