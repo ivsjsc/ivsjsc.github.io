@@ -6,7 +6,7 @@
     <title>IVS JSC - Integrate Vision Synergy</title>
     <meta name="description" content="IVS JSC - Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy. Cung cấp giải pháp giáo dục toàn diện, đào tạo quốc tế, công nghệ giáo dục và hợp tác đầu tư.">
     <meta name="keywords" content="IVS JSC, Integrate Vision Synergy, Giáo dục quốc tế, Đào tạo ngoại ngữ, STEAM, Kỹ năng mềm, Du học, Hợp tác quốc tế, Công nghệ giáo dục, EdTech, IVS Academy, IVS Kindergarten, IVS Celestech, Nguyễn Minh Triết">
-    <link rel="stylesheet" href="css/styles.min.css?v=1.3"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.min.css?v=1.5"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script>
@@ -59,6 +59,11 @@
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                     // Check content type before parsing
+                    const contentType = response.headers.get("content-type");
+                     if (!contentType || !contentType.includes("application/json")) {
+                        throw new TypeError("Oops, we haven't got JSON!");
                     }
                     return response.json();
                 })
@@ -170,10 +175,10 @@
         function initializeFeaturedSwiper() {
              const featuredSwiper = new Swiper('.featured-swiper-container', {
                 // --- OPTIONS FOR MOBILE FIRST ---
-                slidesPerView: 2.0,   // **CHANGED:** Hiển thị 2 thẻ trên mobile
-                spaceBetween: 12,     // **CHANGED:** Giảm khoảng cách trên mobile
-                loop: true,           // Cho phép lặp vô hạn (có thể đặt false nếu ít slide)
-                // centeredSlides: false, // **REMOVED:** Không cần căn giữa khi > 1 slide
+                slidesPerView: 2.0,   // Hiển thị 2 thẻ trên mobile
+                spaceBetween: 12,     // Giảm khoảng cách trên mobile
+                loop: true,           // Cho phép lặp vô hạn (đặt false nếu ít hơn 3-4 slide)
+                // centeredSlides: false, // Không cần căn giữa khi > 1 slide
 
                 // Breakpoints cho responsive
                 breakpoints: {
@@ -181,7 +186,6 @@
                     640: {
                       slidesPerView: 2.3, // Hiển thị 2 slide và 1 phần
                       spaceBetween: 20,
-                      // centeredSlides: false, // Mặc định là false
                     },
                     // Khi chiều rộng màn hình >= 1024px
                     1024: {
@@ -219,6 +223,42 @@
         /* Add small CSS fix for potential header/footer load flash */
         header[data-include], footer[data-include] { min-height: 50px; }
         .error-message { color: red; font-style: italic; } /* Style for error messages */
+
+        /* === Consultation Form Section Styles (Keep these) === */
+        .consultation-form-section {
+            padding: 60px 20px;
+            background-color: #e9ecef; /* Màu nền hơi khác biệt */
+        }
+        .consultation-form-section h2 {
+            text-align: center;
+            color: var(--primary-color, #0056b3);
+            margin-bottom: 15px;
+        }
+        .consultation-form-section .section-subtitle {
+             text-align: center;
+             color: var(--text-light, #666);
+             margin-bottom: 40px;
+             max-width: 700px;
+             margin-left: auto;
+             margin-right: auto;
+        }
+        /* Style for the iframe container (optional, but good for centering/spacing) */
+        .google-form-container {
+             max-width: 800px; /* Hoặc chiều rộng bạn muốn */
+             margin: 0 auto; /* Căn giữa */
+             /* Thêm bóng đổ nhẹ cho khung iframe */
+             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+             border-radius: 8px; /* Bo góc nhẹ nếu muốn */
+             overflow: hidden; /* Đảm bảo iframe không tràn ra ngoài nếu có lỗi */
+        }
+         /* Đảm bảo iframe chiếm đủ chiều rộng container */
+         .google-form-container iframe {
+            display: block; /* Loại bỏ khoảng trắng thừa dưới iframe */
+            border: none; /* Bỏ viền mặc định của iframe */
+            width: 100%; /* Chiếm đủ chiều rộng */
+            /* Chiều cao sẽ được đặt trực tiếp trong thuộc tính height của iframe */
+         }
+
     </style>
 </head>
 <body>
@@ -242,6 +282,7 @@
                 <div class="swiper-button-prev"></div>
             </div>
         </section>
+
         <section id="latest-posts" class="latest-posts">
             <h2>Bài viết mới nhất</h2>
             <div id="latest-posts-container" class="posts-grid">
@@ -249,6 +290,20 @@
             </div>
         </section>
 
+        <section class="consultation-form-section">
+            <div class="container">
+                <h2>Nhận Tư Vấn Miễn Phí</h2>
+                <p class="section-subtitle">
+                    Bạn quan tâm đến các chương trình đào tạo, du học, hợp tác đầu tư hay các giải pháp giáo dục khác của IVS JSC?
+                    Hãy để lại thông tin qua biểu mẫu dưới đây, chúng tôi sẽ liên hệ lại với bạn sớm nhất!
+                </p>
+
+                <div class="google-form-container">
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfZYlHLmWEzkB4jEFAoyNUi0GlP1HyCwafN_thY8tVkH_h6uQ/viewform?embedded=true" width="100%" height="1346" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>
+                    </div>
+
+            </div>
+        </section>
         </main>
 
     <footer data-include="footer.html"></footer>
@@ -260,11 +315,8 @@
             includeHTML(); // Load header/footer first
 
             // Load dynamic content
-            loadFeaturedPosts(); // **MODIFIED:** Load featured posts dynamically
+            loadFeaturedPosts(); // Load featured posts dynamically
             loadLatestPosts(); // Load latest posts
-
-            // **REMOVED:** Swiper initialization is now called inside loadFeaturedPosts after slides are ready.
-            // initializeFeaturedSwiper();
         });
     </script>
 </body>
