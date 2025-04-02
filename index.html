@@ -66,7 +66,7 @@
         }
         .post-meta {
             font-size: 0.85rem;
-            color: var(--text-secondary); /* Đổi lại màu */
+            color: var(--text-secondary);
             margin-bottom: 10px;
         }
         .post-content p {
@@ -113,27 +113,74 @@
             margin-left: auto;
             margin-right: auto;
         }
-        .google-form-container {
-            max-width: 800px;
-            margin: 0 auto;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            overflow: hidden;
+
+        /* CSS cho Form Tư vấn mới */
+        #consultation-form {
+            max-width: 600px; /* Giới hạn chiều rộng form */
+            margin: 0 auto; /* Căn giữa */
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            border: 1px solid var(--border-color);
         }
-        .google-form-container iframe {
-            display: block;
-            border: none;
-            width: 100%;
+        .form-group {
+            margin-bottom: 20px; /* Khoảng cách giữa các trường */
         }
+        .form-group label {
+            display: block; /* Nhãn hiển thị trên 1 dòng riêng */
+            margin-bottom: 8px; /* Khoảng cách giữa nhãn và input */
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%; /* Input chiếm hết chiều rộng */
+            padding: 12px 15px; /* Padding bên trong input */
+            border: 1px solid var(--border-color);
+            border-radius: 5px; /* Bo góc nhẹ */
+            font-size: 1rem;
+            color: var(--text-color);
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color); /* Đổi màu viền khi focus */
+            box-shadow: 0 0 0 2px rgba(255, 87, 51, 0.2); /* Thêm hiệu ứng focus */
+        }
+        .form-group textarea {
+            resize: vertical; /* Cho phép thay đổi chiều cao textarea */
+            min-height: 100px; /* Chiều cao tối thiểu */
+        }
+        .form-submit {
+            text-align: center; /* Căn giữa nút gửi */
+            margin-top: 30px;
+        }
+        /* Sử dụng lại class cta-button đã có */
+        #consultation-form .cta-button {
+             /* Kế thừa style từ styles.css */
+             cursor: pointer;
+        }
+        .form-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 15px;
+        }
+
          /* Responsive */
         @media (max-width: 768px) {
             .posts-grid { grid-template-columns: 1fr; }
             .consultation-form-section { padding: 40px 15px; }
-            .google-form-container { max-width: 100%; }
+            #consultation-form { padding: 20px; }
         }
         /* Placeholder Styling */
         #header-placeholder, #footer-placeholder {
-            min-height: 50px; /* Chiều cao tối thiểu để thấy loading */
+            min-height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -168,13 +215,33 @@
             <div class="container">
                 <h2>Nhận Tư Vấn Miễn Phí</h2>
                 <p class="section-subtitle">
-                    Bạn quan tâm đến các chương trình đào tạo, du học, hợp tác đầu tư hay các giải pháp giáo dục khác của IVS JSC?
-                    Hãy để lại thông tin qua biểu mẫu dưới đây, chúng tôi sẽ liên hệ lại với bạn sớm nhất!
+                    Để lại thông tin của bạn, đội ngũ IVS sẽ liên hệ lại sớm nhất!
                 </p>
-                <div class="google-form-container">
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfZYlHLmWEzkB4jEFAoyNUi0GlP1HyCwafN_thY8tVkH_h6uQ/viewform?embedded=true" width="100%" height="1000" frameborder="0" marginheight="0" marginwidth="0" title="Biểu mẫu tư vấn IVS">Đang tải…</iframe>
-                </div>
-            </div>
+                <form id="consultation-form" action="mailto:ivscorp.vn@gmail.com" method="post" enctype="text/plain">
+                     <div class="form-group">
+                         <label for="fullName">Họ và Tên:</label>
+                         <input type="text" id="fullName" name="HoVaTen" placeholder="Nhập họ tên của bạn" required>
+                     </div>
+                     <div class="form-group">
+                         <label for="phone">Số điện thoại:</label>
+                         <input type="tel" id="phone" name="SoDienThoai" placeholder="Nhập số điện thoại" required>
+                     </div>
+                     <div class="form-group">
+                         <label for="email">Email (Không bắt buộc):</label>
+                         <input type="email" id="email" name="Email" placeholder="Nhập địa chỉ email">
+                     </div>
+                     <div class="form-group">
+                         <label for="message">Nội dung cần tư vấn:</label>
+                         <textarea id="message" name="NoiDungTuVan" rows="5" placeholder="Nhập nội dung bạn muốn được tư vấn..." required></textarea>
+                     </div>
+                     <div class="form-group form-submit">
+                         <button type="submit" class="cta-button">
+                            <i class="fas fa-paper-plane"></i> Gửi Yêu Cầu Tư Vấn
+                         </button>
+                     </div>
+                     <p class="form-note">Lưu ý: Nút gửi sẽ mở ứng dụng email mặc định trên thiết bị của bạn.</p>
+                </form>
+                 </div>
         </section>
     </main>
 
@@ -182,5 +249,5 @@
 
     <script src="js/script.js" defer></script>
 
-    </body>
+</body>
 </html>
