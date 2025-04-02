@@ -1,167 +1,271 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IVS Education - Kết Nối Tri Thức, Kiến Tạo Tương Lai</title>
-  <meta name="description" content="IVS Education (IVS JSC): Đào tạo ngoại ngữ (IVS Academy), mầm non quốc tế (IVS Kindergarten), công nghệ giáo dục (IVS Celestech), hợp tác quốc tế, tư vấn doanh nghiệp và liên kết giáo dục toàn diện.">
-  <meta property="og:title" content="IVS Education - Kết Nối Tri Thức, Kiến Tạo Tương Lai">
-  <meta property="og:description" content="IVS Education: Đào tạo ngoại ngữ, mầm non quốc tế, công nghệ giáo dục, hợp tác quốc tế, chương trình Hãy Nói, tư vấn doanh nghiệp và liên kết giáo dục toàn diện.">
-  <meta property="og:image" content="/images/logo/logo.png">
-  <meta property="og:url" content="https://ivs.id.vn"> <meta property="og:type" content="website">
-  <link rel="icon" href="/images/logo/logo.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IVS JSC - Integrate Vision Synergy</title>
+    <meta name="description" content="IVS JSC - Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy. Cung cấp giải pháp giáo dục toàn diện, đào tạo quốc tế, công nghệ giáo dục và hợp tác đầu tư.">
+    <meta name="keywords" content="IVS JSC, Integrate Vision Synergy, Giáo dục quốc tế, Đào tạo ngoại ngữ, STEAM, Kỹ năng mềm, Du học, Hợp tác quốc tế, Công nghệ giáo dục, EdTech, IVS Academy, IVS Kindergarten, IVS Celestech, Nguyễn Minh Triết">
+    <link rel="stylesheet" href="css/styles.min.css?v=1.3"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-  <link rel="stylesheet" href="css/styles.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script>
+        // Function to load HTML components (Header, Footer)
+        function includeHTML() {
+            var z, i, elmnt, file, xhttp;
+            z = document.getElementsByTagName("*");
+            for (i = 0; i < z.length; i++) {
+                elmnt = z[i];
+                file = elmnt.getAttribute("data-include");
+                if (file) {
+                    xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4) {
+                            if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                            if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                            elmnt.removeAttribute("data-include");
+                            includeHTML(); // Call again to process nested includes if any
+                        }
+                    }
+                    xhttp.open("GET", file, true);
+                    xhttp.send();
+                    return; // Exit after finding one element to include
+                }
+            }
+            // Add active class to nav links based on current page
+            setActiveNavLink();
+        }
 
-  <style>
-    /* CSS inline quan trọng có thể đặt ở đây để tránh FOUC */
-  </style>
+        // Function to set active navigation link
+        function setActiveNavLink() {
+            const navLinks = document.querySelectorAll('header nav ul li a');
+            const currentPath = window.location.pathname.split('/').pop() || 'index.html'; // Get current file name
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href').split('/').pop();
+                if (linkPath === currentPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        // Function to load latest posts from posts.json
+        function loadLatestPosts() {
+            const postsContainer = document.getElementById('latest-posts-container');
+            if (!postsContainer) return; // Exit if container not found
+
+            fetch('posts.json') // Fetch the JSON file
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(posts => {
+                    // Sort posts by date descending (newest first)
+                    posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    // Get the latest 3 posts (or however many you want for this section)
+                    const latestPosts = posts.slice(0, 3);
+
+                    let postsHTML = '';
+                    if (latestPosts.length === 0) {
+                         postsHTML = '<p>Chưa có bài viết nào.</p>';
+                    } else {
+                        latestPosts.forEach(post => {
+                            postsHTML += `
+                                <div class="post-card">
+                                    <img src="${post.image || 'https://placehold.co/600x400/eee/ccc?text=Post'}" alt="${post.title}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/eee/ccc?text=Image+Error';">
+                                    <div class="post-content">
+                                        <h3>${post.title}</h3>
+                                        <p class="post-meta">Ngày đăng: ${new Date(post.date).toLocaleDateString('vi-VN')}</p>
+                                        <p>${post.excerpt}</p>
+                                        <a href="${post.url}" class="read-more">Đọc thêm</a>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
+                    postsContainer.innerHTML = postsHTML;
+                })
+                .catch(error => {
+                    console.error('Error loading latest posts:', error);
+                    postsContainer.innerHTML = `<p class="error-message">Không thể tải danh sách bài viết. (${error.message})</p>`;
+                });
+        }
+
+        // Function to load FEATURED posts from posts.json into Swiper
+        function loadFeaturedPosts() {
+            const swiperWrapper = document.querySelector('.featured-swiper-container .swiper-wrapper');
+            if (!swiperWrapper) return;
+
+            fetch('posts.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    // Check content type before parsing
+                    const contentType = response.headers.get("content-type");
+                     if (!contentType || !contentType.includes("application/json")) {
+                        throw new TypeError("Oops, we haven't got JSON!");
+                    }
+                    return response.json();
+                })
+                .then(posts => {
+                    // Filter for featured posts
+                    const featuredPosts = posts.filter(post => post.hot === true);
+
+                    let slidesHTML = '';
+                    if (featuredPosts.length === 0) {
+                        slidesHTML = '<p class="text-center p-4">Hiện chưa có thông tin nổi bật.</p>'; // Message if no featured posts
+                         swiperWrapper.innerHTML = slidesHTML; // Display message directly
+                         // Optionally hide navigation/pagination if no slides
+                         const swiperContainer = document.querySelector('.featured-swiper-container');
+                         if(swiperContainer) {
+                             const pagination = swiperContainer.querySelector('.swiper-pagination');
+                             const nextBtn = swiperContainer.querySelector('.swiper-button-next');
+                             const prevBtn = swiperContainer.querySelector('.swiper-button-prev');
+                             if(pagination) pagination.style.display = 'none';
+                             if(nextBtn) nextBtn.style.display = 'none';
+                             if(prevBtn) prevBtn.style.display = 'none';
+                         }
+                         return; // Stop if no featured posts
+                    }
+
+                    featuredPosts.forEach(post => {
+                        slidesHTML += `
+                            <div class="swiper-slide">
+                                <div class="featured-card">
+                                    <img src="${post.image || 'https://placehold.co/400x250/eee/ccc?text=Featured'}" alt="${post.title}" onerror="this.onerror=null;this.src='https://placehold.co/400x250/eee/ccc?text=Image+Error';">
+                                    <h3>${post.title}</h3>
+                                    <p>${post.excerpt}</p>
+                                    <a href="${post.url}" class="read-more">Xem chi tiết</a>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    swiperWrapper.innerHTML = slidesHTML;
+
+                    // Initialize Swiper AFTER adding slides
+                    initializeFeaturedSwiper();
+                })
+                .catch(error => {
+                    console.error('Error loading featured posts:', error);
+                    // Display error message inside the wrapper
+                    swiperWrapper.innerHTML = `<p class="error-message text-center p-4">Không thể tải thông tin nổi bật. (${error.message})</p>`;
+                     // Optionally hide navigation/pagination on error
+                     const swiperContainer = document.querySelector('.featured-swiper-container');
+                     if(swiperContainer) {
+                         const pagination = swiperContainer.querySelector('.swiper-pagination');
+                         const nextBtn = swiperContainer.querySelector('.swiper-button-next');
+                         const prevBtn = swiperContainer.querySelector('.swiper-button-prev');
+                         if(pagination) pagination.style.display = 'none';
+                         if(nextBtn) nextBtn.style.display = 'none';
+                         if(prevBtn) prevBtn.style.display = 'none';
+                     }
+                });
+        }
+
+        // Function to initialize Swiper (called after slides are loaded)
+        function initializeFeaturedSwiper() {
+             const featuredSwiper = new Swiper('.featured-swiper-container', {
+                // --- OPTIONS FOR MOBILE FIRST ---
+                slidesPerView: 2.0,   // **CHANGED:** Hiển thị 2 thẻ trên mobile
+                spaceBetween: 12,     // **CHANGED:** Giảm khoảng cách trên mobile
+                loop: true,           // Cho phép lặp vô hạn (có thể đặt false nếu ít slide)
+                // centeredSlides: false, // **REMOVED:** Không cần căn giữa khi > 1 slide
+
+                // Breakpoints cho responsive
+                breakpoints: {
+                    // Khi chiều rộng màn hình >= 640px
+                    640: {
+                      slidesPerView: 2.3, // Hiển thị 2 slide và 1 phần
+                      spaceBetween: 20,
+                      // centeredSlides: false, // Mặc định là false
+                    },
+                    // Khi chiều rộng màn hình >= 1024px
+                    1024: {
+                      slidesPerView: 3, // Hiển thị 3 slide
+                      spaceBetween: 30,
+                    }
+                },
+
+                // Pagination (dấu chấm tròn)
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+
+                // Navigation (mũi tên)
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+
+                // Tùy chọn thêm
+                grabCursor: true,
+                keyboard: {
+                    enabled: true,
+                },
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+            });
+        }
+
+    </script>
+    <style>
+        /* Add small CSS fix for potential header/footer load flash */
+        header[data-include], footer[data-include] { min-height: 50px; }
+        .error-message { color: red; font-style: italic; } /* Style for error messages */
+    </style>
 </head>
 <body>
-  <div id="header">
-      <p style="text-align: center; padding: 60px 20px; color: #888;">Đang tải header...</p>
-  </div>
+    <header data-include="header.html"></header>
 
-  <main>
-    <section class="redirect-notice" style="margin-top: 20px;"> <div id="redirect-timer">
-          <p>Website sẽ tự động chuyển đến Fanpage IVS Academy trong 2 phút...</p>
-          <button id="cancel-redirect" class="btn btn-warning">Hủy chuyển hướng</button>
-      </div>
-    </section>
+    <main>
+        <section class="hero">
+            <h1>Chào mừng đến với IVS JSC</h1>
+            <p>Kết nối Tầm nhìn - Đồng lòng Sức mạnh - Vì một Tương lai Giáo dục Vượt trội</p>
+            <a href="about.html" class="cta-button">Tìm hiểu thêm</a>
+        </section>
 
-    <section class="featured-posts-section content-section">
-      <div class="container">
-          <h2 class="section-heading">Thông tin nổi bật</h2>
-          <div id="post-list">
-              <p style="text-align: center; color: #888; padding: 20px;">Đang tải bài viết...</p>
-          </div>
-          <div class="carousel-controls" style="display: none;"> <button id="prev-slide" class="carousel-btn" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
-              <button id="next-slide" class="carousel-btn" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
-          </div>
-      </div>
-    </section>
-
-    <section class="key-services content-section" style="background-color: var(--light-color);">
-        <div class="container">
-            <h2 class="section-heading">Lĩnh vực hoạt động chính</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <i class="fas fa-language"></i>
-                    <h3>IVS Academy</h3>
-                    <p>Đào tạo ngoại ngữ (Anh, Trung, Nhật), STEAM, kỹ năng mềm cho mọi lứa tuổi. Chương trình "Hãy Nói" phát triển kỹ năng giao tiếp.</p>
-                    <a href="about.html#ivs-academy" class="cta-link">Tìm hiểu thêm</a>
+        <section class="featured-section">
+            <h2>Thông Tin Nổi Bật</h2>
+            <div class="swiper featured-swiper-container">
+                <div class="swiper-wrapper">
+                    <p class="text-center p-4">Đang tải thông tin nổi bật...</p>
                 </div>
-                <div class="service-card">
-                    <i class="fas fa-child"></i>
-                    <h3>IVS Kindergarten</h3>
-                    <p>Mô hình STEAM+Intelligence, giáo trình kỹ năng sống LIFEMinds, hướng tới hệ thống IVS Global School liên cấp.</p>
-                     <a href="about.html#ivs-kindergarten" class="cta-link">Tìm hiểu thêm</a>
-                 </div>
-                 <div class="service-card">
-                    <i class="fas fa-microchip"></i>
-                    <h3>IVS Celestech</h3>
-                    <p>Phát triển giải pháp công nghệ giáo dục: E-learning, LMS, ứng dụng AI, VR/AR nâng cao hiệu quả học tập.</p>
-                     <a href="about.html#ivs-celestech" class="cta-link">Tìm hiểu thêm</a>
-                 </div>
-                 <div class="service-card">
-                    <i class="fas fa-globe-americas"></i>
-                    <h3>Hợp tác Quốc tế</h3>
-                    <p>Liên kết với đối tác Hoa Kỳ, Đài Loan, Philippines, châu Âu. Tổ chức du học, trại hè, trao đổi giáo dục.</p>
-                     <a href="lien-ket-quoc-te.html" class="cta-link">Xem chi tiết</a>
-                </div>
-                 <div class="service-card">
-                    <i class="fas fa-briefcase"></i>
-                    <h3>Tư vấn Doanh nghiệp</h3>
-                    <p>Hỗ trợ pháp lý, thành lập trung tâm ngoại ngữ, tư vấn thuế, kế toán, quản trị và phát triển doanh nghiệp.</p>
-                     <a href="tuvan.html" class="cta-link">Xem chi tiết</a>
-                 </div>
-                 <div class="service-card">
-                     <i class="fas fa-comments"></i>
-                     <h3>Chương trình "Hãy Nói"</h3>
-                     <p>Diễn đàn phi lợi nhuận dành cho học sinh Long Thành, Đồng Nai phát triển kỹ năng giao tiếp, tư duy phản biện.</p>
-                     <a href="tai-tro.html" class="cta-link">Tìm hiểu thêm</a>
-                 </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
-        </div>
-    </section>
-
-    <section class="edu-partnerships content-section">
-        <div class="container">
-            <h2 class="section-heading">Giải pháp Liên kết Giáo dục Toàn diện</h2>
-            <div class="partnership-grid">
-                 <div class="partnership-card">
-                    <i class="fas fa-baby"></i>
-                    <h3>Mầm non</h3>
-                    <p>Cung cấp chương trình chuẩn quốc tế IVS Kindergarten (STEAM+Intelligence), giáo trình KNS LIFEMinds, đào tạo giáo viên, tư vấn thiết lập.</p>
-                    <a href="lkmamnon.html" class="cta-link">Chi tiết Mầm non</a>
-                </div>
-                <div class="partnership-card">
-                    <i class="fas fa-school"></i>
-                    <h3>Tiểu học</h3>
-                    <p>Tích hợp Kỹ năng sống & Tiếng Anh (LIFEMinds), chương trình STEAM, cung cấp giáo viên bản xứ, hướng tới IVS Global School.</p>
-                    <a href="lktieuhoc.html" class="cta-link">Chi tiết Tiểu học</a>
-                </div>
-                <div class="partnership-card">
-                    <i class="fas fa-user-graduate"></i>
-                    <h3>THCS & THPT</h3>
-                    <p>Chương trình tiếng Anh học thuật, KNS nâng cao, định hướng du học và nghề nghiệp, liên kết trao đổi quốc tế.</p>
-                    <a href="lkthcsthpt.html" class="cta-link">Chi tiết THCS-THPT</a>
-                </div>
-                 <div class="partnership-card">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    <h3>Trung tâm Ngoại ngữ</h3>
-                    <p>Cung cấp giáo viên bản xứ chất lượng, chương trình đào tạo đa dạng, giải pháp EdTech (LMS, App), tư vấn thành lập và vận hành.</p>
-                    <a href="lkttnn.html" class="cta-link">Chi tiết TT Ngoại ngữ</a>
-                </div>
+        </section>
+        <section id="latest-posts" class="latest-posts">
+            <h2>Bài viết mới nhất</h2>
+            <div id="latest-posts-container" class="posts-grid">
+                <p>Đang tải bài viết...</p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="video-section-enhanced content-section">
-        <div class="container">
-            <h2 class="section-heading">Video giới thiệu</h2>
-            <div class="video-section">
-                 <div class="video-container">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/-U9JQvUYB94?si=BTcX8fuIiIAdUSpF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    <div class="video-caption">
-                        <a href="https://forms.gle/TH9n3MV5Ty4E46TL7" target="_blank" rel="noopener">Đăng ký Talkshow 'Hãy Nói'</a> |
-                        <a href="https://aistudio.instagram.com/ai/663072466085450/" target="_blank" rel="noopener">Chatbot Talkie</a>
-                    </div>
-                </div>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" title="Trại hè Quốc tế tại Philippines" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
-                    <div class="video-caption">
-                        <a href="summercamp.html">Thông tin chi tiết Trại hè quốc tế Cebu</a>
-                    </div>
-                </div>
-                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_3" title="Video giới thiệu STEAM+ Intelligence Model" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
-                    <div class="video-caption">
-                        <a href="https://drive.google.com/file/d/19EcVr6rAlCYfnqPuwcqfiryDB3Z2CEQB/view?usp=drive_link" target="_blank" rel="noopener">Tham khảo chương trình STEAM+</a>
-                    </div>
-                </div>
-                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_4" title="Video giới thiệu IVS Academy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
-                    <div class="video-caption">
-                        <a href="https://drive.google.com/file/d/1BE_IwpPVQMB8tOVMrIsIMB9YCDvWPaQr/view?usp=drive_link" target="_blank" rel="noopener">Tham khảo chương trình LIFEMinds</a>
-                    </div>
-                </div>
-                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_5" title="Playlist IVS's song" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
-                    <div class="video-caption">
-                        <a href="https://www.youtube.com/@ivsacademy5505" target="_blank" rel="noopener">Kênh Youtube IVS Academy</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-  </main>
+        </main>
 
-  <div id="footer">
-      <p style="text-align: center; padding: 20px; color: #888;">Đang tải footer...</p>
-  </div>
+    <footer data-include="footer.html"></footer>
 
-  <script src="js/script.js" defer></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="js/main.min.js?v=1.1"></script> <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener("DOMContentLoaded", function() {
+            includeHTML(); // Load header/footer first
+
+            // Load dynamic content
+            loadFeaturedPosts(); // **MODIFIED:** Load featured posts dynamically
+            loadLatestPosts(); // Load latest posts
+
+            // **REMOVED:** Swiper initialization is now called inside loadFeaturedPosts after slides are ready.
+            // initializeFeaturedSwiper();
+        });
+    </script>
 </body>
 </html>
