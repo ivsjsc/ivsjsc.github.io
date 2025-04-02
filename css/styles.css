@@ -78,8 +78,8 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600; /* Tăng độ đậm */
 }
 h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; } /* Tăng H2 */
-h3 { font-size: 1.5rem; } /* Tăng H3 */
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
 h4 { font-size: 1.2rem; }
 
 section {
@@ -142,17 +142,26 @@ section {
 }
 
 /* --- Header --- */
-header {
-  background-color: var(--white);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  position: sticky; /* Giữ header khi cuộn */
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  height: var(--header-height); /* Chiều cao cố định */
-  display: flex;
-  align-items: center;
+/* CSS cho placeholder để đảm bảo chiều cao ban đầu */
+#header-placeholder {
+    min-height: var(--header-height);
+    background-color: var(--white); /* Màu nền tạm thời */
+    display: flex;
+    align-items: center;
+    position: sticky; /* Giữ vị trí khi cuộn */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+/* Style cho header thực tế sau khi tải */
+#header-placeholder > header {
+    width: 100%;
+    height: var(--header-height);
+    display: flex; /* Đảm bảo header chiếm đủ không gian */
+    align-items: center;
+    background-color: var(--white); /* Ghi đè nền placeholder */
 }
 
 .header-container {
@@ -169,15 +178,15 @@ header {
 .header-top {
     display: flex;
     align-items: center;
-    gap: 15px; /* Khoảng cách giữa logo và nút burger */
+    gap: 15px;
 }
 
 
 .header-logo img {
-  height: 60px; /* Tăng chiều cao logo */
+  height: 60px;
   width: auto;
   transition: var(--transition);
-  border-radius: 0; /* Bỏ border-radius cho logo */
+  border-radius: 0;
 }
 .header-logo img:hover {
     opacity: 0.9;
@@ -185,7 +194,7 @@ header {
 
 /* --- Navigation --- */
 .nav-container {
-    position: relative; /* Để định vị dropdown */
+    position: relative;
 }
 
 .nav-content {
@@ -195,40 +204,40 @@ header {
 .nav-tabs {
     display: flex;
     list-style: none;
-    white-space: nowrap; /* Ngăn menu xuống dòng */
+    white-space: nowrap;
     align-items: center;
-    gap: 5px; /* Giảm khoảng cách giữa các mục menu */
+    gap: 5px;
     margin: 0;
     padding: 0;
 }
 
 .nav-tabs li {
-    position: relative; /* Cho dropdown và submenu */
+    position: relative;
 }
 
-.nav-tabs > li > a { /* Chỉ áp dụng cho menu cấp 1 */
+.nav-tabs > li > a {
     text-decoration: none;
     color: var(--text-color);
-    font-weight: 500; /* Giảm độ đậm */
-    padding: 10px 12px; /* Điều chỉnh padding */
+    font-weight: 500;
+    padding: 10px 12px;
     border-radius: var(--border-radius);
     transition: var(--transition);
     display: flex;
     align-items: center;
-    gap: 6px; /* Khoảng cách icon và chữ */
-    font-size: 0.95rem; /* Cỡ chữ menu */
+    gap: 6px;
+    font-size: 0.95rem;
 }
 
 .nav-tabs > li > a:hover,
-.nav-tabs > li > a.active { /* Link active */
+.nav-tabs > li > a.active {
     color: var(--secondary-color);
-    background-color: rgba(255, 87, 51, 0.08); /* Nền nhẹ khi hover/active */
+    background-color: rgba(255, 87, 51, 0.08);
     text-decoration: none;
 }
 
-.nav-tabs > li > a i:not(.dropdown-icon) { /* Icon trong link menu */
+.nav-tabs > li > a i:not(.dropdown-icon) {
     font-size: 1rem;
-    color: var(--primary-color); /* Màu icon */
+    color: var(--primary-color);
     opacity: 0.8;
     transition: color 0.3s ease;
 }
@@ -239,124 +248,136 @@ header {
 
 
 .dropdown-icon {
-    font-size: 0.7rem !important; /* Kích thước icon dropdown */
+    font-size: 0.7rem !important;
     margin-left: 5px;
     transition: transform 0.3s ease;
 }
 
-/* --- Desktop Dropdown Menu --- */
+/* --- Desktop Dropdown Menu (CSS Hover) --- */
 .dropdown-menu {
     position: absolute;
     top: 100%;
     left: 0;
     background-color: #fff;
-    min-width: 240px; /* Rộng hơn */
-    border-radius: 0 0 var(--border-radius) var(--border-radius); /* Bo góc dưới */
+    min-width: 240px;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-top: 3px solid var(--secondary-color);
+    padding: 5px 0;
+    z-index: 1001;
+
+    /* CSS Hover: Ẩn mặc định */
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px); /* Hiệu ứng trượt xuống */
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    z-index: 1001;
-    border-top: 3px solid var(--secondary-color); /* Viền màu cam trên */
-    padding: 5px 0; /* Padding dọc cho menu */
+    transform: translateY(10px);
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s, transform 0.25s ease; /* Điều chỉnh transition */
 }
 
-/* Hiển thị dropdown khi hover li cha (Desktop) */
-.nav-desktop li.dropdown:hover > .dropdown-menu,
-.nav-desktop li.dropdown.show-desktop-dropdown > .dropdown-menu { /* Class JS thêm vào */
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-/* Xoay icon khi hover dropdown cha */
-.nav-desktop li.dropdown:hover > a > .dropdown-icon {
-    transform: rotate(180deg);
+/* Hiển thị dropdown khi hover hoặc focus vào li cha (Desktop) */
+@media (min-width: 993px) {
+    .nav-desktop li.dropdown:hover > .dropdown-menu,
+    .nav-desktop li.dropdown:focus-within > .dropdown-menu { /* Hỗ trợ keyboard focus */
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        transition: opacity 0.25s ease, visibility 0s linear 0s, transform 0.25s ease; /* Hiện ngay */
+    }
+    /* Xoay icon khi hover/focus */
+    .nav-desktop li.dropdown:hover > a > .dropdown-icon,
+    .nav-desktop li.dropdown:focus-within > a > .dropdown-icon {
+        transform: rotate(180deg);
+    }
 }
 
 
 .dropdown-menu li {
-    position: relative; /* Cho submenu */
+    position: relative;
 }
 
 .dropdown-menu a {
-    padding: 10px 18px; /* Tăng padding */
+    padding: 10px 18px;
     display: block;
     color: var(--text-secondary);
     font-size: 0.9rem;
-    white-space: normal; /* Cho phép xuống dòng */
+    white-space: normal;
     transition: background-color 0.2s ease, color 0.2s ease;
-    border-bottom: 1px solid #f0f0f0; /* Đường kẻ mờ */
+    border-bottom: 1px solid #f0f0f0;
 }
 .dropdown-menu li:last-child > a {
-    border-bottom: none; /* Bỏ đường kẻ ở mục cuối */
+    border-bottom: none;
 }
 
-.dropdown-menu a:hover {
+.dropdown-menu a:hover,
+.dropdown-menu a:focus { /* Thêm :focus */
     background-color: var(--light-bg-alt);
     color: var(--primary-color);
     text-decoration: none;
+    outline: none; /* Bỏ outline mặc định */
 }
 
-/* --- Desktop Submenu --- */
+/* --- Desktop Submenu (CSS Hover) --- */
 .dropdown-submenu > .dropdown-menu {
     top: 0;
-    left: 100%; /* Xuất hiện bên phải */
-    margin-left: 1px; /* Khoảng cách nhỏ */
-    border-radius: var(--border-radius); /* Bo góc đều */
-    border-top: none; /* Bỏ viền cam trên của submenu */
+    left: 100%;
+    margin-left: 1px;
+    border-radius: var(--border-radius);
+    border-top: none;
     transform: translateX(10px); /* Hiệu ứng trượt ngang */
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s, transform 0.25s ease;
 }
 
-.nav-desktop .dropdown-submenu:hover > .dropdown-menu,
-.nav-desktop .dropdown-submenu.show-desktop-dropdown > .dropdown-menu { /* Class JS thêm vào */
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
-}
-
-/* Icon cho submenu */
-.dropdown-submenu > a > .dropdown-icon {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%) rotate(-90deg); /* Xoay icon qua phải */
-    font-size: 0.6rem !important;
-}
-.nav-desktop .dropdown-submenu:hover > a > .dropdown-icon {
-    transform: translateY(-50%) rotate(0deg); /* Xoay lại khi hover */
+@media (min-width: 993px) {
+    .nav-desktop .dropdown-submenu:hover > .dropdown-menu,
+    .nav-desktop .dropdown-submenu:focus-within > .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+        transition: opacity 0.25s ease, visibility 0s linear 0s, transform 0.25s ease;
+    }
+    /* Icon cho submenu */
+    .dropdown-submenu > a > .dropdown-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%) rotate(-90deg);
+        font-size: 0.6rem !important;
+    }
+    .nav-desktop .dropdown-submenu:hover > a > .dropdown-icon,
+    .nav-desktop .dropdown-submenu:focus-within > a > .dropdown-icon {
+        transform: translateY(-50%) rotate(0deg);
+    }
 }
 
 
 /* --- Mobile Menu --- */
 .hamburger {
-    display: none; /* Ẩn trên desktop */
+    display: none;
     background: none;
     border: none;
-    color: var(--primary-color); /* Màu nút burger */
+    color: var(--primary-color);
     font-size: 1.8rem;
     cursor: pointer;
     padding: 5px;
-    z-index: 1002; /* Nằm trên overlay */
+    z-index: 1002;
 }
 
 .mobile-menu {
     position: fixed;
     top: 0;
-    left: -100%; /* Ẩn ban đầu */
-    width: 280px; /* Độ rộng menu mobile */
+    left: -100%;
+    width: 280px;
     height: 100vh;
     background-color: #fff;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
-    transition: left 0.4s ease; /* Hiệu ứng trượt */
+    transition: left 0.4s ease;
     z-index: 1001;
-    overflow-y: auto; /* Cho phép cuộn nếu menu dài */
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
 }
 
 .mobile-menu.active {
-    left: 0; /* Hiện ra */
+    left: 0;
 }
 
 .mobile-menu-header {
@@ -365,7 +386,7 @@ header {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--border-color);
-    background-color: var(--primary-color); /* Nền header mobile */
+    background-color: var(--primary-color);
 }
 
 .mobile-logo {
@@ -377,7 +398,7 @@ header {
 .close-menu {
     background: none;
     border: none;
-    color: var(--white); /* Màu nút đóng */
+    color: var(--white);
     font-size: 1.6rem;
     cursor: pointer;
 }
@@ -386,7 +407,7 @@ header {
     list-style: none;
     padding: 10px 0;
     margin: 0;
-    flex-grow: 1; /* Chiếm hết không gian còn lại */
+    flex-grow: 1;
 }
 
 .mobile-nav-tabs li {
@@ -411,32 +432,30 @@ header {
 .mobile-nav-tabs > li > a i:not(.dropdown-icon) {
     margin-right: 12px;
     color: var(--primary-color);
-    width: 20px; /* Căn chỉnh icon */
+    width: 20px;
     text-align: center;
 }
 .mobile-nav-tabs > li > a .dropdown-icon {
-    margin-left: auto; /* Đẩy icon mũi tên về cuối */
+    margin-left: auto;
     transition: transform 0.3s ease;
 }
 
-/* Mobile Dropdown/Submenu */
+/* Mobile Dropdown/Submenu (JS Controlled) */
 .mobile-nav-tabs .dropdown-menu {
-    display: none; /* Ẩn mặc định */
-    background-color: #f8f9fa; /* Nền khác biệt */
-    padding-left: 0; /* Reset padding */
+    display: none;
+    background-color: #f8f9fa;
+    padding-left: 0;
     list-style: none;
 }
-/* Hiển thị khi li cha có class 'active' */
-.mobile-nav-tabs li.active > .dropdown-menu {
+.mobile-nav-tabs li.active > .dropdown-menu.show { /* Class 'show' được thêm bởi JS */
     display: block;
 }
-/* Xoay icon khi mở */
 .mobile-nav-tabs li.active > a > .dropdown-icon {
     transform: rotate(180deg);
 }
 
 .mobile-nav-tabs .dropdown-menu a {
-    padding: 12px 20px 12px 40px; /* Thụt lề vào trong */
+    padding: 12px 20px 12px 40px;
     font-size: 0.9rem;
     color: var(--text-secondary);
 }
@@ -453,7 +472,7 @@ header {
      transform: translateY(-50%) rotate(180deg);
 }
 .mobile-nav-tabs .dropdown-submenu .dropdown-menu a {
-    padding-left: 60px; /* Thụt lề sâu hơn */
+    padding-left: 60px;
 }
 
 
@@ -464,7 +483,7 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Màu nền mờ */
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 1000;
     opacity: 0;
     visibility: hidden;
@@ -475,118 +494,59 @@ header {
     opacity: 1;
     visibility: visible;
 }
-/* Class thêm vào body khi menu mobile mở */
 body.mobile-menu-active {
-    overflow: hidden; /* Ngăn cuộn body */
+    overflow: hidden;
 }
 
 
 /* --- Main Content --- */
 main {
-  margin-top: var(--header-height); /* Đẩy nội dung xuống dưới header */
-  flex: 1; /* Làm main chiếm hết không gian còn lại */
-  padding: 0; /* Bỏ padding mặc định của main */
+  /* margin-top: var(--header-height); */ /* Không cần nữa vì header sticky */
+  flex: 1;
+  padding: 0;
 }
 
 
 /* --- Footer --- */
+/* Giữ nguyên CSS Footer từ phiên bản trước */
 footer {
   background-color: var(--dark-color);
   color: var(--light-text);
-  padding: 50px 0 30px 0; /* Tăng padding */
-  margin-top: auto; /* Đảm bảo footer ở dưới cùng */
+  padding: 50px 0 30px 0;
+  margin-top: auto;
 }
-
 .footer-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 40px; /* Tăng khoảng cách */
+  max-width: 1200px; margin: 0 auto; padding: 0 20px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px;
 }
-
 .footer-col h4 {
-  color: var(--accent-color);
-  margin-bottom: 20px; /* Tăng khoảng cách */
-  font-size: 1.1rem;
-  position: relative;
-  padding-bottom: 10px;
+  color: var(--accent-color); margin-bottom: 20px; font-size: 1.1rem;
+  position: relative; padding-bottom: 10px;
 }
-.footer-col h4::after { /* Gạch chân tiêu đề footer */
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
-    height: 2px;
-    background-color: var(--accent-color);
+.footer-col h4::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 40px; height: 2px; background-color: var(--accent-color);
 }
-
 .footer-col p {
-  margin-bottom: 12px;
-  display: flex;
-  align-items: flex-start; /* Canh icon với dòng đầu */
-  gap: 10px;
-  font-size: 0.95rem;
-  color: #ccc;
+  margin-bottom: 12px; display: flex; align-items: flex-start;
+  gap: 10px; font-size: 0.95rem; color: #ccc;
 }
-.footer-col p i {
-    margin-top: 4px; /* Canh icon */
-    width: 16px; /* Đảm bảo icon thẳng hàng */
-    text-align: center;
-    color: var(--accent-color); /* Màu icon */
-}
-
-.footer-col a {
-  color: #ccc;
-  text-decoration: none;
-  transition: var(--transition);
-}
-
-.footer-col a:hover {
-  color: var(--white);
-  text-decoration: underline;
-}
-
-.footer-logo-img {
-    width: 70px; /* Kích thước logo footer */
-    margin-bottom: 15px;
-    border-radius: 0;
-}
-
-.copyright {
-    font-size: 0.85rem;
-    color: #aaa;
-    margin-top: 10px;
-    line-height: 1.4;
-}
-
-.social-links {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
-}
-
-.social-links a {
-  color: var(--light-text);
-  font-size: 1.4rem; /* Kích thước icon MXH */
-  transition: var(--transition);
-}
-
-.social-links a:hover {
-  color: var(--accent-color);
-  transform: translateY(-3px);
-}
+.footer-col p i { margin-top: 4px; width: 16px; text-align: center; color: var(--accent-color); }
+.footer-col a { color: #ccc; text-decoration: none; transition: var(--transition); }
+.footer-col a:hover { color: var(--white); text-decoration: underline; }
+.footer-logo-img { width: 70px; margin-bottom: 15px; border-radius: 0; }
+.copyright { font-size: 0.85rem; color: #aaa; margin-top: 10px; line-height: 1.4; }
+.social-links { display: flex; gap: 15px; margin-top: 10px; }
+.social-links a { color: var(--light-text); font-size: 1.4rem; transition: var(--transition); }
+.social-links a:hover { color: var(--accent-color); transform: translateY(-3px); }
 
 
 /* --- Responsive --- */
 @media (max-width: 992px) {
-    /* Hiện nút hamburger, ẩn menu desktop */
     .hamburger { display: block; }
     .nav-desktop { display: none; }
-    header { height: 70px; } /* Giảm chiều cao header mobile */
-    main { margin-top: 70px; }
+    #header-placeholder, #header-placeholder > header { height: 70px; } /* Điều chỉnh chiều cao header mobile */
+    /* main { margin-top: 70px; } */ /* Không cần margin-top cho main nữa */
     h1 { font-size: 2.2rem; }
     h2, .section-heading { font-size: 1.8rem; }
     h3 { font-size: 1.3rem; }
@@ -605,9 +565,9 @@ footer {
 }
 
 @media (max-width: 576px) {
-    html { font-size: 15px; } /* Giảm cỡ chữ gốc */
-    header { height: 60px; }
-    main { margin-top: 60px; }
+    html { font-size: 15px; }
+    #header-placeholder, #header-placeholder > header { height: 60px; }
+    /* main { margin-top: 60px; } */
     .header-logo img { height: 45px; }
     .hamburger { font-size: 1.6rem; }
     h1 { font-size: 1.8rem; }
@@ -617,34 +577,28 @@ footer {
     footer { padding: 40px 0 20px 0; }
 }
 
-/* Thêm CSS cho các trang con nếu cần */
-/* Ví dụ: */
-.page-banner { /* Style chung cho banner trang con */
-    color: white;
-    padding: 60px 20px;
-    text-align: center;
-    /* margin-top: -var(--header-height); Không cần nữa vì main có margin-top */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    border-bottom: 5px solid var(--secondary-color); /* Thêm viền dưới */
+/* --- Page Specific Styles (Keep from previous versions if needed) --- */
+.page-banner {
+    color: white; padding: 60px 20px; text-align: center;
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    border-bottom: 5px solid var(--secondary-color);
 }
-.page-banner h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-    color: var(--white); /* Đảm bảo chữ trắng */
-}
-.page-banner p {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    max-width: 700px;
-    margin: 0 auto;
-}
+.page-banner h1 { font-size: 2.5rem; margin-bottom: 10px; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); color: var(--white); }
+.page-banner p { font-size: 1.1rem; opacity: 0.9; max-width: 700px; margin: 0 auto; }
 
-/* Responsive cho page-banner */
 @media (max-width: 768px) {
     .page-banner { padding: 50px 15px; }
     .page-banner h1 { font-size: 2rem; }
     .page-banner p { font-size: 1rem; }
+}
+
+/* Placeholder Styling */
+#header-placeholder, #footer-placeholder {
+    min-height: 50px; /* Chiều cao tối thiểu để thấy loading */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-style: italic;
+    transition: background-color 0.3s ease; /* Để chuyển màu nền mượt hơn */
 }
