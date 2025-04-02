@@ -253,7 +253,7 @@
       position: relative;
       overflow: visible !important; /* Sửa lỗi dropdown bị cắt */
   }
-  /* ... (Các style navigation, dropdown, mobile menu khác giữ nguyên như phiên bản styles_css_final_menu_bg_optimized) ... */
+  /* ... (Các style navigation, dropdown desktop giữ nguyên như phiên bản styles_css_final_menu_bg_optimized) ... */
   .nav-content { display: flex; }
   .nav-tabs { display: flex; list-style: none; white-space: nowrap; align-items: center; gap: 8px; margin: 0; padding: 0; }
   .nav-tabs li { position: relative; }
@@ -277,6 +277,8 @@
       .dropdown-submenu > a > .dropdown-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%) rotate(-90deg); font-size: 0.6rem !important; transition: transform 0.3s ease; }
       .nav-desktop .dropdown-submenu:hover > a > .dropdown-icon, .nav-desktop .dropdown-submenu:focus-within > a > .dropdown-icon { transform: translateY(-50%) rotate(0deg); }
   }
+  
+  /* --- Mobile Menu --- */
   .hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.8rem; cursor: pointer; padding: 10px; transition: opacity 0.15s linear; z-index: 1002; }
   .hamburger:hover { opacity: 0.7; }
   .hamburger.is-active:hover { opacity: 1; }
@@ -302,15 +304,57 @@
   .mobile-nav-tabs > li > a:hover { background-color: var(--light-bg-alt); color: var(--primary-color); }
   .mobile-nav-tabs > li > a i:not(.dropdown-icon) { margin-right: 15px; color: var(--primary-color); width: 20px; text-align: center; font-size: 1.1rem; }
   .mobile-nav-tabs > li > a .dropdown-icon { margin-left: auto; transition: transform 0.3s ease; }
-  .mobile-nav-tabs .dropdown-menu { display: none; background-color: #f0f0f0; padding-left: 0; list-style: none; max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.3s ease-out, padding 0.3s ease-out, opacity 0.3s ease-out; }
-  .mobile-nav-tabs li.active > .dropdown-menu.show { display: block; max-height: 500px; padding-top: 8px; padding-bottom: 8px; opacity: 1; }
-  .mobile-nav-tabs li.active > a > .dropdown-icon { transform: rotate(180deg); }
-  .mobile-nav-tabs .dropdown-menu a { padding: 14px 20px 14px 50px; font-size: 0.9rem; color: var(--text-secondary); display: block; transition: background-color 0.2s ease, color 0.2s ease; }
-  .mobile-nav-tabs .dropdown-submenu > a { position: relative; }
-  .mobile-nav-tabs .dropdown-submenu > a .dropdown-icon { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); }
-  .mobile-nav-tabs .dropdown-submenu.active > a > .dropdown-icon { transform: translateY(-50%) rotate(180deg); }
-  .mobile-nav-tabs .dropdown-submenu .dropdown-menu a { padding-left: 70px; background-color: #e9ecef; }
-  .mobile-nav-tabs .dropdown-menu a:hover { background-color: var(--light-bg-alt); color: var(--primary-color); }
+  /* Mobile Dropdown/Submenu - Tinh chỉnh */
+  .mobile-nav-tabs .dropdown-menu {
+      display: none; /* Vẫn ẩn ban đầu */
+      background-color: #f0f0f0; /* Nền cấp 2 */
+      padding-left: 0;
+      list-style: none;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.35s ease-out, padding 0.35s ease-out, opacity 0.3s ease-out; /* Đồng bộ transition time */
+  }
+  .mobile-nav-tabs li.active > .dropdown-menu.show {
+      display: block;
+      max-height: 600px; /* Tăng max-height để chứa nhiều mục hơn */
+      padding-top: 8px;
+      padding-bottom: 8px;
+      opacity: 1;
+  }
+  .mobile-nav-tabs li.active > a > .dropdown-icon {
+      transform: rotate(180deg);
+  }
+  .mobile-nav-tabs .dropdown-menu a {
+      padding: 14px 20px 14px 55px; /* Tăng padding trái cấp 2 */
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      display: block;
+      transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .mobile-nav-tabs .dropdown-submenu > a {
+      position: relative;
+  }
+  .mobile-nav-tabs .dropdown-submenu > a .dropdown-icon {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+  }
+  .mobile-nav-tabs .dropdown-submenu.active > a > .dropdown-icon {
+       transform: translateY(-50%) rotate(180deg);
+  }
+  .mobile-nav-tabs .dropdown-submenu .dropdown-menu {
+      background-color: #e0e0e0; /* Nền cấp 3 khác biệt hơn */
+  }
+  .mobile-nav-tabs .dropdown-submenu .dropdown-menu a {
+      padding-left: 75px; /* Tăng padding trái cấp 3 */
+  }
+  .mobile-nav-tabs .dropdown-menu a:hover {
+      background-color: var(--light-bg-alt);
+      color: var(--primary-color);
+  }
+  
   .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0s linear 0.4s; }
   .overlay.active { opacity: 1; visibility: visible; transition: opacity 0.4s ease, visibility 0s linear 0s; }
   body.mobile-menu-active { overflow: hidden; }
