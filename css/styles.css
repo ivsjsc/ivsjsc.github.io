@@ -262,11 +262,13 @@
   }
   /* Style cho header thực tế sau khi tải */
   #header-placeholder > header {
+      /* Đảm bảo header container chiếm đủ chiều rộng */
       width: 100%;
-      height: var(--header-height);
-      display: flex; /* Đảm bảo header chiếm đủ không gian */
+      height: var(--header-height); /* Thêm chiều cao */
+      display: flex;
       align-items: center;
       background-color: var(--white); /* Ghi đè nền placeholder */
+      /* Các style khác nếu cần */
   }
   
   .header-container {
@@ -277,7 +279,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: relative;
+      position: relative; /* Cần thiết cho menu con tuyệt đối */
   }
   
   .header-top {
@@ -286,12 +288,11 @@
       gap: 15px;
   }
   
-  
   .header-logo img {
     height: 60px;
     width: auto;
     transition: var(--transition);
-    border-radius: 0;
+    border-radius: 0; /* Logo không cần bo góc */
   }
   .header-logo img:hover {
       opacity: 0.9;
@@ -311,7 +312,7 @@
       list-style: none;
       white-space: nowrap;
       align-items: center;
-      gap: 5px;
+      gap: 5px; /* Giảm gap một chút nếu cần */
       margin: 0;
       padding: 0;
   }
@@ -324,14 +325,23 @@
       text-decoration: none;
       color: var(--text-color);
       font-weight: 500;
-      padding: 10px 12px;
+      padding: 10px 12px; /* Giữ nguyên hoặc điều chỉnh */
       border-radius: var(--border-radius);
-      transition: var(--transition);
+      /* Chuyển transition vào đây để áp dụng cho cả background và color */
+      transition: background-color 0.2s ease, color 0.2s ease;
       display: flex;
       align-items: center;
       gap: 6px;
       font-size: 0.95rem;
+      outline: none; /* Bỏ outline mặc định */
   }
+  
+  /* Thêm style cho focus-visible để rõ ràng hơn khi dùng bàn phím */
+  .nav-tabs > li > a:focus-visible {
+      box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Hiệu ứng focus */
+      background-color: rgba(0, 123, 255, 0.1);
+  }
+  
   
   .nav-tabs > li > a:hover,
   .nav-tabs > li > a.active {
@@ -358,7 +368,7 @@
       transition: transform 0.3s ease;
   }
   
-  /* --- Desktop Dropdown Menu (CSS Hover) --- */
+  /* --- Desktop Dropdown Menu --- */
   .dropdown-menu {
       position: absolute;
       top: 100%;
@@ -368,26 +378,26 @@
       border-radius: 0 0 var(--border-radius) var(--border-radius);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       border-top: 3px solid var(--secondary-color);
-      padding: 5px 0;
+      padding: 8px 0; /* Tăng padding */
       z-index: 1001;
-  
-      /* CSS Hover: Ẩn mặc định */
       opacity: 0;
       visibility: hidden;
-      transform: translateY(10px);
-      transition: opacity 0.25s ease, visibility 0s linear 0.25s, transform 0.25s ease; /* Điều chỉnh transition */
+      transform: translateY(10px) scaleY(0.98); /* Thêm hiệu ứng scale nhẹ */
+      transform-origin: top center;
+      /* Tăng tốc độ transition */
+      transition: opacity 0.2s ease, visibility 0s linear 0.2s, transform 0.2s ease;
   }
   
   /* Hiển thị dropdown khi hover hoặc focus vào li cha (Desktop) */
+  /* Thêm .nav-desktop để chỉ áp dụng cho desktop */
   @media (min-width: 993px) {
       .nav-desktop li.dropdown:hover > .dropdown-menu,
-      .nav-desktop li.dropdown:focus-within > .dropdown-menu { /* Hỗ trợ keyboard focus */
+      .nav-desktop li.dropdown:focus-within > .dropdown-menu {
           opacity: 1;
           visibility: visible;
-          transform: translateY(0);
-          transition: opacity 0.25s ease, visibility 0s linear 0s, transform 0.25s ease; /* Hiện ngay */
+          transform: translateY(0) scaleY(1);
+          transition: opacity 0.2s ease, visibility 0s linear 0s, transform 0.2s ease;
       }
-      /* Xoay icon khi hover/focus */
       .nav-desktop li.dropdown:hover > a > .dropdown-icon,
       .nav-desktop li.dropdown:focus-within > a > .dropdown-icon {
           transform: rotate(180deg);
@@ -400,44 +410,49 @@
   }
   
   .dropdown-menu a {
-      padding: 10px 18px;
+      padding: 10px 20px; /* Tăng padding */
       display: block;
       color: var(--text-secondary);
       font-size: 0.9rem;
       white-space: normal;
       transition: background-color 0.2s ease, color 0.2s ease;
+      border: none; /* Bỏ border bottom mặc định */
+      outline: none; /* Bỏ outline */
+  }
+  /* Thêm lại border nếu muốn */
+  /* .dropdown-menu li:not(:last-child) > a {
       border-bottom: 1px solid #f0f0f0;
-  }
-  .dropdown-menu li:last-child > a {
-      border-bottom: none;
-  }
+  } */
   
   .dropdown-menu a:hover,
-  .dropdown-menu a:focus { /* Thêm :focus */
+  .dropdown-menu a:focus, /* Thêm :focus */
+  .dropdown-menu a:focus-visible { /* Rõ ràng hơn cho keyboard */
       background-color: var(--light-bg-alt);
       color: var(--primary-color);
       text-decoration: none;
-      outline: none; /* Bỏ outline mặc định */
   }
   
-  /* --- Desktop Submenu (CSS Hover) --- */
+  /* --- Desktop Submenu --- */
   .dropdown-submenu > .dropdown-menu {
-      top: 0;
+      top: -8px; /* Điều chỉnh vị trí để khớp hơn */
       left: 100%;
       margin-left: 1px;
       border-radius: var(--border-radius);
-      border-top: none;
-      transform: translateX(10px); /* Hiệu ứng trượt ngang */
-      transition: opacity 0.25s ease, visibility 0s linear 0.25s, transform 0.25s ease;
+      border-top: none; /* Bỏ border top của menu cha */
+      box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1); /* Điều chỉnh shadow */
+      transform: translateX(10px) scaleX(0.98); /* Hiệu ứng scale ngang */
+      transform-origin: left center;
+      transition: opacity 0.2s ease, visibility 0s linear 0.2s, transform 0.2s ease;
   }
   
   @media (min-width: 993px) {
+      /* Thêm .nav-desktop */
       .nav-desktop .dropdown-submenu:hover > .dropdown-menu,
       .nav-desktop .dropdown-submenu:focus-within > .dropdown-menu {
           opacity: 1;
           visibility: visible;
-          transform: translateX(0);
-          transition: opacity 0.25s ease, visibility 0s linear 0s, transform 0.25s ease;
+          transform: translateX(0) scaleX(1);
+          transition: opacity 0.2s ease, visibility 0s linear 0s, transform 0.2s ease;
       }
       /* Icon cho submenu */
       .dropdown-submenu > a > .dropdown-icon {
@@ -446,17 +461,18 @@
           top: 50%;
           transform: translateY(-50%) rotate(-90deg);
           font-size: 0.6rem !important;
+          transition: transform 0.3s ease; /* Thêm transition cho icon */
       }
+      /* Thêm .nav-desktop */
       .nav-desktop .dropdown-submenu:hover > a > .dropdown-icon,
       .nav-desktop .dropdown-submenu:focus-within > a > .dropdown-icon {
-          transform: translateY(-50%) rotate(0deg);
+          transform: translateY(-50%) rotate(0deg); /* Xoay lại khi hover/focus */
       }
   }
   
-  
   /* --- Mobile Menu --- */
   .hamburger {
-      display: none;
+      display: none; /* Ẩn trên desktop */
       background: none;
       border: none;
       color: var(--primary-color);
@@ -464,17 +480,23 @@
       cursor: pointer;
       padding: 5px;
       z-index: 1002;
+      transition: color 0.2s ease; /* Thêm transition */
+  }
+  .hamburger:hover {
+      color: var(--secondary-color);
   }
   
   .mobile-menu {
       position: fixed;
       top: 0;
-      left: -100%;
+      /* left: -100%; Bỏ left */
       width: 280px;
       height: 100vh;
       background-color: #fff;
       box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
-      transition: left 0.4s ease;
+      transition: transform 0.4s ease; /* Đổi thành transform để mượt hơn */
+      transform: translateX(-100%); /* Ẩn ban đầu bằng transform */
+      left: 0; /* Set left về 0 và dùng transform */
       z-index: 1001;
       overflow-y: auto;
       display: flex;
@@ -482,7 +504,7 @@
   }
   
   .mobile-menu.active {
-      left: 0;
+      transform: translateX(0); /* Hiện ra bằng transform */
   }
   
   .mobile-menu-header {
@@ -506,6 +528,10 @@
       color: var(--white);
       font-size: 1.6rem;
       cursor: pointer;
+      transition: color 0.2s ease;
+  }
+  .close-menu:hover {
+      color: var(--secondary-color);
   }
   
   .mobile-nav-tabs {
@@ -529,10 +555,11 @@
       color: var(--text-color);
       text-decoration: none;
       font-weight: 500;
-      transition: background-color 0.2s ease;
+      transition: background-color 0.2s ease, color 0.2s ease; /* Thêm transition */
   }
   .mobile-nav-tabs > li > a:hover {
       background-color: var(--light-bg-alt);
+      color: var(--primary-color); /* Đổi màu chữ khi hover */
   }
   .mobile-nav-tabs > li > a i:not(.dropdown-icon) {
       margin-right: 12px;
@@ -545,24 +572,33 @@
       transition: transform 0.3s ease;
   }
   
-  /* Mobile Dropdown/Submenu (JS Controlled) */
+  /* Mobile Dropdown/Submenu */
   .mobile-nav-tabs .dropdown-menu {
-      display: none;
-      background-color: #f8f9fa;
+      display: none; /* Ẩn ban đầu */
+      background-color: #f0f0f0; /* Nền khác biệt hơn một chút */
       padding-left: 0;
       list-style: none;
+      /* Thêm hiệu ứng trượt xuống */
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out, padding 0.3s ease-out; /* Thêm padding vào transition */
   }
-  .mobile-nav-tabs li.active > .dropdown-menu.show { /* Class 'show' được thêm bởi JS */
-      display: block;
+  .mobile-nav-tabs li.active > .dropdown-menu.show {
+      display: block; /* Hiện khi có class show */
+      max-height: 500px; /* Đặt chiều cao đủ lớn */
+      padding-top: 5px; /* Thêm padding khi mở */
+      padding-bottom: 5px;
   }
   .mobile-nav-tabs li.active > a > .dropdown-icon {
       transform: rotate(180deg);
   }
   
   .mobile-nav-tabs .dropdown-menu a {
-      padding: 12px 20px 12px 40px;
+      padding: 12px 20px 12px 45px; /* Tăng padding trái */
       font-size: 0.9rem;
       color: var(--text-secondary);
+      display: block; /* Đảm bảo là block */
+      transition: background-color 0.2s ease, color 0.2s ease; /* Thêm transition */
   }
   .mobile-nav-tabs .dropdown-submenu > a {
       position: relative;
@@ -577,7 +613,12 @@
        transform: translateY(-50%) rotate(180deg);
   }
   .mobile-nav-tabs .dropdown-submenu .dropdown-menu a {
-      padding-left: 60px;
+      padding-left: 65px; /* Tăng padding trái cho cấp 3 */
+      background-color: #e9ecef; /* Nền khác biệt hơn nữa */
+  }
+  .mobile-nav-tabs .dropdown-menu a:hover {
+      background-color: var(--light-bg-alt);
+      color: var(--primary-color);
   }
   
   
@@ -592,15 +633,16 @@
       z-index: 1000;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
+      transition: opacity 0.4s ease, visibility 0s linear 0.4s; /* Điều chỉnh transition */
   }
   
   .overlay.active {
       opacity: 1;
       visibility: visible;
+      transition: opacity 0.4s ease, visibility 0s linear 0s;
   }
   body.mobile-menu-active {
-      overflow: hidden;
+      overflow: hidden; /* Ngăn cuộn body khi menu mobile mở */
   }
   
   
@@ -618,7 +660,7 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      margin-top: -20px; /* Bù lại padding của main */
+      /* margin-top: -20px; Bỏ margin top vì header sticky */
       border-bottom: 5px solid var(--secondary-color); /* Mặc định viền cam */
   }
   .page-banner h1 {
@@ -1293,7 +1335,7 @@
   .why-choose-us ul li i { color: var(--secondary-color); margin-right: 15px; font-size: 1.3rem; width: 25px; }
   
   /* Consultation Form (index.html) */
-  .consultation-form-section { padding: 90px 20px; background-color: var(--section-bg-light); }
+  .consultation-form-section { padding: 90px 20px; background-color: var(--light-color); } /* Đã có var(--section-bg-light) */
   .consultation-form-section h2 { text-align: center; color: var(--primary-color); margin-bottom: 25px; font-weight: 700; font-size: 2.2rem; }
   .consultation-form-section .section-subtitle { text-align: center; color: var(--text-secondary); margin-bottom: 50px; max-width: 700px; margin-left: auto; margin-right: auto; font-size: 1.1rem; line-height: 1.8; }
   #consultation-form { max-width: 680px; margin: 0 auto; background-color: var(--white); padding: 45px; border-radius: 15px; box-shadow: var(--subtle-shadow); border: none; }
@@ -1309,12 +1351,13 @@
   #consultation-form .cta-button i { margin-right: 12px; }
   .form-note { text-align: center; font-size: 0.8rem; color: var(--text-light); margin-top: 25px; }
   
+  
   /* --- Footer --- */
   footer {
     background-color: var(--dark-color);
     color: var(--light-text);
     padding: 50px 0 30px 0;
-    margin-top: auto;
+    margin-top: auto; /* Đẩy footer xuống dưới */
   }
   .footer-container {
     max-width: 1200px; margin: 0 auto; padding: 0 20px;
@@ -1345,7 +1388,7 @@
   /* --- Responsive --- */
   @media (max-width: 992px) {
       .hamburger { display: block; }
-      .nav-desktop { display: none; }
+      .nav-desktop { display: none; } /* Ẩn menu desktop */
       #header-placeholder, #header-placeholder > header { height: 70px; } /* Điều chỉnh chiều cao header mobile */
       h1 { font-size: 2.2rem; }
       h2, .section-heading { font-size: 1.8rem; }
@@ -1411,5 +1454,17 @@
       color: #aaa;
       font-style: italic;
       transition: background-color 0.3s ease; /* Để chuyển màu nền mượt hơn */
+  }
+  
+  /* Thêm class nav-desktop vào thẻ header trong header.html để CSS này hoạt động */
+  @media (max-width: 992px) {
+    .nav-desktop .nav-container {
+      display: none; /* Ẩn nav desktop trên mobile */
+    }
+  }
+  @media (min-width: 993px) {
+    .hamburger {
+      display: none; /* Ẩn hamburger trên desktop */
+    }
   }
   
