@@ -37,10 +37,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  /* QUAN TRỌNG: Padding-top cho header cố định */
-  /* Tăng padding để dự phòng trường hợp nav-tabs xuống dòng */
-  /* Giá trị này có thể cần điều chỉnh tùy theo số lượng mục menu */
-  padding-top: 160px; /* Thử giá trị lớn hơn */
+  padding-top: 125px; /* Điều chỉnh giá trị này cho chính xác */
 }
 
 body.mobile-menu-active {
@@ -62,7 +59,7 @@ header {
   padding-bottom: 0;
   transition: background 0.3s ease;
   box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-  overflow: visible !important; /* Cho phép dropdown tràn ra ngoài */
+  overflow: visible !important;
 }
 
 .header-top {
@@ -86,106 +83,63 @@ header {
 /* Nút Hamburger */
 .hamburger {
   display: none;
-  width: 45px;
-  height: 45px;
-  padding: 8px;
-  font-size: 26px;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  cursor: pointer;
-  color: #fff;
-  border-radius: 8px;
-  z-index: 1002;
+  width: 45px; height: 45px; padding: 8px; font-size: 26px;
+  background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer; color: #fff; border-radius: 8px; z-index: 1002;
   transition: background-color 0.3s ease;
 }
-.hamburger:hover {
-    background: rgba(255, 255, 255, 0.25);
-}
+.hamburger:hover { background: rgba(255, 255, 255, 0.25); }
 
-/* --- Desktop Navigation Menu (Layout Gắn Sát Header Top) --- */
+/* --- Desktop Navigation Menu --- */
 .nav-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  background-color: transparent;
-  padding: 0; /* Bỏ padding */
-  overflow: visible !important;
-  /* border-top: none; */ /* Bỏ border nếu có */
+  width: 100%; max-width: 1200px; margin: 0 auto; position: relative;
+  display: flex; justify-content: center; background-color: transparent;
+  padding: 0; overflow: visible !important;
 }
 
 .nav-content {
-  overflow: visible !important;
-  max-width: 100%;
-  display: flex;
-  justify-content: center;
-  background-color: transparent;
-  padding: 0;
-  border-radius: 0;
-  box-shadow: none;
+  overflow: visible !important; max-width: 100%; display: flex;
+  justify-content: center; background-color: transparent; padding: 0;
+  border-radius: 0; box-shadow: none;
 }
 
 .nav-tabs {
-  list-style: none;
-  display: flex;
-  align-items: center; /* Canh giữa các mục theo chiều dọc nếu xuống dòng */
-  justify-content: center; /* Canh giữa các mục theo chiều ngang */
-  gap: 10px 15px; /* Gap cho hàng và cột khi wrap */
-  margin: 0;
-  padding: 10px 20px; /* Padding trên dưới và trái phải cho thanh nav */
-  flex-wrap: wrap; /* CHO PHÉP XUỐNG DÒNG */
-  /* overflow-x: auto; */ /* BỎ CUỘN NGANG */
-   -webkit-overflow-scrolling: touch;
-   width: 100%; /* Chiếm hết chiều rộng của nav-container */
+  list-style: none; display: flex; align-items: center; justify-content: center;
+  gap: 10px 15px; margin: 0; padding: 10px 20px; flex-wrap: wrap;
+   -webkit-overflow-scrolling: touch; width: 100%;
 }
 
-.nav-tabs li {
-  position: relative;
-  flex-shrink: 0; /* Không co lại */
-}
+.nav-tabs li { position: relative; flex-shrink: 0; }
 
 /* Link menu desktop */
 .nav-tabs a {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 15px;
-  font-weight: 500;
-  padding: 8px 15px; /* Giữ padding link */
-  white-space: nowrap;
-  display: flex;
-  align-items: center;
-  transition: color 0.2s ease, background-color 0.2s ease;
-  border-radius: 6px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+  text-decoration: none; color: rgba(255, 255, 255, 0.9); font-size: 15px;
+  font-weight: 500; padding: 8px 15px; white-space: nowrap; display: flex;
+  align-items: center; transition: color 0.2s ease, background-color 0.2s ease;
+  border-radius: 6px; text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
 }
-
-.nav-tabs a:hover {
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
+.nav-tabs a:hover { color: #ffffff; background-color: rgba(255, 255, 255, 0.15); }
 .nav-tabs a i { transition: color 0.2s ease; opacity: 0.8; }
 .nav-tabs a:hover i { color: inherit; opacity: 1; }
 .nav-tabs a i:not(.fa-chevron-down):not(.fa-chevron-right) { margin-right: 8px; }
 .nav-tabs a i.fa-chevron-down,
 .nav-tabs a i.fa-chevron-right { font-size: 0.7em; margin-left: 6px; }
 
-/* --- Desktop Dropdown Menu (Đã sửa) --- */
+/* --- Desktop Dropdown Menu (SỬ DỤNG CLASS TỪ JS) --- */
 .nav-tabs .dropdown .dropdown-menu {
-  display: block !important;
+  display: block !important; /* Luôn là block */
   position: absolute !important;
-  top: 100%; /* Ngay dưới mục cha */
+  top: 100%;
   left: 0;
   min-width: 240px;
   background-color: #ffffff;
   box-shadow: 0 8px 25px rgba(0,0,0,0.18);
-  border-radius: 0 0 var(--border-radius) var(--border-radius); /* Chỉ bo góc dưới */
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
   z-index: 1100 !important;
   padding: 10px 0;
   list-style: none;
-  margin: 5px 0 0 0; /* Thêm margin top nhẹ */
+  margin: 5px 0 0 0;
+  /* Hiệu ứng ẩn/hiện dùng opacity/visibility/transform */
   opacity: 0;
   visibility: hidden;
   transform: translateY(15px);
@@ -193,7 +147,8 @@ header {
   pointer-events: none;
 }
 
-.nav-tabs .dropdown:hover > .dropdown-menu {
+/* QUAN TRỌNG: Hiển thị khi li cha có class 'show-desktop-dropdown' (JS thêm/xóa) */
+.nav-tabs .dropdown.show-desktop-dropdown > .dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -201,6 +156,7 @@ header {
   pointer-events: auto;
 }
 
+/* Link trong menu con desktop */
 .nav-tabs .dropdown-menu li a {
   padding: 12px 20px; font-size: 14px; color: var(--text-secondary);
   font-weight: 400; white-space: normal; display: block; clear: both;
@@ -214,13 +170,16 @@ header {
 .nav-tabs .dropdown-submenu { position: relative; }
 .nav-tabs .dropdown-submenu > .dropdown-menu {
   top: -11px; left: 100%; margin-left: 1px;
-  border-radius: var(--border-radius); /* Bo đều 4 góc */
+  border-radius: var(--border-radius);
+  /* Các thuộc tính ẩn/hiện tương tự */
   display: block !important; opacity: 0; visibility: hidden;
   transform: translateX(10px);
   transition: opacity 0.2s ease, visibility 0s linear 0.2s, transform 0.2s ease;
   pointer-events: none;
 }
-.nav-tabs .dropdown-submenu:hover > .dropdown-menu {
+
+/* Hiển thị khi li cha cấp 2 có class 'show-desktop-dropdown' */
+.nav-tabs .dropdown-submenu.show-desktop-dropdown > .dropdown-menu {
   opacity: 1; visibility: visible; transform: translateX(0);
   transition-delay: 0s; pointer-events: auto;
 }
@@ -228,7 +187,7 @@ header {
 
 
 /* --- Mobile Menu Styles (Giữ nguyên) --- */
-/* (Copy toàn bộ khối CSS cho Mobile Menu từ phiên bản trước) */
+/* ... (Copy khối CSS Mobile Menu từ phiên bản trước) ... */
 .mobile-menu {
   position: fixed; top: 0; left: -100%; width: 280px; height: 100vh;
   background-color: var(--primary-color); color: #f0f0f0;
@@ -367,7 +326,7 @@ footer { background: var(--dark-color); padding: 50px 20px; color: rgba(255, 255
 
 /* --- Responsive Adjustments --- */
 @media (max-width: 992px) {
-  body { padding-top: 125px; /* Re-adjust if needed */ }
+  body { padding-top: 125px; }
   header { min-height: unset; }
   .header-top { height: 70px; }
   .header-logo img { max-height: 45px; }
