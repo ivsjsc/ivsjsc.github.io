@@ -37,7 +37,9 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  padding-top: 145px; /* Điều chỉnh giá trị này nếu chiều cao header thay đổi */
+  /* QUAN TRỌNG: Padding-top cho header cố định */
+  /* Ước tính: 80px (header-top) + ~40px (nav-tabs height) = 120px */
+  padding-top: 125px; /* Thử giá trị này, điều chỉnh nếu cần */
 }
 
 body.mobile-menu-active {
@@ -51,14 +53,16 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 1000; /* Header trên cùng */
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.45)), url('../images/logo/header3.jpg') center/cover no-repeat;
+  /* Cập nhật hình nền */
+  background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.45)), url('../images/logo/header3.png') center/cover no-repeat;
   padding-bottom: 0;
   transition: background 0.3s ease;
   box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  overflow: visible !important; /* QUAN TRỌNG: Cho phép dropdown tràn ra ngoài */
 }
 
 .header-top {
@@ -70,7 +74,7 @@ header {
   width: 100%;
   position: relative;
   z-index: 1;
-  height: 80px;
+  height: 80px; /* Chiều cao cố định cho phần logo */
 }
 
 .header-logo img {
@@ -91,29 +95,29 @@ header {
   cursor: pointer;
   color: #fff;
   border-radius: 8px;
-  z-index: 2001;
+  z-index: 1002; /* Cao hơn nav-container */
   transition: background-color 0.3s ease;
 }
 .hamburger:hover {
     background: rgba(255, 255, 255, 0.25);
 }
 
-/* --- Desktop Navigation Menu --- */
+/* --- Desktop Navigation Menu (Layout Gắn Sát Header Top) --- */
 .nav-container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  position: relative;
+  position: relative; /* Giữ relative để dropdown định vị */
   display: flex;
   justify-content: center;
-  background-color: transparent;
-  padding: 12px 0;
-  overflow: visible;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: transparent; /* Trong suốt */
+  padding: 0; /* Bỏ padding trên dưới */
+  overflow: visible !important; /* QUAN TRỌNG */
+  /* border-top: none; */ /* Bỏ border-top nếu không muốn đường kẻ */
 }
 
 .nav-content {
-  overflow: visible;
+  overflow: visible !important; /* QUAN TRỌNG */
   max-width: 100%;
   display: flex;
   justify-content: center;
@@ -129,14 +133,17 @@ header {
   align-items: center;
   gap: 15px;
   margin: 0;
-  padding: 0 20px;
+  padding: 10px 20px; /* Padding cho thanh nav tabs */
   flex-wrap: nowrap;
   overflow-x: auto;
    -webkit-overflow-scrolling: touch;
+   /* Thêm nền nhẹ nếu muốn tách biệt khỏi ảnh nền header */
+   /* background-color: rgba(0, 0, 0, 0.1); */
+   /* border-radius: 0 0 8px 8px; */ /* Bo góc dưới nếu có nền */
 }
 
 .nav-tabs li {
-  position: relative;
+  position: relative; /* Cần cho dropdown */
   flex-shrink: 0;
 }
 
@@ -146,7 +153,7 @@ header {
   color: rgba(255, 255, 255, 0.9);
   font-size: 15px;
   font-weight: 500;
-  padding: 10px 15px;
+  padding: 8px 15px; /* Điều chỉnh padding link */
   white-space: nowrap;
   display: flex;
   align-items: center;
@@ -157,7 +164,7 @@ header {
 
 .nav-tabs a:hover {
   color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .nav-tabs a i {
@@ -168,47 +175,43 @@ header {
     color: inherit;
     opacity: 1;
 }
-
-.nav-tabs a i:not(.fa-chevron-down):not(.fa-chevron-right) {
-    margin-right: 8px;
-}
-
+.nav-tabs a i:not(.fa-chevron-down):not(.fa-chevron-right) { margin-right: 8px; }
 .nav-tabs a i.fa-chevron-down,
-.nav-tabs a i.fa-chevron-right {
-  font-size: 0.7em;
-  margin-left: 6px;
-}
+.nav-tabs a i.fa-chevron-right { font-size: 0.7em; margin-left: 6px; }
 
-/* --- Desktop Dropdown Menu --- */
+/* --- Desktop Dropdown Menu (FIX HOVER - Lần 2) --- */
 .nav-tabs .dropdown .dropdown-menu {
-  display: none;
-  position: absolute;
-  top: calc(100% + 5px);
+  display: block !important; /* LUÔN LÀ block */
+  position: absolute !important;
+  top: 100%; /* Ngay dưới mục cha */
   left: 0;
   min-width: 240px;
-  background-color: #fff;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
-  z-index: 1001;
+  background-color: #ffffff;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.18); /* Shadow rõ hơn nữa */
+  border-radius: 0 0 var(--border-radius) var(--border-radius); /* Bo góc dưới */
+  /* border: 1px solid var(--border-color); */ /* Có thể bỏ border */
+  z-index: 1100 !important; /* Tăng z-index tối đa */
   padding: 10px 0;
   list-style: none;
   margin: 0;
+  /* Hiệu ứng ẩn/hiện dùng opacity/visibility/transform */
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px);
-  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+  transform: translateY(15px); /* Tăng khoảng cách trượt */
+  transition: opacity 0.25s ease, visibility 0s linear 0.25s, transform 0.25s ease;
   pointer-events: none;
 }
 
+/* QUAN TRỌNG: Hiển thị khi hover mục cha */
 .nav-tabs .dropdown:hover > .dropdown-menu {
-  display: block;
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+  transition-delay: 0s; /* Bỏ delay khi hiện */
   pointer-events: auto;
 }
 
+/* Link trong menu con desktop */
 .nav-tabs .dropdown-menu li a {
   padding: 12px 20px;
   font-size: 14px;
@@ -218,12 +221,10 @@ header {
   display: block;
   clear: both;
   text-shadow: none;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid #f0f0f0; /* Kẻ ngang nhạt hơn */
   transition: background-color 0.2s ease, color 0.2s ease;
 }
-.nav-tabs .dropdown-menu li:last-child a {
-    border-bottom: none;
-}
+.nav-tabs .dropdown-menu li:last-child a { border-bottom: none; }
 
 .nav-tabs .dropdown-menu li a:hover {
   background-color: var(--primary-color);
@@ -231,35 +232,32 @@ header {
 }
 
 /* --- Desktop Submenu --- */
-.nav-tabs .dropdown-submenu {
-  position: relative;
-}
+.nav-tabs .dropdown-submenu { position: relative; }
 
 .nav-tabs .dropdown-submenu > .dropdown-menu {
-  top: -11px;
+  top: -11px; /* Giữ nguyên hoặc điều chỉnh lại */
   left: 100%;
   margin-left: 1px;
-  border-radius: 0 var(--border-radius) var(--border-radius) var(--border-radius);
-  display: none;
+  border-radius: var(--border-radius); /* Bo đều 4 góc cho submenu */
+  /* Các thuộc tính ẩn/hiện tương tự */
+  display: block !important;
   opacity: 0;
   visibility: hidden;
   transform: translateX(10px);
-  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+  transition: opacity 0.25s ease, visibility 0s linear 0.25s, transform 0.25s ease;
   pointer-events: none;
 }
 
+/* Hiển thị khi hover mục cha cấp 2 */
 .nav-tabs .dropdown-submenu:hover > .dropdown-menu {
-  display: block;
   opacity: 1;
   visibility: visible;
   transform: translateX(0);
+  transition-delay: 0s;
   pointer-events: auto;
 }
 
-.nav-tabs .dropdown-submenu > a i.fa-chevron-right {
-  float: right;
-  margin-left: 10px;
-}
+.nav-tabs .dropdown-submenu > a i.fa-chevron-right { float: right; margin-left: 10px; }
 
 
 /* --- Mobile Menu Styles (Giữ nguyên) --- */
@@ -324,171 +322,50 @@ header {
 
 
 /* --- Main Content --- */
-main {
-  flex: 1;
-  padding: 0;
-}
-
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 20px;
-    padding-right: 20px;
-}
+main { flex: 1; padding: 0; }
+.container { width: 100%; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 20px; padding-right: 20px; }
 
 /* --- Content Sections Styling --- */
-.content-section {
-    padding: 60px 0;
-    border-bottom: 1px solid var(--border-color);
-}
+.content-section { padding: 60px 0; border-bottom: 1px solid var(--border-color); }
 .content-section:nth-child(odd) { background-color: var(--light-bg-alt); }
 .content-section:nth-child(even) { background-color: var(--bg-color); }
 .content-section:last-child { border-bottom: none; }
-
-.section-heading {
-    color: var(--primary-color);
-    margin-bottom: 50px;
-    font-size: 2.2rem;
-    font-weight: 700;
-    text-align: center;
-    position: relative;
-    padding-bottom: 15px;
-}
-.section-heading::after {
-    content: ''; position: absolute; bottom: 0; left: 50%;
-    transform: translateX(-50%); width: 100px; height: 4px;
-    background-color: var(--secondary-color); border-radius: 2px;
-}
-
+.section-heading { color: var(--primary-color); margin-bottom: 50px; font-size: 2.2rem; font-weight: 700; text-align: center; position: relative; padding-bottom: 15px; }
+.section-heading::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background-color: var(--secondary-color); border-radius: 2px; }
 
 /* --- Card Styling --- */
-.services-grid, .partnership-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 35px;
-}
-
-.service-card, .partnership-card {
-    background-color: #fff; padding: 35px; border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow); text-align: center; transition: var(--transition);
-    border-top: 5px solid transparent; display: flex; flex-direction: column;
-    border: 1px solid var(--border-color);
-}
+.services-grid, .partnership-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; }
+.service-card, .partnership-card { background-color: #fff; padding: 35px; border-radius: var(--border-radius); box-shadow: var(--box-shadow); text-align: center; transition: var(--transition); border-top: 5px solid transparent; display: flex; flex-direction: column; border: 1px solid var(--border-color); }
 .service-card { border-top-color: var(--primary-color); }
 .partnership-card { border-top-color: var(--accent-color); }
-
-.service-card:hover, .partnership-card:hover {
-    transform: translateY(-10px); box-shadow: var(--box-shadow-hover);
-}
-
-.service-card i, .partnership-card i {
-    font-size: 3.5rem; margin-bottom: 25px; transition: color 0.3s ease;
-}
+.service-card:hover, .partnership-card:hover { transform: translateY(-10px); box-shadow: var(--box-shadow-hover); }
+.service-card i, .partnership-card i { font-size: 3.5rem; margin-bottom: 25px; transition: color 0.3s ease; }
 .service-card i { color: var(--primary-color); }
 .partnership-card i { color: var(--accent-color); }
 .service-card:hover i, .partnership-card:hover i { color: var(--secondary-color); }
-
-.service-card h3, .partnership-card h3 {
-    font-size: 1.4rem; margin-bottom: 15px; color: var(--primary-color);
-    font-weight: 600; flex-grow: 0;
-}
-
-.service-card p, .partnership-card p {
-    font-size: 1rem; color: var(--text-secondary); line-height: 1.7;
-    margin-bottom: 25px; flex-grow: 1;
-}
-
-/* Button trong Card */
-.cta-link {
-    display: inline-block; padding: 10px 25px; background-color: var(--secondary-color);
-    color: white !important; text-decoration: none; border-radius: 50px;
-    font-weight: 600; font-size: 0.95rem; transition: var(--transition);
-    margin-top: auto; border: none; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-.cta-link:hover {
-    background-color: #e04e2d; transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
+.service-card h3, .partnership-card h3 { font-size: 1.4rem; margin-bottom: 15px; color: var(--primary-color); font-weight: 600; flex-grow: 0; }
+.service-card p, .partnership-card p { font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 25px; flex-grow: 1; }
+.cta-link { display: inline-block; padding: 10px 25px; background-color: var(--secondary-color); color: white !important; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 0.95rem; transition: var(--transition); margin-top: auto; border: none; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.cta-link:hover { background-color: #e04e2d; transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
 .partnership-card .cta-link { background-color: var(--accent-color); }
 .partnership-card .cta-link:hover { background-color: #0056b3; }
 
-
 /* --- Featured Posts Section --- */
-/* Container cho carousel/grid */
-#post-list {
-  position: relative;
-  overflow: hidden; /* Cần ẩn slide khác trong carousel */
-  width: 100%;
-  max-width: 800px; /* Giới hạn chiều rộng */
-  margin: 0 auto;
-  min-height: 250px; /* Chiều cao tối thiểu */
-  /* Reset các style có thể bị media query ghi đè sai */
-  display: block; /* Mặc định là block cho carousel */
-  grid-template-columns: unset;
-  gap: unset;
-}
-
-/* Style cho từng bài viết */
-.post-preview {
-  display: flex; /* Layout flex cho ảnh và nội dung */
-  align-items: stretch;
-  background-color: #fff;
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-  overflow: hidden;
-  /* Reset style có thể bị media query ghi đè sai */
-  position: absolute; /* Mặc định cho carousel */
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  transition: transform 0.5s ease; /* Transition cho carousel */
-  flex-direction: row;
-  margin-bottom: 0;
-}
-
-.post-image {
-  flex: 0 0 40%;
-  position: relative;
-  background-color: #eee;
-  height: 100%; /* Đảm bảo chiều cao bằng cha */
-}
-
-.post-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.hot-label {
-  position: absolute; top: 10px; left: 10px; background-color: var(--secondary-color);
-  color: #fff; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem;
-  font-weight: bold; z-index: 1;
-}
-
-.post-content {
-  flex: 1; padding: 20px; display: flex; flex-direction: column; justify-content: center;
-}
+#post-list { position: relative; overflow: hidden; width: 100%; max-width: 800px; margin: 0 auto; min-height: 250px; display: block; grid-template-columns: unset; gap: unset; }
+.post-preview { display: flex; align-items: stretch; background-color: #fff; border-radius: var(--border-radius); box-shadow: var(--box-shadow); overflow: hidden; position: absolute; width: 100%; height: 100%; top: 0; left: 0; transition: transform 0.5s ease; flex-direction: row; margin-bottom: 0; }
+.post-image { flex: 0 0 40%; position: relative; background-color: #eee; height: 100%; }
+.post-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hot-label { position: absolute; top: 10px; left: 10px; background-color: var(--secondary-color); color: #fff; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; z-index: 1; }
+.post-content { flex: 1; padding: 20px; display: flex; flex-direction: column; justify-content: center; }
 .post-content h3 { margin: 0 0 10px; font-size: 1.2rem; color: var(--primary-color); line-height: 1.3; }
 .post-content h3 a { color: inherit; text-decoration: none; }
 .post-content h3 a:hover { color: var(--secondary-color); }
-
-.post-content p {
-  margin: 0 0 15px; color: #555; font-size: 0.95rem; line-height: 1.5;
-  display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;
-  /* -webkit-line-clamp sẽ được đặt bởi class layout hoặc media query */
-}
+.post-content p { margin: 0 0 15px; color: #555; font-size: 0.95rem; line-height: 1.5; display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; }
 .post-content .view-more { color: var(--secondary-color); text-decoration: none; font-weight: bold; margin-top: auto; align-self: flex-start; }
 .post-content .view-more:hover { text-decoration: underline; }
-
-/* Nút điều khiển Carousel */
 .carousel-controls { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
 .carousel-btn { width: 35px; height: 35px; border-radius: 50%; border: none; background-color: rgba(0, 0, 0, 0.4); color: #fff; cursor: pointer; transition: var(--transition); font-size: 1rem; display: flex; align-items: center; justify-content: center; }
 .carousel-btn:hover { background-color: var(--secondary-color); }
-
 
 /* --- Video Section --- */
 .video-section-enhanced { padding: 60px 0; }
@@ -500,29 +377,15 @@ main {
 .video-caption a { color: var(--accent-color); text-decoration: none; transition: var(--transition); font-weight: 500; }
 .video-caption a:hover { color: var(--secondary-color); text-decoration: underline; }
 
-
 /* --- Redirect Notice --- */
-.redirect-notice {
-  text-align: center; margin: 30px auto; padding: 20px;
-  background-color: #fff8e1; color: #6d4c41;
-  border: 1px solid #ffecb3; border-radius: var(--border-radius); max-width: 600px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
+.redirect-notice { text-align: center; margin: 30px auto; padding: 20px; background-color: #fff8e1; color: #6d4c41; border: 1px solid #ffecb3; border-radius: var(--border-radius); max-width: 600px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
 #redirect-timer p { margin-bottom: 15px; font-size: 1rem; }
-#cancel-redirect {
-  background: var(--secondary-color); color: white; border: none;
-  padding: 10px 20px; border-radius: 50px; font-weight: bold; cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+#cancel-redirect { background: var(--secondary-color); color: white; border: none; padding: 10px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; transition: background-color 0.3s, transform 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 #cancel-redirect:hover:not(:disabled) { background-color: #e04e2d; transform: scale(1.05); }
 #cancel-redirect:disabled { background-color: #ccc; cursor: not-allowed; box-shadow: none; }
 
-
 /* --- Footer Styles --- */
-footer {
-  background: var(--dark-color); padding: 50px 20px; color: rgba(255, 255, 255, 0.7);
-  font-size: 0.9rem; margin-top: auto; border-top: 5px solid var(--primary-color);
-}
+footer { background: var(--dark-color); padding: 50px 20px; color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; margin-top: auto; border-top: 5px solid var(--primary-color); }
 .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
 .footer-logo img { width: 60px; margin-bottom: 20px; opacity: 0.8; }
 .footer-info h4, .footer-social h4 { color: #fff; margin-bottom: 20px; font-size: 1.2rem; font-weight: 600; }
@@ -535,10 +398,9 @@ footer {
 .footer-social a:hover { color: #fff; transform: translateY(-3px); }
 .footer-social a i.fa-comment-dots { font-size: 1.3rem; margin-left: 5px; }
 
-
 /* --- Responsive Adjustments --- */
 @media (max-width: 992px) {
-  body { padding-top: 130px; }
+  body { padding-top: 125px; /* Điều chỉnh lại nếu cần */ }
   header { min-height: unset; }
   .header-top { height: 70px; }
   .header-logo img { max-height: 45px; }
@@ -551,27 +413,12 @@ footer {
   body { padding-top: 70px; }
   header { padding-bottom: 0; }
   .nav-container { display: none !important; }
-
-  /* Grid layout cho post list */
-  #post-list.grid-layout, #post-list:not(.carousel-layout) { /* Áp dụng grid nếu có class hoặc không có class carousel */
-      display: grid !important; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
-      gap: 20px !important; height: auto !important; position: static !important;
-      overflow: visible !important; max-width: none !important; min-height: unset !important;
-      background: none !important; box-shadow: none !important; border-radius: 0 !important;
-  }
-  #post-list.grid-layout .post-preview, #post-list:not(.carousel-layout) .post-preview {
-      position: relative !important; transform: none !important; width: 100% !important;
-      height: auto !important; flex-direction: column !important;
-      box-shadow: var(--box-shadow) !important; border-radius: var(--border-radius) !important;
-      background-color: #fff !important; margin-bottom: 20px !important;
-      transition: none !important; opacity: 1 !important; top: unset !important; left: unset !important;
-  }
+  #post-list.grid-layout, #post-list:not(.carousel-layout) { display: grid !important; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important; gap: 20px !important; height: auto !important; position: static !important; overflow: visible !important; max-width: none !important; min-height: unset !important; background: none !important; box-shadow: none !important; border-radius: 0 !important; }
+  #post-list.grid-layout .post-preview, #post-list:not(.carousel-layout) .post-preview { position: relative !important; transform: none !important; width: 100% !important; height: auto !important; flex-direction: column !important; box-shadow: var(--box-shadow) !important; border-radius: var(--border-radius) !important; background-color: #fff !important; margin-bottom: 20px !important; transition: none !important; opacity: 1 !important; top: unset !important; left: unset !important; }
   #post-list.grid-layout .post-image, #post-list:not(.carousel-layout) .post-image { height: 200px !important; }
   #post-list.grid-layout .post-content, #post-list:not(.carousel-layout) .post-content { padding: 20px !important; }
   #post-list.grid-layout .post-content p, #post-list:not(.carousel-layout) .post-content p { min-height: auto !important; -webkit-line-clamp: 3 !important; }
-
   .carousel-controls { display: none !important; }
-
   .footer-container { grid-template-columns: 1fr; text-align: center; }
   .footer-info p { justify-content: center; }
   .footer-social a { margin: 0 10px; }
@@ -596,98 +443,18 @@ footer {
 .no-posts { text-align: center; color: #888; padding: 20px; }
 
 /* --- Classes for JS layout switching (post-list) --- */
+#post-list.grid-layout { display: grid !important; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important; gap: 20px !important; height: auto !important; position: static !important; overflow: visible !important; max-width: none !important; min-height: unset !important; background: none !important; box-shadow: none !important; border-radius: 0 !important; }
+#post-list.grid-layout .post-preview { position: relative !important; transform: none !important; width: 100% !important; height: auto !important; flex-direction: column !important; box-shadow: var(--box-shadow) !important; border-radius: var(--border-radius) !important; background-color: #fff !important; margin-bottom: 20px !important; transition: none !important; opacity: 1 !important; top: unset !important; left: unset !important; }
+#post-list.grid-layout .post-image { flex-basis: auto !important; height: 200px !important; }
+#post-list.grid-layout .post-content { padding: 20px !important; }
+#post-list.grid-layout .post-content p { min-height: auto !important; -webkit-line-clamp: 3 !important; }
 
-/* Styles for Grid Layout */
-#post-list.grid-layout {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
-    gap: 20px !important;
-    height: auto !important;
-    position: static !important;
-    overflow: visible !important;
-    max-width: none !important;
-    min-height: unset !important;
-    background: none !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-}
-#post-list.grid-layout .post-preview {
-    position: relative !important;
-    transform: none !important;
-    width: 100% !important;
-    height: auto !important;
-    flex-direction: column !important;
-    box-shadow: var(--box-shadow) !important;
-    border-radius: var(--border-radius) !important;
-    background-color: #fff !important;
-    margin-bottom: 20px !important;
-    transition: none !important;
-    opacity: 1 !important;
-    top: unset !important;
-    left: unset !important;
-}
-#post-list.grid-layout .post-image {
-    flex-basis: auto !important;
-    height: 200px !important;
-}
-#post-list.grid-layout .post-content {
-    padding: 20px !important;
-}
-#post-list.grid-layout .post-content p {
-    min-height: auto !important;
-    -webkit-line-clamp: 3 !important; /* 3 dòng cho grid */
-}
+#post-list.carousel-layout { display: block !important; position: relative !important; overflow: hidden !important; min-height: 250px !important; grid-template-columns: unset !important; gap: unset !important; }
+#post-list.carousel-layout .post-preview { position: absolute !important; width: 100% !important; height: 100% !important; top: 0 !important; left: 0 !important; transition: transform 0.5s ease !important; display: flex !important; flex-direction: row !important; margin-bottom: 0 !important; box-shadow: var(--box-shadow) !important; border-radius: var(--border-radius) !important; background-color: #fff !important; }
+#post-list.carousel-layout .post-image { flex: 0 0 40% !important; height: 100% !important; }
+#post-list.carousel-layout .post-content p { -webkit-line-clamp: 3 !important; min-height: calc(1.6em * 3) !important; }
 
-/* Styles for Carousel Layout */
-#post-list.carousel-layout {
-     display: block !important;
-     position: relative !important;
-     overflow: hidden !important;
-     min-height: 250px !important; /* Hoặc chiều cao mong muốn */
-     /* Reset grid styles nếu cần */
-     grid-template-columns: unset !important;
-     gap: unset !important;
-}
-#post-list.carousel-layout .post-preview {
-     position: absolute !important;
-     width: 100% !important;
-     height: 100% !important;
-     top: 0 !important;
-     left: 0 !important;
-     transition: transform 0.5s ease !important;
-     display: flex !important;
-     flex-direction: row !important; /* Layout ngang */
-     margin-bottom: 0 !important; /* Reset margin từ grid */
-     /* Reset các style khác từ grid nếu cần */
-     box-shadow: var(--box-shadow) !important;
-     border-radius: var(--border-radius) !important;
-     background-color: #fff !important;
-}
-#post-list.carousel-layout .post-image {
-     flex: 0 0 40% !important; /* Ảnh chiếm 40% */
-     height: 100% !important; /* Chiều cao 100% */
-}
-#post-list.carousel-layout .post-content p {
-     -webkit-line-clamp: 3 !important; /* 3 dòng cho carousel */
-     min-height: calc(1.6em * 3) !important; /* Ước tính chiều cao cho 3 dòng */
-}
-
-/* Fallback line-clamp (nếu không dùng class JS) */
-.post-content p {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-@media (min-width: 769px) {
-    #post-list:not(.grid-layout) .post-content p { /* Áp dụng cho carousel mặc định */
-        -webkit-line-clamp: 3;
-        min-height: calc(1.6em * 3);
-    }
-}
-@media (max-width: 768px) {
-     #post-list:not(.carousel-layout) .post-content p { /* Áp dụng cho grid mặc định */
-        -webkit-line-clamp: 3; /* Giữ 3 dòng trên mobile */
-        min-height: auto;
-    }
-}
+/* Fallback line-clamp */
+.post-content p { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; }
+@media (min-width: 769px) { #post-list:not(.grid-layout) .post-content p { -webkit-line-clamp: 3; min-height: calc(1.6em * 3); } }
+@media (max-width: 768px) { #post-list:not(.carousel-layout) .post-content p { -webkit-line-clamp: 3; min-height: auto; } }
