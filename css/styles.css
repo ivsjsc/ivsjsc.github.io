@@ -453,105 +453,141 @@ header {
 }
 
 
-/* Mobile Menu Styles (giữ nguyên) */
+/* --- CSS NÂNG CẤP CHO MOBILE MENU --- */
+
+/* Container chính của mobile menu */
 .mobile-menu {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: -85%; /* Điều chỉnh vị trí ẩn */
-  width: 85%; /* Điều chỉnh chiều rộng */
-  max-width: 300px; /* Giới hạn chiều rộng tối đa */
-  height: 100vh;
-  background-color: #fff;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-  z-index: 1002; /* Đảm bảo cao hơn overlay */
-  transition: left 0.3s ease;
-  overflow-y: auto;
+  background-color: var(--primary-color, #1a3c6d); /* Nền tối */
+  color: #f0f0f0; /* Màu chữ sáng hơn */
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2); /* Đổ bóng rõ hơn */
+  /* Các thuộc tính khác giữ nguyên: position, top, left, width, height, z-index, transition, overflow-y */
 }
 
-.mobile-menu.active {
-  display: block; /* Hiển thị khi active */
-  left: 0;
-}
-
+/* Header của mobile menu */
 .mobile-menu-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  background-color: #f8f8f8;
-  border-bottom: 1px solid #ddd;
+  background-color: var(--dark-color, #2c3e50); /* Nền tối hơn cho header */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Đường kẻ mờ */
+  padding: 15px 20px; /* Tăng padding */
 }
 
-.mobile-menu-header img.mobile-logo { /* Thêm class để target logo mobile */
-  max-height: 40px; /* Giảm chiều cao logo mobile */
+.mobile-menu-header img.mobile-logo {
+  max-height: 45px; /* Tăng nhẹ chiều cao logo */
+  filter: brightness(0) invert(1); /* Đổi logo thành màu trắng nếu nền tối */
 }
 
 .close-menu {
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #333;
+  color: #fff; /* Màu trắng cho nút đóng */
+  font-size: 26px; /* Kích thước lớn hơn */
 }
 
+/* Danh sách các mục menu */
 .mobile-nav-tabs {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  padding-top: 10px; /* Thêm khoảng cách trên */
 }
 
 .mobile-nav-tabs li {
-  border-bottom: 1px solid #eee; /* Viền mờ hơn */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Đường kẻ mờ giữa các mục */
+}
+.mobile-nav-tabs li:last-child {
+    border-bottom: none; /* Bỏ đường kẻ ở mục cuối */
 }
 
-.mobile-nav-tabs a {
+/* Link menu chính */
+.mobile-nav-tabs > li > a {
+  padding: 16px 20px; /* Tăng padding */
+  font-size: 1rem;
+  font-weight: 500; /* Đậm vừa phải */
+  color: #fff; /* Màu chữ trắng */
+  transition: background-color 0.2s ease, color 0.2s ease;
   display: flex;
   align-items: center;
-  padding: 15px 20px;
-  text-decoration: none;
-  color: #333;
-  font-size: 1rem; /* Kích thước chữ mobile */
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+  position: relative; /* Để chứa icon chevron */
 }
 
-.mobile-nav-tabs a i {
-  margin-right: 10px; /* Tăng khoảng cách icon */
-  color: var(--primary-color); /* Màu icon */
-  width: 20px; /* Đảm bảo icon thẳng hàng */
+.mobile-nav-tabs > li > a:hover {
+  background-color: rgba(255, 255, 255, 0.08); /* Nền hover sáng nhẹ */
+  color: #fff;
+}
+
+.mobile-nav-tabs > li > a i:first-child { /* Icon chính của mục menu */
+  margin-right: 12px; /* Tăng khoảng cách icon */
+  color: var(--secondary-color, #ff5733); /* Màu nhấn cho icon */
+  width: 22px;
   text-align: center;
+  font-size: 1.1em; /* Icon lớn hơn chút */
 }
 
-.mobile-nav-tabs a:hover {
-  background-color: #f0f0f0; /* Nền hover nhẹ */
-  color: var(--secondary-color);
+/* Icon mũi tên dropdown */
+.mobile-nav-tabs .dropdown-toggle i.fa-chevron-down,
+.mobile-nav-tabs .dropdown-toggle i.fa-chevron-right {
+  margin-left: auto; /* Đẩy sang phải */
+  font-size: 0.8em;
+  color: rgba(255, 255, 255, 0.6); /* Màu mờ hơn */
+  transition: transform 0.3s ease;
+  padding-left: 10px; /* Khoảng cách với chữ */
 }
 
-.mobile-nav-tabs .dropdown-menu {
-  display: none;
-  background-color: #f9f9f9; /* Nền submenu */
-  padding-left: 30px; /* Thụt lề submenu */
-}
-
-.mobile-nav-tabs .dropdown-menu.show {
-  display: block;
-}
-
-.mobile-nav-tabs .dropdown-menu a {
-  padding: 12px 20px; /* Padding submenu item */
-  font-size: 0.95rem;
-}
-
-.mobile-nav-tabs .dropdown-toggle i.fa-chevron-down {
-  margin-left: auto; /* Đẩy icon chevron sang phải */
-  transition: transform 0.3s;
-  font-size: 0.8em; /* Icon nhỏ hơn */
-}
-
-.mobile-nav-tabs .dropdown.active > .dropdown-toggle i.fa-chevron-down {
+/* Xoay mũi tên khi mở dropdown */
+.mobile-nav-tabs .dropdown.active > a > i.fa-chevron-down,
+.mobile-nav-tabs .dropdown-submenu.active > a > i.fa-chevron-right {
   transform: rotate(180deg);
 }
+
+/* Menu con (Dropdown) */
+.mobile-nav-tabs .dropdown-menu {
+  background-color: rgba(0, 0, 0, 0.15); /* Nền tối hơn chút cho menu con */
+  padding-left: 0; /* Reset padding */
+  /* Hiệu ứng xổ xuống (Accordion) */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out, padding 0.4s ease-out; /* Thêm transition cho padding */
+  list-style: none; /* Đảm bảo không có dấu đầu dòng */
+}
+
+.mobile-nav-tabs .dropdown.active > .dropdown-menu,
+.mobile-nav-tabs .dropdown-submenu.active > .dropdown-menu {
+  max-height: 1000px; /* Chiều cao đủ lớn để chứa menu con */
+  /* Thêm padding khi mở ra */
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+/* Link trong menu con cấp 1 */
+.mobile-nav-tabs > li > .dropdown-menu > li > a {
+  padding: 12px 20px 12px 40px; /* Thụt lề cấp 1 */
+  font-size: 0.95rem;
+  color: #e0e0e0; /* Màu chữ sáng hơn */
+  font-weight: 400;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Kẻ mờ hơn */
+}
+.mobile-nav-tabs > li > .dropdown-menu > li:last-child > a {
+    border-bottom: none;
+}
+
+.mobile-nav-tabs > li > .dropdown-menu > li > a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* Menu con cấp 2 (Submenu) */
+.mobile-nav-tabs .dropdown-submenu .dropdown-menu {
+    background-color: rgba(0, 0, 0, 0.25); /* Nền tối hơn nữa */
+}
+
+/* Link trong menu con cấp 2 */
+.mobile-nav-tabs .dropdown-submenu .dropdown-menu a {
+  padding: 10px 20px 10px 55px; /* Thụt lề cấp 2 */
+  font-size: 0.9rem;
+  color: #d0d0d0;
+}
+
+.mobile-nav-tabs .dropdown-submenu .dropdown-menu a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* --- KẾT THÚC CSS NÂNG CẤP --- */
+
 
 /* Overlay Styles (giữ nguyên) */
 .overlay {
