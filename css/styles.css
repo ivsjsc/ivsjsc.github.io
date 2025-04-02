@@ -84,64 +84,162 @@ header {
   z-index: 2001;
 }
 
+/* --- CSS SỬA LỖI & TỐI ƯU MENU DESKTOP --- */
+
+/* Đảm bảo container menu desktop hiển thị đúng */
 .nav-container {
   width: 100%;
   max-width: 1200px; /* Giới hạn chiều rộng */
-  margin: 10px auto 0; /* Canh giữa và tạo khoảng cách */
+  margin: 10px auto 0;
   position: relative;
-  display: flex; /* Sử dụng flex để canh giữa nav-content */
-  justify-content: center; /* Canh giữa nav-content */
+  display: flex;
+  justify-content: center;
 }
 
+/* Container chứa các tab menu */
 .nav-content {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.9); /* Nền bán trong suốt */
-  padding: 10px 20px; /* Giảm padding nếu cần */
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-  overflow-x: auto; /* Cho phép cuộn ngang nếu menu quá dài */
-  -webkit-overflow-scrolling: touch; /* Cuộn mượt trên iOS */
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 8px 15px; /* Giảm nhẹ padding để tiết kiệm không gian */
+  border-radius: var(--border-radius, 8px);
+  box-shadow: var(--box-shadow, 0 4px 8px rgba(0, 0, 0, 0.1));
+  overflow-x: auto; /* Cho phép cuộn ngang nếu vẫn tràn */
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%; /* Đảm bảo không vượt quá container */
 }
 
+/* Danh sách các tab menu */
 .nav-tabs {
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 15px; /* Giảm khoảng cách nếu cần */
+  gap: 10px; /* Giảm khoảng cách giữa các mục */
   margin: 0;
   padding: 0;
-  flex-wrap: nowrap; /* Không cho phép xuống dòng */
+  flex-wrap: nowrap; /* Không xuống dòng */
 }
 
 .nav-tabs li {
-  position: relative;
+  position: relative; /* Cần cho menu con */
   flex-shrink: 0; /* Không co lại */
 }
 
+/* Link menu */
 .nav-tabs a {
   text-decoration: none;
-  color: var(--text-color);
-  font-size: 15px; /* Giảm kích thước chữ */
-  font-weight: 500; /* Giảm độ đậm */
+  color: var(--text-color, #333);
+  font-size: 14px; /* Giảm kích thước chữ */
+  font-weight: 500;
   padding: 8px 10px; /* Giảm padding */
   white-space: nowrap;
   display: flex;
   align-items: center;
-  transition: color 0.3s ease, background-color 0.3s ease;
-  border-radius: 4px; /* Thêm bo góc nhẹ */
+  transition: color 0.2s ease, background-color 0.2s ease;
+  border-radius: 4px;
 }
 
 .nav-tabs a:hover {
-  color: var(--secondary-color);
-  background-color: rgba(255, 87, 51, 0.1); /* Nền hover nhẹ */
+  color: var(--secondary-color, #ff5733);
+  background-color: rgba(255, 87, 51, 0.1);
 }
 
-.nav-tabs a i {
-  margin-right: 5px; /* Giảm khoảng cách icon */
-  font-size: 0.9em; /* Kích thước icon nhỏ hơn */
+.nav-tabs a i.fa-chevron-down,
+.nav-tabs a i.fa-chevron-right {
+  font-size: 0.7em; /* Icon chevron nhỏ hơn */
+  margin-left: 5px;
 }
+
+/* --- CSS cho Dropdown Menu (Quan trọng) --- */
+.nav-tabs .dropdown {
+  position: relative; /* Đảm bảo thẻ li cha là relative */
+}
+
+.nav-tabs .dropdown .dropdown-menu {
+  display: none; /* **Ẩn menu con ban đầu** */
+  position: absolute;
+  top: 100%; /* Hiển thị ngay dưới mục cha */
+  left: 0;
+  min-width: 230px; /* Độ rộng tối thiểu cho menu con */
+  background-color: #fff;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  border-radius: 0 0 var(--border-radius, 8px) var(--border-radius, 8px); /* Bo góc dưới */
+  z-index: 1001; /* Nổi lên trên các phần tử khác */
+  padding: 5px 0;
+  list-style: none; /* Bỏ dấu chấm của ul */
+  margin: 0; /* Reset margin */
+  opacity: 0; /* Chuẩn bị cho hiệu ứng mờ */
+  visibility: hidden;
+  transform: translateY(10px); /* Hiệu ứng trượt xuống nhẹ */
+  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+}
+
+/* **Hiển thị menu con khi hover vào mục cha** */
+.nav-tabs .dropdown:hover > .dropdown-menu {
+  display: block; /* Hoặc dùng cách khác nếu muốn hiệu ứng phức tạp hơn */
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Link trong menu con */
+.nav-tabs .dropdown-menu li a {
+  padding: 10px 18px; /* Padding cho các mục con */
+  font-size: 14px;
+  color: #333;
+  font-weight: 400;
+  white-space: normal; /* Cho phép xuống dòng nếu tên dài */
+  display: block; /* Hiển thị dạng block */
+  clear: both; /* Đảm bảo không bị float ảnh hưởng */
+}
+
+.nav-tabs .dropdown-menu li a:hover {
+  background-color: #f5f5f5;
+  color: var(--secondary-color, #ff5733);
+}
+
+/* --- CSS cho Submenu (Menu con cấp 2) --- */
+.nav-tabs .dropdown-submenu {
+  position: relative; /* Cần cho submenu cấp 3 */
+}
+
+.nav-tabs .dropdown-submenu > .dropdown-menu {
+  top: -6px; /* Điều chỉnh vị trí dọc (-padding trên - border) */
+  left: 100%; /* Hiển thị bên phải */
+  margin-left: 1px; /* Khoảng cách nhỏ */
+  border-radius: 0 var(--border-radius, 8px) var(--border-radius, 8px) var(--border-radius, 8px);
+  /* Các thuộc tính ẩn/hiện tương tự menu cấp 1 */
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
+  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+}
+
+/* Hiển thị submenu cấp 3 khi hover vào mục cha cấp 2 */
+.nav-tabs .dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/* Icon mũi tên cho submenu */
+.nav-tabs .dropdown-submenu > a i.fa-chevron-right {
+  float: right; /* Đẩy icon sang phải */
+  margin-left: 10px;
+}
+
+/* Đảm bảo header có nền để menu con không bị trong suốt */
+header {
+  background-color: rgba(26, 60, 109, 0.95); /* Màu nền đậm hơn, ít trong suốt hơn */
+  backdrop-filter: blur(8px); /* Tăng độ mờ */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* --- KẾT THÚC CSS SỬA LỖI --- */
+
 
 /* Dropdown styles (giữ nguyên) */
 .dropdown .dropdown-menu {
