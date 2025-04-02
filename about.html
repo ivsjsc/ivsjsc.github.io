@@ -9,142 +9,259 @@
   <meta property="og:description" content="Tìm hiểu về IVS Education (IVS JSC) - Tổ chức tiên phong trong giáo dục quốc tế, công nghệ EdTech, hợp tác đầu tư và phát triển cộng đồng.">
   <meta property="og:image" content="/images/banners/about_banner.jpg"> <meta property="og:url" content="https://ivs.id.vn/about.html">
   <meta property="og:type" content="website">
-  <link rel="icon" href="/images/logo/logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="css/styles.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" href="/images/logo/logo.png" type="image/x-icon"> <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
    <style>
-      /* Kế thừa style từ css_styles_final_fix_v8 */
-       .page-banner {
-           background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('../images/banners/about_banner.jpg') center/cover no-repeat; /* Ảnh banner about */
-           color: white; padding: 80px 20px; text-align: center; margin-top: -20px;
+      /* Các style nội tuyến cũ của about.html có thể giữ lại hoặc chuyển vào styles.css */
+      /* Ví dụ: */
+       .page-banner-about { /* Đổi tên class để tránh xung đột */
+           background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('/images/banners/about_banner.jpg') center/cover no-repeat; /* Đường dẫn tuyệt đối */
+           color: white; padding: 80px 20px; text-align: center; /* Bỏ margin-top */
            border-bottom: 5px solid var(--primary-color);
        }
-       .page-banner h1 { font-size: 2.8rem; margin-bottom: 10px; font-weight: 700; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
-       .page-banner p { font-size: 1.2rem; opacity: 0.9; max-width: 800px; margin: 0 auto; }
+       .page-banner-about h1 { font-size: 2.8rem; margin-bottom: 10px; font-weight: 700; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
+       .page-banner-about p { font-size: 1.2rem; opacity: 0.9; max-width: 800px; margin: 0 auto; }
 
-       .intro-section-about { /* Section giới thiệu đầu tiên */
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Chia 2 cột */
-            gap: 40px;
-            align-items: center; /* Canh giữa theo chiều dọc */
-            margin-bottom: 40px; /* Khoảng cách với phần dưới */
-       }
-        .intro-content h2 {
-            color: var(--primary-color);
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        .intro-content p {
-            margin-bottom: 15px;
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-        }
-       .video-container-about { /* Container video */
-            position: relative;
-            padding-bottom: 56.25%; /* Tỷ lệ 16:9 */
-            height: 0;
-            overflow: hidden;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-       }
-       .video-container-about iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-       }
-
-       .mission-vision-section { /* Section Sứ mệnh & Tầm nhìn */
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-       }
-       .mission-box-about, .vision-box-about {
-            background-color: var(--light-color);
-            padding: 30px;
-            border-radius: var(--border-radius);
-            border-left: 5px solid var(--primary-color);
-       }
-        .vision-box-about { border-left-color: var(--secondary-color); }
-       .mission-box-about h2, .vision-box-about h2 {
-           color: var(--primary-color); font-size: 1.6rem; margin-bottom: 15px;
-       }
-       .vision-box-about h2 { color: var(--secondary-color); }
-
-       .core-values-section h2 { margin-bottom: 40px; } /* Tăng margin cho tiêu đề giá trị cốt lõi */
-       .values-grid {
-           display: grid;
-           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-           gap: 30px;
-       }
-       .value-item {
-           background-color: #fff; padding: 25px; border-radius: var(--border-radius);
-           text-align: center; border: 1px solid var(--border-color);
-           transition: var(--transition);
-       }
-       .value-item:hover { transform: translateY(-5px); box-shadow: var(--box-shadow); }
-       .value-item .highlight { /* Phần chữ màu cam */
-           font-weight: 600; color: var(--secondary-color); display: block;
-           font-size: 1.2rem; margin-bottom: 10px;
-       }
-
-        .program-section-about { /* Section giới thiệu chương trình */
+       /* ... (giữ lại các style khác của about.html nếu cần thiết) ... */
+        .intro-section-about {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
             align-items: center;
-            margin-bottom: 50px; /* Khoảng cách giữa các chương trình */
+            margin-bottom: 40px;
+       }
+        .intro-content h2 {
+            color: var(--primary-color); font-size: 1.8rem; margin-bottom: 15px; font-weight: 600; text-align: left; /* Reset text-align */
         }
-         /* Đảo vị trí ảnh và nội dung cho các section lẻ */
-        .program-section-about:nth-child(odd) .program-image-about { order: 2; }
-        .program-section-about:nth-child(odd) .program-content-about { order: 1; }
+        .intro-content p { margin-bottom: 15px; font-size: 1.05rem; color: var(--text-secondary); }
+       .video-container-about {
+            position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+            border-radius: var(--border-radius); box-shadow: var(--box-shadow);
+       }
+       .video-container-about iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+       .mission-vision-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+       .mission-box-about, .vision-box-about { background-color: var(--light-color); padding: 30px; border-radius: var(--border-radius); border-left: 5px solid var(--primary-color); }
+       .vision-box-about { border-left-color: var(--secondary-color); }
+       .mission-box-about h2, .vision-box-about h2 { color: var(--primary-color); font-size: 1.6rem; margin-bottom: 15px; }
+       .vision-box-about h2 { color: var(--secondary-color); }
+       .core-values-section h2 { margin-bottom: 40px; }
+       .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+       .value-item { background-color: #fff; padding: 25px; border-radius: var(--border-radius); text-align: center; border: 1px solid var(--border-color); transition: var(--transition); }
+       .value-item:hover { transform: translateY(-5px); box-shadow: var(--box-shadow); }
+       .value-item .highlight { font-weight: 600; color: var(--secondary-color); display: block; font-size: 1.2rem; margin-bottom: 10px; }
+       .program-section-about { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; margin-bottom: 50px; }
+       .program-section-about:nth-child(odd) .program-image-about { order: 2; }
+       .program-section-about:nth-child(odd) .program-content-about { order: 1; }
+       .program-content-about h3 { color: var(--primary-color); font-size: 1.6rem; margin-bottom: 15px; }
+       .program-content-about ul { list-style: none; padding-left: 0; margin-top: 15px; }
+       .program-content-about ul li { margin-bottom: 10px; position: relative; padding-left: 25px; }
+       .program-content-about ul li::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--accent-color); position: absolute; left: 0; top: 5px; font-size: 0.9em; }
+       .program-image-about img { width: 100%; height: auto; border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
+       .timeline { list-style: none; padding: 0; position: relative; margin-top: 30px; }
+       .timeline::before { content: ''; position: absolute; top: 0; bottom: 0; left: 20px; width: 3px; background-color: var(--accent-color); }
+       .timeline li { margin-bottom: 25px; padding-left: 50px; position: relative; }
+       .timeline li::before { content: ''; position: absolute; left: 10px; top: 5px; width: 20px; height: 20px; border-radius: 50%; background-color: white; border: 3px solid var(--accent-color); }
+       .timeline li strong { color: var(--primary-color); font-weight: 600; }
 
-        .program-content-about h3 { color: var(--primary-color); font-size: 1.6rem; margin-bottom: 15px; }
-        .program-content-about ul { list-style: none; padding-left: 0; margin-top: 15px; }
-        .program-content-about ul li { margin-bottom: 10px; position: relative; padding-left: 25px; }
-        .program-content-about ul li::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--accent-color); position: absolute; left: 0; top: 5px; font-size: 0.9em; }
-        .program-image-about img { width: 100%; height: auto; border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
-
-        .timeline { /* Timeline kế hoạch phát triển */
-            list-style: none; padding: 0; position: relative; margin-top: 30px;
-        }
-         .timeline::before { /* Đường kẻ dọc */
-            content: ''; position: absolute; top: 0; bottom: 0; left: 20px;
-            width: 3px; background-color: var(--accent-color);
-         }
-        .timeline li {
-            margin-bottom: 25px; padding-left: 50px; position: relative;
-        }
-         .timeline li::before { /* Chấm tròn trên đường kẻ */
-            content: ''; position: absolute; left: 10px; top: 5px;
-            width: 20px; height: 20px; border-radius: 50%;
-            background-color: white; border: 3px solid var(--accent-color);
-         }
-         .timeline li strong { color: var(--primary-color); font-weight: 600; }
-
-       /* Responsive */
        @media (max-width: 768px) {
-           .intro-section-about, .mission-vision-section, .program-section-about {
-               grid-template-columns: 1fr; /* Chuyển thành 1 cột */
-               gap: 30px;
-           }
-            .program-section-about:nth-child(odd) .program-image-about,
-            .program-section-about:nth-child(odd) .program-content-about {
-                order: unset; /* Reset order trên mobile */
-            }
-            .page-banner h1 { font-size: 2.2rem; }
+           .intro-section-about, .mission-vision-section, .program-section-about { grid-template-columns: 1fr; gap: 30px; }
+           .program-section-about:nth-child(odd) .program-image-about, .program-section-about:nth-child(odd) .program-content-about { order: unset; }
+           .page-banner-about h1 { font-size: 2.2rem; }
        }
 
    </style>
 </head>
 <body>
-  <div id="header"></div>
-
+  <header>
+      <div class="header-container">
+          <div class="header-top">
+              <div class="header-logo">
+                  <a href="index.html" aria-label="Trang chủ IVS Education">
+                      <img src="/images/logo/logo.png" alt="IVS Logo">
+                  </a>
+              </div>
+              <button class="hamburger" aria-label="Mở menu" aria-expanded="false" aria-controls="mobileMenu">
+                  <i class="fas fa-bars"></i>
+              </button>
+          </div>
+          <nav class="nav-container nav-desktop" aria-label="Menu chính">
+              <div class="nav-content">
+                   <ul class="nav-tabs">
+                      <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
+                      <li class="dropdown">
+                          <a href="#" class="dropdown-toggle active" aria-expanded="false"><i class="fas fa-info-circle"></i> ABOUT <i class="fas fa-chevron-down dropdown-icon"></i></a> <ul class="dropdown-menu">
+                              <li><a href="about.html" class="active">Về chúng tôi</a></li> <li><a href="ivsmeaning.html">Ý nghĩa IVS</a></li>
+                              <li><a href="sumenh.html">Sứ mệnh</a></li>
+                              <li><a href="doingu.html">Đội ngũ</a></li>
+                              <li><a href="co-hoi-dau-tu.html">Cơ hội đầu tư</a></li>
+                              <li><a href="doi-tac.html">Đối tác đồng hành</a></li>
+                              <li><a href="tai-tro.html">Nhà tài trợ</a></li>
+                          </ul>
+                      </li>
+                      <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-globe"></i> GLOBAL EDULINK <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="hocbong.html">Học bổng du học</a></li>
+                                <li><a href="summercamp.html">Trại hè quốc tế</a></li>
+                                <li><a href="lien-ket-quoc-te.html">Liên kết quốc tế</a></li>
+                                <li><a href="lienminhiivsa.html">Liên minh IIVSA</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-lightbulb"></i> ON ACTIVE<i class="fas fa-chevron-down dropdown-icon"></i></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" aria-expanded="false">LIÊN KẾT G.D <i class="fas fa-chevron-right dropdown-icon"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="lkmamnon.html">LK Mầm non</a></li>
+                                        <li><a href="lktieuhoc.html">LK Tiểu học</a></li>
+                                        <li><a href="lkthcsthpt.html">LK THCS-THPT</a></li>
+                                        <li><a href="lkttnn.html">LK Trung tâm ngoại ngữ</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="philoinhuan.html">Phi lợi nhuận</a></li>
+                                <li><a href="hay-noi.html">Chương trình "Hãy Nói"</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-tools"></i> TƯ VẤN D.N <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="tuvan.html">Pháp lý doanh nghiệp</a></li>
+                                <li><a href="thanhlaptrungtam.html">Thành lập trung tâm ngoại ngữ</a></li>
+                                <li><a href="webdesign.html">Thiết kế Website D.N</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-heart"></i> UTILITIES <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="https://aistudio.instagram.com/ai/663072466085450/?utm_source=mshare" target="_blank" rel="noopener noreferrer">Chatbot Talkie-Talkie</a></li>
+                                <li><a href="https://www.facebook.com/haynoi.tuoitredongnai" target="_blank" rel="noopener noreferrer">Fanpage "Hãy Nói"</a></li>
+                                <li><a href="https://www.facebook.com/groups/500998409540367/" target="_blank" rel="noopener noreferrer">Cộng đồng Let's Talk Đồng Nai</a></li>
+                                <li><a href="https://zalo.me/g/ktxjdw182" target="_blank" rel="noopener noreferrer">Hồ sơ giáo viên nước ngoài</a></li>
+                                <li><a href="https://zalo.me/ivsjsc" target="_blank" rel="noopener noreferrer">Zalo Official & Mini App</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-briefcase"></i> CAREER<i class="fas fa-chevron-down dropdown-icon"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="careervn.html">Vietnamese Personnel</a></li>
+                                <li><a href="careerf.html">Foreign Personnel</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-users"></i> CONNECTED<i class="fas fa-chevron-down dropdown-icon"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="https://www.youtube.com/@integratevisionsynergy" target="_blank" rel="noopener noreferrer">YOUTUBE</a></li>
+                                <li><a href="https://www.tiktok.com/@congty.ivsjsc" target="_blank" rel="noopener noreferrer">TIK TOK</a></li>
+                                <li><a href="https://www.facebook.com/ivsmastery" target="_blank" rel="noopener noreferrer">Fanpage công ty</a></li>
+                                <li><a href="https://www.facebook.com/hr.ivsacademy" target="_blank" rel="noopener noreferrer">Fanpage trung tâm</a></li>
+                                <li><a href="nmt-vcard.html">Liên hệ trực tiếp</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-clipboard-check"></i> CAMBRIDGE TESTING <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="english-placement.html">TEST TIẾNG ANH 6 BẬC</a></li>
+                            </ul>
+                        </li>
+                  </ul>
+              </div>
+          </nav>
+          <div class="mobile-menu" id="mobileMenu">
+              <div class="mobile-menu-header">
+                    <img src="/images/logo/logo.png" alt="IVS Logo" class="mobile-logo">
+                    <button class="close-menu" aria-label="Đóng menu">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <ul class="mobile-nav-tabs">
+                     <li><a href="index.html"><i class="fas fa-home"></i> HOME</a></li>
+                     <li class="dropdown">
+                         <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-info-circle"></i> ABOUT <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                         <ul class="dropdown-menu">
+                             <li><a href="about.html">Về chúng tôi</a></li>
+                             <li><a href="ivsmeaning.html">Ý nghĩa IVS</a></li>
+                             <li><a href="sumenh.html">Sứ mệnh</a></li>
+                             <li><a href="doingu.html">Đội ngũ</a></li>
+                             <li><a href="co-hoi-dau-tu.html">Cơ hội đầu tư</a></li>
+                             <li><a href="doi-tac.html">Đối tác đồng hành</a></li>
+                             <li><a href="tai-tro.html">Nhà tài trợ</a></li>
+                         </ul>
+                     </li>
+                      <li class="dropdown">
+                         <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-globe"></i> GLOBAL EDULINK <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                         <ul class="dropdown-menu">
+                             <li><a href="hocbong.html">Học bổng du học</a></li>
+                             <li><a href="summercamp.html">Trại hè quốc tế</a></li>
+                             <li><a href="lien-ket-quoc-te.html">Liên kết quốc tế</a></li>
+                             <li><a href="lienminhiivsa.html">Liên minh IIVSA</a></li>
+                         </ul>
+                     </li>
+                      <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-lightbulb"></i> ON ACTIVE <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" aria-expanded="false">LIÊN KẾT G.D <i class="fas fa-chevron-right dropdown-icon"></i></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="lkmamnon.html">LK Mầm non</a></li>
+                                        <li><a href="lktieuhoc.html">LK Tiểu học</a></li>
+                                        <li><a href="lkthcsthpt.html">LK THCS-THPT</a></li>
+                                        <li><a href="lkttnn.html">LK Trung tâm ngoại ngữ</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="philoinhuan.html">Phi lợi nhuận</a></li>
+                                <li><a href="hay-noi.html">Chương trình "Hãy Nói"</a></li>
+                            </ul>
+                        </li>
+                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-tools"></i> TƯ VẤN D.N <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="tuvan.html">Pháp lý doanh nghiệp</a></li>
+                                <li><a href="thanhlaptrungtam.html">Thành lập trung tâm ngoại ngữ</a></li>
+                                <li><a href="webdesign.html">Thiết kế Website D.N</a></li>
+                            </ul>
+                        </li>
+                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-heart"></i> UTILITIES <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                            <ul class="dropdown-menu">
+                                 <li><a href="https://aistudio.instagram.com/ai/663072466085450/?utm_source=mshare" target="_blank" rel="noopener noreferrer">Chatbot Talkie-Talkie</a></li>
+                                <li><a href="https://www.facebook.com/haynoi.tuoitredongnai" target="_blank" rel="noopener noreferrer">Fanpage "Hãy Nói"</a></li>
+                                <li><a href="https://www.facebook.com/groups/500998409540367/" target="_blank" rel="noopener noreferrer">Cộng đồng Let's Talk Đồng Nai</a></li>
+                                <li><a href="https://zalo.me/g/ktxjdw182" target="_blank" rel="noopener noreferrer">Hồ sơ giáo viên nước ngoài</a></li>
+                                <li><a href="https://zalo.me/ivsjsc" target="_blank" rel="noopener noreferrer">Zalo Official & Mini App</a></li>
+                             </ul>
+                        </li>
+                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-briefcase"></i>CAREER <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="careervn.html">Vietnamese Personnel</a></li>
+                                <li><a href="careerf.html">Foreign Personnel</a></li>
+                            </ul>
+                        </li>
+                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-users"></i> CONNECTED <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="https://www.youtube.com/@integratevisionsynergy" target="_blank" rel="noopener noreferrer">YOUTUBE</a></li>
+                                <li><a href="https://www.tiktok.com/@congty.ivsjsc" target="_blank" rel="noopener noreferrer">TIK TOK</a></li>
+                                <li><a href="https://www.facebook.com/ivsmastery" target="_blank" rel="noopener noreferrer">Fanpage công ty</a></li>
+                                <li><a href="https://www.facebook.com/hr.ivsacademy" target="_blank" rel="noopener noreferrer">Fanpage trung tâm</a></li>
+                                <li><a href="nmt-vcard.html">Liên hệ trực tiếp</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" aria-expanded="false"><i class="fas fa-clipboard-check"></i> CAMBRIDGE TESTING <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="english-placement.html">TEST TIẾNG ANH 6 BẬC</a></li>
+                            </ul>
+                        </li>
+                 </ul>
+          </div>
+          <div class="overlay"></div>
+      </div>
+  </header>
   <main>
-    <section class="page-banner">
+    <section class="page-banner-about">
       <div class="container">
         <h1>Về IVS Education</h1>
         <p>Tiên phong Kiến tạo Giá trị Giáo dục và Hợp tác Quốc tế</p>
@@ -161,8 +278,8 @@
              <p>Hoạt động chủ yếu tại Long Thành, Đồng Nai, IVS JSC đang triển khai các dự án nổi bật như IVS Academy, IVS Kindergarten và chương trình cộng đồng "Hãy Nói", hướng tới xây dựng một hệ sinh thái giáo dục bền vững, kết nối và nâng tầm nguồn nhân lực Việt Nam.</p>
           </div>
           <div class="video-container-about">
-            <iframe src="https://www.youtube.com/embed/VIDEO_ID_4" title="Video giới thiệu IVS Education" allowfullscreen loading="lazy"></iframe>
-          </div>
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Video giới thiệu IVS Education" allowfullscreen loading="lazy"></iframe>
+            </div>
         </div>
       </div>
     </section>
@@ -223,7 +340,7 @@
             </ul>
           </div>
           <div class="program-image-about">
-            <img src="/images/ivs-academy.jpg" alt="Học viên tại IVS Academy" loading="lazy">
+            <img src="/images/ivs-academy.jpg" alt="Học viên tại IVS Academy" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=IVS+Academy';">
           </div>
         </div>
 
@@ -240,7 +357,7 @@
             </ul>
           </div>
           <div class="program-image-about">
-            <img src="/images/ivs-kindergarten.jpeg" alt="Trường mầm non IVS Kindergarten" loading="lazy">
+             <img src="/images/ivs-kindergarten.jpeg" alt="Trường mầm non IVS Kindergarten" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=IVS+Kindergarten';">
           </div>
         </div>
 
@@ -256,7 +373,7 @@
              </ul>
           </div>
           <div class="program-image-about">
-            <img src="/images/ivs-celestech.jpg" alt="Công nghệ giáo dục IVS Celestech" loading="lazy">
+             <img src="/images/ivs-celestech.jpg" alt="Công nghệ giáo dục IVS Celestech" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=IVS+Celestech';">
           </div>
         </div>
 
@@ -272,7 +389,7 @@
              </ul>
           </div>
           <div class="program-image-about">
-            <img src="/images/ivs-international.jpg" alt="Hợp tác quốc tế IVS Education" loading="lazy">
+             <img src="/images/ivs-international.jpg" alt="Hợp tác quốc tế IVS Education" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=IVS+International';">
           </div>
         </div>
       </div>
@@ -293,7 +410,32 @@
 
   </main>
 
-  <div id="footer"></div>
+  <footer>
+      <div class="footer-container">
+          <div class="footer-col footer-logo-col">
+              <a href="index.html" aria-label="Quay lại trang chủ IVS JSC">
+                  <img src="/images/favicon.ico" alt="Logo IVS JSC trong footer" class="footer-logo-img">
+              </a>
+              <p class="copyright">© 2025 IVS JSC.<br>All rights reserved.</p>
+          </div>
+          <div class="footer-col footer-info-col">
+              <h4>Liên hệ</h4>
+              <p><i class="fas fa-envelope"></i><a href="mailto:ivscorp.vn@gmail.com">ivscorp.vn@gmail.com</a></p>
+              <p><i class="fas fa-phone"></i><a href="tel:+84795555789">+84 795 555 789</a></p>
+              <p><i class="fas fa-map-marker-alt"></i>Số 1104, Tổ 6, Ấp Đất Mới, Xã Long Phước, Huyện Long Thành, Tỉnh Đồng Nai, Việt Nam, 76213.</p>
+          </div>
+          <div class="footer-col footer-social-col">
+              <h4>Kết nối</h4>
+              <div class="social-links">
+                  <a href="https://www.facebook.com/hr.ivsacademy/" target="_blank" aria-label="Facebook IVS Academy"><i class="fab fa-facebook-f"></i></a>
+                  <a href="https://www.youtube.com/@integratevisionsynergy" target="_blank" aria-label="Youtube IVS"><i class="fab fa-youtube"></i></a>
+                  <a href="https://www.tiktok.com/@congty.ivsjsc" target="_blank" aria-label="TikTok IVS"><i class="fab fa-tiktok"></i></a>
+                  <a href="https://instagram.com/ivs.jsc/" target="_blank" aria-label="Instagram IVS"><i class="fab fa-instagram"></i></a>
+                  <a href="https://zalo.me/ivsjsc/" target="_blank" aria-label="Zalo IVS"><i class="fas fa-comment-dots"></i></a>
+              </div>
+          </div>
+      </div>
+  </footer>
   <script src="js/script.js" defer></script>
 </body>
 </html>
