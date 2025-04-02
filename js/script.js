@@ -2,14 +2,14 @@
  * Hàm tải nội dung HTML từ một URL và chèn vào phần tử có ID chỉ định.
  * @param {string} url Đường dẫn đến file HTML cần tải.
  * @param {string} elementId ID của phần tử HTML nơi nội dung sẽ được chèn.
- * @returns {Promise<void>} Promise hoàn thành khi nội dung được tải và chèn thành công, hoặc bị từ chối nếu có lỗi.
+ * @returns {Promise<HTMLElement>} Promise hoàn thành trả về phần tử đã được chèn nội dung, hoặc bị từ chối nếu có lỗi.
  */
 function loadComponent(url, elementId) {
     const element = document.getElementById(elementId);
     if (!element) {
         console.error(`DEBUG: Element with ID "${elementId}" not found.`);
         document.body.insertAdjacentHTML('afterbegin', `<div style="color: red; background: yellow; padding: 10px; text-align: center; position: fixed; top: 0; left: 0; width: 100%; z-index: 9999;">Lỗi nghiêm trọng: Không tìm thấy phần tử #${elementId} để tải component ${url}.</div>`);
-        return Promise.reject(`Element with ID "${elementId}" not found.`);
+        return Promise.reject(new Error(`Element with ID "${elementId}" not found.`));
     }
     element.innerHTML = `<p style="text-align: center; padding: 20px; color: #888;">Đang tải ${elementId}...</p>`;
     console.log(`DEBUG: Loading component ${url} into #${elementId}`);
@@ -24,182 +24,203 @@ function loadComponent(url, elementId) {
         .then(data => {
             element.innerHTML = data;
             console.log(`DEBUG: Component ${elementId} loaded successfully.`);
-            if (elementId === 'header') {
-                requestAnimationFrame(() => {
-                    initializeMenuEvents(); // Gọi khởi tạo menu sau khi header tải xong
-                });
-            }
+            return element; // Trả về phần tử để biết khi nào nó sẵn sàng
         })
         .catch(error => {
             console.error(`DEBUG: Lỗi khi tải ${elementId} từ ${url}:`, error);
             element.innerHTML = `<div style="text-align: center; padding: 20px; color: red; border: 1px solid red; border-radius: 5px; background: #ffebeb;">Lỗi khi tải ${elementId}. (${error.message}). Vui lòng kiểm tra đường dẫn hoặc kết nối mạng.</div>`;
-            throw error;
+            throw error; // Ném lại lỗi
         });
 }
 
 /**
- * Khởi tạo các sự kiện cho menu (desktop dropdown và mobile hamburger).
+ * Khởi tạo các sự kiện cho menu sử dụng event delegation.
+ * Gắn listener vào #header sau khi header được tải.
  */
-function initializeMenuEvents() {
-    console.log("DEBUG: Initializing menu events...");
+function initializeMenuEventsDelegation() {
+    console.log("DEBUG: Initializing menu events using DELEGATION...");
+    const headerElement = document.getElementById('header');
+    const overlay = document.querySelector(".overlay"); // Overlay nằm ngoài header
 
-    // --- Mobile Menu Toggle ---
-    const hamburger = document.querySelector(".hamburger");
-    const mobileMenu = document.querySelector(".mobile-menu");
-    const closeMenu = document.querySelector(".close-menu");
-    const overlay = document.querySelector(".overlay");
+    if (!headerElement) {
+        console.error("DEBUG: Header element (#header) not found for delegation.");
+        return;
+    }
+    if (!overlay) {
+        console.warn("DEBUG: Overlay element (.overlay) not found.");
+        // Có thể tạo overlay ở đây nếu cần
+    }
 
-    if (hamburger && mobileMenu && closeMenu && overlay) {
-        console.log("DEBUG: Mobile menu elements found. Attaching listeners.");
-        hamburger.addEventListener('click', (event) => {
-            event.stopPropagation();
+    // --- Mobile Menu Toggle (Delegated) ---
+    headerElement.addEventListener('click', function(event) {
+        const hamburger = event.target.closest('.hamburger');
+        const closeMenu = event.target.closest('.close-menu');
+        const mobileMenu = headerElement.querySelector(".mobile-menu"); // Tìm trong header
+
+        if (hamburger && mobileMenu) {
+            console.log("DEBUG: Hamburger clicked (delegated)!");
             mobileMenu.classList.add('active');
-            overlay.classList.add('active');
+            if (overlay) overlay.classList.add('active');
             document.body.classList.add('mobile-menu-active');
-        });
+        }
 
-        const closeMobileMenu = () => {
-            mobileMenu.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.classList.remove('mobile-menu-active');
-            // Đóng tất cả submenu mobile khi đóng menu chính
-            mobileMenu.querySelectorAll('.mobile-nav-tabs li.active').forEach(li => {
+        if (closeMenu && mobileMenu) {
+             console.log("DEBUG: Close button clicked (delegated)");
+             closeMobileMenu(); // Gọi hàm đóng menu
+        }
+
+        // Đóng menu khi bấm link không phải dropdown trong mobile menu
+        if (mobileMenu?.classList.contains('active')) {
+            const link = event.target.closest('.mobile-nav-tabs a');
+            if (link && !link.classList.contains('dropdown-toggle')) {
+                console.log("DEBUG: Non-dropdown mobile link clicked (delegated)");
+                closeMobileMenu();
+            }
+        }
+    });
+
+     // Đóng menu khi bấm overlay (Listener riêng cho overlay)
+     if(overlay) {
+         overlay.addEventListener('click', closeMobileMenu);
+     }
+
+
+    // --- Mobile Dropdown (Accordion - Delegated) ---
+    headerElement.addEventListener('click', function(event) {
+        const toggle = event.target.closest('.mobile-menu .mobile-nav-tabs li > a.dropdown-toggle');
+        if (!toggle) return; // Không phải toggle mobile dropdown thì dừng
+
+        // Ngăn hành vi mặc định CHỈ khi là link # hoặc không có href
+        if (toggle.getAttribute('href') === '#' || !toggle.getAttribute('href')) {
+            event.preventDefault();
+        } else {
+            closeMobileMenu(); // Đóng menu chính nếu là link thật
+            return;
+        }
+
+        const parentLi = toggle.closest('li.dropdown, li.dropdown-submenu');
+        if (!parentLi) return;
+        const subMenu = parentLi.querySelector(':scope > .dropdown-menu');
+        if (!subMenu) return;
+
+        const isActive = parentLi.classList.contains('active');
+
+        // Đóng siblings
+        const parentUl = parentLi.parentElement;
+        const siblingLis = parentUl.querySelectorAll(':scope > li.active');
+        siblingLis.forEach(li => {
+            if (li !== parentLi) {
                 li.classList.remove('active');
                 li.querySelector(':scope > .dropdown-menu')?.classList.remove('show');
                 li.querySelector(':scope > a')?.setAttribute('aria-expanded', 'false');
-            });
-        };
+            }
+        });
 
-        closeMenu.addEventListener('click', closeMobileMenu);
-        overlay.addEventListener('click', closeMobileMenu);
+        // Toggle current
+        parentLi.classList.toggle('active', !isActive);
+        subMenu.classList.toggle('show', !isActive);
+        toggle.setAttribute('aria-expanded', !isActive);
+        console.log(`DEBUG: Toggled mobile dropdown (delegated) for: ${toggle.textContent.trim()}. Active: ${!isActive}`);
+    });
 
-        // --- Mobile Dropdown (Accordion) Logic ---
-        const mobileDropdownToggles = mobileMenu.querySelectorAll('.mobile-nav-tabs li > a.dropdown-toggle');
-        mobileDropdownToggles.forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                if (this.getAttribute('href') === '#' || !this.getAttribute('href')) {
-                    e.preventDefault();
+
+    // --- Desktop Dropdown (Hover/Focus - Delegated JS) ---
+    let leaveTimeout = null; // Biến lưu timeout khi rời chuột
+
+    headerElement.addEventListener('mouseover', function(event) {
+        if (window.innerWidth <= 992) return; // Chỉ chạy trên desktop
+
+        const dropdownLi = event.target.closest('.nav-tabs > li.dropdown'); // Chỉ bắt sự kiện trên li.dropdown cấp 1
+        if (dropdownLi) {
+            clearTimeout(leaveTimeout); // Xóa timeout ẩn nếu có
+            // Đóng các dropdown khác đang mở
+            closeOtherDesktopDropdowns(dropdownLi);
+            // Mở dropdown hiện tại
+            dropdownLi.classList.add('show-desktop-dropdown');
+            // console.log("DEBUG: Mouse entered desktop dropdown (delegated)");
+        }
+    });
+
+    headerElement.addEventListener('mouseout', function(event) {
+        if (window.innerWidth <= 992) return;
+
+        const dropdownLi = event.target.closest('.nav-tabs > li.dropdown');
+        if (dropdownLi) {
+            // Đặt timeout để ẩn sau một khoảng trễ ngắn
+            leaveTimeout = setTimeout(() => {
+                // Kiểm tra lại xem chuột có thực sự rời khỏi li và menu con không
+                 const isHoveringLi = dropdownLi.matches(':hover');
+                 const subMenu = dropdownLi.querySelector(':scope > .dropdown-menu');
+                 const isHoveringSubMenu = subMenu ? subMenu.matches(':hover') : false;
+
+                if (!isHoveringLi && !isHoveringSubMenu) {
+                    dropdownLi.classList.remove('show-desktop-dropdown');
+                    // console.log("DEBUG: Mouse left desktop dropdown (delegated)");
                 } else {
-                    closeMobileMenu();
-                    return;
+                     // console.log("DEBUG: Mouse potentially moved to submenu, keeping open.");
                 }
-                const parentLi = this.closest('li.dropdown, li.dropdown-submenu');
-                if (!parentLi) return;
-                const subMenu = parentLi.querySelector(':scope > .dropdown-menu');
-                if (!subMenu) return;
-                const isActive = parentLi.classList.contains('active');
-                // Đóng siblings
-                const parentUl = parentLi.parentElement;
-                const siblingLis = parentUl.querySelectorAll(':scope > li.active');
-                siblingLis.forEach(li => {
-                    if (li !== parentLi) {
-                        li.classList.remove('active');
-                        li.querySelector(':scope > .dropdown-menu')?.classList.remove('show');
-                        li.querySelector(':scope > a')?.setAttribute('aria-expanded', 'false');
-                    }
-                });
-                // Toggle current
-                parentLi.classList.toggle('active', !isActive);
-                subMenu.classList.toggle('show', !isActive);
-                this.setAttribute('aria-expanded', !isActive);
-            });
-        });
-        // Đóng menu khi bấm link thường
-        const nonDropdownLinks = mobileMenu.querySelectorAll('.mobile-nav-tabs a:not(.dropdown-toggle)');
-        nonDropdownLinks.forEach(link => {
-            link.addEventListener('click', closeMobileMenu);
-        });
+            }, 150); // Trễ 150ms
+        }
+    });
 
-    } else {
-        console.warn("DEBUG: Could not initialize mobile menu interactions. Missing elements.");
-    }
-
-    // --- Desktop Dropdown (Hover/Focus - JS Controlled) ---
-    const desktopNavTabs = document.querySelector(".nav-tabs"); // Chọn container của nav desktop
-    if (desktopNavTabs) {
-        const desktopDropdownItems = desktopNavTabs.querySelectorAll('li.dropdown'); // Chọn các mục li có dropdown
-
-        desktopDropdownItems.forEach(item => {
-            // Sử dụng mouseenter/mouseleave để kiểm soát hover
-            item.addEventListener('mouseenter', function() {
-                // Chỉ thực hiện nếu là màn hình desktop
-                if (window.innerWidth > 992) {
-                    this.classList.add('show-desktop-dropdown');
-                    const menu = this.querySelector('.dropdown-menu');
-                    if(menu) menu.style.display = 'block'; // Đảm bảo display block trước khi transition
-                    // requestAnimationFrame(() => { // Đảm bảo display đã áp dụng
-                    //     this.classList.add('show-desktop-dropdown');
-                    // });
-                }
-            });
-
-            item.addEventListener('mouseleave', function() {
-                if (window.innerWidth > 992) {
-                     // Thêm độ trễ nhỏ trước khi ẩn để cho phép di chuột vào menu con
-                    setTimeout(() => {
-                        // Kiểm tra lại xem chuột có còn trên item hoặc menu con không
-                        if (!item.matches(':hover')) {
-                             this.classList.remove('show-desktop-dropdown');
-                        }
-                    }, 100); // 100ms delay
-                }
-            });
-
-            // Thêm xử lý focus/blur cho khả năng truy cập bằng bàn phím (tùy chọn)
-            const mainLink = item.querySelector(':scope > a');
-            const subLinks = item.querySelectorAll('.dropdown-menu a');
-
-            mainLink?.addEventListener('focus', () => {
-                 if (window.innerWidth > 992) {
-                    item.classList.add('show-desktop-dropdown');
-                 }
-            });
-
-            // Khi focus rời khỏi mục cuối cùng trong dropdown, ẩn nó đi
-            if (subLinks.length > 0) {
-                subLinks[subLinks.length - 1].addEventListener('blur', () => {
-                     // Dùng setTimeout để kiểm tra xem focus có chuyển sang mục khác trong cùng dropdown không
-                     setTimeout(() => {
-                        if (!item.contains(document.activeElement)) {
-                             item.classList.remove('show-desktop-dropdown');
-                        }
-                    }, 0);
-                });
-            } else {
-                 mainLink?.addEventListener('blur', () => {
-                     setTimeout(() => {
-                        if (!item.contains(document.activeElement)) {
-                             item.classList.remove('show-desktop-dropdown');
-                        }
-                    }, 0);
-                 });
-            }
+    // Xử lý submenu desktop (tương tự, có thể gộp logic nếu muốn)
+    headerElement.addEventListener('mouseover', function(event) {
+        if (window.innerWidth <= 992) return;
+        const submenuLi = event.target.closest('.dropdown-menu > li.dropdown-submenu');
+        if (submenuLi) {
+            submenuLi.classList.add('show-desktop-dropdown'); // Dùng cùng class để CSS xử lý
+        }
+    });
+    headerElement.addEventListener('mouseout', function(event) {
+        if (window.innerWidth <= 992) return;
+        const submenuLi = event.target.closest('.dropdown-menu > li.dropdown-submenu');
+         if (submenuLi) {
+            // Không cần timeout phức tạp cho submenu thường
+             submenuLi.classList.remove('show-desktop-dropdown');
+         }
+    });
 
 
-        });
+    // Đóng tất cả dropdown desktop khi click ra ngoài header
+    document.addEventListener('click', function(event) {
+        if (window.innerWidth > 992 && !headerElement.contains(event.target)) {
+            closeOtherDesktopDropdowns(null); // Đóng tất cả
+        }
+    });
 
-         // Đóng dropdown desktop khi click ra ngoài
-         document.addEventListener('click', function(event) {
-            if (window.innerWidth > 992) { // Chỉ áp dụng cho desktop
-                desktopDropdownItems.forEach(item => {
-                    if (!item.contains(event.target)) {
-                        item.classList.remove('show-desktop-dropdown');
-                    }
-                });
-            }
-        });
+    console.log("DEBUG: Delegated menu events initialized.");
+}
 
+// Hàm đóng tất cả các dropdown desktop khác (ngoại trừ cái đang hover nếu cần)
+function closeOtherDesktopDropdowns(exceptElement) {
+    const headerElement = document.getElementById('header');
+    if (!headerElement) return;
+    const openDropdowns = headerElement.querySelectorAll('.nav-tabs li.show-desktop-dropdown');
+    openDropdowns.forEach(item => {
+        if (item !== exceptElement) {
+            item.classList.remove('show-desktop-dropdown');
+        }
+    });
+}
 
-    } else {
-        console.warn("DEBUG: Desktop nav tabs container (.nav-tabs) not found.");
-    }
-
-    console.log("DEBUG: Menu events initialization complete.");
+// Hàm đóng menu mobile (dùng chung)
+function closeMobileMenu() {
+    const mobileMenu = document.querySelector(".mobile-menu");
+    const overlay = document.querySelector(".overlay");
+    if(mobileMenu) mobileMenu.classList.remove('active');
+    if(overlay) overlay.classList.remove('active');
+    document.body.classList.remove('mobile-menu-active');
+     // Đóng tất cả submenu mobile khi đóng menu chính
+     mobileMenu?.querySelectorAll('.mobile-nav-tabs li.active').forEach(li => {
+        li.classList.remove('active');
+        li.querySelector(':scope > .dropdown-menu')?.classList.remove('show');
+        li.querySelector(':scope > a')?.setAttribute('aria-expanded', 'false');
+    });
 }
 
 
-// --- Các hàm khác (startRedirectCountdown, loadPosts, createPostElement, initCarousel, cleanupCarousel, handleResize) giữ nguyên như phiên bản trước ---
-
+// --- Các hàm khác (startRedirectCountdown, loadPosts, createPostElement, initCarousel, cleanupCarousel, handleResize) giữ nguyên ---
+// ... (Copy các hàm này từ phiên bản js_script_desktop_dropdown_fix) ...
 /**
  * Khởi tạo đồng hồ đếm ngược và chuyển hướng.
  */
@@ -355,7 +376,6 @@ let carouselInitialized = false;
 let handlePrevClick, handleNextClick, handleMouseEnter, handleMouseLeave; // Khai báo ở scope rộng hơn
 
 function initCarousel() {
-    // ... (Giữ nguyên nội dung hàm initCarousel từ phiên bản trước) ...
     if (carouselInitialized) { return; }
     console.log("DEBUG: Attempting to initialize carousel...");
     const postList = document.getElementById('post-list');
@@ -405,7 +425,6 @@ function initCarousel() {
  * Dọn dẹp carousel (xóa style, gỡ bỏ event listener, dừng interval).
  */
 function cleanupCarousel() {
-    // ... (Giữ nguyên nội dung hàm cleanupCarousel từ phiên bản trước) ...
     if (!carouselInitialized) return; console.log("DEBUG: Cleaning up carousel...");
     const postList = document.getElementById('post-list');
     const posts = postList?.querySelectorAll('.post-preview');
@@ -429,7 +448,6 @@ function cleanupCarousel() {
  * Xử lý thay đổi kích thước màn hình để chuyển đổi giữa carousel và grid.
  */
 function handleResize() {
-    // ... (Giữ nguyên nội dung hàm handleResize từ phiên bản trước) ...
     console.log("DEBUG: Handling resize event. Window width:", window.innerWidth);
     const postList = document.getElementById('post-list'); if (!postList) return;
     const isMobileView = window.innerWidth <= 768;
@@ -454,18 +472,33 @@ document.addEventListener('DOMContentLoaded', () => {
         overlayDiv.className = 'overlay';
         document.body.appendChild(overlayDiv);
     }
+
+    // Tải header và footer. Sau khi cả hai hoàn thành, mới khởi tạo các sự kiện menu.
     Promise.all([
-        loadComponent('header.html', 'header'), // Tải header trước
+        loadComponent('header.html', 'header'),
         loadComponent('footer.html', 'footer')
-    ]).then(() => {
+    ]).then(([headerElement, footerElement]) => { // Nhận về các element đã load
         console.log("DEBUG: Header and Footer loading process finished successfully.");
-        // initializeMenuEvents() ĐÃ ĐƯỢC GỌI TRONG loadComponent('header.html')
+
+        // Khởi tạo menu SAU KHI header chắc chắn đã vào DOM
+        if (headerElement) {
+            initializeMenuEventsDelegation(); // Gọi hàm mới dùng delegation
+        } else {
+             console.error("DEBUG: Header element was not returned from loadComponent, cannot initialize menu events.");
+        }
+
+        // Khởi tạo các chức năng khác không phụ thuộc trực tiếp vào menu
         startRedirectCountdown();
-        loadPosts(); // Tải posts sau khi header/footer xong
-        window.removeEventListener('resize', handleResize); // Gỡ listener cũ
+        loadPosts(); // Tải posts và tự động xử lý layout ban đầu
+
+        // Gắn listener resize một lần sau khi setup ban đầu
+        window.removeEventListener('resize', handleResize); // Gỡ listener cũ (nếu có)
         window.addEventListener('resize', handleResize); // Gắn listener mới
+        console.log("DEBUG: Resize listener attached.");
+
     }).catch(error => {
-        console.error("DEBUG: Critical error during initial component loading.", error);
+        console.error("DEBUG: Critical error during initial component loading. Some functionalities might be broken.", error);
     });
+
     console.log("DEBUG: Initial setup sequence started.");
 });
