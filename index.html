@@ -9,79 +9,105 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="/images/logo/logo.png" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"> <style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
         /* Kế thừa biến từ styles.css */
         :root {
-             /* Có thể định nghĩa lại hoặc thêm biến màu nếu cần */
-            --subtle-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
-            --subtle-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.1);
-            --card-border-color: #e9ecef; /* Màu viền thẻ nhạt hơn */
-            --input-focus-color: rgba(0, 123, 255, 0.25); /* Màu bóng focus xanh nhạt */
+            --subtle-shadow: 0 6px 18px rgba(0, 0, 0, 0.06); /* Bóng đổ nhẹ nhàng hơn */
+            --subtle-shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.09);
+            --card-border-color: #e9ecef;
+            --input-focus-color: rgba(0, 123, 255, 0.2); /* Nhạt hơn */
+            --section-bg-light: #f8f9fa; /* Màu nền section sáng */
+            --section-bg-white: #ffffff;
         }
 
         /* === Cải tiến chung === */
         body {
-            font-family: 'Roboto', sans-serif; /* Đảm bảo font được áp dụng */
-            background-color: #fdfdfd; /* Nền trắng hơn một chút */
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--section-bg-white); /* Nền trắng mặc định */
+            line-height: 1.7; /* Tăng nhẹ line-height chung */
+        }
+        section {
+             padding: 70px 20px; /* Tăng padding section */
         }
 
         /* === Hero Section === */
         .hero {
-            /* background: linear-gradient(135deg, var(--primary-color) 0%, #2c5a9e 100%); */ /* Gradient tinh tế hơn */
-             background: linear-gradient(rgba(26, 60, 109, 0.85), rgba(44, 90, 158, 0.75)), url('/images/hero-background-placeholder.jpg') center center / cover no-repeat; /* Thêm ảnh nền placeholder nếu có */
-             background-color: var(--primary-color); /* Fallback color */
-            padding: 100px 20px; /* Tăng padding */
-            min-height: 55vh; /* Giảm chiều cao một chút */
+             /* Sử dụng ảnh nền thực tế nếu có, ví dụ: */
+             /* background: linear-gradient(rgba(26, 60, 109, 0.8), rgba(44, 90, 158, 0.7)), url('/images/your-hero-image.jpg') center center / cover no-repeat; */
+             background: linear-gradient(135deg, rgba(26, 60, 109, 0.9) 0%, rgba(44, 90, 158, 0.8) 100%); /* Gradient đậm hơn */
+             background-color: var(--primary-color); /* Fallback */
+            padding: 120px 20px; /* Tăng padding */
+            min-height: 60vh; /* Cao hơn một chút */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         .hero h1 {
-            font-size: 2.8rem; /* Tăng nhẹ size */
+            font-size: 3rem; /* To hơn */
             font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.4);
+            color: var(--white);
+            margin-bottom: 20px; /* Tăng khoảng cách */
         }
         .hero p {
-            font-size: 1.2rem;
-            font-weight: 300; /* Chữ mảnh hơn */
+            font-size: 1.25rem; /* To hơn */
+            font-weight: 300;
             opacity: 0.95;
+            color: var(--white);
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8; /* Giãn dòng */
+             margin-bottom: 35px; /* Tăng khoảng cách */
         }
         .hero .cta-button {
-            padding: 14px 35px; /* Nút to hơn */
-            font-size: 1.1rem;
-            border-radius: 50px; /* Bo tròn hơn */
-            background: linear-gradient(145deg, var(--secondary-color), #f56f4e); /* Gradient cho nút */
+            padding: 15px 40px; /* Nút to hơn */
+            font-size: 1.15rem; /* Chữ to hơn */
+            border-radius: 50px;
+            background: var(--secondary-color); /* Màu cam chính */
+            /* Bỏ gradient nếu muốn đơn giản */
+            /* background: linear-gradient(145deg, var(--secondary-color), #f56f4e); */
             color: var(--white);
-            box-shadow: 0 4px 15px rgba(255, 87, 51, 0.3);
+            box-shadow: 0 5px 18px rgba(255, 87, 51, 0.35); /* Bóng rõ hơn */
             transition: all 0.3s ease;
+            border: none;
+            display: inline-block;
+            margin-top: 0; /* Reset margin */
+            font-weight: 500; /* Đậm vừa */
         }
         .hero .cta-button:hover {
-            background: linear-gradient(145deg, #f56f4e, var(--secondary-color));
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 6px 20px rgba(255, 87, 51, 0.4);
-            color: var(--white); /* Đảm bảo màu chữ khi hover */
+            background: #e04e2d; /* Cam đậm hơn */
+            transform: translateY(-4px) scale(1.05); /* Hiệu ứng rõ hơn */
+            box-shadow: 0 8px 25px rgba(255, 87, 51, 0.45);
+            color: var(--white);
             text-decoration: none;
         }
 
         /* === Tin nổi bật Section === */
         .latest-posts {
-            padding: 60px 20px;
-            background-color: #ffffff; /* Nền trắng tinh */
+            padding: 70px 20px;
+            background-color: var(--section-bg-light); /* Nền sáng */
         }
-        .latest-posts h2 { /* Sử dụng lại section-heading từ styles.css nếu có */
+        .latest-posts h2 {
             text-align: center;
-            margin-bottom: 40px; /* Tăng khoảng cách */
+            margin-bottom: 50px; /* Tăng khoảng cách */
             color: var(--primary-color);
-            font-size: 2.2rem; /* Điều chỉnh size nếu cần */
+            font-size: 2.3rem; /* To hơn */
             font-weight: 700;
              position: relative;
-             padding-bottom: 15px;
+             padding-bottom: 18px; /* Tăng padding */
         }
-         .latest-posts h2::after { /* Gạch chân tiêu đề */
+         .latest-posts h2::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
+            width: 90px; /* Dài hơn */
+            height: 4px; /* Dày hơn */
             background-color: var(--secondary-color);
             border-radius: 2px;
         }
@@ -89,76 +115,77 @@
         .posts-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 35px; /* Tăng khoảng cách */
+            gap: 40px; /* Tăng khoảng cách */
             max-width: 1200px;
             margin: 0 auto;
         }
         .post-card {
             background-color: var(--white);
-            border-radius: var(--border-radius);
-            box-shadow: var(--subtle-shadow); /* Bóng đổ tinh tế */
+            border-radius: 10px; /* Bo tròn hơn */
+            box-shadow: var(--subtle-shadow);
             overflow: hidden;
-            transition: all 0.35s ease; /* Tăng nhẹ thời gian transition */
+            transition: all 0.35s ease;
             display: flex;
             flex-direction: column;
-            border: 1px solid var(--card-border-color); /* Viền nhạt */
+            border: none; /* Bỏ viền */
         }
         .post-card:hover {
             box-shadow: var(--subtle-shadow-hover);
-            transform: translateY(-6px); /* Nâng cao hơn */
+            transform: translateY(-8px); /* Nâng cao hơn */
         }
         .post-card img {
             width: 100%;
-            height: 210px; /* Tăng chiều cao ảnh */
+            height: 220px; /* Cao hơn */
             object-fit: cover;
-            border-radius: var(--border-radius) var(--border-radius) 0 0; /* Bo góc trên */
+            border-radius: 10px 10px 0 0; /* Bo góc trên */
         }
         .post-content {
-            padding: 25px; /* Tăng padding */
+            padding: 25px 30px; /* Tăng padding */
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
         .post-content h3 {
-            font-size: 1.25rem; /* Tăng nhẹ */
+            font-size: 1.3rem; /* To hơn */
             margin-bottom: 12px;
             color: var(--primary-color);
             font-weight: 600;
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
+            line-height: 1.45; /* Tăng nhẹ */
             overflow: hidden;
             text-overflow: ellipsis;
-            min-height: calc(1.4em * 2); /* Điều chỉnh chiều cao */
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            line-clamp: 2;
+            -webkit-line-clamp: 2;
         }
         .post-meta {
-            font-size: 0.8rem; /* Nhỏ hơn */
-            color: var(--text-light); /* Nhạt hơn */
+            font-size: 0.8rem;
+            color: var(--text-light);
             margin-bottom: 15px;
-            text-transform: uppercase; /* Viết hoa */
+            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         .post-content p {
-            font-size: 0.95rem;
+            font-size: 1rem; /* To hơn */
             color: var(--text-secondary);
-            margin-bottom: 20px; /* Tăng khoảng cách */
+            margin-bottom: 25px; /* Tăng khoảng cách */
             flex-grow: 1;
-            line-height: 1.7; /* Giãn dòng */
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
+            line-height: 1.75; /* Giãn dòng hơn */
             overflow: hidden;
             text-overflow: ellipsis;
-            min-height: calc(1.7em * 3);
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            line-clamp: 3;
+             -webkit-line-clamp: 3;
         }
+        /* Nút đọc thêm kiểu mới */
         .post-content .read-more {
             display: inline-block;
-            padding: 9px 18px; /* Điều chỉnh padding */
-            background-color: transparent; /* Nền trong suốt */
-            color: var(--secondary-color); /* Màu cam */
-            border: 1px solid var(--secondary-color); /* Viền cam */
-            border-radius: 50px; /* Bo tròn */
+            padding: 10px 22px; /* Padding mới */
+            background-color: var(--primary-color); /* Nền xanh */
+            color: var(--white); /* Chữ trắng */
+            border: none; /* Bỏ viền */
+            border-radius: 50px;
             text-decoration: none !important;
             transition: all 0.3s ease;
             align-self: flex-start;
@@ -167,116 +194,117 @@
             font-size: 0.9rem;
         }
         .post-content .read-more:hover {
-            background-color: var(--secondary-color);
+            background-color: var(--secondary-color); /* Đổi màu cam khi hover */
             color: var(--white);
             text-decoration: none;
-            transform: scale(1.05); /* Phóng to nhẹ */
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
+
 
         /* === Video Section === */
         .video-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 35px;
+            gap: 40px;
             max-width: 1200px;
-            margin: 80px auto; /* Tăng margin */
+            margin: 80px auto;
             padding: 0 20px;
         }
         .video-container {
             background-color: var(--white);
-            border-radius: var(--border-radius);
+            border-radius: 10px;
             box-shadow: var(--subtle-shadow);
             overflow: hidden;
             display: flex;
             flex-direction: column;
             transition: var(--transition);
-            border: 1px solid var(--card-border-color);
+            border: none; /* Bỏ viền */
         }
          .video-container:hover {
              box-shadow: var(--subtle-shadow-hover);
-             transform: translateY(-6px);
+             transform: translateY(-8px);
          }
         .video-container iframe {
             width: 100%;
             aspect-ratio: 16 / 9;
             border: none;
             display: block;
-            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            border-radius: 10px 10px 0 0;
         }
         .video-caption {
-            padding: 18px 20px; /* Tăng padding */
+            padding: 20px 25px; /* Tăng padding */
             text-align: center;
-            background-color: #fcfcfc; /* Nền trắng hơn */
-            border-top: 1px solid var(--card-border-color);
+            background-color: var(--section-bg-light); /* Đồng bộ nền */
+            /* border-top: 1px solid var(--card-border-color); */ /* Bỏ viền trên */
             margin-top: auto;
         }
         .video-caption a {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 12px; /* Tăng khoảng cách */
             color: var(--primary-color);
             font-weight: 500;
-            font-size: 0.95rem; /* Tăng nhẹ */
+            font-size: 1rem; /* To hơn */
             line-height: 1.5;
             transition: color 0.3s ease;
         }
         .video-caption a:last-child { margin-bottom: 0; }
         .video-caption a:hover {
             color: var(--secondary-color);
-            text-decoration: none; /* Bỏ gạch chân */
+            text-decoration: none;
         }
 
         /* === Thank You Section === */
         .thank-you-section {
             text-align: center;
-            padding: 30px 20px 50px 20px; /* Điều chỉnh padding */
-            margin-top: 0; /* Giảm khoảng cách */
+            padding: 40px 20px 60px 20px; /* Tăng padding dưới */
+            margin-top: 0;
         }
         .thank-you-gif {
-            max-width: 220px; /* Nhỏ hơn chút */
+            max-width: 230px;
             height: auto;
-            border-radius: 12px; /* Bo tròn hơn */
+            border-radius: 15px; /* Bo tròn hơn */
             margin: 0 auto;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         /* === Consultation Form Section === */
         .consultation-form-section {
-            padding: 80px 20px; /* Tăng padding */
-            background-color: var(--light-bg-alt); /* Màu nền xám */
-            /* background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%); */ /* Thử gradient */
+            padding: 90px 20px; /* Tăng padding */
+            background-color: var(--section-bg-light);
         }
         .consultation-form-section h2 {
             text-align: center;
             color: var(--primary-color);
-            margin-bottom: 20px;
+            margin-bottom: 25px; /* Tăng khoảng cách */
             font-weight: 700;
-            font-size: 2rem;
+            font-size: 2.2rem; /* To hơn */
         }
         .consultation-form-section .section-subtitle {
             text-align: center;
             color: var(--text-secondary);
-            margin-bottom: 45px; /* Tăng khoảng cách */
+            margin-bottom: 50px; /* Tăng khoảng cách */
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            font-size: 1.05rem;
-            line-height: 1.7;
+            font-size: 1.1rem; /* To hơn */
+            line-height: 1.8; /* Giãn dòng */
         }
         #consultation-form {
-            max-width: 650px; /* Rộng hơn chút */
+            max-width: 680px; /* Rộng hơn */
             margin: 0 auto;
             background-color: var(--white);
-            padding: 40px; /* Tăng padding */
-            border-radius: 12px; /* Bo tròn nhiều hơn */
+            padding: 45px; /* Tăng padding */
+            border-radius: 15px; /* Bo tròn nhiều hơn */
             box-shadow: var(--subtle-shadow);
-            border: none; /* Bỏ border */
+            border: none;
         }
         .form-group {
-            margin-bottom: 25px; /* Tăng khoảng cách */
+            margin-bottom: 28px; /* Tăng khoảng cách */
         }
         .form-group label {
             display: block;
-            margin-bottom: 10px; /* Tăng khoảng cách */
+            margin-bottom: 12px; /* Tăng khoảng cách */
             color: var(--primary-color);
             font-weight: 500;
             font-size: 1rem;
@@ -286,9 +314,9 @@
         .form-group input[type="email"],
         .form-group textarea {
             width: 100%;
-            padding: 14px 18px; /* Tăng padding */
-            border: 1px solid #ced4da; /* Màu viền input */
-            border-radius: 8px; /* Bo tròn nhiều hơn */
+            padding: 15px 20px; /* Tăng padding */
+            border: 1px solid #ced4da;
+            border-radius: 8px;
             font-size: 1rem;
             color: var(--text-color);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -296,71 +324,83 @@
         }
          .form-group input::placeholder,
          .form-group textarea::placeholder {
-             color: #adb5bd; /* Màu placeholder */
+             color: #adb5bd;
              font-weight: 300;
          }
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--accent-color); /* Đổi màu viền focus */
-            box-shadow: 0 0 0 3px var(--input-focus-color); /* Bóng focus */
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px var(--input-focus-color);
             background-color: var(--white);
         }
         .form-group textarea {
             resize: vertical;
-            min-height: 120px; /* Cao hơn */
+            min-height: 130px; /* Cao hơn */
         }
         .form-submit {
             text-align: center;
-            margin-top: 35px;
+            margin-top: 40px; /* Tăng khoảng cách */
         }
         #consultation-form .cta-button {
              cursor: pointer;
-             padding: 14px 40px; /* Nút to hơn */
-             font-size: 1.05rem;
+             padding: 15px 45px; /* Nút to hơn */
+             font-size: 1.1rem; /* Chữ to hơn */
              border-radius: 50px;
-             background: var(--primary-color); /* Nền xanh đậm */
+             background: var(--primary-color);
              color: var(--white);
-             box-shadow: 0 4px 15px rgba(26, 60, 109, 0.25);
+             box-shadow: 0 5px 20px rgba(26, 60, 109, 0.3); /* Tăng bóng */
              transition: all 0.3s ease;
+             border: none;
+             font-weight: 500;
         }
          #consultation-form .cta-button:hover {
-             background: #2c5a9e; /* Màu xanh đậm hơn */
-             transform: translateY(-3px) scale(1.03);
-             box-shadow: 0 6px 20px rgba(26, 60, 109, 0.35);
+             background: #2c5a9e;
+             transform: translateY(-4px) scale(1.03);
+             box-shadow: 0 8px 25px rgba(26, 60, 109, 0.4);
              color: var(--white);
              text-decoration: none;
          }
          #consultation-form .cta-button i {
-             margin-right: 10px; /* Tăng khoảng cách icon */
+             margin-right: 12px; /* Tăng khoảng cách icon */
          }
         .form-note {
             text-align: center;
-            font-size: 0.8rem; /* Nhỏ hơn */
+            font-size: 0.8rem;
             color: var(--text-light);
-            margin-top: 20px;
+            margin-top: 25px; /* Tăng khoảng cách */
         }
 
          /* Responsive */
+        @media (max-width: 992px) {
+            .posts-grid, .video-section { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); } /* Điều chỉnh minmax */
+        }
         @media (max-width: 768px) {
-            .posts-grid, .video-section { grid-template-columns: 1fr; gap: 25px; }
-            .consultation-form-section { padding: 50px 15px; }
-            #consultation-form { padding: 25px; }
-            .video-section { margin: 50px auto; }
-            .hero h1 { font-size: 2.4rem; }
+            section { padding: 50px 15px; }
+            .posts-grid, .video-section { grid-template-columns: 1fr; gap: 30px; }
+            .consultation-form-section { padding: 60px 15px; }
+            #consultation-form { padding: 30px; }
+            .video-section { margin: 60px auto; padding: 0 15px; }
+            .hero { padding: 100px 15px; min-height: 50vh;}
+            .hero h1 { font-size: 2.5rem; }
             .hero p { font-size: 1.1rem; }
-            .latest-posts h2 { font-size: 1.8rem; }
+            .latest-posts h2 { font-size: 2rem; }
+            .consultation-form-section h2 {font-size: 1.8rem;}
+            .consultation-form-section .section-subtitle { font-size: 1rem; margin-bottom: 40px;}
         }
         @media (max-width: 576px) {
-            .video-section { gap: 20px; margin: 40px auto; }
-            .post-card img { height: 180px; }
+            section { padding: 40px 15px; }
+            .posts-grid, .video-section { gap: 25px; }
+            .video-section { margin: 50px auto; }
+            .post-card img { height: 200px; }
             .post-content { padding: 20px; }
-            .post-content h3 { font-size: 1.1rem; }
+            .post-content h3 { font-size: 1.15rem; }
             .hero { padding: 80px 15px; }
-            .hero h1 { font-size: 2rem; }
+            .hero h1 { font-size: 2.2rem; }
             .hero p { font-size: 1rem; }
-             #consultation-form { padding: 20px; }
-             .form-group input, .form-group textarea { padding: 12px 15px; }
+             #consultation-form { padding: 25px; }
+             .form-group input, .form-group textarea { padding: 14px 16px; }
+             #consultation-form .cta-button { padding: 12px 35px; font-size: 1rem;}
         }
         /* Placeholder Styling */
         #header-placeholder, #footer-placeholder {
