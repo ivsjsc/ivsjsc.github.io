@@ -4,287 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IVS Education - Kết Nối Tri Thức, Kiến Tạo Tương Lai</title>
-  <meta name="description" content="IVS Education (IVS JSC): Đào tạo ngoại ngữ (IVS Academy), mầm non quốc tế (IVS Kindergarten), công nghệ giáo dục (IVS Celestech), hợp tác quốc tế, tư vấn doanh nghiệp và liên kết giáo dục toàn diện."> <meta property="og:title" content="IVS Education - Kết Nối Tri Thức, Kiến Tạo Tương Lai">
-  <meta property="og:description" content="IVS Education: Đào tạo ngoại ngữ, mầm non quốc tế, công nghệ giáo dục, hợp tác quốc tế, chương trình Hãy Nói, tư vấn doanh nghiệp và liên kết giáo dục toàn diện."> <meta property="og:image" content="images/logo/logo.png">
-  <meta property="og:url" content="https://ivs.id.vn">
-  <meta property="og:type" content="website">
-  <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="preload" href="header.html" as="fetch" crossorigin="anonymous">
-  <link rel="preload" href="footer.html" as="fetch" crossorigin="anonymous">
-  <link rel="preload" href="posts.json" as="fetch" crossorigin="anonymous">
-  <link rel="preload" href="js/script.js" as="script">
+  <meta name="description" content="IVS Education (IVS JSC): Đào tạo ngoại ngữ (IVS Academy), mầm non quốc tế (IVS Kindergarten), công nghệ giáo dục (IVS Celestech), hợp tác quốc tế, tư vấn doanh nghiệp và liên kết giáo dục toàn diện.">
+  <meta property="og:title" content="IVS Education - Kết Nối Tri Thức, Kiến Tạo Tương Lai">
+  <meta property="og:description" content="IVS Education: Đào tạo ngoại ngữ, mầm non quốc tế, công nghệ giáo dục, hợp tác quốc tế, chương trình Hãy Nói, tư vấn doanh nghiệp và liên kết giáo dục toàn diện.">
+  <meta property="og:image" content="/images/logo/logo.png">
+  <meta property="og:url" content="https://ivs.id.vn"> <meta property="og:type" content="website">
+  <link rel="icon" href="/images/logo/logo.png" type="image/x-icon">
+
+  <link rel="stylesheet" href="css/styles.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
-    /* Section chung (Giữ nguyên từ bản trước) */
-    .content-section {
-        padding: 50px 0;
-        border-bottom: 1px solid #eee;
-    }
-     .content-section:last-child {
-        border-bottom: none;
-    }
-    .section-heading {
-        color: var(--primary-color, #1a3c6d);
-        margin-bottom: 40px; /* Tăng margin dưới */
-        font-size: 2rem;
-        text-align: center;
-        position: relative;
-        padding-bottom: 10px;
-    }
-    .section-heading::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        height: 3px;
-        background-color: var(--secondary-color, #ff5733);
-    }
-
-    /* Section Dịch vụ chính (Giữ nguyên từ bản trước) */
-    .key-services {
-        background-color: var(--light-color, #f8f9fa);
-    }
-    .services-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-    .service-card {
-        background-color: #fff;
-        padding: 30px;
-        border-radius: var(--border-radius, 8px);
-        box-shadow: var(--box-shadow, 0 4px 8px rgba(0, 0, 0, 0.1));
-        text-align: center;
-        transition: var(--transition, all 0.3s ease);
-        border-top: 4px solid var(--primary-color, #1a3c6d);
-        display: flex; /* Cho phép flexbox */
-        flex-direction: column; /* Xếp dọc */
-    }
-    .service-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    }
-    .service-card i {
-        font-size: 3rem;
-        color: var(--primary-color, #1a3c6d);
-        margin-bottom: 20px;
-    }
-    .service-card h3 {
-        font-size: 1.3rem;
-        margin-bottom: 15px;
-        color: var(--primary-color, #1a3c6d);
-        flex-grow: 0; /* Không cho phép heading co giãn */
-    }
-    .service-card p {
-        font-size: 0.95rem;
-        color: #555;
-        line-height: 1.6;
-        margin-bottom: 20px;
-        flex-grow: 1; /* Cho phép paragraph co giãn để đẩy nút xuống */
-    }
-     .service-card .cta-link {
-        display: inline-block;
-        padding: 8px 18px;
-        background-color: var(--secondary-color, #ff5733);
-        color: white;
-        text-decoration: none;
-        border-radius: 20px;
-        font-weight: 500;
-        font-size: 0.9rem;
-        transition: var(--transition, all 0.3s ease);
-        margin-top: auto; /* Đẩy nút xuống dưới */
-     }
-      .service-card .cta-link:hover {
-          background-color: #e04e2d;
-          transform: scale(1.05);
-      }
-
-    /* --- CSS MỚI CHO SECTION LIÊN KẾT GIÁO DỤC --- */
-    .edu-partnerships {
-        background-color: #fff; /* Nền trắng */
-    }
-    .partnership-grid { /* Tương tự services-grid */
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 30px;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-    .partnership-card { /* Tương tự service-card */
-        background-color: #f9f9f9; /* Nền hơi khác biệt */
-        padding: 30px;
-        border-radius: var(--border-radius, 8px);
-        box-shadow: var(--box-shadow, 0 4px 8px rgba(0, 0, 0, 0.1));
-        text-align: center;
-        transition: var(--transition, all 0.3s ease);
-        border-top: 4px solid var(--accent-color, #007bff); /* Màu nhấn khác */
-        display: flex;
-        flex-direction: column;
-    }
-     .partnership-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    }
-    .partnership-card i {
-        font-size: 3rem;
-        color: var(--accent-color, #007bff); /* Màu icon khác */
-        margin-bottom: 20px;
-    }
-    .partnership-card h3 {
-        font-size: 1.3rem;
-        margin-bottom: 15px;
-        color: var(--primary-color, #1a3c6d);
-        flex-grow: 0;
-    }
-    .partnership-card p {
-        font-size: 0.95rem;
-        color: #555;
-        line-height: 1.6;
-        margin-bottom: 20px;
-        flex-grow: 1;
-    }
-     .partnership-card .cta-link {
-        display: inline-block;
-        padding: 8px 18px;
-        background-color: var(--accent-color, #007bff); /* Màu nút khác */
-        color: white;
-        text-decoration: none;
-        border-radius: 20px;
-        font-weight: 500;
-        font-size: 0.9rem;
-        transition: var(--transition, all 0.3s ease);
-        margin-top: auto;
-     }
-      .partnership-card .cta-link:hover {
-          background-color: #0056b3; /* Màu hover đậm hơn */
-          transform: scale(1.05);
-      }
-    /* --- KẾT THÚC CSS MỚI --- */
-
-    /* Carousel/Grid Featured Posts (Giữ nguyên CSS từ bản vá lỗi trước) */
-    .featured-posts-section {
-        padding: 50px 0;
-        background-color: #fff;
-    }
-    #post-list {
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      min-height: 250px;
-      background-color: #fff;
-      border-radius: var(--border-radius, 8px);
-      box-shadow: var(--box-shadow, 0 4px 8px rgba(0, 0, 0, 0.1));
-    }
-    .post-preview {
-      display: flex;
-      align-items: stretch;
-      padding: 0;
-      background-color: transparent;
-      border: none;
-      box-shadow: none;
-      margin: 0;
-      transition: transform 0.5s ease;
-      width: 100%;
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-      overflow: hidden;
-    }
-    .post-image {
-      flex: 0 0 40%;
-      position: relative;
-      max-height: 100%;
-    }
-    .post-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .hot-label {
-      position: absolute; top: 10px; left: 10px; background-color: var(--secondary-color, #ff5733); color: #fff; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; z-index: 1;
-    }
-    .post-content {
-      flex: 1; padding: 20px; display: flex; flex-direction: column; justify-content: center; overflow: hidden;
-    }
-    .post-content h3 { margin: 0 0 10px; font-size: 1.2rem; color: var(--primary-color, #1a3c6d); line-height: 1.3; }
-    .post-content h3 a { color: inherit; text-decoration: none; }
-    .post-content h3 a:hover { color: var(--secondary-color, #ff5733); }
-    .post-content p { margin: 0 0 15px; color: #555; font-size: 0.95rem; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 60px; }
-    .post-content .view-more { color: var(--secondary-color, #ff5733); text-decoration: none; font-weight: bold; margin-top: auto; align-self: flex-start; }
-    .post-content .view-more:hover { text-decoration: underline; }
-    .carousel-controls { display: flex; justify-content: center; gap: 15px; margin-top: 15px; }
-    .carousel-btn { width: 35px; height: 35px; border-radius: 50%; border: none; background-color: rgba(0, 0, 0, 0.4); color: #fff; cursor: pointer; transition: var(--transition, all 0.3s ease); font-size: 1rem; display: flex; align-items: center; justify-content: center; }
-    .carousel-btn:hover { background-color: var(--secondary-color, #ff5733); }
-
-    /* Video section (Giữ nguyên từ bản trước) */
-    .video-section-enhanced {
-        padding: 50px 0;
-    }
-    .video-section {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      max-width: 1200px;
-      margin: 0 auto; /* Canh giữa grid video */
-      padding: 0 20px; /* Thêm padding ngang */
-    }
-    .video-container {
-      background: #fff; border-radius: var(--border-radius, 8px); overflow: hidden; box-shadow: var(--box-shadow, 0 4px 8px rgba(0, 0, 0, 0.1)); transition: var(--transition, all 0.3s ease);
-    }
-    .video-container:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); }
-    .video-container iframe { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
-    .video-caption { padding: 15px; text-align: center; background-color: #f9f9f9; }
-    .video-caption a { color: var(--accent-color, #007bff); text-decoration: none; transition: var(--transition, all 0.3s ease); font-weight: 500; }
-    .video-caption a:hover { color: var(--secondary-color, #ff5733); text-decoration: underline; }
-
-    /* Thank you section (Giữ nguyên từ bản trước) */
-    .thank-you-section {
-      text-align: center; padding: 40px 20px; background-color: var(--light-color, #f8f9fa);
-    }
-    .thank-you-gif { max-width: 90%; width: 300px; height: auto; border-radius: var(--border-radius, 8px); margin: 0 auto; }
-
-    /* Responsive (Giữ nguyên từ bản trước, bổ sung cho grid mới nếu cần) */
-    @media (max-width: 768px) {
-        .section-heading { font-size: 1.8rem; }
-        .services-grid, .partnership-grid { grid-template-columns: 1fr; padding: 0 15px; }
-        .service-card, .partnership-card { padding: 25px; }
-         /* Responsive cho carousel -> grid */
-         #post-list { display: grid !important; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important; gap: 15px !important; height: auto !important; position: static !important; overflow: visible !important; max-width: none !important; background: none !important; box-shadow: none !important; border-radius: 0 !important; }
-         .post-preview { position: static !important; transform: none !important; width: 100% !important; height: auto !important; flex-direction: column !important; box-shadow: var(--box-shadow, 0 4px 8px rgba(0, 0, 0, 0.1)) !important; border-radius: var(--border-radius, 8px) !important; background-color: #fff !important; margin-bottom: 15px !important; }
-         .post-image { flex-basis: auto !important; height: 180px !important; }
-         .post-content { padding: 15px !important; }
-         .post-content p { min-height: auto !important; -webkit-line-clamp: 2 !important; }
-         .carousel-controls { display: none !important; }
-    }
-     @media (max-width: 576px) {
-        .section-heading { font-size: 1.6rem; }
-        .service-card i, .partnership-card i { font-size: 2.5rem; }
-        .service-card h3, .partnership-card h3 { font-size: 1.2rem; }
-         .post-image { height: 150px !important; }
-    }
-
+    /* CSS inline quan trọng có thể đặt ở đây để tránh FOUC */
   </style>
 </head>
 <body>
   <div id="header">
-      <p style="text-align: center; padding: 20px; color: #888;">Đang tải header...</p>
+      <p style="text-align: center; padding: 60px 20px; color: #888;">Đang tải header...</p>
   </div>
 
   <main>
-    <section class="redirect-notice">
-      <div id="redirect-timer">
+    <section class="redirect-notice" style="margin-top: 20px;"> <div id="redirect-timer">
           <p>Website sẽ tự động chuyển đến Fanpage IVS Academy trong 2 phút...</p>
           <button id="cancel-redirect" class="btn btn-warning">Hủy chuyển hướng</button>
       </div>
@@ -293,17 +33,16 @@
     <section class="featured-posts-section content-section">
       <div class="container">
           <h2 class="section-heading">Thông tin nổi bật</h2>
-          <div id="post-list" class="carousel">
-              <p style="text-align: center; color: #888;">Đang tải bài viết...</p>
+          <div id="post-list">
+              <p style="text-align: center; color: #888; padding: 20px;">Đang tải bài viết...</p>
           </div>
-          <div class="carousel-controls">
-              <button id="prev-slide" class="carousel-btn" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
+          <div class="carousel-controls" style="display: none;"> <button id="prev-slide" class="carousel-btn" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
               <button id="next-slide" class="carousel-btn" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
           </div>
       </div>
     </section>
 
-    <section class="key-services content-section">
+    <section class="key-services content-section" style="background-color: var(--light-color);">
         <div class="container">
             <h2 class="section-heading">Lĩnh vực hoạt động chính</h2>
             <div class="services-grid">
@@ -351,71 +90,76 @@
         <div class="container">
             <h2 class="section-heading">Giải pháp Liên kết Giáo dục Toàn diện</h2>
             <div class="partnership-grid">
-                <div class="partnership-card">
+                 <div class="partnership-card">
                     <i class="fas fa-baby"></i>
                     <h3>Mầm non</h3>
                     <p>Cung cấp chương trình chuẩn quốc tế IVS Kindergarten (STEAM+Intelligence), giáo trình KNS LIFEMinds, đào tạo giáo viên, tư vấn thiết lập.</p>
-                    <a href="mamnon.html" class="cta-link">Chi tiết Mầm non</a> </div>
+                    <a href="lkmamnon.html" class="cta-link">Chi tiết Mầm non</a>
+                </div>
                 <div class="partnership-card">
                     <i class="fas fa-school"></i>
                     <h3>Tiểu học</h3>
                     <p>Tích hợp Kỹ năng sống & Tiếng Anh (LIFEMinds), chương trình STEAM, cung cấp giáo viên bản xứ, hướng tới IVS Global School.</p>
-                    <a href="tieuhoc.html" class="cta-link">Chi tiết Tiểu học</a> </div>
+                    <a href="lktieuhoc.html" class="cta-link">Chi tiết Tiểu học</a>
+                </div>
                 <div class="partnership-card">
                     <i class="fas fa-user-graduate"></i>
                     <h3>THCS & THPT</h3>
                     <p>Chương trình tiếng Anh học thuật, KNS nâng cao, định hướng du học và nghề nghiệp, liên kết trao đổi quốc tế.</p>
-                    <a href="thcs-thpt.html" class="cta-link">Chi tiết THCS-THPT</a> </div>
+                    <a href="lkthcsthpt.html" class="cta-link">Chi tiết THCS-THPT</a>
+                </div>
                  <div class="partnership-card">
                     <i class="fas fa-chalkboard-teacher"></i>
                     <h3>Trung tâm Ngoại ngữ</h3>
                     <p>Cung cấp giáo viên bản xứ chất lượng, chương trình đào tạo đa dạng, giải pháp EdTech (LMS, App), tư vấn thành lập và vận hành.</p>
-                    <a href="trungtamngoaingu.html" class="cta-link">Chi tiết TT Ngoại ngữ</a> </div>
+                    <a href="lkttnn.html" class="cta-link">Chi tiết TT Ngoại ngữ</a>
+                </div>
             </div>
         </div>
     </section>
+
     <section class="video-section-enhanced content-section">
         <div class="container">
             <h2 class="section-heading">Video giới thiệu</h2>
             <div class="video-section">
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_HAY_NOI" title="Về chương trình Phi lợi nhuận Hãy Nói" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                 <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/8_GWa031_eM" title="Về chương trình Phi lợi nhuận Hãy Nói" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
                     <div class="video-caption">
                         <a href="https://forms.gle/TH9n3MV5Ty4E46TL7" target="_blank" rel="noopener">Đăng ký Talkshow 'Hãy Nói'</a> |
                         <a href="https://aistudio.instagram.com/ai/663072466085450/" target="_blank" rel="noopener">Chatbot Talkie</a>
                     </div>
                 </div>
                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_TRAI_HE" title="Trại hè Quốc tế tại Philippines" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" title="Trại hè Quốc tế tại Philippines" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
                     <div class="video-caption">
                         <a href="summercamp.html">Thông tin chi tiết Trại hè quốc tế Cebu</a>
                     </div>
                 </div>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_STEAM" title="Video giới thiệu STEAM+ Intelligence Model" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                 <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_3" title="Video giới thiệu STEAM+ Intelligence Model" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
                     <div class="video-caption">
                         <a href="https://drive.google.com/file/d/19EcVr6rAlCYfnqPuwcqfiryDB3Z2CEQB/view?usp=drive_link" target="_blank" rel="noopener">Tham khảo chương trình STEAM+</a>
                     </div>
                 </div>
-                <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_ACADEMY" title="Video giới thiệu IVS Academy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                 <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_4" title="Video giới thiệu IVS Academy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
                     <div class="video-caption">
                         <a href="https://drive.google.com/file/d/1BE_IwpPVQMB8tOVMrIsIMB9YCDvWPaQr/view?usp=drive_link" target="_blank" rel="noopener">Tham khảo chương trình LIFEMinds</a>
                     </div>
                 </div>
                  <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/videoseries?list=PLAYLIST_ID" title="Playlist IVS's song" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_5" title="Playlist IVS's song" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
                     <div class="video-caption">
-                        <a href="https://youtube.com/playlist?list=PLwqdiwWIIO2ea6HZlKDVsCBTSJ-vooIOC&si=1D8j2beTphOtXA7V" target="_blank" rel="noopener">Kênh Youtube IVS Academy</a>
+                        <a href="https://www.youtube.com/@ivsacademy5505" target="_blank" rel="noopener">Kênh Youtube IVS Academy</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="thank-you-section">
+    <section class="thank-you-section" style="background-color: var(--light-color);">
         <div class="container">
-            <img src="https://media4.giphy.com/media/nftYWGEVbLf8ckNdEc/giphy.gif" alt="GIF cảm ơn bạn đã theo dõi IVS Academy" class="thank-you-gif" loading="lazy" role="presentation">
+            <img src="https://media4.giphy.com/media/nftYWGEVbLf8ckNdEc/giphy.gif" alt="GIF cảm ơn bạn đã theo dõi IVS Academy" class="thank-you-gif" loading="lazy" role="presentation" style="max-width: 90%; width: 300px; height: auto; border-radius: var(--border-radius); margin: 0 auto;">
             <p style="margin-top: 15px; font-style: italic; color: #555;">Cảm ơn bạn đã ghé thăm website IVS Education!</p>
         </div>
     </section>
