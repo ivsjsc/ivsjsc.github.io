@@ -7,20 +7,82 @@
   <meta name="description" content="Tham gia diễn đàn Hãy Nói do IVS Academy tổ chức - Nơi học sinh Đồng Nai (lớp 4-12) chia sẻ, kết nối và phát triển kỹ năng giao tiếp, tư duy phản biện.">
   <meta property="og:title" content="Chương trình Hãy Nói - Diễn đàn Tiếng nói Tuổi trẻ Đồng Nai | IVS Education">
   <meta property="og:description" content="Tham gia diễn đàn Hãy Nói do IVS Academy tổ chức - Nơi học sinh Đồng Nai (lớp 4-12) chia sẻ, kết nối và phát triển kỹ năng giao tiếp, tư duy phản biện.">
-  <meta property="og:image" content="/images/banners/haynoi_banner.jpg">
-  <meta property="og:url" content="https://ivs.id.vn/hay-noi.html">
-  <meta property="og:type" content="website">
+  <meta property="og:image" content="/images/banners/haynoi_banner.jpg"> <meta property="og:url" content="https://ivs.id.vn/hay-noi.html"> <meta property="og:type" content="website">
   <link rel="icon" href="/images/logo/logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="/css/styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    .page-banner {
+        /* background: linear-gradient(rgba(255, 87, 51, 0.7), rgba(26, 60, 109, 0.7)), url('../images/banners/haynoi_banner.jpg') center/cover no-repeat; */
+        background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); /* Gradient màu chủ đạo */
+        color: white; padding: 80px 20px; text-align: center; margin-top: -20px;
+        border-bottom: 5px solid var(--accent-color);
+    }
+    .page-banner h1 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 700; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
+    .page-banner p { font-size: 1.2rem; opacity: 0.95; max-width: 800px; margin: 0 auto; font-weight: 500;}
 
-  </head>
+    .intro-haynoi p { font-size: 1.1rem; text-align: center; max-width: 850px; margin: -30px auto 40px; }
+
+    .objective-card { /* Style cho card mục tiêu */
+        background-color: #fff; padding: 25px; border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow); text-align: center; transition: var(--transition);
+        border: 1px solid var(--border-color); border-top: 4px solid var(--accent-color);
+    }
+    .objective-card:hover { transform: translateY(-5px); box-shadow: var(--box-shadow-hover); }
+    .objective-card i { font-size: 2.5rem; color: var(--accent-color); margin-bottom: 15px; }
+    .objective-card h3 { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 10px; font-weight: 600; }
+    .objective-card p { font-size: 0.95rem; color: var(--text-secondary); }
+
+    .registration-info { /* Box thông tin đăng ký */
+        background-color: var(--light-bg-alt); border: 1px solid var(--border-color);
+        padding: 30px; border-radius: var(--border-radius); margin-top: 40px;
+        border-left: 5px solid var(--secondary-color);
+    }
+     .registration-info h3 { color: var(--secondary-color); margin-bottom: 15px; font-size: 1.5rem; }
+     .registration-info ul { list-style: none; padding-left: 0; margin-bottom: 15px; }
+     .registration-info ul li { margin-bottom: 10px; position: relative; padding-left: 25px; }
+     .registration-info ul li::before { content: "\f101"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--secondary-color); position: absolute; left: 0; top: 5px; }
+     .registration-info a { color: var(--accent-color); font-weight: 500; text-decoration: none; }
+     .registration-info a:hover { text-decoration: underline; }
+
+    .program-timeline { /* Timeline cho cấu trúc chương trình */
+        list-style: none; padding: 0; position: relative; margin-top: 40px;
+        border-left: 3px solid var(--primary-color); padding-left: 30px;
+    }
+    .timeline-phase { margin-bottom: 40px; position: relative; }
+    .timeline-phase::before { /* Chấm tròn trên timeline */
+        content: ''; position: absolute; left: -41px; /* Điều chỉnh vị trí */ top: 0;
+        width: 20px; height: 20px; background-color: white;
+        border: 4px solid var(--primary-color); border-radius: 50%;
+    }
+    .timeline-phase h4 { color: var(--primary-color); font-size: 1.4rem; margin-bottom: 10px; font-weight: 600; }
+    .timeline-phase p { margin-bottom: 15px; font-size: 1.05rem; }
+    .timeline-phase ul { list-style: none; padding-left: 15px; }
+    .timeline-phase ul li { margin-bottom: 10px; position: relative; padding-left: 25px; }
+    .timeline-phase ul li::before { content: "\f054"; /* chevron-right */ font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--secondary-color); position: absolute; left: 0; top: 5px; font-size: 0.9em;}
+    .timeline-phase strong { color: var(--text-color); font-weight: 600; }
+
+    .cta-section-haynoi { text-align: center; padding: 50px 0; }
+    .cta-button { /* Style nút chung */
+        display: inline-block; padding: 12px 30px; background: var(--secondary-color);
+        color: white !important; text-decoration: none; border-radius: 50px;
+        font-weight: bold; transition: var(--transition); margin: 10px;
+        border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .cta-button:hover { background: #e04e2d; transform: translateY(-3px); box-shadow: 0 6px 10px rgba(0,0,0,0.15); }
+    .cta-button i { margin-right: 8px; }
+    .cta-button.facebook { background-color: #3b5998; }
+    .cta-button.facebook:hover { background-color: #2d4373; }
+    .cta-button.email { background-color: var(--accent-color); }
+    .cta-button.email:hover { background-color: #0056b3; }
+
+  </style>
+</head>
 <body>
-  <header id="header-placeholder">Đang tải header...</header>
+  <div id="header"></div>
 
   <main>
-    <section class="page-banner banner-haynoi">
+    <section class="page-banner">
       <div class="container">
         <h1><i class="fas fa-microphone-alt"></i> Hãy Nói</h1>
         <p>Diễn đàn Chia sẻ Tiếng nói Tuổi trẻ Đồng Nai</p>
@@ -40,23 +102,22 @@
     <section class="content-section" style="background-color: var(--light-color);">
         <div class="container">
             <h2 class="section-heading">Mục tiêu của "Hãy Nói"</h2>
-            <div class="info-grid">
-                <div class="objective-card card">
+            <div class="services-grid"> <div class="objective-card">
                     <i class="fas fa-comments"></i>
                     <h3>Phát triển Kỹ năng</h3>
                     <p>Trang bị kỹ năng giao tiếp, thuyết trình, lắng nghe chủ động và tư duy phản biện qua hoạt động thực tế.</p>
                 </div>
-                <div class="objective-card card">
+                <div class="objective-card">
                     <i class="fas fa-bullhorn"></i>
                     <h3>Tạo Diễn đàn Chia sẻ</h3>
                     <p>Xây dựng môi trường an toàn, sáng tạo để học sinh tự tin bày tỏ quan điểm, suy nghĩ cá nhân.</p>
                 </div>
-                <div class="objective-card card">
+                <div class="objective-card">
                     <i class="fas fa-users"></i>
                     <h3>Kết nối Cộng đồng</h3>
                     <p>Tăng cường sự thấu hiểu giữa học sinh, gia đình, nhà trường và cộng đồng qua chia sẻ và dự án chung.</p>
                 </div>
-                 <div class="objective-card card">
+                 <div class="objective-card">
                     <i class="fas fa-hands-helping"></i>
                     <h3>Lan tỏa Giá trị</h3>
                     <p>Khuyến khích sự chân thành, lòng dũng cảm, tinh thần trách nhiệm và sự đồng cảm trong cộng đồng.</p>
@@ -82,8 +143,8 @@
                     <li>Chương trình nhận đăng ký liên tục và xếp lịch theo từng giai đoạn.</li>
                 </ul>
                 <p><strong>Liên hệ đăng ký và tìm hiểu thêm tại:</strong></p>
-                <p><i class="fab fa-facebook"></i> Fanpage: <a href="https://www.facebook.com/haynoi.tuoitredongnai" target="_blank" rel="noopener noreferrer">fb.com/haynoi.tuoitredongnai</a></p>
-                <p><i class="fas fa-envelope"></i> Email: <a href="mailto:letsspeak.ivs@hotmail.com">letsspeak.ivs@hotmail.com</a></p>
+                <p><i class="fab fa-facebook" style="margin-right: 8px;"></i> Fanpage: <a href="https://www.facebook.com/haynoi.tuoitredongnai" target="_blank" rel="noopener noreferrer">fb.com/haynoi.tuoitredongnai</a></p>
+                <p><i class="fas fa-envelope" style="margin-right: 8px;"></i> Email: <a href="mailto:letsspeak.ivs@hotmail.com">letsspeak.ivs@hotmail.com</a></p>
                 </div>
         </div>
      </section>
@@ -91,7 +152,7 @@
     <section class="content-section" style="background-color: var(--light-color);">
         <div class="container">
             <h2 class="section-heading">Cấu trúc Chương trình & Hoạt động</h2>
-            <ol class="program-timeline timeline">
+            <ol class="program-timeline">
                 <li class="timeline-phase">
                     <h4>Giai đoạn 1: Chuẩn bị & Khởi động (Tháng 8 – 9)</h4>
                     <p>Khảo sát nhu cầu, hợp tác với các trường, tiếp nhận đăng ký, xây dựng đội ngũ Mentor và thiết kế nội dung chi tiết.</p>
@@ -124,20 +185,19 @@
         </div>
     </section>
 
-    <section class="content-section cta-section cta-section-haynoi">
+    <section class="content-section cta-section-haynoi">
         <div class="container">
-            <h2 class="section-heading" style="font-size: 1.8rem; color: var(--primary-color);">Hãy để tiếng nói của bạn được lắng nghe!</h2>
+            <h2 class="section-heading" style="font-size: 1.8rem;">Hãy để tiếng nói của bạn được lắng nghe!</h2>
             <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 30px;">Tham gia cộng đồng "Hãy Nói" ngay hôm nay để cùng học hỏi, chia sẻ và trưởng thành.</p>
-            <a href="https://forms.gle/TH9n3MV5Ty4E46TL7" target="_blank" rel="noopener noreferrer" class="btn btn-primary"><i class="fas fa-pen-alt"></i> Đăng ký Tham gia</a>
-            <a href="https://www.facebook.com/haynoi.tuoitredongnai" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="background-color: #3b5998;"><i class="fab fa-facebook-f"></i> Truy cập Fanpage</a>
-            <a href="mailto:letsspeak.ivs@hotmail.com" class="btn btn-accent"><i class="fas fa-envelope"></i> Gửi Email</a>
+            <a href="https://forms.gle/TH9n3MV5Ty4E46TL7" target="_blank" rel="noopener noreferrer" class="cta-button"><i class="fas fa-pen-alt"></i> Đăng ký Tham gia</a>
+            <a href="https://www.facebook.com/haynoi.tuoitredongnai" target="_blank" rel="noopener noreferrer" class="cta-button facebook"><i class="fab fa-facebook-f"></i> Truy cập Fanpage</a>
+            <a href="mailto:letsspeak.ivs@hotmail.com" class="cta-button email"><i class="fas fa-envelope"></i> Gửi Email</a>
         </div>
     </section>
 
   </main>
 
-  <footer id="footer-placeholder">Đang tải footer...</footer>
-
-  <script src="/js/script.js" defer></script>
+  <div id="footer"></div>
+  <script src="js/script.js" defer></script>
 </body>
 </html>
