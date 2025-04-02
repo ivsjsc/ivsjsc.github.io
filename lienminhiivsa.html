@@ -3,317 +3,364 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IVS Education</title>
-  <meta name="description" content="IVS Education: Đào tạo ngoại ngữ, kỹ năng sống, hợp tác quốc tế, du học liên kết, trại hè quốc tế.">
-  <meta property="og:title" content="IVS Education">
-  <meta property="og:description" content="IVS Education: Đào tạo ngoại ngữ, kỹ năng sống, hợp tác quốc tế, du học liên kết, trại hè quốc tế.">
-  <meta property="og:image" content="images/logo/logo.png">
-  <meta property="og:url" content="https://www.facebook.com/hr.ivsacademy">
-  <meta property="og:type" content="website">
-  <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
+  <title>Liên minh IIVSA - IVS Education</title> <meta name="description" content="Liên minh Giáo dục Toàn cầu IIVSA (Inspire Integrate Vision Synergy Alliance) - Cầu nối tri thức, học bổng giá trị, nguồn lực giáo dục hàng đầu cho Việt Nam.">
+   <meta property="og:title" content="Liên minh IIVSA - IVS Education">
+  <meta property="og:description" content="Liên minh Giáo dục Toàn cầu IIVSA - Cầu nối tri thức, học bổng giá trị, nguồn lực giáo dục hàng đầu cho Việt Nam.">
+   <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/styles.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+      /* Di chuyển các style từ thẻ <style> cũ vào đây hoặc vào styles.css */
       :root {
-          --primary-color: #2c3e50;
-          --secondary-color: #3498db;
-          --accent-color: #e74c3c;
-          --light-color: #ecf0f1;
-          --dark-color: #2c3e50;
+          --primary-color: #1a3c6d; /* Sử dụng màu từ styles.css */
+          --secondary-color: #ff5733;
+          --accent-color: #007bff;
+          --light-color: #f8f9fa;
+          --dark-color: #2c3e50; /* Màu tối hơn */
           --text-color: #333;
           --text-light: #7f8c8d;
+          --border-radius: 8px;
+          --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
-      
-      body {
-          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-          line-height: 1.8;
-          color: var(--text-color);
-          margin: 0;
-          padding: 0;
-          background-color: #f9f9f9;
-      }
-      
-      .container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 20px;
-      }
-      
-      header {
-          background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+
+      .iivsa-header {
+          background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
           color: white;
-          padding: 80px 0;
+          padding: 80px 20px;
           text-align: center;
           position: relative;
           overflow: hidden;
+          margin-top: -20px; /* Bù lại padding của main */
       }
-      
-      header::after {
+
+       .iivsa-header::after { /* Hiệu ứng sóng nhẹ */
           content: '';
           position: absolute;
-          bottom: -50px;
+          bottom: -30px; /* Điều chỉnh độ sâu sóng */
           left: 0;
           right: 0;
-          height: 100px;
-          background-color: #f9f9f9;
-          transform: skewY(-3deg);
+          height: 60px; /* Chiều cao sóng */
+          background-color: var(--bg-color); /* Màu nền body */
+          transform: skewY(-2deg); /* Độ nghiêng sóng */
           z-index: 1;
       }
-      
+
       .header-content {
           position: relative;
           z-index: 2;
       }
-      
-      h1 {
+
+      .iivsa-header h1 {
           font-size: 3rem;
-          margin-bottom: 20px;
+          margin-bottom: 15px;
           font-weight: 700;
+          text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
       }
-      
+
       .tagline {
-          font-size: 1.5rem;
-          margin-bottom: 30px;
+          font-size: 1.4rem;
+          margin-bottom: 0;
           font-weight: 300;
+          opacity: 0.9;
       }
-      
-      .section {
-          padding: 80px 0;
+
+      .section { /* Section chung */
+          padding: 60px 0; /* Giảm padding */
           position: relative;
       }
-      
-      .section-title {
+
+      .section-title { /* Tiêu đề section */
           text-align: center;
-          margin-bottom: 60px;
+          margin-bottom: 50px; /* Giảm margin */
           position: relative;
       }
-      
+
       .section-title h2 {
-          font-size: 2.5rem;
+          font-size: 2.2rem; /* Giảm kích thước */
           color: var(--primary-color);
           display: inline-block;
-          padding-bottom: 15px;
+          padding-bottom: 10px;
           position: relative;
+          border-bottom: 3px solid var(--secondary-color); /* Sử dụng border thay ::after */
       }
-      
-      .section-title h2::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 100px;
-          height: 3px;
-          background-color: var(--accent-color);
-      }
-      
-      .mission-box {
+
+      .mission-box { /* Card cho các mục tiêu/chương trình */
           background-color: white;
-          border-radius: 10px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-          padding: 40px;
-          margin-bottom: 40px;
-          transition: transform 0.3s ease;
+          border-radius: var(--border-radius);
+          box-shadow: var(--box-shadow);
+          padding: 30px; /* Giảm padding */
+          margin-bottom: 30px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          border-left: 5px solid var(--secondary-color); /* Thêm viền trái */
       }
-      
+
       .mission-box:hover {
-          transform: translateY(-10px);
+          transform: translateY(-5px);
+          box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
       }
-      
+
       .mission-icon {
-          font-size: 3rem;
+          font-size: 2.5rem; /* Giảm kích thước icon */
           color: var(--secondary-color);
-          margin-bottom: 20px;
+          margin-bottom: 15px;
+          display: inline-block; /* Để icon không chiếm cả dòng */
       }
-      
-      .highlight-box {
-          background-color: var(--light-color);
-          border-left: 5px solid var(--secondary-color);
-          padding: 30px;
-          margin: 40px 0;
+       .mission-box h3 {
+           margin-top: 0;
+           margin-bottom: 15px;
+           color: var(--primary-color);
+           font-size: 1.5rem;
+       }
+       .mission-box ul {
+           list-style: none;
+           padding-left: 0;
+       }
+        .mission-box ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        .mission-box ul li::before {
+            content: "\f138"; /* Font Awesome arrow-circle-right */
+            font-family: "Font Awesome 5 Free", "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            top: 5px;
+        }
+
+      .highlight-box { /* Box nhấn mạnh */
+          background-color: #e9f5ff; /* Màu nền xanh nhạt */
+          border-left: 5px solid var(--accent-color);
+          padding: 25px;
+          margin: 30px 0;
+          border-radius: var(--border-radius);
       }
-      
-      .partner-grid {
+       .highlight-box h3 {
+           margin-top: 0;
+           color: var(--primary-color);
+       }
+
+      .partner-grid { /* Grid hiển thị đối tác */
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Điều chỉnh minmax */
           gap: 30px;
-          margin-top: 50px;
+          margin-top: 40px;
       }
-      
-      .partner-card {
+
+      .partner-card { /* Card cho đối tác */
           background-color: white;
-          border-radius: 8px;
+          border-radius: var(--border-radius);
           overflow: hidden;
-          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          box-shadow: var(--box-shadow);
           transition: all 0.3s ease;
+          display: flex; /* Sử dụng flex để căn chỉnh */
+          flex-direction: column;
       }
-      
+
       .partner-card:hover {
-          transform: translateY(-10px);
-          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+          transform: translateY(-8px);
+          box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
       }
-      
-      .partner-img {
-          height: 200px;
+
+      .partner-img { /* Phần ảnh/icon đối tác */
+          height: 180px; /* Giảm chiều cao */
           background-color: var(--light-color);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 4rem;
+          font-size: 3.5rem; /* Giảm kích thước icon */
           color: var(--primary-color);
       }
-      
+       .partner-img img { /* Nếu dùng ảnh thật */
+           width: 100px; /* Điều chỉnh kích thước ảnh */
+           height: 100px;
+           border-radius: 50%;
+           object-fit: cover;
+       }
+
       .partner-info {
           padding: 20px;
+          flex-grow: 1; /* Để nội dung chiếm hết phần còn lại */
+          display: flex;
+          flex-direction: column;
       }
-      
-      .stats-container {
+       .partner-info h3 {
+           margin-top: 0;
+           margin-bottom: 5px;
+           color: var(--primary-color);
+           font-size: 1.3rem;
+       }
+        .partner-info p {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+        .partner-info p:last-child {
+            margin-bottom: 0;
+        }
+        .partner-info strong { /* Tên CEO */
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+      .stats-section { /* Section thống kê */
+          background: linear-gradient(135deg, #f0f9ff, #e2f1ff); /* Nền gradient nhẹ */
+          padding: 60px 0;
+      }
+      .stats-container { /* Container thống kê */
           display: flex;
           justify-content: space-around;
           flex-wrap: wrap;
-          margin: 60px 0;
+          gap: 20px; /* Khoảng cách giữa các mục */
       }
-      
-      .stat-item {
+
+      .stat-item { /* Mục thống kê */
           text-align: center;
           padding: 20px;
           flex: 1;
-          min-width: 200px;
+          min-width: 180px; /* Chiều rộng tối thiểu */
       }
-      
+
       .stat-number {
-          font-size: 3rem;
+          font-size: 2.8rem; /* Giảm kích thước số */
           font-weight: 700;
           color: var(--secondary-color);
-          margin-bottom: 10px;
+          margin-bottom: 5px;
       }
-      
-      .cta-section {
+       .stat-item p {
+           font-size: 1rem;
+           color: var(--primary-color);
+           font-weight: 500;
+       }
+
+      .cta-section { /* Section kêu gọi hành động */
           background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
           color: white;
           text-align: center;
-          padding: 80px 0;
-          border-radius: 10px;
-          margin: 80px 0;
+          padding: 60px 20px; /* Giảm padding */
+          border-radius: var(--border-radius);
+          margin: 60px 0; /* Giảm margin */
       }
-      
-      .btn {
+       .cta-section h2 {
+           font-size: 2rem;
+           margin-bottom: 15px;
+       }
+       .cta-section p {
+           margin-bottom: 25px;
+           font-size: 1.1rem;
+       }
+
+      .btn { /* Nút CTA */
           display: inline-block;
-          background-color: var(--accent-color);
+          background-color: var(--secondary-color);
           color: white;
-          padding: 15px 30px;
+          padding: 12px 25px; /* Giảm padding */
           border-radius: 50px;
           text-decoration: none;
           font-weight: 600;
-          margin-top: 30px;
+          margin: 5px; /* Thêm margin để không dính nhau */
           transition: all 0.3s ease;
           border: none;
           cursor: pointer;
+          font-size: 1rem;
       }
-      
+
       .btn:hover {
-          background-color: #c0392b;
+          background-color: #d62828; /* Màu hover đậm hơn */
           transform: translateY(-3px);
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
       }
-      
-      footer {
-          background-color: var(--dark-color);
-          color: white;
-          padding: 60px 0 20px;
-          text-align: center;
-      }
-      
-      .social-links {
-          margin: 30px 0;
-      }
-      
-      .social-links a {
-          color: white;
-          font-size: 1.5rem;
-          margin: 0 15px;
-          transition: all 0.3s ease;
-      }
-      
-      .social-links a:hover {
-          color: var(--secondary-color);
-      }
-      
+       .btn i { /* Icon trong nút */
+           margin-right: 8px;
+       }
+
+      /* Responsive */
       @media (max-width: 768px) {
-          h1 {
-              font-size: 2rem;
+          .iivsa-header h1 {
+              font-size: 2.2rem;
           }
-          
           .tagline {
               font-size: 1.2rem;
           }
-          
           .section-title h2 {
               font-size: 1.8rem;
           }
-          
           .stats-container {
               flex-direction: column;
+              align-items: center; /* Canh giữa các mục stat */
           }
-          
           .stat-item {
-              margin-bottom: 30px;
+              margin-bottom: 20px;
+              min-width: unset; /* Bỏ min-width */
+              width: 80%; /* Chiếm 80% chiều rộng */
+          }
+          .cta-section h2 {
+              font-size: 1.8rem;
           }
       }
+       @media (max-width: 576px) {
+            .partner-grid {
+                grid-template-columns: 1fr; /* 1 cột trên mobile nhỏ */
+            }
+            .stat-number {
+                font-size: 2.5rem;
+            }
+       }
+
   </style>
 </head>
-
 <body>
     <div id="header"></div>
-    
+
     <main>
+        <header class="iivsa-header">
+            <div class="header-content">
+                <h1>Liên minh IIVSA</h1>
+                <p class="tagline">Inspire Integrate Vision Synergy Alliance</p>
+                <p class="tagline">Cầu nối tri thức toàn cầu cho Việt Nam</p>
+            </div>
+        </header>
+
         <section class="section">
             <div class="container">
-                <div class="section-title">
-                    <h1>Liên minh IIVSA</h1>
-                    <h2>Cầu nối tri thức toàn cầu cho Việt Nam</h2>
-                </div>
-                
-                <div class="mission-box">
-                    <p><strong>Inspire Integrate Vision Synergy Alliance (IIVSA)</strong> là một tổ chức hợp tác giáo dục toàn cầu, quy tụ nhiều đối tác chiến lược từ Hoa Kỳ, Việt Nam, Ma Rốc, Philippines và nhiều quốc gia khác. IIVSA có sứ mệnh mang đến những cơ hội giáo dục quốc tế, cung cấp nguồn lực giáo dục chất lượng cao và tăng cường hợp tác với các trường đại học danh tiếng.</p>
+                 <div class="mission-box" style="border-left-color: var(--accent-color);"> <p><strong>Inspire Integrate Vision Synergy Alliance (IIVSA)</strong> là một tổ chức hợp tác giáo dục toàn cầu, quy tụ nhiều đối tác chiến lược từ Hoa Kỳ, Việt Nam, Ma Rốc, Philippines và nhiều quốc gia khác. Với sứ mệnh mang đến những cơ hội giáo dục quốc tế chất lượng, IIVSA cung cấp nguồn lực giáo dục tiên tiến và tăng cường hợp tác sâu rộng với các trường đại học danh tiếng trên toàn thế giới.</p>
                 </div>
             </div>
         </section>
 
-        <section class="section" style="background-color: #f5f7fa;">
-            <div class="container">
+        <section class="section" style="background-color: var(--light-color);"> <div class="container">
                 <div class="section-title">
                     <h2>Chương trình nổi bật</h2>
                 </div>
-                
+
                 <div class="mission-box">
                     <div class="mission-icon">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <h3>Học bổng giá trị – Cánh cửa đến với nền giáo dục toàn cầu</h3>
-                    <p>Một trong những sáng kiến quan trọng của IIVSA là chương trình hợp tác với các trường đại học hàng đầu trên thế giới để cung cấp các suất học bổng giá trị cho sinh viên Việt Nam. Những suất học bổng này giúp sinh viên tiếp cận với nền giáo dục tiên tiến mà không gánh nặng tài chính, tăng cơ hội phát triển bản thân và nghề nghiệp.</p>
+                    <h3>Học bổng giá trị – Cánh cửa đến giáo dục toàn cầu</h3>
+                    <p>Một trong những sáng kiến cốt lõi của IIVSA là chương trình hợp tác với các trường đại học hàng đầu để cung cấp các suất học bổng giá trị (toàn phần và bán phần) cho sinh viên Việt Nam. Những suất học bổng này giúp sinh viên tài năng tiếp cận nền giáo dục tiên tiến mà không bị rào cản tài chính, mở rộng cơ hội phát triển bản thân và sự nghiệp tương lai.</p>
                 </div>
-                
+
                 <div class="mission-box">
                     <div class="mission-icon">
-                        <i class="fas fa-globe-americas"></i>
+                        <i class="fas fa-book-open"></i>
                     </div>
-                    <h3>Nguồn lực giáo dục hàng đầu – Kiến tạo thế hệ tri thức mới</h3>
-                    <p>Bên cạnh học bổng, IIVSA chú trọng đến việc cung cấp nguồn lực giáo dục chất lượng cao, bao gồm:</p>
+                    <h3>Nguồn lực giáo dục hàng đầu – Kiến tạo thế hệ tri thức</h3>
+                    <p>Bên cạnh học bổng, IIVSA tập trung cung cấp nguồn lực giáo dục chất lượng cao, bao gồm:</p>
                     <ul>
-                        <li>Giảng viên xuất sắc: Hợp tác với các giáo sư, chuyên gia hàng đầu từ các trường đối tác</li>
-                        <li>Công nghệ giáo dục tiên tiến: Đầu tư vào các chương trình giáo dục đổi mới</li>
-                        <li>Trao đổi quốc tế: Cung cấp cơ hội cho sinh viên và giáo viên tham gia các chương trình trao đổi ngắn và dài hạn</li>
+                        <li>Đội ngũ giảng viên quốc tế xuất sắc từ các trường đối tác.</li>
+                        <li>Chương trình đào tạo cập nhật, tích hợp công nghệ giáo dục tiên tiến (EdTech).</li>
+                        <li>Cơ hội tham gia các chương trình trao đổi sinh viên và giảng viên quốc tế.</li>
                     </ul>
                 </div>
-                
+
                 <div class="highlight-box">
-                    <h3>Hợp tác chiến lược – Nâng cao tiêu chuẩn giáo dục Việt Nam</h3>
-                    <p>IIVSA làm việc chặt chẽ với các trường đại học, viện nghiên cứu và tổ chức giáo dục trong nước để:</p>
-                    <ul>
-                        <li>Xây dựng chương trình đào tạo hiện đại, đáp ứng nhu cầu thị trường lao động</li>
-                        <li>Phát triển hệ sinh thái giáo dục sáng tạo, kết nối giáo dục, nghiên cứu và doanh nghiệp</li>
+                    <h3>Hợp tác chiến lược – Nâng tầm giáo dục Việt Nam</h3>
+                    <p>IIVSA làm việc chặt chẽ với các trường đại học, viện nghiên cứu và tổ chức giáo dục tại Việt Nam nhằm:</p>
+                     <ul>
+                        <li>Xây dựng và cải tiến chương trình đào tạo theo chuẩn quốc tế, đáp ứng nhu cầu thị trường lao động toàn cầu.</li>
+                        <li>Phát triển hệ sinh thái giáo dục đổi mới, kết nối hiệu quả giữa giáo dục, nghiên cứu khoa học và cộng đồng doanh nghiệp.</li>
                     </ul>
                 </div>
             </div>
@@ -324,43 +371,42 @@
                 <div class="section-title">
                     <h2>Đại diện Liên minh</h2>
                 </div>
-                
+
                 <div class="partner-grid">
                     <div class="partner-card">
                         <div class="partner-img" style="background-color: #e3f2fd;">
-                            <i class="fas fa-flag-usa"></i>
-                        </div>
+                             <img src="images/team/kimball-allen-thomson.png" alt="Ông Kimball Allen Thomson">
+                             </div>
                         <div class="partner-info">
-                            <h3>Hoa Kỳ</h3>
+                            <h3><i class="fas fa-flag-usa"></i> Hoa Kỳ</h3>
                             <p><strong>Ông Kimball Allen Thomson</strong></p>
                             <p>CEO của The Power to Inspire</p>
-                            <p>Salt Lake City, Utah, Hoa Kỳ</p>
-                            <p>Điều hành các dự án giáo dục đổi mới, thúc đẩy các chương trình học bổng giá trị.</p>
+                            <p>Salt Lake City, Utah</p>
+                            <p>Phụ trách điều hành các dự án giáo dục đổi mới và thúc đẩy chương trình học bổng quốc tế.</p>
                         </div>
                     </div>
-                    
+
                     <div class="partner-card">
                         <div class="partner-img" style="background-color: #fff8e1;">
-                            <i class="fas fa-flag-vietnam"></i>
-                        </div>
+                             <img src="images/team/nguyen-minh-triet.png" alt="Ông Nguyễn Minh Triết">
+                             </div>
                         <div class="partner-info">
-                            <h3>Việt Nam</h3>
+                             <h3><i class="fas fa-flag-vietnam"></i> Việt Nam</h3>
                             <p><strong>Ông Nguyễn Minh Triết</strong></p>
-                            <p>CEO của IVS JSC</p>
+                            <p>Chủ tịch & CEO của IVS JSC</p>
                             <p>Đồng Nai, Việt Nam</p>
-                            <p>Mang tri thức quốc tế đến Việt Nam thông qua các dự án giáo dục chất lượng cao.</p>
+                            <p>Chịu trách nhiệm kết nối, triển khai các chương trình và nguồn lực quốc tế tại Việt Nam.</p>
                         </div>
                     </div>
-                </div>
+                     </div>
             </div>
         </section>
-        
-        <section class="section" style="background-color: #e8f5e9;">
-            <div class="highlight">
-                <h3>Mục tiêu của Liên Minh</h3>
-                <p>INSPIRE INTEGRATE VISION SYNERGY ALLIANCE</p>
-            </div>
+
+        <section class="section stats-section">
             <div class="container">
+                 <div class="section-title">
+                    <h2>IIVSA qua những con số</h2>
+                </div>
                 <div class="stats-container">
                     <div class="stat-item">
                         <div class="stat-number">50+</div>
@@ -385,98 +431,14 @@
         <div class="container">
             <div class="cta-section">
                 <h2>Tham gia cùng IIVSA</h2>
-                <p>Kết nối tri thức, chinh phục tương lai!</p>
-                <a href="mailto:ivscorp.vn@gmail.com" class="btn">Liên hệ ngay</a>
-                <a href="https://www.facebook.com/ivsmastery" class="btn"></a>
+                <p>Kết nối tri thức, kiến tạo tương lai bền vững!</p>
+                <a href="mailto:ivscorp.vn@gmail.com" class="btn"><i class="fas fa-envelope"></i> Liên hệ Email</a>
+                <a href="https://www.facebook.com/ivsmastery" target="_blank" class="btn"><i class="fab fa-facebook-f"></i> Fanpage IVS</a>
             </div>
         </div>
     </main>
-  <!-- Nơi để chèn footer -->
-  <div id="footer"></div>
 
-  <!-- JavaScript: tải header và footer, chuyển hướng tự động, toggle menu -->
-  <script>
-    // Run script after DOM is fully loaded
-    document.addEventListener("DOMContentLoaded", () => {
-      // Tải header
-      const headerElement = document.getElementById('header');
-      headerElement.innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải header...</p>';
-      fetch('header.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Không thể tải header.html');
-          return response.text();
-        })
-        .then(data => {
-          headerElement.innerHTML = data;
-          // Gắn sự kiện cho hamburger menu và close button
-          const hamburger = document.querySelector(".hamburger");
-          const navMenu = document.querySelector(".nav-menu");
-          const closeMenu = document.querySelector(".close-menu");
+    <div id="footer"></div>
 
-          if (hamburger && navMenu && closeMenu) {
-            // Mở menu khi nhấp vào hamburger
-            hamburger.addEventListener("click", () => {
-              navMenu.classList.add("active");
-            });
-
-            // Đóng menu khi nhấp vào nút đóng
-            closeMenu.addEventListener("click", () => {
-              navMenu.classList.remove("active");
-            });
-
-            // Đóng menu khi nhấp ra ngoài
-            document.addEventListener("click", (event) => {
-              if (!navMenu.contains(event.target) && !hamburger.contains(event.target)) {
-                navMenu.classList.remove("active");
-              }
-            });
-          }
-        })
-        .catch(error => {
-          console.error('Lỗi khi tải header:', error);
-          headerElement.innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải header!</p>';
-        });
-
-      // Tải footer
-      const footerElement = document.getElementById('footer');
-      footerElement.innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải footer...</p>';
-      fetch('footer.html')
-        .then(response => {
-          if (!response.ok) throw new Error('Không thể tải footer.html');
-          return response.text();
-        })
-        .then(data => {
-          footerElement.innerHTML = data;
-        })
-        .catch(error => {
-          console.error('Lỗi khi tải footer:', error);
-          footerElement.innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải footer!</p>';
-        });
-
-      // Đồng hồ đếm ngược chuyển hướng
-      let timeLeft = 120; // 120 giây
-      const redirectTimer = document.getElementById('redirect-timer');
-      const cancelButton = document.getElementById("cancel-redirect");
-
-      if (redirectTimer && cancelButton) {
-        const timer = setInterval(() => {
-          timeLeft--;
-          redirectTimer.textContent = `Website sẽ tự động chuyển đến Fanpage IVS Academy trong ${Math.floor(timeLeft / 60)} phút ${timeLeft % 60} giây...`;
-          if (timeLeft <= 0) {
-            clearInterval(timer);
-            window.location.href = "https://facebook.com/hr.ivsacademy";
-          }
-        }, 1000);
-
-        // Sự kiện hủy chuyển hướng
-        cancelButton.addEventListener("click", () => {
-          clearInterval(timer);
-          cancelButton.textContent = "Đã hủy chuyển hướng";
-          cancelButton.disabled = true;
-          redirectTimer.textContent = "Chuyển hướng đã bị hủy.";
-        });
-      }
-    });
-  </script>
-</body>
+    <script src="js/script.js" defer></script> </body>
 </html>
