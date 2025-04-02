@@ -365,7 +365,7 @@ function setActiveNavLink() {
              normalizedLinkHref = '/' + normalizedLinkHref;
         }
         if (normalizedLinkHref.endsWith('/index.html')) {
-            normalizedLinkHref = normalizedLinkHref.substring(0, normalizedLinkHref.length - 'index.html'.length) || '/';
+            normalizedLinkHref = normalizedLinkhref.substring(0, normalizedLinkHref.length - 'index.html'.length) || '/';
         }
         // Đảm bảo kết thúc bằng / nếu là thư mục và không phải trang gốc
         if (normalizedLinkHref !== '/' && !normalizedLinkHref.endsWith('/') && !/\.[^/]+$/.test(normalizedLinkHref)) {
@@ -685,7 +685,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Tải header và footer đồng thời
     Promise.all([
-        loadComponent('/header.html', 'header-placeholder'),
+        loadComponent('/header.html','header-placeholder'),
         loadComponent('/footer.html', 'footer-placeholder')
     ]).then(([headerElement, footerElement]) => {
         console.log("DEBUG: Header and Footer loading promises resolved.");
