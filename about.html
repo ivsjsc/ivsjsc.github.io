@@ -7,20 +7,144 @@
   <meta name="description" content="Tìm hiểu về IVS Education (IVS JSC) - Tổ chức tiên phong trong giáo dục quốc tế, công nghệ EdTech, hợp tác đầu tư và phát triển cộng đồng tại Việt Nam.">
   <meta property="og:title" content="Về IVS Education - Tầm nhìn và Sứ mệnh">
   <meta property="og:description" content="Tìm hiểu về IVS Education (IVS JSC) - Tổ chức tiên phong trong giáo dục quốc tế, công nghệ EdTech, hợp tác đầu tư và phát triển cộng đồng.">
-  <meta property="og:image" content="/images/banners/about_banner.jpg">
-  <meta property="og:url" content="https://ivs.id.vn/about.html">
+  <meta property="og:image" content="/images/banners/about_banner.jpg"> <meta property="og:url" content="https://ivs.id.vn/about.html">
   <meta property="og:type" content="website">
   <link rel="icon" href="/images/logo/logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="/css/styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+   <style>
+      /* Kế thừa style từ css_styles_final_fix_v8 */
+       .page-banner {
+           background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.5)), url('../images/banners/about_banner.jpg') center/cover no-repeat; /* Ảnh banner about */
+           color: white; padding: 80px 20px; text-align: center; margin-top: -20px;
+           border-bottom: 5px solid var(--primary-color);
+       }
+       .page-banner h1 { font-size: 2.8rem; margin-bottom: 10px; font-weight: 700; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
+       .page-banner p { font-size: 1.2rem; opacity: 0.9; max-width: 800px; margin: 0 auto; }
 
-   </head>
+       .intro-section-about { /* Section giới thiệu đầu tiên */
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Chia 2 cột */
+            gap: 40px;
+            align-items: center; /* Canh giữa theo chiều dọc */
+            margin-bottom: 40px; /* Khoảng cách với phần dưới */
+       }
+        .intro-content h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .intro-content p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+        }
+       .video-container-about { /* Container video */
+            position: relative;
+            padding-bottom: 56.25%; /* Tỷ lệ 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+       }
+       .video-container-about iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+       }
+
+       .mission-vision-section { /* Section Sứ mệnh & Tầm nhìn */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+       }
+       .mission-box-about, .vision-box-about {
+            background-color: var(--light-color);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            border-left: 5px solid var(--primary-color);
+       }
+        .vision-box-about { border-left-color: var(--secondary-color); }
+       .mission-box-about h2, .vision-box-about h2 {
+           color: var(--primary-color); font-size: 1.6rem; margin-bottom: 15px;
+       }
+       .vision-box-about h2 { color: var(--secondary-color); }
+
+       .core-values-section h2 { margin-bottom: 40px; } /* Tăng margin cho tiêu đề giá trị cốt lõi */
+       .values-grid {
+           display: grid;
+           grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+           gap: 30px;
+       }
+       .value-item {
+           background-color: #fff; padding: 25px; border-radius: var(--border-radius);
+           text-align: center; border: 1px solid var(--border-color);
+           transition: var(--transition);
+       }
+       .value-item:hover { transform: translateY(-5px); box-shadow: var(--box-shadow); }
+       .value-item .highlight { /* Phần chữ màu cam */
+           font-weight: 600; color: var(--secondary-color); display: block;
+           font-size: 1.2rem; margin-bottom: 10px;
+       }
+
+        .program-section-about { /* Section giới thiệu chương trình */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 50px; /* Khoảng cách giữa các chương trình */
+        }
+         /* Đảo vị trí ảnh và nội dung cho các section lẻ */
+        .program-section-about:nth-child(odd) .program-image-about { order: 2; }
+        .program-section-about:nth-child(odd) .program-content-about { order: 1; }
+
+        .program-content-about h3 { color: var(--primary-color); font-size: 1.6rem; margin-bottom: 15px; }
+        .program-content-about ul { list-style: none; padding-left: 0; margin-top: 15px; }
+        .program-content-about ul li { margin-bottom: 10px; position: relative; padding-left: 25px; }
+        .program-content-about ul li::before { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--accent-color); position: absolute; left: 0; top: 5px; font-size: 0.9em; }
+        .program-image-about img { width: 100%; height: auto; border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
+
+        .timeline { /* Timeline kế hoạch phát triển */
+            list-style: none; padding: 0; position: relative; margin-top: 30px;
+        }
+         .timeline::before { /* Đường kẻ dọc */
+            content: ''; position: absolute; top: 0; bottom: 0; left: 20px;
+            width: 3px; background-color: var(--accent-color);
+         }
+        .timeline li {
+            margin-bottom: 25px; padding-left: 50px; position: relative;
+        }
+         .timeline li::before { /* Chấm tròn trên đường kẻ */
+            content: ''; position: absolute; left: 10px; top: 5px;
+            width: 20px; height: 20px; border-radius: 50%;
+            background-color: white; border: 3px solid var(--accent-color);
+         }
+         .timeline li strong { color: var(--primary-color); font-weight: 600; }
+
+       /* Responsive */
+       @media (max-width: 768px) {
+           .intro-section-about, .mission-vision-section, .program-section-about {
+               grid-template-columns: 1fr; /* Chuyển thành 1 cột */
+               gap: 30px;
+           }
+            .program-section-about:nth-child(odd) .program-image-about,
+            .program-section-about:nth-child(odd) .program-content-about {
+                order: unset; /* Reset order trên mobile */
+            }
+            .page-banner h1 { font-size: 2.2rem; }
+       }
+
+   </style>
+</head>
 <body>
-  <header id="header-placeholder">Đang tải header...</header>
+  <div id="header"></div>
 
   <main>
-    <section class="page-banner banner-about">
+    <section class="page-banner">
       <div class="container">
         <h1>Về IVS Education</h1>
         <p>Tiên phong Kiến tạo Giá trị Giáo dục và Hợp tác Quốc tế</p>
@@ -29,15 +153,15 @@
 
     <section class="content-section">
       <div class="container">
-        <div class="intro-section">
+        <div class="intro-section-about">
           <div class="intro-content">
             <h2 class="section-heading" style="text-align: left; margin-bottom: 20px;">Giới thiệu về IVS JSC</h2>
             <p>Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy (IVS JSC) là một tổ chức tiên phong và năng động trong lĩnh vực giáo dục, công nghệ giáo dục (EdTech), hợp tác đầu tư quốc tế, phát triển kinh doanh và thương mại dịch vụ tại Việt Nam.</p>
             <p>Với cam kết mạnh mẽ về chất lượng và đổi mới, IVS JSC tập trung cung cấp các giải pháp giáo dục toàn diện, từ đào tạo ngoại ngữ, kỹ năng sống, chương trình STEAM đến các mô hình giáo dục mầm non tiên tiến và ứng dụng công nghệ học tập hiện đại.</p>
              <p>Hoạt động chủ yếu tại Long Thành, Đồng Nai, IVS JSC đang triển khai các dự án nổi bật như IVS Academy, IVS Kindergarten và chương trình cộng đồng "Hãy Nói", hướng tới xây dựng một hệ sinh thái giáo dục bền vững, kết nối và nâng tầm nguồn nhân lực Việt Nam.</p>
           </div>
-          <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Video giới thiệu IVS Education" allowfullscreen loading="lazy"></iframe>
+          <div class="video-container-about">
+            <iframe src="https://www.youtube.com/embed/VIDEO_ID_4" title="Video giới thiệu IVS Education" allowfullscreen loading="lazy"></iframe>
           </div>
         </div>
       </div>
@@ -46,12 +170,12 @@
     <section class="content-section" style="background-color: var(--light-color);">
         <div class="container">
              <div class="mission-vision-section">
-              <div class="mission-box">
-                <h2><i class="fas fa-bullseye"></i> Sứ mệnh</h2>
+              <div class="mission-box-about">
+                <h2><i class="fas fa-bullseye" style="margin-right: 10px;"></i> Sứ mệnh</h2>
                 <p>IVS JSC cam kết nâng cao chất lượng nguồn nhân lực Việt Nam thông qua các chương trình đào tạo tiên tiến, ứng dụng công nghệ hiện đại và xây dựng mạng lưới kết nối quốc tế vững chắc trong giáo dục. Chúng tôi hướng tới việc kiến tạo một thế hệ trẻ Việt Nam tự tin, sáng tạo, bản lĩnh và sẵn sàng hội nhập toàn cầu.</p>
               </div>
-              <div class="vision-box">
-                <h2><i class="fas fa-eye"></i> Tầm nhìn</h2>
+              <div class="vision-box-about">
+                <h2><i class="fas fa-eye" style="margin-right: 10px;"></i> Tầm nhìn</h2>
                 <p>Trở thành tổ chức giáo dục và công nghệ giáo dục hàng đầu tại Đông Nam Á, kiến tạo những giá trị bền vững cho cộng đồng và xã hội, đồng thời dẫn đầu xu hướng hợp tác giáo dục quốc tế với các mô hình đào tạo tiên phong, sáng tạo và hiệu quả.</p>
               </div>
             </div>
@@ -62,20 +186,20 @@
       <div class="container">
         <h2 class="section-heading">Giá trị cốt lõi</h2>
         <div class="values-grid">
-          <div class="value-item card">
-            <span class="highlight"><i class="fas fa-check-circle"></i> Chất lượng Vượt trội</span>
+          <div class="value-item">
+            <span class="highlight"><i class="fas fa-check-circle" style="margin-right: 5px;"></i> Chất lượng Vượt trội</span>
             <p>Đảm bảo mọi chương trình và dịch vụ đạt tiêu chuẩn quốc tế, mang lại giá trị thực tiễn và hiệu quả cao nhất cho học viên và đối tác.</p>
           </div>
-          <div class="value-item card">
-            <span class="highlight"><i class="fas fa-lightbulb"></i> Đổi mới Sáng tạo</span>
+          <div class="value-item">
+            <span class="highlight"><i class="fas fa-lightbulb" style="margin-right: 5px;"></i> Đổi mới Sáng tạo</span>
             <p>Không ngừng nghiên cứu, cải tiến phương pháp và ứng dụng công nghệ (AI, VR/AR) để cá nhân hóa trải nghiệm học tập và nâng cao hiệu quả giáo dục.</p>
           </div>
-          <div class="value-item card">
-            <span class="highlight"><i class="fas fa-handshake"></i> Hợp tác Toàn cầu</span>
+          <div class="value-item">
+            <span class="highlight"><i class="fas fa-handshake" style="margin-right: 5px;"></i> Hợp tác Toàn cầu</span>
             <p>Xây dựng và phát triển mạng lưới đối tác chiến lược uy tín tại Hoa Kỳ, Đài Loan, Philippines, Châu Âu và các khu vực khác trên thế giới.</p>
           </div>
-          <div class="value-item card">
-            <span class="highlight"><i class="fas fa-leaf"></i> Phát triển Bền vững</span>
+          <div class="value-item">
+            <span class="highlight"><i class="fas fa-leaf" style="margin-right: 5px;"></i> Phát triển Bền vững</span>
             <p>Hướng tới xây dựng một hệ sinh thái giáo dục toàn diện, có trách nhiệm với cộng đồng và môi trường, kết nối các thế hệ và kiến tạo tương lai.</p>
           </div>
         </div>
@@ -86,8 +210,8 @@
       <div class="container">
         <h2 class="section-heading">Các Lĩnh vực Hoạt động Chính</h2>
 
-        <div class="program-section" id="ivs-academy">
-          <div class="program-content">
+        <div class="program-section-about" id="ivs-academy">
+          <div class="program-content-about">
             <h3>IVS Academy</h3>
             <p>Cung cấp các khóa đào tạo ngoại ngữ (Tiếng Anh, Tiếng Trung, Tiếng Nhật) theo chuẩn quốc tế, chương trình STEAM ứng dụng và các khóa học kỹ năng mềm thiết yếu cho học sinh, sinh viên và người đi làm.</p>
             <p>Đặc biệt, chương trình cộng đồng <strong>"Hãy Nói"</strong> là diễn đàn phi lợi nhuận giúp thanh thiếu niên Long Thành, Đồng Nai phát triển kỹ năng giao tiếp, thuyết trình và tư duy phản biện trong một môi trường an toàn, khuyến khích.</p>
@@ -98,13 +222,13 @@
               <li>Hoạt động cộng đồng ý nghĩa ("Hãy Nói").</li>
             </ul>
           </div>
-          <div class="program-image">
-            <img src="/images/ivs-academy.jpg" alt="Học viên tại IVS Academy" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=IVS+Academy';">
+          <div class="program-image-about">
+            <img src="/images/ivs-academy.jpg" alt="Học viên tại IVS Academy" loading="lazy">
           </div>
         </div>
 
-        <div class="program-section" id="ivs-kindergarten">
-          <div class="program-content">
+        <div class="program-section-about" id="ivs-kindergarten">
+          <div class="program-content-about">
             <h3>IVS Kindergarten</h3>
             <p>Tiên phong áp dụng mô hình giáo dục sớm <strong>STEAM+Intelligence Model</strong>, kết hợp độc đáo giữa STEAM và lý thuyết Trí thông minh Đa dạng (Howard Gardner), tập trung khai phá và phát triển tối đa tiềm năng riêng biệt của từng trẻ.</p>
             <p>Cơ sở vật chất hiện đại với 22 phòng chức năng chuyên biệt. Giáo trình độc quyền <strong>IVS LIFE Minds</strong> - Kỹ năng sống tích hợp Tiếng Anh.</p>
@@ -115,13 +239,13 @@
               <li>Ứng dụng công nghệ AI, VR/AR trong học tập.</li>
             </ul>
           </div>
-          <div class="program-image">
-             <img src="/images/ivs-kindergarten.jpeg" alt="Trường mầm non IVS Kindergarten" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=IVS+Kindergarten';">
+          <div class="program-image-about">
+            <img src="/images/ivs-kindergarten.jpeg" alt="Trường mầm non IVS Kindergarten" loading="lazy">
           </div>
         </div>
 
-        <div class="program-section" id="ivs-celestech">
-          <div class="program-content">
+        <div class="program-section-about" id="ivs-celestech">
+          <div class="program-content-about">
             <h3>IVS Celestech</h3>
             <p>Bộ phận công nghệ giáo dục (EdTech) của IVS JSC, chuyên nghiên cứu và phát triển các giải pháp công nghệ tiên tiến nhằm nâng cao hiệu quả dạy và học.</p>
              <ul>
@@ -131,13 +255,13 @@
                 <li>Cung cấp giải pháp công nghệ cho các đối tác giáo dục.</li>
              </ul>
           </div>
-          <div class="program-image">
-             <img src="/images/ivs-celestech.jpg" alt="Công nghệ giáo dục IVS Celestech" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=IVS+Celestech';">
+          <div class="program-image-about">
+            <img src="/images/ivs-celestech.jpg" alt="Công nghệ giáo dục IVS Celestech" loading="lazy">
           </div>
         </div>
 
-        <div class="program-section" id="ivs-international">
-          <div class="program-content">
+        <div class="program-section-about" id="ivs-international">
+          <div class="program-content-about">
             <h3>Hợp tác Giáo dục Quốc tế</h3>
             <p>IVS JSC tự hào là cầu nối giáo dục giữa Việt Nam và thế giới, hợp tác chặt chẽ với các trường đại học, tổ chức giáo dục uy tín tại Hoa Kỳ, Đài Loan, Philippines, Châu Âu và nhiều quốc gia khác.</p>
              <ul>
@@ -147,8 +271,8 @@
                 <li>Cung cấp giải pháp liên kết giáo dục toàn diện cho trường học.</li>
              </ul>
           </div>
-          <div class="program-image">
-             <img src="/images/ivs-international.jpg" alt="Hợp tác quốc tế IVS Education" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/ffffff?text=IVS+International';">
+          <div class="program-image-about">
+            <img src="/images/ivs-international.jpg" alt="Hợp tác quốc tế IVS Education" loading="lazy">
           </div>
         </div>
       </div>
@@ -169,8 +293,7 @@
 
   </main>
 
-  <footer id="footer-placeholder">Đang tải footer...</footer>
-
-  <script src="/js/script.js" defer></script>
+  <div id="footer"></div>
+  <script src="js/script.js" defer></script>
 </body>
 </html>

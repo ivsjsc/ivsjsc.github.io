@@ -7,36 +7,121 @@
   <meta name="description" content="Liên minh Giáo dục Toàn cầu IIVSA (Inspire Integrate Vision Synergy Alliance) - Cầu nối tri thức, học bổng giá trị, nguồn lực giáo dục hàng đầu cho Việt Nam.">
   <meta property="og:title" content="Liên minh Giáo dục Toàn cầu IIVSA - IVS Education">
   <meta property="og:description" content="Liên minh Giáo dục Toàn cầu IIVSA - Cầu nối tri thức, học bổng giá trị, nguồn lực giáo dục hàng đầu cho Việt Nam.">
-  <meta property="og:image" content="/images/banners/iivsa_banner.jpg">
-  <meta property="og:url" content="https://ivs.id.vn/lienminhiivsa.html">
+  <meta property="og:image" content="/images/banners/iivsa_banner.jpg"> <meta property="og:url" content="https://ivs.id.vn/lienminhiivsa.html">
   <meta property="og:type" content="website">
   <link rel="icon" href="/images/logo/logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="/css/styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+   <style>
+      /* Kế thừa style từ css_styles_final_fix_v8 */
+      /* CSS bổ sung cho trang này */
+      .iivsa-header {
+          background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+          color: white;
+          padding: 80px 20px 60px 20px; /* Tăng padding trên, giảm dưới */
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+          margin-top: -20px; /* Bù lại padding của main */
+      }
+       /* Bỏ hiệu ứng sóng ::after nếu không cần */
+       /* .iivsa-header::after { ... } */
 
-   </head>
+      .header-content { position: relative; z-index: 2; }
+      .iivsa-header h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 700; text-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
+      .tagline { font-size: 1.3rem; margin-bottom: 5px; font-weight: 300; opacity: 0.9; }
+      .tagline:last-of-type { margin-bottom: 0; }
+
+      .mission-box {
+          background-color: white; border-radius: var(--border-radius);
+          box-shadow: var(--box-shadow); padding: 35px; /* Tăng padding */
+          margin-bottom: 30px; transition: var(--transition);
+          border-left: 5px solid var(--secondary-color);
+      }
+      .mission-box:hover { transform: translateY(-5px); box-shadow: var(--box-shadow-hover); }
+      .mission-icon { font-size: 2.8rem; color: var(--secondary-color); margin-bottom: 20px; display: inline-block; }
+      .mission-box h3 { margin-top: 0; margin-bottom: 15px; color: var(--primary-color); font-size: 1.6rem; font-weight: 600; }
+      .mission-box ul { list-style: none; padding-left: 0; margin-top: 15px; }
+      .mission-box ul li { margin-bottom: 12px; position: relative; padding-left: 30px; font-size: 1.05rem; color: var(--text-secondary); }
+      .mission-box ul li::before {
+          /* content: "\f138"; */ /* Arrow */
+          content: "\f058"; /* Check Circle */
+          font-family: "Font Awesome 6 Free"; font-weight: 900;
+          color: var(--accent-color); position: absolute; left: 0; top: 5px;
+          font-size: 1.1em;
+      }
+
+      .highlight-box {
+          background-color: #e9f5ff; border-left: 5px solid var(--accent-color);
+          padding: 30px; margin: 40px 0; border-radius: var(--border-radius);
+      }
+      .highlight-box h3 { margin-top: 0; color: var(--primary-color); margin-bottom: 15px; }
+      .highlight-box ul { margin-top: 0; } /* Reset margin nếu cần */
+
+      .partner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 35px; margin-top: 40px; }
+      .partner-card {
+          background-color: white; border-radius: var(--border-radius); overflow: hidden;
+          box-shadow: var(--box-shadow); transition: var(--transition); display: flex;
+          flex-direction: column; border: 1px solid var(--border-color);
+      }
+      .partner-card:hover { transform: translateY(-8px); box-shadow: var(--box-shadow-hover); }
+      .partner-img {
+          height: 200px; background-color: var(--light-color); display: flex;
+          align-items: center; justify-content: center; padding: 20px;
+      }
+      .partner-img img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border-color); }
+      .partner-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+      .partner-info h3 { margin-top: 0; margin-bottom: 8px; color: var(--primary-color); font-size: 1.4rem; display: flex; align-items: center; }
+      .partner-info h3 i { margin-right: 10px; color: var(--accent-color); }
+      .partner-info p { margin-bottom: 8px; font-size: 1rem; color: var(--text-secondary); line-height: 1.6; }
+      .partner-info p:last-child { margin-bottom: 0; }
+      .partner-info strong { color: var(--text-color); font-weight: 600; }
+
+      .stats-section { background: linear-gradient(135deg, #f0f9ff, #e2f1ff); padding: 60px 0; }
+      .stats-container { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; }
+      .stat-item { text-align: center; padding: 20px; flex: 1; min-width: 180px; }
+      .stat-number { font-size: 3rem; font-weight: 700; color: var(--secondary-color); margin-bottom: 5px; }
+      .stat-item p { font-size: 1.1rem; color: var(--primary-color); font-weight: 500; }
+
+      .cta-section {
+          background: linear-gradient(135deg, var(--primary-color), var(--dark-color)); color: white;
+          text-align: center; padding: 60px 20px; border-radius: var(--border-radius); margin: 60px 0;
+      }
+      .cta-section h2 { font-size: 2rem; margin-bottom: 15px; }
+      .cta-section p { margin-bottom: 25px; font-size: 1.1rem; }
+      .btn { /* Style nút chung */
+        display: inline-block; padding: 12px 30px; background: var(--secondary-color);
+        color: white !important; text-decoration: none; border-radius: 50px;
+        font-weight: bold; transition: var(--transition); margin: 10px;
+        border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      }
+      .btn:hover { background: #e04e2d; transform: translateY(-3px); box-shadow: 0 6px 10px rgba(0,0,0,0.15); }
+      .btn i { margin-right: 8px; }
+   </style>
+</head>
 <body>
-    <header id="header-placeholder">Đang tải header...</header>
+    <div id="header"></div>
 
     <main>
-        <section class="page-banner banner-iivsa">
-            <div class="header-content"> <h1>Liên minh IIVSA</h1>
+        <header class="iivsa-header">
+            <div class="header-content">
+                <h1>Liên minh IIVSA</h1>
                 <p class="tagline">Inspire Integrate Vision Synergy Alliance</p>
                 <p class="tagline">Cầu nối tri thức toàn cầu cho Việt Nam</p>
             </div>
-        </section>
+        </header>
 
         <section class="content-section">
             <div class="container">
-                <div class="mission-box" style="border-left-color: var(--accent-color);"> <h2 class="section-heading" style="text-align: left; margin-bottom: 20px; font-size: 1.8rem;">Giới thiệu Liên minh IIVSA</h2>
-                    <p style="font-size: 1.1rem;"><strong>Inspire Integrate Vision Synergy Alliance (IIVSA)</strong> là một tổ chức hợp tác giáo dục quốc tế năng động, quy tụ mạng lưới đối tác chiến lược đa dạng từ Hoa Kỳ, Việt Nam, Ma Rốc, Philippines và nhiều quốc gia khác. Với sứ mệnh kiến tạo cơ hội và nâng tầm giáo dục, IIVSA tập trung cung cấp nguồn lực tiên tiến và thúc đẩy hợp tác sâu rộng với các trường đại học, tổ chức giáo dục danh tiếng trên toàn cầu.</p>
-                </div>
+                 <div class="mission-box" style="border-left-color: var(--accent-color);">
+                     <h2 class="section-heading" style="text-align: left; margin-bottom: 20px; font-size: 1.8rem;">Giới thiệu Liên minh IIVSA</h2>
+                     <p style="font-size: 1.1rem;"><strong>Inspire Integrate Vision Synergy Alliance (IIVSA)</strong> là một tổ chức hợp tác giáo dục quốc tế năng động, quy tụ mạng lưới đối tác chiến lược đa dạng từ Hoa Kỳ, Việt Nam, Ma Rốc, Philippines và nhiều quốc gia khác. Với sứ mệnh kiến tạo cơ hội và nâng tầm giáo dục, IIVSA tập trung cung cấp nguồn lực tiên tiến và thúc đẩy hợp tác sâu rộng với các trường đại học, tổ chức giáo dục danh tiếng trên toàn cầu.</p>
+                 </div>
             </div>
         </section>
 
         <section class="content-section" style="background-color: var(--light-color);">
-            <div class="container">
+             <div class="container">
                 <h2 class="section-heading">Chương trình và Mục tiêu</h2>
 
                 <div class="mission-box">
@@ -65,7 +150,7 @@
                 <div class="highlight-box">
                     <h3><i class="fas fa-hands-helping" style="margin-right: 10px;"></i> Hợp tác Chiến lược – Nâng tầm Giáo dục Việt Nam</h3>
                     <p>IIVSA hợp tác chặt chẽ với các đối tác tại Việt Nam nhằm:</p>
-                    <ul>
+                     <ul>
                         <li>Xây dựng và quốc tế hóa chương trình đào tạo, đáp ứng chuẩn mực toàn cầu.</li>
                         <li>Phát triển hệ sinh thái giáo dục đổi mới, sáng tạo, gắn kết nhà trường - doanh nghiệp.</li>
                         <li>Tổ chức hội thảo, diễn đàn khoa học quốc tế, thúc đẩy giao lưu học thuật.</li>
@@ -80,7 +165,7 @@
                 <div class="partner-grid">
                     <div class="partner-card">
                         <div class="partner-img">
-                             <img src="/images/team/kimball-allen-thomson.png" alt="Ông Kimball Allen Thomson" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/120x120/eee/ccc?text=Partner';">
+                             <img src="/images/team/kimball-allen-thomson.png" alt="Ông Kimball Allen Thomson">
                         </div>
                         <div class="partner-info">
                             <h3><i class="fas fa-flag-usa"></i> Hoa Kỳ</h3>
@@ -93,22 +178,22 @@
 
                     <div class="partner-card">
                         <div class="partner-img">
-                            <img src="/images/team/nguyen-minh-triet.png" alt="Ông Nguyễn Minh Triết" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/120x120/eee/ccc?text=Partner';">
+                             <img src="/images/team/nguyen-minh-triet.png" alt="Ông Nguyễn Minh Triết">
                         </div>
                         <div class="partner-info">
-                            <h3><i class="fas fa-flag"></i> Việt Nam</h3> <p><strong>Ông Nguyễn Minh Triết</strong></p>
+                             <h3><i class="fas fa-flag"></i> Việt Nam</h3> <p><strong>Ông Nguyễn Minh Triết</strong></p>
                             <p>Chủ tịch & CEO của IVS JSC</p>
                             <p>Đồng Nai, Việt Nam</p>
                             <p style="margin-top: auto; font-style: italic;">Chịu trách nhiệm kết nối, triển khai các chương trình và nguồn lực quốc tế tại Việt Nam.</p>
                         </div>
                     </div>
-                    </div>
+                     </div>
             </div>
         </section>
 
-        <section class="stats-section">
+        <section class="section stats-section">
             <div class="container">
-                <h2 class="section-heading" style="color: var(--primary-color);">IIVSA và những mục tiêu hướng đến - 2030</h2>
+                 <h2 class="section-heading" style="color: var(--primary-color);">IIVSA qua những con số</h2>
                 <div class="stats-container">
                     <div class="stat-item">
                         <div class="stat-number">50+</div>
@@ -134,14 +219,13 @@
             <section class="cta-section">
                 <h2>Tham gia cùng IIVSA</h2>
                 <p>Kết nối tri thức, kiến tạo tương lai bền vững!</p>
-                <a href="mailto:ivscorp.vn@gmail.com" class="btn btn-secondary"><i class="fas fa-envelope"></i> Liên hệ Email</a>
-                <a href="https://www.facebook.com/ivsmastery" target="_blank" class="btn btn-primary"><i class="fab fa-facebook-f"></i> Fanpage IVS</a>
+                <a href="mailto:ivscorp.vn@gmail.com" class="btn"><i class="fas fa-envelope"></i> Liên hệ Email</a>
+                <a href="https://www.facebook.com/ivsmastery" target="_blank" class="btn"><i class="fab fa-facebook-f"></i> Fanpage IVS</a>
             </section>
         </div>
     </main>
 
-    <footer id="footer-placeholder">Đang tải footer...</footer>
-
-    <script src="/js/script.js" defer></script>
+    <div id="footer"></div>
+    <script src="js/script.js" defer></script>
 </body>
 </html>
