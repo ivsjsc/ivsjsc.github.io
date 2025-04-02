@@ -645,29 +645,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log("DEBUG: Initial dynamic load setup sequence started.");
 });
-```
-
-**Những thay đổi chính:**
-
-1.  **Xử lý lỗi tải Component:** Hàm `loadComponent` giờ sẽ `throw error` nếu không tải được file, giúp `Promise.all` bắt được lỗi và ngăn việc cố gắng khởi tạo menu khi header chưa có.
-2.  **Khởi tạo Menu sau khi Header Load:** `initializeMenuEventsDelegation()` chỉ được gọi *sau khi* `loadComponent` cho header hoàn thành thành công (trong `.then`).
-3.  **Tìm Phần tử Header Chính xác:** Sửa lại cách tìm `headerElement` và `mobileMenuElement` để đảm bảo nó tìm bên trong nội dung đã được load vào `#header-placeholder`.
-4.  **Xử lý Overlay:** Đảm bảo phần tử `.overlay` tồn tại trước khi gắn sự kiện click vào nó. Nếu không có, nó sẽ tự tạo ra.
-5.  **Logic Đóng/Mở Accordion Mobile:**
-    * Sử dụng `setTimeout` với delay nhỏ (10ms) khi *mở* submenu để đảm bảo trình duyệt có thời gian áp dụng class `show` trước khi tính `scrollHeight`. Điều này giúp transition `max-height` hoạt động đúng ngay cả khi submenu ban đầu bị ẩn hoàn toàn.
-    * Sử dụng `addEventListener('transitionend', ...)` với `{ once: true }` khi *đóng* submenu để xóa class `show` một cách chính xác sau khi hiệu ứng transition kết thúc. Có thêm fallback `setTimeout` để phòng trường hợp sự kiện `transitionend` không được kích hoạt.
-    * Thêm kiểm tra `if (!parentLi.classList.contains('active'))` bên trong `transitionend` và `setTimeout` khi đóng để tránh xóa class `show` nhầm nếu người dùng click mở lại nhanh chóng.
-    * Reset `maxHeight = null` ngay lập tức khi đóng sibling hoặc đóng mục hiện tại để transition đóng bắt đầu ngay.
-6.  **Đóng Menu Khi Click Link Thường:** Di chuyển logic đóng menu khi click vào link không phải toggle ra ngoài khối `if (toggle)` để nó áp dụng cho mọi link. Dùng `setTimeout` nhỏ để cho phép điều hướng diễn ra.
-7.  **Thêm Nhiều `console.log`:** Giúp bạn dễ dàng theo dõi các bước xử lý và trạng thái của menu trong Console của trình duyệt (nhấn F12 để mở).
-
-**Cách sử dụng:**
-
-1.  Mở file `js/script.js` trong dự án của bạn.
-2.  Xóa toàn bộ nội dung cũ.
-3.  Dán toàn bộ đoạn code mới ở trên vào file.
-4.  Lưu file lại.
-5.  **Quan trọng:** Xóa cache trình duyệt của bạn hoặc mở trang web trong chế độ ẩn danh (incognito) để đảm bảo trình duyệt tải phiên bản mới nhất của file JavaScript.
-6.  Kiểm tra lại chức năng menu dropdown trên thiết bị di động hoặc bằng cách thu nhỏ cửa sổ trình duyệt và sử dụng công cụ Developer Tools (F12).
-
-Nếu vấn đề vẫn còn, bạn hãy mở Developer Tools (F12), chuyển qua tab "Console" và xem có thông báo lỗi màu đỏ nào xuất hiện khi bạn tương tác với menu không, hoặc các log `DEBUG:` có hiển thị đúng các bước không n
+``
