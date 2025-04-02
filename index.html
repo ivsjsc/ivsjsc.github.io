@@ -3,162 +3,260 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IVS Education</title>
-  <meta name="description" content="IVS Education: Đào tạo ngoại ngữ, kỹ năng sống, hợp tác quốc tế, du học liên kết, trại hè quốc tế.">
-  <meta property="og:title" content="IVS Education">
-  <meta property="og:description" content="IVS Education: Đào tạo ngoại ngữ, kỹ năng sống, hợp tác quốc tế, du học liên kết, trại hè quốc tế.">
-  <meta property="og:image" content="images/logo/logo.png">
-  <meta property="og:url" content="https://www.facebook.com/hr.ivsacademy">
-  <meta property="og:type" content="website">
+  <title>IVS Education - Kết Nối Tri Thức, Kiến Tạo Tương Lai</title> <meta name="description" content="IVS Education (IVS JSC): Đào tạo ngoại ngữ (IVS Academy), mầm non quốc tế (IVS Kindergarten), công nghệ giáo dục (IVS Celestech), hợp tác quốc tế, tư vấn doanh nghiệp.">
+  <meta property="og:title" content="IVS Education - Kết Nối Tri Thức, Kiến Tạo Tương Lai">
+  <meta property="og:description" content="IVS Education: Đào tạo ngoại ngữ, mầm non quốc tế, công nghệ giáo dục, hợp tác quốc tế, chương trình Hãy Nói và tư vấn doanh nghiệp.">
+  <meta property="og:image" content="images/logo/logo.png"> <meta property="og:url" content="https://ivs.id.vn"> <meta property="og:type" content="website">
   <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="preload" href="header.html" as="fetch">
-  <link rel="preload" href="footer.html" as="fetch">
-  <link rel="preload" href="posts.json" as="fetch">
+  <link rel="stylesheet" href="css/styles.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preload" href="header.html" as="fetch" crossorigin="anonymous">
+  <link rel="preload" href="footer.html" as="fetch" crossorigin="anonymous">
+  <link rel="preload" href="posts.json" as="fetch" crossorigin="anonymous">
+  <link rel="preload" href="js/script.js" as="script">
+
+  <style>
+    /* Section chung */
+    .content-section {
+        padding: 50px 0;
+        border-bottom: 1px solid #eee;
+    }
+     .content-section:last-child {
+        border-bottom: none;
+    }
+    .section-heading {
+        color: var(--primary-color, #1a3c6d);
+        margin-bottom: 30px;
+        font-size: 2rem;
+        text-align: center;
+        position: relative;
+        padding-bottom: 10px;
+    }
+    .section-heading::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: var(--secondary-color, #ff5733);
+    }
+
+    /* Section Dịch vụ chính */
+    .key-services {
+        background-color: var(--light-color, #f8f9fa); /* Nền sáng */
+    }
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    .service-card {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: var(--border-radius, 8px);
+        box-shadow: var(--box-shadow, 0 4px 8px rgba(0, 0, 0, 0.1));
+        text-align: center;
+        transition: var(--transition, all 0.3s ease);
+        border-top: 4px solid var(--primary-color, #1a3c6d);
+    }
+    .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    .service-card i {
+        font-size: 3rem;
+        color: var(--primary-color, #1a3c6d);
+        margin-bottom: 20px;
+    }
+    .service-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        color: var(--primary-color, #1a3c6d);
+    }
+    .service-card p {
+        font-size: 0.95rem;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 20px; /* Khoảng cách trước nút */
+    }
+     .service-card .cta-link { /* Nút/Link trong card */
+        display: inline-block;
+        padding: 8px 18px;
+        background-color: var(--secondary-color, #ff5733);
+        color: white;
+        text-decoration: none;
+        border-radius: 20px;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: var(--transition, all 0.3s ease);
+     }
+      .service-card .cta-link:hover {
+          background-color: #e04e2d; /* Màu đậm hơn */
+          transform: scale(1.05);
+      }
+
+    /* Tối ưu hiển thị carousel/grid */
+    .featured-posts-section {
+        padding: 50px 0;
+        background-color: #fff; /* Nền trắng cho section này */
+    }
+    /* CSS cho #post-list, .post-preview đã có trong bản vá lỗi trước */
+
+    /* Tối ưu video section */
+    .video-section-enhanced { /* Đổi tên class để tránh xung đột */
+        padding: 50px 0;
+    }
+    /* CSS cho .video-container, .video-caption đã có trong styles.css */
+
+    /* Thank you section */
+    .thank-you-section {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: var(--light-color, #f8f9fa);
+    }
+    .thank-you-gif {
+      max-width: 90%; /* Giảm kích thước ảnh GIF */
+      width: 300px; /* Giới hạn chiều rộng tối đa */
+      height: auto;
+      border-radius: var(--border-radius, 8px);
+      margin: 0 auto; /* Canh giữa */
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .section-heading { font-size: 1.8rem; }
+        .services-grid { grid-template-columns: 1fr; padding: 0 15px; } /* 1 cột trên mobile */
+        .service-card { padding: 25px; }
+    }
+     @media (max-width: 576px) {
+        .section-heading { font-size: 1.6rem; }
+        .service-card i { font-size: 2.5rem; }
+        .service-card h3 { font-size: 1.2rem; }
+    }
+
+  </style>
 </head>
 <body>
-  <div id="header"></div>
+  <div id="header">
+      <p style="text-align: center; padding: 20px; color: #888;">Đang tải header...</p>
+  </div>
 
   <main>
     <section class="redirect-notice">
       <div id="redirect-timer">
           <p>Website sẽ tự động chuyển đến Fanpage IVS Academy trong 2 phút...</p>
           <button id="cancel-redirect" class="btn btn-warning">Hủy chuyển hướng</button>
-      </div>  
+      </div>
     </section>
 
-    <section class="featured-posts">
-      <h2 class="section-title">Thông tin nổi bật</h2>
-      <div id="post-list" class="carousel">
-          <!-- Danh sách bài viết sẽ được thêm bằng JavaScript -->
+    <section class="featured-posts-section content-section">
+      <div class="container">
+          <h2 class="section-heading">Thông tin nổi bật</h2>
+          <div id="post-list" class="carousel">
+              <p style="text-align: center; color: #888;">Đang tải bài viết...</p>
+          </div>
+          <div class="carousel-controls">
+              <button id="prev-slide" class="carousel-btn" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
+              <button id="next-slide" class="carousel-btn" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
+          </div>
       </div>
-      <div class="carousel-controls">
-          <button id="prev-slide" class="carousel-btn" aria-label="Previous slide">❮</button>
-          <button id="next-slide" class="carousel-btn" aria-label="Next slide">❯</button>
-      </div>
-  </section>
+    </section>
 
-    <section class="video-section">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/-U9JQvUYB94" title="Về chương trình Phi lợi nhuận Hãy Nói" allowfullscreen loading="lazy"></iframe>
-        <div class="video-caption">
-          <a href="https://forms.gle/TH9n3MV5Ty4E46TL7" target="_blank" rel="noopener">Đăng ký Talkshow 'Hãy Nói'</a>
-          <a href="https://aistudio.instagram.com/ai/663072466085450/" target="_blank" rel="noopener">Chatbot Talkie - Tư vấn tâm lý học sinh</a>
+    <section class="key-services content-section">
+        <div class="container">
+            <h2 class="section-heading">Lĩnh vực hoạt động chính</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-language"></i>
+                    <h3>IVS Academy</h3>
+                    <p>Đào tạo ngoại ngữ (Anh, Trung, Nhật), STEAM, kỹ năng mềm cho mọi lứa tuổi. Chương trình "Hãy Nói" phát triển kỹ năng giao tiếp.</p>
+                    <a href="about.html#ivs-academy" class="cta-link">Tìm hiểu thêm</a> </div>
+                <div class="service-card">
+                    <i class="fas fa-child"></i>
+                    <h3>IVS Kindergarten</h3>
+                    <p>Mô hình STEAM+Intelligence, giáo trình kỹ năng sống LIFEMinds, hướng tới hệ thống IVS Global School liên cấp.</p>
+                     <a href="about.html#ivs-kindergarten" class="cta-link">Tìm hiểu thêm</a> </div>
+                <div class="service-card">
+                    <i class="fas fa-microchip"></i>
+                    <h3>IVS Celestech</h3>
+                    <p>Phát triển giải pháp công nghệ giáo dục: E-learning, LMS, ứng dụng AI, VR/AR nâng cao hiệu quả học tập.</p>
+                     <a href="about.html#ivs-celestech" class="cta-link">Tìm hiểu thêm</a> </div>
+                 <div class="service-card">
+                    <i class="fas fa-globe-americas"></i>
+                    <h3>Hợp tác Quốc tế</h3>
+                    <p>Liên kết với đối tác Hoa Kỳ, Đài Loan, Philippines, châu Âu. Tổ chức du học, trại hè, trao đổi giáo dục.</p>
+                     <a href="lien-ket-quoc-te.html" class="cta-link">Xem chi tiết</a>
+                </div>
+                 <div class="service-card">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>Tư vấn Doanh nghiệp</h3>
+                    <p>Hỗ trợ pháp lý, thành lập trung tâm ngoại ngữ, tư vấn thuế, kế toán, quản trị và phát triển doanh nghiệp.</p>
+                     <a href="tuvan.html" class="cta-link">Xem chi tiết</a>
+                 </div>
+                 <div class="service-card">
+                     <i class="fas fa-comments"></i>
+                     <h3>Chương trình "Hãy Nói"</h3>
+                     <p>Diễn đàn phi lợi nhuận dành cho học sinh Long Thành, Đồng Nai phát triển kỹ năng giao tiếp, tư duy phản biện.</p>
+                     <a href="tai-tro.html" class="cta-link">Tìm hiểu thêm</a>
+                 </div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/2qktCUrScMs" title="Trại hè Quốc tế tại Philippines" allowfullscreen loading="lazy"></iframe>
-        <div class="video-caption">
-          <a href="summercamp.html">Thông tin chi tiết về Trại hè quốc tế tại CEBU</a>
+    <section class="video-section-enhanced content-section">
+        <div class="container">
+            <h2 class="section-heading">Video giới thiệu</h2>
+            <div class="video-section"> <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_HAY_NOI" title="Về chương trình Phi lợi nhuận Hãy Nói" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                    <div class="video-caption">
+                        <a href="https://forms.gle/TH9n3MV5Ty4E46TL7" target="_blank" rel="noopener">Đăng ký Talkshow 'Hãy Nói'</a> |
+                        <a href="https://aistudio.instagram.com/ai/663072466085450/" target="_blank" rel="noopener">Chatbot Talkie</a>
+                    </div>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_TRAI_HE" title="Trại hè Quốc tế tại Philippines" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                    <div class="video-caption">
+                        <a href="summercamp.html">Thông tin chi tiết Trại hè quốc tế Cebu</a>
+                    </div>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_STEAM" title="Video giới thiệu STEAM+ Intelligence Model" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                    <div class="video-caption">
+                        <a href="https://drive.google.com/file/d/19EcVr6rAlCYfnqPuwcqfiryDB3Z2CEQB/view?usp=drive_link" target="_blank" rel="noopener">Tham khảo chương trình STEAM+</a>
+                    </div>
+                </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID_ACADEMY" title="Video giới thiệu IVS Academy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                    <div class="video-caption">
+                        <a href="https://drive.google.com/file/d/1BE_IwpPVQMB8tOVMrIsIMB9YCDvWPaQr/view?usp=drive_link" target="_blank" rel="noopener">Tham khảo chương trình LIFEMinds</a>
+                    </div>
+                </div>
+                 <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/playlist?list=PLAYLIST_ID" title="Playlist IVS's song" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+                    <div class="video-caption">
+                        <a href="https://www.youtube.com/channel/YOUR_CHANNEL_ID" target="_blank" rel="noopener">Kênh Youtube IVS Academy</a> </div>
+                </div>
+                 </div>
         </div>
-      </div>
-
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/_T8ObF-rz8U" title="Video giới thiệu STEAM+ Intelligence Model" allowfullscreen loading="lazy"></iframe>
-        <div class="video-caption">
-          <a href="https://drive.google.com/file/d/19EcVr6rAlCYfnqPuwcqfiryDB3Z2CEQB/view?usp=drive_link" target="_blank" rel="noopener">Tham khảo chương trình STEAM+ Intelligence Model</a>
-        </div>
-      </div>
-
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/3XzfJboNwcQ" title="Video giới thiệu IVS Academy" allowfullscreen loading="lazy"></iframe>
-        <div class="video-caption">
-          <a href="https://drive.google.com/file/d/1BE_IwpPVQMB8tOVMrIsIMB9YCDvWPaQr/view?usp=drive_link" target="_blank" rel="noopener">Tham khảo chương trình KNS tích hợp tiếng Anh LIFEMinds</a>
-        </div>             
-      </div>
-      
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/videoseries?si=pT0XACyTQeygHNm2&list=PLwqdiwWIIO2ea6HZlKDVsCBTSJ-vooIOC" title="Playlist IVS's song" allowfullscreen loading="lazy"></iframe>
-        <div class="video-caption">
-          <a href="https://www.youtube.com/@integratevisionsynergy" target="_blank" rel="noopener">Kênh Youtube IVS Academy</a>
-        </div>             
-      </div>
     </section>
 
     <section class="thank-you-section">
-      <img src="https://media4.giphy.com/media/nftYWGEVbLf8ckNdEc/giphy.gif" alt="GIF cảm ơn bạn đã theo dõi IVS Academy" class="thank-you-gif" loading="lazy" role="presentation">
+        <div class="container">
+            <img src="https://media4.giphy.com/media/nftYWGEVbLf8ckNdEc/giphy.gif" alt="GIF cảm ơn bạn đã theo dõi IVS Academy" class="thank-you-gif" loading="lazy" role="presentation">
+            <p style="margin-top: 15px; font-style: italic; color: #555;">Cảm ơn bạn đã ghé thăm website IVS Education!</p>
+        </div>
     </section>
 
-    <div id="footer"></div>
   </main>
 
-  <!-- Script để load header và footer -->
-  <script>
-    // Load header
-    fetch('header.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('header').innerHTML = data;
-      })
-      .catch(error => console.error('Error loading header:', error));
+  <div id="footer">
+      <p style="text-align: center; padding: 20px; color: #888;">Đang tải footer...</p>
+  </div>
 
-    // Load footer
-    fetch('footer.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('footer').innerHTML = data;
-      })
-      .catch(error => console.error('Error loading footer:', error));
-
-    // Load và chèn posts vào carousel
-    document.addEventListener('DOMContentLoaded', function() {
-      fetch('posts.json')
-        .then(response => response.json())
-        .then(posts => {
-          const postList = document.getElementById('post-list');
-          let currentIndex = 0;
-
-          // Chèn các bài viết vào carousel
-          posts.forEach((post, index) => {
-            const postElement = document.createElement('div');
-            postElement.classList.add('post-preview');
-            if (index !== 0) postElement.style.display = 'none'; // Ẩn các slide không phải slide đầu tiên
-            postElement.innerHTML = `
-              <div class="post-image">
-                <img src="${post.image}" alt="${post.title}">
-              </div>
-              <div class="content">
-                <h3>${post.title}</h3>
-                <p>${post.description}</p>
-                <a href="${post.link}">${post.linkText}</a>
-              </div>
-            `;
-            postList.appendChild(postElement);
-          });
-
-          // Logic cho carousel
-          const slides = document.querySelectorAll('.post-preview');
-          const totalSlides = slides.length;
-
-          function showSlide(index) {
-            slides.forEach((slide, i) => {
-              slide.style.display = i === index ? 'flex' : 'none';
-            });
-          }
-
-          document.getElementById('next-slide').addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % totalSlides;
-            showSlide(currentIndex);
-          });
-
-          document.getElementById('prev-slide').addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-            showSlide(currentIndex);
-          });
-
-          // Tự động chuyển slide (tùy chọn)
-          setInterval(() => {
-            currentIndex = (currentIndex + 1) % totalSlides;
-            showSlide(currentIndex);
-          }, 5000); // Chuyển slide mỗi 5 giây
-        })
-        .catch(error => console.error('Error loading posts:', error));
-    });
-  </script>
-
-  <!-- Script chính -->
-  <script src="script.js" defer></script>
+  <script src="js/script.js" defer></script>
 </body>
 </html>
