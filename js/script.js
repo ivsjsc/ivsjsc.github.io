@@ -35,6 +35,7 @@ async function loadComponent(url, elementId) {
 
 /**
  * Khởi tạo các sự kiện cho menu (chủ yếu là mobile) sử dụng event delegation.
+ * Bao gồm xử lý đóng/mở menu mobile, hiệu ứng accordion và toggle class cho nút hamburger.
  * Cần được gọi SAU KHI header đã được tải thành công.
  */
 function initializeMenuEventsDelegation() {
@@ -42,7 +43,7 @@ function initializeMenuEventsDelegation() {
     const headerPlaceholder = document.getElementById('header-placeholder');
     // Nội dung thực sự của header (thẻ <header> bên trong placeholder)
     const headerElement = headerPlaceholder?.querySelector('header'); // Tìm thẻ header cụ thể
-    const overlay = document.querySelector(".overlay");
+    let overlay = document.querySelector(".overlay"); // Dùng let để có thể gán lại
 
     if (!headerElement) {
         console.error("DEBUG: Header content (<header>) not found inside #header-placeholder for delegation.");
@@ -58,7 +59,7 @@ function initializeMenuEventsDelegation() {
     }
 
     // --- Mobile Menu Toggle (Delegated) ---
-    // Gắn sự kiện vào headerPlaceholder để bắt cả nút hamburger nếu nó nằm ngoài thẻ <header>
+    // Gắn sự kiện vào headerPlaceholder để bắt cả nút hamburger
     headerPlaceholder.addEventListener('click', function(event) {
         const hamburger = event.target.closest('.hamburger');
         // Tìm mobile menu bên trong nội dung header đã được tải
@@ -66,9 +67,22 @@ function initializeMenuEventsDelegation() {
 
         if (hamburger && mobileMenu) {
             console.log("DEBUG: Hamburger clicked!");
-            mobileMenu.classList.add('active');
-            if (overlay) overlay.classList.add('active');
-            document.body.classList.add('mobile-menu-active'); // Khóa cuộn trang
+            // --- THÊM/XÓA CLASS CHO NÚT HAMBURGER ---
+            const isAlreadyActive = mobileMenu.classList.contains('active');
+            if (!isAlreadyActive) {
+                // Mở menu
+                mobileMenu.classList.add('active');
+                if (overlay) overlay.classList.add('active');
+                document.body.classList.add('mobile-menu-active'); // Khóa cuộn trang
+                hamburger.classList.add('is-active'); // Thêm class active cho nút hamburger (để tạo hiệu ứng X)
+                hamburger.setAttribute('aria-expanded', 'true'); // Cập nhật ARIA
+            } else {
+                // Nếu bấm hamburger khi menu đang mở -> đóng menu
+                 closeMobileMenu(mobileMenu, overlay);
+                 hamburger.classList.remove('is-active'); // Xóa class active khỏi nút hamburger
+                 hamburger.setAttribute('aria-expanded', 'false'); // Cập nhật ARIA
+            }
+            // --- KẾT THÚC THÊM/XÓA CLASS ---
         }
     });
 
@@ -77,9 +91,17 @@ function initializeMenuEventsDelegation() {
     if (mobileMenuElement) {
         mobileMenuElement.addEventListener('click', function(event) {
             const closeMenu = event.target.closest('.close-menu');
+            const hamburgerButton = headerPlaceholder.querySelector('.hamburger'); // Tìm lại nút hamburger để xóa class
+
             if (closeMenu) {
                 console.log("DEBUG: Close button clicked");
                 closeMobileMenu(mobileMenuElement, overlay); // Đóng menu
+                // --- XÓA CLASS KHI ĐÓNG BẰNG NÚT X ---
+                if(hamburgerButton) {
+                    hamburgerButton.classList.remove('is-active');
+                    hamburgerButton.setAttribute('aria-expanded', 'false');
+                }
+                // --- KẾT THÚC XÓA CLASS ---
             }
 
             // Đóng menu khi bấm link không phải dropdown trong mobile menu
@@ -89,7 +111,15 @@ function initializeMenuEventsDelegation() {
                 if (link && !link.classList.contains('dropdown-toggle')) {
                     console.log("DEBUG: Non-dropdown mobile link clicked");
                     // Thêm độ trễ nhỏ để người dùng thấy link được nhấn trước khi menu đóng
-                    setTimeout(() => closeMobileMenu(mobileMenuElement, overlay), 100);
+                    setTimeout(() => {
+                        closeMobileMenu(mobileMenuElement, overlay);
+                         // --- XÓA CLASS KHI ĐÓNG BẰNG LINK ---
+                         if(hamburgerButton) {
+                            hamburgerButton.classList.remove('is-active');
+                            hamburgerButton.setAttribute('aria-expanded', 'false');
+                         }
+                        // --- KẾT THÚC XÓA CLASS ---
+                    }, 100);
                 }
             }
         });
@@ -97,7 +127,16 @@ function initializeMenuEventsDelegation() {
 
      // Đóng menu khi bấm overlay
      if(overlay) {
-         overlay.addEventListener('click', () => closeMobileMenu(mobileMenuElement, overlay));
+         overlay.addEventListener('click', () => {
+             const hamburgerButton = headerPlaceholder.querySelector('.hamburger'); // Tìm lại nút hamburger
+             closeMobileMenu(mobileMenuElement, overlay);
+             // --- XÓA CLASS KHI ĐÓNG BẰNG OVERLAY ---
+              if(hamburgerButton) {
+                 hamburgerButton.classList.remove('is-active');
+                 hamburgerButton.setAttribute('aria-expanded', 'false');
+              }
+             // --- KẾT THÚC XÓA CLASS ---
+         });
      }
 
     // --- Mobile Dropdown (Accordion - Delegated) ---
@@ -107,12 +146,10 @@ function initializeMenuEventsDelegation() {
             if (!toggle) return; // Không phải toggle mobile dropdown thì dừng
 
             // Ngăn hành vi mặc định CHỈ khi là link # hoặc không có href
-             // Nếu là link thật thì không ngăn, để nó điều hướng và menu sẽ tự đóng bởi logic ở trên
             if (toggle.getAttribute('href') === '#' || !toggle.getAttribute('href')) {
                 event.preventDefault();
             } else {
-                // Không cần return ở đây, vì logic đóng menu khi bấm link đã xử lý ở trên
-                // Nếu người dùng bấm vào toggle có link thật, nó sẽ điều hướng VÀ menu sẽ đóng
+                // Cho phép điều hướng nếu là link thật, menu sẽ đóng bởi logic khác
             }
 
             const parentLi = toggle.closest('li.dropdown, li.dropdown-submenu');
@@ -163,14 +200,28 @@ function initializeMenuEventsDelegation() {
     // Cập nhật link active khi menu đã được tải
     setActiveNavLink();
 
-    console.log("DEBUG: Menu events initialized.");
+    console.log("DEBUG: Menu events initialized (with hamburger animation toggle).");
 }
 
-// Hàm đóng menu mobile
+/**
+ * Hàm đóng menu mobile.
+ * @param {HTMLElement} mobileMenu Phần tử menu mobile.
+ * @param {HTMLElement} overlay Phần tử overlay.
+ */
 function closeMobileMenu(mobileMenu, overlay) {
+    const headerPlaceholder = document.getElementById('header-placeholder'); // Cần tìm lại placeholder
+    const hamburgerButton = headerPlaceholder?.querySelector('.hamburger'); // Tìm nút hamburger trong placeholder
+
     if(mobileMenu) mobileMenu.classList.remove('active');
     if(overlay) overlay.classList.remove('active');
     document.body.classList.remove('mobile-menu-active'); // Mở khóa cuộn trang
+
+    // Xóa class active khỏi nút hamburger
+    if(hamburgerButton) {
+        hamburgerButton.classList.remove('is-active');
+        hamburgerButton.setAttribute('aria-expanded', 'false');
+    }
+
      // Đóng tất cả submenu mobile đang mở
      mobileMenu?.querySelectorAll('.mobile-nav-tabs li.active').forEach(li => {
         li.classList.remove('active');
@@ -197,109 +248,85 @@ function setActiveNavLink() {
     const navLinks = headerContent.querySelectorAll('.nav-tabs a:not(.dropdown-toggle), .mobile-nav-tabs a:not(.dropdown-toggle)');
     let currentPath = window.location.pathname;
 
-    // --- Chuẩn hóa currentPath ---
-    // 1. Xóa index.html nếu có
+    // Chuẩn hóa currentPath (giữ nguyên logic chuẩn hóa)
     if (currentPath.endsWith('/index.html')) {
         currentPath = currentPath.substring(0, currentPath.length - 'index.html'.length);
     }
-    // 2. Đảm bảo luôn bắt đầu bằng /
     if (!currentPath.startsWith('/')) {
         currentPath = '/' + currentPath;
     }
-    // 3. Đảm bảo thư mục gốc là '/' và các thư mục khác kết thúc bằng '/'
-    // Tránh thêm / nếu đường dẫn đã có phần mở rộng file (chứa dấu '.')
     if (currentPath !== '/' && !currentPath.endsWith('/') && !/\.[^/]+$/.test(currentPath)) {
         currentPath += '/';
     }
-     // Trường hợp đặc biệt: nếu path là rỗng sau khi xóa index.html, đặt lại là '/'
-     if (currentPath === '') {
+    if (currentPath === '') {
         currentPath = '/';
     }
-    // --- Kết thúc chuẩn hóa currentPath ---
 
     console.log(`DEBUG: Current Path for Active Link: ${currentPath}`);
 
     let directMatchFound = false;
 
-    // Xóa active cũ trước khi đặt mới
+    // Xóa active cũ
     navLinks.forEach(link => link.classList.remove('active'));
     headerContent.querySelectorAll('.nav-tabs > li > a.dropdown-toggle, .mobile-nav-tabs > li > a.dropdown-toggle').forEach(toggle => toggle.classList.remove('active'));
 
     navLinks.forEach(link => {
         const linkHref = link.getAttribute('href');
-        // Bỏ qua link trống, link neo (#), link tuyệt đối http/https
         if (!linkHref || linkHref === '#' || linkHref.startsWith('http') || linkHref.startsWith('mailto:') || linkHref.startsWith('tel:')) return;
 
-        // --- Chuẩn hóa linkHref ---
+        // Chuẩn hóa linkHref (giữ nguyên logic chuẩn hóa)
         let normalizedLinkHref = linkHref;
-        // 1. Thêm / nếu là đường dẫn tương đối từ gốc
         if (!normalizedLinkHref.startsWith('/')) {
              normalizedLinkHref = '/' + normalizedLinkHref;
         }
-        // 2. Xóa index.html
          if (normalizedLinkHref.endsWith('/index.html')) {
             normalizedLinkHref = normalizedLinkHref.substring(0, normalizedLinkHref.length - 'index.html'.length);
         }
-        // 3. Xử lý thư mục gốc và các thư mục khác
         if (normalizedLinkHref === '') {
              normalizedLinkHref = '/';
         } else if (normalizedLinkHref !== '/' && !normalizedLinkHref.endsWith('/') && !/\.[^/]+$/.test(normalizedLinkHref)) {
              normalizedLinkHref += '/';
         }
-         // --- Kết thúc chuẩn hóa linkHref ---
 
-        // So sánh đường dẫn đã chuẩn hóa
+        // So sánh và đặt active
         if (normalizedLinkHref === currentPath) {
             link.classList.add('active');
             directMatchFound = true;
             console.log(`DEBUG: Direct active link set for: ${linkHref} (Normalized: ${normalizedLinkHref})`);
 
-            // Đánh dấu active cho menu cha (cả desktop và mobile)
+            // Active menu cha cấp 1
             const parentDropdownLi = link.closest('.nav-tabs > li.dropdown, .mobile-nav-tabs > li.dropdown');
             parentDropdownLi?.querySelector(':scope > a.dropdown-toggle')?.classList.add('active');
 
-            // Đánh dấu active cho menu cha cấp 2 (nếu có)
+            // Active menu cha cấp 2 (nếu có)
             const parentSubmenuLi = link.closest('.dropdown-submenu');
             if(parentSubmenuLi){
                  parentSubmenuLi.querySelector(':scope > a.dropdown-toggle')?.classList.add('active');
-                 // Và cả menu cha cấp 1 của submenu đó
                  const topLevelParent = parentSubmenuLi.closest('.nav-tabs > li.dropdown, .mobile-nav-tabs > li.dropdown');
                  topLevelParent?.querySelector(':scope > a.dropdown-toggle')?.classList.add('active');
             }
         }
     });
 
-     // Nếu không có link con nào khớp trực tiếp, thử khớp menu cha
+     // Active menu cha nếu không có khớp trực tiếp (giữ nguyên logic)
      if (!directMatchFound) {
          console.log("DEBUG: No direct match found, checking parent paths...");
          let bestMatchLength = 0;
          let bestMatchToggle = null;
-
          const topLevelToggles = headerContent.querySelectorAll('.nav-tabs > li.dropdown > a.dropdown-toggle, .mobile-nav-tabs > li.dropdown > a.dropdown-toggle');
 
          topLevelToggles.forEach(toggle => {
              const parentLi = toggle.closest('li.dropdown');
              const childLinks = parentLi.querySelectorAll('.dropdown-menu a');
-
              childLinks.forEach(childLink => {
                  const linkHref = childLink.getAttribute('href');
                  if (!linkHref || linkHref === '#' || linkHref.startsWith('http') || linkHref.startsWith('mailto:') || linkHref.startsWith('tel:')) return;
-
-                 // Chuẩn hóa link con
                  let normalizedChildHref = linkHref;
-                  if (!normalizedChildHref.startsWith('/')) {
-                     normalizedChildHref = '/' + normalizedChildHref;
-                 }
-                  if (normalizedChildHref.endsWith('/index.html')) {
-                     normalizedChildHref = normalizedChildHref.substring(0, normalizedChildHref.length - 'index.html'.length);
-                 }
+                 if (!normalizedChildHref.startsWith('/')) { normalizedChildHref = '/' + normalizedChildHref; }
+                 if (normalizedChildHref.endsWith('/index.html')) { normalizedChildHref = normalizedChildHref.substring(0, normalizedChildHref.length - 'index.html'.length); }
                  if (normalizedChildHref === '') normalizedChildHref = '/';
-                 else if (normalizedChildHref !== '/' && !normalizedChildHref.endsWith('/') && !/\.[^/]+$/.test(normalizedChildHref)) {
-                      normalizedChildHref += '/';
-                 }
+                 else if (normalizedChildHref !== '/' && !normalizedChildHref.endsWith('/') && !/\.[^/]+$/.test(normalizedChildHref)) { normalizedChildHref += '/'; }
 
-                 // Kiểm tra currentPath bắt đầu bằng normalizedChildHref
-                 // Ưu tiên khớp dài hơn và không phải chỉ là khớp thư mục gốc '/'
                  if (currentPath.startsWith(normalizedChildHref) && normalizedChildHref.length > bestMatchLength) {
                       if (!(currentPath !== '/' && normalizedChildHref === '/')) {
                           bestMatchLength = normalizedChildHref.length;
@@ -314,7 +341,6 @@ function setActiveNavLink() {
              bestMatchToggle.classList.add('active');
              console.log(`DEBUG: Setting parent active based on best match: ${bestMatchToggle.textContent.trim()}`);
          } else if (currentPath === '/') {
-             // Active link HOME nếu đang ở trang chủ
               const homeLink = headerContent.querySelector('.nav-tabs a[href$="index.html"], .mobile-nav-tabs a[href$="index.html"], .nav-tabs a[href="/"], .mobile-nav-tabs a[href="/"]');
               homeLink?.classList.add('active');
               console.log("DEBUG: Setting HOME active for root path.");
@@ -397,7 +423,6 @@ async function loadLatestPosts() {
         return;
     }
     console.log("DEBUG: Loading latest posts...");
-    // Thêm hiệu ứng loading đơn giản
     postsContainer.innerHTML = '<p style="text-align:center; padding: 20px; color: var(--text-light);">Đang tải bài viết...</p>';
 
     try {
@@ -411,35 +436,41 @@ async function loadLatestPosts() {
             throw new Error("Invalid format: posts.json did not return an array.");
         }
 
-        postsContainer.innerHTML = ''; // Xóa loading
+        postsContainer.innerHTML = '';
 
         if (posts.length === 0) {
             postsContainer.innerHTML = '<p class="no-posts" style="text-align: center; color: var(--text-light);">Chưa có tin nổi bật nào.</p>';
             return;
         }
 
-        posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-        const latestPosts = posts.slice(0, 3); // Lấy 3 bài
+        posts.sort((a, b) => {
+             try {
+                 return new Date(b.date) - new Date(a.date);
+             } catch(e) {
+                 console.warn("Error comparing dates during sort:", a.date, b.date);
+                 return 0;
+             }
+        });
+
+        const latestPosts = posts.slice(0, 3);
 
         latestPosts.forEach(post => {
-            if (post && typeof post === 'object' && post.title && post.url) {
+            if (post && typeof post === 'object' && post.title && post.url) { // Chỉ cần title và url là tối thiểu
                 postsContainer.appendChild(createPostElement(post));
             } else {
-                console.warn("DEBUG: Invalid post data found in posts.json:", post);
+                console.warn("DEBUG: Skipping invalid/incomplete post data in posts.json:", post);
             }
         });
         console.log("DEBUG: Latest posts loaded and displayed.");
 
     } catch (error) {
         console.error('DEBUG: Error loading or processing latest posts:', error);
-        postsContainer.innerHTML = `<p class="error" style="text-align: center; color: red;">Không thể tải tin nổi bật. Vui lòng thử lại sau.</p>`;
+        postsContainer.innerHTML = `<p class="error" style="text-align: center; color: red;">Không thể tải tin nổi bật. Vui lòng kiểm tra lại file posts.json.</p>`;
     }
 }
 
 /**
  * Tạo phần tử HTML cho một bài viết.
- * @param {object} post Dữ liệu bài viết.
- * @returns {HTMLElement} Phần tử div.post-card.
  */
 function createPostElement(post) {
     const postDiv = document.createElement('div');
@@ -475,7 +506,6 @@ function createPostElement(post) {
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DEBUG: DOM fully loaded. Starting dynamic load setup.");
 
-    // Đảm bảo có phần tử overlay trong DOM
     if (!document.querySelector('.overlay')) {
         const overlayDiv = document.createElement('div');
         overlayDiv.className = 'overlay';
@@ -483,7 +513,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("DEBUG: Overlay element created dynamically.");
     }
 
-    // Tải header và footer động, sau đó khởi tạo menu và link active
     Promise.all([
         loadComponent('/header.html', 'header-placeholder'),
         loadComponent('/footer.html', 'footer-placeholder')
@@ -498,10 +527,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("DEBUG: Critical error during component loading. Menu or other features might be broken.", error);
     });
 
-    // Tải bài viết mới nhất
     loadLatestPosts();
-
-    // Khởi tạo đồng hồ đếm ngược (nếu có)
     startRedirectCountdown();
 
     console.log("DEBUG: Initial dynamic load setup sequence started.");
