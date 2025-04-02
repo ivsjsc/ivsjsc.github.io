@@ -1,273 +1,402 @@
-// Load header
-document.getElementById('header').innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải header...</p>';
-fetch('header.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('header').innerHTML = data;
-        initializeMenuEvents();
-    })
-    .catch(() => document.getElementById('header').innerHTML = '<p style="text-align: center; color: red;">Lỗi khi tải header!</p>');
+// Hàm tải nội dung header và footer một cách an toàn
+function loadComponent(url, elementId) {
+    const element = document.getElementById(elementId);
+    if (!element) {
+        console.error(`Element with ID "${elementId}" not found.`);
+        return Promise.reject(`Element with ID "${elementId}" not found.`);
+    }
+    // Hiển thị thông báo đang tải
+    element.innerHTML = `<p style="text-align: center; padding: 20px; color: #888;">Đang tải ${elementId}...</p>`;
 
-// Load footer
-document.getElementById('footer').innerHTML = '<p style="text-align: center; padding: 20px;">Đang tải footer...</p>';
-fetch('footer.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('footer').innerHTML = data;
-    })
-    .catch(error => {
-        console.error('Error loading footer:', error);
-        document.getElementById('footer').innerHTML = '<footer><p style="text-align: center; color: red;">Không thể tải footer. Vui lòng thử lại sau.</p></footer>';
-    });
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Không thể tải ${url}. Status: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(data => {
+            element.innerHTML = data;
+            console.log(`${elementId} loaded successfully.`);
+            // Nếu là header, khởi tạo sự kiện menu sau khi tải xong
+            if (elementId === 'header') {
+                initializeMenuEvents();
+            }
+        })
+        .catch(error => {
+            console.error(`Lỗi khi tải ${elementId}:`, error);
+            // Hiển thị thông báo lỗi rõ ràng hơn
+            element.innerHTML = `<div style="text-align: center; padding: 20px; color: red; border: 1px solid red; border-radius: 5px;">Lỗi khi tải ${elementId}. Vui lòng kiểm tra đường dẫn hoặc kết nối mạng.</div>`;
+        });
+}
 
-// Initialize menu events after header is loaded
+// Khởi tạo các sự kiện cho menu (cả desktop và mobile)
 function initializeMenuEvents() {
+    console.log("Initializing menu events...");
     const hamburger = document.querySelector(".hamburger");
+    // SỬA LỖI: Sử dụng đúng class '.mobile-menu' thay vì '.nav-menu'
     const mobileMenu = document.querySelector(".mobile-menu");
     const closeMenu = document.querySelector(".close-menu");
     const overlay = document.querySelector(".overlay");
-    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-    const submenuToggles = document.querySelectorAll('.submenu-toggle');
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle'); // Bao gồm cả desktop và mobile
+    const submenuToggles = document.querySelectorAll('.dropdown-submenu > a'); // Selector cho submenu
+
+    // Kiểm tra xem các phần tử có tồn tại không
+    if (!hamburger) console.error("Hamburger button not found.");
+    if (!mobileMenu) console.error("Mobile menu element (.mobile-menu) not found.");
+    if (!closeMenu) console.error("Close menu button not found.");
+    if (!overlay) console.error("Overlay element not found.");
 
     if (hamburger && mobileMenu && closeMenu && overlay) {
-        // Open menu
+        // Mở menu mobile khi nhấn hamburger
         hamburger.addEventListener('click', () => {
+            console.log("Hamburger clicked");
             mobileMenu.classList.add('active');
             overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden'; // Ngăn cuộn trang khi menu mở
         });
 
-        // Close menu
+        // Đóng menu mobile khi nhấn nút đóng
         closeMenu.addEventListener('click', () => {
+            console.log("Close button clicked");
             mobileMenu.classList.remove('active');
             overlay.classList.remove('active');
-            document.body.style.overflow = '';
+            document.body.style.overflow = ''; // Cho phép cuộn trang lại
         });
 
-        // Close menu when clicking overlay
+        // Đóng menu mobile khi nhấn vào overlay
         overlay.addEventListener('click', () => {
+            console.log("Overlay clicked");
             mobileMenu.classList.remove('active');
             overlay.classList.remove('active');
             document.body.style.overflow = '';
         });
-
-        // Dropdown toggle (desktop and mobile)
-        dropdownToggles.forEach(toggle => {
-            toggle.addEventListener('click', function (e) {
-                e.preventDefault();
-                const dropdownMenu = this.nextElementSibling;
-                if (dropdownMenu) {
-                    const isExpanded = dropdownMenu.classList.contains('show');
-                    this.setAttribute('aria-expanded', !isExpanded);
-                    dropdownMenu.classList.toggle('show');
-                    const parent = this.closest('.dropdown');
-                    parent.classList.toggle('active');
-                }
-            });
-        });
-
-        // Submenu toggle (mobile only)
-        submenuToggles.forEach(toggle => {
-            toggle.addEventListener('click', function (e) {
-                if (window.innerWidth <= 992) {
-                    e.preventDefault();
-                    const submenu = this.nextElementSibling;
-                    if (submenu) {
-                        submenu.classList.toggle('show');
-                    }
-                }
-            });
-        });
+    } else {
+        console.warn("Could not initialize mobile menu interactions because some elements are missing.");
     }
-}
 
-// Ensure menu events are initialized after header is loaded
-const headerElement = document.getElementById('header');
-if (headerElement.innerHTML) {
-    initializeMenuEvents();
-} else {
-    const checkHeader = setInterval(() => {
-        if (headerElement.innerHTML) {
-            clearInterval(checkHeader);
-            initializeMenuEvents();
+    // Xử lý dropdown cho cả desktop và mobile
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            // Chỉ ngăn chặn hành vi mặc định nếu là link '#' hoặc javascript:void(0)
+            if (this.getAttribute('href') === '#' || this.getAttribute('href') === 'javascript:void(0)') {
+                e.preventDefault();
+            }
+
+            const parentLi = this.closest('li.dropdown, li.dropdown-submenu'); // Tìm li cha gần nhất là dropdown hoặc submenu
+            if (!parentLi) return;
+
+            const dropdownMenu = parentLi.querySelector('.dropdown-menu, .dropdown-submenu > .dropdown-submenu'); // Tìm menu con trực tiếp
+
+            if (dropdownMenu) {
+                // Đóng tất cả các menu khác cùng cấp hoặc menu cha khác
+                const siblingMenus = parentLi.parentElement.querySelectorAll('.dropdown-menu, .dropdown-submenu > .dropdown-submenu');
+                siblingMenus.forEach(menu => {
+                    if (menu !== dropdownMenu && !menu.contains(dropdownMenu)) {
+                         menu.classList.remove('show');
+                         menu.closest('li.dropdown, li.dropdown-submenu')?.classList.remove('active');
+                    }
+                });
+
+                // Toggle menu hiện tại
+                const isCurrentlyActive = parentLi.classList.contains('active');
+                parentLi.classList.toggle('active', !isCurrentlyActive);
+                dropdownMenu.classList.toggle('show', !isCurrentlyActive);
+
+                // Cập nhật aria-expanded
+                this.setAttribute('aria-expanded', !isCurrentlyActive);
+            }
+        });
+    });
+
+
+    // Đóng dropdown khi click ra ngoài (cho desktop)
+    document.addEventListener('click', function(event) {
+        if (window.innerWidth > 992) { // Chỉ áp dụng cho desktop
+            const openDropdown = document.querySelector('.nav-tabs .dropdown.active');
+            if (openDropdown && !openDropdown.contains(event.target)) {
+                openDropdown.classList.remove('active');
+                openDropdown.querySelector('.dropdown-menu')?.classList.remove('show');
+                openDropdown.querySelector('.dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+            }
         }
-    }, 100);
+    });
+
+    console.log("Menu events initialized.");
 }
 
-// Redirect timer logic (for index.html)
-const redirectUrl = "https://facebook.com/hr.ivsacademy";
-const countdownDuration = 120000; // 120 seconds
-const redirectTimer = document.getElementById('redirect-timer');
-const cancelButton = document.getElementById("cancel-redirect");
-
+// Redirect timer logic (chỉ chạy nếu các phần tử tồn tại)
 function startRedirectCountdown() {
-    if (redirectTimer && cancelButton) {
-        let timeLeft = countdownDuration / 1000;
-        const redirectTimeout = setInterval(() => {
+    const redirectUrl = "https://facebook.com/hr.ivsacademy";
+    const countdownDuration = 120; // 120 giây
+    const redirectTimerElement = document.getElementById('redirect-timer');
+    const cancelButton = document.getElementById("cancel-redirect");
+
+    if (redirectTimerElement && cancelButton) {
+        let timeLeft = countdownDuration;
+        let redirectTimeoutId = null; // Lưu ID của interval
+
+        const updateTimer = () => {
             if (timeLeft <= 0) {
-                clearInterval(redirectTimeout);
-                window.location.href = redirectUrl;
+                clearInterval(redirectTimeoutId);
+                // Chỉ chuyển hướng nếu người dùng chưa hủy
+                if (!cancelButton.disabled) {
+                    window.location.href = redirectUrl;
+                }
             } else {
-                redirectTimer.textContent = `Website sẽ tự động chuyển đến Fanpage IVS Academy trong ${Math.floor(timeLeft / 60)} phút ${timeLeft % 60} giây...`;
+                // Cập nhật nội dung của phần tử chứa timer, không phải cả redirect-notice
+                 const timerDisplay = redirectTimerElement.querySelector('p') || redirectTimerElement; // Tìm p hoặc dùng chính redirectTimerElement
+                 timerDisplay.textContent = `Website sẽ tự động chuyển đến Fanpage IVS Academy trong ${Math.floor(timeLeft / 60)} phút ${timeLeft % 60} giây...`;
                 timeLeft--;
             }
-        }, 1000);
+        };
 
+        // Gọi lần đầu để hiển thị ngay lập tức
+        updateTimer();
+        // Bắt đầu đếm ngược
+        redirectTimeoutId = setInterval(updateTimer, 1000);
+
+        // Xử lý nút hủy
         cancelButton.addEventListener("click", () => {
-            clearInterval(redirectTimeout);
+            clearInterval(redirectTimeoutId); // Dừng đếm ngược
             cancelButton.textContent = "Đã hủy chuyển hướng";
-            cancelButton.disabled = true;
-            redirectTimer.textContent = "Chuyển hướng đã bị hủy.";
+            cancelButton.disabled = true; // Vô hiệu hóa nút
+             const timerDisplay = redirectTimerElement.querySelector('p') || redirectTimerElement;
+             timerDisplay.textContent = "Chuyển hướng đã bị hủy.";
+            console.log("Redirect cancelled by user.");
         });
+    } else {
+        // console.log("Redirect timer elements not found, skipping countdown initialization.");
     }
 }
 
-// Load and display posts (for index.html)
+
+// Load và hiển thị bài viết nổi bật (chỉ chạy nếu các phần tử tồn tại)
 async function loadPosts() {
+    const postListElement = document.getElementById('post-list');
+    if (!postListElement) {
+        // console.log("Post list element not found, skipping post loading.");
+        return; // Không làm gì nếu không có phần tử #post-list
+    }
+
     try {
         const response = await fetch('posts.json');
-        if (!response.ok) throw new Error('Failed to load posts');
+        if (!response.ok) throw new Error('Không thể tải file posts.json');
         const posts = await response.json();
-        
-        const postList = document.getElementById('post-list');
-        if (!postList) return; // Skip if post-list doesn't exist (e.g., on summercamp.html)
-        
+
         if (posts.length === 0) {
-            postList.innerHTML = '<p class="no-posts">No featured posts available</p>';
+            postListElement.innerHTML = '<p class="no-posts" style="text-align: center; color: #888;">Hiện chưa có bài viết nổi bật nào.</p>';
             return;
         }
-        
-        // Clear existing content
-        postList.innerHTML = '';
-        
-        // Create post elements
+
+        // Xóa nội dung cũ
+        postListElement.innerHTML = '';
+
+        // Tạo và thêm các phần tử bài viết
         posts.forEach(post => {
             const postElement = createPostElement(post);
-            postList.appendChild(postElement);
+            postListElement.appendChild(postElement);
         });
-        
-        // Initialize carousel if desktop
+
+        // Khởi tạo carousel nếu là màn hình desktop
         if (window.innerWidth > 768) {
             initCarousel();
+        } else {
+            // Đảm bảo hiển thị dạng grid/flex trên mobile
+             postListElement.style.display = 'grid'; // Hoặc 'flex' tùy theo CSS mong muốn
+             postListElement.style.gridTemplateColumns = 'repeat(auto-fit, minmax(250px, 1fr))'; // Ví dụ grid
+             postListElement.style.gap = '15px';
         }
+
     } catch (error) {
-        console.error('Error loading posts:', error);
-        const postList = document.getElementById('post-list');
-        if (postList) {
-            postList.innerHTML = '<p class="error">Error loading featured posts</p>';
-        }
+        console.error('Lỗi khi tải bài viết:', error);
+        postListElement.innerHTML = '<p class="error" style="text-align: center; color: red;">Không thể tải danh sách bài viết.</p>';
     }
 }
 
+
+// Hàm tạo phần tử HTML cho một bài viết
 function createPostElement(post) {
     const postDiv = document.createElement('div');
-    postDiv.className = 'post-preview';
-    
+    postDiv.className = 'post-preview'; // Class này có thể dùng cho cả carousel và grid
+
+    // Sử dụng ảnh fallback nếu ảnh gốc lỗi
+    const fallbackImage = 'images/fallback.jpg'; // Đường dẫn đến ảnh fallback của bạn
+
     postDiv.innerHTML = `
         <div class="post-image">
-            <img src="${post.image}" alt="${post.title}" loading="lazy" onerror="this.src='/images/fallback.jpg';">
+            <img src="${post.image}"
+                 alt="${post.title || 'Hình ảnh bài viết'}"
+                 loading="lazy"
+                 onerror="this.onerror=null; this.src='${fallbackImage}'; console.warn('Image failed to load: ${post.image}')">
             ${post.hot ? '<span class="hot-label">HOT</span>' : ''}
         </div>
         <div class="post-content">
-            <h3><a href="${post.url}">${post.title}</a></h3>
-            <p>${post.excerpt}</p>
-            <a href="${post.url}" class="view-more">Xem thêm</a>
+            <h3><a href="${post.url || '#'}">${post.title || 'Tiêu đề bài viết'}</a></h3>
+            <p>${post.excerpt || 'Nội dung tóm tắt...'}</p>
+            <a href="${post.url || '#'}" class="view-more">Xem thêm</a>
         </div>
     `;
-    
+
     return postDiv;
 }
 
+
+// Khởi tạo carousel (chỉ cho desktop)
 function initCarousel() {
     const postList = document.getElementById('post-list');
-    const posts = document.querySelectorAll('.post-preview');
+    // Lấy lại danh sách posts sau khi đã được loadPosts() tạo ra
+    const posts = postList.querySelectorAll('.post-preview');
     const prevBtn = document.getElementById('prev-slide');
     const nextBtn = document.getElementById('next-slide');
-    
-    if (!postList || posts.length === 0 || !prevBtn || !nextBtn) return;
-    
+
+    // Chỉ khởi tạo nếu có đủ các phần tử và nhiều hơn 1 bài viết
+    if (!postList || posts.length <= 1 || !prevBtn || !nextBtn) {
+        // Nếu chỉ có 1 bài, ẩn nút điều khiển
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
+        // Đảm bảo bài viết duy nhất được hiển thị đúng
+        if (posts.length === 1) {
+             posts[0].style.transform = 'translateX(0%)';
+             posts[0].style.position = 'relative'; // Hoặc 'static' tùy CSS
+             postList.style.height = 'auto'; // Điều chỉnh chiều cao nếu cần
+        }
+        console.log("Carousel initialization skipped (not enough posts or elements missing).");
+        return;
+    }
+
+     // Hiển thị lại nút nếu trước đó bị ẩn
+     prevBtn.style.display = 'block';
+     nextBtn.style.display = 'block';
+
     let currentIndex = 0;
     const totalPosts = posts.length;
-    
-    // Position posts
+    let slideInterval = null; // Biến lưu interval
+
+     // Reset styles có thể bị ảnh hưởng bởi mobile view
+     postList.style.display = 'block'; // Đảm bảo là block để position absolute hoạt động
+     postList.style.gridTemplateColumns = '';
+     postList.style.gap = '';
+     posts.forEach(p => {
+         p.style.position = 'absolute'; // Cần thiết cho carousel
+         p.style.width = '100%';
+         p.style.height = '100%';
+     });
+
+
+    // Định vị các bài viết ban đầu
     posts.forEach((post, index) => {
         post.style.transform = `translateX(${index * 100}%)`;
     });
-    
-    // Show current slide
+
+    // Hàm hiển thị slide
     function showSlide(index) {
-        if (index >= totalPosts) currentIndex = 0;
-        if (index < 0) currentIndex = totalPosts - 1;
-        
+        // Xử lý vòng lặp index
+        if (index >= totalPosts) {
+            currentIndex = 0;
+        } else if (index < 0) {
+            currentIndex = totalPosts - 1;
+        } else {
+            currentIndex = index;
+        }
+
+        // Di chuyển các slide
         posts.forEach((post, i) => {
             post.style.transform = `translateX(${(i - currentIndex) * 100}%)`;
         });
     }
-    
-    // Navigation buttons
-    prevBtn.addEventListener('click', () => {
-        currentIndex--;
-        showSlide(currentIndex);
-    });
-    
-    nextBtn.addEventListener('click', () => {
-        currentIndex++;
-        showSlide(currentIndex);
-    });
-    
-    // Auto slide
-    let slideInterval = setInterval(() => {
-        currentIndex++;
-        showSlide(currentIndex);
-    }, 5000);
-    
-    // Pause on hover
+
+    // Xử lý nút Previous
+    prevBtn.onclick = () => { // Sử dụng onclick để tránh gắn nhiều listener nếu resize
+        showSlide(currentIndex - 1);
+        resetInterval(); // Reset interval khi người dùng tương tác
+    };
+
+    // Xử lý nút Next
+    nextBtn.onclick = () => {
+        showSlide(currentIndex + 1);
+        resetInterval();
+    };
+
+    // Hàm reset và bắt đầu lại auto slide
+    function resetInterval() {
+        clearInterval(slideInterval); // Xóa interval cũ
+        slideInterval = setInterval(() => {
+            showSlide(currentIndex + 1);
+        }, 5000); // Bắt đầu interval mới
+    }
+
+    // Bắt đầu auto slide lần đầu
+    resetInterval();
+
+    // Tạm dừng khi hover chuột vào carousel
     postList.addEventListener('mouseenter', () => {
         clearInterval(slideInterval);
     });
-    
+
+    // Tiếp tục khi rời chuột khỏi carousel
     postList.addEventListener('mouseleave', () => {
-        slideInterval = setInterval(() => {
-            currentIndex++;
-            showSlide(currentIndex);
-        }, 5000);
+        resetInterval();
     });
+
+    console.log("Carousel initialized.");
 }
 
-// Responsive adjustments for carousel (for index.html)
-window.addEventListener('resize', () => {
+
+// Điều chỉnh responsive cho carousel
+function handleResize() {
+    const postList = document.getElementById('post-list');
+    if (!postList) return;
+
     if (window.innerWidth <= 768) {
-        const postList = document.getElementById('post-list');
-        if (postList) {
-            postList.style.height = 'auto';
-            const posts = document.querySelectorAll('.post-preview');
-            posts.forEach(post => {
-                post.style.transform = 'none';
-                post.style.position = 'relative';
-            });
-        }
+        // Mobile view: Dọn dẹp carousel, chuyển sang grid/flex
+        clearInterval(window.slideInterval); // Dừng auto slide nếu có
+         postList.style.display = 'grid';
+         postList.style.gridTemplateColumns = 'repeat(auto-fit, minmax(250px, 1fr))';
+         postList.style.gap = '15px';
+         postList.style.height = 'auto'; // Reset chiều cao
+        const posts = postList.querySelectorAll('.post-preview');
+        posts.forEach(post => {
+            post.style.position = 'relative'; // Hoặc 'static'
+            post.style.transform = 'none';
+            post.style.width = 'auto';
+            post.style.height = 'auto';
+        });
+        // Ẩn nút điều khiển carousel
+        const prevBtn = document.getElementById('prev-slide');
+        const nextBtn = document.getElementById('next-slide');
+        if(prevBtn) prevBtn.style.display = 'none';
+        if(nextBtn) nextBtn.style.display = 'none';
+
     } else {
-        // Reinitialize carousel on desktop
-        if (document.getElementById('post-list')) {
-            initCarousel();
+        // Desktop view: Khởi tạo lại carousel nếu chưa có hoặc đã bị dọn dẹp
+        // Kiểm tra trạng thái để tránh khởi tạo lại không cần thiết
+        if (postList.style.display !== 'block') {
+             initCarousel();
         }
-    }
-});
-
-// Initialize page-specific features
-function initializePageFeatures() {
-    // Start redirect countdown (for index.html)
-    if (document.getElementById('redirect-timer') && document.getElementById('cancel-redirect')) {
-        startRedirectCountdown();
-    }
-
-    // Load posts and initialize carousel (for index.html)
-    if (document.getElementById('post-list')) {
-        loadPosts();
     }
 }
 
-// Run page-specific features after DOM is fully loaded
+// Lắng nghe sự kiện resize
+window.addEventListener('resize', handleResize);
+
+
+// --- Chạy các hàm khởi tạo khi DOM sẵn sàng ---
 document.addEventListener('DOMContentLoaded', () => {
-    initializePageFeatures();
+    console.log("DOM fully loaded.");
+    // Load header trước, sau đó khởi tạo menu trong callback của loadComponent
+    Promise.all([
+        loadComponent('header.html', 'header'),
+        loadComponent('footer.html', 'footer')
+    ]).then(() => {
+        console.log("Header and Footer loaded.");
+        // Các hàm khởi tạo khác sẽ chạy sau khi header/footer load xong
+        // hoặc được gọi trong callback của loadComponent('header.html', 'header')
+        startRedirectCountdown(); // Khởi tạo đếm ngược (nếu có)
+        loadPosts().then(() => { // Load bài viết
+             handleResize(); // Gọi handleResize sau khi load post để áp dụng đúng layout ban đầu
+        });
+    }).catch(error => {
+        console.error("Error loading initial components:", error);
+    });
 });
