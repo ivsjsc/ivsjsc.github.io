@@ -96,6 +96,73 @@
             background-color: var(--primary-color);
             text-decoration: none;
         }
+
+        /* CSS cho phần video mới */
+        .video-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Lưới responsive */
+            gap: 30px;
+            max-width: 1200px;
+            margin: 60px auto; /* Tăng khoảng cách trên dưới */
+            padding: 0 20px; /* Padding ngang */
+        }
+        .video-container {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden; /* Đảm bảo iframe vừa vặn */
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+         .video-container:hover {
+             box-shadow: var(--box-shadow-hover);
+             transform: translateY(-5px);
+         }
+        .video-container iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9; /* Tỷ lệ khung hình video */
+            border: none;
+            display: block; /* Loại bỏ khoảng trắng dưới iframe */
+        }
+        .video-caption {
+            padding: 15px;
+            text-align: center;
+            background-color: var(--light-bg-alt); /* Nền nhẹ cho caption */
+            border-top: 1px solid var(--border-color);
+            margin-top: auto; /* Đẩy caption xuống dưới */
+        }
+        .video-caption a {
+            display: block; /* Mỗi link một dòng */
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 0.9rem;
+            line-height: 1.4; /* Tăng line-height cho dễ đọc */
+        }
+        .video-caption a:last-child {
+            margin-bottom: 0;
+        }
+        .video-caption a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        /* CSS cho phần cảm ơn */
+        .thank-you-section {
+            text-align: center;
+            padding: 40px 20px;
+            /* background-color: var(--light-color); */ /* Có thể bỏ nền nếu muốn */
+            margin-top: 20px; /* Giảm khoảng cách với video */
+            margin-bottom: 40px; /* Khoảng cách với form */
+        }
+        .thank-you-gif {
+            max-width: 250px; /* Giới hạn kích thước GIF */
+            height: auto;
+            border-radius: var(--border-radius);
+            margin: 0 auto; /* Căn giữa */
+        }
+
         .consultation-form-section {
             padding: 60px 20px;
             background-color: var(--light-bg-alt);
@@ -113,11 +180,9 @@
             margin-left: auto;
             margin-right: auto;
         }
-
-        /* CSS cho Form Tư vấn mới */
         #consultation-form {
-            max-width: 600px; /* Giới hạn chiều rộng form */
-            margin: 0 auto; /* Căn giữa */
+            max-width: 600px;
+            margin: 0 auto;
             background-color: var(--white);
             padding: 30px;
             border-radius: var(--border-radius);
@@ -125,11 +190,11 @@
             border: 1px solid var(--border-color);
         }
         .form-group {
-            margin-bottom: 20px; /* Khoảng cách giữa các trường */
+            margin-bottom: 20px;
         }
         .form-group label {
-            display: block; /* Nhãn hiển thị trên 1 dòng riêng */
-            margin-bottom: 8px; /* Khoảng cách giữa nhãn và input */
+            display: block;
+            margin-bottom: 8px;
             color: var(--primary-color);
             font-weight: 500;
             font-size: 0.95rem;
@@ -138,10 +203,10 @@
         .form-group input[type="tel"],
         .form-group input[type="email"],
         .form-group textarea {
-            width: 100%; /* Input chiếm hết chiều rộng */
-            padding: 12px 15px; /* Padding bên trong input */
+            width: 100%;
+            padding: 12px 15px;
             border: 1px solid var(--border-color);
-            border-radius: 5px; /* Bo góc nhẹ */
+            border-radius: 5px;
             font-size: 1rem;
             color: var(--text-color);
             transition: border-color 0.3s ease;
@@ -149,34 +214,36 @@
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--secondary-color); /* Đổi màu viền khi focus */
-            box-shadow: 0 0 0 2px rgba(255, 87, 51, 0.2); /* Thêm hiệu ứng focus */
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(255, 87, 51, 0.2);
         }
         .form-group textarea {
-            resize: vertical; /* Cho phép thay đổi chiều cao textarea */
-            min-height: 100px; /* Chiều cao tối thiểu */
+            resize: vertical;
+            min-height: 100px;
         }
         .form-submit {
-            text-align: center; /* Căn giữa nút gửi */
+            text-align: center;
             margin-top: 30px;
         }
-        /* Sử dụng lại class cta-button đã có */
         #consultation-form .cta-button {
-             /* Kế thừa style từ styles.css */
              cursor: pointer;
         }
         .form-note {
             text-align: center;
             font-size: 0.85rem;
-            color: var(--text-light);
+            color: #6c757d; /* Sử dụng màu --text-light hoặc xám nhạt hơn */
             margin-top: 15px;
         }
 
          /* Responsive */
         @media (max-width: 768px) {
-            .posts-grid { grid-template-columns: 1fr; }
+            .posts-grid, .video-section { grid-template-columns: 1fr; }
             .consultation-form-section { padding: 40px 15px; }
             #consultation-form { padding: 20px; }
+            .video-section { margin: 40px auto; }
+        }
+        @media (max-width: 576px) {
+            .video-section { gap: 20px; }
         }
         /* Placeholder Styling */
         #header-placeholder, #footer-placeholder {
@@ -206,6 +273,46 @@
             </div>
         </section>
 
+        <section class="video-section">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/-U9JQvUYB94" title="Về chương trình Phi lợi nhuận Hãy Nói" allowfullscreen loading="lazy"></iframe>
+            <div class="video-caption">
+              <a href="https://forms.gle/TH9n3MV5Ty4E46TL7" target="_blank" rel="noopener">Đăng ký Talkshow 'Hãy Nói'</a>
+              <a href="https://aistudio.instagram.com/ai/663072466085450/" target="_blank" rel="noopener">Chatbot Talkie - Tư vấn tâm lý học sinh</a>
+            </div>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/2qktCUrScMs" title="Trại hè Quốc tế tại Philippines" allowfullscreen loading="lazy"></iframe>
+            <div class="video-caption">
+              <a href="summercamp.html">Thông tin chi tiết về Trại hè quốc tế tại CEBU</a>
+            </div>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/_T8ObF-rz8U" title="Video giới thiệu STEAM+ Intelligence Model" allowfullscreen loading="lazy"></iframe>
+            <div class="video-caption">
+              <a href="https://drive.google.com/file/d/19EcVr6rAlCYfnqPuwcqfiryDB3Z2CEQB/view?usp=drive_link" target="_blank" rel="noopener">Tham khảo chương trình STEAM+ Intelligence Model</a>
+            </div>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/3XzfJboNwcQ" title="Video giới thiệu IVS Academy" allowfullscreen loading="lazy"></iframe>
+            <div class="video-caption">
+              <a href="https://drive.google.com/file/d/1BE_IwpPVQMB8tOVMrIsIMB9YCDvWPaQr/view?usp=drive_link" target="_blank" rel="noopener">Tham khảo chương trình KNS tích hợp tiếng Anh LIFEMinds</a>
+            </div>
+          </div>
+
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/videoseries?si=pT0XACyTQeygHNm2&list=PLwqdiwWIIO2ea6HZlKDVsCBTSJ-vooIOC" title="Playlist IVS's song" allowfullscreen loading="lazy"></iframe>
+            <div class="video-caption">
+              <a href="https://www.youtube.com/@integratevisionsynergy" target="_blank" rel="noopener">Kênh Youtube IVS Academy</a>
+            </div>
+          </div>
+        </section>
+        <section class="thank-you-section">
+          <img src="https://media4.giphy.com/media/nftYWGEVbLf8ckNdEc/giphy.gif" alt="GIF cảm ơn bạn đã theo dõi IVS Academy" class="thank-you-gif" loading="lazy">
+        </section>
         <div id="redirect-timer" class="redirect-notice" style="display: none;">
             <p>Website sẽ tự động chuyển đến Fanpage IVS Academy trong 2 phút 00 giây...</p>
             <button id="cancel-redirect" class="btn btn-warning">Hủy Chuyển Hướng</button>
@@ -241,7 +348,7 @@
                      </div>
                      <p class="form-note">Lưu ý: Nút gửi sẽ mở ứng dụng email mặc định trên thiết bị của bạn.</p>
                 </form>
-                 </div>
+            </div>
         </section>
     </main>
 
