@@ -158,6 +158,28 @@ function initializeMainMenuEvents() {
         }
     });
 
+    // Handle dropdown toggle for mobile
+    mainNav.addEventListener('click', function(event) {
+        const toggleLink = event.target.closest('li.dropdown > a.dropdown-toggle, li.dropdown-submenu > a.dropdown-toggle');
+
+        if (toggleLink) {
+            event.preventDefault();
+            const parentLi = toggleLink.closest('li.dropdown, li.dropdown-submenu');
+            const subMenu = parentLi.querySelector(':scope > .dropdown-menu');
+
+            if (window.innerWidth < 768) { // Only apply for mobile
+                const isActive = parentLi.classList.contains('active');
+                parentLi.classList.toggle('active', !isActive);
+
+                if (!isActive) {
+                    subMenu.style.maxHeight = subMenu.scrollHeight + "px"; // Expand menu
+                } else {
+                    subMenu.style.maxHeight = "0"; // Collapse menu
+                }
+            }
+        }
+    });
+
     // --- Đóng menu/dropdown khi click ra ngoài ---
     document.addEventListener('click', function(event) {
          // Nếu click bên ngoài header VÀ menu mobile đang mở -> đóng menu mobile

@@ -1,0 +1,35 @@
+/* Dropdown menu styles for mobile */
+.nav-tab-menu .dropdown-menu {
+    display: none; /* Hide dropdown menu by default */
+    position: static; /* Ensure static positioning for mobile */
+    max-height: 0; /* Initial height is 0 */
+    overflow: hidden; /* Hide overflowing content */
+    transition: max-height 0.3s ease; /* Smooth transition for height */
+}
+
+.nav-tab-menu .dropdown.active > .dropdown-menu {
+    display: block; /* Show dropdown menu when active */
+    max-height: 500px; /* Set a maximum height (adjust as needed) */
+}
+
+.nav-tab-menu .dropdown-menu.show {
+    display: block; /* Ensure visibility when 'show' class is added */
+    max-height: 500px; /* Set maximum height */
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    .nav-tab-menu {
+        flex-direction: column; /* Stack menu items vertically */
+    }
+
+    .nav-tab-menu .dropdown > a {
+        display: flex;
+        justify-content: space-between; /* Align toggle icon to the right */
+        align-items: center;
+    }
+
+    .nav-tab-menu .dropdown-menu {
+        padding-left: 20px; /* Add padding for submenu items */
+    }
+}
