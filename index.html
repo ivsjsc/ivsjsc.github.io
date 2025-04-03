@@ -158,10 +158,29 @@
         // Gọi hàm tải tin tức khi trang được tải
         document.addEventListener('DOMContentLoaded', loadNews);
 
-        // Tải Header và Footer (Giả định hàm này có trong main.js)
-        // Nếu chưa có, bạn cần thêm hàm loadComponent vào main.js
-        // loadComponent('header-placeholder', 'header.html');
-        // loadComponent('footer-placeholder', 'footer.html');
+        // Hàm tải thành phần HTML từ file
+        async function loadComponent(elementId, url) {
+            const element = document.getElementById(elementId);
+            if (!element) {
+                console.error(`Element with ID "${elementId}" not found.`);
+                return;
+            }
+
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Failed to load ${url}: ${response.statusText}`);
+                }
+                const html = await response.text();
+                element.innerHTML = html;
+            } catch (error) {
+                console.error(`Error loading component from ${url}:`, error);
+            }
+        }
+
+        // Tải Header và Footer
+        loadComponent('header-placeholder', 'header.html');
+        loadComponent('footer-placeholder', 'footer.html');
     </script>
 
 </body>

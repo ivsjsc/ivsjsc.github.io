@@ -3,6 +3,7 @@
 /*=================================================================
   0. Global Settings & Variables
 =================================================================*/
+/* Global Variables */
 :root {
   --primary-color: #3b82f6; /* blue-500 */
   --secondary-color: #8b5cf6; /* purple-600 */
@@ -13,8 +14,8 @@
   --bg-white: #ffffff;
   --font-sans: 'Inter', sans-serif;
   --container-padding: 1rem;
-  --header-height: 60px; /* Chiều cao header để tính toán */
-  --menu-transition-duration: 0.3s; /* Thời gian transition cho menu */
+  --header-height: 60px;
+  --menu-transition-duration: 0.3s;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -32,7 +33,6 @@ body.mobile-menu-active { overflow: hidden; }
 /*=================================================================
 1. Base Element Styles
 =================================================================*/
-/* ... (Giữ nguyên các style base từ phiên bản trước) ... */
 h1, h2, h3, h4, h5, h6 { color: var(--text-dark); margin-bottom: 0.75rem; font-weight: 700; line-height: 1.3; }
 h1 { font-size: 2.25rem; } h2 { font-size: 1.875rem; } h3 { font-size: 1.25rem; }
 h4 { font-size: 1.125rem; } h5 { font-size: 1rem; } h6 { font-size: 0.875rem; }
@@ -52,7 +52,6 @@ li { margin-bottom: 0; } /* Reset margin bottom của li */
 /*=================================================================
 3. Utility Classes (Giữ nguyên nếu bạn đang dùng)
 =================================================================*/
-/* ... (Giữ nguyên các lớp utility từ phiên bản trước) ... */
 .flex { display: flex; } .items-center { align-items: center; } .justify-between { justify-content: space-between; }
 .sticky { position: sticky; } .top-0 { top: 0; } .z-50 { z-index: 50; } .z-40 { z-index: 40; }
 .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
@@ -64,71 +63,55 @@ li { margin-bottom: 0; } /* Reset margin bottom của li */
 /*=================================================================
 4. Component Styles (HEADER VÀ MENU)
 =================================================================*/
-
-/* --- Header Container --- */
 header { /* Đã có sticky, bg-white, shadow-md từ HTML */ }
-.header-container { min-height: var(--header-height); }
+.header-container {
+  min-height: var(--header-height);
+}
 .header-logo img { height: 40px; width: auto; border-radius: 0; }
-
-/* --- Hamburger Button --- */
 .hamburger {
-  display: none; /* Sẽ hiện trên mobile */
+  display: none;
   padding: 0.5rem;
   background: none;
   border: none;
   cursor: pointer;
   color: var(--text-dark);
-  font-size: 1.5rem; /* Kích thước icon */
-  z-index: 51; /* Cao hơn menu một chút */
+  font-size: 1.5rem;
+  z-index: 51;
 }
-/* Có thể thêm hiệu ứng transition cho hamburger nếu muốn */
-
-/* --- Main Navigation Container (<nav>) --- */
 .main-navigation {
-  /* Kiểu chung cho cả desktop và mobile */
+  display: flex;
+  flex-direction: column;
 }
-
-/* --- Navigation Tabs/List (ul.nav-tabs) --- */
 ul.nav-tabs {
-  /* Reset list style đã làm ở Base */
+  flex-direction: column;
 }
-
-/* --- Navigation List Items (li) --- */
 ul.nav-tabs li {
-  position: relative; /* Cho submenu */
-  list-style: none; /* Đảm bảo không có dấu đầu dòng */
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-
-/* --- Navigation Links (a.nav-link) --- */
 a.nav-link {
   display: flex;
   align-items: center;
-  padding: 0.5rem 0.75rem; /* Padding cho desktop */
-  margin: 0 0.125rem; /* Khoảng cách nhỏ giữa các mục */
+  padding: 0.5rem 0.75rem;
   color: var(--text-dark);
-  font-weight: 500;
   text-decoration: none;
-  border-radius: 0.375rem; /* rounded-md */
   transition: background-color var(--menu-transition-duration) ease, color var(--menu-transition-duration) ease;
-  white-space: nowrap;
 }
-a.nav-link i.fas { /* Style cho icon trong link */
+a.nav-link i.fas {
   margin-right: 0.35rem;
-  font-size: 0.9em; /* Icon nhỏ hơn chữ một chút */
-  width: 1.2em; /* Đảm bảo icon chiếm đủ chỗ */
+  font-size: 0.9em;
+  width: 1.2em;
   text-align: center;
 }
 a.nav-link:hover,
-a.nav-link.active { /* Class 'active' cho trang hiện tại (JS thêm vào) */
+a.nav-link.active {
   color: var(--primary-color);
   background-color: rgba(59, 130, 246, 0.08);
 }
-/* Link là dropdown toggle */
 a.dropdown-toggle {
   cursor: pointer;
 }
-
-/* --- Arrow Indicator --- */
 .arrow {
   display: inline-block;
   width: 0;
@@ -138,55 +121,45 @@ a.dropdown-toggle {
   border-color: currentColor transparent transparent transparent;
   margin-left: 0.4rem;
   transition: transform var(--menu-transition-duration) ease;
-  vertical-align: middle; /* Căn giữa với text */
+  vertical-align: middle;
 }
-.arrow-submenu { /* Mũi tên cho submenu cấp 2 */
-   display: inline-block;
-   width: 0;
-   height: 0;
-   border-style: solid;
-   border-width: 4px 0 4px 5px;
-   border-color: transparent transparent transparent currentColor;
-   margin-left: auto; /* Đẩy ra cuối */
-   transition: transform var(--menu-transition-duration) ease;
-   vertical-align: middle;
+.arrow-submenu {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 4px 0 4px 5px;
+  border-color: transparent transparent transparent currentColor;
+  margin-left: auto;
+  transition: transform var(--menu-transition-duration) ease;
+  vertical-align: middle;
 }
-
-/* Xoay mũi tên khi dropdown mở */
 li.dropdown.active > a.dropdown-toggle .arrow,
 li.dropdown-submenu.active > a.dropdown-toggle .arrow-submenu {
-  transform: rotate(90deg); /* Xoay 90 độ cho mobile accordion */
+  transform: rotate(90deg);
 }
-
-
-/* --- Dropdown Menu (ul.dropdown-menu - Base) --- */
 ul.dropdown-menu {
   list-style: none;
   padding: 0;
   margin: 0;
-  min-width: 220px; /* Độ rộng tối thiểu */
   background-color: var(--bg-white);
-  border-radius: 0.375rem; /* rounded-md */
+  border-radius: 0.375rem;
   box-shadow: var(--shadow-lg);
-  border: 1px solid #e5e7eb; /* gray-200 */
-  opacity: 0; /* Ẩn ban đầu cho transition */
-  visibility: hidden; /* Ẩn hoàn toàn */
-  transform: translateY(10px); /* Hiệu ứng trượt nhẹ */
+  border: 1px solid #e5e7eb;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
   transition: opacity var(--menu-transition-duration) ease, visibility var(--menu-transition-duration) ease, transform var(--menu-transition-duration) ease;
   z-index: 50;
 }
-
-/* Trạng thái hiển thị dropdown (JS thêm class 'active' vào li cha) */
 li.dropdown.active > ul.dropdown-menu,
 li.dropdown-submenu.active > ul.dropdown-menu {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
-
-/* --- Submenu Links (a.sub-nav-link) --- */
 a.sub-nav-link {
-  display: flex; /* Dùng flex để căn chỉnh icon/mũi tên */
+  display: flex;
   align-items: center;
   padding: 0.6rem 1rem;
   color: var(--text-dark);
@@ -200,17 +173,12 @@ a.sub-nav-link:hover {
   color: var(--primary-color);
   text-decoration: none;
 }
-/* Link submenu là toggle cho cấp tiếp theo */
 li.dropdown-submenu > a.dropdown-toggle {
-  justify-content: space-between; /* Đẩy mũi tên ra cuối */
+  justify-content: space-between;
 }
-
-/* --- Submenu Level 2+ --- */
 ul.submenu-level-2 {
   /* Sẽ kế thừa nhiều style từ .dropdown-menu */
-  /* Cần định vị lại cho phù hợp */
 }
-
 
 /* --- Overlay --- */
 .overlay {
@@ -223,221 +191,49 @@ ul.submenu-level-2 {
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--menu-transition-duration) ease, visibility var(--menu-transition-duration) ease;
-  z-index: 39; /* Dưới menu mobile */
+  z-index: 39;
 }
 .overlay.active {
   opacity: 1;
   visibility: visible;
 }
 
-
 /*=================================================================
 6. Responsive Styles
 =================================================================*/
-
-/* --- Mobile (max-width: 767.98px) --- */
-@media (max-width: 767.98px) { /* Dùng md breakpoint của Tailwind là 768px */
-  /* ... (Giữ nguyên các điều chỉnh font, padding, margin, grid... từ phiên bản trước) ... */
-
-  /* --- Header Mobile --- */
-  .hamburger { display: block; } /* Hiện hamburger */
+/* Mobile Styles */
+@media (max-width: 767.98px) {
+  .hamburger {
+    display: block;
+  }
 
   .main-navigation {
-      display: block; /* Cho phép JS điều khiển */
-      position: fixed; /* Hoặc absolute tùy vào hiệu ứng mong muốn */
-      top: 0;
-      left: -100%; /* Ẩn bên trái */
-      width: 85%; /* Chiều rộng menu mobile */
-      max-width: 300px; /* Giới hạn chiều rộng */
-      height: 100vh; /* Cao hết màn hình */
-      padding-top: var(--header-height); /* Khoảng trống cho header */
-      background-color: var(--bg-white);
-      box-shadow: 4px 0px 15px rgba(0, 0, 0, 0.1);
-      z-index: 40;
-      overflow-y: auto; /* Cho phép cuộn nếu menu dài */
-      transition: transform var(--menu-transition-duration) ease-in-out;
-      transform: translateX(0); /* Reset transform để transition từ left */
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 85%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: var(--bg-white);
+    transition: transform var(--menu-transition-duration) ease-in-out;
   }
+
   .main-navigation.active {
-      transform: translateX(100%); /* Đẩy menu vào từ trái */
-      left: 0; /* Reset left khi active */
-  }
-
-  /* Kiểu cho danh sách menu mobile */
-  ul.nav-tabs {
-      flex-direction: column;
-      padding: 1rem 0; /* Padding trên dưới */
-  }
-  ul.nav-tabs li {
-      width: 100%;
-  }
-  a.nav-link {
-      padding: 0.8rem var(--container-padding);
-      border-bottom: 1px solid var(--bg-light);
-      border-radius: 0;
-      justify-content: space-between; /* Đẩy mũi tên ra cuối */
-      margin: 0;
-  }
-  ul.nav-tabs > li:last-child > a.nav-link {
-       border-bottom: none;
-  }
-   a.nav-link.active { /* Link active trên mobile */
-       background-color: rgba(59, 130, 246, 0.1);
-       color: var(--primary-color);
-       font-weight: 600;
-   }
-
-  /* --- Dropdown Menu Mobile (Accordion) --- */
-  ul.dropdown-menu {
-      position: static; /* Reset định vị */
-      width: 100%;
-      box-shadow: none;
-      border: none;
-      border-top: 1px dashed #e5e7eb; /* Phân cách nhẹ */
-      border-radius: 0;
-      opacity: 1; /* Luôn hiển thị trong layout */
-      visibility: visible; /* Luôn hiển thị trong layout */
-      transform: none; /* Reset transform */
-      max-height: 0; /* Ẩn bằng max-height */
-      overflow: hidden; /* Ẩn nội dung thừa */
-      background-color: #f9fafb; /* Nền khác biệt */
-      transition: max-height var(--menu-transition-duration) ease-in-out; /* Transition cho max-height */
-  }
-  /* Trạng thái hiển thị submenu mobile (JS thêm class 'show') */
-  /* Class 'active' trên li cha vẫn được JS dùng để theo dõi trạng thái */
-  ul.dropdown-menu.show {
-      /* max-height sẽ được set bởi JS */
-      border-top: 1px dashed #e5e7eb; /* Đảm bảo border vẫn hiển thị */
-  }
-
-  /* Link submenu mobile */
-  a.sub-nav-link {
-      padding: 0.7rem var(--container-padding) 0.7rem calc(var(--container-padding) + 1rem); /* Thụt lề */
-      border-bottom: 1px solid #e5e7eb;
-      font-size: 0.875rem;
-  }
-   ul.dropdown-menu li:last-child > a.sub-nav-link {
-       border-bottom: none;
-   }
-    a.sub-nav-link.active { /* Link con active */
-        background-color: rgba(59, 130, 246, 0.15);
-        color: var(--primary-color);
-        font-weight: 500;
-    }
-
-  /* Submenu cấp 2 mobile */
-  li.dropdown-submenu > a.dropdown-toggle {
-      /* Style giống sub-nav-link */
-  }
-  ul.submenu-level-2 {
-      background-color: #f0f0f0; /* Nền khác nữa */
-      padding-left: 1rem; /* Thụt lề thêm */
-  }
-   ul.submenu-level-2 a.sub-nav-link {
-       padding-left: calc(var(--container-padding) + 2rem); /* Thụt lề sâu hơn */
-   }
-
-  /* Xoay mũi tên accordion */
-  li.dropdown.active > a.dropdown-toggle .arrow,
-  li.dropdown-submenu.active > a.dropdown-toggle .arrow-submenu {
-      transform: rotate(90deg);
+    transform: translateX(0);
   }
 }
 
-/* --- Desktop (min-width: 768px) --- */
+/* Desktop Styles */
 @media (min-width: 768px) {
-  /* Đảm bảo menu chính hiển thị và hamburger ẩn */
-  .hamburger { display: none; }
+  .hamburger {
+    display: none;
+  }
+
   .main-navigation {
-      display: flex; /* Hiện lại menu */
-      position: static;
-      width: auto;
-      height: auto;
-      background-color: transparent;
-      box-shadow: none;
-      padding-top: 0;
-      left: auto;
-      transform: none;
-      overflow-y: visible;
-  }
-  ul.nav-tabs {
-      flex-direction: row;
-      align-items: center;
-      gap: 0.125rem; /* Khoảng cách nhỏ giữa các mục */
-      padding: 0;
-  }
-   a.nav-link {
-      padding: 0.5rem 0.75rem; /* Padding desktop */
-      border-bottom: none;
-      justify-content: flex-start;
-   }
-   a.nav-link .arrow {
-       margin-left: 0.4rem;
-   }
-
-  /* --- Dropdown Menu Desktop --- */
-  ul.dropdown-menu {
-      position: absolute; /* Định vị tuyệt đối */
-      left: 0;
-      top: calc(100% + 5px); /* Cách mục cha 5px */
-      min-width: 220px;
-      background-color: var(--bg-white);
-      padding: 0.5rem 0;
-      border-radius: 0.375rem;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid #e5e7eb;
-      z-index: 50;
-      /* Transition đã định nghĩa ở base */
-      /* Reset các thuộc tính mobile */
-      max-height: none;
-      overflow: visible;
-      border-top: none;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(10px);
-  }
-  li.dropdown.active > ul.dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-  }
-
-  /* --- Submenu Level 2+ Desktop --- */
-  li.dropdown-submenu {
-      position: relative; /* Để định vị menu con cấp 2 */
-  }
-  ul.submenu-level-2 {
-      position: absolute;
-      top: -0.5rem; /* Điều chỉnh vị trí theo chiều dọc */
-      left: 100%; /* Xuất hiện bên phải */
-      margin-left: 1px; /* Khoảng cách nhỏ */
-       /* Kế thừa các style khác từ .dropdown-menu */
-       opacity: 0;
-       visibility: hidden;
-       transform: translateX(10px); /* Hiệu ứng trượt từ phải */
-       transition: opacity var(--menu-transition-duration) ease, visibility var(--menu-transition-duration) ease, transform var(--menu-transition-duration) ease;
-  }
-  li.dropdown-submenu.active > ul.submenu-level-2 {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(0);
-  }
-
-  /* Xoay mũi tên dropdown desktop */
-  li.dropdown.active > a.dropdown-toggle .arrow {
-      transform: rotate(180deg); /* Quay ngược lên */
-  }
-   li.dropdown-submenu.active > a.dropdown-toggle .arrow-submenu {
-      transform: rotate(0deg); /* Giữ nguyên hoặc xoay nhẹ nếu muốn */
-  }
-
-  /* Link submenu desktop */
-   a.sub-nav-link {
-      padding: 0.6rem 1rem;
-      border-bottom: none;
-  }
-  img, video {
-    max-width: 100%;
-    height: auto; /* Giữ tỷ lệ khung hình */
+    display: flex;
+    position: static;
+    width: auto;
+    height: auto;
+    background-color: transparent;
   }
 }
