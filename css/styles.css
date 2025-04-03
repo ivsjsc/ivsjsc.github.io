@@ -1,27 +1,28 @@
-/* css/styles.css */
-
-/*=================================================================
-  0. Global Settings & Variables / Cài đặt Chung & Biến
-=================================================================*/
 :root {
-  --primary-color: #3b82f6; /* blue-500 */
-  --secondary-color: #8b5cf6; /* purple-600 */
-  --text-dark: #1f2937; /* gray-800 */
-  --text-medium: #4b5563; /* gray-600 */
-  --text-light: #f9fafb; /* gray-50 */
-  --text-light-secondary: #d1d5db; /* gray-300 - Cho text phụ trong footer */
-  --bg-light: #f3f4f6; /* gray-100 */
+  --primary-color: #3b82f6;
+  --secondary-color: #8b5cf6;
+  --text-dark: #1f2937;
+  --text-medium: #4b5563;
+  --text-light: #f9fafb;
+  --text-light-secondary: #d1d5db;
+  --bg-light: #f3f4f6;
   --bg-white: #ffffff;
-  --bg-footer: #1f2937; /* gray-800 - Nền footer */
-  --font-sans: 'Inter', sans-serif; /* Đảm bảo font Inter được tải trong HTML */
-  --container-padding: 1rem; /* Padding chung cho container */
-  --header-height: 60px; /* Chiều cao header để tính toán */
-  --menu-transition-duration: 0.3s; /* Thời gian transition cho menu */
+  --bg-footer: #1f2937;
+  --font-sans: 'Inter', sans-serif;
+  --container-padding: 1rem;
+  --header-height: 60px;
+  --menu-transition-duration: 0.3s;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: var(--font-sans), sans-serif;
@@ -30,37 +31,36 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Đảm bảo body không có overflow ngang không mong muốn */
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* Ngăn cuộn body khi menu mobile mở */
-body.mobile-menu-active { overflow: hidden; }
-
-main {
-  flex: 1; /* Ensures the main content takes up available space */
+body.mobile-menu-active {
+  overflow: hidden;
 }
 
-/*=================================================================
-  1. Base Element Styles / Định dạng Thẻ Cơ bản
-=================================================================*/
+main {
+  flex: 1;
+}
+
 h1, h2, h3, h4, h5, h6 {
   color: var(--text-dark);
   margin-bottom: 0.75rem;
   font-weight: 700;
   line-height: 1.3;
 }
-h1 { font-size: 2.25rem; } /* text-4xl */
-h2 { font-size: 1.875rem; } /* text-3xl */
-h3 { font-size: 1.25rem; } /* text-xl */
-h4 { font-size: 1.125rem; } /* text-lg */
-h5 { font-size: 1rem; } /* text-base */
-h6 { font-size: 0.875rem; } /* text-sm */
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.875rem; }
+h3 { font-size: 1.25rem; }
+h4 { font-size: 1.125rem; }
+h5 { font-size: 1rem; }
+h6 { font-size: 0.875rem; }
 
-p { margin-bottom: 1rem; }
+p {
+  margin-bottom: 1rem;
+}
 
 a {
   color: var(--primary-color);
@@ -68,54 +68,45 @@ a {
   transition: color 0.3s ease;
 }
 a:hover {
-  text-decoration: none; /* Bỏ gạch chân khi hover */
+  text-decoration: none;
   color: var(--secondary-color);
 }
 
 img, svg, video {
-  display: block; /* Loại bỏ khoảng trắng dưới ảnh inline */
+  display: block;
   vertical-align: middle;
-  max-width: 100%; /* Đảm bảo ảnh không tràn container */
-  height: auto; /* Giữ tỷ lệ khung hình */
+  max-width: 100%;
+  height: auto;
 }
-/* Bỏ border-radius cho ảnh logo trong header/footer */
 img:not(.header-logo img):not(.footer-logo-img) {
-  border-radius: 0.375rem; /* rounded-md */
+  border-radius: 0.375rem;
 }
-
 
 ul, ol {
-  list-style: none; /* Bỏ style mặc định */
+  list-style: none;
   margin-bottom: 1rem;
-  padding-left: 0; /* Reset padding */
+  padding-left: 0;
 }
-li { margin-bottom: 0; } /* Reset margin bottom của li */
+li {
+  margin-bottom: 0;
+}
 
-/*=================================================================
-  2. Layout & Container Styles / Bố cục & Container
-=================================================================*/
 .container {
   width: 100%;
-  max-width: 1280px; /* Giới hạn chiều rộng tối đa */
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
   padding-left: var(--container-padding);
   padding-right: var(--container-padding);
 }
 
-/* Placeholder cho header để giảm CLS khi tải bằng JS */
 #header-placeholder {
-  min-height: var(--header-height); /* **QUAN TRỌNG:** Đặt chiều cao tối thiểu bằng chiều cao header */
+  min-height: var(--header-height);
 }
 #footer-placeholder {
-    /* Có thể thêm min-height nếu footer cũng tải động và có chiều cao cố định */
-    /* min-height: 100px; */ /* Ví dụ */
+  /* min-height: 100px; */ /* Example if needed */
 }
 
-/*=================================================================
-  3. Utility Classes / Lớp Tiện ích (Ví dụ)
-=================================================================*/
-/* Giữ lại nếu cần hoặc xóa nếu dùng Tailwind */
 .flex { display: flex; }
 .items-center { align-items: center; }
 .justify-between { justify-content: space-between; }
@@ -130,11 +121,6 @@ li { margin-bottom: 0; } /* Reset margin bottom của li */
 .mr-1 { margin-right: 0.25rem; }
 .ml-auto { margin-left: auto; }
 
-/*=================================================================
-  4. Component Styles (HEADER VÀ MENU) / Định dạng Thành phần Header
-=================================================================*/
-
-/* --- Header Container --- */
 .header-container {
   min-height: var(--header-height);
 }
@@ -144,7 +130,6 @@ li { margin-bottom: 0; } /* Reset margin bottom của li */
   border-radius: 0;
 }
 
-/* --- Hamburger Button --- */
 .hamburger {
   display: none;
   padding: 0.5rem;
@@ -156,26 +141,22 @@ li { margin-bottom: 0; } /* Reset margin bottom của li */
   z-index: 51;
 }
 .hamburger:hover, .hamburger:focus {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 
-/* --- Main Navigation Container (<nav>) --- */
 .main-navigation {
-  /* Style chung */
+  /* Base styles if any */
 }
 
-/* --- Navigation Tabs/List (ul.nav-tabs) --- */
 ul.nav-tabs {
-  /* Reset */
+  /* Base styles if any */
 }
 
-/* --- Navigation List Items (li) --- */
 ul.nav-tabs li {
   position: relative;
   list-style: none;
 }
 
-/* --- Navigation Links (a.nav-link) --- */
 a.nav-link {
   display: flex;
   align-items: center;
@@ -203,7 +184,6 @@ a.dropdown-toggle {
   cursor: pointer;
 }
 
-/* --- Arrow Indicator --- */
 .arrow {
   display: inline-block;
   width: 0;
@@ -216,22 +196,17 @@ a.dropdown-toggle {
   vertical-align: middle;
 }
 .arrow-submenu {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 4px 0 4px 5px;
-    border-color: transparent transparent transparent currentColor;
-    margin-left: auto;
-    transition: transform var(--menu-transition-duration) ease;
-    vertical-align: middle;
-}
-li.dropdown.active > a.dropdown-toggle .arrow,
-li.dropdown-submenu.active > a.dropdown-toggle .arrow-submenu {
-  /* Style xoay trong media query */
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 4px 0 4px 5px;
+  border-color: transparent transparent transparent currentColor;
+  margin-left: auto;
+  transition: transform var(--menu-transition-duration) ease;
+  vertical-align: middle;
 }
 
-/* --- Dropdown Menu (ul.dropdown-menu - Base) --- */
 ul.dropdown-menu {
   list-style: none;
   padding: 0;
@@ -253,7 +228,6 @@ li.dropdown-submenu.active > ul.dropdown-menu {
   transform: translateY(0);
 }
 
-/* --- Submenu Links (a.sub-nav-link) --- */
 a.sub-nav-link {
   display: flex;
   align-items: center;
@@ -273,12 +247,10 @@ li.dropdown-submenu > a.dropdown-toggle {
   justify-content: space-between;
 }
 
-/* --- Submenu Level 2+ --- */
 ul.submenu-level-2 {
-  /* Định vị trong media query desktop */
+  /* Desktop positioning in media query */
 }
 
-/* --- Overlay --- */
 .overlay {
   position: fixed;
   top: 0;
@@ -296,382 +268,337 @@ ul.submenu-level-2 {
   visibility: visible;
 }
 
-/*=================================================================
-  5. Component Styles (FOOTER) / Định dạng Thành phần Footer
-=================================================================*/
 footer {
-  background-color: var(--bg-light);
-  color: var(--text-medium);
-  text-align: center;
-  padding: 1rem;
-  border-top: 1px solid #e5e7eb; /* gray-200 */
+  background-color: var(--bg-footer); /* Changed to use footer bg variable */
+  color: var(--text-light-secondary); /* Changed default text color for footer */
+  padding: 3rem var(--container-padding) 2rem; /* Adjusted padding */
+  border-top: 1px solid #374151; /* gray-700 - Darker border */
+  text-align: left; /* Align text left by default */
 }
 
 .footer-container {
-  display: flex; /* Sắp xếp các cột theo hàng ngang (mặc định) */
-  flex-wrap: wrap; /* Cho phép xuống hàng nếu không đủ chỗ */
-  justify-content: space-between; /* Phân bố khoảng cách giữa các cột */
-  gap: 2rem; /* Khoảng cách giữa các cột */
-  max-width: 1280px; /* Giống container chính */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem 1.5rem; /* Row gap, Column gap */
+  max-width: 1280px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--container-padding);
-  padding-right: var(--container-padding);
+  /* Padding is handled by the footer element now */
 }
 
 .footer-col {
-  /* Định dạng chung cho các cột footer */
-  flex: 1; /* Các cột cố gắng chia đều không gian */
-  min-width: 200px; /* Chiều rộng tối thiểu trước khi xuống hàng */
+  flex: 1;
+  min-width: 200px;
 }
 
-/* Cột Logo */
 .footer-logo-col {
-  flex-grow: 0; /* Không cho cột logo giãn ra quá nhiều */
-  flex-basis: 150px; /* Chiều rộng cơ sở */
+  flex-grow: 0;
+  flex-basis: 250px; /* Slightly more space for logo and text */
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Căn trái logo và text */
+  align-items: flex-start;
+  margin-right: 2rem; /* Add margin to separate from other columns */
 }
 .footer-logo-img {
-  height: 40px; /* Kích thước logo footer */
+  height: 40px;
   width: auto;
   margin-bottom: 1rem;
   border-radius: 0;
 }
 .copyright {
-  font-size: 0.8rem; /* Chữ copyright nhỏ hơn */
+  font-size: 0.8rem;
   line-height: 1.4;
+  color: var(--text-light-secondary); /* Ensure copyright text color */
+  margin-top: auto; /* Push copyright to bottom if needed */
 }
 
-/* Cột Thông tin liên hệ */
-.footer-info-col h4 {
-  color: var(--text-light); /* Tiêu đề cột màu sáng hơn */
-  font-size: 1rem;
-  margin-bottom: 1rem;
-}
-.footer-info-col p {
-  display: flex; /* Căn icon và text */
-  align-items: flex-start; /* Căn icon lên đầu nếu text dài */
-  font-size: 0.9rem;
-  margin-bottom: 0.6rem;
-  line-height: 1.5;
-}
-.footer-info-col p i {
-  margin-right: 0.75rem; /* Khoảng cách icon với text */
-  margin-top: 0.2em; /* Hạ icon xuống một chút cho thẳng hàng */
-  width: 1em; /* Đảm bảo icon có không gian */
-  text-align: center;
-  color: var(--primary-color); /* Màu icon */
-}
-.footer-info-col a {
-  color: var(--text-light-secondary); /* Màu link trong footer */
-  transition: color 0.3s ease;
-}
-.footer-info-col a:hover {
-  color: var(--text-light); /* Sáng hơn khi hover */
-}
-
-/* Cột Mạng xã hội */
+.footer-info-col h4,
 .footer-social-col h4 {
   color: var(--text-light);
   font-size: 1rem;
-  margin-bottom: 1rem;
+  font-weight: 600; /* Make titles slightly bolder */
+  margin-bottom: 1.25rem; /* Increased spacing */
 }
+
+.footer-info-col p {
+  display: flex;
+  align-items: flex-start;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem; /* Slightly increased spacing */
+  line-height: 1.5;
+}
+.footer-info-col p i {
+  margin-right: 0.75rem;
+  margin-top: 0.2em;
+  width: 1.1em; /* Ensure consistent icon width */
+  text-align: center;
+  color: var(--primary-color);
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+.footer-info-col a {
+  color: var(--text-light-secondary);
+  transition: color 0.3s ease;
+}
+.footer-info-col a:hover {
+  color: var(--text-light);
+}
+
 .social-links {
   display: flex;
-  gap: 1rem; /* Khoảng cách giữa các icon mạng xã hội */
+  gap: 1rem;
+  margin-top: 0.5rem; /* Add some space above social links */
 }
 .social-links a {
   color: var(--text-light-secondary);
-  font-size: 1.3rem; /* Kích thước icon mạng xã hội */
+  font-size: 1.3rem;
   transition: color 0.3s ease, transform 0.3s ease;
-  display: inline-block; /* Cho phép transform */
+  display: inline-block;
 }
 .social-links a:hover {
-  color: var(--text-light); /* Sáng hơn khi hover */
-  transform: translateY(-2px); /* Hiệu ứng nhấc lên nhẹ */
+  color: var(--text-light);
+  transform: translateY(-2px);
 }
 
-/*=================================================================
-  6. Responsive Styles / Định dạng Responsive
-=================================================================*/
 
-/* --- Mobile (< 768px) --- */
 @media (max-width: 767.98px) {
-  /* --- Header Mobile --- */
   .hamburger { display: block; }
   .main-navigation {
-      display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 85%;
-      max-width: 300px;
-      height: 100vh;
-      padding-top: var(--header-height);
-      background-color: var(--bg-white);
-      box-shadow: 4px 0px 15px rgba(0, 0, 0, 0.1);
-      z-index: 40;
-      overflow-y: auto;
-      transform: translateX(-100%);
-      transition: transform var(--menu-transition-duration) ease-in-out;
-      padding: 1rem; /* Add padding for better usability */
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 85%;
+    max-width: 300px;
+    height: 100vh;
+    padding-top: calc(var(--header-height) + 1rem); /* Adjusted padding top */
+    background-color: var(--bg-white);
+    box-shadow: 4px 0px 15px rgba(0, 0, 0, 0.1);
+    z-index: 40;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform var(--menu-transition-duration) ease-in-out;
+    padding-bottom: 1rem; /* Add bottom padding */
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   .main-navigation.active {
-      transform: translateX(0);
+    transform: translateX(0);
   }
   ul.nav-tabs {
-      flex-direction: column;
-      padding: 1rem 0;
-      gap: 0;
+    flex-direction: column;
+    padding: 0; /* Remove padding */
+    gap: 0;
   }
   ul.nav-tabs li {
-      width: 100%;
+    width: 100%;
   }
   a.nav-link {
-      padding: 1rem; /* Increase padding for touch-friendly links */
-      font-size: 1rem; /* Slightly larger font size for readability */
-      border-bottom: 1px solid var(--bg-light);
-      border-radius: 0;
-      justify-content: space-between;
-      margin: 0;
+    padding: 0.9rem 1rem; /* Adjusted padding */
+    font-size: 1rem;
+    border-bottom: 1px solid var(--bg-light);
+    border-radius: 0;
+    justify-content: space-between;
+    margin: 0;
   }
   ul.nav-tabs > li:last-child > a.nav-link {
-      border-bottom: none;
+    border-bottom: none;
   }
-   a.nav-link.active {
-       background-color: rgba(59, 130, 246, 0.1);
-       color: var(--primary-color);
-       font-weight: 600;
-   }
+  a.nav-link.active {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--primary-color);
+    font-weight: 600;
+  }
 
-  /* --- Dropdown Menu Mobile (Accordion) --- */
   ul.dropdown-menu {
-      position: static;
-      width: 100%;
-      box-shadow: none;
-      border: none;
-      border-top: 1px dashed #e5e7eb;
-      border-radius: 0;
-      opacity: 1;
-      visibility: visible;
-      transform: none;
-      max-height: 0;
-      overflow: hidden;
-      background-color: #f9fafb;
-      transition: max-height var(--menu-transition-duration) ease-in-out;
-      transition-property: max-height;
+    position: static;
+    width: 100%;
+    box-shadow: none;
+    border: none;
+    border-top: 1px dashed #e5e7eb;
+    border-radius: 0;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    max-height: 0;
+    overflow: hidden;
+    background-color: #f9fafb; /* Slightly different background for submenus */
+    transition: max-height var(--menu-transition-duration) ease-in-out;
+    /* Removed transition-property, transition covers it */
   }
-  ul.dropdown-menu.show {
-      border-top: 1px dashed #e5e7eb;
+  ul.dropdown-menu.show { /* Use .show class to expand */
+    max-height: 500px; /* Adjust as needed, should be large enough */
+    border-top: 1px dashed #e5e7eb; /* Ensure border shows when open */
   }
   a.sub-nav-link {
-      padding: 0.7rem var(--container-padding) 0.7rem calc(var(--container-padding) + 1rem);
-      border-bottom: 1px solid #e5e7eb;
-      font-size: 0.875rem;
+    padding: 0.7rem 1rem 0.7rem 2rem; /* Indent submenu links */
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 0.875rem;
   }
-   ul.dropdown-menu li:last-child > a.sub-nav-link {
-       border-bottom: none;
-   }
-    a.sub-nav-link.active {
-        background-color: rgba(59, 130, 246, 0.15);
-        color: var(--primary-color);
-        font-weight: 500;
-    }
+  ul.dropdown-menu li:last-child > a.sub-nav-link {
+    border-bottom: none;
+  }
+  a.sub-nav-link.active {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: var(--primary-color);
+    font-weight: 500;
+  }
   ul.submenu-level-2 {
-      background-color: #f0f0f0;
-      padding-left: 0;
+    background-color: #f3f4f6; /* Even lighter background for level 2 */
+    padding-left: 0;
   }
-   ul.submenu-level-2 a.sub-nav-link {
-       padding-left: calc(var(--container-padding) + 2rem);
-   }
+  ul.submenu-level-2 a.sub-nav-link {
+    padding-left: 3rem; /* Further indent level 2 links */
+  }
 
-  /* --- Xoay mũi tên accordion --- */
   li.dropdown.active > a.dropdown-toggle .arrow,
   li.dropdown-submenu.active > a.dropdown-toggle .arrow-submenu {
-      transform: rotate(90deg);
+    transform: rotate(90deg);
   }
 
-  /* --- Footer Mobile --- */
   footer {
-      padding: 2rem 0; /* Giảm padding trên mobile */
+    padding: 2rem var(--container-padding); /* Adjusted padding */
+    text-align: center; /* Center text on mobile */
   }
   .footer-container {
-      flex-direction: column; /* **QUAN TRỌNG:** Xếp các cột dọc xuống */
-      align-items: center; /* Căn giữa các cột */
-      text-align: center; /* Căn giữa text trong các cột */
-      gap: 1.5rem; /* Giảm khoảng cách dọc */
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
   }
   .footer-col {
-      width: 100%; /* Cho cột chiếm hết chiều rộng */
-      max-width: 400px; /* Giới hạn chiều rộng tối đa của cột trên mobile nếu muốn */
-      min-width: unset; /* Bỏ min-width của desktop */
-      flex-basis: auto; /* Reset flex-basis */
+    width: 100%;
+    max-width: 400px;
+    min-width: unset;
+    flex-basis: auto;
+    margin-right: 0; /* Remove desktop margin */
   }
   .footer-logo-col {
-      align-items: center; /* Căn giữa logo và copyright */
+    align-items: center;
   }
   .footer-info-col p {
-      justify-content: center; /* Căn giữa icon và text */
-      align-items: center;
+    justify-content: center;
+    align-items: center; /* Center align icon and text vertically */
+    text-align: left; /* Keep text left-aligned within the centered block */
   }
-   .footer-info-col p i {
-       margin-top: 0; /* Reset margin-top của icon */
-   }
+  .footer-info-col p i {
+    margin-top: 0;
+  }
   .social-links {
-      justify-content: center; /* Căn giữa các icon mạng xã hội */
+    justify-content: center;
   }
 }
 
-/* --- Desktop (>= 768px) --- */
+
 @media (min-width: 768px) {
-  /* --- Header Desktop --- */
   .hamburger { display: none; }
   .main-navigation {
-      display: flex;
-      position: static;
-      width: auto;
-      height: auto;
-      background-color: transparent;
-      box-shadow: none;
-      padding-top: 0;
-      left: auto;
-      transform: none;
-      overflow-y: visible;
-      transition: none;
+    display: flex;
+    position: static;
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0; /* Reset padding */
+    left: auto;
+    transform: none;
+    overflow-y: visible;
+    transition: none;
   }
   ul.nav-tabs {
-      flex-direction: row;
-      align-items: center;
-      gap: 0.125rem;
-      padding: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.125rem;
+    padding: 0;
   }
-   a.nav-link {
-      padding: 0.5rem 0.75rem;
-      border-bottom: none;
-      justify-content: flex-start;
-   }
-   a.nav-link .arrow {
-       margin-left: 0.4rem;
-   }
+  a.nav-link {
+    padding: 0.5rem 0.75rem;
+    border-bottom: none;
+    justify-content: flex-start;
+  }
+  a.nav-link .arrow {
+    margin-left: 0.4rem;
+  }
 
-  /* --- Dropdown Menu Desktop --- */
   ul.dropdown-menu {
-      position: absolute;
-      left: 0;
-      top: calc(100% + 5px);
-      min-width: 220px;
-      background-color: var(--bg-white);
-      padding: 0.5rem 0;
-      border-radius: 0.375rem;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      border: 1px solid #e5e7eb;
-      z-index: 50;
-      max-height: none;
-      overflow: visible;
-      border-top: none;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(10px);
-      transition: opacity var(--menu-transition-duration) ease, visibility var(--menu-transition-duration) ease, transform var(--menu-transition-duration) ease;
-      transition-property: opacity, visibility, transform;
+    position: absolute;
+    left: 0;
+    top: calc(100% + 5px); /* Position below parent */
+    min-width: 220px;
+    background-color: var(--bg-white);
+    padding: 0.5rem 0;
+    border-radius: 0.375rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e5e7eb;
+    z-index: 50;
+    max-height: none; /* Reset mobile max-height */
+    overflow: visible; /* Reset mobile overflow */
+    border-top: 1px solid #e5e7eb; /* Ensure border consistency */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px); /* Start slightly lower */
+    transition: opacity var(--menu-transition-duration) ease, visibility var(--menu-transition-duration) ease, transform var(--menu-transition-duration) ease;
+    /* Removed transition-property */
   }
-  li.dropdown.active > ul.dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
+  li.dropdown:hover > ul.dropdown-menu, /* Show on hover */
+  li.dropdown.active > ul.dropdown-menu { /* Also keep active state if needed */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
   }
 
-  /* --- Submenu Level 2+ Desktop --- */
   li.dropdown-submenu {
-      position: relative;
+    position: relative;
   }
   ul.submenu-level-2 {
-      position: absolute;
-      top: -0.5rem;
-      left: 100%;
-      margin-left: 1px;
-       opacity: 0;
-       visibility: hidden;
-       transform: translateX(10px);
-       transition: opacity var(--menu-transition-duration) ease, visibility var(--menu-transition-duration) ease, transform var(--menu-transition-duration) ease;
-       transition-property: opacity, visibility, transform;
-       max-height: none;
-       overflow: visible;
-       border-top: none;
-       padding-left: 0;
-       background-color: var(--bg-white);
+    position: absolute;
+    top: -0.5rem; /* Align top edge with parent item's padding */
+    left: 100%;
+    margin-left: 1px; /* Small gap */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(10px); /* Start slightly to the right */
+    transition: opacity var(--menu-transition-duration) ease, visibility var(--menu-transition-duration) ease, transform var(--menu-transition-duration) ease;
+    /* Removed transition-property */
+    max-height: none;
+    overflow: visible;
+    border-top: 1px solid #e5e7eb; /* Ensure border consistency */
+    padding-left: 0;
+    background-color: var(--bg-white);
   }
-  li.dropdown-submenu.active > ul.submenu-level-2 {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(0);
+  li.dropdown-submenu:hover > ul.submenu-level-2, /* Show on hover */
+  li.dropdown-submenu.active > ul.submenu-level-2 { /* Also keep active state */
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
   }
 
-  /* --- Xoay mũi tên dropdown desktop --- */
+  /* Arrow rotation on desktop (only rotate top-level arrow) */
+  li.dropdown:hover > a.dropdown-toggle .arrow,
   li.dropdown.active > a.dropdown-toggle .arrow {
-      transform: rotate(180deg);
+    transform: rotate(180deg);
   }
-   li.dropdown-submenu.active > a.dropdown-toggle .arrow-submenu {
-       transform: rotate(0deg);
+  /* Submenu arrow does not rotate on desktop hover */
+  li.dropdown-submenu > a.dropdown-toggle .arrow-submenu {
+     transform: rotate(0deg); /* Ensure it points right */
+  }
+   li.dropdown-submenu:hover > a.dropdown-toggle .arrow-submenu {
+      /* No change needed on hover for submenu arrow */
    }
 
-  /* Link submenu desktop */
-   a.sub-nav-link {
-      padding: 0.6rem 1rem;
-      border-bottom: none;
-   }
 
-   /* --- Footer Desktop --- */
-   /* Các style mặc định của footer đã là cho desktop */
-   /* Đảm bảo các cột không bị quá hẹp nếu cần */
+  a.sub-nav-link {
+    padding: 0.6rem 1rem;
+    border-bottom: none; /* Remove mobile border */
+  }
+
+  /* Footer desktop styles are the default, ensure alignment */
+   footer {
+     text-align: left; /* Ensure left alignment on desktop */
+   }
+   .footer-container {
+     align-items: flex-start; /* Align items to the top */
+   }
    .footer-col {
-       /* Có thể thêm flex-basis hoặc width cụ thể nếu muốn kiểm soát chặt hơn */
-       /* Ví dụ: */
-       /* &.footer-logo-col { flex-basis: 20%; } */
-       /* &.footer-info-col { flex-basis: 40%; } */
-       /* &.footer-social-col { flex-basis: 30%; } */
+     /* Optional: Add specific flex-basis if needed */
    }
-  /* Dropdown menu styles for mobile */
-  .nav-tab-menu .dropdown-menu {
-    display: none; /* Hide dropdown menu by default */
-    position: static; /* Ensure static positioning for mobile */
-    max-height: 0; /* Initial height is 0 */
-    overflow: hidden; /* Hide overflowing content */
-    transition: max-height 0.3s ease; /* Smooth transition for height */
-  }
-
-  .nav-tab-menu .dropdown.active > .dropdown-menu {
-    display: block; /* Show dropdown menu when active */
-    max-height: 500px; /* Set a maximum height (adjust as needed) */
-  }
-
-  .nav-tab-menu .dropdown-menu.show {
-    display: block; /* Ensure visibility when 'show' class is added */
-    max-height: 500px; /* Set maximum height */
-  }
-
-/* Mobile-specific styles */
-@media (max-width: 768px) {
-  .nav-tab-menu {
-      flex-direction: column; /* Stack menu items vertically */
-  }
-
-  .nav-tab-menu .dropdown > a {
-      display: flex;
-      justify-content: space-between; /* Align toggle icon to the right */
-      align-items: center;
-  }
-
-  .nav-tab-menu .dropdown-menu {
-      padding-left: 20px; /* Add padding for submenu items */
-  } 
 }
-
-/*=================================================================
-  7. JavaScript Interaction & Overrides / Tương tác JS & Ghi đè
-=================================================================*/
-/* Class JS thêm vào body khi menu mobile mở đã được định nghĩa ở mục 0 */
-
-/* Các overrides cuối cùng nếu cần thiết */
