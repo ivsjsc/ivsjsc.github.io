@@ -32,10 +32,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* Đảm bảo body không có overflow ngang không mong muốn */
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* Ngăn cuộn body khi menu mobile mở */
 body.mobile-menu-active { overflow: hidden; }
+
+main {
+  flex: 1; /* Ensures the main content takes up available space */
+}
 
 /*=================================================================
   1. Base Element Styles / Định dạng Thẻ Cơ bản
@@ -293,10 +300,11 @@ ul.submenu-level-2 {
   5. Component Styles (FOOTER) / Định dạng Thành phần Footer
 =================================================================*/
 footer {
-  background-color: var(--bg-footer); /* Nền tối cho footer */
-  color: var(--text-light-secondary); /* Màu chữ sáng phụ */
-  padding: 2.5rem 0; /* Padding trên dưới */
-  margin-top: 3rem; /* Khoảng cách với nội dung bên trên */
+  background-color: var(--bg-light);
+  color: var(--text-medium);
+  text-align: center;
+  padding: 1rem;
+  border-top: 1px solid #e5e7eb; /* gray-200 */
 }
 
 .footer-container {
@@ -408,6 +416,7 @@ footer {
       overflow-y: auto;
       transform: translateX(-100%);
       transition: transform var(--menu-transition-duration) ease-in-out;
+      padding: 1rem; /* Add padding for better usability */
   }
   .main-navigation.active {
       transform: translateX(0);
@@ -421,7 +430,8 @@ footer {
       width: 100%;
   }
   a.nav-link {
-      padding: 0.8rem var(--container-padding);
+      padding: 1rem; /* Increase padding for touch-friendly links */
+      font-size: 1rem; /* Slightly larger font size for readability */
       border-bottom: 1px solid var(--bg-light);
       border-radius: 0;
       justify-content: space-between;
@@ -623,6 +633,40 @@ footer {
        /* &.footer-info-col { flex-basis: 40%; } */
        /* &.footer-social-col { flex-basis: 30%; } */
    }
+  /* Dropdown menu styles for mobile */
+  .nav-tab-menu .dropdown-menu {
+    display: none; /* Hide dropdown menu by default */
+    position: static; /* Ensure static positioning for mobile */
+    max-height: 0; /* Initial height is 0 */
+    overflow: hidden; /* Hide overflowing content */
+    transition: max-height 0.3s ease; /* Smooth transition for height */
+  }
+
+  .nav-tab-menu .dropdown.active > .dropdown-menu {
+    display: block; /* Show dropdown menu when active */
+    max-height: 500px; /* Set a maximum height (adjust as needed) */
+  }
+
+  .nav-tab-menu .dropdown-menu.show {
+    display: block; /* Ensure visibility when 'show' class is added */
+    max-height: 500px; /* Set maximum height */
+  }
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .nav-tab-menu {
+      flex-direction: column; /* Stack menu items vertically */
+  }
+
+  .nav-tab-menu .dropdown > a {
+      display: flex;
+      justify-content: space-between; /* Align toggle icon to the right */
+      align-items: center;
+  }
+
+  .nav-tab-menu .dropdown-menu {
+      padding-left: 20px; /* Add padding for submenu items */
+  } 
 }
 
 /*=================================================================
