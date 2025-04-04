@@ -43,103 +43,165 @@
     <header id="header-placeholder"></header>
 
     <main>
-        <section class="bg-gradient-to-r from-primary to-indigo-600 text-white py-16 md:py-20 text-center" aria-labelledby="page-title-placement">
-            <div class="container mx-auto px-4">
-                <h1 id="page-title-placement" class="text-4xl md:text-5xl font-bold mb-3">Kiểm tra Năng lực Tiếng Anh</h1>
-                <p class="text-lg md:text-xl opacity-90">Xác định trình độ của bạn theo chuẩn CEFR (6 Bậc)</p>
+        <section class="banner" aria-labelledby="page-title-placement">
+            <div class="banner-content">
+              <h1 id="page-title-placement">Kiểm tra Năng lực Tiếng Anh</h1>
+              <p>Xác định trình độ của bạn theo chuẩn CEFR (6 Bậc)</p>
             </div>
-        </section>
-
-        <section class="py-12 md:py-16">
-            <div class="container mx-auto px-4 max-w-4xl"> {/* Tăng max-width */}
-
-                <div class="text-center mb-10 md:mb-12">
-                    <h2 class="text-3xl font-bold text-primary mb-4">Biết trình độ, chọn đúng lộ trình!</h2>
-                    <p class="text-gray-600 leading-relaxed max-w-3xl mx-auto">
-                        Bài kiểm tra năng lực tiếng Anh trực tuyến của IVS JSC được thiết kế theo chuẩn Khung tham chiếu trình độ ngôn ngữ chung Châu Âu (CEFR), giúp bạn đánh giá chính xác khả năng Nghe, Nói, Đọc, Viết của mình từ A1 đến C2. Kết quả bài kiểm tra sẽ là cơ sở để chúng tôi tư vấn lộ trình học tập hiệu quả và phù hợp nhất dành cho bạn.
-                    </p>
+          </section>
+      
+          <section class="page-content" style="max-width: 1000px; margin: 40px auto; padding: 0 20px;">
+      
+              <div class="test-intro">
+                  <h2>Biết trình độ, chọn đúng lộ trình!</h2>
+                  <p>Bài kiểm tra năng lực tiếng Anh trực tuyến của IVS Education được thiết kế theo chuẩn Khung tham chiếu trình độ ngôn ngữ chung Châu Âu (CEFR), giúp bạn đánh giá chính xác khả năng Nghe, Nói, Đọc, Viết của mình từ A1 đến C2. Kết quả bài kiểm tra sẽ là cơ sở để chúng tôi tư vấn lộ trình học tập hiệu quả và phù hợp nhất dành cho bạn.</p>
+              </div>
+      
+              <div class="test-container">
+                  <h3>Bài kiểm tra Trình độ Tiếng Anh Online</h3>
+                  <div id="placement-test-area">
+                      <p>Bài kiểm tra bao gồm các phần Ngữ pháp, Từ vựng, Đọc hiểu và Nghe hiểu.</p>
+                      <p>Vui lòng chuẩn bị tai nghe (cho phần Nghe) và đảm bảo kết nối internet ổn định.</p>
+                      <p>Thời gian làm bài dự kiến: <strong>45-60 phút</strong>.</p>
+                      <button id="start-test-btn" class="btn btn-warning">Bắt đầu làm bài</button>
+                  </div>
+      
+                  <div id="test-result-area" style="display: none; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+                      <h4>Kết quả kiểm tra của bạn</h4>
+                      <p>Trình độ ước tính: <strong id="estimated-level">--</strong></p>
+                      <p id="level-description">Mô tả chi tiết về trình độ...</p>
+                      <p style="margin-top: 15px;">Các khóa học phù hợp tại IVS Academy:</p>
+                      <ul id="suggested-courses" style="list-style: none; padding-left: 0;">
+                          </ul>
+                      <a href="contact.html?consultation=placement" class="btn btn-primary" style="margin-top: 20px; background-color: var(--primary-color); border-color: var(--primary-color);">Nhận tư vấn Lộ trình</a>
+                  </div>
+              </div>
+      
+              <script>
+                  // Placeholder script to simulate starting the test
+                  const startBtn = document.getElementById('start-test-btn');
+                  const testArea = document.getElementById('placement-test-area');
+                  const resultArea = document.getElementById('test-result-area');
+      
+                  if (startBtn && testArea && resultArea) {
+                      startBtn.addEventListener('click', () => {
+                          // Ẩn phần giới thiệu và nút bắt đầu
+                          testArea.innerHTML = '<p>Đang tải câu hỏi...</p><p><em>(Đây là phần mô phỏng, cần tích hợp hệ thống test thực tế)</em></p>';
+                          // Giả lập hoàn thành test sau 3 giây và hiển thị kết quả
+                          setTimeout(() => {
+                              testArea.style.display = 'none';
+                              // Cập nhật kết quả giả lập
+                              document.getElementById('estimated-level').textContent = 'B1 (Intermediate)';
+                              document.getElementById('level-description').textContent = 'Bạn có thể hiểu các ý chính của các chủ đề quen thuộc, xử lý hầu hết các tình huống khi đi du lịch, viết các văn bản đơn giản và mô tả kinh nghiệm, sự kiện.';
+                              const coursesList = document.getElementById('suggested-courses');
+                              coursesList.innerHTML = `
+                                  <li><a href="#">Khóa Tiếng Anh Giao tiếp B1</a></li>
+                                  <li><a href="#">Luyện thi IELTS Mục tiêu 5.0-5.5</a></li>
+                              `;
+                              resultArea.style.display = 'block';
+                          }, 3000);
+                      });
+                  }
+              </script>
+      
+          </section>    
+            <section class="bg-gradient-to-r from-primary to-indigo-600 text-white py-16 md:py-20 text-center" aria-labelledby="page-title-placement">
+                <div class="container mx-auto px-4">
+                    <h1 id="page-title-placement" class="text-4xl md:text-5xl font-bold mb-3">Kiểm tra Năng lực Tiếng Anh</h1>
+                    <p class="text-lg md:text-xl opacity-90">Xác định trình độ của bạn theo chuẩn CEFR (6 Bậc)</p>
                 </div>
+            </section>
 
-                <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg text-center">
-                    <h3 class="text-2xl font-semibold text-secondary mb-6">Bài kiểm tra Trình độ Tiếng Anh Online</h3>
+            <section class="py-12 md:py-16">
+                <div class="container mx-auto px-4 max-w-4xl"> 
 
-                    {/* Area for Test Instructions / Questions */}
-                    <div id="placement-test-area" class="min-h-[200px] border border-dashed border-gray-300 rounded-md flex flex-col items-center justify-center p-6 space-y-3 text-gray-600">
-                        <p><i class="fas fa-info-circle mr-2 text-blue-500"></i>Bài kiểm tra bao gồm các phần Ngữ pháp, Từ vựng, Đọc hiểu và Nghe hiểu.</p>
-                        <p><i class="fas fa-headphones mr-2 text-blue-500"></i>Vui lòng chuẩn bị tai nghe (cho phần Nghe) và đảm bảo kết nối internet ổn định.</p>
-                        <p><i class="fas fa-clock mr-2 text-blue-500"></i>Thời gian làm bài dự kiến: <strong>45-60 phút</strong>.</p>
-                        <button id="start-test-btn" class="mt-6 inline-flex items-center justify-center gap-2 bg-warning hover:bg-amber-600 text-white font-semibold py-3 px-8 rounded-md shadow hover:shadow-md transition duration-300">
-                            <i class="fas fa-play"></i> Bắt đầu làm bài
-                        </button>
+                    <div class="text-center mb-10 md:mb-12">
+                        <h2 class="text-3xl font-bold text-primary mb-4">Biết trình độ, chọn đúng lộ trình!</h2>
+                        <p class="text-gray-600 leading-relaxed max-w-3xl mx-auto">
+                            Bài kiểm tra năng lực tiếng Anh trực tuyến của IVS JSC được thiết kế theo chuẩn Khung tham chiếu trình độ ngôn ngữ chung Châu Âu (CEFR), giúp bạn đánh giá chính xác khả năng Nghe, Nói, Đọc, Viết của mình từ A1 đến C2. Kết quả bài kiểm tra sẽ là cơ sở để chúng tôi tư vấn lộ trình học tập hiệu quả và phù hợp nhất dành cho bạn.
+                        </p>
                     </div>
 
-                    {/* Area for Test Results (Initially Hidden) */}
-                    <div id="test-result-area" class="hidden mt-8 pt-6 border-t border-gray-200">
-                        <h4 class="text-xl font-semibold text-primary mb-4">Kết quả kiểm tra của bạn</h4>
-                        <div class="bg-blue-50 p-4 rounded-md mb-4 inline-block">
-                             <p class="text-lg">Trình độ ước tính: <strong id="estimated-level" class="text-blue-700">--</strong></p>
+                    <div class="bg-white p-6 md:p-8 rounded-lg shadow-lg text-center">
+                        <h3 class="text-2xl font-semibold text-secondary mb-6">Bài kiểm tra Trình độ Tiếng Anh Online</h3>
+
+                        {/* Area for Test Instructions / Questions */}
+                        <div id="placement-test-area" class="min-h-[200px] border border-dashed border-gray-300 rounded-md flex flex-col items-center justify-center p-6 space-y-3 text-gray-600">
+                            <p><i class="fas fa-info-circle mr-2 text-blue-500"></i>Bài kiểm tra bao gồm các phần Ngữ pháp, Từ vựng, Đọc hiểu và Nghe hiểu.</p>
+                            <p><i class="fas fa-headphones mr-2 text-blue-500"></i>Vui lòng chuẩn bị tai nghe (cho phần Nghe) và đảm bảo kết nối internet ổn định.</p>
+                            <p><i class="fas fa-clock mr-2 text-blue-500"></i>Thời gian làm bài dự kiến: <strong>45-60 phút</strong>.</p>
+                            <button id="start-test-btn" class="mt-6 inline-flex items-center justify-center gap-2 bg-warning hover:bg-amber-600 text-white font-semibold py-3 px-8 rounded-md shadow hover:shadow-md transition duration-300">
+                                <i class="fas fa-play"></i> Bắt đầu làm bài
+                            </button>
                         </div>
-                        <p id="level-description" class="text-gray-600 mb-4 max-w-xl mx-auto">Mô tả chi tiết về trình độ...</p>
 
-                        <h5 class="font-semibold text-gray-700 mb-3">Các khóa học phù hợp tại IVS Academy:</h5>
-                        <ul id="suggested-courses" class="list-none p-0 mb-6 space-y-1 text-blue-600">
-                            {/* Suggested courses will be loaded here by JS */}
-                        </ul>
-                        <a href="contact.html?consultation=placement" class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-md shadow hover:shadow-md transition duration-300">
-                            <i class="fas fa-comments"></i> Nhận tư vấn Lộ trình
-                        </a>
+               
+                        <div id="test-result-area" class="hidden mt-8 pt-6 border-t border-gray-200">
+                            <h4 class="text-xl font-semibold text-primary mb-4">Kết quả kiểm tra của bạn</h4>
+                            <div class="bg-blue-50 p-4 rounded-md mb-4 inline-block">
+                                <p class="text-lg">Trình độ ước tính: <strong id="estimated-level" class="text-blue-700">--</strong></p>
+                            </div>
+                            <p id="level-description" class="text-gray-600 mb-4 max-w-xl mx-auto">Mô tả chi tiết về trình độ...</p>
+
+                            <h5 class="font-semibold text-gray-700 mb-3">Các khóa học phù hợp tại IVS Academy:</h5>
+                            <ul id="suggested-courses" class="list-none p-0 mb-6 space-y-1 text-blue-600">
+                   
+                            </ul>
+                            <a href="contact.html?consultation=placement" class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-md shadow hover:shadow-md transition duration-300">
+                                <i class="fas fa-comments"></i> Nhận tư vấn Lộ trình
+                            </a>
+                        </div>
                     </div>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const startBtn = document.getElementById('start-test-btn');
+                            const testArea = document.getElementById('placement-test-area');
+                            const resultArea = document.getElementById('test-result-area');
+
+                            if (startBtn && testArea && resultArea) {
+                                startBtn.addEventListener('click', () => {
+                                    // Ẩn phần giới thiệu và nút bắt đầu
+                                    testArea.innerHTML = `
+                                        <div class="flex items-center justify-center text-gray-500">
+                                            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                            </svg>
+                                            Đang tải câu hỏi...
+                                        </div>
+                                        <p class="mt-4 text-sm text-gray-400"><em>(Đây là phần mô phỏng, cần tích hợp hệ thống test thực tế)</em></p>`;
+
+                                    // Giả lập hoàn thành test sau 3 giây và hiển thị kết quả
+                                    setTimeout(() => {
+                                        testArea.style.display = 'none'; // Ẩn khu vực test
+
+                                        // Cập nhật kết quả giả lập
+                                        const estimatedLevelEl = document.getElementById('estimated-level');
+                                        const levelDescriptionEl = document.getElementById('level-description');
+                                        const coursesListEl = document.getElementById('suggested-courses');
+
+                                        if(estimatedLevelEl) estimatedLevelEl.textContent = 'B1 (Intermediate)';
+                                        if(levelDescriptionEl) levelDescriptionEl.textContent = 'Bạn có thể hiểu các ý chính của các chủ đề quen thuộc, xử lý hầu hết các tình huống khi đi du lịch, viết các văn bản đơn giản và mô tả kinh nghiệm, sự kiện.';
+                                        if(coursesListEl) {
+                                            coursesListEl.innerHTML = `
+                                                <li><a href="#" class="hover:underline">Khóa Tiếng Anh Giao tiếp B1</a></li>
+                                                <li><a href="#" class="hover:underline">Luyện thi IELTS Mục tiêu 5.0-5.5</a></li>
+                                                <li><a href="#" class="hover:underline">Tiếng Anh Thương mại Trung cấp</a></li>
+                                            `;
+                                        }
+                                        // Hiển thị khu vực kết quả
+                                        resultArea.classList.remove('hidden');
+                                        resultArea.style.display = 'block'; // Đảm bảo display là block
+
+                                    }, 3000);
+                                });
+                            }
+                        });
+                    </script>
+
                 </div>
-
-                <script>
-                    document.addEventListener('DOMContentLoaded', () => {
-                        const startBtn = document.getElementById('start-test-btn');
-                        const testArea = document.getElementById('placement-test-area');
-                        const resultArea = document.getElementById('test-result-area');
-
-                        if (startBtn && testArea && resultArea) {
-                            startBtn.addEventListener('click', () => {
-                                // Ẩn phần giới thiệu và nút bắt đầu
-                                testArea.innerHTML = `
-                                    <div class="flex items-center justify-center text-gray-500">
-                                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg>
-                                        Đang tải câu hỏi...
-                                    </div>
-                                    <p class="mt-4 text-sm text-gray-400"><em>(Đây là phần mô phỏng, cần tích hợp hệ thống test thực tế)</em></p>`;
-
-                                // Giả lập hoàn thành test sau 3 giây và hiển thị kết quả
-                                setTimeout(() => {
-                                    testArea.style.display = 'none'; // Ẩn khu vực test
-
-                                    // Cập nhật kết quả giả lập
-                                    const estimatedLevelEl = document.getElementById('estimated-level');
-                                    const levelDescriptionEl = document.getElementById('level-description');
-                                    const coursesListEl = document.getElementById('suggested-courses');
-
-                                    if(estimatedLevelEl) estimatedLevelEl.textContent = 'B1 (Intermediate)';
-                                    if(levelDescriptionEl) levelDescriptionEl.textContent = 'Bạn có thể hiểu các ý chính của các chủ đề quen thuộc, xử lý hầu hết các tình huống khi đi du lịch, viết các văn bản đơn giản và mô tả kinh nghiệm, sự kiện.';
-                                    if(coursesListEl) {
-                                        coursesListEl.innerHTML = `
-                                            <li><a href="#" class="hover:underline">Khóa Tiếng Anh Giao tiếp B1</a></li>
-                                            <li><a href="#" class="hover:underline">Luyện thi IELTS Mục tiêu 5.0-5.5</a></li>
-                                            <li><a href="#" class="hover:underline">Tiếng Anh Thương mại Trung cấp</a></li>
-                                        `;
-                                    }
-                                    // Hiển thị khu vực kết quả
-                                    resultArea.classList.remove('hidden');
-                                    resultArea.style.display = 'block'; // Đảm bảo display là block
-
-                                }, 3000);
-                            });
-                        }
-                    });
-                </script>
-
-            </div>
-        </section>
+            </section>
     </main>
 
     <footer id="footer-placeholder"></footer>
