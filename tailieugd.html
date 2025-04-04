@@ -3,133 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tài liệu Giáo dục - IVS JSC</title>
+    <title data-lang-key="page_title_luvyoga">LUVYOGA-Lộc Hòa|Yoga Định tuyến & Trị liệu Phục hồi</title>
+    <meta name="description" content="LUVYOGA tại Trảng Bom, Đồng Nai - Yoga định tuyến và hỗ trợ trị liệu phục hồi, cải thiện tư thế, vóc dáng. Giáo viên chứng chỉ Alliance Yoga (Mỹ)." data-lang-key="meta_description_luvyoga">
+    <meta property="og:title" content="LUVYOGA - Trảng Bom | Yoga Định tuyến & Trị liệu Phục hồi" data-lang-key="og_title_luvyoga">
+    <meta property="og:description" content="LUVYOGA tại Trảng Bom, Đồng Nai - Yoga định tuyến và hỗ trợ trị liệu phục hồi, cải thiện tư thế, vóc dáng. Giáo viên chứng chỉ Alliance Yoga (Mỹ)." data-lang-key="og_description_luvyoga">
+    <meta property="og:image" content="images/pages/healths/luvyoga1.png" data-lang-key="og_image_luvyoga">
+    <meta property="og:url" content="https://ivs.id.vn/health-luvyoga.html"> <meta property="og:type" content="website">
+
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              primary: { light: '#60a5fa', DEFAULT: '#3b82f6', dark: '#2563eb' },
+              secondary: { light: '#34d399', DEFAULT: '#10b981', dark: '#059669' },
+              neutral: { 50: '#f9fafb', 100: '#f3f4f6', 200: '#e5e7eb', 300: '#d1d5db', 400: '#9ca3af', 500: '#6b7280', 600: '#4b5563', 700: '#374151', 800: '#1f2937', 900: '#111827' },
+              warning: { light: '#fcd34d', DEFAULT: '#f59e0b', dark: '#b45309' },
+              info: { light: '#38bdf8', DEFAULT: '#0ea5e9', dark: '#0284c7' },
+              danger: { light: '#fda4af', DEFAULT: '#f43f5e', dark: '#be123c'},
+              pink: { DEFAULT: '#ec4899', dark: '#db2777' } // Thêm màu hồng cho LuvYoga
+            }
+          }
+        },
+        // Lưu ý: require('@tailwindcss/typography') không hoạt động trong config inline này.
+        // Plugin đã được load qua URL CDN: ?plugins=typography
+        // Nếu build CSS, bạn cần cài đặt plugin và thêm vào file tailwind.config.js
+        plugins: [],
+      }
+    </script>
     <link rel="stylesheet" href="css/styles.css">
-    <script>
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                const headerPlaceholder = document.getElementById('header-placeholder');
-                if (headerPlaceholder) {
-                    headerPlaceholder.innerHTML = data;
-                    // Gọi lại hàm khởi tạo menu nếu có trong main.js
-                    if (typeof initializeMenu === 'function') {
-                        initializeMenu();
-                    }
-                     // Gọi lại hàm language nếu có trong language.js
-                     if (typeof setLanguage === 'function') {
-                         const currentLang = localStorage.getItem('language') || 'vi';
-                         setLanguage(currentLang);
-                     }
-                }
-            })
-            .catch(error => console.error('Error loading header:', error));
-    </script>
+
+    <style>
+      /* Các style cơ bản cho body (Nếu không bị ghi đè bởi Tailwind/styles.css) */
+      /* body {
+        background-color: theme('colors.neutral.50');
+        color: theme('colors.neutral.700');
+        font-family: theme('fontFamily.sans');
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      } */
+
+      /* Style cho nút active ngôn ngữ (Nên đặt trong styles.css) */
+      button:disabled[data-lang] {
+          opacity: 1; cursor: default; color: theme('colors.primary.dark', '#2563eb'); /* Thêm màu dự phòng */
+      }
+      button[data-lang]:not(:disabled) {
+          color: theme('colors.neutral.500', '#6b7280');
+      }
+      button[data-lang]:not(:disabled):hover {
+          color: theme('colors.primary.DEFAULT', '#3b82f6');
+      }
+
+      /* Style cho list icon check (Nên đặt trong styles.css) */
+      .check-list-pink li { padding-left: 1.75rem; position: relative; margin-bottom: 0.75rem;}
+      .check-list-pink li::before {
+          content: '✓';
+          position: absolute;
+          left: 0;
+          color: theme('colors.pink.DEFAULT', '#ec4899'); /* Thêm màu dự phòng */
+          font-weight: 900;
+          font-size: 1.1em;
+          top: 0.1em; /* Điều chỉnh nếu cần */
+      }
+
+      /* Đảm bảo iframe map responsive (Nên đặt trong styles.css) */
+      .map-container iframe {
+          display: block; /* Tránh khoảng trắng thừa bên dưới iframe */
+          width: 100%;
+          height: 100%;
+          min-height: 350px; /* Chiều cao tối thiểu */
+      }
+
+      /* === Tối ưu hóa: CSS Wrapper cho Facebook Video === */
+      .facebook-video-container {
+          position: relative;
+          padding-bottom: 177.77%; /* Tỷ lệ 9:16 cho video dọc (16/9 * 100), điều chỉnh nếu cần */
+          height: 0;
+          overflow: hidden;
+          max-width: 350px; /* Giới hạn chiều rộng tối đa cho video dọc, tùy chỉnh */
+          margin-left: auto; /* Căn giữa nếu cần */
+          margin-right: auto; /* Căn giữa nếu cần */
+          background: #f0f0f0; /* Nền chờ */
+      }
+      .facebook-video-container iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border: 0;
+      }
+       /* === Kết thúc CSS Wrapper === */
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body class="bg-gray-100"> <div id="header-placeholder"></div>
+<body class="bg-neutral-50 text-neutral-700 font-sans">
 
-    <div class="container mx-auto max-w-5xl p-4 md:p-8 bg-white shadow-lg rounded-lg my-8">
-        <h1 class="text-3xl font-bold text-center text-blue-700 mb-6 pb-3 border-b border-gray-200">
-            Kho Tài liệu Giáo dục
-        </h1>
-        <p class="text-center text-gray-600 mb-8">
-            Tổng hợp các tài liệu, giáo trình và tài nguyên học tập được chia sẻ qua Google Drive.
-        </p>
+    <header id="header-placeholder"></header>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold text-green-700 mb-4 pb-2 border-b border-gray-200 flex items-center">
-                <span class="mr-3 text-xl">📁</span> Tài liệu Tiếng Anh
-            </h2>
-            <ul class="list-none pl-4 space-y-3">
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Bộ sách Tiếng Anh Giao tiếp Cơ bản</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Tổng hợp ngữ pháp Tiếng Anh A-Z</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">500+ Bài luyện nghe Tiếng Anh (Kèm transcript)</a></li>
-                </ul>
+    <main class="container mx-auto px-4 py-8 md:py-12"> <section class="relative bg-gradient-to-r from-pink-500 to-rose-500 text-white py-20 md:py-28 text-center shadow-lg overflow-hidden rounded-lg mb-8 md:mb-12"> <div class="relative z-10 container mx-auto px-4">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 hero-text-shadow" data-lang-key="luvyoga_heading">
+                    LUVYOGA-Lộc Hòa
+                </h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto hero-text-shadow" data-lang-key="luvyoga_intro_p1">
+                    🧡🧘🏻‍♀️ Yoga định tuyến và hỗ trợ trị liệu phục hồi, đề cao sức khoẻ và sự an toàn trong tập luyện, hỗ trợ cải thiện tư thế và vóc dáng.
+                </p>
+            </div>
         </section>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold text-green-700 mb-4 pb-2 border-b border-gray-200 flex items-center">
-                <span class="mr-3 text-xl">🧸</span> Tài liệu Mầm Non
-            </h2>
-            <ul class="list-none pl-4 space-y-3">
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Tuyển tập truyện kể cho bé Mầm non</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Giáo án hoạt động góc theo chủ đề</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Bài tập tô màu và nhận biết chữ cái</a></li>
-                 </ul>
+        <section class="bg-white p-6 md:p-8 rounded-xl shadow-lg mb-8 md:mb-12"> <h2 class="text-3xl font-semibold text-primary mb-6 text-center" data-lang-key="luvyoga_gallery_heading">Vài nét về LUVYOGA</h2> <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="aspect-w-1 aspect-h-1">
+                    <img loading="lazy" src="images/pages/healths/luvyoga1.png" alt="Ảnh học viên LuvYoga 1" data-lang-key="luvyoga_gallery_img1_alt" class="w-full h-full object-cover rounded-lg shadow-md transition-transform duration-300 hover:scale-105" onerror="this.style.display='none'; this.parentElement.style.background='#eee url(https://placehold.co/400x400/eee/ccc?text=Error) center/cover';">
+                </div>
+                <div class="aspect-w-1 aspect-h-1">
+                    <img loading="lazy" src="images/pages/healths/luvyoga4.png" alt="Ngoại thất LuvYoga" data-lang-key="luvyoga_gallery_img2_alt" class="w-full h-full object-cover rounded-lg shadow-md transition-transform duration-300 hover:scale-105" onerror="this.style.display='none'; this.parentElement.style.background='#eee url(https://placehold.co/400x400/eee/ccc?text=Error) center/cover';">
+                </div>
+                <div class="aspect-w-1 aspect-h-1">
+                    <img loading="lazy" src="images/pages/healths/luvyoga3.jpg" alt="Không gian LuvYoga" data-lang-key="luvyoga_gallery_img3_alt" class="w-full h-full object-cover rounded-lg shadow-md transition-transform duration-300 hover:scale-105" onerror="this.style.display='none'; this.parentElement.style.background='#eee url(https://placehold.co/400x400/eee/ccc?text=Error) center/cover';">
+                </div>
+                <div class="aspect-w-1 aspect-h-1">
+                    <img loading="lazy" src="images/pages/healths/luvyoga2.png" alt="Giáo viên LuvYoga" data-lang-key="luvyoga_gallery_img4_alt" class="w-full h-full object-cover rounded-lg shadow-md transition-transform duration-300 hover:scale-105" onerror="this.style.display='none'; this.parentElement.style.background='#eee url(https://placehold.co/400x400/eee/ccc?text=Error) center/cover';">
+                </div>
+            </div>
+            <p class="text-center italic text-neutral-600" data-lang-key="luvyoga_testimonial_caption">
+                📸 Học viên của Luv chỉ sau 1.5 tháng đã có nhiều tiến bộ và cảm nhận rõ rệt cơ thể của mình!
+            </p>
         </section>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold text-green-700 mb-4 pb-2 border-b border-gray-200 flex items-center">
-                <span class="mr-3 text-xl">🌱</span> Tài liệu Kỹ năng sống
-            </h2>
-            <ul class="list-none pl-4 space-y-3">
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Giáo trình Kỹ năng sống cho học sinh Tiểu học</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Bộ hoạt động rèn luyện Kỹ năng Thế kỷ 21</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Bài giảng Kỹ năng quản lý thời gian hiệu quả</a></li>
-                 </ul>
+         <section class="text-center my-8 md:my-12"> <p class="text-xl font-medium text-neutral-800 mb-6" data-lang-key="luvyoga_cta_text">
+                Hãy tham gia và trải nghiệm sự thay đổi tích cực cùng LUVYOGA ngay hôm nay!
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="tel:0352518855" class="inline-flex items-center justify-center gap-2 bg-pink-600 hover:bg-pink-700 text-white font-semibold py-3 px-8 rounded-full shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition duration-300 transform hover:scale-105" data-lang-key="luvyoga_cta_hotline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    Hotline: 035 251 88 55
+                </a>
+                <a href="https://www.facebook.com/LuvYoga.Official" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-300 transform hover:scale-105" data-lang-key="luvyoga_cta_facebook">
+                   <i class="fab fa-facebook-f text-xl"></i> Facebook
+                </a>
+                <a href="https://www.instagram.com/luvyoga.official/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-3 px-8 rounded-full shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 transition duration-300 transform hover:scale-105" data-lang-key="luvyoga_cta_instagram">
+                    <i class="fab fa-instagram text-xl"></i> Instagram
+                </a>
+            </div>
+             <p class="mt-8 text-xl font-semibold text-pink-700" data-lang-key="luvyoga_slogan">
+                💙 LUV YOGA - Yêu Yoga hơn mỗi ngày!
+            </p>
         </section>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold text-green-700 mb-4 pb-2 border-b border-gray-200 flex items-center">
-                 <span class="mr-3 text-xl">📚</span> Giáo trình Cambridge Super Minds
-            </h2>
-            <ul class="list-none pl-4 space-y-3">
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Super Minds Starter - Full Set (Student Book, Workbook, Audio,...)</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Super Minds 1 - Full Set</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Super Minds 2 - Full Set</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Flashcards & Teaching Resources for Super Minds</a></li>
-                 </ul>
-        </section>
+        <section class="py-12 md:py-16 space-y-12 md:space-y-16">
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold text-green-700 mb-4 pb-2 border-b border-gray-200 flex items-center">
-                <span class="mr-3 text-xl">💡</span> Giáo trình LIFEMinds
-            </h2>
-             <ul class="list-none pl-4 space-y-3">
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Giáo trình LIFEMinds - Cấp độ Mầm non</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Giáo trình LIFEMinds - Cấp độ Tiểu học</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Tài liệu bổ trợ và hoạt động LIFEMinds</a></li>
-                </ul>
-        </section>
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg max-w-4xl mx-auto text-center border-t-4 border-secondary">
+                 <h2 class="text-2xl font-semibold text-secondary mb-4" data-lang-key="luvyoga_certs_heading">Chứng chỉ Quốc tế</h2>
+                 <p class="text-neutral-600 mb-6" data-lang-key="luvyoga_certs_desc">Giáo viên tại LUVYOGA được đào tạo bài bản và sở hữu chứng chỉ uy tín từ Alliance Yoga (Mỹ):</p>
+                 <div class="flex flex-col sm:flex-row justify-center items-center gap-4 text-neutral-700">
+                     <div class="flex items-center gap-2 p-3 bg-neutral-100 rounded-lg">
+                        <i class="fas fa-file-certificate text-secondary text-xl"></i> <span class="font-medium text-sm" data-lang-key="luvyoga_cert_item1">Giáo viên Yoga Quốc tế 200H</span>
+                     </div>
+                     <div class="flex items-center gap-2 p-3 bg-neutral-100 rounded-lg">
+                         <i class="fas fa-heartbeat text-secondary text-xl"></i> <span class="font-medium text-sm" data-lang-key="luvyoga_cert_item2">Giáo viên Yoga phục hồi 100H</span>
+                     </div>
+                 </div>
+             </div>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold text-green-700 mb-4 pb-2 border-b border-gray-200 flex items-center">
-                <span class="mr-3 text-xl">🔬</span> STEAM+ Intelligence Model
-            </h2>
-            <ul class="list-none pl-4 space-y-3">
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Tổng quan về mô hình STEAM+ Intelligence</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Bộ dự án STEAM mẫu cho Mầm non & Tiểu học</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Tài liệu hướng dẫn tích hợp Trí thông minh Đa dạng</a></li>
-                 </ul>
-        </section>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg h-full order-last lg:order-first"> <h3 class="text-2xl font-semibold text-primary mb-6" data-lang-key="luvyoga_contact_info_heading">Thông tin Liên hệ & Địa chỉ</h3>
+                    <div class="space-y-4 text-neutral-700">
+                        <div>
+                            <strong class="block text-sm font-medium text-neutral-500" data-lang-key="luvyoga_address_label">Địa chỉ:</strong>
+                            <p data-lang-key="luvyoga_address_text">Ấp Nhân Hoà, Xã Tây Hoà, Huyện Trảng Bom, Tỉnh Đồng Nai</p>
+                        </div>
+                        <div>
+                            <strong class="block text-sm font-medium text-neutral-500" data-lang-key="luvyoga_phone_label">Hotline:</strong>
+                            <a href="tel:0352518855" class="hover:text-primary transition-colors" data-lang-key="luvyoga_phone_number">035 251 8855</a>
+                        </div>
+                         <div>
+                             <strong class="block text-sm font-medium text-neutral-500" data-lang-key="luvyoga_email_label">Email:</strong>
+                             <a href="mailto:luvyoga.official@gmail.com" class="hover:text-primary transition-colors" data-lang-key="luvyoga_email_address">luvyoga.official@gmail.com</a>
+                         </div>
+                         <div class="pt-4">
+                            <a href="https://g.co/kgs/wVebpgX" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-primary hover:underline font-medium" data-lang-key="luvyoga_cta_map_link">
+                                <i class="fas fa-map-marker-alt"></i> Chỉ đường đến trung tâm (Google Maps)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-container rounded-xl shadow-lg overflow-hidden h-full min-h-[400px]"> <iframe loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.7039291973457!2d107.00004107488437!3d11.061614689109012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174e0c643e4964f%3A0x9d14107a7c1b5111!2zTFVWWU9HQSAtIEzhu5ljIEhvw6A!5e0!3m2!1svi!2s!4v1710345004882!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade" data-lang-key="luvyoga_map_iframe_title" title="Bản đồ vị trí LUVYOGA"></iframe>
+                </div>
+            </div>
 
-        <section> <h2 class="text-2xl font-semibold text-green-700 mb-4 pb-2 border-b border-gray-200 flex items-center">
-                <span class="mr-3 text-xl">🎓</span> Hỗ trợ Luận văn Tiến sĩ Quản lý Giáo dục
-            </h2>
-            <ul class="list-none pl-4 space-y-3">
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Tổng hợp các đề tài luận văn TS QLGD tham khảo</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Các bài báo khoa học về Quản lý Giáo dục (Trong nước & Quốc tế)</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Tài liệu về phương pháp nghiên cứu khoa học giáo dục</a></li>
-                <li><a href="#" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 hover:underline">Biểu mẫu, hướng dẫn trình bày luận văn Tiến sĩ</a></li>
-                </ul>
-        </section>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-semibold text-secondary mb-6" data-lang-key="luvyoga_schedule_heading">Lịch tập Yoga Căn bản</h3>
+                    <div class="space-y-4"> <div>
+                            <strong class="block text-neutral-700 text-lg mb-1" data-lang-key="luvyoga_schedule_morning_label">☀️ Sáng:</strong>
+                            <p class="text-xl text-secondary font-medium" data-lang-key="luvyoga_schedule_morning_time">05:00 - 06:15</p>
+                        </div>
+                        <div>
+                            <strong class="block text-neutral-700 text-lg mb-1" data-lang-key="luvyoga_schedule_evening_label">🌙 Tối:</strong>
+                            <p class="text-xl text-secondary font-medium" data-lang-key="luvyoga_schedule_evening_time">19:30 - 20:45</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="bg-pink-50 p-6 md:p-8 rounded-xl shadow-lg border-l-4 border-pink-500">
+                    <h3 class="text-2xl font-semibold text-pink-600 mb-6" data-lang-key="luvyoga_why_heading">💯 Tại sao chọn Luv Yoga?</h3>
+                    <ul class="space-y-3 check-list-pink text-neutral-700">
+                        <li data-lang-key="luvyoga_why_item1">Giáo viên đạt chứng chỉ Alliance Yoga Quốc tế (Mỹ).</li>
+                        <li data-lang-key="luvyoga_why_item2">Không gian thư giãn, thoải mái, trang trí ấm áp.</li>
+                        <li data-lang-key="luvyoga_why_item3">Động tác chuẩn kỹ thuật, an toàn và phù hợp mọi trình độ.</li>
+                    </ul>
+                </div>
+            </div>
 
-    </div> <div id="footer-placeholder"></div>
+            <section class="mt-12 md:mt-16">
+                <h2 class="text-3xl font-semibold text-primary mb-6 text-center" data-lang-key="luvyoga_video_heading">Video Cảm nhận Học viên</h2>
+                <div class="facebook-video-container">
+                    <iframe loading="lazy" src="https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F523340060269570%2F&show_text=false&width=267&t=0" width="267" height="476" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true" title="Video Facebook LuvYoga"></iframe>
+                 </div>
+             </section>
+
+        </section> </main>
+
+    <footer id="footer-placeholder"></footer>
+
+    <script src="js/script.js" defer></script>
+    <script src="js/language.js" defer></script>
 
     <script>
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => {
-                const footerPlaceholder = document.getElementById('footer-placeholder');
-                if (footerPlaceholder) {
-                    footerPlaceholder.innerHTML = data;
-                }
-            })
-            .catch(error => console.error('Error loading footer:', error));
-    </script>
+        // Hàm tải Header
+        function loadHeader() {
+            fetch('header.html')
+                .then(response => response.ok ? response.text() : Promise.reject('Header not found'))
+                .then(data => {
+                    const headerPlaceholder = document.getElementById('header-placeholder');
+                    if (headerPlaceholder) {
+                        headerPlaceholder.innerHTML = data;
+                        // Gọi lại hàm khởi tạo menu nếu có trong main.js hoặc script.js
+                        if (typeof initializeMenu === 'function') {
+                            initializeMenu();
+                        }
+                        // Gọi lại hàm language nếu có trong language.js
+                        if (typeof setLanguage === 'function') {
+                            const currentLang = localStorage.getItem('language') || 'vi';
+                            setLanguage(currentLang);
+                        }
+                    }
+                })
+                .catch(error => console.error('Error loading header:', error));
+        }
 
-    <script src="js/main.js"></script>
-    <script src="js/language.js"></script>
+        // Hàm tải Footer
+        function loadFooter() {
+             fetch('footer.html')
+                .then(response => response.ok ? response.text() : Promise.reject('Footer not found'))
+                .then(data => {
+                    const footerPlaceholder = document.getElementById('footer-placeholder');
+                    if (footerPlaceholder) {
+                        footerPlaceholder.innerHTML = data;
+                         // Có thể gọi lại hàm setLanguage cho footer nếu cần
+                         if (typeof setLanguage === 'function') {
+                             const currentLang = localStorage.getItem('language') || 'vi';
+                             setLanguage(currentLang); // Áp dụng ngôn ngữ cho cả footer mới tải
+                         }
+                    }
+                })
+                .catch(error => console.error('Error loading footer:', error));
+        }
+
+        // Chạy các hàm tải khi DOM sẵn sàng
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHeader();
+            loadFooter();
+        });
+    </script>
 
 </body>
 </html>
