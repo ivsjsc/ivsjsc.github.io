@@ -51,8 +51,31 @@
       .check-list-pink li { padding-left: 1.75rem; position: relative; margin-bottom: 0.75rem;}
       .check-list-pink li::before { content: '✓'; position: absolute; left: 0; color: theme('colors.pink.DEFAULT', '#ec4899'); font-weight: 900; font-size: 1.1em; top: 0.1em; }
       .map-container iframe { display: block; width: 100%; height: 100%; min-height: 350px; border:0; }
-      .facebook-video-container { position: relative; padding-bottom: 177.77%; height: 0; overflow: hidden; max-width: 350px; margin: 1.5rem auto 0 auto; background: #f0f0f0; border-radius: 8px; }
-      .facebook-video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+      /* CSS Wrapper cho Facebook Video (Áp dụng cho cả iframe và div.fb-video bên trong) */
+      .facebook-video-container {
+          position: relative;
+          /* padding-bottom: 177.77%; Tỷ lệ 9:16 cho video dọc Reel */
+          /* Hoặc tính toán tỷ lệ khác nếu là video ngang, ví dụ 56.25% cho 16:9 */
+          /* Tạm thời dùng tỷ lệ dựa trên width/height gốc của iframe cũ (295/560)*100 = 52.67% nếu là video ngang */
+          /* Hoặc để auto nếu dùng data-width="auto" cho div.fb-video và container có chiều rộng xác định */
+          padding-bottom: 100%; /* Hoặc 56.25% cho video ngang thông thường, hoặc 177.77% cho reel dọc */
+          height: 0;
+          overflow: hidden;
+          max-width: 500px; /* Giới hạn chiều rộng tối đa, có thể điều chỉnh */
+          margin: 1.5rem auto 0 auto; /* Căn giữa và thêm khoảng cách trên */
+          background: #f0f0f0;
+          border-radius: 8px;
+      }
+      .facebook-video-container iframe,
+      .facebook-video-container .fb-video { /* Áp dụng cho cả iframe và div.fb-video */
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border: 0;
+      }
       .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
     </style>
 </head>
@@ -208,12 +231,23 @@
 
             <section aria-labelledby="video-heading" class="mt-12 md:mt-16">
                 <h2 id="video-heading" class="text-3xl font-semibold text-primary mb-6 text-center" data-lang-key="luvyoga_video_heading">Video Cảm nhận Học viên</h2>
-                <div class="fb-video" data-href="https://www.facebook.com/reel/523340060269570/" data-width="500" data-show-text="false"></div>
-                </div>
-            </section>
-     </main>
+                <div class="facebook-video-container">
+                     <div class="fb-video"
+                          data-href="https://www.facebook.com/reel/523340060269570/"
+                          data-show-text="false"
+                          data-lazy="true"> <blockquote cite="https://www.facebook.com/reel/523340060269570/" class="fb-xfbml-parse-ignore">
+                              <a href="https://www.facebook.com/reel/523340060269570/">Xem Reel này</a> của LuvYoga
+                          </blockquote>
+                     </div>
+                 </div>
+             </section>
+
+        </section> </main>
 
     <footer id="footer-placeholder"></footer>
+
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v22.0&appId=587328291025935"></script>
 
     <script src="js/script.js" defer></script>
     <script src="js/language.js" defer></script>
@@ -230,27 +264,45 @@
                     if (placeholder) {
                         placeholder.innerHTML = data;
                         if (callback && typeof callback === 'function') {
-                            callback(); // Gọi hàm callback sau khi tải xong
+                            // Đảm bảo gọi callback sau khi nội dung được chèn vào DOM
+                            // và trình duyệt có thời gian phân tích (đặc biệt quan trọng cho FB SDK)
+                            setTimeout(callback, 0);
                         }
                     }
                 })
                 .catch(error => console.error(`Error loading component ${url}:`, error));
         }
 
+        // Hàm để gọi FB.XFBML.parse() nếu cần (ví dụ khi nội dung được thêm động)
+        function parseFacebookPlugins() {
+            if (typeof FB !== 'undefined' && FB.XFBML) {
+                FB.XFBML.parse(); // Yêu cầu SDK quét lại và render plugin
+                console.log('FB.XFBML.parse() called.');
+            } else {
+                 console.log('FB SDK not ready for parsing yet.');
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             loadComponent('header.html', 'header-placeholder', () => {
-                // Callback sau khi header tải xong
                 if (typeof initializeMenu === 'function') initializeMenu();
                 if (typeof setLanguage === 'function') setLanguage(localStorage.getItem('language') || 'vi');
+                // Có thể cần gọi parseFacebookPlugins() ở đây nếu header chứa plugin FB
+                // parseFacebookPlugins();
             });
             loadComponent('footer.html', 'footer-placeholder', () => {
-                 // Callback sau khi footer tải xong (nếu cần)
                  if (typeof setLanguage === 'function') setLanguage(localStorage.getItem('language') || 'vi');
+                 // Có thể cần gọi parseFacebookPlugins() ở đây nếu footer chứa plugin FB
+                 // parseFacebookPlugins();
             });
+
+            // Gọi parse một lần sau khi mọi thứ có thể đã tải xong,
+            // hoặc dựa vào callback của SDK nếu bạn cấu hình phức tạp hơn.
+            // SDK tải async defer thường tự động parse khi nó sẵn sàng.
+            // Nếu video vẫn không hiện, bạn có thể thử gọi parse thủ công sau 1 khoảng trễ nhỏ:
+            // setTimeout(parseFacebookPlugins, 1000); // Thử gọi sau 1 giây
         });
     </script>
 
 </body>
 </html>
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v22.0&appId=587328291025935"></script>
