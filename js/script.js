@@ -1,49 +1,33 @@
 /**
- * Hàm tải nội dung HTML từ một URL và chèn vào phần tử có ID chỉ định.
- * @param {string} url Đường dẫn tuyệt đối từ gốc đến file HTML.
- * @param {string} elementId ID của phần tử placeholder.
- * @returns {Promise<HTMLElement|null>} Promise trả về phần tử gốc chứa nội dung đã tải hoặc null nếu lỗi.
+ * Tải nội dung từ một tệp HTML vào một phần tử placeholder.
+ * @param {string} placeholderId ID của phần tử placeholder.
+ * @param {string} componentUrl Đường dẫn đến tệp HTML component.
+ * @returns {Promise<void>} Promise hoàn thành khi component được tải.
  */
-async function loadComponent(url, elementId) {
-    const element = document.getElementById(elementId);
-    if (!element) {
-        console.error(`DEBUG: Placeholder element #${elementId} not found.`);
-        return null;
+function loadComponent(placeholderId, componentUrl) {
+    const placeholder = document.getElementById(placeholderId);
+    if (!placeholder) {
+        console.error(`Placeholder element with ID "${placeholderId}" not found.`);
+        return Promise.reject(`Placeholder not found: ${placeholderId}`);
     }
-    console.log(`DEBUG: Loading component ${url} into #${elementId}`);
 
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            console.error(`Failed to load ${url}. Status: ${response.status} ${response.statusText}`);
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(data, 'text/html');
-        const componentContent = doc.querySelector('body > header, body > footer');
-
-        if (componentContent) {
-            while (element.firstChild) {
-                element.removeChild(element.firstChild);
+    return fetch(componentUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch ${componentUrl}: ${response.statusText}`);
             }
-            element.appendChild(componentContent);
-            console.log(`DEBUG: Component ${elementId} loaded successfully from ${url}.`);
-            return element.querySelector('header, footer');
-        } else {
-             console.error(`DEBUG: No valid <header> or <footer> tag found directly inside <body> of ${url}.`);
-             element.innerHTML = `<div style="text-align: center; padding: 10px; color: orange;">Nội dung ${elementId} không hợp lệ.</div>`;
-             return null;
-        }
-    } catch (error) {
-        console.error(`DEBUG: Error loading ${elementId} from ${url}:`, error);
-        element.innerHTML = `<div style="text-align: center; padding: 10px; color: red;">Lỗi tải ${elementId}.</div>`;
-        return null;
-    }
+            return response.text();
+        })
+        .then(html => {
+            placeholder.innerHTML = html;
+            console.log(`Component ${componentUrl} loaded into #${placeholderId}`);
+        })
+        .catch(error => {
+            console.error(`Error loading component ${componentUrl}:`, error);
+            placeholder.innerHTML = `<p class="text-red-500 text-center">Error loading component: ${componentUrl}</p>`;
+            return Promise.reject(error);
+        });
 }
-
-// --- Cờ để đảm bảo menu chỉ được khởi tạo một lần ---
-let menuInitialized = false;
 
 /**
  * Khởi tạo các sự kiện cho menu (Phiên bản kết hợp: Slide cho main menu, MaxHeight cho submenu).
@@ -432,25 +416,27 @@ function initializeStickyNavbar(navbarElement) {
 
 // --- Chạy các hàm khởi tạo chính khi DOM sẵn sàng ---
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DEBUG: DOM fully loaded. Initializing components.");
+    console.log("DOM fully loaded and parsed.");
 
-    Promise.all([
-        loadComponent('/header.html', 'header-placeholder'),
-        loadComponent('/footer.html', 'footer-placeholder')
-    ]).then(([headerElement, footerElement]) => {
-        console.log("DEBUG: Header and Footer loading promises resolved.");
-        console.log("DEBUG: Resolved headerElement:", headerElement);
-        if (headerElement && headerElement.id === 'navbar') {
-            initializeCombinedMenuEvents();
-        } else {
-            console.error("DEBUG: Header component check failed.");
-            if(!headerElement) console.error("DEBUG: Reason: headerElement is null or undefined.");
-            else if(headerElement.id !== 'navbar') console.error(`DEBUG: Reason: headerElement ID is "${headerElement.id}", expected "navbar".`);
-            console.error("DEBUG: Menu events not initialized.");
-        }
-    }).catch(error => {
-        console.error("DEBUG: Critical error during component loading.", error);
-    });
+    // Tải Header và Footer đồng thời
+    const headerPromise = loadComponent('header-placeholder', 'header.html');
+    const footerPromise = loadComponent('footer-placeholder', 'footer.html');
 
-    console.log("DEBUG: Initial component setup sequence started.");
+    // Chỉ gọi initializeLanguage SAU KHI cả header và footer đã được tải XONG
+    Promise.all([headerPromise, footerPromise])
+        .then(() => {
+            console.log("Header and Footer loaded successfully.");
+            if (typeof initializeLanguage === 'function') {
+                console.log("Calling initializeLanguage() from script.js...");
+                initializeLanguage();
+                window.languageInitialized = true;
+            } else {
+                console.warn("initializeLanguage function not found. Ensure language.js is loaded correctly.");
+            }
+        })
+        .catch(errors => {
+            console.error("Error loading one or more components (header/footer). Language initialization might be affected.", errors);
+        });
+
+    console.log("script.js execution finished (except async operations).");
 });
