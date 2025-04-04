@@ -1,7 +1,7 @@
 // /js/language.js
 
 // Đối tượng lưu trữ các bản dịch
-// Đã cập nhật với keys từ header v5, rnd-curriculum, tai-tro
+// Đã cập nhật với keys từ trang rnd-curriculum.html v2
 const translations = {
     vi: {
         // Meta Tags
@@ -11,12 +11,14 @@ const translations = {
         og_description_index: "Khám phá các giải pháp toàn diện về đào tạo ngoại ngữ, STEAM, kỹ năng sống, EdTech, chăm sóc sức khỏe và cơ hội hợp tác cùng IVS JSC.",
         page_title_default: "IVS Education",
         meta_description: "IVS Education - Tổ chức giáo dục, công nghệ giáo dục (EdTech), hợp tác đầu tư quốc tế.",
-        page_title_rnd: "Thiết kế Học liệu theo yêu cầu - IVS Education",
-        meta_description_rnd: "Dịch vụ thiết kế học liệu, giáo trình, chương trình đào tạo theo yêu cầu chuyên biệt từ IVS Education.",
+        // page_title_rnd: "Thiết kế Học liệu theo yêu cầu - IVS Education", // Key cũ
+        // meta_description_rnd: "Dịch vụ thiết kế học liệu, giáo trình, chương trình đào tạo theo yêu cầu chuyên biệt từ IVS Education.", // Key cũ
+        page_title_rnd: "Thiết kế Học liệu & Giải pháp EdTech - IVS Education", // Key mới
+        meta_description_rnd_v2: "Dịch vụ R&D, thiết kế chương trình, học liệu, LMS và ứng dụng giáo dục theo yêu cầu chuyên biệt từ IVS Education & IVS Celestech.", // Key mới
         page_title_sponsorship: "Tài trợ Cộng đồng - IVS Education",
         meta_description_sponsorship: "Tìm hiểu về các chương trình tài trợ cộng đồng của IVS Education và cách bạn có thể đồng hành cùng chúng tôi kiến tạo giá trị bền vững.",
 
-        // Header v5
+        // Header v5 (Giữ nguyên)
         logo_alt: "Logo IVS JSC",
         menu_home: "Trang chủ",
         menu_about: "Giới thiệu",
@@ -39,16 +41,15 @@ const translations = {
         menu_link_secondary: "THCS & THPT",
         menu_link_language_center: "Trung tâm Ngoại ngữ",
         menu_investment_cooperation: "Hợp tác Đầu tư",
-        menu_center_establishment: "Thành lập Trung tâm", // Đã chuyển sang Dịch vụ trong HTML, nhưng key giữ lại nếu cần
+        menu_center_establishment: "Thành lập Trung tâm",
         menu_non_profit: "Tổ chức Phi lợi nhuận",
         menu_sponsorship: "Tài trợ",
         menu_services: "Dịch vụ",
         menu_edu_consulting: "Tư vấn Giáo dục",
         menu_web_design: "Thiết kế Web",
-        // menu_health_care: "Chăm sóc Sức khỏe", // Đã bị xóa khỏi menu Dịch vụ
-        menu_design_edu: "Thiết kế Học liệu", // Đã đổi tên từ custom_curriculum
-        menu_healths: "Sức khỏe", // Menu mới
-        menu_health_yensao: "Yến sào Thanh Yến", // Mục con mới, key ĐÚNG
+        menu_design_edu: "Thiết kế Học liệu",
+        menu_healths: "Sức khỏe",
+        menu_health_yensao: "Yến sào Thanh Yến",
         menu_recruitment: "Tuyển dụng",
         menu_recruitment_vn: "Tuyển dụng nội địa",
         menu_recruitment_intl: "Tuyển dụng quốc tế",
@@ -88,7 +89,7 @@ const translations = {
         index_video_title: "Video Giới Thiệu",
         index_video_iframe_title: "Video giới thiệu IVS JSC",
 
-        // Footer
+        // Footer (Giữ nguyên)
         footer_desc: "IVS Education - Tiên phong giáo dục, công nghệ, đầu tư và thương mại dịch vụ tại Việt Nam.",
         quick_links: "Liên Kết Nhanh",
         blog: "Tin tức",
@@ -97,18 +98,35 @@ const translations = {
         copyright: "© 2025 IVS JSC. Đã đăng ký Bản quyền.",
         footer_sponsorship: "Tài trợ Cộng đồng",
 
-        // Trang rnd-curriculum.html (Giữ nguyên)
-        rnd_heading: "Thiết kế Học liệu theo yêu cầu (R&D Curriculum)",
-        rnd_intro_p1: "IVS Education cung cấp dịch vụ nghiên cứu và phát triển (R&D) chương trình, giáo trình, học liệu giảng dạy và học tập theo yêu cầu đặc thù của từng đối tác.",
-        rnd_intro_p2: "Với đội ngũ chuyên gia giàu kinh nghiệm và quy trình làm việc chuyên nghiệp, chúng tôi cam kết mang đến những sản phẩm giáo dục chất lượng cao, đáp ứng mục tiêu đào tạo và phù hợp với đối tượng người học.",
-        rnd_services_heading: "Các hạng mục chính:",
-        rnd_service_item1: "Phân tích nhu cầu và mục tiêu đào tạo.",
-        rnd_service_item2: "Thiết kế khung chương trình chi tiết.",
-        rnd_service_item3: "Biên soạn nội dung giáo trình, bài giảng.",
-        rnd_service_item4: "Phát triển học liệu bổ trợ (video, slide, bài tập tương tác...).",
-        rnd_service_item5: "Thiết kế hệ thống kiểm tra, đánh giá.",
-        rnd_service_item6: "Số hóa học liệu và tích hợp lên nền tảng LMS.",
-        rnd_contact_cta: "Liên hệ với chúng tôi để được tư vấn chi tiết về dịch vụ thiết kế học liệu.",
+        // Trang rnd-curriculum.html v2 (Keys mới)
+        rnd_heading_v2: "Thiết kế Học liệu & Giải pháp EdTech theo yêu cầu",
+        rnd_intro_p1_v2: "IVS Education, cùng với bộ phận công nghệ giáo dục IVS Celestech, cung cấp dịch vụ Nghiên cứu & Phát triển (R&D) toàn diện, từ việc xây dựng chương trình đào tạo, biên soạn học liệu đến thiết kế ứng dụng và Hệ thống quản lý học tập (LMS) chuyên biệt.",
+        rnd_intro_p2_v2: "Với đội ngũ chuyên gia R&D Giáo trình do Ms. Salma Mahzoum dẫn dắt và các kỹ sư công nghệ tại IVS Celestech, chúng tôi kết hợp phương pháp sư phạm tiên tiến và công nghệ hiện đại để tạo ra các giải pháp giáo dục tối ưu, đáp ứng chính xác mục tiêu và phù hợp với đặc thù của từng đối tác, từ trường học, trung tâm đào tạo đến doanh nghiệp.",
+        rnd_specific_services_heading_v2: "Các Dịch vụ Cụ thể",
+        rnd_curriculum_design_subheading: "Thiết kế Học liệu & Chương trình Đào tạo",
+        rnd_cd_desc: "Xây dựng lộ trình học tập và tài liệu giảng dạy chất lượng cao, bám sát mục tiêu và đối tượng người học.",
+        rnd_cd_item1: "Phân tích chuyên sâu nhu cầu và mục tiêu đào tạo của đối tác.",
+        rnd_cd_item2: "Thiết kế khung chương trình chi tiết, chuẩn đầu ra rõ ràng.",
+        rnd_cd_item3: "Biên soạn nội dung giáo trình, bài giảng, kịch bản video/audio.",
+        rnd_cd_item4: "Phát triển học liệu đa phương tiện: slide, infographic, video, bài tập tương tác.",
+        rnd_cd_item5: "Xây dựng hệ thống kiểm tra, đánh giá năng lực người học đa dạng.",
+        rnd_edtech_dev_subheading: "Phát triển Giải pháp Công nghệ Giáo dục (EdTech)",
+        rnd_ed_desc: "Cung cấp các nền tảng và ứng dụng công nghệ hỗ trợ hiệu quả cho việc dạy và học, quản lý đào tạo.",
+        rnd_ed_item1: "Thiết kế và phát triển Hệ thống Quản lý Học tập (LMS) tùy chỉnh.",
+        rnd_ed_item2: "Xây dựng ứng dụng học tập di động (Mobile Learning Apps) đa nền tảng.",
+        rnd_ed_item3: "Số hóa học liệu và tích hợp nội dung lên các nền tảng E-learning, LMS.",
+        rnd_ed_item4: "Tư vấn và triển khai ứng dụng AI, VR/AR trong giáo dục (thông qua IVS Celestech).",
+        rnd_ed_item5: "Giải pháp website chuyên biệt cho cơ sở giáo dục (trường học, trung tâm).",
+        rnd_process_heading: "Quy trình Hợp tác Chuyên nghiệp",
+        rnd_process_p1: "Chúng tôi làm việc chặt chẽ với đối tác qua các bước: Khảo sát & Phân tích -> Đề xuất Giải pháp -> Thiết kế & Phát triển -> Thử nghiệm & Phản hồi -> Triển khai & Đào tạo -> Bảo trì & Nâng cấp, đảm bảo sản phẩm cuối cùng đáp ứng đúng kỳ vọng.",
+        rnd_benefits_heading: "Lợi ích cho Đối tác",
+        rnd_benefit_item1: "Sản phẩm được \"may đo\" theo đúng nhu cầu đặc thù.",
+        rnd_benefit_item2: "Chất lượng chuyên môn cao, cập nhật xu hướng mới nhất.",
+        rnd_benefit_item3: "Tích hợp công nghệ hiện đại, nâng cao trải nghiệm học tập.",
+        rnd_benefit_item4: "Tiết kiệm thời gian và nguồn lực tự phát triển.",
+        rnd_benefit_item5: "Hỗ trợ kỹ thuật và đào tạo sử dụng hiệu quả.",
+        rnd_cta_heading_v2: "Sẵn sàng Nâng tầm Chương trình Đào tạo của Bạn?",
+        rnd_contact_cta_v2: "Hãy để đội ngũ chuyên gia của IVS Education và IVS Celestech giúp bạn xây dựng những học liệu và giải pháp công nghệ giáo dục đột phá. Liên hệ với chúng tôi ngay hôm nay!",
 
         // Trang tai-tro.html (Giữ nguyên)
         sponsorship_heading: "Đồng hành cùng IVS vì Cộng đồng",
@@ -148,12 +166,14 @@ const translations = {
         og_description_index: "Discover comprehensive solutions in language training, STEAM, life skills, EdTech, healthcare, and partnership opportunities with IVS JSC.",
         page_title_default: "IVS Education",
         meta_description: "IVS Education - Education organization, educational technology (EdTech), international investment cooperation.",
-        page_title_rnd: "Custom Learning Material Design - IVS Education",
-        meta_description_rnd: "Customized design services for learning materials, curricula, and training programs from IVS Education.",
+        // page_title_rnd: "Custom Learning Material Design - IVS Education", // Old key
+        // meta_description_rnd: "Customized design services for learning materials, curricula, and training programs from IVS Education.", // Old key
+        page_title_rnd: "Custom Curriculum & EdTech Solutions - IVS Education", // New key
+        meta_description_rnd_v2: "R&D services, design of programs, learning materials, LMS, and educational applications tailored to specific needs by IVS Education & IVS Celestech.", // New key
         page_title_sponsorship: "Community Sponsorship - IVS Education",
         meta_description_sponsorship: "Learn about IVS Education's community sponsorship programs and how you can partner with us to create sustainable value.",
 
-        // Header v5
+        // Header v5 (Keep as is)
         logo_alt: "IVS JSC Logo",
         menu_home: "Home",
         menu_about: "About Us",
@@ -176,16 +196,15 @@ const translations = {
         menu_link_secondary: "Secondary & High School",
         menu_link_language_center: "Language Center",
         menu_investment_cooperation: "Investment Cooperation",
-        menu_center_establishment: "Center Establishment", // Moved to Services in HTML
+        menu_center_establishment: "Center Establishment",
         menu_non_profit: "Non-profit Organization",
         menu_sponsorship: "Sponsorship",
         menu_services: "Services",
         menu_edu_consulting: "Education Consulting",
         menu_web_design: "Web Design",
-        // menu_health_care: "Health Care", // Removed from Services menu
-        menu_design_edu: "Curriculum Design", // Renamed from custom_curriculum
-        menu_healths: "Health", // New menu
-        menu_health_yensao: "Thanh Yen Bird's Nest", // New submenu item, CORRECT key
+        menu_design_edu: "Curriculum Design",
+        menu_healths: "Health",
+        menu_health_yensao: "Thanh Yen Bird's Nest",
         menu_recruitment: "Recruitment",
         menu_recruitment_vn: "Domestic Recruitment",
         menu_recruitment_intl: "International Recruitment",
@@ -225,7 +244,7 @@ const translations = {
         index_video_title: "Introductory Video",
         index_video_iframe_title: "IVS JSC Introductory Video",
 
-        // Footer
+        // Footer (Keep as is)
         footer_desc: "IVS Education - Pioneering education, technology, investment, and service commerce in Vietnam.",
         quick_links: "Quick Links",
         blog: "Blog",
@@ -234,18 +253,36 @@ const translations = {
         copyright: "© 2025 IVS JSC. All rights reserved.",
         footer_sponsorship: "Community Sponsorship",
 
-        // Trang rnd-curriculum.html (Keep as is)
-        rnd_heading: "Custom Learning Material Design (R&D Curriculum)",
-        rnd_intro_p1: "IVS Education provides research and development (R&D) services for programs, curricula, teaching and learning materials tailored to the specific requirements of each partner.",
-        rnd_intro_p2: "With an experienced team of experts and a professional workflow, we are committed to delivering high-quality educational products that meet training objectives and suit the target learners.",
-        rnd_services_heading: "Main categories:",
-        rnd_service_item1: "Analysis of training needs and objectives.",
-        rnd_service_item2: "Design of detailed program frameworks.",
-        rnd_service_item3: "Compilation of textbook content and lectures.",
-        rnd_service_item4: "Development of supplementary materials (videos, slides, interactive exercises...).",
-        rnd_service_item5: "Design of testing and assessment systems.",
-        rnd_service_item6: "Digitization of materials and integration into LMS platforms.",
-        rnd_contact_cta: "Contact us for detailed consultation on curriculum design services.",
+        // Trang rnd-curriculum.html v2 (New Keys)
+        rnd_heading_v2: "Custom Curriculum & EdTech Solution Design",
+        rnd_intro_p1_v2: "IVS Education, along with its EdTech division IVS Celestech, provides comprehensive Research & Development (R&D) services, from building training programs and compiling learning materials to designing specialized applications and Learning Management Systems (LMS).",
+        rnd_intro_p2_v2: "With a team of curriculum R&D experts led by Ms. Salma Mahzoum and technology engineers at IVS Celestech, we combine advanced pedagogical methods and modern technology to create optimal educational solutions that precisely meet objectives and suit the specific characteristics of each partner, from schools and training centers to businesses.",
+        rnd_specific_services_heading_v2: "Specific Services",
+        rnd_curriculum_design_subheading: "Learning Material & Curriculum Design",
+        rnd_cd_desc: "Building high-quality learning paths and teaching materials closely aligned with objectives and target learners.",
+        rnd_cd_item1: "In-depth analysis of partner's training needs and goals.",
+        rnd_cd_item2: "Design of detailed program frameworks with clear learning outcomes.",
+        rnd_cd_item3: "Compilation of textbook content, lectures, video/audio scripts.",
+        rnd_cd_item4: "Development of multimedia learning materials: slides, infographics, videos, interactive exercises.",
+        rnd_cd_item5: "Construction of diverse learner competency assessment systems.",
+        rnd_edtech_dev_subheading: "Educational Technology (EdTech) Solution Development",
+        rnd_ed_desc: "Providing technology platforms and applications that effectively support teaching, learning, and training management.",
+        rnd_ed_item1: "Design and development of customized Learning Management Systems (LMS).",
+        rnd_ed_item2: "Building cross-platform Mobile Learning Apps.",
+        rnd_ed_item3: "Digitization of learning materials and content integration into E-learning/LMS platforms.",
+        rnd_ed_item4: "Consulting and implementation of AI, VR/AR applications in education (via IVS Celestech).",
+        rnd_ed_item5: "Specialized website solutions for educational institutions (schools, centers).",
+        rnd_process_heading: "Professional Collaboration Process",
+        rnd_process_p1: "We work closely with partners through these steps: Survey & Analysis -> Solution Proposal -> Design & Development -> Testing & Feedback -> Deployment & Training -> Maintenance & Upgrade, ensuring the final product meets expectations.",
+        rnd_benefits_heading: "Benefits for Partners",
+        rnd_benefit_item1: "Product tailored precisely to specific needs.",
+        rnd_benefit_item2: "High professional quality, updated with the latest trends.",
+        rnd_benefit_item3: "Integration of modern technology, enhancing the learning experience.",
+        rnd_benefit_item4: "Saves time and resources compared to in-house development.",
+        rnd_benefit_item5: "Technical support and effective usage training provided.",
+        rnd_cta_heading_v2: "Ready to Elevate Your Training Program?",
+        rnd_contact_cta_v2: "Let the expert teams at IVS Education and IVS Celestech help you build groundbreaking learning materials and educational technology solutions. Contact us today!",
+
 
         // Trang tai-tro.html (Keep as is)
         sponsorship_heading: "Partner with IVS for the Community",
@@ -279,69 +316,48 @@ const translations = {
     }
 };
 
-// --- Phần còn lại của file language.js giữ nguyên như v4 ---
+// --- Phần còn lại của file language.js giữ nguyên như v5 ---
 
 // Hàm để đặt ngôn ngữ
 function setLanguage(lang) {
-    // Lưu ngôn ngữ được chọn vào localStorage
     localStorage.setItem('preferredLanguage', lang);
-
-    // Lặp qua tất cả các phần tử có thuộc tính data-lang-key
     document.querySelectorAll('[data-lang-key]').forEach(element => {
         const key = element.getAttribute('data-lang-key');
-        const translation = translations[lang]?.[key]; // Sử dụng optional chaining
-
-        if (translation !== undefined) { // Chỉ cập nhật nếu có bản dịch (kể cả chuỗi rỗng)
-            // Cập nhật nội dung text
+        const translation = translations[lang]?.[key];
+        if (translation !== undefined) {
             let hasChildWithLangKey = false;
             if (element.children.length > 0) {
                  for(let child of element.children) {
-                     // Kiểm tra xem phần tử con có phải là SVG không (không nên ghi đè SVG)
                      if (child.hasAttribute('data-lang-key') && child.tagName !== 'SVG') {
                          hasChildWithLangKey = true;
                          break;
                      }
                  }
             }
-
-            // Chỉ cập nhật textContent nếu phần tử không phải là container cho các phần tử con có key riêng (trừ SVG)
-            // Hoặc nếu nó là thẻ SPAN (thường dùng để chứa text đơn lẻ trong button/link)
             if (!hasChildWithLangKey || element.tagName === 'SPAN') {
                  element.textContent = translation;
             }
-
-            // Cập nhật các thuộc tính khác nếu có key tương ứng
             const placeholderKey = key + '_placeholder';
             const titleKey = key + '_title';
             const altKey = key + '_alt';
-
             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                  const placeholderTranslation = translations[lang]?.[placeholderKey];
-                 if (placeholderTranslation !== undefined) {
-                     element.placeholder = placeholderTranslation;
-                 }
+                 if (placeholderTranslation !== undefined) element.placeholder = placeholderTranslation;
             }
-            // Cập nhật title cho thẻ a và button (và các thẻ khác nếu cần)
             if ((element.tagName === 'A' || element.tagName === 'BUTTON') && element.hasAttribute('title')) {
                  const titleTranslation = translations[lang]?.[titleKey];
-                 if (titleTranslation !== undefined) {
-                     element.title = titleTranslation;
-                 }
+                 if (titleTranslation !== undefined) element.title = titleTranslation;
             }
              if (element.tagName === 'IMG' && element.hasAttribute('alt')) {
                  const altTranslation = translations[lang]?.[altKey];
-                 if (altTranslation !== undefined) {
-                     element.alt = altTranslation;
-                 }
+                 if (altTranslation !== undefined) element.alt = altTranslation;
              }
-             // Cập nhật thẻ meta description và title
              if (element.tagName === 'META' && element.getAttribute('name') === 'description') {
                   element.content = translation;
              }
              if (element.tagName === 'TITLE') {
                   element.textContent = translation;
              }
-             // Cập nhật thẻ meta og:title, og:description
               if (element.tagName === 'META' && element.getAttribute('property') === 'og:title') {
                   element.content = translation;
               }
@@ -350,10 +366,8 @@ function setLanguage(lang) {
               }
         }
     });
-
-    // Cập nhật trạng thái active/disabled cho nút ngôn ngữ
     document.querySelectorAll('[id^="lang-vi-"], [id^="lang-en-"]').forEach(button => {
-        if (!button) return; // Kiểm tra xem nút có tồn tại không
+        if (!button) return;
         if (button.getAttribute('data-lang') === lang) {
             button.classList.add('text-blue-700', 'font-bold');
             button.classList.remove('text-gray-600');
@@ -364,23 +378,20 @@ function setLanguage(lang) {
             button.disabled = false;
         }
     });
-
-    // Cập nhật thuộc tính lang của thẻ html
     document.documentElement.lang = lang;
 }
 
 // Hàm khởi tạo ngôn ngữ - SẼ ĐƯỢC GỌI BỞI script.js
 function initializeLanguage() {
-    // Kiểm tra cờ toàn cục để tránh chạy nhiều lần nếu script.js gọi lại
     if (window.languageInitialized) {
         console.warn("Language already initialized.");
         return;
     }
     console.log("Initializing language...");
     const preferredLanguage = localStorage.getItem('preferredLanguage') || 'vi';
-    setLanguage(preferredLanguage); // Áp dụng ngôn ngữ ban đầu
-    attachLanguageButtonListeners(); // Gắn listener cho nút chuyển đổi
-    window.languageInitialized = true; // Đặt cờ báo đã khởi tạo
+    setLanguage(preferredLanguage);
+    attachLanguageButtonListeners();
+    window.languageInitialized = true;
 }
 
 // Hàm riêng để gắn listeners
@@ -388,7 +399,6 @@ function attachLanguageButtonListeners() {
     console.log("Attaching language button listeners...");
     document.querySelectorAll('[id^="lang-vi-"], [id^="lang-en-"]').forEach(button => {
         if (!button) return;
-        // Gỡ listener cũ trước khi thêm mới để tránh trùng lặp
         button.removeEventListener('click', handleLanguageChange);
         button.addEventListener('click', handleLanguageChange);
     });
@@ -397,14 +407,12 @@ function attachLanguageButtonListeners() {
 
 // Hàm xử lý sự kiện click chung
 function handleLanguageChange(event) {
-    const button = event.currentTarget; // Lấy phần tử button được click
-    if (button.disabled) return; // Không làm gì nếu nút đang bị vô hiệu hóa
-
+    const button = event.currentTarget;
+    if (button.disabled) return;
     const lang = button.getAttribute('data-lang');
     console.log(`Language change requested to: ${lang}`);
     if (lang) {
-        setLanguage(lang); // Áp dụng ngôn ngữ mới
-        // Tùy chọn: Tải lại nội dung động nếu cần
+        setLanguage(lang);
         if (typeof loadNews === 'function' && document.getElementById('news-container')) {
              console.log("Reloading news for new language...");
              loadNews();
@@ -413,4 +421,3 @@ function handleLanguageChange(event) {
 }
 
 // Xóa bỏ việc tự khởi tạo trong DOMContentLoaded của language.js
-// document.addEventListener('DOMContentLoaded', () => { ... });
