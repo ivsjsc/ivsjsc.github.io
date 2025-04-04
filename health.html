@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yến Sào Thanh Yến - Long Thành, Đồng Nai</title>
+    <link rel="stylesheet" href="css/styles.css"> <!-- Giả sử bạn có file CSS chung -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -46,6 +47,49 @@
             object-fit: cover;
             border-radius: 10px;
         }
+        .carousel {
+            position: relative;
+            overflow: hidden;
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .post-preview {
+            flex: 0 0 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .post-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .hot-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: red;
+            color: white;
+            padding: 5px;
+            border-radius: 3px;
+        }
+        .carousel-controls {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .carousel-btn {
+            width: 10px;
+            height: 10px;
+            background: #ccc;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .carousel-btn.active {
+            background: #e76f51;
+        }
         footer {
             background-color: #2a9d8f;
             color: white;
@@ -66,7 +110,7 @@
 </head>
 <body>
     <header>
-        <img src="images/yensaocover" alt="Yến Sào Thanh Yến Cover" class="cover-image">
+        <img src="images/yensaocover.png" alt="Yến Sào Thanh Yến Cover" class="cover-image">
         <h1>YẾN SÀO THANH YẾN</h1>
         <p>Tinh hoa yến sào từ Long Thành, Đồng Nai</p>
     </header>
@@ -87,8 +131,8 @@
                 <li><strong>Tổ yến thô:</strong> Chưa qua xử lý, dành cho khách hàng yêu thích sự nguyên bản.</li>
             </ul>
             <div class="product-images">
-                <img src="images/yensao1" alt="Sản phẩm yến sào 1">
-                <img src="images/yensao2" alt="Sản phẩm yến sào 2">
+                <img src="images/yensao1.png" alt="Sản phẩm yến sào 1">
+                <img src="images/yensao2.jpg" alt="Sản phẩm yến sào 2">
             </div>
         </div>
 
@@ -97,6 +141,14 @@
             <p>
                 Yến sào Thanh Yến giúp tăng cường sức đề kháng, hỗ trợ phục hồi sức khỏe sau ốm, cải thiện giấc ngủ và mang lại làn da căng mịn, khỏe đẹp. Đây là món quà sức khỏe ý nghĩa dành cho gia đình và người thân yêu.
             </p>
+        </div>
+
+        <div class="section">
+            <h2>Bài viết nổi bật</h2>
+            <div id="post-list" class="carousel">
+                <div class="carousel-inner"></div>
+                <div class="carousel-controls"></div>
+            </div>
         </div>
 
         <div class="section">
@@ -114,5 +166,7 @@
     <footer>
         <p>© 2025 Yến Sào Thanh Yến. All rights reserved.</p>
     </footer>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
