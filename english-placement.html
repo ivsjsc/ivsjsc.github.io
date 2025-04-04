@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kiểm tra Năng lực Tiếng Anh - IVS JSC</title>
-    <meta name="description" content="Thực hiện bài kiểm tra năng lực tiếng Anh trực tuyến theo chuẩn Cambridge (6 bậc CEFR) để xác định trình độ và lựa chọn khóa học phù hợp tại IVS JSC.">
-    <meta property="og:title" content="Kiểm tra Năng lực Tiếng Anh - IVS JSC">
-    <meta property="og:description" content="Đánh giá chính xác trình độ tiếng Anh của bạn với bài test online miễn phí từ IVS JSC.">
-    <meta property="og:image" content="https://placehold.co/1200x630/3b82f6/ffffff?text=English+Placement+Test"> <meta property="og:url" content="https://ivs.id.vn/english-placement.html"> <meta property="og:type" content="website">
+    <title data-lang-key="page_title_placement">Kiểm tra Năng lực Tiếng Anh - IVS Education</title>
+    <meta name="description" content="Thực hiện bài kiểm tra năng lực tiếng Anh trực tuyến theo chuẩn Cambridge (6 bậc CEFR) để xác định trình độ và lựa chọn khóa học phù hợp tại IVS Education." data-lang-key="meta_description_placement">
+    <meta property="og:title" content="Kiểm tra Năng lực Tiếng Anh - IVS Education" data-lang-key="og_title_placement">
+    <meta property="og:description" content="Đánh giá chính xác trình độ tiếng Anh của bạn với bài test online miễn phí từ IVS Education." data-lang-key="og_description_placement">
+    <meta property="og:image" content="https://placehold.co/1200x630/3b82f6/ffffff?text=English+Placement+Test" data-lang-key="og_image_placement"> <meta property="og:url" content="https://ivs.id.vn/english-placement.html"> <meta property="og:type" content="website">
 
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 
@@ -15,10 +15,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script>
+      // Cấu hình Tailwind chung (giống các trang khác)
       tailwind.config = {
         theme: {
           extend: {
@@ -26,91 +25,338 @@
               sans: ['Inter', 'sans-serif'],
             },
             colors: {
-                'primary': '#3b82f6', // blue-500
-                'secondary': '#10b981', // emerald-500
-                'warning': '#f59e0b', // amber-500
+              primary: { light: '#60a5fa', DEFAULT: '#3b82f6', dark: '#2563eb' },
+              secondary: { light: '#34d399', DEFAULT: '#10b981', dark: '#059669' },
+              neutral: { 50: '#f9fafb', 100: '#f3f4f6', 200: '#e5e7eb', 300: '#d1d5db', 400: '#9ca3af', 500: '#6b7280', 600: '#4b5563', 700: '#374151', 800: '#1f2937', 900: '#111827' },
+              warning: { light: '#fcd34d', DEFAULT: '#f59e0b', dark: '#b45309' },
+              info: { light: '#38bdf8', DEFAULT: '#0ea5e9', dark: '#0284c7' },
             }
           }
-        }
+        },
+         plugins: [
+            require('@tailwindcss/typography'),
+         ],
       }
     </script>
-
     <link rel="stylesheet" href="css/styles.css">
-
-    </head>
-<body class="bg-gray-100">
+    <style>
+        /* Các style cơ bản cho body */
+        body {
+            background-color: theme('colors.neutral.100');
+            color: theme('colors.neutral.600');
+            font-family: theme('fontFamily.sans');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+         /* Style cho nút active ngôn ngữ */
+         button:disabled[data-lang] {
+             opacity: 1; cursor: default; color: theme('colors.primary.dark');
+         }
+         button[data-lang]:not(:disabled) {
+             color: theme('colors.neutral.500');
+         }
+         button[data-lang]:not(:disabled):hover {
+             color: theme('colors.primary.DEFAULT');
+         }
+    </style>
+</head>
+<body class="bg-neutral-100 text-neutral-600 font-sans">
 
     <header id="header-placeholder"></header>
 
-    <main>
-        <section class="banner" aria-labelledby="page-title-placement">
-          <div class="banner-content">
-            <h1 id="page-title-placement">Kiểm tra Năng lực Tiếng Anh</h1>
-            <p>Xác định trình độ của bạn theo chuẩn CEFR (6 Bậc)</p>
+    <main class="container mx-auto px-4 py-12 md:py-16">
+
+        <section class="text-center mb-12 md:mb-16">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-800 mb-3" data-lang-key="placement_title">
+                Kiểm tra Năng lực Tiếng Anh
+            </h1>
+            <p class="text-lg text-neutral-500" data-lang-key="placement_subtitle">
+                Xác định trình độ của bạn theo chuẩn CEFR (6 Bậc)
+            </p>
+        </section>
+
+        <section class="max-w-3xl mx-auto text-center mb-10 md:mb-12">
+            <h2 class="text-2xl font-semibold text-neutral-700 mb-4" data-lang-key="placement_intro_heading">
+                Biết trình độ, chọn đúng lộ trình!
+            </h2>
+            <div class="prose prose-neutral max-w-none mx-auto text-base leading-relaxed" data-lang-key="placement_intro_p">
+                Bài kiểm tra năng lực tiếng Anh trực tuyến của IVS Education được thiết kế theo chuẩn Khung tham chiếu trình độ ngôn ngữ chung Châu Âu (CEFR), giúp bạn đánh giá chính xác khả năng Nghe, Nói, Đọc, Viết của mình từ A1 đến C2. Kết quả bài kiểm tra sẽ là cơ sở để chúng tôi tư vấn lộ trình học tập hiệu quả và phù hợp nhất dành cho bạn.
+            </div>
+        </section>
+
+        <section class="bg-white p-6 md:p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
+            <h3 class="text-xl md:text-2xl font-semibold text-secondary mb-6 text-center" data-lang-key="placement_test_heading">
+                Bài kiểm tra Trình độ Tiếng Anh Online
+            </h3>
+
+            <div id="placement-test-area" class="min-h-[250px] border border-dashed border-neutral-300 rounded-md flex flex-col items-center justify-center p-6 space-y-3 text-center text-sm text-neutral-500">
+                <p data-lang-key="placement_test_includes">Bài kiểm tra bao gồm các phần Ngữ pháp, Từ vựng, Đọc hiểu và Nghe hiểu.</p>
+                <p data-lang-key="placement_test_prepare">Vui lòng chuẩn bị tai nghe (cho phần Nghe) và đảm bảo kết nối internet ổn định.</p>
+                <p data-lang-key="placement_test_duration">Thời gian làm bài dự kiến: <strong class="font-medium text-neutral-600">45-60 phút</strong>.</p>
+                <button id="start-test-btn"
+                        class="mt-6 inline-block bg-secondary hover:bg-secondary-dark text-white font-semibold py-2 px-8 rounded-md shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-light transition duration-200 ease-in-out"
+                        data-lang-key="placement_start_button">
+                    Bắt đầu làm bài
+                </button>
+            </div>
+            <!-- Section: Giới Thiệu Nền Tảng -->
+            <div class="section">
+              <h2>Nền Tảng Đánh Giá Trình Độ Tiếng Anh Theo Chuẩn CEFR</h2>
+              <p><strong>Cambridge English Placement Test</strong> (CEPT) là một nền tảng trực tuyến tiên phong, giúp người học trên toàn thế giới kiểm tra trình độ tiếng Anh một cách chính xác và thuận tiện. Được thiết kế để hỗ trợ người học đánh giá năng lực ngôn ngữ theo <strong>Khung Tham chiếu Ngôn ngữ Chung Châu Âu (CEFR)</strong>, CEPT mang đến trải nghiệm kiểm tra toàn diện với các bài kiểm tra nghe, đọc và đánh giá tổng quát.</p>
+              <p>Kết quả bài kiểm tra sẽ giúp người học xác định chính xác cấp độ tiếng Anh của mình, từ đó xây dựng lộ trình học tập phù hợp. Không chỉ dừng lại ở việc kiểm tra, CEPT còn cung cấp các bài học và bài kiểm tra bổ sung, hỗ trợ người học cải thiện kỹ năng tiếng Anh một cách hiệu quả.</p>
+            </div>
+
+            <!-- Section: ParagonCoder -->
+            <div class="section">
+              <h2>ParagonCoder – Bộ Óc Đằng Sau Nền Tảng</h2>
+              <p>Đứng sau sự thành công của Cambridge English Placement Test là <strong>ParagonCoder</strong>, nhóm phát triển do <strong>Rachid Belfarar</strong>, Giám đốc Kỹ thuật và Ứng dụng, Kỹ sư Công nghệ số của IVS JSC, dẫn dắt. Với kinh nghiệm dày dặn trong lĩnh vực công nghệ số và niềm đam mê đổi mới giáo dục, ông Rachid đã cùng đội ngũ của mình xây dựng một nền tảng đáp ứng các tiêu chuẩn quốc tế, mang lại trải nghiệm mượt mà và hiệu quả cho người dùng.</p>
+              <p>ParagonCoder đã tích hợp các công nghệ tiên tiến vào CEPT, từ giao diện người dùng (UI/UX) tối ưu, hệ thống đánh giá thông minh, đến khả năng xử lý dữ liệu nhanh chóng và chính xác.</p>
+            </div>
+
+            <!-- Section: Đội Ngũ Lãnh Đạo -->
+            <div class="section">
+              <h2>Đội Ngũ Lãnh Đạo Và Phát Triển Của IVS JSC</h2>
+              <p>Cambridge English Placement Test là sản phẩm của sự hợp tác chặt chẽ giữa các chuyên gia hàng đầu tại IVS JSC:</p>
+              <div class="team-grid">
+                <div class="team-member">
+                  <img src="https://via.placeholder.com/100" alt="Nguyễn Minh Triết">
+                  <h3>Ông Nguyễn Minh Triết</h3>
+                  <p>Chủ tịch HĐQT kiêm Tổng Giám đốc IVS JSC, đồng thời là Giám đốc điều hành IVS Academy.</p>
+                </div>
+                <div class="team-member">
+                  <img src="https://via.placeholder.com/100" alt="Rachid Belfarar">
+                  <h3>Ông Rachid Belfarar</h3>
+                  <p>Giám đốc Kỹ thuật và Ứng dụng, Kỹ sư Công nghệ số, ParagonCoder.</p>
+                </div>
+                <div class="team-member">
+                  <img src="https://via.placeholder.com/100" alt="Salma Mahzoum">
+                  <h3>Bà Salma Mahzoum</h3>
+                  <p>Giám đốc R&D Giáo trình, phụ trách giảng dạy.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section: Tại Sao Chọn CEPT -->
+            <div class="section">
+              <h2>Tại Sao Nên Chọn Cambridge English Placement Test?</h2>
+              <ul>
+                <li><strong>Chính xác và đáng tin cậy:</strong> Được phát triển dựa trên chuẩn CEFR, CEPT cung cấp kết quả đánh giá chính xác.</li>
+                <li><strong>Dễ sử dụng:</strong> Giao diện thân thiện, hỗ trợ trên nhiều thiết bị, từ máy tính đến điện thoại di động.</li>
+                <li><strong>Hỗ trợ học tập toàn diện:</strong> Gợi ý lộ trình học tập và các bài kiểm tra bổ sung để cải thiện kỹ năng.</li>
+                <li><strong>Đội ngũ phát triển chuyên nghiệp:</strong> Được thiết kế bởi ParagonCoder và đội ngũ kỹ sư hàng đầu của IVS JSC.</li>
+                <li><strong>ĐẶC BIỆT HOÀN TOÀN MIỄN PHÍ</strong></li>
+                
+              </ul>
+            </div>
+
+            <!-- Section: Hướng Dẫn Sử Dụng -->
+            <div class="section">
+              <h2>Hướng Dẫn Sử Dụng Cambridge English Placement Test (CEPT)</h2>
+              <p>Dưới đây là hướng dẫn chi tiết từng bước để bạn sử dụng CEPT một cách hiệu quả:</p>
+
+              <h3>BƯỚC 1: Truy Cập, Đăng Nhập Đơn Giản</h3>
+              <h4>Truy cập trang này:</h4>
+              <p>- Kéo xuống bạn sẽ thấy nút "Trải nghiệm ngay" màu đỏ, Nhấp vào đó.</p>
+              <p>- Bạn sẽ thấy giao diện chính của CEPT với dòng chữ <strong>"Cambridge English Language Assessment - English Level Placement Test"</strong> và nút <strong>"Start Test"</strong>.</p>
+              <img src="images/baitest/english-placement-test01.png" alt="Giao diện chính của CEPT" class="guide-image">
+              
+              <h4>Nhập thông tin cá nhân:</h4>
+              <p>- Nhấn vào nút <strong>"Start Test"</strong>.</p>
+              <p>- Một cửa sổ sẽ hiện ra yêu cầu bạn nhập thông tin cá nhân:</p>
+              <ul>
+                <li><strong>Họ và tên:</strong> Ví dụ, "Nguyen Minh Triet".</li>
+                <li><strong>Email:</strong> Ví dụ, "ivscorp.vn@gmail.com".</li>
+              </ul>
+              <p>- Sau khi điền đầy đủ, nhấn <strong>"Submit"</strong> để tiếp tục.</p>
+              <img src="images/baitest/english-placement-test02.png" alt="Nhập thông tin cá nhân" class="guide-image">
+
+              <h3>BƯỚC 2: Tìm Hiểu Về CEFR Và Hướng Dẫn</h3>
+              <h4>Xem thông tin về CEFR:</h4>
+              <p>- Sau khi nhấn "Submit", bạn sẽ được chuyển đến màn hình giới thiệu về <strong>CEFR (Common European Framework of Reference for Languages)</strong>.</p>
+              <p>- Màn hình này giải thích CEFR là gì và các cấp độ tiếng Anh (A1, A2, B1, B2, C1, C2). Bạn có thể xem video hướng dẫn bằng cách nhấn vào nút <strong>Play</strong> ở giữa màn hình.</p>
+              <p>- Đọc kỹ nội dung để hiểu cách CEPT sẽ đánh giá trình độ của bạn.</p>
+              <img src="images/baitest/english-placement-test03.png" alt="Màn hình giới thiệu CEFR" class="guide-image">
+              
+              <h4>Tiếp tục:</h4>
+              <p>- Sau khi xem xong, nhấn nút <strong>"Continue"</strong> ở góc dưới bên phải để bắt đầu bài kiểm tra.</p>
+
+              <h3>BƯỚC 3: Làm Bài Kiểm Tra</h3>
+              <h4>Hiểu cấu trúc bài kiểm tra:</h4>
+              <p>- CEPT bao gồm các phần: <strong>Grammar & Vocabulary</strong>, <strong>Listening</strong>, <strong>Reading</strong>, và <strong>Writing</strong>.</p>
+              <p>- Bài kiểm tra có tổng cộng <strong>58 câu hỏi</strong>, và bạn có <strong>60 phút</strong> để hoàn thành.</p>
+              <p>- Các câu hỏi sẽ bắt đầu từ dễ đến khó, giúp hệ thống đánh giá chính xác trình độ của bạn.</p>
+              
+              <h4>Đọc hướng dẫn chi tiết:</h4>
+              <p>- Trước khi bắt đầu, bạn sẽ thấy màn hình <strong>"Test Instructions"</strong>:</p>
+              <ul>
+                <li>Bài kiểm tra sẽ đánh giá kỹ năng tiếng Anh tổng quát (ngữ pháp, từ vựng, nghe, đọc, viết).</li>
+                <li>Một số câu hỏi liên quan đến tiếng Anh thương mại (Business English).</li>
+                <li>Câu hỏi sẽ khó dần, vì vậy hãy làm cẩn thận.</li>
+                <li>Kết quả sẽ được so sánh với chuẩn CEFR (A1 đến C2).</li>
+                <li>Bạn cần đọc kỹ câu hỏi, chọn đáp án đúng và nhấn <strong>"Submit"</strong> để xác nhận.</li>
+                <li>Sử dụng <strong>Question List</strong> ở góc trên bên trái để chuyển đổi giữa các câu hỏi.</li>
+              </ul>
+              <img src="images/baitest/english-placement-test04.png" alt="Màn hình hướng dẫn bài kiểm tra" class="guide-image">
+              
+              <h4>Làm bài:</h4>
+              <p>- Ví dụ: Câu hỏi đầu tiên có thể là: <em>"The police are ______ an investigation into the robbery."</em></p>
+              <p>- Các lựa chọn bao gồm: <em>searching out</em>, <em>making out</em>, <em>carrying out</em>, <em>conducting out</em>.</p>
+              <p>- Chọn đáp án đúng (trong trường hợp này là <em>carrying out</em>) và nhấn <strong>"Submit"</strong>.</p>
+              <p>- Tiếp tục làm các câu hỏi tiếp theo. Bạn có thể chuyển đổi giữa các phần (Grammar & Vocabulary, Listening, Reading, Writing) bằng menu bên phải.</p>
+              <img src="images/baitest/english-placement-test05.png" alt="Câu hỏi trong bài kiểm tra" class="guide-image">
+              
+              <h4>Quản lý thời gian:</h4>
+              <p>- Thời gian còn lại được hiển thị ở góc trên bên phải (ví dụ: <strong>59:45</strong>).</p>
+              <p>- Hãy phân bổ thời gian hợp lý để hoàn thành tất cả các câu hỏi trong 60 phút.</p>
+
+              <h3>BƯỚC 4: Hoàn Thành Và Xem Kết Quả</h3>
+              <h4>Hoàn thành bài kiểm tra:</h4>
+              <p>- Sau khi trả lời hết 58 câu hỏi hoặc hết thời gian, hệ thống sẽ tự động kết thúc bài kiểm tra.</p>
+              <p>- Bạn sẽ nhận được thông báo hoàn thành và kết quả sẽ được hiển thị.</p>
+              
+              <h4>Xem kết quả:</h4>
+              <p>- Kết quả sẽ cho biết trình độ tiếng Anh của bạn theo chuẩn CEFR (ví dụ: B2, C1, v.v.).</p>
+              <p>- Bạn cũng sẽ nhận được gợi ý lộ trình học tập và các bài kiểm tra bổ sung để cải thiện kỹ năng.</p>
+              
+              <h4>Lưu và chia sẻ:</h4>
+              <p>- Kết quả có thể được lưu vào email bạn đã đăng ký.</p>
+              <p>- Bạn cũng có thể chia sẻ kết quả với giáo viên hoặc nhà tuyển dụng nếu cần.</p>
+
+              <h3>Một Số Lưu Ý Quan Trọng</h3>
+              <h4>Chuẩn bị trước khi làm bài:</h4>
+              <ul>
+                <li>Đảm bảo bạn có kết nối internet ổn định.</li>
+                <li>Sử dụng tai nghe nếu làm phần Listening để nghe rõ hơn.</li>
+                <li>Làm bài ở nơi yên tĩnh để tập trung.</li>
+              </ul>
+              
+              <h4>Khi làm bài:</h4>
+              <ul>
+                <li>Đọc kỹ câu hỏi và các lựa chọn trước khi trả lời.</li>
+                <li>Nếu không chắc chắn, bạn có thể bỏ qua và quay lại sau bằng cách sử dụng <strong>Question List</strong>.</li>
+                <li>Không làm bài hộ người khác, vì kết quả sẽ không phản ánh đúng trình độ.</li>
+              </ul>
+              
+              <h4>Sau khi làm bài:</h4>
+              <ul>
+                <li>Xem kỹ gợi ý học tập từ CEPT để cải thiện kỹ năng.</li>
+                <li>Nếu muốn làm lại bài kiểm tra, bạn có thể đăng ký một lần kiểm tra mới sau 24 giờ.</li>
+              </ul>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="cta">
+              <h2>Bắt Đầu Hành Trình Nâng Cao Trình Độ Tiếng Anh Ngay Hôm Nay!</h2>
+              <p>Hãy truy cập ngay để trải nghiệm <strong>Cambridge English Placement Test</strong>.</p>
+              <a href="https://english-placement.netlify.app/" target="_blank">Trải Nghiệm Ngay</a>
+            </div>
           </div>
-        </section>
-    
-        <section class="page-content" style="max-width: 1000px; margin: 40px auto; padding: 0 20px;">
-    
-            <div class="test-intro">
-                <h2>Biết trình độ, chọn đúng lộ trình!</h2>
-                <p>Bài kiểm tra năng lực tiếng Anh trực tuyến của IVS Education được thiết kế theo chuẩn Khung tham chiếu trình độ ngôn ngữ chung Châu Âu (CEFR), giúp bạn đánh giá chính xác khả năng Nghe, Nói, Đọc, Viết của mình từ A1 đến C2. Kết quả bài kiểm tra sẽ là cơ sở để chúng tôi tư vấn lộ trình học tập hiệu quả và phù hợp nhất dành cho bạn.</p>
+            <div id="test-result-area" class="hidden mt-8 pt-6 border-t border-neutral-200 text-center">
+                <h4 class="text-lg font-semibold text-neutral-700 mb-4" data-lang-key="placement_result_heading">Kết quả kiểm tra của bạn</h4>
+                <p class="mb-2"><span data-lang-key="placement_result_level_label">Trình độ ước tính:</span> <strong id="estimated-level" class="text-primary text-lg font-bold">--</strong></p>
+                <p class="text-sm text-neutral-600 mb-4 max-w-xl mx-auto" id="level-description" data-lang-key="placement_result_desc_label">Mô tả chi tiết về trình độ...</p>
+                <p class="mt-6 font-medium text-neutral-700" data-lang-key="placement_result_courses_label">Các khóa học phù hợp tại IVS Academy:</p>
+                <ul id="suggested-courses" class="list-none p-0 my-3 space-y-1 text-sm">
+                    <li><a href="#" class="text-primary hover:underline">...</a></li>
+                </ul>
+                <a href="contact.html?consultation=placement"
+                   class="mt-6 inline-block bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-6 rounded-md shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light transition duration-200 ease-in-out"
+                   data-lang-key="placement_result_consult_button">
+                   Nhận tư vấn Lộ trình
+                </a>
             </div>
-    
-            <div class="test-container">
-                <h3>Bài kiểm tra Trình độ Tiếng Anh Online</h3>
-                <div id="placement-test-area">
-                    <p>Bài kiểm tra bao gồm các phần Ngữ pháp, Từ vựng, Đọc hiểu và Nghe hiểu.</p>
-                    <p>Vui lòng chuẩn bị tai nghe (cho phần Nghe) và đảm bảo kết nối internet ổn định.</p>
-                    <p>Thời gian làm bài dự kiến: <strong>45-60 phút</strong>.</p>
-                    <button id="start-test-btn" class="btn btn-warning">Bắt đầu làm bài</button>
-                </div>
-    
-                <div id="test-result-area" style="display: none; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
-                    <h4>Kết quả kiểm tra của bạn</h4>
-                    <p>Trình độ ước tính: <strong id="estimated-level">--</strong></p>
-                    <p id="level-description">Mô tả chi tiết về trình độ...</p>
-                    <p style="margin-top: 15px;">Các khóa học phù hợp tại IVS Academy:</p>
-                    <ul id="suggested-courses" style="list-style: none; padding-left: 0;">
-                        </ul>
-                    <a href="contact.html?consultation=placement" class="btn btn-primary" style="margin-top: 20px; background-color: var(--primary-color); border-color: var(--primary-color);">Nhận tư vấn Lộ trình</a>
-                </div>
-            </div>
-    
-            <script>
-                // Placeholder script to simulate starting the test
-                const startBtn = document.getElementById('start-test-btn');
-                const testArea = document.getElementById('placement-test-area');
-                const resultArea = document.getElementById('test-result-area');
-    
-                if (startBtn && testArea && resultArea) {
-                    startBtn.addEventListener('click', () => {
-                        // Ẩn phần giới thiệu và nút bắt đầu
-                        testArea.innerHTML = '<p>Đang tải câu hỏi...</p><p><em>(Đây là phần mô phỏng, cần tích hợp hệ thống test thực tế)</em></p>';
-                        // Giả lập hoàn thành test sau 3 giây và hiển thị kết quả
-                        setTimeout(() => {
-                            testArea.style.display = 'none';
-                            // Cập nhật kết quả giả lập
-                            document.getElementById('estimated-level').textContent = 'B1 (Intermediate)';
-                            document.getElementById('level-description').textContent = 'Bạn có thể hiểu các ý chính của các chủ đề quen thuộc, xử lý hầu hết các tình huống khi đi du lịch, viết các văn bản đơn giản và mô tả kinh nghiệm, sự kiện.';
-                            const coursesList = document.getElementById('suggested-courses');
-                            coursesList.innerHTML = `
-                                <li><a href="#">Khóa Tiếng Anh Giao tiếp B1</a></li>
-                                <li><a href="#">Luyện thi IELTS Mục tiêu 5.0-5.5</a></li>
-                            `;
-                            resultArea.style.display = 'block';
-                        }, 3000);
-                    });
-                }
-            </script>
-    
         </section>
-    
-      </main>
+
+    </main>
 
     <footer id="footer-placeholder"></footer>
 
-    <script src="js/script.js" defer></script>
+    <script src="js/script.js"></script> <script src="js/language.js"></script> <script>
+        // Script mô phỏng bài test - Cần thay thế bằng hệ thống test thực tế
+        document.addEventListener('DOMContentLoaded', () => {
+            const startBtn = document.getElementById('start-test-btn');
+            const testArea = document.getElementById('placement-test-area');
+            const resultArea = document.getElementById('test-result-area');
+            const estimatedLevelEl = document.getElementById('estimated-level');
+            const levelDescEl = document.getElementById('level-description');
+            const coursesListEl = document.getElementById('suggested-courses');
+
+            // Đảm bảo tất cả các phần tử tồn tại
+            if (!startBtn || !testArea || !resultArea || !estimatedLevelEl || !levelDescEl || !coursesListEl) {
+                console.error("Placement test simulation elements not found.");
+                return;
+            }
+
+            startBtn.addEventListener('click', () => {
+                // Lấy ngôn ngữ hiện tại để hiển thị đúng thông báo
+                const currentLang = localStorage.getItem('preferredLanguage') || 'vi';
+                // Lấy bản dịch từ đối tượng translations (cần đảm bảo language.js đã tải và có translations)
+                const loadingText = (typeof translations !== 'undefined' && translations[currentLang]?.placement_loading_questions)
+                                    ? translations[currentLang].placement_loading_questions
+                                    : 'Đang tải câu hỏi...'; // Fallback text
+                const simulationNotice = (typeof translations !== 'undefined' && translations[currentLang]?.placement_simulation_notice)
+                                    ? translations[currentLang].placement_simulation_notice
+                                    : '(Đây là phần mô phỏng, cần tích hợp hệ thống test thực tế)'; // Fallback text
+
+                // Hiển thị thông báo đang tải
+                testArea.innerHTML = `<p>${loadingText}</p><p class="text-xs italic mt-2">${simulationNotice}</p>`;
+
+                // Giả lập hoàn thành test sau 2 giây
+                setTimeout(() => {
+                    testArea.style.display = 'none'; // Ẩn khu vực bắt đầu
+
+                    // --- Dữ liệu kết quả giả lập ---
+                    const resultData = {
+                        vi: {
+                            level: 'B1 (Trung cấp)',
+                            description: 'Bạn có thể hiểu các ý chính của các chủ đề quen thuộc trong công việc, học tập, giải trí. Có thể xử lý hầu hết các tình huống có thể xảy ra khi đi đến nơi sử dụng ngôn ngữ đó. Có thể viết văn bản đơn giản, mạch lạc về các chủ đề quen thuộc hoặc cá nhân quan tâm. Có thể mô tả kinh nghiệm, sự kiện, ước mơ, hy vọng và hoài bão.',
+                            courses: [
+                                { name: 'Khóa Tiếng Anh Giao tiếp B1+', link: '#' },
+                                { name: 'Luyện thi IELTS Mục tiêu 5.0-6.0', link: '#' },
+                                { name: 'Tiếng Anh Thương mại Trung cấp', link: '#' }
+                            ]
+                        },
+                        en: {
+                            level: 'B1 (Intermediate)',
+                            description: 'You can understand the main points of clear standard input on familiar matters regularly encountered in work, school, leisure, etc. Can deal with most situations likely to arise whilst travelling in an area where the language is spoken. Can produce simple connected text on topics which are familiar or of personal interest. Can describe experiences and events, dreams, hopes & ambitions.',
+                            courses: [
+                                { name: 'B1+ Communicative English Course', link: '#' },
+                                { name: 'IELTS Preparation (Target 5.0-6.0)', link: '#' },
+                                { name: 'Intermediate Business English', link: '#' }
+                            ]
+                        }
+                    };
+                    // --- Kết thúc dữ liệu giả lập ---
+
+                    const currentResult = resultData[currentLang] || resultData['vi']; // Lấy kết quả theo ngôn ngữ hiện tại
+
+                    // Cập nhật DOM với kết quả giả lập
+                    estimatedLevelEl.textContent = currentResult.level;
+                    levelDescEl.textContent = currentResult.description; // Ghi đè nội dung mô tả
+
+                    coursesListEl.innerHTML = ''; // Xóa trắng danh sách khóa học cũ
+                    currentResult.courses.forEach(course => {
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        a.href = course.link;
+                        a.textContent = course.name;
+                        a.className = 'text-primary hover:underline'; // Style link
+                        li.appendChild(a);
+                        coursesListEl.appendChild(li);
+                    });
+
+                    // Hiển thị khu vực kết quả
+                    resultArea.classList.remove('hidden');
+                    resultArea.style.display = 'block';
+
+                    // Cập nhật lại ngôn ngữ cho các phần tử tĩnh trong khu vực kết quả (nếu cần)
+                    // Vì các label đã có data-lang-key, hàm setLanguage sẽ xử lý chúng
+                    // Chỉ cần đảm bảo hàm updatePlacementResultText được gọi khi đổi ngôn ngữ (đã thêm trong language.js v8)
+
+                }, 2000); // Thời gian chờ giả lập
+            });
+        });
+    </script>
 
 </body>
 </html>
