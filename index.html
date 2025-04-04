@@ -4,26 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IVS JSC - Trang Chủ</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Cấu hình Tailwind (nếu cần mở rộng)
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              // Ví dụ: Thêm màu tùy chỉnh nếu cần
+              // 'primary': '#3b82f6',
+              // 'secondary': '#10b981',
+            },
+            fontFamily: {
+              // Đảm bảo font Inter được sử dụng
+              sans: ['Inter', 'sans-serif'],
+            },
+          }
+        }
+      }
+    </script>
     <style>
+        /* Đảm bảo font được áp dụng */
         body {
             font-family: 'Inter', sans-serif;
+        }
+        /* Style cơ bản cho video wrapper để giữ tỷ lệ */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            width: 100%;
+            background-color: #000; /* Nền đen khi tải */
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
     </style>
 </head>
 <body class="bg-gray-100">
 
-    <header id="header-placeholder" class="bg-white shadow-md sticky top-0 z-50"></header>
+    <header id="header-placeholder"></header>
 
     <main class="container mx-auto px-4 py-8">
 
         <section class="hero-section text-center mb-12 p-8 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg shadow-xl">
             <h1 class="text-4xl md:text-5xl font-bold mb-4">Chào mừng đến với IVS JSC</h1>
             <p class="text-lg md:text-xl mb-6">Kiến tạo tương lai giáo dục và sức khỏe Việt Nam</p>
-            <a href="about.html" class="bg-white text-blue-600 font-semibold py-2 px-6 rounded-full hover:bg-gray-200 transition duration-300 inline-block">Tìm hiểu thêm</a>
+            <a href="about.html" class="bg-white text-blue-600 font-semibold py-2 px-6 rounded-full hover:bg-gray-200 transition duration-300 inline-block shadow hover:shadow-md">Tìm hiểu thêm</a>
         </section>
 
         <section class="intro-section mb-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -38,53 +76,52 @@
                 <a href="about.html" class="text-blue-600 hover:underline font-medium">Xem chi tiết →</a>
             </div>
             <div class="order-1 md:order-2">
-                <img src="ivs-celestech.jpg" alt="Hình ảnh giới thiệu IVS JSC" class="rounded-lg shadow-lg w-full h-auto object-cover">
+                <img src="ivs-celestech.jpg" alt="Hình ảnh giới thiệu IVS JSC" class="rounded-lg shadow-lg w-full h-auto object-cover max-h-96">
             </div>
         </section>
 
         <section class="services-section mb-12">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Lĩnh Vực Hoạt Động Chính</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
                     <h3 class="text-xl font-semibold text-blue-600 mb-3">IVS Academy</h3>
-                    <p class="text-gray-600 mb-3">Đào tạo ngoại ngữ (Anh, Trung, Nhật), STEAM, kỹ năng mềm. Chương trình cộng đồng "Hãy Nói".</p>
-                    <a href="lien-ket-quoc-te.html#ivs-academy" class="text-purple-600 hover:underline font-medium">Chi tiết...</a>
+                    <p class="text-gray-600 mb-3 flex-grow">Đào tạo ngoại ngữ (Anh, Trung, Nhật), STEAM, kỹ năng mềm. Chương trình cộng đồng "Hãy Nói".</p>
+                    <a href="lien-ket-quoc-te.html#ivs-academy" class="text-purple-600 hover:underline font-medium mt-auto">Chi tiết...</a>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
                     <h3 class="text-xl font-semibold text-blue-600 mb-3">IVS Kindergarten</h3>
-                    <p class="text-gray-600 mb-3">Mầm non tiên phong áp dụng mô hình STEAM+Intelligence. Cơ sở vật chất hiện đại.</p>
-                    <a href="lkmamnon.html" class="text-purple-600 hover:underline font-medium">Chi tiết...</a>
+                    <p class="text-gray-600 mb-3 flex-grow">Mầm non tiên phong áp dụng mô hình STEAM+Intelligence. Cơ sở vật chất hiện đại.</p>
+                    <a href="lkmamnon.html" class="text-purple-600 hover:underline font-medium mt-auto">Chi tiết...</a>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
                     <h3 class="text-xl font-semibold text-blue-600 mb-3">IVS Celestech (EdTech)</h3>
-                    <p class="text-gray-600 mb-3">Phát triển giải pháp công nghệ giáo dục: E-learning, LMS, AI, VR/AR.</p>
-                    <a href="about.html#ivs-celestech" class="text-purple-600 hover:underline font-medium">Chi tiết...</a>
+                    <p class="text-gray-600 mb-3 flex-grow">Phát triển giải pháp công nghệ giáo dục: E-learning, LMS, AI, VR/AR.</p>
+                    <a href="about.html#ivs-celestech" class="text-purple-600 hover:underline font-medium mt-auto">Chi tiết...</a>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
                     <h3 class="text-xl font-semibold text-blue-600 mb-3">IVS Health & Wellness</h3>
-                    <p class="text-gray-600 mb-3">Hợp tác phát triển sản phẩm sức khỏe như yến sào Thanh Yến, giáo dục dinh dưỡng cộng đồng.</p>
-                    <a href="health.html" class="text-purple-600 hover:underline font-medium">Chi tiết...</a>
+                    <p class="text-gray-600 mb-3 flex-grow">Hợp tác phát triển sản phẩm sức khỏe như yến sào Thanh Yến, giáo dục dinh dưỡng cộng đồng.</p>
+                    <a href="health.html" class="text-purple-600 hover:underline font-medium mt-auto">Chi tiết...</a>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
                     <h3 class="text-xl font-semibold text-blue-600 mb-3">Hợp Tác Quốc Tế</h3>
-                    <p class="text-gray-600 mb-3">Kết nối giáo dục và sức khỏe Việt Nam với thế giới: Du học, trại hè, liên kết đào tạo.</p>
-                    <a href="lien-ket-quoc-te.html" class="text-purple-600 hover:underline font-medium">Chi tiết...</a>
+                    <p class="text-gray-600 mb-3 flex-grow">Kết nối giáo dục và sức khỏe Việt Nam với thế giới: Du học, trại hè, liên kết đào tạo.</p>
+                    <a href="lien-ket-quoc-te.html" class="text-purple-600 hover:underline font-medium mt-auto">Chi tiết...</a>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
                     <h3 class="text-xl font-semibold text-blue-600 mb-3">Đầu Tư & Phát Triển</h3>
-                    <p class="text-gray-600 mb-3">Xây dựng hệ thống giáo dục liên cấp IVS Global School và dự án bền vững.</p>
-                    <a href="dau-tu.html" class="text-purple-600 hover:underline font-medium">Chi tiết...</a>
+                    <p class="text-gray-600 mb-3 flex-grow">Xây dựng hệ thống giáo dục liên cấp IVS Global School và dự án bền vững.</p>
+                    <a href="dau-tu.html" class="text-purple-600 hover:underline font-medium mt-auto">Chi tiết...</a>
                 </div>
             </div>
         </section>
 
         <section class="video-section mb-12">
             <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Video Giới Thiệu</h2>
-            <div class="video-wrapper rounded-lg shadow-lg overflow-hidden">
+            <div class="video-wrapper rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto">
                 <iframe
                     src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                    title="YouTube video player"
-                    frameborder="0"
+                    title="YouTube video player IVS JSC"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen>
                 </iframe>
@@ -100,12 +137,13 @@
 
     </main>
 
-    <footer id="footer-placeholder" class="bg-gray-800 text-white mt-12"></footer>
+    <footer id="footer-placeholder"></footer>
 
-    <script src="js/main.js"></script>
+    <script src="js/script.js"></script>
     <script>
+        // Hàm tải tin tức (đặc trưng cho trang index)
         function loadNews() {
-            fetch('posts.json')
+            fetch('posts.json') // Đảm bảo file posts.json tồn tại ở gốc hoặc đúng đường dẫn
                 .then(response => {
                     if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
                     const contentType = response.headers.get("content-type");
@@ -114,24 +152,48 @@
                 })
                 .then(posts => {
                     const newsContainer = document.getElementById('news-container');
-                    newsContainer.innerHTML = '';
-                    const latestPosts = Array.isArray(posts) ? posts.slice(0, 3) : [];
+                    if (!newsContainer) return; // Thoát nếu không tìm thấy container
+                    newsContainer.innerHTML = ''; // Xóa nội dung đang tải
+
+                    // Sắp xếp bài viết theo ngày giảm dần (mới nhất trước)
+                    const sortedPosts = Array.isArray(posts) ? posts.sort((a, b) => {
+                         try {
+                             const dateA = a && a.date ? new Date(a.date) : null;
+                             const dateB = b && b.date ? new Date(b.date) : null;
+                             if (dateA instanceof Date && !isNaN(dateA) && dateB instanceof Date && !isNaN(dateB)) {
+                                 return dateB - dateA; // So sánh date object
+                             } else if (dateA instanceof Date && !isNaN(dateA)) return -1; // A hợp lệ, B không -> A trước
+                             else if (dateB instanceof Date && !isNaN(dateB)) return 1;  // B hợp lệ, A không -> B trước
+                             else return 0; // Cả hai không hợp lệ
+                         } catch(e) { return 0; }
+                     }) : [];
+
+                    const latestPosts = sortedPosts.slice(0, 3); // Lấy 3 bài mới nhất
+
                     if (latestPosts.length === 0) {
                         newsContainer.innerHTML = '<p class="text-gray-500 col-span-full text-center">Chưa có tin tức nào.</p>';
                         return;
                     }
+
                     latestPosts.forEach(post => {
                         const postElement = document.createElement('div');
+                        // Sử dụng Tailwind classes cho card tin tức
                         postElement.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col';
+                        const fallbackImage = 'https://placehold.co/400x250/E2E8F0/A0AEC0?text=Tin+tuc';
+                        const imageUrl = post.image ? ((post.image.startsWith('/') || post.image.startsWith('http')) ? post.image : '/' + post.image) : fallbackImage;
+                        const postLink = post.link || '#'; // Link bài viết (nếu có)
+
                         postElement.innerHTML = `
-                            <img src="${post.image || 'https://placehold.co/400x250/E2E8F0/A0AEC0?text=Tin+tuc'}" alt="${post.title || 'Tiêu đề tin tức'}" class="rounded-md mb-4 w-full h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x250/E2E8F0/A0AEC0?text=Loi+anh';">
+                            <a href="${postLink}" class="block mb-4">
+                                <img src="${imageUrl}" alt="${post.title || 'Tiêu đề tin tức'}" class="rounded-md w-full h-48 object-cover" onerror="this.onerror=null;this.src='${fallbackImage}';">
+                            </a>
                             <div class="flex-grow">
-                                <h3 class="text-xl font-semibold text-gray-800 mb-2">${post.title || 'N/A'}</h3>
-                                <p class="text-gray-500 text-sm mb-3">${post.date ? new Date(post.date).toLocaleDateString('vi-VN') : 'N/A'}</p>
-                                <p class="text-gray-600 mb-4">${post.excerpt || 'N/A'}</p>
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2 hover:text-blue-600 transition duration-300"><a href="${postLink}">${post.title || 'N/A'}</a></h3>
+                                <p class="text-gray-500 text-sm mb-3">${post.date ? new Date(post.date).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }) : ''}</p>
+                                <p class="text-gray-600 mb-4">${post.excerpt || ''}</p>
                             </div>
                             <div class="mt-auto">
-                                <a href="${post.link || '#'}" class="text-blue-600 hover:underline font-medium">Đọc thêm →</a>
+                                <a href="${postLink}" class="text-blue-600 hover:underline font-medium">Đọc thêm →</a>
                             </div>
                         `;
                         newsContainer.appendChild(postElement);
@@ -139,30 +201,19 @@
                 })
                 .catch(error => {
                     console.error('Lỗi khi tải tin tức:', error);
-                    document.getElementById('news-container').innerHTML = `<p class="text-red-500 col-span-full text-center">Không thể tải tin tức. Lỗi: ${error.message}. Vui lòng thử lại sau.</p>`;
+                    const newsContainer = document.getElementById('news-container');
+                    if(newsContainer) {
+                        newsContainer.innerHTML = `<p class="text-red-500 col-span-full text-center">Không thể tải tin tức. Lỗi: ${error.message}. Vui lòng thử lại sau.</p>`;
+                    }
                 });
         }
 
+        // Chạy loadNews khi DOM đã sẵn sàng
         document.addEventListener('DOMContentLoaded', loadNews);
 
-        async function loadComponent(elementId, url) {
-            const element = document.getElementById(elementId);
-            if (!element) {
-                console.error(`Element with ID "${elementId}" not found.`);
-                return;
-            }
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error(`Failed to load ${url}: ${response.statusText}`);
-                const html = await response.text();
-                element.innerHTML = html;
-            } catch (error) {
-                console.error(`Error loading component from ${url}:`, error);
-            }
-        }
-
-        loadComponent('header-placeholder', 'header.html');
-        loadComponent('footer-placeholder', 'footer.html');
+        // Hàm loadComponent đã được chuyển vào script.js và sẽ tự động chạy
+        // Không cần gọi loadComponent('header-placeholder', 'header.html') ở đây nữa
+        // Không cần gọi loadComponent('footer-placeholder', 'footer.html') ở đây nữa
     </script>
 
 </body>
