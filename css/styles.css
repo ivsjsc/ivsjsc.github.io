@@ -7,6 +7,8 @@
   --secondary-color: #10b981; /* emerald-500 */
   --warning-color: #f59e0b; /* amber-500 */
   --purple-color: #8b5cf6; /* purple-500 */
+  --pink-color: #ec4899; /* pink-500 */
+  --info-color: #0ea5e9; /* sky-500 */
   --text-dark: #1f2937; /* gray-800 */
   --text-medium: #4b5563; /* gray-600 */
   --text-light: #f9fafb; /* gray-50 */
@@ -19,6 +21,7 @@ body {
   font-family: 'Inter', sans-serif;
   color: var(--text-medium); /* Tương đương text-gray-700 */
   line-height: 1.6; /* Tương đương leading-relaxed */
+  /* Thêm lớp bg-gray-50 hoặc bg-white trực tiếp vào body trong HTML nếu muốn */
 }
 body.overflow-hidden {
   overflow: hidden;
@@ -355,4 +358,108 @@ body.overflow-hidden {
 #cancel-redirect:disabled {
   background-color: #6c757d;
   cursor: not-allowed;
+}
+
+/* --- Styles for Health Page (health.html) --- */
+.carousel {
+  position: relative;
+  overflow: hidden;
+}
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+.carousel-item {
+  flex: 0 0 100%;
+  box-sizing: border-box;
+}
+.carousel-controls {
+  text-align: center;
+  margin-top: 0.75rem;
+}
+.carousel-btn {
+  width: 8px;
+  height: 8px;
+  background-color: #ccc;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.carousel-btn.active {
+  background-color: var(--health-primary, #e76f51);
+}
+
+/* --- Styles for Partner Logos (doi-tac.html, lienminhiivsa.html) --- */
+.partner-logo {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.partner-logo:hover {
+  transform: translateY(-3px);
+}
+.partner-logo img {
+  max-width: 100%;
+  max-height: 60px;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+.partner-logo:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+.partner-logo p {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-medium);
+  margin-top: 0.5rem;
+}
+
+/* --- Styles for Consulting Page (tuvan.html) --- */
+.service-process {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: process-counter;
+  margin-top: 30px;
+}
+.service-process li {
+  counter-increment: process-counter;
+  margin-bottom: 1.25rem;
+  position: relative;
+  padding: 1rem 1rem 1rem 3.5rem;
+  background-color: #f8f9fa;
+  border-radius: 0.375rem;
+  border-left-width: 4px;
+  border-color: var(--secondary-color);
+}
+.service-process li::before {
+  content: counter(process-counter);
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--secondary-color);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+.service-process h4 {
+  margin-bottom: 0.25rem;
+  color: var(--primary-color);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.service-process p {
+  font-size: 0.9rem;
+  color: #4b5563;
+  line-height: 1.6;
 }
