@@ -22,23 +22,27 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
-      /* Thêm CSS cho icon xoay nếu chưa có trong styles.css */
-      .mobile-menu-item > button svg,
-      .sub-submenu-container > button svg {
+      /* CSS cho icon xoay mobile */
+      .mobile-menu-item > button svg {
            transition: transform 0.2s ease-in-out;
       }
       .mobile-menu-item.open > button svg {
            transform: rotate(90deg); /* Hoặc 180deg tùy icon */
       }
-       /* CSS cho sub-submenu desktop (nếu không dùng group-hover/sub) */
+       /* CSS cho sub-submenu desktop */
        .group\/sub:hover .group-hover\/sub\:block {
             display: block;
        }
-       .group\/sub .rotate-\\[-90deg\\] { /* Style cho icon sub-submenu desktop */
+       .group\/sub .rotate-\\[-90deg\\] {
            transition: transform 0.2s ease-in-out;
        }
         .group\/sub:hover .rotate-\\[-90deg\\] {
             transform: rotate(0deg);
+        }
+        /* Có thể giữ lại transition cho desktop submenu nếu muốn */
+        .submenu, .sub-submenu {
+            transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+            /* transform-origin: top; */ /* Có thể thêm nếu dùng scale */
         }
 
     </style>
@@ -58,10 +62,7 @@
                 'primary-dark': '#2563eb', // blue-600
                 'secondary-dark': '#059669', // emerald-600
                 'warning-dark': '#d97706', // amber-600
-            },
-            rotate: {
-                '-90': '-90deg',
-            },
+            }
           }
         }
       }
@@ -86,14 +87,15 @@
                         <li class="main-menu-item">
                             <a href="index.html" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Trang chủ</a>
                         </li>
-                        <li class="relative group main-menu-item">
+                        {/* Thêm pb-1 vào li.group và bỏ mt-1 khỏi div.submenu */}
+                        <li class="relative group main-menu-item pb-1">
                             <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
                                 <span>Giới thiệu</span>
                                 <svg class="ml-1 h-4 w-4 text-gray-500 group-hover:text-blue-600 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                            <div class="submenu absolute hidden group-hover:block mt-1 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
+                            <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50"> {/* Bỏ mt-1 */}
                                 <a href="about.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Về IVS JSC</a>
                                 <a href="sumenh.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Sứ mệnh & Tầm nhìn</a>
                                 <a href="ivsmeaning.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Ý nghĩa IVS</a>
@@ -101,38 +103,41 @@
                                 <a href="doi-tac.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Đối tác</a>
                             </div>
                         </li>
-                         <li class="relative group main-menu-item">
+                         {/* Thêm pb-1 vào li.group và bỏ mt-1 khỏi div.submenu */}
+                        <li class="relative group main-menu-item pb-1">
                              <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
                                 <span>Đào tạo</span>
                                 <svg class="ml-1 h-4 w-4 text-gray-500 group-hover:text-blue-600 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                             <div class="submenu absolute hidden group-hover:block mt-1 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
+                             <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50"> {/* Bỏ mt-1 */}
                                 <a href="english-placement.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Kiểm tra trình độ</a>
                                 <a href="summercamp.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Trại hè Quốc tế</a>
                                 <a href="hocbong.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Học bổng</a>
                                 <a href="hay-noi.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">CLB Hãy Nói</a>
                             </div>
                         </li>
-                         <li class="relative group main-menu-item">
+                         {/* Thêm pb-1 vào li.group và bỏ mt-1 khỏi div.submenu */}
+                        <li class="relative group main-menu-item pb-1">
                             <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
                                 <span>Hợp tác</span>
                                 <svg class="ml-1 h-4 w-4 text-gray-500 group-hover:text-blue-600 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                             <div class="submenu absolute hidden group-hover:block mt-1 w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
+                             <div class="submenu absolute hidden group-hover:block w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50"> {/* Bỏ mt-1 */}
                                 <a href="lien-ket-quoc-te.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Liên kết Quốc tế</a>
                                 <a href="lienminhiivsa.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Liên minh IIVSA</a>
-                                <div class="relative group/sub sub-submenu-container">
+                                {/* Thêm pb-1 vào div.group/sub và bỏ ml-1 khỏi div.sub-submenu */}
+                                <div class="relative group/sub sub-submenu-container pb-1">
                                     <button class="nav-link w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md inline-flex items-center justify-between group">
                                         <span>Liên kết Trường học</span>
                                         <svg class="ml-1 h-4 w-4 text-gray-500 group-hover/sub:text-blue-600 rotate-[-90deg]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                             <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                         </svg>
                                     </button>
-                                    <div class="sub-submenu absolute hidden group-hover/sub:block top-0 left-full ml-1 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
+                                    <div class="sub-submenu absolute hidden group-hover/sub:block top-0 left-full w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50"> {/* Bỏ ml-1 */}
                                         <a href="lkmamnon.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Mầm non</a>
                                         <a href="lktieuhoc.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Tiểu học</a>
                                         <a href="lkthcsthpt.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">THCS & THPT</a>
@@ -145,21 +150,22 @@
                                 <a href="tai-tro.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Tài trợ</a>
                             </div>
                         </li>
-                         <li class="relative group main-menu-item">
+                         {/* Thêm pb-1 vào li.group và bỏ mt-1 khỏi div.submenu */}
+                        <li class="relative group main-menu-item pb-1">
                              <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
                                 <span>Dịch vụ</span>
                                 <svg class="ml-1 h-4 w-4 text-gray-500 group-hover:text-blue-600 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                             <div class="submenu absolute hidden group-hover:block mt-1 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
+                             <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50"> {/* Bỏ mt-1 */}
                                 <a href="tuvan.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Tư vấn Giáo dục</a>
                                 <a href="webdesign.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Thiết kế Web</a>
                                 <a href="health.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Chăm sóc Sức khỏe</a>
                             </div>
                         </li>
-                         <li class="main-menu-item"><a href="careerf.html" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Tuyển dụng</a></li>
-                         <li class="main-menu-item"><a href="contact.html" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Liên hệ</a></li>
+                        <li class="main-menu-item"><a href="careerf.html" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Tuyển dụng</a></li>
+                        <li class="main-menu-item"><a href="contact.html" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Liên hệ</a></li>
                     </ul>
                 </div>
 
@@ -180,8 +186,9 @@
                 <a href="index.html" class="flex items-center">
                     <img class="h-8 w-auto rounded-sm" src="images/logo/logo1.png" alt="IVS JSC Logo" onerror="this.onerror=null; this.src='https://placehold.co/120x32/cccccc/000000?text=Logo+Error';">
                 </a>
-                </div>
-            <div class="px-2 pt-2 pb-3 space-y-1 overflow-y-auto h-[calc(100%-57px)]"> <a href="index.html" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Trang chủ</a>
+            </div>
+            <div class="px-2 pt-2 pb-3 space-y-1 overflow-y-auto h-[calc(100%-57px)]">
+                <a href="index.html" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Trang chủ</a>
 
                 <div class="mobile-menu-item">
                     <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 mobile-submenu-toggle">
@@ -264,10 +271,6 @@
             </div>
         </div>
     </header>
-
-    <div class="group/sub">
-        <button class="group-hover/sub:block">...</button>
-    </div>
 
     </body>
 </html>
