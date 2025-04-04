@@ -1,7 +1,7 @@
 // /js/language.js
 
 // Đối tượng lưu trữ các bản dịch
-// Đã cập nhật với keys từ trang thanhlaptrungtam.html
+// Bao gồm các keys từ nhiều trang, kể cả thanhlaptrungtam.html
 const translations = {
     vi: {
         // Meta Tags
@@ -28,8 +28,7 @@ const translations = {
         og_description_establishment: "Hỗ trợ từ A-Z: Tư vấn điều kiện, chuẩn bị hồ sơ, soạn thảo đề án, làm việc với cơ quan chức năng.",
         og_image_establishment: "https://placehold.co/1200x630/3b82f6/ffffff?text=Thành+Lập+Trung+Tâm+IVS",
 
-        // Header v6 (Giữ nguyên)
-        // ... (keys menu giữ nguyên) ...
+        // Header v6
         logo_alt: "Logo IVS JSC",
         menu_home: "Trang chủ",
         menu_about: "Giới thiệu",
@@ -53,7 +52,7 @@ const translations = {
         menu_link_secondary: "THCS & THPT",
         menu_link_language_center: "Trung tâm Ngoại ngữ",
         menu_investment_cooperation: "Hợp tác Đầu tư",
-        menu_center_establishment: "Thành lập Trung tâm", // Key này đã có trong menu Dịch vụ
+        menu_center_establishment: "Thành lập Trung tâm",
         menu_non_profit: "Tổ chức Phi lợi nhuận",
         menu_sponsorship: "Tài trợ",
         menu_services: "Dịch vụ",
@@ -62,30 +61,207 @@ const translations = {
         menu_design_edu: "Thiết kế Học liệu",
         menu_healths: "Sức khỏe",
         menu_health_yensao: "Yến sào Thanh Yến",
+        menu_health_luvyoga: "LuvYoga Lộc Hòa - Trảng Bom", // Thêm key cho LuvYoga
         menu_recruitment: "Tuyển dụng",
         menu_recruitment_vn: "Tuyển dụng nội địa",
         menu_recruitment_intl: "Tuyển dụng quốc tế",
         menu_contact: "Liên hệ",
         open_main_menu: "Mở menu chính",
 
+        // Index Page v2
+        index_hero_title: "Chào mừng đến với IVS JSC",
+        index_hero_subtitle: "Kiến tạo tương lai giáo dục và sức khỏe Việt Nam",
+        learn_more: "Tìm hiểu thêm",
+        index_news_title: "Tin Tức & Sự Kiện",
+        loading_news: "Đang tải tin tức...",
+        no_news: "Chưa có tin tức nào.",
+        news_load_error: "Không thể tải tin tức.",
+        news_title_na: "Tiêu đề không có sẵn",
+        news_image_alt: "Hình ảnh tin tức",
+        read_more: "Đọc thêm →",
+        index_about_title: "Về Chúng Tôi",
+        index_about_p1: "IVS JSC là tổ chức tiên phong trong lĩnh vực giáo dục, công nghệ giáo dục (EdTech), sức khỏe cộng đồng, hợp tác quốc tế, và phát triển kinh doanh tại Việt Nam.",
+        index_about_p2: "Chúng tôi cung cấp giải pháp toàn diện từ giáo dục ngoại ngữ, kỹ năng sống, STEAM, đến các chương trình chăm sóc sức khỏe và ứng dụng công nghệ hiện đại.",
+        view_details: "Xem chi tiết →",
+        index_about_img_alt: "Hình ảnh giới thiệu IVS JSC",
+        index_activities_title: "Lĩnh Vực Hoạt Động Chính",
+        activity_academy_title: "IVS Academy",
+        activity_academy_desc: "Đào tạo ngoại ngữ (Anh, Trung, Nhật), STEAM, kỹ năng mềm. Chương trình cộng đồng \"Hãy Nói\".",
+        activity_kindergarten_title: "IVS Kindergarten",
+        activity_kindergarten_desc: "Mầm non tiên phong áp dụng mô hình STEAM+Intelligence. Cơ sở vật chất hiện đại.",
+        activity_celestech_title: "IVS Celestech (EdTech)",
+        activity_celestech_desc: "Phát triển giải pháp công nghệ giáo dục: E-learning, LMS, AI, VR/AR.",
+        activity_health_title: "IVS Health & Wellness",
+        activity_health_desc: "Hợp tác phát triển sản phẩm sức khỏe như yến sào Thanh Yến, giáo dục dinh dưỡng cộng đồng.",
+        activity_cooperation_title: "Hợp Tác Quốc Tế",
+        activity_cooperation_desc: "Kết nối giáo dục và sức khỏe Việt Nam với thế giới: Du học, trại hè, liên kết đào tạo.",
+        activity_investment_title: "Đầu Tư & Phát Triển",
+        activity_investment_desc: "Xây dựng hệ thống giáo dục liên cấp IVS Global School và dự án bền vững.",
+        details_link: "Chi tiết...",
+        index_video_title: "Video Giới Thiệu",
+        index_video_iframe_title: "Video giới thiệu IVS JSC",
 
-        // Index Page v2 (Giữ nguyên)
-        // ...
+        // Footer
+        footer_company_name: "IVS JSC",
+        footer_rights: "Bản quyền thuộc về IVS JSC.",
+        footer_contact_us: "Liên hệ chúng tôi",
+        footer_address: "Số 1104, Tổ 6, Ấp Đất Mới, Xã Long Phước, Huyện Long Thành, Tỉnh Đồng Nai, Việt Nam, 76213.",
+        footer_quick_links: "Liên kết nhanh",
+        // (Các key menu đã có ở header)
+        footer_follow_us: "Theo dõi chúng tôi",
 
-        // Footer (Giữ nguyên)
-        // ...
+        // Trang rnd-curriculum.html v2
+        rnd_hero_title: "Thiết kế Học liệu & Giải pháp EdTech theo Yêu cầu",
+        rnd_hero_subtitle: "Từ IVS Education & IVS Celestech - Biến ý tưởng giáo dục thành hiện thực",
+        rnd_intro_heading: "Bạn cần giải pháp giáo dục độc đáo và hiệu quả?",
+        rnd_intro_p1: "Trong bối cảnh giáo dục không ngừng thay đổi, việc sở hữu chương trình đào tạo, học liệu và công cụ công nghệ phù hợp là yếu tố then chốt để tạo nên sự khác biệt và nâng cao chất lượng dạy học. IVS Education và IVS Celestech cung cấp dịch vụ Nghiên cứu & Phát triển (R&D) toàn diện, đáp ứng mọi nhu cầu chuyên biệt của bạn.",
+        rnd_intro_p2: "Chúng tôi kết hợp chuyên môn sư phạm sâu sắc với năng lực công nghệ tiên tiến để tạo ra các sản phẩm giáo dục chất lượng cao, từ nội dung học thuật đến nền tảng kỹ thuật số.",
+        rnd_intro_img_alt: "Quy trình thiết kế học liệu và giải pháp EdTech",
+        rnd_services_heading: "Dịch vụ R&D Giáo dục của chúng tôi",
+        rnd_service1_title: "Thiết kế Chương trình & Khung năng lực",
+        rnd_service1_desc: "Xây dựng chương trình đào tạo (Ngoại ngữ, Tin học, Kỹ năng sống, STEAM...) theo chuẩn đầu ra, phù hợp với mục tiêu và đối tượng cụ thể. Thiết kế khung năng lực chi tiết.",
+        rnd_service2_title: "Phát triển Học liệu Đa dạng",
+        rnd_service2_desc: "Biên soạn sách giáo trình, sách bài tập, giáo án điện tử, bài giảng tương tác, video bài học, ngân hàng câu hỏi, trò chơi học tập... đảm bảo tính sư phạm và hấp dẫn.",
+        rnd_service3_title: "Xây dựng Hệ thống E-learning & LMS",
+        rnd_service3_desc: "Tư vấn và triển khai Hệ thống Quản lý Học tập (LMS) tùy chỉnh hoặc dựa trên nền tảng mã nguồn mở. Phát triển các khóa học trực tuyến (E-learning) hoàn chỉnh.",
+        rnd_service4_title: "Phát triển Ứng dụng Giáo dục",
+        rnd_service4_desc: "Thiết kế và lập trình ứng dụng di động (mobile app), ứng dụng web hỗ trợ học tập, kiểm tra, đánh giá, quản lý lớp học...",
+        rnd_service5_title: "Tích hợp Công nghệ AI, VR/AR",
+        rnd_service5_desc: "Nghiên cứu và ứng dụng Trí tuệ Nhân tạo (AI), Thực tế ảo (VR), Thực tế tăng cường (AR) vào học liệu và hoạt động giảng dạy để tăng cường trải nghiệm và hiệu quả.",
+        rnd_service6_title: "Tư vấn Giải pháp EdTech Tổng thể",
+        rnd_service6_desc: "Đánh giá nhu cầu, tư vấn lựa chọn và triển khai các giải pháp công nghệ giáo dục phù hợp với chiến lược và ngân sách của tổ chức.",
+        rnd_process_heading: "Quy trình Hợp tác R&D Chuyên nghiệp",
+        rnd_step1_title: "Tiếp nhận Yêu cầu & Phân tích",
+        rnd_step1_desc: "Thảo luận chi tiết về mục tiêu, đối tượng, phạm vi, yêu cầu kỹ thuật và ngân sách dự kiến.",
+        rnd_step2_title: "Đề xuất Giải pháp & Kế hoạch",
+        rnd_step2_desc: "Trình bày giải pháp R&D, kế hoạch thực hiện chi tiết, báo giá và các điều khoản hợp tác.",
+        rnd_step3_title: "Thiết kế & Phát triển (Prototype)",
+        rnd_step3_desc: "Tiến hành nghiên cứu, thiết kế khung chương trình/học liệu/tính năng. Phát triển bản mẫu (prototype) để lấy phản hồi.",
+        rnd_step4_title: "Hoàn thiện & Tinh chỉnh",
+        rnd_step4_desc: "Dựa trên phản hồi, tiến hành hoàn thiện sản phẩm, đảm bảo chất lượng và đáp ứng đúng yêu cầu.",
+        rnd_step5_title: "Kiểm thử & Đánh giá",
+        rnd_step5_desc: "Thực hiện kiểm thử nội bộ và/hoặc với người dùng cuối để đảm bảo tính ổn định, hiệu quả và dễ sử dụng.",
+        rnd_step6_title: "Bàn giao & Hỗ trợ",
+        rnd_step6_desc: "Bàn giao sản phẩm hoàn chỉnh, tài liệu hướng dẫn. Cung cấp dịch vụ hỗ trợ kỹ thuật, đào tạo (nếu cần) và bảo trì.",
+        rnd_why_heading: "Tại sao chọn IVS cho Dự án R&D Giáo dục?",
+        rnd_why_item1: "**Đội ngũ chuyên gia:** Kết hợp chuyên gia sư phạm, nhà thiết kế đồ họa, lập trình viên và chuyên gia công nghệ giàu kinh nghiệm.",
+        rnd_why_item2: "**Quy trình bài bản:** Áp dụng quy trình R&D chặt chẽ, đảm bảo tiến độ và chất lượng dự án.",
+        rnd_why_item3: "**Công nghệ cập nhật:** Luôn tìm tòi và ứng dụng các phương pháp, công nghệ giáo dục mới nhất.",
+        rnd_why_item4: "**Giải pháp tùy chỉnh:** Thiết kế giải pháp độc đáo, phù hợp chính xác với nhu cầu và thương hiệu của bạn.",
+        rnd_why_item5: "**Bảo mật thông tin:** Cam kết bảo mật tuyệt đối các ý tưởng và thông tin dự án của khách hàng.",
+        rnd_why_item6: "**Chi phí hợp lý:** Cung cấp giải pháp chất lượng cao với mức chi phí cạnh tranh.",
+        rnd_cta_heading: "Sẵn sàng Đổi mới Giáo dục cùng IVS?",
+        rnd_cta_desc: "Hãy chia sẻ ý tưởng hoặc yêu cầu của bạn với chúng tôi. Đội ngũ IVS Education & IVS Celestech luôn sẵn sàng lắng nghe và đồng hành cùng bạn kiến tạo những giải pháp giáo dục đột phá.",
+        rnd_cta_button: "Liên hệ Tư vấn R&D",
 
-        // Trang rnd-curriculum.html v2 (Giữ nguyên)
-        // ...
+        // Trang tai-tro.html
+        sponsorship_hero_title: "Tài trợ Cộng đồng - Đồng hành cùng IVS Kiến tạo Giá trị",
+        sponsorship_hero_subtitle: "Chung tay vì một thế hệ tương lai được trang bị đầy đủ tri thức và kỹ năng",
+        sponsorship_intro_heading: "Tại sao nên Đồng hành Tài trợ cùng IVS Education?",
+        sponsorship_intro_p1: "Tại IVS Education, chúng tôi tin rằng giáo dục là nền tảng cho sự phát triển bền vững của mỗi cá nhân và toàn xã hội. Bên cạnh các hoạt động kinh doanh cốt lõi, chúng tôi luôn nỗ lực triển khai các dự án cộng đồng ý nghĩa, đặc biệt là trong lĩnh vực giáo dục và phát triển kỹ năng cho thế hệ trẻ.",
+        sponsorship_intro_p2: "Sự đồng hành và tài trợ từ các cá nhân, tổ chức, doanh nghiệp là nguồn động lực quý báu giúp IVS mở rộng quy mô và nâng cao hiệu quả của các chương trình này, mang lại lợi ích thiết thực cho cộng đồng.",
+        sponsorship_intro_img_alt: "Hoạt động cộng đồng của IVS Education",
+        sponsorship_programs_heading: "Các Chương trình Ưu tiên Nhận Tài trợ",
+        sponsorship_program1_title: "Câu lạc bộ \"Hãy Nói\" (Dự án Phi lợi nhuận)",
+        sponsorship_program1_desc: "Tạo sân chơi miễn phí cho thanh thiếu niên Long Thành, Đồng Nai rèn luyện kỹ năng giao tiếp, thuyết trình, tư duy phản biện bằng Tiếng Anh. Tài trợ giúp duy trì hoạt động, tổ chức sự kiện, mời chuyên gia, phần thưởng...",
+        sponsorship_program1_link: "Tìm hiểu về CLB Hãy Nói",
+        sponsorship_program2_title: "Học bổng IVS Future Leaders",
+        sponsorship_program2_desc: "Trao cơ hội học tập ngoại ngữ, kỹ năng, STEAM cho các học sinh, sinh viên có hoàn cảnh khó khăn nhưng giàu nghị lực và có thành tích tốt. Tài trợ trực tiếp vào quỹ học bổng.",
+        sponsorship_program2_link: "Xem thông tin Học bổng",
+        sponsorship_program3_title: "Dự án Thư viện Cộng đồng & Sách hóa Nông thôn",
+        sponsorship_program3_desc: "Xây dựng các tủ sách, thư viện nhỏ tại các khu vực còn hạn chế điều kiện tiếp cận sách báo, tri thức. Tài trợ sách, trang thiết bị, chi phí vận hành.",
+        sponsorship_program4_title: "Các Sự kiện Giáo dục Cộng đồng Khác",
+        sponsorship_program4_desc: "Tổ chức các buổi workshop, seminar, ngày hội STEAM, cuộc thi học thuật... miễn phí hoặc chi phí thấp cho cộng đồng. Tài trợ địa điểm, chuyên gia, quà tặng, truyền thông...",
+        sponsorship_benefits_heading: "Quyền lợi của Nhà Tài trợ",
+        sponsorship_benefit1: "**Lan tỏa giá trị:** Góp phần trực tiếp vào sự phát triển giáo dục và cộng đồng.",
+        sponsorship_benefit2: "**Nâng cao hình ảnh:** Khẳng định trách nhiệm xã hội (CSR) của doanh nghiệp/tổ chức.",
+        sponsorship_benefit3: "**Quyền lợi truyền thông:** Logo, tên nhà tài trợ xuất hiện trên các ấn phẩm, sự kiện, website của chương trình (tùy theo mức tài trợ).",
+        sponsorship_benefit4: "**Kết nối mạng lưới:** Cơ hội giao lưu, kết nối với các đối tác, thành viên khác trong hệ sinh thái của IVS.",
+        sponsorship_benefit5: "**Minh bạch tài chính:** Cam kết sử dụng nguồn tài trợ đúng mục đích, báo cáo rõ ràng, minh bạch.",
+        sponsorship_how_to_heading: "Cách thức Tài trợ",
+        sponsorship_how_to_p1: "IVS Education hoan nghênh mọi hình thức đóng góp và tài trợ:",
+        sponsorship_how_to_item1: "**Tài trợ tài chính:** Chuyển khoản trực tiếp vào quỹ dự án.",
+        sponsorship_how_to_item2: "**Tài trợ hiện vật:** Sách vở, trang thiết bị học tập, văn phòng phẩm, quà tặng...",
+        sponsorship_how_to_item3: "**Tài trợ dịch vụ:** Địa điểm tổ chức sự kiện, in ấn, thiết kế, truyền thông...",
+        sponsorship_how_to_item4: "**Tài trợ chuyên môn:** Chia sẻ kiến thức, kỹ năng từ các chuyên gia.",
+        sponsorship_how_to_p2: "Vui lòng liên hệ trực tiếp với chúng tôi qua email hoặc điện thoại để trao đổi chi tiết về nhu cầu tài trợ và các phương án hợp tác phù hợp.",
+        sponsorship_cta_heading: "Hãy cùng IVS Chắp cánh Ước mơ Giáo dục!",
+        sponsorship_cta_desc: "Mỗi đóng góp, dù lớn hay nhỏ, đều mang ý nghĩa to lớn trong việc kiến tạo một tương lai tươi sáng hơn cho thế hệ trẻ Việt Nam. IVS Education trân trọng mọi sự quan tâm và đồng hành của quý vị.",
+        sponsorship_cta_button: "Liên hệ Tài trợ Ngay",
 
-        // Trang tai-tro.html (Giữ nguyên)
-        // ...
+        // Trang ivscelestech.html
+        celestech_hero_title: "IVS Celestech - Giải pháp Công nghệ Giáo dục Toàn diện",
+        celestech_hero_subtitle: "Kiến tạo môi trường học tập Thông minh - Sáng tạo - Hiệu quả",
+        celestech_intro_heading: "IVS Celestech: Tiên phong Ứng dụng Công nghệ vào Giáo dục",
+        celestech_intro_p1: "Là bộ phận công nghệ giáo dục (EdTech) chiến lược của IVS JSC, IVS Celestech tập trung nghiên cứu, phát triển và cung cấp các giải pháp công nghệ tiên tiến, giúp tối ưu hóa quy trình quản lý, nâng cao chất lượng giảng dạy và tạo ra trải nghiệm học tập hấp dẫn, hiệu quả cho người học mọi lứa tuổi.",
+        celestech_intro_p2: "Chúng tôi không chỉ cung cấp sản phẩm, mà còn mang đến giải pháp tổng thể, từ tư vấn, thiết kế, thi công đến triển khai và hỗ trợ vận hành.",
+        celestech_intro_img_alt: "Công nghệ giáo dục IVS Celestech",
+        celestech_solutions_heading: "Giải pháp và Dịch vụ Nổi bật",
+        celestech_solution1_title: "Tư vấn & Thiết kế Không gian Học tập Thông minh",
+        celestech_solution1_desc: "Khảo sát nhu cầu, tư vấn mô hình lớp học/trung tâm hiện đại. Thiết kế không gian học tập tối ưu, tích hợp công nghệ (ánh sáng, âm thanh, thiết bị tương tác). Thi công nội thất giáo dục chuyên nghiệp.",
+        celestech_solution2_title: "Cung cấp Thiết bị Giáo dục Hiện đại",
+        celestech_solution2_desc: "Màn hình tương tác thông minh (Interactive Flat Panels), máy chiếu, hệ thống âm thanh lớp học, thiết bị thực tế ảo (VR), thực tế tăng cường (AR), robot giáo dục, thiết bị STEAM...",
+        celestech_solution3_title: "Hệ thống Quản lý Học tập (LMS)",
+        celestech_solution3_desc: "Triển khai và tùy chỉnh các nền tảng LMS hàng đầu (Moodle, Canvas...) hoặc xây dựng LMS theo yêu cầu riêng. Tích hợp các công cụ quản lý khóa học, học viên, học liệu, đánh giá.",
+        celestech_solution4_title: "Phát triển Nội dung Số & E-learning",
+        celestech_solution4_desc: "Số hóa học liệu, xây dựng các khóa học E-learning tương tác cao, sản xuất video bài giảng, mô phỏng 3D, ứng dụng học tập (web/mobile app).",
+        celestech_solution5_title: "Giải pháp AI trong Giáo dục",
+        celestech_solution5_desc: "Nghiên cứu và ứng dụng AI để cá nhân hóa lộ trình học tập, trợ lý ảo hỗ trợ học viên, phân tích dữ liệu học tập, tự động hóa chấm điểm và phản hồi.",
+        celestech_solution6_title: "Đào tạo & Chuyển giao Công nghệ",
+        celestech_solution6_desc: "Tổ chức các khóa tập huấn, workshop về ứng dụng công nghệ trong giảng dạy cho giáo viên và nhà quản lý giáo dục. Hỗ trợ kỹ thuật và chuyển giao công nghệ hiệu quả.",
+        celestech_why_heading: "Lợi ích khi Hợp tác cùng IVS Celestech",
+        celestech_why_item1: "**Giải pháp toàn diện:** Từ phần cứng, phần mềm đến nội dung và đào tạo.",
+        celestech_why_item2: "**Công nghệ tiên tiến:** Luôn cập nhật và ứng dụng các xu hướng EdTech mới nhất.",
+        celestech_why_item3: "**Kinh nghiệm thực tiễn:** Thấu hiểu nhu cầu và thách thức của môi trường giáo dục Việt Nam.",
+        celestech_why_item4: "**Đội ngũ chuyên gia:** Kỹ sư công nghệ, chuyên gia giáo dục, nhà thiết kế tâm huyết.",
+        celestech_why_item5: "**Hỗ trợ chuyên nghiệp:** Dịch vụ tư vấn, triển khai và hậu mãi tận tâm.",
+        celestech_cta_heading: "Nâng tầm Giáo dục với Công nghệ?",
+        celestech_cta_desc: "Hãy để IVS Celestech đồng hành cùng bạn trên hành trình chuyển đổi số giáo dục. Liên hệ với chúng tôi ngay hôm nay để khám phá các giải pháp phù hợp nhất!",
+        celestech_cta_button: "Yêu cầu Tư vấn Giải pháp",
 
-        // Trang ivscelestech.html (Giữ nguyên)
-        // ...
-
-        // Trang english-placement.html (Giữ nguyên)
-        // ...
+        // Trang english-placement.html
+        placement_hero_title: "Kiểm tra Năng lực Tiếng Anh Trực tuyến",
+        placement_hero_subtitle: "Đánh giá trình độ nhanh chóng theo chuẩn CEFR - Miễn phí!",
+        placement_intro_heading: "Xác định trình độ - Chọn đúng lộ trình",
+        placement_intro_p1: "Bạn muốn biết trình độ tiếng Anh hiện tại của mình đang ở đâu? Bài kiểm tra năng lực Tiếng Anh (English Placement Test) của IVS Education được thiết kế khoa học, bám sát Khung tham chiếu trình độ ngôn ngữ chung Châu Âu (CEFR), giúp bạn đánh giá chính xác khả năng Nghe - Đọc - Ngữ pháp.",
+        placement_intro_p2: "Kết quả bài kiểm tra sẽ là cơ sở quan trọng để bạn lựa chọn khóa học phù hợp nhất với mục tiêu và năng lực của bản thân tại IVS Academy.",
+        placement_intro_img_alt: "Bài kiểm tra năng lực tiếng Anh online",
+        placement_how_it_works_heading: "Bài kiểm tra hoạt động như thế nào?",
+        placement_step1_title: "Đăng ký (Tùy chọn)",
+        placement_step1_desc: "Bạn có thể làm bài kiểm tra ngay lập tức hoặc đăng ký tài khoản để lưu kết quả và nhận tư vấn chi tiết.",
+        placement_step2_title: "Làm bài kiểm tra",
+        placement_step2_desc: "Bài thi gồm các phần trắc nghiệm về Nghe, Đọc hiểu và Ngữ pháp. Thời gian làm bài dự kiến khoảng 45-60 phút. Hãy chuẩn bị tai nghe (cho phần Nghe) và đảm bảo kết nối internet ổn định.",
+        placement_step3_title: "Nhận kết quả",
+        placement_step3_desc: "Kết quả ước tính trình độ theo khung CEFR (A1, A2, B1, B2, C1, C2) sẽ được hiển thị ngay sau khi bạn hoàn thành bài thi.",
+        placement_step4_title: "Tư vấn lộ trình",
+        placement_step4_desc: "Dựa trên kết quả, hệ thống sẽ gợi ý các khóa học phù hợp. Bạn có thể để lại thông tin để nhận tư vấn chi tiết hơn từ đội ngũ IVS Academy.",
+        placement_benefits_heading: "Lợi ích khi làm Bài kiểm tra",
+        placement_benefit1: "**Miễn phí & Nhanh chóng:** Thực hiện online mọi lúc mọi nơi.",
+        placement_benefit2: "**Kết quả tin cậy:** Đánh giá dựa trên chuẩn CEFR quốc tế.",
+        placement_benefit3: "**Xác định đúng điểm mạnh/yếu:** Hiểu rõ hơn về khả năng ngôn ngữ của bản thân.",
+        placement_benefit4: "**Gợi ý khóa học phù hợp:** Tiết kiệm thời gian và chi phí, chọn đúng lộ trình học tập.",
+        placement_benefit5: "**Nền tảng cho sự tiến bộ:** Đặt mục tiêu học tập rõ ràng và hiệu quả hơn.",
+        placement_cta_heading: "Sẵn sàng khám phá trình độ Tiếng Anh của bạn?",
+        placement_cta_button: "Bắt đầu Làm bài Ngay!",
+        placement_test_area_title: "Bài kiểm tra Năng lực",
+        placement_start_button: "Bắt đầu",
+        placement_next_button: "Câu tiếp theo",
+        placement_submit_button: "Nộp bài",
+        placement_loading_test: "Đang tải bài kiểm tra...",
+        placement_test_completed: "Bạn đã hoàn thành bài kiểm tra!",
+        placement_result_title: "Kết quả Ước tính",
+        placement_estimated_level_label: "Trình độ ước tính (CEFR):",
+        placement_level_description_label: "Mô tả trình độ:",
+        placement_suggested_courses_label: "Khóa học gợi ý:",
+        placement_retake_button: "Làm lại bài kiểm tra",
+        placement_contact_button: "Nhận tư vấn chi tiết",
+        placement_error_loading: "Lỗi khi tải bài kiểm tra. Vui lòng thử lại.",
+        // Các câu hỏi và đáp án mẫu (cần được thay thế bằng dữ liệu thực tế)
+        sample_question_text: "Chọn đáp án đúng nhất:",
+        sample_option_a: "Đáp án A",
+        sample_option_b: "Đáp án B",
+        sample_option_c: "Đáp án C",
+        sample_option_d: "Đáp án D",
 
         // Trang thanhlaptrungtam.html (Keys mới)
         establishment_hero_title: "Thành lập Trung tâm Ngoại ngữ - Tin học - Kỹ năng sống",
@@ -126,8 +302,6 @@ const translations = {
         establishment_cta_heading: "Bắt đầu Hành trình Xây dựng Trung tâm của bạn!",
         establishment_cta_desc: "Đừng để thủ tục pháp lý phức tạp cản trở ước mơ đóng góp cho sự nghiệp giáo dục của bạn. Hãy liên hệ với IVS Education ngay hôm nay để được tư vấn chi tiết và nhận hỗ trợ chuyên nghiệp!",
         establishment_cta_button: "Yêu cầu Tư vấn Ngay",
-
-        // Thêm các key khác từ các trang khác nếu cần...
     },
     en: {
         // Meta Tags
@@ -154,8 +328,7 @@ const translations = {
         og_description_establishment: "A-Z Support: Condition consultation, document preparation, proposal drafting, working with authorities.",
         og_image_establishment: "https://placehold.co/1200x630/3b82f6/ffffff?text=Establish+Center+IVS",
 
-        // Header v6 (Keep as is)
-        // ... (menu keys remain) ...
+        // Header v6
         logo_alt: "IVS JSC Logo",
         menu_home: "Home",
         menu_about: "About Us",
@@ -188,30 +361,206 @@ const translations = {
         menu_design_edu: "Curriculum Design",
         menu_healths: "Health",
         menu_health_yensao: "Thanh Yen Bird's Nest",
+        menu_health_luvyoga: "LuvYoga Loc Hoa - Trang Bom", // Added key for LuvYoga
         menu_recruitment: "Recruitment",
         menu_recruitment_vn: "Domestic Recruitment",
         menu_recruitment_intl: "International Recruitment",
         menu_contact: "Contact",
         open_main_menu: "Open main menu",
 
+        // Index Page v2
+        index_hero_title: "Welcome to IVS JSC",
+        index_hero_subtitle: "Shaping the future of education and health in Vietnam",
+        learn_more: "Learn more",
+        index_news_title: "News & Events",
+        loading_news: "Loading news...",
+        no_news: "No news yet.",
+        news_load_error: "Could not load news.",
+        news_title_na: "Title Not Available",
+        news_image_alt: "News image",
+        read_more: "Read more →",
+        index_about_title: "About Us",
+        index_about_p1: "IVS JSC is a pioneering organization in education, educational technology (EdTech), public health, international cooperation, and business development in Vietnam.",
+        index_about_p2: "We provide comprehensive solutions from language education, life skills, STEAM, to healthcare programs and modern technology applications.",
+        view_details: "View details →",
+        index_about_img_alt: "IVS JSC introduction image",
+        index_activities_title: "Main Areas of Operation",
+        activity_academy_title: "IVS Academy",
+        activity_academy_desc: "Language training (English, Chinese, Japanese), STEAM, soft skills. Community program \"Hay Noi\".",
+        activity_kindergarten_title: "IVS Kindergarten",
+        activity_kindergarten_desc: "Pioneering kindergarten applying the STEAM+Intelligence model. Modern facilities.",
+        activity_celestech_title: "IVS Celestech (EdTech)",
+        activity_celestech_desc: "Developing educational technology solutions: E-learning, LMS, AI, VR/AR.",
+        activity_health_title: "IVS Health & Wellness",
+        activity_health_desc: "Collaborating on health product development like Thanh Yen bird's nest, community nutrition education.",
+        activity_cooperation_title: "International Cooperation",
+        activity_cooperation_desc: "Connecting Vietnamese education and health with the world: Study abroad, summer camps, joint training.",
+        activity_investment_title: "Investment & Development",
+        activity_investment_desc: "Building the IVS Global School system and sustainable projects.",
+        details_link: "Details...",
+        index_video_title: "Introductory Video",
+        index_video_iframe_title: "IVS JSC introduction video",
 
-        // Index Page v2 (Keep as is)
-        // ...
+        // Footer
+        footer_company_name: "IVS JSC",
+        footer_rights: "All rights reserved.",
+        footer_contact_us: "Contact us",
+        footer_address: "1104, Group 6, Dat Moi Hamlet, Long Phuoc Commune, Long Thanh District, Dong Nai Province, Vietnam, 76213.",
+        footer_quick_links: "Quick links",
+        footer_follow_us: "Follow us",
 
-        // Footer (Keep as is)
-        // ...
+        // Trang rnd-curriculum.html v2
+        rnd_hero_title: "Custom Curriculum & EdTech Solutions",
+        rnd_hero_subtitle: "From IVS Education & IVS Celestech - Turning Educational Ideas into Reality",
+        rnd_intro_heading: "Need Unique and Effective Educational Solutions?",
+        rnd_intro_p1: "In the ever-changing educational landscape, having the right training programs, learning materials, and technological tools is key to differentiation and improving teaching quality. IVS Education and IVS Celestech offer comprehensive Research & Development (R&D) services to meet all your specific needs.",
+        rnd_intro_p2: "We combine deep pedagogical expertise with advanced technological capabilities to create high-quality educational products, from academic content to digital platforms.",
+        rnd_intro_img_alt: "Curriculum design and EdTech solution process",
+        rnd_services_heading: "Our Educational R&D Services",
+        rnd_service1_title: "Program Design & Competency Frameworks",
+        rnd_service1_desc: "Develop training programs (Language, IT, Life Skills, STEAM...) based on learning outcomes, tailored to specific goals and audiences. Design detailed competency frameworks.",
+        rnd_service2_title: "Diverse Learning Material Development",
+        rnd_service2_desc: "Compile textbooks, workbooks, digital lesson plans, interactive lectures, video lessons, question banks, learning games... ensuring pedagogical soundness and engagement.",
+        rnd_service3_title: "E-learning & LMS System Building",
+        rnd_service3_desc: "Consult and implement customized Learning Management Systems (LMS) or based on open-source platforms. Develop complete interactive E-learning courses.",
+        rnd_service4_title: "Educational Application Development",
+        rnd_service4_desc: "Design and program mobile apps, web applications supporting learning, testing, assessment, classroom management...",
+        rnd_service5_title: "AI, VR/AR Technology Integration",
+        rnd_service5_desc: "Research and apply Artificial Intelligence (AI), Virtual Reality (VR), Augmented Reality (AR) into learning materials and teaching activities to enhance experience and effectiveness.",
+        rnd_service6_title: "Overall EdTech Solution Consulting",
+        rnd_service6_desc: "Assess needs, consult on selection and implementation of educational technology solutions aligned with the organization's strategy and budget.",
+        rnd_process_heading: "Professional R&D Collaboration Process",
+        rnd_step1_title: "Requirement Reception & Analysis",
+        rnd_step1_desc: "Detailed discussion on goals, target audience, scope, technical requirements, and budget.",
+        rnd_step2_title: "Solution Proposal & Planning",
+        rnd_step2_desc: "Present R&D solutions, detailed implementation plans, quotations, and collaboration terms.",
+        rnd_step3_title: "Design & Development (Prototype)",
+        rnd_step3_desc: "Conduct research, design program/material/feature frameworks. Develop prototypes for feedback.",
+        rnd_step4_title: "Refinement & Finalization",
+        rnd_step4_desc: "Based on feedback, finalize the product, ensuring quality and meeting requirements.",
+        rnd_step5_title: "Testing & Evaluation",
+        rnd_step5_desc: "Perform internal and/or end-user testing to ensure stability, effectiveness, and usability.",
+        rnd_step6_title: "Handover & Support",
+        rnd_step6_desc: "Deliver the final product and documentation. Provide technical support, training (if needed), and maintenance.",
+        rnd_why_heading: "Why Choose IVS for Educational R&D Projects?",
+        rnd_why_item1: "**Expert Team:** Combination of pedagogical experts, graphic designers, programmers, and experienced technology specialists.",
+        rnd_why_item2: "**Systematic Process:** Apply a rigorous R&D process, ensuring project progress and quality.",
+        rnd_why_item3: "**Updated Technology:** Always exploring and applying the latest educational methods and technologies.",
+        rnd_why_item4: "**Customized Solutions:** Design unique solutions tailored precisely to your needs and brand.",
+        rnd_why_item5: "**Confidentiality:** Commit to absolute confidentiality of client ideas and project information.",
+        rnd_why_item6: "**Reasonable Cost:** Provide high-quality solutions at competitive prices.",
+        rnd_cta_heading: "Ready to Innovate Education with IVS?",
+        rnd_cta_desc: "Share your ideas or requirements with us. The IVS Education & IVS Celestech team is always ready to listen and partner with you to create groundbreaking educational solutions.",
+        rnd_cta_button: "Contact R&D Consulting",
 
-        // Trang rnd-curriculum.html v2 (Keep as is)
-        // ...
+        // Trang tai-tro.html
+        sponsorship_hero_title: "Community Sponsorship - Partner with IVS to Create Value",
+        sponsorship_hero_subtitle: "Joining hands for a future generation fully equipped with knowledge and skills",
+        sponsorship_intro_heading: "Why Partner in Sponsorship with IVS Education?",
+        sponsorship_intro_p1: "At IVS Education, we believe education is the foundation for the sustainable development of individuals and society. Alongside our core business activities, we always strive to implement meaningful community projects, especially in education and skills development for the youth.",
+        sponsorship_intro_p2: "The partnership and sponsorship from individuals, organizations, and businesses are invaluable motivations helping IVS expand the scale and enhance the effectiveness of these programs, bringing practical benefits to the community.",
+        sponsorship_intro_img_alt: "Community activities of IVS Education",
+        sponsorship_programs_heading: "Priority Programs for Sponsorship",
+        sponsorship_program1_title: "\"Hay Noi\" Club (Non-profit Project)",
+        sponsorship_program1_desc: "Creating a free playground for youth in Long Thanh, Dong Nai to practice communication, presentation, and critical thinking skills in English. Sponsorship helps maintain activities, organize events, invite experts, provide rewards...",
+        sponsorship_program1_link: "Learn about Hay Noi Club",
+        sponsorship_program2_title: "IVS Future Leaders Scholarship",
+        sponsorship_program2_desc: "Providing opportunities to study languages, skills, STEAM for students from disadvantaged backgrounds with strong determination and good academic records. Sponsorship directly contributes to the scholarship fund.",
+        sponsorship_program2_link: "View Scholarship Information",
+        sponsorship_program3_title: "Community Library & Rural Book Project",
+        sponsorship_program3_desc: "Building small bookshelves and libraries in areas with limited access to books and knowledge. Sponsoring books, equipment, operational costs.",
+        sponsorship_program4_title: "Other Community Education Events",
+        sponsorship_program4_desc: "Organizing free or low-cost workshops, seminars, STEAM festivals, academic competitions... for the community. Sponsoring venues, experts, gifts, communication...",
+        sponsorship_benefits_heading: "Sponsor Benefits",
+        sponsorship_benefit1: "**Spread Value:** Directly contribute to educational and community development.",
+        sponsorship_benefit2: "**Enhance Image:** Affirm the corporate social responsibility (CSR) of the business/organization.",
+        sponsorship_benefit3: "**Communication Rights:** Logo, sponsor name appear on publications, events, program websites (depending on sponsorship level).",
+        sponsorship_benefit4: "**Network Connection:** Opportunity to network with partners and other members within the IVS ecosystem.",
+        sponsorship_benefit5: "**Financial Transparency:** Commitment to using sponsorship funds for the intended purpose, with clear and transparent reporting.",
+        sponsorship_how_to_heading: "How to Sponsor",
+        sponsorship_how_to_p1: "IVS Education welcomes all forms of contribution and sponsorship:",
+        sponsorship_how_to_item1: "**Financial Sponsorship:** Direct transfer to the project fund.",
+        sponsorship_how_to_item2: "**In-kind Sponsorship:** Books, learning equipment, stationery, gifts...",
+        sponsorship_how_to_item3: "**Service Sponsorship:** Event venues, printing, design, communication...",
+        sponsorship_how_to_item4: "**Expertise Sponsorship:** Sharing knowledge and skills from experts.",
+        sponsorship_how_to_p2: "Please contact us directly via email or phone to discuss detailed sponsorship needs and suitable cooperation plans.",
+        sponsorship_cta_heading: "Let's Wing Educational Dreams with IVS!",
+        sponsorship_cta_desc: "Every contribution, big or small, holds great significance in building a brighter future for the young generation of Vietnam. IVS Education appreciates all your interest and partnership.",
+        sponsorship_cta_button: "Contact for Sponsorship Now",
 
-        // Trang tai-tro.html (Keep as is)
-        // ...
+         // Trang ivscelestech.html
+        celestech_hero_title: "IVS Celestech - Comprehensive EdTech Solutions",
+        celestech_hero_subtitle: "Creating Smart - Creative - Effective Learning Environments",
+        celestech_intro_heading: "IVS Celestech: Pioneering Technology Application in Education",
+        celestech_intro_p1: "As the strategic educational technology (EdTech) division of IVS JSC, IVS Celestech focuses on researching, developing, and providing advanced technology solutions to optimize management processes, enhance teaching quality, and create engaging, effective learning experiences for learners of all ages.",
+        celestech_intro_p2: "We offer not just products, but holistic solutions, from consulting, design, construction to implementation and operational support.",
+        celestech_intro_img_alt: "IVS Celestech educational technology",
+        celestech_solutions_heading: "Featured Solutions and Services",
+        celestech_solution1_title: "Smart Learning Space Consulting & Design",
+        celestech_solution1_desc: "Needs assessment, consulting on modern classroom/center models. Design optimal learning spaces integrating technology (lighting, sound, interactive devices). Professional educational interior construction.",
+        celestech_solution2_title: "Provision of Modern Educational Equipment",
+        celestech_solution2_desc: "Interactive Flat Panels, projectors, classroom audio systems, Virtual Reality (VR), Augmented Reality (AR) devices, educational robots, STEAM equipment...",
+        celestech_solution3_title: "Learning Management System (LMS)",
+        celestech_solution3_desc: "Implement and customize leading LMS platforms (Moodle, Canvas...) or build custom LMS. Integrate tools for course, student, material, and assessment management.",
+        celestech_solution4_title: "Digital Content & E-learning Development",
+        celestech_solution4_desc: "Digitize learning materials, build highly interactive E-learning courses, produce video lectures, 3D simulations, learning applications (web/mobile app).",
+        celestech_solution5_title: "AI Solutions in Education",
+        celestech_solution5_desc: "Research and apply AI to personalize learning paths, virtual assistants for student support, learning data analysis, automated grading and feedback.",
+        celestech_solution6_title: "Technology Training & Transfer",
+        celestech_solution6_desc: "Organize training courses, workshops on technology application in teaching for teachers and educational managers. Provide effective technical support and technology transfer.",
+        celestech_why_heading: "Benefits of Partnering with IVS Celestech",
+        celestech_why_item1: "**Comprehensive Solutions:** From hardware, software to content and training.",
+        celestech_why_item2: "**Advanced Technology:** Always updating and applying the latest EdTech trends.",
+        celestech_why_item3: "**Practical Experience:** Understanding the needs and challenges of the Vietnamese educational environment.",
+        celestech_why_item4: "**Expert Team:** Dedicated technology engineers, education specialists, designers.",
+        celestech_why_item5: "**Professional Support:** Dedicated consulting, implementation, and after-sales services.",
+        celestech_cta_heading: "Elevate Education with Technology?",
+        celestech_cta_desc: "Let IVS Celestech accompany you on the journey of digital transformation in education. Contact us today to explore the most suitable solutions!",
+        celestech_cta_button: "Request Solution Consultation",
 
-        // Trang ivscelestech.html (Keep as is)
-        // ...
-
-        // Trang english-placement.html (Keep as is)
-        // ...
+        // Trang english-placement.html
+        placement_hero_title: "Online English Placement Test",
+        placement_hero_subtitle: "Quickly assess your level according to the CEFR standard - Free!",
+        placement_intro_heading: "Determine your level - Choose the right path",
+        placement_intro_p1: "Want to know your current English level? IVS Education's English Placement Test is scientifically designed, closely following the Common European Framework of Reference for Languages (CEFR), helping you accurately assess your Listening - Reading - Grammar skills.",
+        placement_intro_p2: "The test results will be a crucial basis for you to choose the most suitable course for your goals and abilities at IVS Academy.",
+        placement_intro_img_alt: "Online English placement test",
+        placement_how_it_works_heading: "How does the test work?",
+        placement_step1_title: "Register (Optional)",
+        placement_step1_desc: "You can take the test immediately or register an account to save your results and receive detailed consultation.",
+        placement_step2_title: "Take the Test",
+        placement_step2_desc: "The test includes multiple-choice sections on Listening, Reading Comprehension, and Grammar. The estimated time is 45-60 minutes. Please prepare headphones (for the Listening section) and ensure a stable internet connection.",
+        placement_step3_title: "Get Results",
+        placement_step3_desc: "Your estimated CEFR level (A1, A2, B1, B2, C1, C2) will be displayed immediately after you complete the test.",
+        placement_step4_title: "Course Consultation",
+        placement_step4_desc: "Based on the results, the system will suggest suitable courses. You can leave your information to receive more detailed advice from the IVS Academy team.",
+        placement_benefits_heading: "Benefits of Taking the Test",
+        placement_benefit1: "**Free & Quick:** Take it online anytime, anywhere.",
+        placement_benefit2: "**Reliable Results:** Assessment based on the international CEFR standard.",
+        placement_benefit3: "**Identify Strengths/Weaknesses:** Better understand your language abilities.",
+        placement_benefit4: "**Suitable Course Suggestions:** Save time and money, choose the right learning path.",
+        placement_benefit5: "**Foundation for Progress:** Set clearer and more effective learning goals.",
+        placement_cta_heading: "Ready to discover your English level?",
+        placement_cta_button: "Start the Test Now!",
+        placement_test_area_title: "Placement Test",
+        placement_start_button: "Start",
+        placement_next_button: "Next Question",
+        placement_submit_button: "Submit",
+        placement_loading_test: "Loading test...",
+        placement_test_completed: "You have completed the test!",
+        placement_result_title: "Estimated Result",
+        placement_estimated_level_label: "Estimated Level (CEFR):",
+        placement_level_description_label: "Level Description:",
+        placement_suggested_courses_label: "Suggested Courses:",
+        placement_retake_button: "Retake Test",
+        placement_contact_button: "Get Detailed Consultation",
+        placement_error_loading: "Error loading test. Please try again.",
+        // Sample questions and answers (replace with actual data)
+        sample_question_text: "Choose the best answer:",
+        sample_option_a: "Answer A",
+        sample_option_b: "Answer B",
+        sample_option_c: "Answer C",
+        sample_option_d: "Answer D",
 
         // thanhlaptrungtam.html Page (New Keys)
         establishment_hero_title: "Establishment of Language - IT - Life Skills Centers",
@@ -252,171 +601,299 @@ const translations = {
         establishment_cta_heading: "Start Your Center Building Journey!",
         establishment_cta_desc: "Don't let complex legal procedures hinder your dream of contributing to education. Contact IVS Education today for detailed consultation and professional support!",
         establishment_cta_button: "Request Consultation Now",
-
-        // Add other keys from other pages if needed...
     }
 };
 
-// --- Phần còn lại của file language.js giữ nguyên như v8 ---
-// (Hàm setLanguage, initializeLanguage, attachLanguageButtonListeners, handleLanguageChange, updatePlacementResultText)
+/**
+ * Sets the language for the page and updates UI elements.
+ * @param {string} lang - The language code ('vi' or 'en').
+ */
 function setLanguage(lang) {
+    // Store preference
     localStorage.setItem('preferredLanguage', lang);
+
+    // Update all elements with data-lang-key attribute
     document.querySelectorAll('[data-lang-key]').forEach(element => {
         const key = element.getAttribute('data-lang-key');
-        const translation = translations[lang]?.[key];
+        const translation = translations[lang]?.[key]; // Safely access translation
+
         if (translation !== undefined) {
+            // Avoid translating parent if children have keys (except for simple inline tags)
             let hasChildWithLangKey = false;
             if (element.children.length > 0) {
                  for(let child of element.children) {
-                     if (child.hasAttribute('data-lang-key') && child.tagName !== 'SVG' && child.tagName !== 'I') {
+                     // Check if the child itself has a key and is not a simple formatting tag or icon
+                     if (child.hasAttribute('data-lang-key') && !['SVG', 'I', 'SPAN', 'STRONG', 'EM', 'B', 'U'].includes(child.tagName)) {
                          hasChildWithLangKey = true;
                          break;
                      }
                  }
             }
-            if (!hasChildWithLangKey || element.tagName === 'SPAN' || element.tagName === 'STRONG' || element.tagName === 'EM' ) {
+
+            // Apply translation if it's a leaf node or simple inline element
+            if (!hasChildWithLangKey || ['SPAN', 'STRONG', 'EM', 'B', 'U', 'A', 'BUTTON', 'P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'LI', 'LABEL', 'TD', 'TH', 'OPTION'].includes(element.tagName)) {
+                 // Basic Markdown-like formatting for bold and italic
                  let finalTranslation = translation;
-                 finalTranslation = finalTranslation.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                 finalTranslation = finalTranslation.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                 finalTranslation = finalTranslation.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Bold
+                 finalTranslation = finalTranslation.replace(/\*(.*?)\*/g, '<em>$1</em>');     // Italic
+
+                 // Use innerHTML only if formatting was applied, otherwise textContent for safety
                  if (finalTranslation !== translation) {
                      element.innerHTML = finalTranslation;
                  } else {
                      element.textContent = translation;
                  }
             }
+
+            // Handle specific element types
             const placeholderKey = key + '_placeholder';
             const titleKey = key + '_title';
             const altKey = key + '_alt';
+
+            // Input/Textarea Placeholders
             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                  const placeholderTranslation = translations[lang]?.[placeholderKey];
                  if (placeholderTranslation !== undefined) element.placeholder = placeholderTranslation;
             }
+            // Tooltips (title attribute)
             if (element.hasAttribute('title')) {
                  const titleTranslation = translations[lang]?.[titleKey];
                  if (titleTranslation !== undefined) element.title = titleTranslation;
             }
+             // Image Alt Text
              if (element.tagName === 'IMG' && element.hasAttribute('alt')) {
                  const altTranslation = translations[lang]?.[altKey];
                  if (altTranslation !== undefined) element.alt = altTranslation;
              }
+             // Meta Description
              if (element.tagName === 'META' && element.getAttribute('name') === 'description') {
                   element.content = translation;
              }
+             // Page Title
              if (element.tagName === 'TITLE') {
                   element.textContent = translation;
              }
+             // OpenGraph Meta Tags
               if (element.tagName === 'META' && element.getAttribute('property') === 'og:title') {
                   element.content = translation;
               }
               if (element.tagName === 'META' && element.getAttribute('property') === 'og:description') {
                   element.content = translation;
               }
+              // Add more specific tags if needed (e.g., og:image:alt)
+        } else if (key) {
+            // Optional: Log a warning if a key exists but has no translation
+            // console.warn(`Translation missing for key: ${key} in language: ${lang}`);
         }
     });
+
+    // Update language button states (Desktop and Mobile)
     document.querySelectorAll('[id^="lang-vi-"], [id^="lang-en-"]').forEach(button => {
-        if (!button) return;
-        if (button.getAttribute('data-lang') === lang) {
+        if (!button) return; // Skip if button doesn't exist
+        const buttonLang = button.getAttribute('data-lang');
+        if (buttonLang === lang) {
+            // Style for active language button
             button.classList.add('text-blue-700', 'font-bold');
             button.classList.remove('text-gray-600');
-            button.disabled = true;
+            button.disabled = true; // Disable the active button
         } else {
+            // Style for inactive language button
             button.classList.remove('text-blue-700', 'font-bold');
             button.classList.add('text-gray-600');
-            button.disabled = false;
+            button.disabled = false; // Enable the inactive button
         }
     });
+
+    // Set HTML lang attribute
     document.documentElement.lang = lang;
+    console.log(`Language set to: ${lang}`);
 }
+
+
+/**
+ * Initializes the language functionality.
+ * Reads preferred language from localStorage or defaults to 'vi'.
+ * Attaches event listeners to language buttons.
+ */
 function initializeLanguage() {
+    // Prevent double initialization if script.js calls this
     if (window.languageInitialized) {
-        console.warn("Language already initialized.");
+        console.warn("Language already initialized, skipping re-initialization.");
         return;
     }
     console.log("Initializing language...");
-    const preferredLanguage = localStorage.getItem('preferredLanguage') || 'vi';
+    const preferredLanguage = localStorage.getItem('preferredLanguage') || 'vi'; // Default to Vietnamese
     setLanguage(preferredLanguage);
-    attachLanguageButtonListeners();
-    window.languageInitialized = true;
+    attachLanguageButtonListeners(); // Attach listeners after initial set
+    window.languageInitialized = true; // Set flag
+    console.log("Language initialization complete.");
 }
+
+/**
+ * Attaches click event listeners to all language buttons.
+ * Ensures listeners are not attached multiple times.
+ */
 function attachLanguageButtonListeners() {
     console.log("Attaching language button listeners...");
-    document.querySelectorAll('[id^="lang-vi-"], [id^="lang-en-"]').forEach(button => {
+    const buttons = document.querySelectorAll('[id^="lang-vi-"], [id^="lang-en-"]');
+    buttons.forEach(button => {
         if (!button) return;
+        // Remove existing listener before adding a new one to prevent duplicates
         button.removeEventListener('click', handleLanguageChange);
         button.addEventListener('click', handleLanguageChange);
     });
-    console.log("Language button listeners attached.");
+    console.log(`Language button listeners attached to ${buttons.length} buttons.`);
 }
+
+/**
+ * Handles the click event on language buttons.
+ * Sets the new language and potentially triggers updates on dynamic content.
+ * @param {Event} event - The click event object.
+ */
 function handleLanguageChange(event) {
     const button = event.currentTarget;
-    if (button.disabled) return;
+    // Prevent action if the button is already disabled (active language)
+    if (button.disabled) {
+        console.log("Clicked disabled language button, ignoring.");
+        return;
+    }
+
     const lang = button.getAttribute('data-lang');
     console.log(`Language change requested to: ${lang}`);
-    if (lang) {
-        setLanguage(lang);
+
+    if (lang && translations[lang]) { // Check if lang is valid
+        setLanguage(lang); // Update UI and store preference
+
+        // --- Trigger updates for dynamic content ---
+        // Example: Reload news if the news container exists on the current page
         if (typeof loadNews === 'function' && document.getElementById('news-container')) {
              console.log("Reloading news for new language...");
              loadNews();
         }
-        if (typeof updatePlacementResultText === 'function' && document.getElementById('test-result-area') && !document.getElementById('test-result-area').classList.contains('hidden')) {
-             updatePlacementResultText(lang);
+
+        // Example: Update placement test results if the area is visible
+        if (typeof updatePlacementResultText === 'function') {
+            const resultArea = document.getElementById('test-result-area');
+            if (resultArea && !resultArea.classList.contains('hidden')) {
+                console.log("Updating placement test results text...");
+                updatePlacementResultText(lang); // Assumes this function gets the score/level elsewhere
+            }
         }
-        // Cập nhật text của redirect timer nếu nó đang hiển thị và chưa bị hủy
+
+        // Example: Update redirect timer text if visible and not cancelled
         const timerElement = document.getElementById('redirect-timer-text');
         const cancelButton = document.getElementById('cancel-redirect');
-        if (timerElement && cancelButton && !cancelButton.disabled && typeof updateTimerText === 'function'){
-            updateTimerText(); // Gọi hàm cập nhật text (hàm này cần được định nghĩa trong scope global hoặc trong script của trang)
-        } else if (timerElement && cancelButton && cancelButton.disabled && typeof updateCancelledRedirectText === 'function') {
-             updateCancelledRedirectText(); // Cập nhật text khi đã hủy
+        if (timerElement && cancelButton) {
+            if (!cancelButton.disabled && typeof updateTimerText === 'function'){
+                console.log("Updating redirect timer text...");
+                updateTimerText(); // Assumes this function exists globally or in page script
+            } else if (cancelButton.disabled && typeof updateCancelledRedirectText === 'function') {
+                console.log("Updating cancelled redirect text...");
+                updateCancelledRedirectText(); // Assumes this function exists
+            }
         }
+        // Add more update triggers for other dynamic sections if needed
+
+    } else {
+        console.error(`Invalid language selected or missing translations: ${lang}`);
     }
 }
-// Hàm này cần được định nghĩa trong script inline của trang thanhlaptrungtam.html
-// function updateTimerText() { ... }
-// function updateCancelledRedirectText() { ... }
 
-// Hàm updatePlacementResultText (giữ nguyên từ v8)
+/**
+ * Updates the text content of the English placement test result area.
+ * (This function needs the actual score/level logic to be implemented elsewhere)
+ * @param {string} lang - The target language ('vi' or 'en').
+ */
 function updatePlacementResultText(lang) {
     console.log(`Updating placement result text for lang: ${lang}`);
     const estimatedLevelEl = document.getElementById('estimated-level');
     const levelDescEl = document.getElementById('level-description');
     const coursesListEl = document.getElementById('suggested-courses');
 
-    if (!estimatedLevelEl || !levelDescEl || !coursesListEl) return;
+    // Ensure elements exist before proceeding
+    if (!estimatedLevelEl || !levelDescEl || !coursesListEl) {
+        console.warn("Placement result elements not found, cannot update text.");
+        return;
+    }
 
+    // --- Placeholder Result Data ---
+    // In a real application, you would get the actual test score
+    // and determine the level and suggestions based on that score.
+    const placeholderScore = 75; // Example score
+    let determinedLevel = 'B1'; // Example level based on score
+    if (placeholderScore < 30) determinedLevel = 'A1';
+    else if (placeholderScore < 50) determinedLevel = 'A2';
+    else if (placeholderScore < 70) determinedLevel = 'B1';
+    else if (placeholderScore < 90) determinedLevel = 'B2';
+    else determinedLevel = 'C1';
+    // --- End Placeholder ---
+
+
+     // Static result data (replace with dynamic logic based on 'determinedLevel')
+     // This structure is just for demonstration based on previous context.
      const resultData = {
          vi: {
-             level: 'B1 (Trung cấp)',
-             description: 'Bạn có thể hiểu các ý chính của các chủ đề quen thuộc trong công việc, học tập, giải trí. Có thể xử lý hầu hết các tình huống có thể xảy ra khi đi đến nơi sử dụng ngôn ngữ đó. Có thể viết văn bản đơn giản, mạch lạc về các chủ đề quen thuộc hoặc cá nhân quan tâm. Có thể mô tả kinh nghiệm, sự kiện, ước mơ, hy vọng và hoài bão.',
-             courses: [
-                 { name: 'Khóa Tiếng Anh Giao tiếp B1+', link: '#' },
-                 { name: 'Luyện thi IELTS Mục tiêu 5.0-6.0', link: '#' },
-                 { name: 'Tiếng Anh Thương mại Trung cấp', link: '#' }
-             ]
+             A1: { level: 'A1 (Sơ cấp 1)', description: 'Mô tả trình độ A1...', courses: [{ name: 'Khóa Tiếng Anh A1', link: '#' }] },
+             A2: { level: 'A2 (Sơ cấp 2)', description: 'Mô tả trình độ A2...', courses: [{ name: 'Khóa Tiếng Anh A2', link: '#' }] },
+             B1: { level: 'B1 (Trung cấp)', description: 'Bạn có thể hiểu các ý chính của các chủ đề quen thuộc...', courses: [{ name: 'Khóa Tiếng Anh Giao tiếp B1+', link: '#' }, { name: 'Luyện thi IELTS Mục tiêu 5.0-6.0', link: '#' }] },
+             B2: { level: 'B2 (Trung-Cao cấp)', description: 'Mô tả trình độ B2...', courses: [{ name: 'Khóa Tiếng Anh B2', link: '#' }, { name: 'Luyện thi IELTS Mục tiêu 6.5+', link: '#' }] },
+             C1: { level: 'C1 (Cao cấp)', description: 'Mô tả trình độ C1...', courses: [{ name: 'Khóa Tiếng Anh C1', link: '#' }] },
+             C2: { level: 'C2 (Thành thạo)', description: 'Mô tả trình độ C2...', courses: [{ name: 'Khóa Tiếng Anh C2', link: '#' }] },
          },
          en: {
-             level: 'B1 (Intermediate)',
-             description: 'You can understand the main points of clear standard input on familiar matters regularly encountered in work, school, leisure, etc. Can deal with most situations likely to arise whilst travelling in an area where the language is spoken. Can produce simple connected text on topics which are familiar or of personal interest. Can describe experiences and events, dreams, hopes & ambitions.',
-             courses: [
-                 { name: 'B1+ Communicative English Course', link: '#' },
-                 { name: 'IELTS Preparation (Target 5.0-6.0)', link: '#' },
-                 { name: 'Intermediate Business English', link: '#' }
-             ]
+             A1: { level: 'A1 (Beginner)', description: 'Description for A1 level...', courses: [{ name: 'A1 English Course', link: '#' }] },
+             A2: { level: 'A2 (Elementary)', description: 'Description for A2 level...', courses: [{ name: 'A2 English Course', link: '#' }] },
+             B1: { level: 'B1 (Intermediate)', description: 'You can understand the main points of clear standard input...', courses: [{ name: 'B1+ Communicative English Course', link: '#' }, { name: 'IELTS Preparation (Target 5.0-6.0)', link: '#' }] },
+             B2: { level: 'B2 (Upper-Intermediate)', description: 'Description for B2 level...', courses: [{ name: 'B2 English Course', link: '#' }, { name: 'IELTS Preparation (Target 6.5+)', link: '#' }] },
+             C1: { level: 'C1 (Advanced)', description: 'Description for C1 level...', courses: [{ name: 'C1 English Course', link: '#' }] },
+             C2: { level: 'C2 (Proficient)', description: 'Description for C2 level...', courses: [{ name: 'C2 English Course', link: '#' }] },
          }
      };
 
-     const currentResult = resultData[lang] || resultData['vi'];
+     // Get the specific result text based on determined level and language
+     const currentResult = resultData[lang]?.[determinedLevel] || resultData['vi']?.[determinedLevel] || { level: 'N/A', description: '...', courses: [] }; // Fallback
 
+     // Update the DOM elements
      estimatedLevelEl.textContent = currentResult.level;
      levelDescEl.textContent = currentResult.description;
-     coursesListEl.innerHTML = '';
-     currentResult.courses.forEach(course => {
+
+     // Clear previous course suggestions and add new ones
+     coursesListEl.innerHTML = ''; // Clear existing list items
+     if (currentResult.courses && currentResult.courses.length > 0) {
+         currentResult.courses.forEach(course => {
+             const li = document.createElement('li');
+             const a = document.createElement('a');
+             a.href = course.link || '#'; // Default link to '#' if not provided
+             a.textContent = course.name;
+             a.className = 'text-primary hover:underline'; // Use primary color defined elsewhere
+             li.appendChild(a);
+             coursesListEl.appendChild(li);
+         });
+     } else {
+         // Optional: Display a message if no courses are suggested
          const li = document.createElement('li');
-         const a = document.createElement('a');
-         a.href = course.link;
-         a.textContent = course.name;
-         a.className = 'text-primary hover:underline';
-         li.appendChild(a);
+         li.textContent = lang === 'vi' ? 'Không có khóa học gợi ý nào cho trình độ này.' : 'No suggested courses for this level.';
+         li.className = 'text-gray-500 italic';
          coursesListEl.appendChild(li);
-     });
+     }
+}
+
+
+// Ensure language initialization is called, ideally by script.js after components load,
+// but include a fallback if script.js might not exist or call it.
+// This check prevents errors if language.js is loaded standalone or before script.js finishes.
+if (document.readyState === 'loading') {
+    // Loading hasn't finished yet
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!window.languageInitialized) {
+             console.log("DOMContentLoaded fired, initializing language (fallback)...");
+             initializeLanguage();
+        }
+    });
+} else {
+    // DOMContentLoaded has already fired
+    if (!window.languageInitialized) {
+        console.log("DOM already loaded, initializing language (fallback)...");
+        initializeLanguage();
+    }
 }
