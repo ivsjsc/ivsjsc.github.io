@@ -3,70 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header IVS JSC</title>
+    <title>Header IVS JSC (Component)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/styles.css"> <style>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
       @font-face {
         font-family: 'LucideIcons';
-        /* Đảm bảo URL đúng và có thể truy cập */
         src: url(https://cdn.jsdelivr.net/npm/lucide-static@latest/font/Lucide.ttf) format('truetype');
       }
       .lucide {
         font-family: 'LucideIcons';
-        font-size: 1.25rem; /* 20px */
+        font-size: 1.25rem;
         line-height: 1;
-        font-style: normal;
-        font-weight: normal;
-        font-variant: normal;
+        font-style: normal; font-weight: normal; font-variant: normal;
         text-transform: none;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
-      /* CSS cho icon xoay mobile */
-      .mobile-menu-item > button svg {
-           transition: transform 0.2s ease-in-out;
-      }
-      .mobile-menu-item.open > button svg {
-           transform: rotate(90deg); /* Hoặc 180deg tùy icon */
-        }
-       /* CSS cho sub-submenu desktop */
-       .group\/sub:hover .group-hover\/sub\:block {
-            display: block; /* Hiển thị submenu khi hover */
-        }
-       .group\/sub .rotate-\\[-90deg\\] { /* Style cho icon sub-submenu desktop */
-           transition: transform 0.2s ease-in-out; /* Thêm hiệu ứng chuyển đổi */
-        }
-        .group\/sub:hover .rotate-\\[-90deg\\] {
-            transform: rotate(0deg); /* Xoay icon về vị trí ban đầu khi hover */
-        }
-        /* Transition cho submenu và sub-submenu */
-        .submenu, .sub-submenu {
-            transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
-            /* Có thể thêm transform-origin nếu cần */
-            /* transform-origin: top; */
-        }
-
+      .mobile-menu-item > button svg { transition: transform 0.2s ease-in-out; }
+      .mobile-menu-item.open > button svg { transform: rotate(90deg); }
+      .group\\/sub .rotate-\\[-90deg\\] { transition: transform 0.2s ease-in-out; }
+      .group\\/sub:hover .rotate-\\[-90deg\\] { transform: rotate(0deg); }
+      .submenu, .sub-submenu { transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out; }
     </style>
     <script>
-      // Tailwind config có thể đặt ở trang chính để tránh lặp lại
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              inter: ['Inter', 'sans-serif'],
-            },
-            // Thêm màu sắc nếu cần đồng bộ với trang chính
-             colors: {
-                'primary': '#3b82f6', // blue-500
-                'secondary': '#10b981', // emerald-500
-                'warning': '#f59e0b', // amber-500
-                'primary-dark': '#2563eb', // blue-600
-                'secondary-dark': '#059669', // emerald-600
-                'warning-dark': '#d97706', // amber-600
-            }
-          }
-        }
-      }
+      tailwind.config = { theme: { extend: { fontFamily: { inter: ['Inter', 'sans-serif'], }, colors: { 'primary': '#3b82f6', 'secondary': '#10b981', 'warning': '#f59e0b', 'primary-dark': '#2563eb', 'secondary-dark': '#059669', 'warning-dark': '#d97706', } } } }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -88,7 +49,6 @@
                         <li class="main-menu-item">
                             <a href="index.html" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Trang chủ</a>
                         </li>
-                        {/* Thêm pb-1 vào li.group và bỏ mt-1 khỏi div.submenu */}
                         <li class="relative group main-menu-item pb-1">
                             <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
                                 <span>Giới thiệu</span>
@@ -96,7 +56,7 @@
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                            <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50"> {/* Bỏ mt-1 */}
+                            <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
                                 <a href="about.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Về IVS JSC</a>
                                 <a href="sumenh.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Sứ mệnh & Tầm nhìn</a>
                                 <a href="ivsmeaning.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Ý nghĩa IVS</a>
@@ -104,7 +64,6 @@
                                 <a href="doi-tac.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Đối tác</a>
                             </div>
                         </li>
-                         {/* Thêm pb-1 vào li.group và bỏ mt-1 khỏi div.submenu */}
                         <li class="relative group main-menu-item pb-1">
                              <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
                                 <span>Đào tạo</span>
@@ -112,14 +71,13 @@
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                             <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50"> {/* Bỏ mt-1 */}
+                             <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
                                 <a href="english-placement.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Kiểm tra trình độ</a>
                                 <a href="summercamp.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Trại hè Quốc tế</a>
                                 <a href="hocbong.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Học bổng</a>
                                 <a href="hay-noi.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">CLB Hãy Nói</a>
                             </div>
                         </li>
-                         {/* Thêm pb-1 vào li.group và bỏ mt-1 khỏi div.submenu */}
                         <li class="relative group main-menu-item pb-1">
                             <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
                                 <span>Hợp tác</span>
@@ -127,10 +85,9 @@
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                             <div class="submenu absolute hidden group-hover:block w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50"> {/* Bỏ mt-1 */}
+                             <div class="submenu absolute hidden group-hover:block w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
                                 <a href="lien-ket-quoc-te.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Liên kết Quốc tế</a>
                                 <a href="lienminhiivsa.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Liên minh IIVSA</a>
-                                {/* Thêm pb-1 vào div.group/sub và bỏ ml-1 khỏi div.sub-submenu */}
                                 <div class="relative group/sub sub-submenu-container pb-1">
                                     <button class="nav-link w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md inline-flex items-center justify-between group">
                                         <span>Liên kết Trường học</span>
@@ -138,7 +95,7 @@
                                             <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                         </svg>
                                     </button>
-                                    <div class="sub-submenu absolute hidden group-hover/sub:block top-0 left-full w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50"> {/* Bỏ ml-1 */}
+                                    <div class="sub-submenu absolute hidden group-hover/sub:block top-0 left-full w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
                                         <a href="lkmamnon.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Mầm non</a>
                                         <a href="lktieuhoc.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Tiểu học</a>
                                         <a href="lkthcsthpt.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">THCS & THPT</a>
@@ -151,7 +108,6 @@
                                 <a href="tai-tro.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Tài trợ</a>
                             </div>
                         </li>
-                         {/* Thêm pb-1 vào li.group và bỏ mt-1 khỏi div.submenu */}
                         <li class="relative group main-menu-item pb-1">
                              <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
                                 <span>Dịch vụ</span>
@@ -159,7 +115,7 @@
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
                             </button>
-                             <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50"> {/* Bỏ mt-1 */}
+                             <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
                                 <a href="tuvan.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Tư vấn Giáo dục</a>
                                 <a href="webdesign.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Thiết kế Web</a>
                                 <a href="health.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Chăm sóc Sức khỏe</a>
@@ -273,5 +229,5 @@
         </div>
     </header>
 
-    </body>
+</body>
 </html>

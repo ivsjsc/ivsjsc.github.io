@@ -21,17 +21,14 @@ async function loadComponent(url, elementId) {
         const data = await response.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(data, 'text/html');
-        // Lấy phần tử header hoặc footer đầu tiên trong body của file component
         const componentContent = doc.querySelector('body > header, body > footer');
 
         if (componentContent) {
-            // Xóa nội dung cũ trước khi chèn mới
             while (element.firstChild) {
                 element.removeChild(element.firstChild);
             }
-            element.appendChild(componentContent); // Chèn trực tiếp header/footer element
+            element.appendChild(componentContent);
             console.log(`DEBUG: Component ${elementId} loaded successfully from ${url}.`);
-            // Trả về chính phần tử header/footer vừa được chèn vào DOM thực
             return element.querySelector('header, footer');
         } else {
              console.error(`DEBUG: No valid <header> or <footer> tag found directly inside <body> of ${url}.`);
@@ -53,19 +50,16 @@ let menuInitialized = false;
  * Được gọi SAU KHI header đã được tải thành công.
  */
 function initializeCombinedMenuEvents() {
-    // --- Thêm Guard ở đầu hàm ---
     if (menuInitialized) {
         console.warn("DEBUG: Menu events already initialized. Skipping.");
         return;
     }
-    // ---------------------------
-
     console.log("DEBUG: Initializing COMBINED menu events...");
     const headerElement = document.getElementById('header-placeholder')?.querySelector('header#navbar');
 
     if (!headerElement) {
         console.error("DEBUG: Header element (#navbar) not found. Cannot initialize menu events.");
-        return; // Thoát nếu không tìm thấy header
+        return;
     }
 
     const mobileMenuButton = headerElement.querySelector('#mobile-menu-button');
@@ -131,7 +125,7 @@ function initializeCombinedMenuEvents() {
         console.warn("DEBUG: Mobile menu button (#mobile-menu-button) not found.");
     }
 
-    // --- Logic Toggle Submenu Mobile (MaxHeight Animation - REFINED) ---
+    // --- Logic Toggle Submenu Mobile (MaxHeight Animation - REFINED v2) ---
     const mobileMenuItems = mobileMenu?.querySelectorAll('.mobile-menu-item');
 
     if (mobileMenuItems && mobileMenuItems.length > 0) {
@@ -153,8 +147,8 @@ function initializeCombinedMenuEvents() {
                 button.addEventListener('click', (event) => {
                     event.stopPropagation();
                     const isCurrentlyHidden = submenu.classList.contains('hidden');
-                    // ... (Giữ nguyên logic đóng siblings và toggle submenu) ...
-                     // Đóng các submenu anh em cùng cấp
+
+                    // Đóng các submenu anh em cùng cấp
                     const parentContainer = item.parentElement;
                     if (parentContainer) {
                         const siblingItems = parentContainer.querySelectorAll(':scope > .mobile-menu-item');
@@ -167,21 +161,24 @@ function initializeCombinedMenuEvents() {
                             }
                         });
                     }
-                     // Toggle submenu hiện tại
+
+                    // Toggle submenu hiện tại
                     if (isCurrentlyHidden) {
+                        // --- Mở submenu ---
                         submenu.classList.remove('hidden');
-                        submenu.style.maxHeight = submenu.scrollHeight + "px";
-                        item.classList.add('open');
-                        console.log(`DEBUG: Opening mobile submenu, set max-height: ${submenu.scrollHeight}px`);
-                         const openTransitionHandler = () => {
-                            if (item.classList.contains('open')) {
-                                submenu.style.maxHeight = '';
-                                console.log(`DEBUG: Removed max-height after opening submenu.`);
-                            }
-                            submenu.removeEventListener('transitionend', openTransitionHandler);
-                        };
-                        submenu.addEventListener('transitionend', openTransitionHandler, { once: true });
+                        // Đặt maxHeight = scrollHeight để bắt đầu animation
+                        // Cần tính scrollHeight *sau khi* đã bỏ hidden
+                        requestAnimationFrame(() => {
+                             submenu.style.maxHeight = submenu.scrollHeight + "px";
+                             item.classList.add('open');
+                             console.log(`DEBUG: Opening mobile submenu, set max-height: ${submenu.scrollHeight}px`);
+                        });
+                        // *** BỎ ĐI transitionend listener để xóa maxHeight ***
+                        // const openTransitionHandler = () => { ... };
+                        // submenu.addEventListener('transitionend', openTransitionHandler, { once: true });
+
                     } else {
+                        // --- Đóng submenu ---
                         closeSingleMobileSubmenu(item, submenu);
                     }
                 });
@@ -195,9 +192,7 @@ function initializeCombinedMenuEvents() {
     // ... (Giữ nguyên logic này) ...
      function closeMenuFromOutside(event) {
         if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-            // Phải kiểm tra headerElement tồn tại trước khi dùng contains
             const isClickInsideHeader = headerElement && headerElement.contains(event.target);
-             // Phải kiểm tra mobileMenuButton tồn tại
             const isClickOnToggleButton = mobileMenuButton && mobileMenuButton.contains(event.target);
             if (!isClickInsideHeader && !isClickOnToggleButton) {
                 console.log("DEBUG: Clicked outside header, closing mobile menu.");
@@ -211,7 +206,6 @@ function initializeCombinedMenuEvents() {
             toggleMobileMenuPanel();
         }
     }
-    // Gắn listener một cách an toàn hơn, chỉ khi các element tồn tại
     if (headerElement && mobileMenuButton && mobileMenu && mobileMenuOverlay) {
         document.removeEventListener('click', closeMenuFromOutside);
         document.addEventListener('click', closeMenuFromOutside);
@@ -220,7 +214,6 @@ function initializeCombinedMenuEvents() {
         mobileMenuOverlay.removeEventListener('click', toggleMobileMenuPanel);
         mobileMenuOverlay.addEventListener('click', toggleMobileMenuPanel);
     }
-
 
     // --- Active Menu Item Highlighting ---
     initializeActiveMenuHighlighting(headerElement);
@@ -234,36 +227,44 @@ function initializeCombinedMenuEvents() {
 }
 
 /**
- * Hàm đóng một submenu mobile cụ thể với animation maxHeight (REFINED).
+ * Hàm đóng một submenu mobile cụ thể với animation maxHeight (REFINED v2).
  * @param {HTMLElement} item - Phần tử .mobile-menu-item cha.
  * @param {HTMLElement} submenu - Phần tử .mobile-submenu cần đóng.
  */
 function closeSingleMobileSubmenu(item, submenu) {
-    // ... (Giữ nguyên logic này) ...
     if (!item || !submenu || submenu.classList.contains('hidden')) return;
 
     const button = item.querySelector(':scope > button.mobile-submenu-toggle');
     const buttonText = button ? button.textContent.trim() : 'unknown';
     console.log(`DEBUG: Closing single mobile submenu for "${buttonText}"`);
 
-    submenu.style.maxHeight = submenu.scrollHeight + "px";
+    // 1. Đặt lại maxHeight về giá trị hiện tại (scrollHeight) nếu nó đang là '' (trường hợp vừa mở xong)
+    // Hoặc giữ nguyên nếu nó đang trong quá trình đóng dở dang
+    if (submenu.style.maxHeight === '') {
+        submenu.style.maxHeight = submenu.scrollHeight + "px";
+    }
+
+    // 2. Xóa class 'open' để xoay icon lại
     item.classList.remove('open');
 
+    // 3. Buộc reflow nhỏ và bắt đầu transition về maxHeight = 0
     requestAnimationFrame(() => {
         submenu.style.maxHeight = '0';
         console.log(`DEBUG: Closing animation started for "${buttonText}", set max-height: 0`);
     });
 
+    // 4. Lắng nghe transition kết thúc để thêm lại class 'hidden'
     const closeTransitionHandler = () => {
          if (!submenu.classList.contains('hidden') && !item.classList.contains('open')) {
             submenu.classList.add('hidden');
-            closeAllMobileSubmenus(submenu);
+            closeAllMobileSubmenus(submenu); // Đệ quy đóng con cháu
             console.log(`DEBUG: Finished closing mobile submenu for "${buttonText}", added 'hidden'.`);
         }
         submenu.removeEventListener('transitionend', closeTransitionHandler);
     };
      submenu.addEventListener('transitionend', closeTransitionHandler, { once: true });
 
+     // 5. Fallback nếu transitionend không kích hoạt
      setTimeout(() => {
          if (!submenu.classList.contains('hidden') && !item.classList.contains('open')) {
              console.log(`DEBUG: Closing mobile submenu for "${buttonText}" via fallback timeout.`);
@@ -271,7 +272,7 @@ function closeSingleMobileSubmenu(item, submenu) {
              closeAllMobileSubmenus(submenu);
              submenu.removeEventListener('transitionend', closeTransitionHandler);
          }
-     }, 350);
+     }, 350); // Thời gian > transition duration
 }
 
 /**
@@ -282,12 +283,10 @@ function closeAllMobileSubmenus(parentElement) {
     // ... (Giữ nguyên logic này) ...
     if (!parentElement) return;
     const openItems = parentElement.querySelectorAll(':scope > .mobile-menu-item.open, :scope > div > .mobile-menu-item.open');
-    let closedCount = 0;
     openItems.forEach(item => {
         const submenu = item.querySelector(':scope > .mobile-submenu');
         if (submenu && !submenu.classList.contains('hidden')) {
             closeSingleMobileSubmenu(item, submenu);
-            closedCount++;
         } else if (item.classList.contains('open')) {
              item.classList.remove('open');
         }
@@ -318,10 +317,8 @@ function initializeActiveMenuHighlighting(headerElement) {
             mobileItem.classList.remove('open');
             mobileItem.querySelector(':scope > button')?.classList.remove('active-parent-item', 'font-semibold', 'text-blue-600', 'bg-gray-100');
             const submenu = mobileItem.querySelector(':scope > .mobile-submenu');
-            // Chỉ đóng nếu nó đã được khởi tạo và đang không ẩn
             if (submenu && submenu.classList.contains('submenu-initialized') && !submenu.classList.contains('hidden')) {
-                 // Tạm thời không đóng ở đây, để logic active xử lý việc mở lại nếu cần
-                 // closeSingleMobileSubmenu(mobileItem, submenu);
+                 // closeSingleMobileSubmenu(mobileItem, submenu); // Tạm thời không đóng ở đây
             }
         }
         link.closest('.main-menu-item')?.querySelector(':scope > button')?.classList.remove('active-parent-item', 'font-semibold', 'text-blue-600');
@@ -391,7 +388,6 @@ function initializeActiveMenuHighlighting(headerElement) {
 
                 if (parentMenuItem.classList.contains('mobile-menu-item')) {
                     const parentSubmenu = parentMenuItem.querySelector(':scope > .mobile-submenu');
-                    // Chỉ mở nếu nó đã được khởi tạo và đang ẩn
                     if (parentSubmenu && parentSubmenu.classList.contains('submenu-initialized') && parentSubmenu.classList.contains('hidden')) {
                         parentMenuItem.classList.add('open');
                         parentSubmenu.classList.remove('hidden');
@@ -443,12 +439,10 @@ document.addEventListener('DOMContentLoaded', () => {
         loadComponent('/footer.html', 'footer-placeholder')
     ]).then(([headerElement, footerElement]) => {
         console.log("DEBUG: Header and Footer loading promises resolved.");
-        // Thêm log để xem headerElement là gì
         console.log("DEBUG: Resolved headerElement:", headerElement);
         if (headerElement && headerElement.id === 'navbar') {
-            initializeCombinedMenuEvents(); // Gọi hàm khởi tạo menu KẾT HỢP mới
+            initializeCombinedMenuEvents();
         } else {
-            // Log chi tiết hơn nếu check fail
             console.error("DEBUG: Header component check failed.");
             if(!headerElement) console.error("DEBUG: Reason: headerElement is null or undefined.");
             else if(headerElement.id !== 'navbar') console.error(`DEBUG: Reason: headerElement ID is "${headerElement.id}", expected "navbar".`);
