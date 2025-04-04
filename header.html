@@ -1,254 +1,225 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header IVS JSC (Component)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/styles.css">
-    <style>
-      @font-face {
-        font-family: 'LucideIcons';
-        src: url(https://cdn.jsdelivr.net/npm/lucide-static@latest/font/Lucide.ttf) format('truetype');
-      }
-      .lucide {
-        font-family: 'LucideIcons';
-        font-size: 1.25rem;
-        line-height: 1;
-        font-style: normal; font-weight: normal; font-variant: normal;
-        text-transform: none;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-      .mobile-menu-item > button svg { transition: transform 0.2s ease-in-out; }
-      .mobile-menu-item.open > button svg { transform: rotate(90deg); }
-      .group\\/sub .rotate-\\[-90deg\\] { transition: transform 0.2s ease-in-out; }
-      .group\\/sub:hover .rotate-\\[-90deg\\] { transform: rotate(0deg); }
-      .submenu, .sub-submenu { transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out; }
-    </style>
-    <script>
-      tailwind.config = { theme: { extend: { fontFamily: { inter: ['Inter', 'sans-serif'], }, colors: { 'primary': '#3b82f6', 'secondary': '#10b981', 'warning': '#f59e0b', 'primary-dark': '#2563eb', 'secondary-dark': '#059669', 'warning-dark': '#d97706', } } } }
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body class="font-inter">
-
-    <header id="navbar" class="bg-white shadow-md sticky top-0 z-50 transition-all duration-300">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex-shrink-0">
-                    <a href="index.html" class="flex items-center">
-                        <img class="h-10 w-auto rounded-md" src="images/logo/logo.png" alt="IVS JSC Logo" onerror="this.onerror=null; this.src='https://placehold.co/150x40/cccccc/000000?text=Logo+Error';">
-                    </a>
-                </div>
-
-                <div class="hidden md:flex md:items-center md:space-x-4 lg:space-x-6">
-                    <ul id="menu-items" class="flex items-center space-x-4 lg:space-x-6">
-                        <li class="main-menu-item">
-                            <a href="index.html" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Trang chủ</a>
-                        </li>
-                        <li class="relative group main-menu-item pb-1">
-                            <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
-                                <span>Giới thiệu</span>
-                                <svg class="ml-1 h-4 w-4 text-gray-500 group-hover:text-blue-600 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                            <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
-                                <a href="about.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Về IVS JSC</a>
-                                <a href="sumenh.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Sứ mệnh & Tầm nhìn</a>
-                                <a href="ivsmeaning.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Ý nghĩa IVS</a>
-                                <a href="doingu.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Đội ngũ</a>
-                                <a href="doi-tac.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Đối tác</a>
-                            </div>
-                        </li>
-                        <li class="relative group main-menu-item pb-1">
-                             <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
-                                <span>Đào tạo</span>
-                                <svg class="ml-1 h-4 w-4 text-gray-500 group-hover:text-blue-600 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                             <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
-                                <a href="english-placement.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Kiểm tra trình độ</a>
-                                <a href="summercamp.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Trại hè Quốc tế</a>
-                                <a href="hocbong.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Học bổng</a>
-                                <a href="hay-noi.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">CLB Hãy Nói</a>
-                            </div>
-                        </li>
-                        <li class="relative group main-menu-item pb-1">
-                            <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
-                                <span>Hợp tác</span>
-                                <svg class="ml-1 h-4 w-4 text-gray-500 group-hover:text-blue-600 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                             <div class="submenu absolute hidden group-hover:block w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
-                                <a href="lien-ket-quoc-te.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Liên kết Quốc tế</a>
-                                <a href="lienminhiivsa.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Liên minh IIVSA</a>
-                                <div class="relative group/sub sub-submenu-container pb-1">
-                                    <button class="nav-link w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md inline-flex items-center justify-between group">
-                                        <span>Liên kết Trường học</span>
-                                        <svg class="ml-1 h-4 w-4 text-gray-500 group-hover/sub:text-blue-600 rotate-[-90deg]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                        </svg>
-                                    </button>
-                                    <div class="sub-submenu absolute hidden group-hover/sub:block top-0 left-full w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
-                                        <a href="lkmamnon.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Mầm non</a>
-                                        <a href="lktieuhoc.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Tiểu học</a>
-                                        <a href="lkthcsthpt.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">THCS & THPT</a>
-                                        <a href="lkttnn.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Trung tâm Ngoại ngữ</a>
-                                    </div>
-                                </div>
-                                <a href="hop-tac-dau-tu.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Hợp tác Đầu tư</a>
-                                <a href="thanhlaptrungtam.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Thành lập Trung tâm</a>
-                                <a href="philoinhuan.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Tổ chức Phi lợi nhuận</a>
-                                <a href="tai-tro.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Tài trợ</a>
-                            </div>
-                        </li>
-                        <li class="relative group main-menu-item pb-1">
-                             <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
-                                <span>Dịch vụ</span>
-                                <svg class="ml-1 h-4 w-4 text-gray-500 group-hover:text-blue-600 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                             <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
-                                <a href="tuvan.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Tư vấn Giáo dục</a>
-                                <a href="webdesign.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Thiết kế Web</a>
-                                <a href="health.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Chăm sóc Sức khỏe</a>
-                            </div>
-                        </li>
-                        <li class="relative group main-menu-item pb-1">
-                            <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
-                                <span>Tuyển dụng</span>
-                                <svg class="ml-1 h-4 w-4 text-gray-500 group-hover:text-blue-600 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                   <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                               </svg>
-                           </button>
-                            <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
-                               <a href="careervn.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Tuyển dụng nội địa (Vietnamese Applicants)</a>
-                               <a href="careerf.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md">Tuyển dụng quốc tế (International Applicants)</a>
-                           </div>
-                       </li>                      
-                        <li class="main-menu-item"><a href="contact.html" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out">Liên hệ</a></li>
-                    </ul>
-                </div>
-
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="sr-only">Mở menu chính</span>
-                        <span class="lucide block" id="icon-menu">menu</span>
-                        <span class="lucide hidden" id="icon-close">x</span>
-                    </button>
-                </div>
-            </div>
-        </nav>
-
-        <div class="md:hidden hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-40 transition-opacity duration-300 ease-in-out opacity-0" id="mobile-menu-overlay"></div>
-
-        <div class="md:hidden hidden fixed top-0 right-0 h-full w-64 bg-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out" id="mobile-menu">
-            <div class="pt-4 pb-3 px-4 border-b border-gray-200 flex justify-between items-center">
+<header id="navbar" class="bg-white shadow-md sticky top-0 z-50 transition-all duration-300">
+    <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex-shrink-0">
                 <a href="index.html" class="flex items-center">
-                    <img class="h-8 w-auto rounded-sm" src="images/logo/logo1.png" alt="IVS JSC Logo" onerror="this.onerror=null; this.src='https://placehold.co/120x32/cccccc/000000?text=Logo+Error';">
+                    <img class="h-10 w-auto rounded-md" src="images/logo/logo.png" alt="IVS JSC Logo" data-lang-key="logo_alt" onerror="this.onerror=null; this.src='https://placehold.co/150x40/cccccc/000000?text=Logo+Error';">
                 </a>
             </div>
-            <div class="px-2 pt-2 pb-3 space-y-1 overflow-y-auto h-[calc(100%-57px)]">
-                <a href="index.html" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Trang chủ</a>
 
-                <div class="mobile-menu-item">
-                    <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 mobile-submenu-toggle">
-                        <span>Giới thiệu</span>
-                        <svg class="ml-1 h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <div class="mt-1 pl-4 space-y-1 hidden mobile-submenu">
-                        <a href="about.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Về IVS JSC</a>
-                        <a href="sumenh.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Sứ mệnh & Tầm nhìn</a>
-                        <a href="ivsmeaning.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Ý nghĩa IVS</a>
-                        <a href="doingu.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Đội ngũ</a>
-                        <a href="doi-tac.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Đối tác</a>
-                    </div>
-                </div>
-
-                <div class="mobile-menu-item">
-                    <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 mobile-submenu-toggle">
-                        <span>Đào tạo</span>
-                        <svg class="ml-1 h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                             <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <div class="mt-1 pl-4 space-y-1 hidden mobile-submenu">
-                         <a href="english-placement.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Kiểm tra trình độ</a>
-                         <a href="summercamp.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Trại hè Quốc tế</a>
-                         <a href="hocbong.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Học bổng</a>
-                         <a href="hay-noi.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">CLB Hãy Nói</a>
-                    </div>
-                </div>
-
-                <div class="mobile-menu-item">
-                    <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 mobile-submenu-toggle">
-                        <span>Hợp tác</span>
-                         <svg class="ml-1 h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <div class="mt-1 pl-4 space-y-1 hidden mobile-submenu">
-                        <a href="lien-ket-quoc-te.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Liên kết Quốc tế</a>
-                        <a href="lienminhiivsa.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Liên minh IIVSA</a>
-                        <div class="mobile-menu-item">
-                             <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 mobile-submenu-toggle">
-                                <span>Liên kết Trường học</span>
-                                <svg class="ml-1 h-4 w-4 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                            <div class="mt-1 pl-4 space-y-1 hidden mobile-submenu">
-                                <a href="lkmamnon.html" class="block px-3 py-2 rounded-md text-xs font-medium text-gray-500 hover:text-blue-600 hover:bg-gray-50">Mầm non</a>
-                                <a href="lktieuhoc.html" class="block px-3 py-2 rounded-md text-xs font-medium text-gray-500 hover:text-blue-600 hover:bg-gray-50">Tiểu học</a>
-                                <a href="lkthcsthpt.html" class="block px-3 py-2 rounded-md text-xs font-medium text-gray-500 hover:text-blue-600 hover:bg-gray-50">THCS & THPT</a>
-                                <a href="lkttnn.html" class="block px-3 py-2 rounded-md text-xs font-medium text-gray-500 hover:text-blue-600 hover:bg-gray-50">Trung tâm Ngoại ngữ</a>
-                            </div>
+            <div class="hidden md:flex md:items-center md:space-x-4 lg:space-x-6">
+                <ul id="menu-items" class="flex items-center space-x-4 lg:space-x-6">
+                    <li class="main-menu-item">
+                        <a href="index.html" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out" data-lang-key="menu_home">Trang chủ</a>
+                    </li>
+                    <li class="relative group main-menu-item pb-1">
+                        <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
+                            <span data-lang-key="menu_about">Giới thiệu</span>
+                            <svg class="ml-1 h-4 w-4 text-gray-500 group-hover:text-blue-600 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
+                            <a href="about.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_about_ivs">Về IVS JSC</a>
+                            <a href="sumenh.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_mission_vision">Sứ mệnh & Tầm nhìn</a>
+                            <a href="ivsmeaning.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_ivs_meaning">Ý nghĩa IVS</a>
+                            <a href="doingu.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_team">Đội ngũ</a>
+                            <a href="doi-tac.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_partners">Đối tác</a>
                         </div>
-                        <a href="hop-tac-dau-tu.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Hợp tác Đầu tư</a>
-                        <a href="thanhlaptrungtam.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Thành lập Trung tâm</a>
-                        <a href="philoinhuan.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Tổ chức Phi lợi nhuận</a>
-                        <a href="tai-tro.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Tài trợ</a>
-                    </div>
+                    </li>
+                    <li class="relative group main-menu-item pb-1">
+                         <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
+                             <span data-lang-key="menu_training">Đào tạo</span>
+                             <svg class="ml-1 h-4 w-4 text-gray-500 group-hover:text-blue-600 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                             </svg>
+                         </button>
+                         <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
+                             <a href="english-placement.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_placement_test">Kiểm tra trình độ</a>
+                             <a href="summercamp.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_summer_camp">Trại hè Quốc tế</a>
+                             <a href="hocbong.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_scholarships">Học bổng</a>
+                             <a href="hay-noi.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_hay_noi_club">CLB Hãy Nói</a>
+                         </div>
+                    </li>
+                    <li class="relative group main-menu-item pb-1">
+                        <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
+                            <span data-lang-key="menu_cooperation">Hợp tác</span>
+                            <svg class="ml-1 h-4 w-4 text-gray-500 group-hover:text-blue-600 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                         <div class="submenu absolute hidden group-hover:block w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
+                             <a href="lien-ket-quoc-te.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_international_link">Liên kết Quốc tế</a>
+                             <a href="lienminhiivsa.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_iivsa_alliance">Liên minh IIVSA</a>
+                             <div class="relative group/sub sub-submenu-container pb-1">
+                                 <button class="nav-link w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md inline-flex items-center justify-between group">
+                                     <span data-lang-key="menu_school_link">Liên kết Trường học</span>
+                                     <svg class="ml-1 h-4 w-4 text-gray-500 group-hover/sub:text-blue-600 rotate-[-90deg]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                         <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                     </svg>
+                                 </button>
+                                 <div class="sub-submenu absolute hidden group-hover/sub:block top-0 left-full w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
+                                     <a href="lkmamnon.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_link_preschool">Mầm non</a>
+                                     <a href="lktieuhoc.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_link_primary">Tiểu học</a>
+                                     <a href="lkthcsthpt.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_link_secondary">THCS & THPT</a>
+                                     <a href="lkttnn.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_link_language_center">Trung tâm Ngoại ngữ</a>
+                                 </div>
+                             </div>
+                             <a href="hop-tac-dau-tu.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_investment_cooperation">Hợp tác Đầu tư</a>
+                             <a href="thanhlaptrungtam.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_center_establishment">Thành lập Trung tâm</a>
+                             <a href="philoinhuan.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_non_profit">Tổ chức Phi lợi nhuận</a>
+                             <a href="tai-tro.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_sponsorship">Tài trợ</a>
+                         </div>
+                    </li>
+                    <li class="relative group main-menu-item pb-1">
+                         <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
+                             <span data-lang-key="menu_services">Dịch vụ</span>
+                             <svg class="ml-1 h-4 w-4 text-gray-500 group-hover:text-blue-600 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                             </svg>
+                         </button>
+                         <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
+                             <a href="tuvan.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_edu_consulting">Tư vấn Giáo dục</a>
+                             <a href="webdesign.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_web_design">Thiết kế Web</a>
+                             <a href="health.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_health_care">Chăm sóc Sức khỏe</a>
+                         </div>
+                    </li>
+                    <li class="relative group main-menu-item pb-1">
+                        <button class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out group">
+                            <span data-lang-key="menu_recruitment">Tuyển dụng</span>
+                            <svg class="ml-1 h-4 w-4 text-gray-500 group-hover:text-blue-600 transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div class="submenu absolute hidden group-hover:block w-64 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 z-50">
+                            <a href="careervn.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_recruitment_vn">Tuyển dụng nội địa (Vietnamese Applicants)</a>
+                            <a href="careerf.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-blue-600 rounded-md" data-lang-key="menu_recruitment_intl">Tuyển dụng quốc tế (International Applicants)</a>
+                        </div>
+                    </li>
+                    <li class="main-menu-item"><a href="contact.html" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out" data-lang-key="menu_contact">Liên hệ</a></li>
+                </ul>
+                <div class="flex items-center space-x-2 border-l border-gray-200 pl-4 ml-4">
+                     <button id="lang-vi-desktop" class="text-sm font-medium text-gray-600 hover:text-blue-600 focus:outline-none focus:text-blue-700 disabled:opacity-50 disabled:cursor-not-allowed" data-lang="vi">VN</button>
+                     <span class="text-gray-300">|</span>
+                     <button id="lang-en-desktop" class="text-sm font-medium text-gray-600 hover:text-blue-600 focus:outline-none focus:text-blue-700 disabled:opacity-50 disabled:cursor-not-allowed" data-lang="en">EN</button>
                 </div>
+            </div>
 
-                 <div class="mobile-menu-item">
-                    <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 mobile-submenu-toggle">
-                        <span>Dịch vụ</span>
-                         <svg class="ml-1 h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <div class="mt-1 pl-4 space-y-1 hidden mobile-submenu">
-                        <a href="tuvan.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Tư vấn Giáo dục</a>
-                        <a href="webdesign.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Thiết kế Web</a>
-                        <a href="health.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Chăm sóc Sức khỏe</a>
-                    </div>
-                </div>           
-                <div class="mobile-menu-item">
-                    <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 mobile-submenu-toggle">
-                        <span>Tuyển dụng</span>
-                         <svg class="ml-1 h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                    <div class="mt-1 pl-4 space-y-1 hidden mobile-submenu">
-                        <a href="careervn.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Tuyển dụng nội địa (Vietnamese Applicants)</a>
-                        <a href="careerf.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Tuyển dụng quốc tế (International Applicants)</a>                     
-                    </div>
-                </div>
-                <a href="contact.html" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50">Liên hệ</a>
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="sr-only" data-lang-key="open_main_menu">Mở menu chính</span>
+                    <span class="lucide block" id="icon-menu">menu</span>
+                    <span class="lucide hidden" id="icon-close">x</span>
+                </button>
             </div>
         </div>
-    </header>
+    </nav>
 
-</body>
-</html>
+    <div class="md:hidden hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-40 transition-opacity duration-300 ease-in-out opacity-0" id="mobile-menu-overlay"></div>
+
+    <div class="md:hidden hidden fixed top-0 right-0 h-full w-64 bg-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out" id="mobile-menu">
+        <div class="pt-4 pb-3 px-4 border-b border-gray-200 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img class="h-8 w-auto rounded-sm" src="images/logo/logo1.png" alt="IVS JSC Logo" data-lang-key="logo_alt" onerror="this.onerror=null; this.src='https://placehold.co/120x32/cccccc/000000?text=Logo+Error';">
+            </a>
+        </div>
+        <div class="px-2 pt-2 pb-3 space-y-1 overflow-y-auto h-[calc(100%-57px-50px)]"> <a href="index.html" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_home">Trang chủ</a>
+
+            <div class="mobile-menu-item">
+                <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 mobile-submenu-toggle">
+                    <span data-lang-key="menu_about">Giới thiệu</span>
+                    <svg class="ml-1 h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <div class="mt-1 pl-4 space-y-1 hidden mobile-submenu">
+                    <a href="about.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_about_ivs">Về IVS JSC</a>
+                    <a href="sumenh.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_mission_vision">Sứ mệnh & Tầm nhìn</a>
+                    <a href="ivsmeaning.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_ivs_meaning">Ý nghĩa IVS</a>
+                    <a href="doingu.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_team">Đội ngũ</a>
+                    <a href="doi-tac.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_partners">Đối tác</a>
+                </div>
+            </div>
+
+            <div class="mobile-menu-item">
+                 <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 mobile-submenu-toggle">
+                     <span data-lang-key="menu_training">Đào tạo</span>
+                     <svg class="ml-1 h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                     </svg>
+                 </button>
+                 <div class="mt-1 pl-4 space-y-1 hidden mobile-submenu">
+                      <a href="english-placement.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_placement_test">Kiểm tra trình độ</a>
+                      <a href="summercamp.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_summer_camp">Trại hè Quốc tế</a>
+                      <a href="hocbong.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_scholarships">Học bổng</a>
+                      <a href="hay-noi.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_hay_noi_club">CLB Hãy Nói</a>
+                 </div>
+            </div>
+
+            <div class="mobile-menu-item">
+                 <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 mobile-submenu-toggle">
+                     <span data-lang-key="menu_cooperation">Hợp tác</span>
+                      <svg class="ml-1 h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                      </svg>
+                 </button>
+                 <div class="mt-1 pl-4 space-y-1 hidden mobile-submenu">
+                     <a href="lien-ket-quoc-te.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_international_link">Liên kết Quốc tế</a>
+                     <a href="lienminhiivsa.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_iivsa_alliance">Liên minh IIVSA</a>
+                     <div class="mobile-menu-item">
+                          <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50 mobile-submenu-toggle">
+                              <span data-lang-key="menu_school_link">Liên kết Trường học</span>
+                              <svg class="ml-1 h-4 w-4 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                   <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                              </svg>
+                          </button>
+                          <div class="mt-1 pl-4 space-y-1 hidden mobile-submenu">
+                              <a href="lkmamnon.html" class="block px-3 py-2 rounded-md text-xs font-medium text-gray-500 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_link_preschool">Mầm non</a>
+                              <a href="lktieuhoc.html" class="block px-3 py-2 rounded-md text-xs font-medium text-gray-500 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_link_primary">Tiểu học</a>
+                              <a href="lkthcsthpt.html" class="block px-3 py-2 rounded-md text-xs font-medium text-gray-500 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_link_secondary">THCS & THPT</a>
+                              <a href="lkttnn.html" class="block px-3 py-2 rounded-md text-xs font-medium text-gray-500 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_link_language_center">Trung tâm Ngoại ngữ</a>
+                          </div>
+                     </div>
+                     <a href="hop-tac-dau-tu.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_investment_cooperation">Hợp tác Đầu tư</a>
+                     <a href="thanhlaptrungtam.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_center_establishment">Thành lập Trung tâm</a>
+                     <a href="philoinhuan.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_non_profit">Tổ chức Phi lợi nhuận</a>
+                     <a href="tai-tro.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_sponsorship">Tài trợ</a>
+                 </div>
+            </div>
+
+             <div class="mobile-menu-item">
+                 <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 mobile-submenu-toggle">
+                     <span data-lang-key="menu_services">Dịch vụ</span>
+                      <svg class="ml-1 h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                      </svg>
+                 </button>
+                 <div class="mt-1 pl-4 space-y-1 hidden mobile-submenu">
+                     <a href="tuvan.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_edu_consulting">Tư vấn Giáo dục</a>
+                     <a href="webdesign.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_web_design">Thiết kế Web</a>
+                     <a href="health.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_health_care">Chăm sóc Sức khỏe</a>
+                 </div>
+             </div>
+             <div class="mobile-menu-item">
+                 <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 mobile-submenu-toggle">
+                     <span data-lang-key="menu_recruitment">Tuyển dụng</span>
+                      <svg class="ml-1 h-5 w-5 transform transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                      </svg>
+                 </button>
+                 <div class="mt-1 pl-4 space-y-1 hidden mobile-submenu">
+                     <a href="careervn.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_recruitment_vn">Tuyển dụng nội địa (Vietnamese Applicants)</a>
+                     <a href="careerf.html" class="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_recruitment_intl">Tuyển dụng quốc tế (International Applicants)</a>
+                 </div>
+             </div>
+            <a href="contact.html" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50" data-lang-key="menu_contact">Liên hệ</a>
+        </div>
+         <div class="absolute bottom-0 left-0 right-0 px-4 py-3 border-t border-gray-200 bg-gray-50">
+            <div class="flex items-center justify-center space-x-4">
+                 <button id="lang-vi-mobile" class="text-sm font-medium text-gray-600 hover:text-blue-600 focus:outline-none focus:text-blue-700 disabled:opacity-50 disabled:cursor-not-allowed" data-lang="vi">VN</button>
+                 <span class="text-gray-300">|</span>
+                 <button id="lang-en-mobile" class="text-sm font-medium text-gray-600 hover:text-blue-600 focus:outline-none focus:text-blue-700 disabled:opacity-50 disabled:cursor-not-allowed" data-lang="en">EN</button>
+            </div>
+         </div>
+    </div>
+</header>
