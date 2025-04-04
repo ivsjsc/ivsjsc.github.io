@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dịch vụ Thành lập Trung tâm Ngoại ngữ - Tin học - Kỹ năng sống | IVS Education</title>
-    <meta name="description" content="IVS Education cung cấp dịch vụ tư vấn và hỗ trợ trọn gói thủ tục thành lập trung tâm ngoại ngữ, tin học, kỹ năng sống theo đúng quy định pháp luật.">
-    <meta property="og:title" content="Dịch vụ Thành lập Trung tâm Ngoại ngữ - Tin học - Kỹ năng sống | IVS Education">
-    <meta property="og:description" content="Hỗ trợ từ A-Z: Tư vấn điều kiện, chuẩn bị hồ sơ, soạn thảo đề án, làm việc với cơ quan chức năng.">
-    <meta property="og:image" content="https://placehold.co/1200x630/3b82f6/ffffff?text=Thành+Lập+Trung+Tâm+IVS">
-    <meta property="og:url" content="https://ivs.id.vn/thanhlaptrungtam.html">
-    <meta property="og:type" content="website">
+    <title data-lang-key="page_title_establishment">Dịch vụ Thành lập Trung tâm Ngoại ngữ - Tin học - Kỹ năng sống | IVS Education</title>
+    <meta name="description" content="IVS Education cung cấp dịch vụ tư vấn và hỗ trợ trọn gói thủ tục thành lập trung tâm ngoại ngữ, tin học, kỹ năng sống theo đúng quy định pháp luật." data-lang-key="meta_description_establishment">
+    <meta property="og:title" content="Dịch vụ Thành lập Trung tâm Ngoại ngữ - Tin học - Kỹ năng sống | IVS Education" data-lang-key="og_title_establishment">
+    <meta property="og:description" content="Hỗ trợ từ A-Z: Tư vấn điều kiện, chuẩn bị hồ sơ, soạn thảo đề án, làm việc với cơ quan chức năng." data-lang-key="og_description_establishment">
+    <meta property="og:image" content="https://placehold.co/1200x630/3b82f6/ffffff?text=Thành+Lập+Trung+Tâm+IVS" data-lang-key="og_image_establishment">
+    <meta property="og:url" content="https://ivs.id.vn/thanhlaptrungtam.html"> <meta property="og:type" content="website">
 
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
 
@@ -19,8 +18,9 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script>
+      // Cấu hình Tailwind chung (giống các trang khác)
       tailwind.config = {
         theme: {
           extend: {
@@ -28,60 +28,87 @@
               sans: ['Inter', 'sans-serif'],
             },
             colors: {
-                // Sử dụng mã màu hex thay vì tên Tailwind để đảm bảo chính xác
-                'primary': '#3b82f6', // blue-500
-                'secondary': '#10b981', // emerald-500
-                'warning': '#f59e0b', // amber-500
-                'primary-dark': '#2563eb', // blue-600 (cho hover)
-                'secondary-dark': '#059669', // emerald-600 (cho hover)
-                'warning-dark': '#d97706', // amber-600 (cho hover)
+              primary: { light: '#60a5fa', DEFAULT: '#3b82f6', dark: '#2563eb' },
+              secondary: { light: '#34d399', DEFAULT: '#10b981', dark: '#059669' },
+              neutral: { 50: '#f9fafb', 100: '#f3f4f6', 200: '#e5e7eb', 300: '#d1d5db', 400: '#9ca3af', 500: '#6b7280', 600: '#4b5563', 700: '#374151', 800: '#1f2937', 900: '#111827' },
+              warning: { light: '#fcd34d', DEFAULT: '#f59e0b', dark: '#b45309' },
+              info: { light: '#38bdf8', DEFAULT: '#0ea5e9', dark: '#0284c7' },
+              danger: { light: '#fda4af', DEFAULT: '#f43f5e', dark: '#be123c'}
             }
           }
-        }
+        },
+         plugins: [
+            require('@tailwindcss/typography'),
+         ],
       }
     </script>
-
     <link rel="stylesheet" href="css/styles.css">
-
     <style>
-        /* CSS tùy chỉnh nhỏ nếu cần, ví dụ cho số thứ tự */
-        .process-list-item::before {
-            content: counter(process-counter);
-            counter-increment: process-counter;
-            position: absolute;
-            left: -1.5rem; /* Điều chỉnh vị trí ra ngoài */
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: theme('colors.secondary'); /* Lấy màu từ config Tailwind */
-            color: white;
-            width: 2.5rem; /* Tăng kích thước */
-            height: 2.5rem; /* Tăng kích thước */
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        /* Các style cơ bản cho body */
+        body {
+            background-color: theme('colors.neutral.100');
+            color: theme('colors.neutral.600');
+            font-family: theme('fontFamily.sans');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        /* Đảm bảo có padding bên trái để số không đè lên text */
-        .process-list {
-            counter-reset: process-counter;
-            list-style: none;
-            padding-left: 2.5rem; /* Tạo khoảng trống cho số thứ tự */
-        }
+         /* Style cho nút active ngôn ngữ */
+         button:disabled[data-lang] {
+             opacity: 1; cursor: default; color: theme('colors.primary.dark');
+         }
+         button[data-lang]:not(:disabled) {
+             color: theme('colors.neutral.500');
+         }
+         button[data-lang]:not(:disabled):hover {
+             color: theme('colors.primary.DEFAULT');
+         }
+         /* Style cho số thứ tự quy trình */
+         .process-list { counter-reset: process-counter; list-style: none; padding-left: 2.5rem; /* Tạo khoảng trống */}
+         .process-list-item::before {
+             content: counter(process-counter);
+             counter-increment: process-counter;
+             position: absolute;
+             left: -1.5rem; /* Đẩy số ra ngoài padding */
+             top: 50%;
+             transform: translateY(-50%);
+             background-color: theme('colors.secondary.DEFAULT');
+             color: white;
+             width: 2.5rem; /* w-10 */
+             height: 2.5rem; /* h-10 */
+             border-radius: 9999px; /* rounded-full */
+             display: flex;
+             align-items: center; /* items-center */
+             justify-content: center; /* justify-center */
+             font-weight: 600; /* font-semibold */
+             font-size: 1rem; /* text-base */
+             box-shadow: theme('boxShadow.md');
+         }
+         /* Style cho list icon check */
+          .check-list li { padding-left: 1.75rem; position: relative; }
+          .check-list li::before {
+              content: '\f00c'; /* Font Awesome check icon */
+              font-family: 'Font Awesome 6 Free';
+              font-weight: 900;
+              position: absolute;
+              left: 0;
+              color: theme('colors.secondary.DEFAULT');
+              /* top: 0.1em; */ /* Điều chỉnh nếu cần */
+          }
     </style>
-
 </head>
-<body class="bg-gray-50 font-sans">
+<body class="bg-neutral-100 text-neutral-600 font-sans">
 
     <header id="header-placeholder"></header>
 
     <main>
-        <section class="bg-gradient-to-r from-primary to-primary-dark text-white py-16 md:py-24 text-center shadow-lg">
+        <section class="bg-gradient-to-r from-primary to-blue-700 text-white py-16 md:py-24 text-center shadow-lg">
             <div class="container mx-auto px-4">
-                <h1 class="text-3xl md:text-5xl font-bold mb-4">Thành lập Trung tâm Ngoại ngữ - Tin học - Kỹ năng sống</h1>
-                <p class="text-lg md:text-xl opacity-90">Dịch vụ Hỗ trợ Toàn diện từ IVS Education</p>
+                <h1 class="text-3xl md:text-5xl font-bold mb-4" data-lang-key="establishment_hero_title">
+                    Thành lập Trung tâm Ngoại ngữ - Tin học - Kỹ năng sống
+                </h1>
+                <p class="text-lg md:text-xl opacity-90 max-w-3xl mx-auto" data-lang-key="establishment_hero_subtitle">
+                    Dịch vụ Tư vấn & Hỗ trợ Thủ tục Toàn diện từ IVS Education
+                </p>
             </div>
         </section>
 
@@ -89,93 +116,116 @@
             <div class="container mx-auto px-4 space-y-12 md:space-y-16">
 
                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg max-w-5xl mx-auto">
-                    <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6">Biến ý tưởng thành Hiện thực - Mở Trung tâm của riêng bạn!</h2>
+                    <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6 text-center" data-lang-key="establishment_intro_heading">
+                        Biến ý tưởng thành Hiện thực - Mở Trung tâm của riêng bạn!
+                    </h2>
                     <div class="flex flex-col md:flex-row gap-6 md:gap-8 items-center">
-                        <div class="md:w-3/5 text-gray-700 space-y-4 text-base md:text-lg leading-relaxed">
-                            <p>Bạn đam mê giáo dục và mong muốn thành lập một trung tâm ngoại ngữ, tin học hoặc kỹ năng sống uy tín, chất lượng? Tuy nhiên, quy trình thủ tục phức tạp, yêu cầu về hồ sơ, đề án, cơ sở vật chất... khiến bạn băn khoăn?</p>
-                            <p>Với kinh nghiệm thực tế từ việc xây dựng và vận hành thành công IVS Academy, cùng sự am hiểu sâu sắc về các quy định pháp luật, IVS Education cung cấp dịch vụ tư vấn và hỗ trợ trọn gói, giúp bạn hiện thực hóa ý tưởng một cách chuyên nghiệp, nhanh chóng và hiệu quả.</p>
+                        <div class="md:w-3/5 text-neutral-700 space-y-4 text-base md:text-lg leading-relaxed">
+                            <p data-lang-key="establishment_intro_p1">
+                                Bạn đam mê giáo dục và mong muốn thành lập một trung tâm ngoại ngữ, tin học hoặc kỹ năng sống uy tín, chất lượng? Tuy nhiên, quy trình thủ tục phức tạp, yêu cầu về hồ sơ, đề án, cơ sở vật chất... khiến bạn băn khoăn?
+                            </p>
+                            <p data-lang-key="establishment_intro_p2">
+                                Với kinh nghiệm thực tế từ việc xây dựng và vận hành thành công IVS Academy, cùng sự am hiểu sâu sắc về các quy định pháp luật, IVS Education cung cấp dịch vụ tư vấn và hỗ trợ trọn gói, giúp bạn hiện thực hóa ý tưởng một cách chuyên nghiệp, nhanh chóng và hiệu quả.
+                            </p>
                         </div>
                         <div class="md:w-2/5">
                             <img src="images/pages/tltt.png"
-                                 alt="Minh họa thành lập trung tâm ngoại ngữ, tin học, kỹ năng sống"
+                                 alt="Minh họa thành lập trung tâm giáo dục"
                                  class="rounded-lg shadow-md w-full h-auto object-cover"
                                  loading="lazy"
+                                 data-lang-key="establishment_intro_img_alt"
                                  onerror="this.onerror=null; this.src='https://placehold.co/400x300/e0e0e0/999999?text=Image+Not+Found';">
                         </div>
                     </div>
                 </div>
 
+                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg max-w-5xl mx-auto border-t-4 border-primary">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-primary mb-6 text-center" data-lang-key="establishment_reqs_heading">
+                        Các Quy định Bắt buộc để Thành lập Trung tâm
+                    </h3>
+                    <p class="text-center text-neutral-600 mb-8 text-sm" data-lang-key="establishment_reqs_note">
+                        Để được cấp phép hoạt động, trung tâm của bạn cần đáp ứng các điều kiện cơ bản theo quy định hiện hành (tham khảo Nghị định 46/2017/NĐ-CP, Nghị định 135/2018/NĐ-CP và các Thông tư hướng dẫn của Bộ GD&ĐT):
+                    </p>
+                    <ul class="space-y-4 check-list">
+                        <li data-lang-key="establishment_reqs_item1">
+                            <strong class="font-semibold text-neutral-700">Địa điểm & Pháp lý sử dụng đất:</strong> Phải có quyền sử dụng đất hợp pháp (Giấy chứng nhận quyền sử dụng đất) hoặc hợp đồng thuê địa điểm ổn định, được công chứng/chứng thực, thời hạn thuê tối thiểu thường là 01 năm trở lên (một số địa phương có thể yêu cầu dài hơn). Địa điểm phải đảm bảo an ninh, trật tự.
+                        </li>
+                        <li data-lang-key="establishment_reqs_item2">
+                            <strong class="font-semibold text-neutral-700">Cơ sở vật chất & PCCC:</strong> Diện tích sử dụng tối thiểu phải đảm bảo tỷ lệ theo quy định (thường là ≥ 1.5m²/học viên tại thời điểm đông nhất). Phòng học đủ ánh sáng, thoáng mát, bàn ghế phù hợp, có khu vực hành chính, phòng chờ (nếu cần). Đặc biệt, phải có Giấy chứng nhận đủ điều kiện về phòng cháy chữa cháy (PCCC) do cơ quan công an có thẩm quyền cấp hoặc biên bản kiểm tra PCCC đáp ứng yêu cầu.
+                        </li>
+                        <li data-lang-key="establishment_reqs_item3">
+                            <strong class="font-semibold text-neutral-700">Nhân sự (Giám đốc & Giáo viên):</strong>
+                            <ul class="list-disc pl-6 mt-2 text-sm">
+                                <li data-lang-key="establishment_reqs_item3_director">**Giám đốc:** Phải có bằng tốt nghiệp đại học, kinh nghiệm hoạt động trong ngành giáo dục (thường là 3 năm trở lên), đủ sức khỏe, năng lực quản lý và lý lịch rõ ràng.</li>
+                                <li data-lang-key="establishment_reqs_item3_teachers">**Giáo viên:** Phải có bằng cấp chuyên môn phù hợp với lĩnh vực giảng dạy (ví dụ: bằng đại học sư phạm ngoại ngữ/ngôn ngữ, chứng chỉ nghiệp vụ sư phạm đối với người có bằng đại học chuyên ngành phù hợp; bằng đại học/cao đẳng tin học hoặc chứng chỉ nghiệp vụ sư phạm...). Giáo viên nước ngoài cần có giấy phép lao động và bằng cấp tương đương.</li>
+                            </ul>
+                        </li>
+                         <li data-lang-key="establishment_reqs_item4">
+                            <strong class="font-semibold text-neutral-700">Đề án & Chương trình:</strong> Phải xây dựng Đề án thành lập và hoạt động chi tiết, bao gồm tên gọi, loại hình, địa điểm, cơ sở vật chất, chương trình giảng dạy (phù hợp quy định hoặc được phê duyệt), đội ngũ nhân sự, quy mô dự kiến, nguồn tài chính...
+                        </li>
+                    </ul>
+                    <p class="mt-6 text-xs text-neutral-500 italic" data-lang-key="establishment_reqs_disclaimer">
+                        *Lưu ý: Các quy định chi tiết có thể thay đổi theo thời gian và có sự khác biệt nhỏ giữa các địa phương. IVS Education sẽ tư vấn cụ thể dựa trên trường hợp của bạn.*
+                    </p>
+                </div>
+
+
                 <div class="max-w-5xl mx-auto">
-                    <h3 class="text-2xl md:text-3xl font-semibold text-primary mb-8 text-center">Quy trình Hỗ trợ Thành lập Trung tâm tại IVS</h3>
+                    <h3 class="text-2xl md:text-3xl font-semibold text-primary mb-8 text-center" data-lang-key="establishment_process_heading">
+                        Quy trình Hỗ trợ Thành lập Trung tâm tại IVS
+                    </h3>
                     <ol class="process-list space-y-6 md:space-y-8 relative">
-                        <li class="process-list-item bg-gray-100 p-5 md:p-6 rounded-lg shadow-sm relative border-l-4 border-secondary ml-6 md:ml-0">
-                            <h4 class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Tiếp nhận & Tư vấn sơ bộ</h4>
-                            <p class="text-gray-600 leading-relaxed">Lắng nghe ý tưởng, nhu cầu của bạn. Tư vấn về điều kiện, quy mô, loại hình trung tâm (Ngoại ngữ, Tin học, Kỹ năng sống) phù hợp. Giải đáp các thắc mắc ban đầu.</p>
+                        <li class="process-list-item bg-neutral-50 p-5 md:p-6 rounded-lg shadow-sm relative border-l-4 border-secondary ml-6 md:ml-0" data-lang-key="establishment_step1_desc">
+                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step1_title">Tiếp nhận & Tư vấn sơ bộ</h4>
+                            <p class="text-neutral-600 leading-relaxed">Lắng nghe ý tưởng, nhu cầu của bạn. Tư vấn về điều kiện, quy mô, loại hình trung tâm (Ngoại ngữ, Tin học, Kỹ năng sống) phù hợp. Giải đáp các thắc mắc ban đầu.</p>
                         </li>
-                        <li class="process-list-item bg-gray-100 p-5 md:p-6 rounded-lg shadow-sm relative border-l-4 border-secondary ml-6 md:ml-0">
-                            <h4 class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Khảo sát & Đánh giá</h4>
-                            <p class="text-gray-600 leading-relaxed">Khảo sát địa điểm dự kiến (nếu có). Đánh giá tính khả thi, phân tích thị trường và đối thủ cạnh tranh.</p>
+                        <li class="process-list-item bg-neutral-50 p-5 md:p-6 rounded-lg shadow-sm relative border-l-4 border-secondary ml-6 md:ml-0" data-lang-key="establishment_step2_desc">
+                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step2_title">Khảo sát & Đánh giá</h4>
+                            <p class="text-neutral-600 leading-relaxed">Khảo sát địa điểm dự kiến (nếu có). Đánh giá tính khả thi, phân tích thị trường và đối thủ cạnh tranh.</p>
                         </li>
-                        <li class="process-list-item bg-gray-100 p-5 md:p-6 rounded-lg shadow-sm relative border-l-4 border-secondary ml-6 md:ml-0">
-                            <h4 class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Tư vấn Pháp lý & Chuẩn bị Hồ sơ</h4>
-                            <p class="text-gray-600 leading-relaxed">Hướng dẫn chi tiết các quy định pháp luật hiện hành. Lập danh mục hồ sơ cần thiết. Tư vấn chuẩn bị các giấy tờ theo yêu cầu của Sở Giáo dục & Đào tạo.</p>
+                        <li class="process-list-item bg-neutral-50 p-5 md:p-6 rounded-lg shadow-sm relative border-l-4 border-secondary ml-6 md:ml-0" data-lang-key="establishment_step3_desc">
+                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step3_title">Tư vấn Pháp lý & Chuẩn bị Hồ sơ</h4>
+                            <p class="text-neutral-600 leading-relaxed">Hướng dẫn chi tiết các quy định pháp luật hiện hành. Lập danh mục hồ sơ cần thiết. Tư vấn chuẩn bị các giấy tờ theo yêu cầu của Sở Giáo dục & Đào tạo.</p>
                         </li>
-                        <li class="process-list-item bg-gray-100 p-5 md:p-6 rounded-lg shadow-sm relative border-l-4 border-secondary ml-6 md:ml-0">
-                            <h4 class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Xây dựng Đề án Thành lập</h4>
-                            <p class="text-gray-600 leading-relaxed">Hỗ trợ soạn thảo Đề án hoạt động chi tiết, bao gồm mục tiêu, đối tượng, chương trình đào tạo, đội ngũ giáo viên, cán bộ quản lý, cơ sở vật chất, trang thiết bị, tài chính...</p>
+                        <li class="process-list-item bg-neutral-50 p-5 md:p-6 rounded-lg shadow-sm relative border-l-4 border-secondary ml-6 md:ml-0" data-lang-key="establishment_step4_desc">
+                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step4_title">Xây dựng Đề án Thành lập</h4>
+                            <p class="text-neutral-600 leading-relaxed">Hỗ trợ soạn thảo Đề án hoạt động chi tiết, bao gồm mục tiêu, đối tượng, chương trình đào tạo, đội ngũ giáo viên, cán bộ quản lý, cơ sở vật chất, trang thiết bị, tài chính...</p>
                         </li>
-                        <li class="process-list-item bg-gray-100 p-5 md:p-6 rounded-lg shadow-sm relative border-l-4 border-secondary ml-6 md:ml-0">
-                            <h4 class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Nộp hồ sơ & Làm việc với Cơ quan chức năng</h4>
-                            <p class="text-gray-600 leading-relaxed">Đại diện hoặc hỗ trợ bạn nộp hồ sơ tại Sở Giáo dục & Đào tạo. Theo dõi tiến độ, giải trình và làm việc với cơ quan chức năng để hoàn thiện thủ tục cấp phép.</p>
+                        <li class="process-list-item bg-neutral-50 p-5 md:p-6 rounded-lg shadow-sm relative border-l-4 border-secondary ml-6 md:ml-0" data-lang-key="establishment_step5_desc">
+                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step5_title">Nộp hồ sơ & Làm việc với Cơ quan chức năng</h4>
+                            <p class="text-neutral-600 leading-relaxed">Đại diện hoặc hỗ trợ bạn nộp hồ sơ tại Sở Giáo dục & Đào tạo. Theo dõi tiến độ, giải trình và làm việc với cơ quan chức năng để hoàn thiện thủ tục cấp phép.</p>
                         </li>
-                        <li class="process-list-item bg-gray-100 p-5 md:p-6 rounded-lg shadow-sm relative border-l-4 border-secondary ml-6 md:ml-0">
-                            <h4 class="text-lg md:text-xl font-semibold text-gray-800 mb-2">Hỗ trợ Sau cấp phép</h4>
-                            <p class="text-gray-600 leading-relaxed">Tư vấn về tuyển dụng nhân sự, xây dựng chương trình chi tiết, chiến lược marketing, quản lý vận hành ban đầu để trung tâm nhanh chóng đi vào hoạt động ổn định và hiệu quả.</p>
+                        <li class="process-list-item bg-neutral-50 p-5 md:p-6 rounded-lg shadow-sm relative border-l-4 border-secondary ml-6 md:ml-0" data-lang-key="establishment_step6_desc">
+                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step6_title">Hỗ trợ Sau cấp phép</h4>
+                            <p class="text-neutral-600 leading-relaxed">Tư vấn về tuyển dụng nhân sự, xây dựng chương trình chi tiết, chiến lược marketing, quản lý vận hành ban đầu để trung tâm nhanh chóng đi vào hoạt động ổn định và hiệu quả.</p>
                         </li>
                     </ol>
                 </div>
 
                 <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg max-w-5xl mx-auto">
-                    <h3 class="text-2xl md:text-3xl font-semibold text-primary mb-8 text-center">Tại sao nên chọn Dịch vụ của IVS Education?</h3>
-                    <ul class="space-y-5">
-                        <li class="flex items-start gap-4">
-                            <i class="fas fa-check-circle text-secondary text-xl md:text-2xl mt-1 w-6 text-center flex-shrink-0"></i>
-                            <p class="text-gray-700 leading-relaxed"><strong class="font-semibold text-gray-800">Kinh nghiệm thực tế:</strong> Chúng tôi đã trải qua quy trình thành lập và vận hành IVS Academy thành công, hiểu rõ những khó khăn và giải pháp.</p>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <i class="fas fa-gavel text-secondary text-xl md:text-2xl mt-1 w-6 text-center flex-shrink-0"></i>
-                            <p class="text-gray-700 leading-relaxed"><strong class="font-semibold text-gray-800">Am hiểu pháp lý:</strong> Luôn cập nhật các quy định, thông tư mới nhất về thành lập và hoạt động của trung tâm ngoại ngữ, tin học, kỹ năng sống.</p>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <i class="fas fa-file-alt text-secondary text-xl md:text-2xl mt-1 w-6 text-center flex-shrink-0"></i>
-                            <p class="text-gray-700 leading-relaxed"><strong class="font-semibold text-gray-800">Hỗ trợ toàn diện:</strong> Đồng hành cùng bạn từ khâu lên ý tưởng, chuẩn bị hồ sơ, làm việc với cơ quan chức năng đến khi trung tâm chính thức hoạt động.</p>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <i class="fas fa-users text-secondary text-xl md:text-2xl mt-1 w-6 text-center flex-shrink-0"></i>
-                            <p class="text-gray-700 leading-relaxed"><strong class="font-semibold text-gray-800">Đội ngũ chuyên nghiệp:</strong> Các chuyên gia tư vấn tận tâm, giàu kinh nghiệm trong lĩnh vực giáo dục và pháp lý.</p>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <i class="fas fa-handshake text-secondary text-xl md:text-2xl mt-1 w-6 text-center flex-shrink-0"></i>
-                            <p class="text-gray-700 leading-relaxed"><strong class="font-semibold text-gray-800">Mạng lưới đối tác:</strong> Hỗ trợ kết nối với các đối tác cung cấp thiết bị dạy học, giáo trình, phần mềm quản lý, nhân sự chất lượng...</p>
-                        </li>
-                         <li class="flex items-start gap-4">
-                            <i class="fas fa-shield-alt text-secondary text-xl md:text-2xl mt-1 w-6 text-center flex-shrink-0"></i>
-                            <p class="text-gray-700 leading-relaxed"><strong class="font-semibold text-gray-800">Cam kết hiệu quả:</strong> Tối ưu hóa quy trình, tiết kiệm thời gian và chi phí cho khách hàng, đảm bảo tuân thủ đúng pháp luật.</p>
-                        </li>
+                    <h3 class="text-2xl md:text-3xl font-semibold text-primary mb-8 text-center" data-lang-key="establishment_why_heading">
+                        Tại sao nên chọn Dịch vụ của IVS Education?
+                    </h3>
+                    <ul class="space-y-5 check-list">
+                        <li data-lang-key="establishment_why_item1"><strong class="font-semibold text-neutral-800">Kinh nghiệm thực tế:</strong> Chúng tôi đã trải qua quy trình thành lập và vận hành IVS Academy thành công, hiểu rõ những khó khăn và giải pháp.</li>
+                        <li data-lang-key="establishment_why_item2"><strong class="font-semibold text-neutral-800">Am hiểu pháp lý:</strong> Luôn cập nhật các quy định, thông tư mới nhất về thành lập và hoạt động của trung tâm ngoại ngữ, tin học, kỹ năng sống.</li>
+                        <li data-lang-key="establishment_why_item3"><strong class="font-semibold text-neutral-800">Hỗ trợ toàn diện:</strong> Đồng hành cùng bạn từ khâu lên ý tưởng, chuẩn bị hồ sơ, làm việc với cơ quan chức năng đến khi trung tâm chính thức hoạt động.</li>
+                        <li data-lang-key="establishment_why_item4"><strong class="font-semibold text-neutral-800">Đội ngũ chuyên nghiệp:</strong> Các chuyên gia tư vấn tận tâm, giàu kinh nghiệm trong lĩnh vực giáo dục và pháp lý.</li>
+                        <li data-lang-key="establishment_why_item5"><strong class="font-semibold text-neutral-800">Mạng lưới đối tác:</strong> Hỗ trợ kết nối với các đối tác cung cấp thiết bị dạy học, giáo trình, phần mềm quản lý, nhân sự chất lượng...</li>
+                        <li data-lang-key="establishment_why_item6"><strong class="font-semibold text-neutral-800">Cam kết hiệu quả:</strong> Tối ưu hóa quy trình, tiết kiệm thời gian và chi phí cho khách hàng, đảm bảo tuân thủ đúng pháp luật.</li>
                     </ul>
                 </div>
 
-                <div class="bg-blue-50 border border-dashed border-primary p-6 md:p-8 rounded-lg text-center max-w-5xl mx-auto">
-                    <h4 class="text-xl md:text-2xl font-semibold text-primary">
-                        Hãy để IVS Education đồng hành cùng bạn trong hành trình xây dựng trung tâm giáo dục của riêng mình!
-                        </h4>
-                </div>
-
-                <div class="max-w-5xl mx-auto text-center pt-10 mt-10 border-t border-gray-200">
-                    <h3 class="text-2xl md:text-3xl font-semibold text-primary mb-4">Bắt đầu Hành trình Xây dựng Trung tâm của bạn!</h3>
-                    <p class="text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">Đừng để thủ tục pháp lý phức tạp cản trở ước mơ đóng góp cho sự nghiệp giáo dục của bạn. Hãy liên hệ với IVS Education ngay hôm nay để được tư vấn chi tiết và nhận hỗ trợ chuyên nghiệp!</p>
+                <div class="max-w-5xl mx-auto text-center pt-10 mt-10 border-t border-neutral-200">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-primary mb-4" data-lang-key="establishment_cta_heading">
+                        Bắt đầu Hành trình Xây dựng Trung tâm của bạn!
+                    </h3>
+                    <p class="text-neutral-600 mb-8 max-w-3xl mx-auto leading-relaxed" data-lang-key="establishment_cta_desc">
+                        Đừng để thủ tục pháp lý phức tạp cản trở ước mơ đóng góp cho sự nghiệp giáo dục của bạn. Hãy liên hệ với IVS Education ngay hôm nay để được tư vấn chi tiết và nhận hỗ trợ chuyên nghiệp!
+                    </p>
                     <a href="contact.html?service=center_establishment"
-                       class="inline-block bg-warning text-primary-dark font-bold py-3 px-8 rounded-lg uppercase shadow-md hover:bg-warning-dark hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+                       class="inline-block bg-warning hover:bg-warning-dark text-primary-dark font-bold py-3 px-8 rounded-lg uppercase shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1"
+                       data-lang-key="establishment_cta_button">
                         Yêu cầu Tư vấn Ngay
                     </a>
                 </div>
@@ -186,8 +236,5 @@
 
     <footer id="footer-placeholder"></footer>
 
-    <script src="js/script.js" defer></script>
-
-</body>
+    <script src="js/script.js"></script> <script src="js/language.js"></script> </body>
 </html>
-  
