@@ -5,6 +5,8 @@
 :root {
   --primary-color: #3b82f6; /* blue-500 */
   --secondary-color: #10b981; /* emerald-500 */
+  --warning-color: #f59e0b; /* amber-500 */
+  --purple-color: #8b5cf6; /* purple-500 */
   --text-dark: #1f2937; /* gray-800 */
   --text-medium: #4b5563; /* gray-600 */
   --text-light: #f9fafb; /* gray-50 */
@@ -197,14 +199,149 @@ body.overflow-hidden {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow-md */
   overflow: hidden;
 }
-.card-body {
-  padding: 1.5rem; /* p-6 */
+
+/* --- Styles for About Page --- */
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  width: 100%;
+  background-color: #000;
+  border-radius: 0.5rem;
 }
-.card-title {
-  font-size: 1.25rem; /* text-xl */
-  font-weight: 600; /* font-semibold */
-  color: #111827; /* text-gray-900 */
-  margin-bottom: 0.5rem; /* mb-2 */
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.timeline {
+  list-style: none;
+  padding: 0;
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1.5rem;
+  width: 2px;
+  background-color: #cbd5e1;
+  margin-left: -1px;
+}
+.timeline li {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-left: 3.5rem;
+}
+.timeline li::before {
+  content: '';
+  position: absolute;
+  left: 1.5rem;
+  top: 0.25rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: var(--primary-color, #3b82f6);
+  margin-left: -0.5rem;
+  z-index: 1;
+}
+
+/* --- Styles for Scholarship Page (hocbong.html) --- */
+.scholarship-process-list {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: step-counter;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.scholarship-process-list li {
+  position: relative;
+  padding-left: 45px;
+  margin-bottom: 1rem;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  line-height: 1.6;
+}
+.scholarship-process-list li::before {
+  content: counter(step-counter);
+  counter-increment: step-counter;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: var(--secondary-color);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* --- Styles for Hãy Nói Page (hay-noi.html) --- */
+.program-timeline {
+  list-style: none;
+  padding: 0;
+  position: relative;
+}
+.program-timeline::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 1rem;
+  width: 2px;
+  background-color: #e5e7eb;
+  margin-left: -1px;
+}
+.program-timeline .timeline-phase {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding-left: 2.5rem;
+}
+.program-timeline .timeline-phase::before {
+  content: '';
+  position: absolute;
+  left: 1rem;
+  top: 0.5rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  margin-left: -0.375rem;
+  z-index: 1;
+}
+.program-timeline .timeline-phase h4 {
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+.program-timeline .timeline-phase p {
+  font-size: 0.9rem;
+  color: var(--text-medium);
+  margin-bottom: 0.75rem;
+}
+.program-timeline .timeline-phase ul {
+  font-size: 0.8rem;
+  color: #6b7280;
+  list-style: none;
+  padding-left: 0;
+}
+.program-timeline .timeline-phase ul li::before {
+  content: "•";
+  color: var(--secondary-color);
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
 }
 
 /* --- Responsive Adjustments --- */
@@ -247,6 +384,3 @@ body.overflow-hidden {
   background-color: #6c757d;
   cursor: not-allowed;
 }
-
-/* --- Các style tùy chỉnh khác --- */
-/* Dán các style tùy chỉnh cho phần còn lại của trang web vào đây */
