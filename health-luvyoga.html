@@ -15,10 +15,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
-    <script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography,aspect-ratio"></script> <script>
       tailwind.config = {
         theme: {
           extend: {
@@ -26,67 +27,68 @@
               sans: ['Inter', 'sans-serif'],
             },
             colors: {
-              // Các màu đã định nghĩa...
-              primary: { light: '#60a5fa', DEFAULT: '#3b82f6', dark: '#2563eb' },
-              secondary: { light: '#34d399', DEFAULT: '#10b981', dark: '#059669' },
-              neutral: { 50: '#f9fafb', 100: '#f3f4f6', 200: '#e5e7eb', 300: '#d1d5db', 400: '#9ca3af', 500: '#6b7280', 600: '#4b5563', 700: '#374151', 800: '#1f2937', 900: '#111827' },
-              warning: { light: '#fcd34d', DEFAULT: '#f59e0b', dark: '#b45309' },
-              info: { light: '#38bdf8', DEFAULT: '#0ea5e9', dark: '#0284c7' },
-              danger: { light: '#fda4af', DEFAULT: '#f43f5e', dark: '#be123c'},
-              pink: { DEFAULT: '#ec4899', dark: '#db2777' }
+               'primary': '#3b82f6',
+               'primary-dark': '#2563eb',
+               'secondary': '#10b981',
+               'purple-accent': '#8b5cf6',
+               'neutral-50': '#f9fafb',
+               'neutral-100': '#f3f4f6',
+               'neutral-200': '#e5e7eb',
+               'neutral-300': '#d1d5db', // Thêm màu này
+               'neutral-500': '#6b7280',
+               'neutral-600': '#4b5563',
+               'neutral-700': '#374151',
+               'neutral-800': '#1f2937',
+               'pink': { DEFAULT: '#ec4899', dark: '#db2777' },
+               'blue-50': '#eff6ff',
+               'emerald-50': '#ecfdf5',
+               'indigo-50': '#eef2ff',
+               'blue-700': '#1d4ed8',
+               'purple-100': '#f3e8ff',
+               'purple-700': '#7e22ce',
+               'red-600': '#dc2626', // Thêm màu này
+               'orange-600': '#ea580c' // Thêm màu này
             }
           }
         },
-        plugins: [], // Plugin typography được load qua CDN URL
+         plugins: [
+             require('@tailwindcss/aspect-ratio'), // Cần plugin này nếu dùng build process
+         ],
       }
     </script>
+
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <style>
-      /* Nên chuyển các style này vào file css/styles.css */
-      button:disabled[data-lang] { opacity: 1; cursor: default; color: theme('colors.primary.dark', '#2563eb'); }
-      button[data-lang]:not(:disabled) { color: theme('colors.neutral.500', '#6b7280'); }
-      button[data-lang]:not(:disabled):hover { color: theme('colors.primary.DEFAULT', '#3b82f6'); }
-      .check-list-pink li { padding-left: 1.75rem; position: relative; margin-bottom: 0.75rem;}
-      .check-list-pink li::before { content: '✓'; position: absolute; left: 0; color: theme('colors.pink.DEFAULT', '#ec4899'); font-weight: 900; font-size: 1.1em; top: 0.1em; }
-      .map-container iframe { display: block; width: 100%; height: 100%; min-height: 350px; border:0; }
+        /* Nên chuyển các style này vào file css/styles.css */
+        button:disabled[data-lang] { opacity: 1; cursor: default; color: theme('colors.primary-dark', '#2563eb'); }
+        button[data-lang]:not(:disabled) { color: theme('colors.neutral-500', '#6b7280'); }
+        button[data-lang]:not(:disabled):hover { color: theme('colors.primary', '#3b82f6'); }
+        .check-list-pink li { padding-left: 1.75rem; position: relative; margin-bottom: 0.75rem;}
+        .check-list-pink li::before { content: '✓'; position: absolute; left: 0; color: theme('colors.pink.DEFAULT', '#ec4899'); font-weight: 900; font-size: 1.1em; top: 0.1em; }
+        .map-container iframe { display: block; width: 100%; height: 100%; min-height: 350px; border:0; }
+        .facebook-video-container { position: relative; padding-bottom: 177.77%; height: 0; overflow: hidden; max-width: 350px; margin: 1.5rem auto 0 auto; background: #f0f0f0; border-radius: 8px; }
+        .facebook-video-container .fb-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
 
-      /* CSS Wrapper cho Facebook Video (Áp dụng cho cả iframe và div.fb-video bên trong) */
-      .facebook-video-container {
-          position: relative;
-          /* padding-bottom: 177.77%; Tỷ lệ 9:16 cho video dọc Reel */
-          /* Hoặc tính toán tỷ lệ khác nếu là video ngang, ví dụ 56.25% cho 16:9 */
-          /* Tạm thời dùng tỷ lệ dựa trên width/height gốc của iframe cũ (295/560)*100 = 52.67% nếu là video ngang */
-          /* Hoặc để auto nếu dùng data-width="auto" cho div.fb-video và container có chiều rộng xác định */
-          padding-bottom: 100%; /* Hoặc 56.25% cho video ngang thông thường, hoặc 177.77% cho reel dọc */
-          height: 0;
-          overflow: hidden;
-          max-width: 500px; /* Giới hạn chiều rộng tối đa, có thể điều chỉnh */
-          margin: 1.5rem auto 0 auto; /* Căn giữa và thêm khoảng cách trên */
-          background: #f0f0f0;
-          border-radius: 8px;
-      }
-      .facebook-video-container iframe,
-      .facebook-video-container .fb-video { /* Áp dụng cho cả iframe và div.fb-video */
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border: 0;
-      }
-      .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        /* CSS cho thanh cuộn ngang đẹp hơn (Tùy chọn) */
+        .horizontal-scroll-gallery::-webkit-scrollbar { height: 8px; }
+        .horizontal-scroll-gallery::-webkit-scrollbar-track { background: #f3f4f6; border-radius: 10px; }
+        .horizontal-scroll-gallery::-webkit-scrollbar-thumb { background-color: #d1d5db; border-radius: 10px; border: 2px solid #f3f4f6; }
+        .horizontal-scroll-gallery::-webkit-scrollbar-thumb:hover { background-color: #9ca3af; }
+        /* CSS cho scroll snap */
+        .scroll-snap-type-x-mandatory { scroll-snap-type: x mandatory; }
+        .scroll-snap-align-start { scroll-snap-align: start; }
+
     </style>
 </head>
-<body class="bg-neutral-50 text-neutral-700 font-sans antialiased">
+<body class="bg-neutral-100 text-neutral-700 font-sans antialiased">
 
     <header id="header-placeholder"></header>
 
     <main class="container mx-auto px-4 py-8 md:py-12">
 
         <section aria-labelledby="luvyoga-heading" class="relative bg-gradient-to-r from-pink-500 to-rose-500 text-white py-20 md:py-28 text-center shadow-lg overflow-hidden rounded-lg mb-8 md:mb-12">
-             <div class="relative z-10 container mx-auto px-4">
+            <div class="relative z-10 container mx-auto px-4">
                 <h1 id="luvyoga-heading" class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 hero-text-shadow" data-lang-key="luvyoga_heading">
                     LUVYOGA-Lộc Hòa
                 </h1>
@@ -98,26 +100,47 @@
 
         <section aria-labelledby="gallery-heading" class="bg-white p-6 md:p-8 rounded-xl shadow-lg mb-8 md:mb-12">
             <h2 id="gallery-heading" class="text-3xl font-semibold text-primary mb-6 text-center" data-lang-key="luvyoga_gallery_heading">Vài nét về LUVYOGA</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div class="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg shadow-md"> <img loading="lazy" src="images/pages/healths/luvyoga1.png" alt="Ảnh học viên LuvYoga 1" data-lang-key="luvyoga_gallery_img1_alt" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-neutral-200 flex items-center justify-center text-neutral-500\'><p>Ảnh lỗi</p></div>'">
+            <div class="horizontal-scroll-gallery flex overflow-x-auto space-x-4 pb-4 scroll-snap-type-x-mandatory">
+                <div class="aspect-w-1 aspect-h-1 w-60 md:w-72 flex-shrink-0 overflow-hidden rounded-lg shadow-md scroll-snap-align-start">
+                    <img loading="lazy" src="images/pages/healths/luvyoga1.png" alt="Ảnh học viên LuvYoga 1" data-lang-key="luvyoga_gallery_img1_alt" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-neutral-200 flex items-center justify-center text-neutral-500\'><p>Ảnh lỗi</p></div>'">
                 </div>
-                <div class="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg shadow-md">
+                <div class="aspect-w-1 aspect-h-1 w-60 md:w-72 flex-shrink-0 overflow-hidden rounded-lg shadow-md scroll-snap-align-start">
                     <img loading="lazy" src="images/pages/healths/luvyoga4.png" alt="Ngoại thất LuvYoga" data-lang-key="luvyoga_gallery_img2_alt" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-neutral-200 flex items-center justify-center text-neutral-500\'><p>Ảnh lỗi</p></div>'">
                 </div>
-                <div class="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg shadow-md">
+                <div class="aspect-w-1 aspect-h-1 w-60 md:w-72 flex-shrink-0 overflow-hidden rounded-lg shadow-md scroll-snap-align-start">
                     <img loading="lazy" src="images/pages/healths/luvyoga3.jpg" alt="Không gian LuvYoga" data-lang-key="luvyoga_gallery_img3_alt" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-neutral-200 flex items-center justify-center text-neutral-500\'><p>Ảnh lỗi</p></div>'">
                 </div>
-                <div class="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg shadow-md">
+                <div class="aspect-w-1 aspect-h-1 w-60 md:w-72 flex-shrink-0 overflow-hidden rounded-lg shadow-md scroll-snap-align-start">
                     <img loading="lazy" src="images/pages/healths/luvyoga2.png" alt="Giáo viên LuvYoga" data-lang-key="luvyoga_gallery_img4_alt" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105" onerror="this.parentElement.innerHTML='<div class=\'w-full h-full bg-neutral-200 flex items-center justify-center text-neutral-500\'><p>Ảnh lỗi</p></div>'">
                 </div>
-            </div>
-            <p class="text-center italic text-neutral-600" data-lang-key="luvyoga_testimonial_caption">
+                <div class="aspect-w-1 aspect-h-1 w-60 md:w-72 flex-shrink-0 overflow-hidden rounded-lg shadow-md scroll-snap-align-start">
+                    <img loading="lazy" src="https://placehold.co/400x400/ec4899/ffffff?text=LuvYoga+5" alt="Ảnh LuvYoga 5" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                </div>
+                 <div class="aspect-w-1 aspect-h-1 w-60 md:w-72 flex-shrink-0 overflow-hidden rounded-lg shadow-md scroll-snap-align-start">
+                    <img loading="lazy" src="https://placehold.co/400x400/10b981/ffffff?text=LuvYoga+6" alt="Ảnh LuvYoga 6" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                </div>
+                 <div class="aspect-w-1 aspect-h-1 w-60 md:w-72 flex-shrink-0 overflow-hidden rounded-lg shadow-md scroll-snap-align-start">
+                    <img loading="lazy" src="https://placehold.co/400x400/8b5cf6/ffffff?text=LuvYoga+7" alt="Ảnh LuvYoga 7" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                </div>
+                 <div class="aspect-w-1 aspect-h-1 w-60 md:w-72 flex-shrink-0 overflow-hidden rounded-lg shadow-md scroll-snap-align-start">
+                    <img loading="lazy" src="https://placehold.co/400x400/f59e0b/ffffff?text=LuvYoga+8" alt="Ảnh LuvYoga 8" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                </div>
+                <div class="aspect-w-1 aspect-h-1 w-60 md:w-72 flex-shrink-0 overflow-hidden rounded-lg shadow-md scroll-snap-align-start">
+                    <img loading="lazy" src="https://placehold.co/400x400/3b82f6/ffffff?text=LuvYoga+9" alt="Ảnh LuvYoga 9" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                </div>
+                <div class="aspect-w-1 aspect-h-1 w-60 md:w-72 flex-shrink-0 overflow-hidden rounded-lg shadow-md scroll-snap-align-start">
+                    <img loading="lazy" src="https://placehold.co/400x400/ef4444/ffffff?text=LuvYoga+10" alt="Ảnh LuvYoga 10" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                </div>
+                 <div class="aspect-w-1 aspect-h-1 w-60 md:w-72 flex-shrink-0 overflow-hidden rounded-lg shadow-md scroll-snap-align-start">
+                    <img loading="lazy" src="https://placehold.co/400x400/6b7280/ffffff?text=LuvYoga+11" alt="Ảnh LuvYoga 11" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                </div>
+                </div>
+            <p class="text-center italic text-neutral-600 mt-6" data-lang-key="luvyoga_testimonial_caption">
                 📸 Học viên của Luv chỉ sau 1.5 tháng đã có nhiều tiến bộ và cảm nhận rõ rệt cơ thể của mình!
             </p>
         </section>
-
-         <section aria-label="Liên hệ LuvYoga" class="text-center my-8 md:my-12">
-            <p class="text-xl font-medium text-neutral-800 mb-6" data-lang-key="luvyoga_cta_text">
+        <section aria-label="Liên hệ LuvYoga" class="text-center my-8 md:my-12">
+             <p class="text-xl font-medium text-neutral-800 mb-6" data-lang-key="luvyoga_cta_text">
                 Hãy tham gia và trải nghiệm sự thay đổi tích cực cùng LUVYOGA ngay hôm nay!
             </p>
             <div class="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4">
@@ -235,8 +258,9 @@
                      <div class="fb-video"
                           data-href="https://www.facebook.com/reel/523340060269570/"
                           data-show-text="false"
-                          data-lazy="true"> <blockquote cite="https://www.facebook.com/reel/523340060269570/" class="fb-xfbml-parse-ignore">
-                              <a href="https://www.facebook.com/reel/523340060269570/">Xem Reel này</a> của LuvYoga
+                          data-lazy="true">
+                          <blockquote cite="https://www.facebook.com/reel/523340060269570/" class="fb-xfbml-parse-ignore">
+                              <a href="https://www.facebook.com/reel/523340060269570/" data-lang-key="view_this_reel">Xem Reel này</a> của LuvYoga
                           </blockquote>
                      </div>
                  </div>
@@ -264,8 +288,6 @@
                     if (placeholder) {
                         placeholder.innerHTML = data;
                         if (callback && typeof callback === 'function') {
-                            // Đảm bảo gọi callback sau khi nội dung được chèn vào DOM
-                            // và trình duyệt có thời gian phân tích (đặc biệt quan trọng cho FB SDK)
                             setTimeout(callback, 0);
                         }
                     }
@@ -273,34 +295,15 @@
                 .catch(error => console.error(`Error loading component ${url}:`, error));
         }
 
-        // Hàm để gọi FB.XFBML.parse() nếu cần (ví dụ khi nội dung được thêm động)
-        function parseFacebookPlugins() {
-            if (typeof FB !== 'undefined' && FB.XFBML) {
-                FB.XFBML.parse(); // Yêu cầu SDK quét lại và render plugin
-                console.log('FB.XFBML.parse() called.');
-            } else {
-                 console.log('FB SDK not ready for parsing yet.');
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
             loadComponent('header.html', 'header-placeholder', () => {
                 if (typeof initializeMenu === 'function') initializeMenu();
-                if (typeof setLanguage === 'function') setLanguage(localStorage.getItem('language') || 'vi');
-                // Có thể cần gọi parseFacebookPlugins() ở đây nếu header chứa plugin FB
-                // parseFacebookPlugins();
+                if (typeof setLanguage === 'function') setLanguage(localStorage.getItem('preferredLanguage') || 'vi');
             });
             loadComponent('footer.html', 'footer-placeholder', () => {
-                 if (typeof setLanguage === 'function') setLanguage(localStorage.getItem('language') || 'vi');
-                 // Có thể cần gọi parseFacebookPlugins() ở đây nếu footer chứa plugin FB
-                 // parseFacebookPlugins();
+                 if (typeof setLanguage === 'function') setLanguage(localStorage.getItem('preferredLanguage') || 'vi');
             });
-
-            // Gọi parse một lần sau khi mọi thứ có thể đã tải xong,
-            // hoặc dựa vào callback của SDK nếu bạn cấu hình phức tạp hơn.
-            // SDK tải async defer thường tự động parse khi nó sẵn sàng.
-            // Nếu video vẫn không hiện, bạn có thể thử gọi parse thủ công sau 1 khoảng trễ nhỏ:
-            // setTimeout(parseFacebookPlugins, 1000); // Thử gọi sau 1 giây
+            // FB.XFBML.parse(); // Có thể cần gọi lại parse nếu SDK không tự nhận diện được
         });
     </script>
 
