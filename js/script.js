@@ -57,6 +57,7 @@ function initializeCombinedMenuEvents() {
     const mobileMenuOverlay = headerElement.querySelector('#mobile-menu-overlay');
     const iconMenu = headerElement.querySelector('#icon-menu');
     const iconClose = headerElement.querySelector('#icon-close');
+    const mobileCloseButton = headerElement.querySelector('#mobile-close-button'); // Thêm nút đóng
 
     // --- Logic Toggle Menu Mobile Chính (Slide Animation) ---
     function toggleMobileMenuPanel() {
@@ -76,7 +77,7 @@ function initializeCombinedMenuEvents() {
             // Mở menu
             mobileMenuOverlay.classList.remove('hidden'); // Hiện overlay trước
             mobileMenu.classList.remove('hidden'); // Hiện panel trước
-            document.body.style.overflow = 'hidden'; // Chặn scroll body
+            // document.body.style.overflow = 'hidden'; // <<<----- BỎ DÒNG NÀY ĐI
 
             // Buộc trình duyệt tính toán lại layout trước khi thêm class animation
             requestAnimationFrame(() => {
@@ -88,7 +89,7 @@ function initializeCombinedMenuEvents() {
             // Đóng menu
             mobileMenuOverlay.classList.add('opacity-0'); // Bắt đầu mờ dần overlay
             mobileMenu.classList.add('translate-x-full'); // Bắt đầu trượt panel ra
-            document.body.style.overflow = ''; // Cho phép scroll lại body
+            // document.body.style.overflow = ''; // <<<----- BỎ DÒNG NÀY ĐI
 
             // Sử dụng sự kiện transitionend để ẩn hoàn toàn sau khi animation kết thúc
             const handler = (event) => {
@@ -128,13 +129,20 @@ function initializeCombinedMenuEvents() {
     if (mobileMenuOverlay) {
          mobileMenuOverlay.addEventListener('click', toggleMobileMenuPanel); // Đóng khi click overlay
     }
+    // Thêm sự kiện cho nút đóng X bên trong menu
+    if (mobileCloseButton) {
+        mobileCloseButton.addEventListener('click', toggleMobileMenuPanel);
+    }
+
 
     // --- Logic Toggle Submenu Mobile (MaxHeight Animation - REFINED v2) ---
     const mobileMenuItems = mobileMenu?.querySelectorAll('.mobile-menu-item');
 
     if (mobileMenuItems && mobileMenuItems.length > 0) {
         mobileMenuItems.forEach(item => {
+            // Chỉ lấy button toggle trực tiếp của item này
             const button = item.querySelector(':scope > button.mobile-submenu-toggle');
+            // Chỉ lấy submenu trực tiếp của item này
             const submenu = item.querySelector(':scope > .mobile-submenu');
 
             if (button && submenu) {
@@ -147,6 +155,11 @@ function initializeCombinedMenuEvents() {
                          submenu.classList.add('hidden');
                     }
                     submenu.classList.add('submenu-initialized');
+                     // Thêm class để xoay icon mũi tên (nếu có)
+                     const arrowIcon = button.querySelector('svg');
+                     if (arrowIcon && !arrowIcon.classList.contains('submenu-arrow')) {
+                         arrowIcon.classList.add('submenu-arrow'); // Thêm class để CSS có thể target
+                     }
                 }
 
                 // Gỡ bỏ listener cũ trước khi thêm mới để tránh lỗi
@@ -172,13 +185,14 @@ function initializeCombinedMenuEvents() {
         // Đóng các submenu anh em cùng cấp trước khi mở submenu mới
         const parentContainer = item.parentElement;
         if (parentContainer) {
-            const siblingItems = parentContainer.querySelectorAll(':scope > .mobile-menu-item');
+            // Chỉ tìm các item anh em trực tiếp
+            const siblingItems = Array.from(parentContainer.children).filter(child =>
+                child !== item && child.classList.contains('mobile-menu-item')
+            );
             siblingItems.forEach(sibling => {
-                if (sibling !== item) {
-                    const otherSubmenu = sibling.querySelector(':scope > .mobile-submenu');
-                    if (otherSubmenu && !otherSubmenu.classList.contains('hidden')) {
-                        closeSingleMobileSubmenu(sibling, otherSubmenu);
-                    }
+                const otherSubmenu = sibling.querySelector(':scope > .mobile-submenu');
+                if (otherSubmenu && !otherSubmenu.classList.contains('hidden')) {
+                    closeSingleMobileSubmenu(sibling, otherSubmenu);
                 }
             });
         }
@@ -191,9 +205,8 @@ function initializeCombinedMenuEvents() {
             // Cần tính scrollHeight *sau khi* đã bỏ hidden
             requestAnimationFrame(() => {
                 submenu.style.maxHeight = submenu.scrollHeight + "px";
-                item.classList.add('open'); // Thêm class open để xoay icon nếu cần
+                item.classList.add('open'); // Thêm class open để xoay icon
                 console.log(`DEBUG: Opening mobile submenu, set max-height: ${submenu.scrollHeight}px`);
-                // Không cần xóa maxHeight sau khi mở nữa, để nó tự nhiên
             });
         } else {
             // Đóng submenu
@@ -205,9 +218,8 @@ function initializeCombinedMenuEvents() {
     // --- Đóng Menu Mobile Khi Click Bên Ngoài hoặc Nhấn Esc ---
      function closeMenuFromOutside(event) {
          if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-             // Kiểm tra xem click có nằm trong header hoặc nút toggle không
+             // Kiểm tra xem click có nằm trong header (chứa cả nút toggle và panel) không
              const isClickInsideHeader = headerElement && headerElement.contains(event.target);
-             // const isClickOnToggleButton = mobileMenuButton && mobileMenuButton.contains(event.target); // Không cần check nút vì nó nằm trong header
 
              if (!isClickInsideHeader) {
                  console.log("DEBUG: Clicked outside header, closing mobile menu.");
@@ -237,6 +249,18 @@ function initializeCombinedMenuEvents() {
     // --- Đặt cờ báo đã khởi tạo thành công ---
     menuInitialized = true;
     console.log("DEBUG: COMBINED menu events initialized successfully.");
+
+    // Thêm CSS cho việc xoay icon mũi tên
+    const styleSheet = document.createElement("style");
+    styleSheet.innerText = `
+        .mobile-menu-item .submenu-arrow {
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu-item.open > button .submenu-arrow {
+            transform: rotate(90deg);
+        }
+    `;
+    document.head.appendChild(styleSheet);
 }
 
 /**
@@ -251,13 +275,13 @@ function closeSingleMobileSubmenu(item, submenu) {
     const buttonText = button ? button.textContent.trim() : 'unknown';
     console.log(`DEBUG: Closing single mobile submenu for "${buttonText}"`);
 
-    // 1. Đặt lại maxHeight về giá trị hiện tại (scrollHeight) nếu nó đang là ''
+    // 1. Đặt lại maxHeight về giá trị hiện tại (scrollHeight) nếu nó đang là '' hoặc 'none'
     // Điều này quan trọng để transition từ giá trị cụ thể về 0
     if (submenu.style.maxHeight === '' || submenu.style.maxHeight === 'none') {
         submenu.style.maxHeight = submenu.scrollHeight + "px";
     }
 
-    // 2. Xóa class 'open' để xoay icon lại (nếu có)
+    // 2. Xóa class 'open' để xoay icon lại
     item.classList.remove('open');
 
     // 3. Buộc reflow nhỏ và bắt đầu transition về maxHeight = 0
@@ -271,9 +295,10 @@ function closeSingleMobileSubmenu(item, submenu) {
         // Chỉ xử lý khi transition kết thúc trên chính submenu và maxHeight đã về 0 (hoặc gần 0)
         if (event.target === submenu && parseFloat(submenu.style.maxHeight) < 1) {
              if (!submenu.classList.contains('hidden')) { // Kiểm tra lần nữa trước khi thêm hidden
-                submenu.classList.add('hidden');
-                closeAllMobileSubmenus(submenu); // Đệ quy đóng con cháu nếu có
-                console.log(`DEBUG: Finished closing mobile submenu for "${buttonText}", added 'hidden'.`);
+                 submenu.classList.add('hidden');
+                 // Không cần gọi đệ quy ở đây nữa, vì khi đóng cha thì con cũng bị ẩn theo max-height=0
+                 // closeAllMobileSubmenus(submenu); // Đệ quy đóng con cháu nếu có
+                 console.log(`DEBUG: Finished closing mobile submenu for "${buttonText}", added 'hidden'.`);
              }
              submenu.removeEventListener('transitionend', closeTransitionHandler); // Gỡ bỏ listener
         }
@@ -286,7 +311,7 @@ function closeSingleMobileSubmenu(item, submenu) {
          if (!submenu.classList.contains('hidden') && !item.classList.contains('open')) {
              console.warn(`DEBUG: Closing mobile submenu for "${buttonText}" via fallback timeout.`);
              submenu.classList.add('hidden');
-             closeAllMobileSubmenus(submenu);
+             // closeAllMobileSubmenus(submenu);
              submenu.removeEventListener('transitionend', closeTransitionHandler); // Gỡ listener nếu fallback chạy
          }
      }, 350); // Thời gian > transition duration
@@ -334,7 +359,12 @@ function initializeActiveMenuHighlighting(headerElement) {
          const mobileItem = link.closest('.mobile-menu-item');
          if (mobileItem) {
              mobileItem.classList.remove('open'); // Đảm bảo đóng submenu khi reset
-             mobileItem.querySelector(':scope > button')?.classList.remove('active-parent-item', 'font-semibold', 'text-blue-600', 'bg-gray-100');
+             const button = mobileItem.querySelector(':scope > button.mobile-submenu-toggle');
+             if(button) {
+                button.classList.remove('active-parent-item', 'font-semibold', 'text-blue-600', 'bg-gray-100');
+                const arrowIcon = button.querySelector('.submenu-arrow');
+                if(arrowIcon) arrowIcon.style.transform = ''; // Reset rotation
+             }
              const submenu = mobileItem.querySelector(':scope > .mobile-submenu');
              // Reset style của submenu mobile nếu nó đã được khởi tạo
              if (submenu && submenu.classList.contains('submenu-initialized')) {
@@ -422,11 +452,15 @@ function initializeActiveMenuHighlighting(headerElement) {
          while (currentElement && currentElement !== headerElement) {
              const parentMenuItem = currentElement.closest('.main-menu-item, .mobile-menu-item, .sub-submenu-container');
              if (parentMenuItem) {
-                 const parentToggle = parentMenuItem.querySelector(':scope > button.nav-link, :scope > a.nav-link'); // Lấy cả button và link (cho mobile)
+                 const parentToggle = parentMenuItem.querySelector(':scope > button.nav-link, :scope > button.mobile-submenu-toggle'); // Target buttons specifically
                  if (parentToggle) {
-                     parentToggle.classList.add('active-parent-item', 'font-semibold', 'text-blue-600');
+                     parentToggle.classList.add('active-parent-item', 'font-semibold');
+                     // Chỉ thêm text-blue-600 nếu nó chưa phải là link active cuối cùng
+                     if(!bestMatchLink.isSameNode(parentToggle)) {
+                        // parentToggle.classList.add('text-blue-600'); // Có thể làm rối nếu cha cũng là link
+                     }
                       // Thêm background cho parent mobile item nếu là button toggle
-                      if (parentMenuItem.classList.contains('mobile-menu-item') && parentToggle.tagName === 'BUTTON') {
+                      if (parentMenuItem.classList.contains('mobile-menu-item')) {
                            parentToggle.classList.add('bg-gray-100');
                       }
                  }
@@ -435,10 +469,13 @@ function initializeActiveMenuHighlighting(headerElement) {
                  if (parentMenuItem.classList.contains('mobile-menu-item')) {
                      const parentSubmenu = parentMenuItem.querySelector(':scope > .mobile-submenu');
                      if (parentSubmenu && parentSubmenu.classList.contains('submenu-initialized') && parentSubmenu.classList.contains('hidden')) {
-                         parentMenuItem.classList.add('open');
+                         parentMenuItem.classList.add('open'); // Thêm class để xoay icon
                          parentSubmenu.classList.remove('hidden');
-                         // Đặt maxHeight về '' để nó tự tính toán chiều cao đầy đủ khi hiển thị
-                         parentSubmenu.style.maxHeight = '';
+                         // Đặt maxHeight về '' hoặc scrollHeight để nó tự tính toán chiều cao đầy đủ khi hiển thị
+                         // Dùng scrollHeight an toàn hơn khi phần tử vừa được bỏ hidden
+                         requestAnimationFrame(() => {
+                            parentSubmenu.style.maxHeight = parentSubmenu.scrollHeight + "px";
+                         });
                          console.log(`DEBUG: Auto-opening active mobile submenu for: ${parentToggle?.textContent.trim()}`);
                      }
                  }
@@ -517,3 +554,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Lưu ý: Cần đảm bảo language.js được tải SAU script.js trong HTML
 // và language.js KHÔNG tự gọi initializeLanguage() trong sự kiện DOMContentLoaded của nó nữa.
+
