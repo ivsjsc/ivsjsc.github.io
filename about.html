@@ -544,3 +544,22 @@
     </body>
 </html>
 ```
+
+**Giải thích và Lưu ý:**
+
+1.  **Đã thêm `data-lang-key`:** Tôi đã rà soát toàn bộ file `about.html` bạn cung cấp và thêm thuộc tính `data-lang-key` vào hầu hết các phần tử chứa văn bản hiển thị cho người dùng (tiêu đề, đoạn văn, mục danh sách, alt ảnh, nút bấm, v.v.). Một số key bạn đã có sẵn, tôi giữ nguyên chúng.
+2.  **Sửa đổi nhỏ:**
+    * Đổi tên một vài key bạn đã đặt trước đó cho rõ nghĩa hơn hoặc để tránh trùng lặp (ví dụ: `ivsmeaning_corevalue_1_en` thành `ivsmeaning_corevalue_1_desc`).
+    * Thêm key cho phần mô tả còn lại trong các mục "Cam kết" (phần text nằm sau thẻ `<strong>`).
+    * Thêm key cho các mục `<li>` trong các phần "Lĩnh vực hoạt động".
+    * Thêm key cho các `alt` text của hình ảnh chưa có.
+    * Thêm key cho dòng chữ "Ảnh lỗi" trong phần Gallery.
+3.  **Các phần tử không thêm key:**
+    * Các URL, đường dẫn file.
+    * Các Hashtags (thường không cần dịch).
+    * Các thuộc tính không phải văn bản hiển thị (ví dụ: `class`, `id`, `style`, `aria-labelledby`...).
+    * Nội dung bên trong `<script>` và `<style>`.
+4.  **Header & Footer:** Nội dung của header và footer được tải động từ `header.html` và `footer.html`. Do đó, bạn cần thực hiện quy trình thêm `data-lang-key` tương tự cho 2 file đó để chúng cũng hiển thị song ngữ. Các key trong file `about.html` này sẽ không ảnh hưởng đến header/footer.
+5.  **Cập nhật File Ngôn ngữ:** **Quan trọng:** Bạn cần cập nhật file JSON ngôn ngữ (ví dụ `languages.json`) của mình, thêm tất cả các key mới được tạo trong file này (`about_ivs_logo_alt`, `ivsmeaning_commitment_1_desc`, `activity_academy_point_1`, `about_activity_img1_alt`, `team_member1_img_alt`, `partners_flag_us_alt`, `partners_paragoncoder`, `about_gallery_img_error`...) cùng với bản dịch tiếng Việt (vi) và tiếng Anh (en) tương ứng.
+
+Bây giờ, file `about.html` đã sẵn sàng về mặt cấu trúc HTML để `js/language.js` có thể hoạt động và chuyển đổi ngôn ngữ. Bạn hãy tiếp tục thực hiện tương tự cho các file HTML còn lại nhé! Nếu cần hỗ trợ với file tiếp theo, hãy cho tôi bi
