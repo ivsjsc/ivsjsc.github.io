@@ -201,19 +201,3 @@
 </body>
 </html>
 ```
-
-**Các thay đổi chính đã thực hiện:**
-
-1.  **Loại bỏ Inline `<style>`:** Toàn bộ khối `<style>` trong `<head>` đã được xóa. Bạn cần đảm bảo các quy tắc CSS đó đã được chuyển vào file `css/styles.css`.
-2.  **Loại bỏ Inline Tailwind Config:** Khối `<script>` chứa `tailwind.config` đã bị xóa. Việc cấu hình và build Tailwind nên được thực hiện thông qua quy trình build (ví dụ: Tailwind CLI, PostCSS) để tối ưu hóa. Link CDN vẫn được giữ lại nhưng việc sử dụng plugin `typography` có thể cần cấu hình đúng cách hoặc tốt nhất là dùng build process.
-3.  **Thêm `aria-hidden="true"` cho Icons:** Thuộc tính `aria-hidden="true"` đã được thêm vào tất cả các thẻ `<i>` dùng làm icon (ví dụ: `<i class="fas fa-palette" aria-hidden="true"></i>`). Điều này cải thiện khả năng truy cập cho người dùng sử dụng trình đọc màn hình.
-4.  **Cải thiện Alt Text:** Cập nhật alt text cho ảnh minh họa để mô tả rõ hơn.
-5.  **Thêm Chú thích (Comments):** Thêm các chú thích `` và `` để nhắc nhở về các bước tối ưu hóa khác cần thực hiện (như tối ưu ảnh, thiết lập quy trình build CSS, kiểm tra đường dẫn).
-
-**Bước tiếp theo được đề xuất:**
-
-* **Thiết lập quy trình Build:** Sử dụng Tailwind CLI hoặc PostCSS để build file CSS cuối cùng, đảm bảo purge các class không sử dụng.
-* **Tối ưu Hình ảnh:** Nén và sử dụng định dạng ảnh hiện đại (WebP) cho các file trong thư mục `images/pages/`.
-* **Di chuyển CSS:** Đảm bảo tất cả CSS tùy chỉnh từ khối `<style>` cũ đã nằm trong `css/styles.css`.
-* **Kiểm tra Header/Footer:** Đánh giá lại cách tải header và footer, cân nhắc giải pháp tĩnh nếu có thể.
-* **Minify Assets:** Minify các file `styles.css`, `script.js`, `language.js` khi triển khai lên producti
