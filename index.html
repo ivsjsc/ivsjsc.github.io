@@ -7,9 +7,11 @@
     <meta name="description" content="IVS JSC - Tổ chức tiên phong tại Việt Nam trong lĩnh vực giáo dục (IVS Academy, IVS Kindergarten), EdTech (IVS Celestech), sức khỏe cộng đồng và hợp tác quốc tế." data-lang-key="meta_description_index">
     <meta property="og:title" content="IVS JSC - Giáo dục, Công nghệ, Sức khỏe, Hợp tác Quốc tế" data-lang-key="og_title_index">
     <meta property="og:description" content="Khám phá các giải pháp toàn diện về đào tạo ngoại ngữ, STEAM, kỹ năng sống, EdTech, chăm sóc sức khỏe và cơ hội hợp tác cùng IVS JSC." data-lang-key="og_description_index">
-    <meta property="og:image" content="images/ivs-celestech.jpg"> <meta property="og:url" content="https://ivsjsc.github.io/index.html"> <meta property="og:type" content="website">
+    <meta property="og:image" content="/images/logo/webbanner.png"> <meta property="og:url" content="https://ivsjsc.github.io/index.html">
+    <meta property="og:type" content="website">
 
-    <link rel="icon" href="images/logo/logo.png" type="image/x-icon"> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -28,16 +30,16 @@
               'secondary': '#10b981', // emerald-500
               'purple-accent': '#8b5cf6', // purple-500
               'warning': '#f59e0b', // amber-500
-              // Thêm các màu khác nếu cần từ config cũ
-               'primary-dark': '#2563eb', // blue-700
-               'gray-700': '#374151',
-               'gray-600': '#4b5563',
-               'gray-500': '#6b7280',
-               'gray-300': '#d1d5db',
-               'gray-200': '#e5e7eb',
-               'gray-100': '#f3f4f6',
-               'blue-600': '#2563eb', // Thêm các màu được dùng trong JS
-               'red-500': '#ef4444'
+              'primary-dark': '#2563eb', // blue-700
+              'gray-700': '#374151',
+              'gray-600': '#4b5563',
+              'gray-500': '#6b7280',
+              'gray-300': '#d1d5db',
+              'gray-200': '#e5e7eb', // Màu nền dự phòng cho banner
+              'gray-100': '#f3f4f6',
+              'blue-600': '#2563eb',
+              'purple-600': '#9333ea',
+              'red-500': '#ef4444'
             }
           }
         }
@@ -46,260 +48,120 @@
 
     <link rel="stylesheet" href="css/styles.css">
     <style>
-      /* Nên chuyển các style này vào file css/styles.css */
       body { font-family: 'Inter', sans-serif; }
       .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; width: 100%; background-color: #000; border-radius: 0.5rem; }
       .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
       button:disabled { opacity: 0.6; cursor: not-allowed; }
-      #lang-vi-desktop.font-bold, #lang-en-desktop.font-bold,
-      #lang-vi-mobile.font-bold, #lang-en-mobile.font-bold { color: #2563eb; }
-
-      /* CSS cho thanh cuộn ngang đẹp hơn (Tùy chọn) */
-      #news-container::-webkit-scrollbar {
-          height: 8px;
-      }
-      #news-container::-webkit-scrollbar-track {
-          background: #f3f4f6; /* gray-100 */
-          border-radius: 10px;
-      }
-      #news-container::-webkit-scrollbar-thumb {
-          background-color: #d1d5db; /* gray-300 */
-          border-radius: 10px;
-          border: 2px solid #f3f4f6; /* gray-100 */
-      }
-       #news-container::-webkit-scrollbar-thumb:hover {
-          background-color: #9ca3af; /* gray-400 */
-      }
-      /* Ẩn thanh cuộn trên Firefox (nếu muốn) */
-      /* #news-container { scrollbar-width: thin; scrollbar-color: #d1d5db #f3f4f6; } */
+      #news-container::-webkit-scrollbar { height: 8px; }
+      #news-container::-webkit-scrollbar-track { background: #f3f4f6; border-radius: 10px; }
+      #news-container::-webkit-scrollbar-thumb { background-color: #d1d5db; border-radius: 10px; border: 2px solid #f3f4f6; }
+      #news-container::-webkit-scrollbar-thumb:hover { background-color: #9ca3af; }
+      /* Xóa style max-height */
     </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100" id="page-index">
 
     <header id="header-placeholder"></header>
 
     <main>
-        <section class="hero-section relative text-center mb-12 text-white overflow-hidden rounded-b-lg shadow-xl min-h-[40vh] md:min-h-[50vh]">
-            <img src="/images/logo/webbanner.png" alt="IVS JSC Banner" class="absolute inset-0 w-full h-full object-cover z-0" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
+        <section class="hero-section relative text-center mb-12 overflow-hidden rounded-b-lg shadow-xl bg-gray-200"> <img src="/images/logo/webbanner.png"
+                 alt="IVS JSC Banner"
+                 class="hidden md:block w-full h-auto object-contain z-0 mx-auto" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
 
-            <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-30 z-10"></div>
+            <img src="/images/logo/webbannermo.png"
+                 alt="IVS JSC Banner Mobile"
+                 class="block md:hidden w-full h-auto object-contain z-0 mx-auto" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
 
-            <div class="container mx-auto px-4 relative z-20 h-full flex items-center justify-center">
+            <div class="absolute inset-0 z-20">
                 </div>
         </section>
 
         <div class="container mx-auto px-4 py-8">
-  
-        <section class="news-section mb-12">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" data-lang-key="index_news_title">Tin Tức & Sự Kiện</h2>
-            <div id="news-container" class="flex overflow-x-auto space-x-6 pb-4">
-                <p class="text-gray-500 w-full text-center" data-lang-key="loading_news">Đang tải tin tức...</p>
-            </div>
-        </section>
-        <section class="intro-section mb-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div class="order-2 md:order-1">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4" data-lang-key="index_about_title">Về Chúng Tôi</h2>
-                <p class="text-gray-600 mb-4" data-lang-key="index_about_p1">
-                    IVS JSC là tổ chức tiên phong trong lĩnh vực giáo dục, công nghệ giáo dục (EdTech), sức khỏe cộng đồng, hợp tác quốc tế, và phát triển kinh doanh tại Việt Nam.
-                </p>
-                <p class="text-gray-600 mb-4" data-lang-key="index_about_p2">
-                    Chúng tôi cung cấp giải pháp toàn diện từ giáo dục ngoại ngữ, kỹ năng sống, STEAM, đến các chương trình chăm sóc sức khỏe và ứng dụng công nghệ hiện đại.
-                </p>
-                <a href="about.html" class="text-blue-600 hover:underline font-medium" data-lang-key="view_details">Xem chi tiết →</a>
-            </div>
-            <div class="order-1 md:order-2">
-                 <img loading="lazy" src="images/ivs-celestech.jpg" alt="Hình ảnh giới thiệu IVS JSC" class="rounded-lg shadow-lg w-full h-auto object-cover max-h-96" data-lang-key="index_about_img_alt" onerror="this.onerror=null; this.src='https://placehold.co/600x400/eee/ccc?text=IVS+JSC';">
-            </div>
-        </section>
 
-        <section class="services-section mb-12">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" data-lang-key="index_activities_title">Lĩnh Vực Hoạt Động Chính</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_academy_title">IVS Academy</h3>
-                    <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_academy_desc">Đào tạo ngoại ngữ (Anh, Trung, Nhật), STEAM, kỹ năng mềm. Chương trình cộng đồng "Hãy Nói".</p>
-                    <a href="lien-ket-quoc-te.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_kindergarten_title">IVS Kindergarten</h3>
-                    <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_kindergarten_desc">Mầm non tiên phong áp dụng mô hình STEAM+Intelligence. Cơ sở vật chất hiện đại.</p>
-                    <a href="lkmamnon.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_celestech_title">IVS Celestech (EdTech)</h3>
-                    <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_celestech_desc">Phát triển giải pháp công nghệ giáo dục: E-learning, LMS, AI, VR/AR.</p>
-                    <a href="ivscelestech.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_health_title">IVS Health & Wellness</h3>
-                    <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_health_desc">Hợp tác phát triển sản phẩm sức khỏe như yến sào Thanh Yến, giáo dục dinh dưỡng cộng đồng.</p>
-                    <a href="health-yensao.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_cooperation_title">Hợp Tác Quốc Tế</h3>
-                    <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_cooperation_desc">Kết nối giáo dục và sức khỏe Việt Nam với thế giới: Du học, trại hè, liên kết đào tạo.</p>
-                    <a href="lien-ket-quoc-te.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
-                    <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_investment_title">Đầu Tư & Phát Triển</h3>
-                    <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_investment_desc">Xây dựng hệ thống giáo dục liên cấp IVS Global School và dự án bền vững.</p>
-                    <a href="dau-tu.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="video-section mb-12">
-            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" data-lang-key="index_video_title">Video Giới Thiệu</h2>
-            <div class="video-wrapper rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto">
-                <iframe loading="lazy" width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=34FCmlvMF1NAQ54N&list=PLwqdiwWIIO2ea6HZlKDVsCBTSJ-vooIOC" title="Video giới thiệu IVS JSC" data-lang-key="index_video_iframe_title" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-        </section>
-
-        <div class="container mx-auto max-w-5xl p-4 md:p-8 bg-white shadow-lg rounded-lg my-8">
-            <section class="mt-12">
-                <h2 class="text-2xl font-semibold text-orange-600 mb-4 pb-2 border-b border-gray-200" data-lang-key="index_vnexpress_title">
-                    Tin tức Giáo dục mới nhất từ VnExpress
-                </h2>
-                <div id="vnexpress-rss-feed" class="space-y-4">
-                    <p class="text-gray-500" data-lang-key="loading_news">Đang tải tin tức...</p>
+            <section class="news-section mb-12">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" data-lang-key="index_news_title">Tin Tức & Sự Kiện</h2>
+                <div id="news-container" class="flex overflow-x-auto space-x-6 pb-4">
+                    <p class="text-gray-500 w-full text-center" data-lang-key="loading_news">Đang tải tin tức...</p>
                 </div>
             </section>
-        </div>
-    </main>
+
+            <section class="intro-section mb-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="order-2 md:order-1">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4" data-lang-key="index_about_title">Về Chúng Tôi</h2>
+                    <p class="text-gray-600 mb-4" data-lang-key="index_about_p1">
+                        IVS JSC là tổ chức tiên phong trong lĩnh vực giáo dục, công nghệ giáo dục (EdTech), sức khỏe cộng đồng, hợp tác quốc tế, và phát triển kinh doanh tại Việt Nam.
+                    </p>
+                    <p class="text-gray-600 mb-4" data-lang-key="index_about_p2">
+                        Chúng tôi cung cấp giải pháp toàn diện từ giáo dục ngoại ngữ, kỹ năng sống, STEAM, đến các chương trình chăm sóc sức khỏe và ứng dụng công nghệ hiện đại.
+                    </p>
+                    <a href="about.html" class="text-blue-600 hover:underline font-medium" data-lang-key="view_details">Xem chi tiết →</a>
+                </div>
+                <div class="order-1 md:order-2">
+                    <img loading="lazy" src="images/ivs-celestech.jpg" alt="Hình ảnh giới thiệu IVS JSC" class="rounded-lg shadow-lg w-full h-auto object-cover max-h-96" data-lang-key="index_about_img_alt" onerror="this.onerror=null; this.src='https://placehold.co/600x400/eee/ccc?text=IVS+JSC';">
+                </div>
+            </section>
+
+            <section class="services-section mb-12">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" data-lang-key="index_activities_title">Lĩnh Vực Hoạt Động Chính</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                     <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_academy_title">IVS Academy</h3>
+                        <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_academy_desc">Đào tạo ngoại ngữ (Anh, Trung, Nhật), STEAM, kỹ năng mềm. Chương trình cộng đồng "Hãy Nói".</p>
+                        <a href="ivslanguages.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_kindergarten_title">IVS Kindergarten</h3>
+                        <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_kindergarten_desc">Mầm non tiên phong áp dụng mô hình STEAM+Intelligence. Cơ sở vật chất hiện đại.</p>
+                        <a href="lkmamnon.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_celestech_title">IVS Celestech (EdTech)</h3>
+                        <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_celestech_desc">Phát triển giải pháp công nghệ giáo dục: E-learning, LMS, AI, VR/AR.</p>
+                        <a href="ivscelestech.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_health_title">IVS Health & Wellness</h3>
+                        <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_health_desc">Hợp tác phát triển sản phẩm sức khỏe như yến sào Thanh Yến, giáo dục dinh dưỡng cộng đồng.</p>
+                        <a href="health-yensao.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_cooperation_title">Hợp Tác Quốc Tế</h3>
+                        <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_cooperation_desc">Kết nối giáo dục và sức khỏe Việt Nam với thế giới: Du học, trại hè, liên kết đào tạo.</p>
+                        <a href="lien-ket-quoc-te.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_investment_title">Đầu Tư & Phát Triển</h3>
+                        <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_investment_desc">Xây dựng hệ thống giáo dục liên cấp IVS Global School và dự án bền vững.</p>
+                        <a href="dau-tu.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="video-section mb-12">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" data-lang-key="index_video_title">Video Giới Thiệu</h2>
+                <div class="video-wrapper rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto">
+                    <iframe loading="lazy" width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=34FCmlvMF1NAQ54N&list=PLwqdiwWIIO2ea6HZlKDVsCBTSJ-vooIOC" title="Video giới thiệu IVS JSC" data-lang-key="index_video_iframe_title" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </section>
+
+            <div class="container mx-auto max-w-5xl p-4 md:p-8 bg-white shadow-lg rounded-lg my-8">
+                <section class="mt-12">
+                    <h2 class="text-2xl font-semibold text-orange-600 mb-4 pb-2 border-b border-gray-200" data-lang-key="index_vnexpress_title">
+                        Tin tức Giáo dục mới nhất từ VnExpress
+                    </h2>
+                    <div id="vnexpress-rss-feed" class="space-y-4">
+                        <p class="text-gray-500" data-lang-key="loading_news">Đang tải tin tức...</p>
+                    </div>
+                </section>
+            </div>
+        </div> </main>
 
     <footer id="footer-placeholder"></footer>
 
-    <script src="js/script.js" defer></script>
     <script src="js/language.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/script.js" defer></script>
     <script src="js/rss-loader.js" defer></script>
-
-    <script>
-        // Hàm tải tin tức nội bộ (posts.json)
-        function loadInternalNews() {
-            fetch('posts.json') // Đảm bảo file posts.json tồn tại
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
-                    const contentType = response.headers.get("content-type");
-                    if (!contentType || !contentType.includes("application/json")) throw new TypeError("Oops, we haven't got JSON!");
-                    return response.json();
-                })
-                .then(posts => {
-                    const newsContainer = document.getElementById('news-container');
-                    if (!newsContainer) return;
-                    newsContainer.innerHTML = ''; // Xóa "Đang tải..."
-
-                    const sortedPosts = Array.isArray(posts) ? posts.sort((a, b) => {
-                        try {
-                            // Ưu tiên 'date', sau đó đến 'id' nếu date giống nhau hoặc không có
-                            const dateA = a && a.date ? new Date(a.date) : null;
-                            const dateB = b && b.date ? new Date(b.date) : null;
-                            const idA = a && a.id ? parseInt(a.id, 10) : 0;
-                            const idB = b && b.id ? parseInt(b.id, 10) : 0;
-
-                            if (dateA instanceof Date && !isNaN(dateA) && dateB instanceof Date && !isNaN(dateB)) {
-                                if (dateB !== dateA) return dateB - dateA; // Sort by date desc
-                            } else if (dateA instanceof Date && !isNaN(dateA)) return -1; // A has date, B doesn't
-                            else if (dateB instanceof Date && !isNaN(dateB)) return 1;  // B has date, A doesn't
-
-                            // Fallback to sorting by ID desc if dates are same or invalid
-                            return idB - idA;
-
-                        } catch(e) { return 0; }
-                    }) : [];
-
-                    // Lấy tối đa 10 bài mới nhất
-                    const latestPosts = sortedPosts.slice(0, 10);
-                    const currentLang = localStorage.getItem('preferredLanguage') || 'vi'; // Lấy ngôn ngữ hiện tại
-
-                    if (latestPosts.length === 0) {
-                        const noNewsText = window.translations?.[currentLang]?.no_news || (currentLang === 'en' ? 'No news yet.' : 'Chưa có tin tức nào.');
-                        newsContainer.innerHTML = `<p class="text-gray-500 w-full text-center">${noNewsText}</p>`;
-                        // Quan trọng: Reset lại class của container nếu không có tin tức
-                        newsContainer.className = 'text-center'; // Bỏ flex, overflow...
-                        return;
-                    }
-
-                     // Cập nhật lại class cho container để có thể cuộn ngang
-                     newsContainer.className = 'flex overflow-x-auto space-x-6 pb-4';
-
-                    latestPosts.forEach(post => {
-                        const postElement = document.createElement('div');
-                        // Thêm class chiều rộng và flex-shrink-0 cho item
-                        postElement.className = 'bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col w-72 flex-shrink-0'; // w-72 có thể điều chỉnh
-
-                        const fallbackImage = 'https://placehold.co/400x250/E2E8F0/A0AEC0?text=News';
-                        // Đảm bảo đường dẫn ảnh đúng, nếu không bắt đầu bằng / hoặc http thì thêm / vào trước
-                        const imageUrl = post.image ? ((post.image.startsWith('/') || post.image.startsWith('http')) ? post.image : '/' + post.image) : fallbackImage;
-                        // QUAN TRỌNG: Đảm bảo 'post.link' trong posts.json là URL hợp lệ đến bài viết chi tiết
-                        const postLink = post.link || '#'; // Nếu không có link thì dùng #
-                        const title = post.title || (window.translations?.[currentLang]?.news_title_na || 'N/A');
-                        const excerpt = post.excerpt || '';
-                        const dateString = post.date ? new Date(post.date).toLocaleDateString(currentLang === 'en' ? 'en-US' : 'vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
-                        const readMoreText = window.translations?.[currentLang]?.read_more || 'Xem thêm →';
-                        const altText = post.title || (window.translations?.[currentLang]?.news_image_alt || 'News image');
-
-                        postElement.innerHTML = `
-                            <a href="${postLink}" class="block mb-3 group">
-                                <img src="${imageUrl}" alt="${altText}" class="rounded-md w-full h-40 object-cover transition-transform duration-300 group-hover:scale-105" onerror="this.onerror=null;this.src='${fallbackImage}';">
-                            </a>
-                            <div class="flex-grow flex flex-col">
-                                <h3 class="text-lg font-semibold text-gray-800 mb-1 group-hover:text-blue-600 transition duration-300 leading-tight">
-                                    <a href="${postLink}">${title}</a>
-                                </h3>
-                                <p class="text-gray-500 text-xs mb-2">${dateString}</p>
-                                <p class="text-gray-600 text-sm mb-3 flex-grow">${excerpt.substring(0, 80)}${excerpt.length > 80 ? '...' : ''}</p> <div class="mt-auto">
-                                    <a href="${postLink}" class="text-blue-600 hover:underline font-medium text-sm">${readMoreText}</a>
-                                </div>
-                            </div>
-                        `;
-                        newsContainer.appendChild(postElement);
-                    });
-                })
-                .catch(error => {
-                    console.error('Lỗi khi tải tin tức nội bộ:', error);
-                    const newsContainer = document.getElementById('news-container');
-                    if(newsContainer) {
-                        const currentLang = localStorage.getItem('preferredLanguage') || 'vi';
-                        const errorText = window.translations?.[currentLang]?.news_load_error || (currentLang === 'en' ? 'Could not load news.' : 'Không thể tải tin tức.');
-                        newsContainer.innerHTML = `<p class="text-red-500 w-full text-center">${errorText} ${error.message}.</p>`;
-                        newsContainer.className = 'text-center'; // Reset class nếu lỗi
-                    }
-                });
-        }
-
-        // Chạy loadInternalNews khi DOM đã sẵn sàng
-        document.addEventListener('DOMContentLoaded', loadInternalNews);
-
-        // Script tải Header/Footer (Giữ nguyên)
-        function loadComponent(url, placeholderId, callback) {
-             fetch(url)
-                .then(response => {
-                    if (!response.ok) throw new Error(`Failed to load ${url}: ${response.statusText}`);
-                    return response.text();
-                })
-                .then(data => {
-                    const placeholder = document.getElementById(placeholderId);
-                    if (placeholder) {
-                        placeholder.innerHTML = data;
-                        if (callback && typeof callback === 'function') {
-                            setTimeout(callback, 0);
-                        }
-                    }
-                })
-                .catch(error => console.error(`Error loading component ${url}:`, error));
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            loadComponent('header.html', 'header-placeholder', () => {
-                // Đảm bảo các hàm này tồn tại trong script.js hoặc language.js
-                if (typeof initializeMenu === 'function') initializeMenu();
-                if (typeof setLanguage === 'function') setLanguage(localStorage.getItem('preferredLanguage') || 'vi');
-            });
-            loadComponent('footer.html', 'footer-placeholder', () => {
-                 if (typeof setLanguage === 'function') setLanguage(localStorage.getItem('preferredLanguage') || 'vi');
-            });
-        });
-    </script>
 
 </body>
 </html>
