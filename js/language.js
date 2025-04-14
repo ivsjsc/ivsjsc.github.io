@@ -1,9 +1,15 @@
 // /js/language.js
 
-// Đối tượng lưu trữ các bản dịch (Giữ nguyên từ file gốc của bạn)
+// Đối tượng lưu trữ các bản dịch
 const translations = {
     vi: {
-        // Meta Tags
+        // Meta Tags (About Page - Thêm mới)
+        about_page_title: "Về Chúng Tôi - IVS JSC",
+        about_meta_description: "Tìm hiểu về IVS JSC - Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy, sứ mệnh, tầm nhìn, giá trị cốt lõi, đội ngũ lãnh đạo và các lĩnh vực hoạt động.",
+        about_og_title: "Về Chúng Tôi - IVS JSC",
+        about_og_description: "Khám phá IVS JSC: Kết nối giáo dục Việt Nam với công nghệ tiên tiến và chuẩn quốc tế.",
+
+        // Meta Tags (Các trang khác - giữ nguyên từ file gốc)
         page_title_index: "IVS JSC - Giáo dục, Công nghệ, Sức khỏe, Hợp tác Quốc tế",
         meta_description_index: "IVS JSC - Tổ chức tiên phong tại Việt Nam trong lĩnh vực giáo dục (IVS Academy, IVS Kindergarten), EdTech (IVS Celestech), sức khỏe cộng đồng và hợp tác quốc tế.",
         og_title_index: "IVS JSC - Giáo dục, Công nghệ, Sức khỏe, Hợp tác Quốc tế",
@@ -31,7 +37,7 @@ const translations = {
         og_title_webdesign: "Dịch vụ Thiết kế Website Chuyên nghiệp - IVS Tech Solutions",
         og_description_webdesign: "IVS JSC cung cấp dịch vụ thiết kế website chuyên nghiệp, chuẩn SEO, responsive, tối ưu cho doanh nghiệp và giáo dục.",
 
-        // Header v6
+        // Header v6 (Giữ nguyên)
         logo_alt: "Logo IVS JSC",
         menu_home: "Trang chủ",
         menu_about: "Giới thiệu",
@@ -49,7 +55,6 @@ const translations = {
         menu_cooperation: "Hợp tác",
         menu_international_link: "Liên kết Quốc tế",
         menu_iivsa_alliance: "Liên minh IIVSA",
-        // menu_school_link: "Liên kết Trường học", // Key này đã được đổi thành menu_educational_link
         menu_educational_link: "Liên kết giáo dục", // Key mới
         menu_link_preschool: "Mầm non",
         menu_link_primary: "Tiểu học",
@@ -71,7 +76,6 @@ const translations = {
         menu_recruitment_intl: "Tuyển dụng quốc tế",
         menu_contact: "Liên hệ",
         open_main_menu: "Mở menu chính",
-        // Thêm các key còn thiếu từ header nếu cần
         menu_training_center: "Tại trung tâm",
         menu_training_language: "Đào tạo ngoại ngữ",
         menu_training_lifeskills: "Đào tạo kỹ năng sống",
@@ -83,8 +87,7 @@ const translations = {
         menu_library_docs: "Tài liệu giáo dục",
         menu_library_media: "IVSMedia",
 
-
-        // Index Page v2
+        // Index Page v2 (Giữ nguyên)
         index_hero_title: "Chào mừng đến với IVS JSC",
         index_hero_subtitle: "Kiến tạo tương lai giáo dục và sức khỏe Việt Nam",
         learn_more: "Tìm hiểu thêm",
@@ -117,7 +120,44 @@ const translations = {
         index_video_title: "Video Giới Thiệu",
         index_video_iframe_title: "Video giới thiệu IVS JSC",
 
-        // Footer
+        // About Page Content (Thêm mới)
+        about_heading: "Về Chúng Tôi",
+        about_intro_heading: "Giới thiệu IVS JSC",
+        about_intro_p1_strong: "Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy (IVS JSC)",
+        about_intro_p1_text: " được thành lập với sứ mệnh kết nối và nâng tầm giáo dục Việt Nam thông qua việc tích hợp các giải pháp công nghệ tiên tiến và chương trình đào tạo chuẩn quốc tế. Chúng tôi tự hào là thành viên chính thức của ",
+        about_intro_p1_link: "Liên minh giáo dục toàn cầu IIVSA",
+        about_intro_p1_end: ", khẳng định cam kết về chất lượng và hợp tác quốc tế.",
+        about_intro_p2: "Với trụ sở chính tại Đồng Nai và mạng lưới hoạt động rộng khắp, IVS JSC tập trung vào các lĩnh vực cốt lõi bao gồm đào tạo STEAM, ngoại ngữ, kỹ năng mềm và tư vấn giáo dục toàn diện, hướng đến sự phát triển bền vững cho thế hệ tương lai.",
+        about_vision_title: "Tầm Nhìn",
+        about_vision_desc: "Trở thành tổ chức giáo dục hàng đầu, tiên phong trong việc ứng dụng công nghệ và đổi mới sáng tạo để kiến tạo tương lai giáo dục Việt Nam hội nhập quốc tế.",
+        about_mission_title: "Sứ Mệnh",
+        about_mission_desc: "Cung cấp các giải pháp giáo dục toàn diện, chất lượng cao, giúp người học phát huy tối đa tiềm năng, tự tin hội nhập và đóng góp cho cộng đồng.",
+        about_values_title: "Giá Trị Cốt Lõi",
+        about_values_strong: "Chất lượng – Tận tâm – Sáng tạo – Bình đẳng.",
+        about_values_desc: " Chúng tôi cam kết mang đến dịch vụ giáo dục tốt nhất với sự tận tụy, không ngừng đổi mới và đảm bảo cơ hội học tập công bằng cho mọi người.",
+        about_leadership_heading: "Đội Ngũ Lãnh Đạo",
+        about_leadership_img_alt: "Nguyễn Minh Triết - CEO",
+        about_leadership_name: "Ông Nguyễn Minh Triết",
+        about_leadership_title: "Tổng Giám đốc (CEO) kiêm Chủ tịch HĐQT",
+        about_leadership_desc: "Với nền tảng vững chắc về Ngôn ngữ Anh, Quản trị Kinh doanh (MBA - ĐH FPT) và kinh nghiệm quản lý giáo dục, ông Triết dẫn dắt IVS JSC bằng tầm nhìn chiến lược và tâm huyết với sự nghiệp giáo dục. Ông có kinh nghiệm làm việc tại các tổ chức uy tín như VietJet Air, The Grand Ho Tram Strip và AMG Education.",
+        about_leadership_link: "Xem thêm thông tin",
+        about_areas_heading: "Lĩnh Vực Hoạt Động Chính",
+        about_area1_strong: "IVS Academy:",
+        about_area1_desc: " Trung tâm đào tạo ngôn ngữ (Anh, Nhật, Hàn, Trung) và kỹ năng mềm, kỹ năng sống.",
+        about_area2_strong: "IVS Education:",
+        about_area2_desc: " Phát triển chương trình STEAM, giải pháp học tập số, và tư vấn xây dựng trường học/trung tâm theo chuẩn quốc tế.",
+        about_area3_strong: "Liên kết Quốc tế:",
+        about_area3_desc: " Hợp tác với các đối tác giáo dục toàn cầu (ví dụ: The Power to Inspire - Mỹ, Dự án Kinderlink25) để mang chương trình và phương pháp tiên tiến về Việt Nam.",
+        about_area4_strong: "Nghiên cứu & Phát triển (R&D):",
+        about_area4_desc: " Không ngừng nghiên cứu và phát triển các chương trình giáo dục mới, phù hợp với xu thế và nhu cầu thực tiễn.",
+        about_partners_heading: "Đối Tác và Liên Kết Tiêu Biểu",
+        about_partner1: "Liên minh giáo dục toàn cầu IIVSA (Thành viên chính thức)",
+        about_partner2: "The Power to Inspire (Hoa Kỳ) - Đối tác chiến lược",
+        about_partner3: "Dự án Kinderlink25 - Hợp tác phát triển chương trình mầm non",
+        about_partner4: "Các trường học, trung tâm đào tạo và tổ chức giáo dục trong và ngoài nước.",
+        about_partners_p: "Chúng tôi tin rằng sự hợp tác chặt chẽ sẽ tạo nên sức mạnh tổng hợp, thúc đẩy sự phát triển của giáo dục.",
+
+        // Footer (Giữ nguyên)
         footer_company_name: "IVS JSC",
         footer_rights: "Bản quyền thuộc về IVS JSC.",
         footer_contact_us: "Liên hệ chúng tôi",
@@ -142,7 +182,7 @@ const translations = {
         footer_message_academy_sr: "Nhắn tin Facebook cho IVS Academy",
         footer_message_mastery_sr: "Nhắn tin Facebook cho IVS Mastery",
 
-        // Trang rnd-curriculum.html v2
+        // Trang rnd-curriculum.html v2 (Giữ nguyên)
         rnd_hero_title: "Thiết kế Học liệu & Giải pháp EdTech theo Yêu cầu",
         rnd_hero_subtitle: "Từ IVS Education & IVS Celestech - Biến ý tưởng giáo dục thành hiện thực",
         rnd_intro_heading: "Bạn cần giải pháp giáo dục độc đáo và hiệu quả?",
@@ -186,7 +226,7 @@ const translations = {
         rnd_cta_desc: "Hãy chia sẻ ý tưởng hoặc yêu cầu của bạn với chúng tôi. Đội ngũ IVS Education & IVS Celestech luôn sẵn sàng lắng nghe và đồng hành cùng bạn kiến tạo những giải pháp giáo dục đột phá.",
         rnd_cta_button: "Liên hệ Tư vấn R&D",
 
-        // Trang tai-tro.html
+        // Trang tai-tro.html (Giữ nguyên)
         sponsorship_hero_title: "Tài trợ Cộng đồng - Đồng hành cùng IVS Kiến tạo Giá trị",
         sponsorship_hero_subtitle: "Chung tay vì một thế hệ tương lai được trang bị đầy đủ tri thức và kỹ năng",
         sponsorship_intro_heading: "Tại sao nên Đồng hành Tài trợ cùng IVS Education?",
@@ -221,7 +261,7 @@ const translations = {
         sponsorship_cta_desc: "Mỗi đóng góp, dù lớn hay nhỏ, đều mang ý nghĩa to lớn trong việc kiến tạo một tương lai tươi sáng hơn cho thế hệ trẻ Việt Nam. IVS Education trân trọng mọi sự quan tâm và đồng hành của quý vị.",
         sponsorship_cta_button: "Liên hệ Tài trợ Ngay",
 
-        // Trang ivscelestech.html
+        // Trang ivscelestech.html (Giữ nguyên)
         celestech_hero_title: "IVS Celestech - Giải pháp Công nghệ Giáo dục Toàn diện",
         celestech_hero_subtitle: "Kiến tạo môi trường học tập Thông minh - Sáng tạo - Hiệu quả",
         celestech_intro_heading: "IVS Celestech: Tiên phong Ứng dụng Công nghệ vào Giáo dục",
@@ -251,7 +291,7 @@ const translations = {
         celestech_cta_desc: "Hãy để IVS Celestech đồng hành cùng bạn trên hành trình chuyển đổi số giáo dục. Liên hệ với chúng tôi ngay hôm nay để khám phá các giải pháp phù hợp nhất!",
         celestech_cta_button: "Yêu cầu Tư vấn Giải pháp",
 
-        // Trang english-placement.html
+        // Trang english-placement.html (Giữ nguyên)
         placement_hero_title: "Kiểm tra Năng lực Tiếng Anh Trực tuyến",
         placement_hero_subtitle: "Đánh giá trình độ nhanh chóng theo chuẩn CEFR - Miễn phí!",
         placement_intro_heading: "Xác định trình độ - Chọn đúng lộ trình",
@@ -294,7 +334,7 @@ const translations = {
         sample_option_c: "Đáp án C",
         sample_option_d: "Đáp án D",
 
-        // Trang thanhlaptrungtam.html (Keys mới)
+        // Trang thanhlaptrungtam.html (Keys mới) (Giữ nguyên)
         establishment_hero_title: "Thành lập Trung tâm Ngoại ngữ - Tin học - Kỹ năng sống",
         establishment_hero_subtitle: "Dịch vụ Tư vấn & Hỗ trợ Thủ tục Toàn diện từ IVS Education",
         establishment_intro_heading: "Biến ý tưởng thành Hiện thực - Mở Trung tâm của riêng bạn!",
@@ -335,7 +375,13 @@ const translations = {
         establishment_cta_button: "Yêu cầu Tư vấn Ngay",
     },
     en: {
-        // Meta Tags
+        // Meta Tags (About Page - Added)
+        about_page_title: "About Us - IVS JSC",
+        about_meta_description: "Learn about IVS JSC - Integrate Vision Synergy Commercial Service Joint Stock Company, its mission, vision, core values, leadership team, and areas of operation.",
+        about_og_title: "About Us - IVS JSC",
+        about_og_description: "Discover IVS JSC: Connecting Vietnamese education with advanced technology and international standards.",
+
+        // Meta Tags (Other pages - kept from original file)
         page_title_index: "IVS JSC - Education, Technology, Health, International Cooperation",
         meta_description_index: "IVS JSC - A pioneering organization in Vietnam in education (IVS Academy, IVS Kindergarten), EdTech (IVS Celestech), public health, and international cooperation.",
         og_title_index: "IVS JSC - Education, Technology, Health, International Cooperation",
@@ -363,7 +409,7 @@ const translations = {
         og_title_webdesign: "Professional Website Design Services - IVS Tech Solutions",
         og_description_webdesign: "IVS JSC offers professional, SEO-friendly, responsive website design services optimized for businesses and education.",
 
-        // Header v6
+        // Header v6 (Kept)
         logo_alt: "IVS JSC Logo",
         menu_home: "Home",
         menu_about: "About Us",
@@ -381,7 +427,6 @@ const translations = {
         menu_cooperation: "Cooperation",
         menu_international_link: "International Linkage",
         menu_iivsa_alliance: "IIVSA Alliance",
-        // menu_school_link: "School Linkage", // Replaced by educational_link
         menu_educational_link: "Educational Linkage", // New key
         menu_link_preschool: "Preschool",
         menu_link_primary: "Primary School",
@@ -403,7 +448,6 @@ const translations = {
         menu_recruitment_intl: "International Recruitment",
         menu_contact: "Contact",
         open_main_menu: "Open main menu",
-        // Add missing keys from header if needed
         menu_training_center: "At Center",
         menu_training_language: "Language Training",
         menu_training_lifeskills: "Life Skills Training",
@@ -415,7 +459,7 @@ const translations = {
         menu_library_docs: "Educational Documents",
         menu_library_media: "IVSMedia",
 
-        // Index Page v2
+        // Index Page v2 (Kept)
         index_hero_title: "Welcome to IVS JSC",
         index_hero_subtitle: "Shaping the future of education and health in Vietnam",
         learn_more: "Learn more",
@@ -448,7 +492,44 @@ const translations = {
         index_video_title: "Introductory Video",
         index_video_iframe_title: "IVS JSC introduction video",
 
-        // Footer
+        // About Page Content (Added)
+        about_heading: "About Us",
+        about_intro_heading: "Introduction to IVS JSC",
+        about_intro_p1_strong: "Integrate Vision Synergy Commercial Service Joint Stock Company (IVS JSC)",
+        about_intro_p1_text: " was established with the mission of connecting and elevating Vietnamese education by integrating advanced technology solutions and international standard training programs. We are proud to be an official member of the ",
+        about_intro_p1_link: "IIVSA Global Education Alliance",
+        about_intro_p1_end: ", affirming our commitment to quality and international cooperation.",
+        about_intro_p2: "With its headquarters in Dong Nai and a wide network of operations, IVS JSC focuses on core areas including STEAM training, foreign languages, soft skills, and comprehensive educational consulting, aiming for the sustainable development of future generations.",
+        about_vision_title: "Vision",
+        about_vision_desc: "To become a leading educational organization, pioneering the application of technology and innovation to shape the future of Vietnamese education integrated internationally.",
+        about_mission_title: "Mission",
+        about_mission_desc: "To provide comprehensive, high-quality educational solutions, helping learners maximize their potential, confidently integrate, and contribute to the community.",
+        about_values_title: "Core Values",
+        about_values_strong: "Quality – Dedication – Creativity – Equality.",
+        about_values_desc: " We are committed to delivering the best educational services with dedication, continuous innovation, and ensuring fair learning opportunities for everyone.",
+        about_leadership_heading: "Leadership Team",
+        about_leadership_img_alt: "Nguyen Minh Triet - CEO",
+        about_leadership_name: "Mr. Nguyen Minh Triet",
+        about_leadership_title: "CEO & Chairman of the Board",
+        about_leadership_desc: "With a solid background in English Language, Business Administration (MBA - FPT University), and educational management experience, Mr. Triet leads IVS JSC with strategic vision and dedication to education. He has experience working at reputable organizations such as VietJet Air, The Grand Ho Tram Strip, and AMG Education.",
+        about_leadership_link: "View more details",
+        about_areas_heading: "Main Areas of Operation",
+        about_area1_strong: "IVS Academy:",
+        about_area1_desc: " Language training center (English, Japanese, Korean, Chinese) and soft skills, life skills.",
+        about_area2_strong: "IVS Education:",
+        about_area2_desc: " Development of STEAM programs, digital learning solutions, and consulting for building schools/centers according to international standards.",
+        about_area3_strong: "International Affiliation:",
+        about_area3_desc: " Collaborating with global education partners (e.g., The Power to Inspire - USA, Kinderlink25 Project) to bring advanced programs and methods to Vietnam.",
+        about_area4_strong: "Research & Development (R&D):",
+        about_area4_desc: " Continuously researching and developing new educational programs that align with trends and practical needs.",
+        about_partners_heading: "Key Partners and Affiliates",
+        about_partner1: "IIVSA Global Education Alliance (Official Member)",
+        about_partner2: "The Power to Inspire (USA) - Strategic Partner",
+        about_partner3: "Kinderlink25 Project - Early Childhood Program Development Collaboration",
+        about_partner4: "Domestic and international schools, training centers, and educational organizations.",
+        about_partners_p: "We believe that close collaboration creates synergy, driving the development of education.",
+
+        // Footer (Kept)
         footer_company_name: "IVS JSC",
         footer_rights: "All rights reserved.",
         footer_contact_us: "Contact us",
@@ -473,7 +554,7 @@ const translations = {
         footer_message_academy_sr: "Message IVS Academy on Facebook",
         footer_message_mastery_sr: "Message IVS Mastery on Facebook",
 
-         // Trang rnd-curriculum.html v2
+        // Trang rnd-curriculum.html v2 (Kept)
         rnd_hero_title: "Custom Curriculum & EdTech Solutions",
         rnd_hero_subtitle: "From IVS Education & IVS Celestech - Turning Educational Ideas into Reality",
         rnd_intro_heading: "Need Unique and Effective Educational Solutions?",
@@ -517,7 +598,7 @@ const translations = {
         rnd_cta_desc: "Share your ideas or requirements with us. The IVS Education & IVS Celestech team is always ready to listen and partner with you to create groundbreaking educational solutions.",
         rnd_cta_button: "Contact R&D Consulting",
 
-        // Trang tai-tro.html
+        // Trang tai-tro.html (Kept)
         sponsorship_hero_title: "Community Sponsorship - Partner with IVS to Create Value",
         sponsorship_hero_subtitle: "Joining hands for a future generation fully equipped with knowledge and skills",
         sponsorship_intro_heading: "Why Partner in Sponsorship with IVS Education?",
@@ -552,7 +633,7 @@ const translations = {
         sponsorship_cta_desc: "Every contribution, big or small, holds great significance in building a brighter future for the young generation of Vietnam. IVS Education appreciates all your interest and partnership.",
         sponsorship_cta_button: "Contact for Sponsorship Now",
 
-         // Trang ivscelestech.html
+        // Trang ivscelestech.html (Kept)
         celestech_hero_title: "IVS Celestech - Comprehensive EdTech Solutions",
         celestech_hero_subtitle: "Creating Smart - Creative - Effective Learning Environments",
         celestech_intro_heading: "IVS Celestech: Pioneering Technology Application in Education",
@@ -582,7 +663,7 @@ const translations = {
         celestech_cta_desc: "Let IVS Celestech accompany you on the journey of digital transformation in education. Contact us today to explore the most suitable solutions!",
         celestech_cta_button: "Request Solution Consultation",
 
-        // Trang english-placement.html
+        // Trang english-placement.html (Kept)
         placement_hero_title: "Online English Placement Test",
         placement_hero_subtitle: "Quickly assess your level according to the CEFR standard - Free!",
         placement_intro_heading: "Determine your level - Choose the right path",
@@ -625,7 +706,7 @@ const translations = {
         sample_option_c: "Answer C",
         sample_option_d: "Answer D",
 
-        // thanhlaptrungtam.html Page (New Keys)
+        // thanhlaptrungtam.html Page (New Keys) (Kept)
         establishment_hero_title: "Establishment of Language - IT - Life Skills Centers",
         establishment_hero_subtitle: "Comprehensive Consulting & Procedural Support Service from IVS Education",
         establishment_intro_heading: "Turn Ideas into Reality - Open Your Own Center!",
@@ -666,6 +747,7 @@ const translations = {
         establishment_cta_button: "Request Consultation Now",
     }
 };
+
 
 // Biến cờ toàn cục để đảm bảo ngôn ngữ chỉ được khởi tạo một lần
 // (Sẽ được kiểm tra bởi script.js trước khi gọi initializeLanguage)
@@ -752,17 +834,36 @@ function updateLanguageButtonStates(lang) {
     buttons.forEach(button => {
         if (!button) return;
         const buttonLang = button.getAttribute('data-lang');
-        const isDesktop = button.id.includes('-desktop'); // Kiểm tra xem là nút desktop hay mobile
-        const activeClass = isDesktop ? 'active-lang-desktop' : 'active-lang-mobile';
+        const isDesktop = button.closest('#menu-desktop') !== null; // Kiểm tra xem có nằm trong menu desktop không
+        const isMobile = button.closest('#menu-mobile') !== null; // Kiểm tra xem có nằm trong menu mobile không
+
+        let activeClass = '';
+        if (isDesktop) {
+            activeClass = 'active-lang-desktop'; // Class cho nút desktop active
+        } else if (isMobile) {
+            activeClass = 'active-lang-mobile'; // Class cho nút mobile active
+        } else {
+            // Fallback hoặc xử lý cho nút không nằm trong header (nếu có)
+            activeClass = 'active'; // Class chung
+        }
+
 
         if (buttonLang === lang) {
             // Nút active
             button.classList.add(activeClass);
+            // Thêm các class Tailwind khác nếu cần để biểu thị trạng thái active
+             button.classList.add('font-semibold', 'text-orange-500'); // Ví dụ
+             button.classList.remove('text-gray-500', 'hover:text-gray-900'); // Bỏ class inactive
             button.disabled = true; // Vô hiệu hóa nút đang chọn
+            button.setAttribute('aria-current', 'page'); // Cho accessibility
         } else {
             // Nút inactive
             button.classList.remove(activeClass);
+            // Bỏ các class active nếu có
+             button.classList.remove('font-semibold', 'text-orange-500');
+             button.classList.add('text-gray-500', 'hover:text-gray-900'); // Thêm class inactive
             button.disabled = false; // Kích hoạt nút không được chọn
+            button.removeAttribute('aria-current');
         }
     });
 }
@@ -803,6 +904,13 @@ function setLanguage(lang) {
         }
     }
     // Thêm các hàm cập nhật khác nếu có (ví dụ: loadNews())
+    if (typeof loadNews === 'function') {
+        // Kiểm tra xem có phần tử hiển thị tin tức không trước khi gọi
+        if (document.getElementById('news-container')) { // Giả sử id là news-container
+             console.log("Reloading news after language change...");
+             loadNews(); // Tải lại tin tức với ngôn ngữ mới
+        }
+    }
 }
 
 
@@ -842,7 +950,20 @@ function attachLanguageButtonListeners() {
 
     if (buttons.length === 0) {
         console.warn("No language buttons (.lang-button) found inside header placeholder.");
-        return;
+        // Thử tìm nút trong toàn bộ document phòng trường hợp nút không nằm trong header
+        const globalButtons = document.querySelectorAll('.lang-button');
+        if(globalButtons.length > 0) {
+            console.log("Found language buttons outside header placeholder. Attaching listeners globally.");
+             globalButtons.forEach(button => {
+                button.removeEventListener('click', handleLanguageChange);
+                button.addEventListener('click', handleLanguageChange);
+            });
+             console.log(`Language button listeners attached to ${globalButtons.length} global buttons.`);
+             return; // Đã gắn listener, thoát hàm
+        } else {
+             console.error("No language buttons found anywhere.");
+             return;
+        }
     }
 
     buttons.forEach(button => {
@@ -851,7 +972,7 @@ function attachLanguageButtonListeners() {
         // Gắn listener mới
         button.addEventListener('click', handleLanguageChange);
     });
-    console.log(`Language button listeners attached to ${buttons.length} buttons.`);
+    console.log(`Language button listeners attached to ${buttons.length} buttons inside header.`);
 }
 
 /**
@@ -860,10 +981,6 @@ function attachLanguageButtonListeners() {
  */
 function initializeLanguage() {
     // Cờ này được quản lý bởi script.js, không cần kiểm tra lại ở đây
-    // if (window.languageInitialized) {
-    //     console.warn("Language already initialized, skipping re-initialization.");
-    //     return;
-    // }
     console.log("Initializing language system...");
 
     // Lấy ngôn ngữ ưu tiên từ localStorage hoặc mặc định là 'vi'
@@ -876,7 +993,6 @@ function initializeLanguage() {
     setLanguage(preferredLanguage);
 
     // Đánh dấu đã khởi tạo (quản lý bởi script.js)
-    // window.languageInitialized = true;
     console.log("Language initialization complete.");
 }
 
@@ -903,65 +1019,62 @@ function updatePlacementResultText(lang) {
     // --- Placeholder Result Data ---
     // In a real application, you would get the actual test score
     // and determine the level and suggestions based on that score.
-    const placeholderScore = 75; // Example score
-    let determinedLevel = 'B1'; // Example level based on score
-    if (placeholderScore < 30) determinedLevel = 'A1';
-    else if (placeholderScore < 50) determinedLevel = 'A2';
-    else if (placeholderScore < 70) determinedLevel = 'B1';
-    else if (placeholderScore < 90) determinedLevel = 'B2';
-    else determinedLevel = 'C1';
+    // This should ideally read from a variable set when the test completes.
+    const testResult = JSON.parse(sessionStorage.getItem('placementTestResult') || '{}');
+    const determinedLevel = testResult.level || 'B1'; // Default to B1 if no result stored
     // --- End Placeholder ---
 
 
-     // Static result data (replace with dynamic logic based on 'determinedLevel')
-     // This structure is just for demonstration based on previous context.
-     const resultData = {
-         vi: {
-             A1: { level: 'A1 (Sơ cấp 1)', description: 'Mô tả trình độ A1...', courses: [{ name: 'Khóa Tiếng Anh A1', link: '#' }] },
-             A2: { level: 'A2 (Sơ cấp 2)', description: 'Mô tả trình độ A2...', courses: [{ name: 'Khóa Tiếng Anh A2', link: '#' }] },
-             B1: { level: 'B1 (Trung cấp)', description: 'Bạn có thể hiểu các ý chính của các chủ đề quen thuộc...', courses: [{ name: 'Khóa Tiếng Anh Giao tiếp B1+', link: '#' }, { name: 'Luyện thi IELTS Mục tiêu 5.0-6.0', link: '#' }] },
-             B2: { level: 'B2 (Trung-Cao cấp)', description: 'Mô tả trình độ B2...', courses: [{ name: 'Khóa Tiếng Anh B2', link: '#' }, { name: 'Luyện thi IELTS Mục tiêu 6.5+', link: '#' }] },
-             C1: { level: 'C1 (Cao cấp)', description: 'Mô tả trình độ C1...', courses: [{ name: 'Khóa Tiếng Anh C1', link: '#' }] },
-             C2: { level: 'C2 (Thành thạo)', description: 'Mô tả trình độ C2...', courses: [{ name: 'Khóa Tiếng Anh C2', link: '#' }] },
-         },
-         en: {
-             A1: { level: 'A1 (Beginner)', description: 'Description for A1 level...', courses: [{ name: 'A1 English Course', link: '#' }] },
-             A2: { level: 'A2 (Elementary)', description: 'Description for A2 level...', courses: [{ name: 'A2 English Course', link: '#' }] },
-             B1: { level: 'B1 (Intermediate)', description: 'You can understand the main points of clear standard input...', courses: [{ name: 'B1+ Communicative English Course', link: '#' }, { name: 'IELTS Preparation (Target 5.0-6.0)', link: '#' }] },
-             B2: { level: 'B2 (Upper-Intermediate)', description: 'Description for B2 level...', courses: [{ name: 'B2 English Course', link: '#' }, { name: 'IELTS Preparation (Target 6.5+)', link: '#' }] },
-             C1: { level: 'C1 (Advanced)', description: 'Description for C1 level...', courses: [{ name: 'C1 English Course', link: '#' }] },
-             C2: { level: 'C2 (Proficient)', description: 'Description for C2 level...', courses: [{ name: 'C2 English Course', link: '#' }] },
-         }
-     };
+      // Static result data (replace with dynamic logic based on 'determinedLevel')
+      // This structure is just for demonstration based on previous context.
+      const resultData = {
+          vi: {
+              A1: { level: 'A1 (Sơ cấp 1)', description: 'Có thể hiểu và sử dụng các cấu trúc quen thuộc hàng ngày và các cụm từ rất cơ bản nhằm đáp ứng nhu cầu cụ thể.', courses: [{ name: 'Khóa Tiếng Anh A1', link: '#' }] },
+              A2: { level: 'A2 (Sơ cấp 2)', description: 'Có thể hiểu các câu và cách diễn đạt thường dùng liên quan đến các lĩnh vực liên quan trực tiếp nhất (ví dụ: thông tin cá nhân và gia đình rất cơ bản, mua sắm, địa lý địa phương, việc làm).', courses: [{ name: 'Khóa Tiếng Anh A2', link: '#' }] },
+              B1: { level: 'B1 (Trung cấp)', description: 'Có thể hiểu các ý chính của thông tin rõ ràng, chuẩn mực về các vấn đề quen thuộc thường gặp trong công việc, trường học, giải trí, v.v.', courses: [{ name: 'Khóa Tiếng Anh Giao tiếp B1+', link: '#' }, { name: 'Luyện thi IELTS Mục tiêu 5.0-6.0', link: '#' }] },
+              B2: { level: 'B2 (Trung-Cao cấp)', description: 'Có thể hiểu ý chính của văn bản phức tạp về cả chủ đề cụ thể và trừu tượng, bao gồm cả các thảo luận kỹ thuật trong lĩnh vực chuyên môn của mình.', courses: [{ name: 'Khóa Tiếng Anh B2', link: '#' }, { name: 'Luyện thi IELTS Mục tiêu 6.5+', link: '#' }] },
+              C1: { level: 'C1 (Cao cấp)', description: 'Có thể hiểu nhiều loại văn bản dài và đòi hỏi cao, và nhận ra ý nghĩa tiềm ẩn. Có thể diễn đạt bản thân một cách trôi chảy và tự nhiên mà không cần tìm kiếm biểu thức rõ ràng.', courses: [{ name: 'Khóa Tiếng Anh C1', link: '#' }] },
+              C2: { level: 'C2 (Thành thạo)', description: 'Có thể hiểu dễ dàng hầu hết mọi thứ nghe hoặc đọc. Có thể tóm tắt thông tin từ các nguồn nói và viết khác nhau, tái cấu trúc các lập luận và trình bày một cách mạch lạc.', courses: [{ name: 'Khóa Tiếng Anh C2', link: '#' }] },
+          },
+          en: {
+              A1: { level: 'A1 (Beginner)', description: 'Can understand and use familiar everyday expressions and very basic phrases aimed at the satisfaction of needs of a concrete type.', courses: [{ name: 'A1 English Course', link: '#' }] },
+              A2: { level: 'A2 (Elementary)', description: 'Can understand sentences and frequently used expressions related to areas of most immediate relevance (e.g. very basic personal and family information, shopping, local geography, employment).', courses: [{ name: 'A2 English Course', link: '#' }] },
+              B1: { level: 'B1 (Intermediate)', description: 'Can understand the main points of clear standard input on familiar matters regularly encountered in work, school, leisure, etc.', courses: [{ name: 'B1+ Communicative English Course', link: '#' }, { name: 'IELTS Preparation (Target 5.0-6.0)', link: '#' }] },
+              B2: { level: 'B2 (Upper-Intermediate)', description: 'Can understand the main ideas of complex text on both concrete and abstract topics, including technical discussions in his/her field of specialisation.', courses: [{ name: 'B2 English Course', link: '#' }, { name: 'IELTS Preparation (Target 6.5+)', link: '#' }] },
+              C1: { level: 'C1 (Advanced)', description: 'Can understand a wide range of demanding, longer texts, and recognise implicit meaning. Can express him/herself fluently and spontaneously without much obvious searching for expressions.', courses: [{ name: 'C1 English Course', link: '#' }] },
+              C2: { level: 'C2 (Proficient)', description: 'Can understand with ease virtually everything heard or read. Can summarise information from different spoken and written sources, reconstructing arguments and accounts in a coherent presentation.', courses: [{ name: 'C2 English Course', link: '#' }] },
+          }
+      };
 
-     // Get the specific result text based on determined level and language
-     const currentResult = resultData[lang]?.[determinedLevel] || resultData['vi']?.[determinedLevel] || { level: 'N/A', description: '...', courses: [] }; // Fallback
+      // Get the specific result text based on determined level and language
+      const currentResult = resultData[lang]?.[determinedLevel] || resultData['vi']?.[determinedLevel] || { level: 'N/A', description: '...', courses: [] }; // Fallback
 
-     // Update the DOM elements
-     estimatedLevelEl.textContent = currentResult.level;
-     levelDescEl.textContent = currentResult.description;
+      // Update the DOM elements
+      estimatedLevelEl.textContent = currentResult.level;
+      levelDescEl.textContent = currentResult.description;
 
-     // Clear previous course suggestions and add new ones
-     coursesListEl.innerHTML = ''; // Clear existing list items
-     if (currentResult.courses && currentResult.courses.length > 0) {
-         currentResult.courses.forEach(course => {
-             const li = document.createElement('li');
-             const a = document.createElement('a');
-             a.href = course.link || '#'; // Default link to '#' if not provided
-             a.textContent = course.name;
-             a.className = 'text-primary hover:underline'; // Use primary color defined elsewhere
-             li.appendChild(a);
-             coursesListEl.appendChild(li);
-         });
-     } else {
-         // Optional: Display a message if no courses are suggested
-         const li = document.createElement('li');
-         li.textContent = lang === 'vi' ? 'Không có khóa học gợi ý nào cho trình độ này.' : 'No suggested courses for this level.';
-         li.className = 'text-gray-500 italic';
-         coursesListEl.appendChild(li);
-     }
+      // Clear previous course suggestions and add new ones
+      coursesListEl.innerHTML = ''; // Clear existing list items
+      if (currentResult.courses && currentResult.courses.length > 0) {
+          currentResult.courses.forEach(course => {
+              const li = document.createElement('li');
+              const a = document.createElement('a');
+              a.href = course.link || '#'; // Default link to '#' if not provided
+              a.textContent = course.name;
+              a.className = 'text-blue-600 hover:underline'; // Use a common link style
+              li.appendChild(a);
+              coursesListEl.appendChild(li);
+          });
+      } else {
+          // Optional: Display a message if no courses are suggested
+          const li = document.createElement('li');
+          li.textContent = lang === 'vi' ? 'Không có khóa học gợi ý nào cho trình độ này.' : 'No suggested courses for this level.';
+          li.className = 'text-gray-500 italic';
+          coursesListEl.appendChild(li);
+      }
 }
 
 // Lưu ý: Hàm initializeLanguage() này nên được gọi từ script.js
 // sau khi header.html đã được tải thành công vào #header-placeholder.
 // Không cần gọi nó từ DOMContentLoaded listener trong file này nữa.
+
