@@ -35,9 +35,19 @@
               'gray-600': '#4b5563',
               'gray-500': '#6b7280',
               'gray-300': '#d1d5db',
-              'gray-200': '#e5e7eb', // Màu nền dự phòng cho banner
+              'gray-200': '#e5e7eb',
               'gray-100': '#f3f4f6',
+              'blue-50': '#eff6ff', // For Academy card bg
               'blue-600': '#2563eb',
+              'pink-50': '#fdf2f8', // For Kindergarten card bg
+              'pink-500': '#ec4899',
+              'indigo-50': '#eef2ff', // For Celestech card bg
+              'indigo-600': '#4f46e5',
+              'emerald-50': '#ecfdf5', // For Health card bg
+              'emerald-600': '#059669',
+              'teal-50': '#f0fdfa', // For International card bg
+              'teal-600': '#0d9488',
+              'purple-50': '#faf5ff', // For Investment card bg
               'purple-600': '#9333ea',
               'red-500': '#ef4444'
             }
@@ -56,7 +66,9 @@
       #news-container::-webkit-scrollbar-track { background: #f3f4f6; border-radius: 10px; }
       #news-container::-webkit-scrollbar-thumb { background-color: #d1d5db; border-radius: 10px; border: 2px solid #f3f4f6; }
       #news-container::-webkit-scrollbar-thumb:hover { background-color: #9ca3af; }
-      /* Xóa style max-height */
+      /* Style cho card dịch vụ nâng cấp */
+      .service-card-upgraded { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+      .service-card-upgraded:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
     </style>
 </head>
 <body class="bg-gray-100" id="page-index">
@@ -64,16 +76,10 @@
     <header id="header-placeholder"></header>
 
     <main>
-        <section class="hero-section relative text-center mb-12 overflow-hidden rounded-b-lg shadow-xl bg-gray-200"> <img src="/images/logo/webbanner.png"
-                 alt="IVS JSC Banner"
-                 class="hidden md:block w-full h-auto object-contain z-0 mx-auto" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
-
-            <img src="/images/logo/webbannermo.png"
-                 alt="IVS JSC Banner Mobile"
-                 class="block md:hidden w-full h-auto object-contain z-0 mx-auto" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
-
-            <div class="absolute inset-0 z-20">
-                </div>
+        <section class="hero-section relative text-center mb-12 overflow-hidden rounded-b-lg shadow-xl bg-gray-200">
+            <img src="/images/logo/webbanner.png" alt="IVS JSC Banner" class="hidden md:block w-full h-auto object-contain z-0 mx-auto" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
+            <img src="/images/logo/webbannermo.png" alt="IVS JSC Banner Mobile" class="block md:hidden w-full h-auto object-contain z-0 mx-auto" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
+            <div class="absolute inset-0 z-20"></div>
         </section>
 
         <div class="container mx-auto px-4 py-8">
@@ -102,37 +108,49 @@
             </section>
 
             <section class="services-section mb-12">
-                <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" data-lang-key="index_activities_title">Lĩnh Vực Hoạt Động Chính</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                     <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
-                        <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_academy_title">IVS Academy</h3>
-                        <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_academy_desc">Đào tạo ngoại ngữ (Anh, Trung, Nhật), STEAM, kỹ năng mềm. Chương trình cộng đồng "Hãy Nói".</p>
-                        <a href="ivslanguages.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-10 md:mb-12" data-lang-key="index_activities_title">Lĩnh Vực Hoạt Động Chính</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                    <div class="service-card-upgraded bg-blue-50 p-6 rounded-lg shadow-md border-t-4 border-primary flex flex-col text-center">
+                        <div class="mb-4 text-primary text-4xl"><i class="fas fa-graduation-cap"></i></div>
+                        <h3 class="text-xl font-semibold text-primary mb-3" data-lang-key="activity_academy_title">IVS Academy</h3>
+                        <p class="text-gray-700 text-sm mb-4 flex-grow" data-lang-key="activity_academy_desc">Đào tạo ngoại ngữ (Anh, Trung, Nhật), STEAM, kỹ năng mềm. Chương trình cộng đồng "Hãy Nói".</p>
+                        <a href="ivslanguages.html" class="mt-auto inline-block bg-primary/10 text-primary hover:bg-primary/20 font-medium text-sm py-2 px-4 rounded-md transition duration-300" data-lang-key="details_link">Chi tiết...</a>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
-                        <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_kindergarten_title">IVS Kindergarten</h3>
-                        <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_kindergarten_desc">Mầm non tiên phong áp dụng mô hình STEAM+Intelligence. Cơ sở vật chất hiện đại.</p>
-                        <a href="lkmamnon.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
+
+                    <div class="service-card-upgraded bg-pink-50 p-6 rounded-lg shadow-md border-t-4 border-pink-500 flex flex-col text-center">
+                         <div class="mb-4 text-pink-500 text-4xl"><i class="fas fa-child-reaching"></i></div>
+                        <h3 class="text-xl font-semibold text-pink-500 mb-3" data-lang-key="activity_kindergarten_title">IVS Kindergarten</h3>
+                        <p class="text-gray-700 text-sm mb-4 flex-grow" data-lang-key="activity_kindergarten_desc">Mầm non tiên phong áp dụng mô hình STEAM+Intelligence. Cơ sở vật chất hiện đại.</p>
+                        <a href="lkmamnon.html" class="mt-auto inline-block bg-pink-500/10 text-pink-500 hover:bg-pink-500/20 font-medium text-sm py-2 px-4 rounded-md transition duration-300" data-lang-key="details_link">Chi tiết...</a>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
-                        <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_celestech_title">IVS Celestech (EdTech)</h3>
-                        <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_celestech_desc">Phát triển giải pháp công nghệ giáo dục: E-learning, LMS, AI, VR/AR.</p>
-                        <a href="ivscelestech.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
+
+                    <div class="service-card-upgraded bg-indigo-50 p-6 rounded-lg shadow-md border-t-4 border-indigo-600 flex flex-col text-center">
+                         <div class="mb-4 text-indigo-600 text-4xl"><i class="fas fa-laptop-code"></i></div>
+                        <h3 class="text-xl font-semibold text-indigo-600 mb-3" data-lang-key="activity_celestech_title">IVS Celestech (EdTech)</h3>
+                        <p class="text-gray-700 text-sm mb-4 flex-grow" data-lang-key="activity_celestech_desc">Phát triển giải pháp công nghệ giáo dục: E-learning, LMS, AI, VR/AR.</p>
+                        <a href="ivscelestech.html" class="mt-auto inline-block bg-indigo-600/10 text-indigo-600 hover:bg-indigo-600/20 font-medium text-sm py-2 px-4 rounded-md transition duration-300" data-lang-key="details_link">Chi tiết...</a>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
-                        <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_health_title">IVS Health & Wellness</h3>
-                        <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_health_desc">Hợp tác phát triển sản phẩm sức khỏe như yến sào Thanh Yến, giáo dục dinh dưỡng cộng đồng.</p>
-                        <a href="health-yensao.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
+
+                    <div class="service-card-upgraded bg-emerald-50 p-6 rounded-lg shadow-md border-t-4 border-secondary flex flex-col text-center">
+                         <div class="mb-4 text-secondary text-4xl"><i class="fas fa-heartbeat"></i></div>
+                        <h3 class="text-xl font-semibold text-secondary mb-3" data-lang-key="activity_health_title">IVS Health & Wellness</h3>
+                        <p class="text-gray-700 text-sm mb-4 flex-grow" data-lang-key="activity_health_desc">Hợp tác phát triển sản phẩm sức khỏe như yến sào Thanh Yến, giáo dục dinh dưỡng cộng đồng.</p>
+                        <a href="health-yensao.html" class="mt-auto inline-block bg-secondary/10 text-secondary hover:bg-secondary/20 font-medium text-sm py-2 px-4 rounded-md transition duration-300" data-lang-key="details_link">Chi tiết...</a>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
-                        <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_cooperation_title">Hợp Tác Quốc Tế</h3>
-                        <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_cooperation_desc">Kết nối giáo dục và sức khỏe Việt Nam với thế giới: Du học, trại hè, liên kết đào tạo.</p>
-                        <a href="lien-ket-quoc-te.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
+
+                    <div class="service-card-upgraded bg-teal-50 p-6 rounded-lg shadow-md border-t-4 border-teal-600 flex flex-col text-center">
+                         <div class="mb-4 text-teal-600 text-4xl"><i class="fas fa-globe-americas"></i></div>
+                        <h3 class="text-xl font-semibold text-teal-600 mb-3" data-lang-key="activity_cooperation_title">Hợp Tác Quốc Tế</h3>
+                        <p class="text-gray-700 text-sm mb-4 flex-grow" data-lang-key="activity_cooperation_desc">Kết nối giáo dục và sức khỏe Việt Nam với thế giới: Du học, trại hè, liên kết đào tạo.</p>
+                        <a href="lien-ket-quoc-te.html" class="mt-auto inline-block bg-teal-600/10 text-teal-600 hover:bg-teal-600/20 font-medium text-sm py-2 px-4 rounded-md transition duration-300" data-lang-key="details_link">Chi tiết...</a>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col">
-                        <h3 class="text-xl font-semibold text-blue-600 mb-3" data-lang-key="activity_investment_title">Đầu Tư & Phát Triển</h3>
-                        <p class="text-gray-600 mb-3 flex-grow" data-lang-key="activity_investment_desc">Xây dựng hệ thống giáo dục liên cấp IVS Global School và dự án bền vững.</p>
-                        <a href="dau-tu.html" class="text-purple-accent hover:underline font-medium mt-auto self-start" data-lang-key="details_link">Chi tiết...</a>
+
+                    <div class="service-card-upgraded bg-purple-50 p-6 rounded-lg shadow-md border-t-4 border-purple-accent flex flex-col text-center">
+                         <div class="mb-4 text-purple-accent text-4xl"><i class="fas fa-chart-line"></i></div>
+                        <h3 class="text-xl font-semibold text-purple-accent mb-3" data-lang-key="activity_investment_title">Đầu Tư & Phát Triển</h3>
+                        <p class="text-gray-700 text-sm mb-4 flex-grow" data-lang-key="activity_investment_desc">Xây dựng hệ thống giáo dục liên cấp IVS Global School và dự án bền vững.</p>
+                        <a href="dau-tu.html" class="mt-auto inline-block bg-purple-500/10 text-purple-500 hover:bg-purple-500/20 font-medium text-sm py-2 px-4 rounded-md transition duration-300" data-lang-key="details_link">Chi tiết...</a>
                     </div>
                 </div>
             </section>
