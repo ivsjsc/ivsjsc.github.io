@@ -1072,6 +1072,136 @@ function updatePlacementResultText(lang) {
           li.className = 'text-gray-500 italic';
           coursesListEl.appendChild(li);
       }
+      // --- Language Dropdown Logic ---
+
+// Hàm toggle hiển thị dropdown
+function toggleDropdown(dropdownElement) {
+    if (!dropdownElement) return;
+    dropdownElement.classList.toggle('open');
+    const toggleButton = dropdownElement.querySelector('.dropdown-toggle');
+    const isExpanded = dropdownElement.classList.contains('open');
+    if (toggleButton) {
+        toggleButton.setAttribute('aria-expanded', isExpanded);
+    }
+}
+
+// Hàm cập nhật giao diện ngôn ngữ (bao gồm cờ)
+function setLanguageUI(lang) {
+    const languages = {
+        vi: { name: 'Tiếng Việt', flag: 'images/flags/vn.png', alt: 'Vietnam Flag' },
+        en: { name: 'English', flag: 'images/flags/en.png', alt: 'English Flag' }
+    };
+
+    if (!languages[lang]) return; // Thoát nếu ngôn ngữ không hợp lệ
+
+    // Cập nhật nút toggle Desktop
+    const desktopToggleBtn = document.getElementById('desktop-lang-toggle');
+    const desktopFlag = document.getElementById('desktop-current-flag');
+    const desktopLangText = document.getElementById('desktop-current-lang');
+    if (desktopToggleBtn && desktopFlag && desktopLangText) {
+        desktopFlag.src = languages[lang].flag;
+        desktopFlag.alt = languages[lang].alt;
+        desktopLangText.textContent = lang.toUpperCase();
+    }
+
+    // Cập nhật nút toggle Mobile
+    const mobileToggleBtn = document.getElementById('mobile-lang-toggle');
+    const mobileFlag = document.getElementById('mobile-current-flag');
+    const mobileLangText = document.getElementById('mobile-current-lang');
+    if (mobileToggleBtn && mobileFlag && mobileLangText) {
+        mobileFlag.src = languages[lang].flag;
+        mobileFlag.alt = languages[lang].alt;
+        mobileLangText.textContent = lang.toUpperCase();
+    }
+
+    // Cập nhật trạng thái active cho các lựa chọn trong dropdowns
+    document.querySelectorAll('.language-dropdown .lang-option').forEach(option => {
+        if (option.dataset.lang === lang) {
+            option.classList.add('active');
+            // Không dùng disabled nữa
+            // option.disabled = true;
+        } else {
+            option.classList.remove('active');
+             // Không dùng disabled nữa
+            // option.disabled = false;
+        }
+    });
+
+    // Update html lang attribute
+    document.documentElement.lang = lang;
+}
+
+// Hàm xử lý chọn ngôn ngữ
+function changeLanguage(lang) {
+    console.log(`Changing language to: ${lang}`);
+    localStorage.setItem('language', lang); // Lưu lựa chọn
+    setLanguageUI(lang); // Cập nhật UI (cờ, text, nút active)
+
+    // Đóng dropdown sau khi chọn (tùy chọn)
+    const desktopDropdown = document.getElementById('desktop-language-dropdown');
+    const mobileDropdown = document.getElementById('mobile-language-dropdown');
+    if (desktopDropdown?.classList.contains('open')) {
+        toggleDropdown(desktopDropdown);
+    }
+    if (mobileDropdown?.classList.contains('open')) {
+        toggleDropdown(mobileDropdown);
+    }
+
+    // Gọi hàm load và áp dụng bản dịch của bạn
+     loadTranslations(lang).then(() => {
+         console.log(`Translations loaded and applied for ${lang}`);
+         setActiveLink(); // Cập nhật lại link active sau khi load xong (có thể text menu thay đổi)
+     }).catch(error => {
+          console.error(`Error loading translations for ${lang}:`, error);
+     });
+}
+
+
+// Thêm Event Listeners vào trong sự kiện DOMContentLoaded (trong main.js hoặc script.js)
+document.addEventListener('DOMContentLoaded', () => {
+    // ... các code khác trong DOMContentLoaded ...
+
+    const desktopDropdown = document.getElementById('desktop-language-dropdown');
+    const desktopToggleBtn = document.getElementById('desktop-lang-toggle');
+
+    const mobileDropdown = document.getElementById('mobile-language-dropdown');
+    const mobileToggleBtn = document.getElementById('mobile-lang-toggle');
+
+    // Listener cho nút toggle Desktop
+    if (desktopToggleBtn && desktopDropdown) {
+        desktopToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
+            toggleDropdown(desktopDropdown);
+        });
+    }
+
+     // Listener cho nút toggle Mobile
+     if (mobileToggleBtn && mobileDropdown) {
+        mobileToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleDropdown(mobileDropdown);
+        });
+    }
+
+    // Listener để đóng dropdown khi bấm ra ngoài
+    document.addEventListener('click', (e) => {
+        // Đóng dropdown Desktop nếu đang mở và bấm ra ngoài
+        if (desktopDropdown && desktopDropdown.classList.contains('open') && !desktopDropdown.contains(e.target)) {
+            toggleDropdown(desktopDropdown);
+        }
+         // Đóng dropdown Mobile nếu đang mở và bấm ra ngoài (và không phải bấm vào nút toggle)
+         if (mobileDropdown && mobileDropdown.classList.contains('open') && !mobileDropdown.contains(e.target)) {
+            toggleDropdown(mobileDropdown);
+         }
+    });
+
+     // Set initial language from storage or default
+     const initialLang = localStorage.getItem('language') || 'vi';
+     setLanguageUI(initialLang);
+     // loadTranslations(initialLang); // Load bản dịch ban đầu
+
+     // ... các code khác trong DOMContentLoaded ...
+});
 }
 
 // Lưu ý: Hàm initializeLanguage() này nên được gọi từ script.js

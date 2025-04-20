@@ -484,3 +484,70 @@ body.overflow-hidden {
   height: 100%;
   border: 0;
 }
+/* --- Language Dropdown Styles --- */
+.language-dropdown {
+  position: relative; /* Cần thiết cho việc định vị dropdown content */
+}
+
+.language-dropdown-content {
+  display: none; /* Mặc định ẩn */
+  position: absolute;
+  /* Các style khác cho dropdown content (background, shadow, border-radius, etc.) */
+  z-index: 50; /* Đảm bảo hiển thị trên các element khác */
+}
+
+/* Hiển thị dropdown khi container có class 'open' (JS sẽ thêm/xóa class này) */
+.language-dropdown.open .language-dropdown-content {
+  display: block;
+}
+
+/* Style cho nút bấm dropdown toggle */
+.language-dropdown .dropdown-toggle {
+  /* Style hiện có */
+  cursor: pointer;
+}
+
+/* Style cho các lựa chọn ngôn ngữ */
+.language-dropdown .lang-option {
+  display: flex; /* Để icon và text nằm ngang */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  /* Các style khác (padding, text size, color) */
+}
+
+/* Style cho cờ trong nút bấm và lựa chọn */
+.language-dropdown img {
+  height: 1rem; /* tương đương h-4 */
+  width: auto;
+  margin-right: 0.5rem; /* tương đương mr-2 */
+  border-radius: 2px; /* làm tròn nhẹ góc cờ */
+  object-fit: cover; /* Đảm bảo cờ hiển thị đẹp */
+  flex-shrink: 0; /* Không co cờ lại */
+}
+.language-dropdown .dropdown-toggle img {
+   margin-right: 0.375rem; /* mr-1.5 */
+}
+
+/* Style cho lựa chọn active (không dùng disabled nữa) */
+.language-dropdown .lang-option.active {
+  /* Desktop */
+   background-color: #e5e7eb; /* gray-200 */
+   color: #1d4ed8; /* blue-700 */
+   font-weight: 600;
+   /* Mobile (nếu cần style khác) */
+   /* background-color: #dbeafe; */
+   /* color: #1e40af; */
+}
+
+/* Xoay icon mũi tên khi mở dropdown */
+.language-dropdown.open .dropdown-toggle svg {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease-in-out;
+}
+.language-dropdown .dropdown-toggle svg {
+   transition: transform 0.2s ease-in-out;
+}
