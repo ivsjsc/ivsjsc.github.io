@@ -20,18 +20,19 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+      // Tailwind CSS Configuration
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
+              sans: ['Inter', 'sans-serif'], // Set Inter as the default sans-serif font
             },
-            colors: {
-              'primary': '#3b82f6',
-              'secondary': '#10b981',
-              'purple-accent': '#8b5cf6',
-              'warning': '#f59e0b',
-              'primary-dark': '#2563eb',
+            colors: { // Define custom color palette based on user's code
+              'primary': '#3b82f6', // blue-500
+              'secondary': '#10b981', // emerald-500
+              'purple-accent': '#8b5cf6', // purple-500
+              'warning': '#f59e0b', // amber-500
+              'primary-dark': '#2563eb', // blue-700
               'gray-700': '#374151',
               'gray-600': '#4b5563',
               'gray-500': '#6b7280',
@@ -67,14 +68,19 @@
 
     <link rel="stylesheet" href="css/styles.css">
     <style>
+      /* Apply Inter font globally */
       body { font-family: 'Inter', sans-serif; }
+      /* Responsive video wrapper */
       .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; width: 100%; background-color: #000; border-radius: 0.5rem; }
       .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+      /* Disabled button style */
       button:disabled { opacity: 0.6; cursor: not-allowed; }
+      /* Custom scrollbar for news container */
       #news-container::-webkit-scrollbar { height: 8px; }
       #news-container::-webkit-scrollbar-track { background: #f3f4f6; border-radius: 10px; }
       #news-container::-webkit-scrollbar-thumb { background-color: #d1d5db; border-radius: 10px; border: 2px solid #f3f4f6; }
       #news-container::-webkit-scrollbar-thumb:hover { background-color: #9ca3af; }
+      /* Hover effect for service cards */
       .service-card-upgraded { transition: transform 0.3s ease, box-shadow 0.3s ease; }
       .service-card-upgraded:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
     </style>
@@ -84,67 +90,165 @@
     <header id="header-placeholder"></header>
 
     <main>
-        <section class="hero-section relative text-center mb-12 overflow-hidden rounded-b-lg shadow-xl bg-gray-200">
-            <img src="/images/logo/webbanner.png" alt="IVS JSC Banner" class="hidden md:block w-full h-auto object-contain z-0 mx-auto" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
-            <img src="/images/logo/webbannermo.png" alt="IVS JSC Banner Mobile" class="block md:hidden w-full h-auto object-contain z-0 mx-auto" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
-        </section>
-
-        <section class="py-16 md:py-20 lg:py-24 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <h2 class="text-center text-3xl font-bold text-gray-800 mb-12" data-lang-key="index_section_title_trusted_edu">IVS - Nền tảng giáo dục tin cậy</h2>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8 max-w-4xl mx-auto">
-                    <a href="howtouseai-ivs.html" class="block aspect-square rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 p-6 shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-white group">
-                        <h3 class="text-xl md:text-2xl font-semibold" data-lang-key="large_button_ai_guide">Hướng dẫn sử dụng AI - IVS</h3>
-                    </a>
-                    <a href="about.html" class="block aspect-square rounded-xl bg-gradient-to-br from-green-500 to-green-700 p-6 shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-white group">
-                        <h3 class="text-xl md:text-2xl font-semibold" data-lang-key="large_button_about">Về IVS chúng tôi</h3>
-                    </a>
-                </div>
-
-                <div class="grid grid-cols-4 gap-3 md:gap-4 max-w-3xl mx-auto">
-                    <a href="howtouseai-ivs.html" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
-                        <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_1">HDSD AI</span>
-                    </a>
-                    <a href="#" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
-                        <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_2">Nút Nhỏ 2</span>
-                    </a>
-                    <a href="#" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
-                        <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_3">Nút Nhỏ 3</span>
-                    </a>
-                    <a href="#" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
-                        <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_4">Nút Nhỏ 4</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <div class="container mx-auto px-4 py-8">
-            <section class="news-section mb-12">
-                <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" data-lang-key="index_news_title">Tin Tức & Sự Kiện</h2>
-                <div id="news-container" class="flex overflow-x-auto space-x-6 pb-4">
-                    <p class="text-gray-500 w-full text-center" data-lang-key="loading_news">Đang tải tin tức...</p>
-                </div>
-            </section>
-
-            <section class="video-section mb-12">
-                <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" data-lang-key="index_video_title">Video Giới Thiệu</h2>
-                <div class="video-wrapper rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto">
-                    <iframe loading="lazy" width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=34FCmlvMF1NAQ54N&list=PLwqdiwWIIO2ea6HZlKDVsCBTSJ-vooIOC" title="Video giới thiệu IVS JSC" data-lang-key="index_video_iframe_title" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div>
-            </section>
-
-            <div class="container mx-auto max-w-5xl p-4 md:p-8 bg-white shadow-lg rounded-lg my-8">
-                <section class="mt-12">
-                    <h2 class="text-2xl font-semibold text-orange-600 mb-4 pb-2 border-b border-gray-200" data-lang-key="index_vnexpress_title">
-                        Tin tức Giáo dục mới nhất từ VnExpress
-                    </h2>
-                    <div id="vnexpress-rss-feed" class="space-y-4">
-                        <p class="text-gray-500" data-lang-key="loading_news">Đang tải tin tức...</p>
+        <!DOCTYPE html>
+        <html lang="vi">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title data-lang-key="page_title_index">IVS JSC - Giáo dục, Công nghệ, Sức khỏe, Hợp tác Quốc tế</title>
+            <meta name="description" content="IVS JSC - Tổ chức tiên phong tại Việt Nam trong lĩnh vực giáo dục (IVS Academy, IVS Kindergarten), EdTech (IVS Celestech), sức khỏe cộng đồng và hợp tác quốc tế." data-lang-key="meta_description_index">
+            <meta property="og:title" content="IVS JSC - Giáo dục, Công nghệ, Sức khỏe, Hợp tác Quốc tế" data-lang-key="og_title_index">
+            <meta property="og:description" content="Khám phá các giải pháp toàn diện về đào tạo ngoại ngữ, STEAM, kỹ năng sống, EdTech, chăm sóc sức khỏe và cơ hội hợp tác cùng IVS JSC." data-lang-key="og_description_index">
+            <meta property="og:image" content="/images/logo/webbanner.png">
+            <meta property="og:url" content="https://ivsjsc.github.io/index.html">
+            <meta property="og:type" content="website">
+        
+            <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+            <script src="https://cdn.tailwindcss.com"></script>
+            <script>
+              tailwind.config = {
+                theme: {
+                  extend: {
+                    fontFamily: {
+                      sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                      'primary': '#3b82f6',
+                      'secondary': '#10b981',
+                      'purple-accent': '#8b5cf6',
+                      'warning': '#f59e0b',
+                      'primary-dark': '#2563eb',
+                      'gray-700': '#374151',
+                      'gray-600': '#4b5563',
+                      'gray-500': '#6b7280',
+                      'gray-300': '#d1d5db',
+                      'gray-200': '#e5e7eb',
+                      'gray-100': '#f3f4f6',
+                      'blue-50': '#eff6ff',
+                      'blue-100': '#dbeafe',
+                      'blue-200': '#bfdbfe',
+                      'blue-300': '#93c5fd',
+                      'blue-400': '#60a5fa',
+                      'blue-500': '#3b82f6',
+                      'blue-600': '#2563eb',
+                      'blue-700': '#1d4ed8',
+                      'blue-800': '#1e40af',
+                      'pink-50': '#fdf2f8',
+                      'pink-500': '#ec4899',
+                      'indigo-50': '#eef2ff',
+                      'indigo-600': '#4f46e5',
+                      'emerald-50': '#ecfdf5',
+                      'emerald-600': '#059669',
+                      'teal-50': '#f0fdfa',
+                      'teal-600': '#0d9488',
+                      'purple-50': '#faf5ff',
+                      'purple-600': '#9333ea',
+                      'red-500': '#ef4444',
+                      'orange-600': '#ea580c'
+                    }
+                  }
+                }
+              }
+            </script>
+        
+            <link rel="stylesheet" href="css/styles.css">
+            <style>
+              body { font-family: 'Inter', sans-serif; }
+              .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; width: 100%; background-color: #000; border-radius: 0.5rem; }
+              .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+              button:disabled { opacity: 0.6; cursor: not-allowed; }
+              #news-container::-webkit-scrollbar { height: 8px; }
+              #news-container::-webkit-scrollbar-track { background: #f3f4f6; border-radius: 10px; }
+              #news-container::-webkit-scrollbar-thumb { background-color: #d1d5db; border-radius: 10px; border: 2px solid #f3f4f6; }
+              #news-container::-webkit-scrollbar-thumb:hover { background-color: #9ca3af; }
+              .service-card-upgraded { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+              .service-card-upgraded:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+            </style>
+        </head>
+        <body class="bg-gray-100" id="page-index">
+        
+            <header id="header-placeholder"></header>
+        
+            <main>
+                <section class="hero-section relative text-center mb-12 overflow-hidden rounded-b-lg shadow-xl bg-gray-200">
+                    <img src="/images/logo/webbanner.png" alt="IVS JSC Banner" class="hidden md:block w-full h-auto object-contain z-0 mx-auto" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
+                    <img src="/images/logo/webbannermo.png" alt="IVS JSC Banner Mobile" class="block md:hidden w-full h-auto object-contain z-0 mx-auto" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
+                </section>
+        
+                <section class="py-16 md:py-20 lg:py-24 bg-gray-50">
+                    <div class="container mx-auto px-4">
+                        <h2 class="text-center text-3xl font-bold text-gray-800 mb-12" data-lang-key="index_section_title_trusted_edu">IVS - Nền tảng giáo dục tin cậy</h2>
+        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8 max-w-4xl mx-auto">
+                            <a href="howtouseai-ivs.html" class="block aspect-square rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 p-6 shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-white group">
+                                <h3 class="text-xl md:text-2xl font-semibold" data-lang-key="large_button_ai_guide">Hướng dẫn sử dụng AI - IVS</h3>
+                            </a>
+                            <a href="about.html" class="block aspect-square rounded-xl bg-gradient-to-br from-green-500 to-green-700 p-6 shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-white group">
+                                <h3 class="text-xl md:text-2xl font-semibold" data-lang-key="large_button_about">Về IVS chúng tôi</h3>
+                            </a>
+                        </div>
+        
+                        <div class="grid grid-cols-4 gap-3 md:gap-4 max-w-3xl mx-auto">
+                            <a href="howtouseai-ivs.html" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
+                                <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_1">HDSD AI</span>
+                            </a>
+                            <a href="#" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
+                                <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_2">Nút Nhỏ 2</span>
+                            </a>
+                            <a href="#" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
+                                <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_3">Nút Nhỏ 3</span>
+                            </a>
+                            <a href="#" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
+                                <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_4">Nút Nhỏ 4</span>
+                            </a>
+                        </div>
                     </div>
                 </section>
-            </div>
-        </div>
+        
+                <div class="container mx-auto px-4 py-8">
+                    <section class="news-section mb-12">
+                        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" data-lang-key="index_news_title">Tin Tức & Sự Kiện</h2>
+                        <div id="news-container" class="flex overflow-x-auto space-x-6 pb-4">
+                            <p class="text-gray-500 w-full text-center" data-lang-key="loading_news">Đang tải tin tức...</p>
+                        </div>
+                    </section>
+        
+                    <section class="video-section mb-12">
+                        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" data-lang-key="index_video_title">Video Giới Thiệu</h2>
+                        <div class="video-wrapper rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto">
+                            <iframe loading="lazy" width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=34FCmlvMF1NAQ54N&list=PLwqdiwWIIO2ea6HZlKDVsCBTSJ-vooIOC" title="Video giới thiệu IVS JSC" data-lang-key="index_video_iframe_title" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </section>
+        
+                    <div class="container mx-auto max-w-5xl p-4 md:p-8 bg-white shadow-lg rounded-lg my-8">
+                        <section class="mt-12">
+                            <h2 class="text-2xl font-semibold text-orange-600 mb-4 pb-2 border-b border-gray-200" data-lang-key="index_vnexpress_title">
+                                Tin tức Giáo dục mới nhất từ VnExpress
+                            </h2>
+                            <div id="vnexpress-rss-feed" class="space-y-4">
+                                <p class="text-gray-500" data-lang-key="loading_news">Đang tải tin tức...</p>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </main>
+        
+            <footer id="footer-placeholder"></footer>
+        
+            <script src="js/language.js" defer></script>
+            <script src="js/main.js" defer></script>
+            <script src="js/script.js" defer></script>
+            <script src="js/rss-loader.js" defer></script>
+        
+        </body>
+        </html>
+        
     </main>
 
     <footer id="footer-placeholder"></footer>

@@ -6,19 +6,34 @@
     <title>IVS JSC Header</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Styles for desktop submenus (already using dark blue) */
-        .submenu {
-            /* Tailwind classes handle position, display, background, text color */
+        /* Explicit styles to ensure dark blue background for submenus */
+        .submenu, .sub-submenu {
+            background-color: #1e40af !important; /* Using !important to override potential conflicts - blue-800 */
+            /* Default text color for items inside is set below */
         }
 
-        .sub-submenu {
-            /* Tailwind classes handle position, display, background, text color */
+        /* Ensure links and buttons inside submenus have blue text and appropriate hover */
+        .submenu a, .sub-submenu a,
+        .mobile-submenu a, .mobile-submenu button {
+            color: #93c5fd !important; /* Blue text color - blue-300 */
+            padding: 0.5rem 1rem; /* Add padding for touch targets */
+            display: block; /* Make links block elements */
+            width: 100%; /* Ensure links/buttons take full width */
+            text-align: left; /* Align text to the left */
         }
+
+        .submenu a:hover, .sub-submenu a:hover,
+        .mobile-submenu a:hover, .mobile-submenu button:hover {
+            background-color: #1d4ed8 !important; /* blue-700 hover background */
+            color: #93c5fd !important; /* Keep text color blue on hover */
+        }
+
 
         /* Styles for mobile menu panel and its items */
         #mobile-menu {
-             /* Background color is set by Tailwind class bg-blue-800 */
-             /* Default text color for items inside is set by Tailwind class text-white */
+             background-color: #1e40af; /* blue-800 - Dark background */
+             color: white; /* Default text color for main items inside mobile menu */
+             /* Other Tailwind classes handle shadow, z-index, transform, etc. */
         }
 
         /* Mobile menu item toggle arrow rotation */
@@ -41,13 +56,6 @@
             opacity: 1;
         }
 
-         /* Ensure items inside mobile submenus have white text and appropriate hover */
-         .mobile-submenu a, .mobile-submenu button {
-             /* Default text color is inherited or set by Tailwind text-white */
-             /* Hover background color is set by Tailwind hover:bg-blue-700 */
-             width: 100%; /* Ensure links/buttons take full width */
-             text-align: left; /* Align text to the left */
-         }
 
          /* Indent for nested mobile submenus */
          .mobile-submenu .mobile-submenu {
@@ -59,9 +67,9 @@
              position: static; /* Override absolute for mobile */
              box-shadow: none;
              margin-top: 0.5rem;
-             background-color: #1E40AF; /* blue-800 - Dark background */
+             background-color: #1e40af; /* blue-800 - Dark background */
              border-radius: 0.375rem;
-             border: 1px solid #1D4ED8; /* blue-700 - Border color */
+             border: 1px solid #1d4ed8; /* blue-700 - Border color */
              padding: 0.5rem 0;
          }
          #mobile-language-dropdown .language-dropdown-content button {
@@ -71,7 +79,7 @@
               text-align: left;
          }
          #mobile-language-dropdown .language-dropdown-content button:hover {
-             background-color: #1D4ED8; /* blue-700 - Darker hover background */
+             background-color: #1d4ed8; /* blue-700 - Darker hover background */
              color: white; /* Keep text white on hover */
          }
          #mobile-language-dropdown .language-dropdown-content button.active,
@@ -85,6 +93,15 @@
               background-color: #172554; /* blue-900 */
               color: white;
           }
+
+        /* Ensure main menu items are white by default */
+        .main-menu-item .nav-link {
+            color: white;
+        }
+        .main-menu-item .nav-link:hover {
+             /* Tailwind hover:bg-orange-700 handles background */
+             color: white; /* Ensure text stays white on hover */
+        }
 
 
     </style>
@@ -112,10 +129,10 @@
                             <svg class="ml-1 h-4 w-4 text-orange-200 group-hover:text-white transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                         </button>
                         <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-blue-800 py-1 z-50">
-                            <a href="about.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_about_ivs">Về IVS JSC</a>
-                            <a href="summercamp.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_summer_camp">Trại hè Quốc tế</a>
-                            <a href="hocbong.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_scholarships">Học bổng</a>
-                            <a href="hay-noi.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_hay_noi_club">Chương trình "Hãy Nói"</a>
+                            <a href="about.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_about_ivs">Về IVS JSC</a>
+                            <a href="summercamp.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_summer_camp">Trại hè Quốc tế</a>
+                            <a href="hocbong.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_scholarships">Học bổng</a>
+                            <a href="hay-noi.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_hay_noi_club">Chương trình "Hãy Nói"</a>
                         </div>
                     </li>
 
@@ -126,40 +143,40 @@
                            </button>
                            <div class="submenu absolute hidden group-hover:block w-64 rounded-md shadow-lg bg-blue-800 py-1 z-50">
                                <div class="relative group/sub sub-submenu-container">
-                                    <button aria-haspopup="true" aria-expanded="false" class="nav-link w-full text-left px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md inline-flex items-center justify-between group">
+                                    <button aria-haspopup="true" aria-expanded="false" class="nav-link w-full text-left px-4 py-2 text-sm rounded-md inline-flex items-center justify-between group">
                                        <span data-lang-key="menu_educational_link">Liên kết giáo dục</span>
                                        <svg class="ml-1 h-4 w-4 text-blue-300 group-hover/sub:text-white rotate-[-90deg]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                                    </button>
                                    <div class="sub-submenu absolute hidden group-hover/sub:block top-0 left-full w-56 rounded-md shadow-lg bg-blue-800 py-1 z-50">
-                                       <a href="lkmamnon.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_link_preschool">Mầm non</a>
-                                       <a href="lktieuhoc.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_link_primary">Tiểu học</a>
-                                       <a href="lkthcsthpt.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_link_secondary">THCS & THPT</a>
-                                       <a href="lkttnn.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_link_language_center">Trung tâm Ngoại ngữ</a>
+                                       <a href="lkmamnon.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_link_preschool">Mầm non</a>
+                                       <a href="lktieuhoc.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_link_primary">Tiểu học</a>
+                                       <a href="lkthcsthpt.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_link_secondary">THCS & THPT</a>
+                                       <a href="lkttnn.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_link_language_center">Trung tâm Ngoại ngữ</a>
                                    </div>
                                </div>
                                <div class="relative group/sub sub-submenu-container">
-                                   <button aria-haspopup="true" aria-expanded="false" class="nav-link w-full text-left px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md inline-flex items-center justify-between group">
+                                   <button aria-haspopup="true" aria-expanded="false" class="nav-link w-full text-left px-4 py-2 text-sm rounded-md inline-flex items-center justify-between group">
                                        <span data-lang-key="menu_training_center">Tại trung tâm</span>
                                        <svg class="ml-1 h-4 w-4 text-blue-300 group-hover/sub:text-white rotate-[-90deg]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                                    </button>
                                    <div class="sub-submenu absolute hidden group-hover/sub:block top-0 left-full w-56 rounded-md shadow-lg bg-blue-800 py-1 z-50">
-                                       <a href="ivslanguages.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_training_language">Đào tạo ngoại ngữ</a>
-                                       <a href="ivslifeminds.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_training_lifeskills">Đào tạo kỹ năng sống</a>
+                                       <a href="ivslanguages.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_training_language">Đào tạo ngoại ngữ</a>
+                                       <a href="ivslifeminds.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_training_lifeskills">Đào tạo kỹ năng sống</a>
                                    </div>
                                </div>
                                <div class="relative group/sub sub-submenu-container">
-                                   <button aria-haspopup="true" aria-expanded="false" class="nav-link w-full text-left px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md inline-flex items-center justify-between group">
+                                   <button aria-haspopup="true" aria-expanded="false" class="nav-link w-full text-left px-4 py-2 text-sm rounded-md inline-flex items-center justify-between group">
                                        <span data-lang-key="menu_training_teacher">Đào tạo giáo viên</span>
                                        <svg class="ml-1 h-4 w-4 text-blue-300 group-hover/sub:text-white rotate-[-90deg]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                                    </button>
                                    <div class="sub-submenu absolute hidden group-hover/sub:block top-0 left-full w-56 rounded-md shadow-lg bg-blue-800 py-1 z-50">
-                                       <a href="teachertrain.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_training_teacher_vn">Giáo viên VN</a>
-                                       <a href="fteachertrain.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_training_teacher_foreign">Giáo viên nước ngoài</a>
+                                       <a href="teachertrain.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_training_teacher_vn">Giáo viên VN</a>
+                                       <a href="fteachertrain.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_training_teacher_foreign">Giáo viên nước ngoài</a>
                                    </div>
                                </div>
                                <hr class="my-1 border-blue-600">
-                               <a href="bosungchungchi.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_training_teacher_cert">Bổ sung chứng chỉ NVSP</a>
-                               <a href="english-placement.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_placement_test">Kiểm tra trình độ</a>
+                               <a href="bosungchungchi.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_training_teacher_cert">Bổ sung chứng chỉ NVSP</a>
+                               <a href="english-placement.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_placement_test">Kiểm tra trình độ</a>
                            </div>
                     </li>
 
@@ -169,11 +186,11 @@
                               <svg class="ml-1 h-4 w-4 text-orange-200 group-hover:text-white transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                           </button>
                           <div class="submenu absolute hidden group-hover:block w-64 rounded-md shadow-lg bg-blue-800 py-1 z-50">
-                              <a href="lien-ket-quoc-te.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_international_link">Liên kết Quốc tế</a>
-                              <a href="lienminhiivsa.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_iivsa_alliance">Liên minh IIVSA</a>
-                              <a href="hop-tac-dau-tu.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_investment_cooperation">Hợp tác Đầu tư</a>
-                              <a href="philoinhuan.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_non_profit">Tổ chức Phi lợi nhuận</a>
-                              <a href="tai-tro.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_sponsorship">Tài trợ</a>
+                              <a href="lien-ket-quoc-te.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_international_link">Liên kết Quốc tế</a>
+                              <a href="lienminhiivsa.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_iivsa_alliance">Liên minh IIVSA</a>
+                              <a href="hop-tac-dau-tu.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_investment_cooperation">Hợp tác Đầu tư</a>
+                              <a href="philoinhuan.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_non_profit">Tổ chức Phi lợi nhuận</a>
+                              <a href="tai-tro.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_sponsorship">Tài trợ</a>
                           </div>
                     </li>
 
@@ -183,10 +200,10 @@
                                <svg class="ml-1 h-4 w-4 text-orange-200 group-hover:text-white transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                            </button>
                            <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-blue-800 py-1 z-50">
-                               <a href="tuvan.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_edu_consulting">Tư vấn Giáo dục</a>
-                               <a href="thanhlaptrungtam.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_center_establishment">Thành lập Trung tâm</a>
-                               <a href="webdesign.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_web_design">Thiết kế Web</a>
-                               <a href="rnd-curriculum.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_design_edu">Thiết kế Học liệu</a>
+                               <a href="tuvan.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_edu_consulting">Tư vấn Giáo dục</a>
+                               <a href="thanhlaptrungtam.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_center_establishment">Thành lập Trung tâm</a>
+                               <a href="webdesign.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_web_design">Thiết kế Web</a>
+                               <a href="rnd-curriculum.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_design_edu">Thiết kế Học liệu</a>
                            </div>
                     </li>
 
@@ -196,8 +213,8 @@
                             <svg class="ml-1 h-4 w-4 text-orange-200 group-hover:text-white transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                         </button>
                          <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-blue-800 py-1 z-50">
-                            <a href="health-yensao.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_health_yensao">Yến sào Thanh Yến</a>
-                            <a href="health-luvyoga.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_health_luvyoga">LuvYoga Lộc Hòa </a>
+                            <a href="health-yensao.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_health_yensao">Yến sào Thanh Yến</a>
+                            <a href="health-luvyoga.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_health_luvyoga">LuvYoga Lộc Hòa </a>
                          </div>
                     </li>
 
@@ -207,8 +224,8 @@
                                <svg class="ml-1 h-4 w-4 text-orange-200 group-hover:text-white transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                            </button>
                            <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg bg-blue-800 py-1 z-50">
-                                <a href="tailieugd.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_library_docs">Tài liệu giáo dục</a>
-                                <a href="ivsmedia.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_library_media">IVSMedia</a>
+                                <a href="tailieugd.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_library_docs">Tài liệu giáo dục</a>
+                                <a href="ivsmedia.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_library_media">IVSMedia</a>
                            </div>
                     </li>
 
@@ -218,8 +235,8 @@
                                 <svg class="ml-1 h-4 w-4 text-orange-200 group-hover:text-white transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                             </button>
                            <div class="submenu absolute hidden group-hover:block w-64 rounded-md shadow-lg bg-blue-800 py-1 z-50">
-                                <a href="careervn.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_recruitment_vn">Tuyển dụng nội địa (Vietnamese Applicants)</a>
-                                <a href="careerf.html" class="block px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang-key="menu_recruitment_intl">Tuyển dụng quốc tế (International Applicants)</a>
+                                <a href="careervn.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_recruitment_vn">Tuyển dụng nội địa (Vietnamese Applicants)</a>
+                                <a href="careerf.html" class="block px-4 py-2 text-sm rounded-md" data-lang-key="menu_recruitment_intl">Tuyển dụng quốc tế (International Applicants)</a>
                            </div>
                     </li>
 
@@ -241,9 +258,9 @@
                                    <span id="desktop-current-lang">VN</span>
                                    <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                               </button>
-                              <div id="desktop-lang-options" class="language-dropdown-content hidden absolute right-0 mt-1 w-20 bg-blue-800 py-1 z-50">
-                                   <button class="lang-option lang-button block w-full text-left px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang="vi">VN</button>
-                                   <button class="lang-option lang-button block w-full text-left px-4 py-2 text-sm text-white hover:bg-blue-700 rounded-md" data-lang="en">EN</button>
+                              <div id="desktop-lang-options" class="language-dropdown-content hidden absolute right-0 mt-1 w-20 py-1 z-50">
+                                   <button class="lang-option lang-button block w-full text-left px-4 py-2 text-sm rounded-md" data-lang="vi">VN</button>
+                                   <button class="lang-option lang-button block w-full text-left px-4 py-2 text-sm rounded-md" data-lang="en">EN</button>
                               </div>
                          </div>
                     </div>
@@ -265,12 +282,12 @@
 
     <div class="lg:hidden hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-40 transition-opacity duration-300 ease-in-out opacity-0" id="mobile-menu-overlay"></div>
 
-     <div class="lg:hidden hidden fixed top-0 right-0 h-full w-64 bg-blue-800 shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col text-white"> {/* Changed bg-blue-50 to bg-blue-800 and added text-white */}
-          <div class="pt-4 pb-3 px-4 border-b border-blue-700 flex justify-between items-center flex-shrink-0"> {/* Adjusted border color */}
+     <div class="lg:hidden hidden fixed top-0 right-0 h-full w-64 bg-blue-800 shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col text-white">
+          <div class="pt-4 pb-3 px-4 border-b border-blue-700 flex justify-between items-center flex-shrink-0">
                <a href="index.html" class="flex items-center">
                     <img class="h-8 w-auto rounded-sm" src="images/logo/logo.png" alt="IVS JSC Logo" data-lang-key="logo_alt" onerror="this.onerror=null; this.src='https://placehold.co/120x32/3B82F6/ffffff?text=IVS+Logo';">
                </a>
-               <button id="mobile-close-button" type="button" class="p-1 rounded-md text-orange-200 hover:text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-white"> {/* Adjusted colors */}
+               <button id="mobile-close-button" type="button" class="p-1 rounded-md text-orange-200 hover:text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-white">
                     <span class="sr-only">Đóng menu</span>
                     <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -278,88 +295,26 @@
                </button>
           </div>
           <div class="px-2 pt-2 pb-3 space-y-1 overflow-y-auto flex-grow">
-               <a href="index.html" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_home">Trang chủ</a> {/* Adjusted text and hover colors */}
+               <a href="index.html" class="nav-link block px-3 py-2 rounded-md text-base font-medium hover:text-white hover:bg-blue-700" data-lang-key="menu_home">Trang chủ</a>
                 <div class="mobile-menu-item">
-                     <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-blue-700 mobile-submenu-toggle"> {/* Adjusted text and hover colors */}
+                     <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium hover:text-white hover:bg-blue-700 mobile-submenu-toggle">
                           <span data-lang-key="menu_about">Giới thiệu</span>
                           <svg class="ml-1 h-5 w-5 transform transition-transform duration-200 submenu-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
                      </button>
                      <div class="mt-1 pl-4 space-y-1 mobile-submenu">
-                         <a href="about.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_about_ivs">Về IVS JSC</a> {/* Adjusted text and hover colors */}
-                         <a href="summercamp.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_summer_camp">Trại hè Quốc tế</a> {/* Adjusted text and hover colors */}
-                         <a href="hocbong.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_scholarships">Học bổng</a> {/* Adjusted text and hover colors */}
-                         <a href="hay-noi.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_hay_noi_club">Chương trình "Hãy Nói"</a> {/* Adjusted text and hover colors */}
+                         <a href="about.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:text-white hover:bg-blue-700" data-lang-key="menu_about_ivs">Về IVS JSC</a>
+                         <a href="summercamp.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:text-white hover:bg-blue-700" data-lang-key="menu_summer_camp">Trại hè Quốc tế</a>
+                         <a href="hocbong.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:text-white hover:bg-blue-700" data-lang-key="menu_scholarships">Học bổng</a>
+                         <a href="hay-noi.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:text-white hover:bg-blue-700" data-lang-key="menu_hay_noi_club">Chương trình "Hãy Nói"</a>
                      </div>
                 </div>
                  <div class="mobile-menu-item">
-                     <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-blue-700 mobile-submenu-toggle"> {/* Adjusted text and hover colors */}
+                     <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium hover:text-white hover:bg-blue-700 mobile-submenu-toggle">
                           <span data-lang-key="menu_training">Đào tạo</span>
                           <svg class="ml-1 h-5 w-5 transform transition-transform duration-200 submenu-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
                     </button>
                     <div class="mt-1 pl-4 space-y-1 mobile-submenu">
                          <div class="mobile-menu-item">
-                              <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700 mobile-submenu-toggle"> {/* Adjusted text and hover colors */}
+                              <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium hover:text-white hover:bg-blue-700 mobile-submenu-toggle">
                                    <span data-lang-key="menu_educational_link">Liên kết giáo dục</span>
-                                   <svg class="ml-1 h-4 w-4 transform transition-transform duration-200 submenu-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
-                              </button>
-                              <div class="mt-1 pl-4 space-y-1 mobile-submenu">
-                                  <a href="lkmamnon.html" class="block px-3 py-2 rounded-md text-xs font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_link_preschool">Mầm non</a> {/* Adjusted text and hover colors */}
-                                  <a href="lktieuhoc.html" class="block px-3 py-2 rounded-md text-xs font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_link_primary">Tiểu học</a> {/* Adjusted text and hover colors */}
-                                  <a href="lkthcsthpt.html" class="block px-3 py-2 rounded-md text-xs font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_link_secondary">THCS & THPT</a> {/* Adjusted text and hover colors */}
-                                  <a href="lkttnn.html" class="block px-3 py-2 rounded-md text-xs font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_link_language_center">Trung tâm Ngoại ngữ</a> {/* Adjusted text and hover colors */}
-                              </div>
-                         </div>
-                         <div class="mobile-menu-item">
-                              <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700 mobile-submenu-toggle"> {/* Adjusted text and hover colors */}
-                                   <span data-lang-key="menu_training_center">Tại trung tâm</span>
-                                   <svg class="ml-1 h-4 w-4 transform transition-transform duration-200 submenu-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
-                              </button>
-                              <div class="mt-1 pl-4 space-y-1 mobile-submenu">
-                                   <a href="ivslanguages.html" class="block px-3 py-2 rounded-md text-xs font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_training_language">Đào tạo ngoại ngữ</a> {/* Adjusted text and hover colors */}
-                                   <a href="ivslifeminds.html" class="block px-3 py-2 rounded-md text-xs font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_training_lifeskills">Đào tạo kỹ năng sống</a> {/* Adjusted text and hover colors */}
-                              </div>
-                         </div>
-                         <div class="mobile-menu-item">
-                              <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700 mobile-submenu-toggle"> {/* Adjusted text and hover colors */}
-                                   <span data-lang-key="menu_training_teacher">Đào tạo giáo viên</span>
-                                   <svg class="ml-1 h-4 w-4 transform transition-transform duration-200 submenu-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
-                              </button>
-                              <div class="mt-1 pl-4 space-y-1 mobile-submenu">
-                                   <a href="teachertrain.html" class="block px-3 py-2 rounded-md text-xs font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_training_teacher_vn">Giáo viên VN</a> {/* Adjusted text and hover colors */}
-                                   <a href="fteachertrain.html" class="block px-3 py-2 rounded-md text-xs font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_training_teacher_foreign">Giáo viên nước ngoài</a> {/* Adjusted text and hover colors */}
-                              </div>
-                         </div>
-                         <hr class="my-2 border-blue-700"> {/* Adjusted border color */}
-                         <a href="bosungchungchi.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_training_teacher_cert">Bổ sung chứng chỉ NVSP</a> {/* Adjusted text and hover colors */}
-                         <a href="english-placement.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_placement_test">Kiểm tra trình độ</a> {/* Adjusted text and hover colors */}
-                    </div>
-               </div>
-                <div class="mobile-menu-item">
-                    <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-blue-700 mobile-submenu-toggle"> {/* Adjusted text and hover colors */}
-                         <span data-lang-key="menu_cooperation">Hợp tác</span>
-                         <svg class="ml-1 h-5 w-5 transform transition-transform duration-200 submenu-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
-                   </button>
-                   <div class="mt-1 pl-4 space-y-1 mobile-submenu">
-                        <a href="lien-ket-quoc-te.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_international_link">Liên kết Quốc tế</a> {/* Adjusted text and hover colors */}
-                        <a href="lienminhiivsa.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_iivsa_alliance">Liên minh IIVSA</a> {/* Adjusted text and hover colors */}
-                        <a href="hop-tac-dau-tu.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_investment_cooperation">Hợp tác Đầu tư</a> {/* Adjusted text and hover colors */}
-                        <a href="philoinhuan.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_non_profit">Tổ chức Phi lợi nhuận</a> {/* Adjusted text and hover colors */}
-                        <a href="tai-tro.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_sponsorship">Tài trợ</a> {/* Adjusted text and hover colors */}
-                   </div>
-               </div>
-                <div class="mobile-menu-item">
-                    <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-blue-700 mobile-submenu-toggle"> {/* Adjusted text and hover colors */}
-                         <span data-lang-key="menu_services">Dịch vụ</span>
-                         <svg class="ml-1 h-5 w-5 transform transition-transform duration-200 submenu-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
-                   </button>
-                   <div class="mt-1 pl-4 space-y-1 mobile-submenu">
-                        <a href="tuvan.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_edu_consulting">Tư vấn Giáo dục</a> {/* Adjusted text and hover colors */}
-                        <a href="thanhlaptrungtam.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_center_establishment">Thành lập Trung tâm</a> {/* Adjusted text and hover colors */}
-                        <a href="webdesign.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_web_design">Thiết kế Web</a> {/* Adjusted text and hover colors */}
-                        <a href="rnd-curriculum.html" class="block px-3 py-2 rounded-md text-sm font-medium text-white hover:text-white hover:bg-blue-700" data-lang-key="menu_design_edu">Thiết kế Học liệu</a> {/* Adjusted text and hover colors */}
-                   </div>
-               </div>
-                <div class="mobile-menu-item">
-                    <button class="nav-link w-full flex justify-between items-center px-3 py-2 rounded-md text-base font-medium text-white hover:text-white hover:bg-blue-700 mobile-submenu-toggle"> {/* Adjusted text and hover colors */}
-                         <span data-lang-key="menu_healths">Sức khỏe</span>
-                         <svg class="ml-1 h-5 w-5 transform transition-transform duration-200 submenu-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-
+                                   <svg class="ml-1 h-4 w-4 transform transition-transform duration-200 submenu-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7
