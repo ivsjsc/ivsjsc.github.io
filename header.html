@@ -32,7 +32,20 @@
             background-color: var(--submenu-bg) !important;
             color: var(--submenu-text) !important;
             border: 1px solid var(--submenu-border);
+            /* Thêm độ trễ nhỏ khi ẩn đi để tránh lỗi nhấp nháy khi di chuyển nhanh */
+             /* transition-property: opacity, visibility; */
+             /* transition-duration: 0.1s; */
+             /* transition-delay: 0.1s; */
+             /* visibility: hidden; */
+             /* opacity: 0; */
         }
+        /* CSS group-hover sẽ xử lý việc hiển thị */
+         /* .group:hover .submenu, .group:hover .sub-submenu { */
+             /* visibility: visible; */
+             /* opacity: 1; */
+             /* transition-delay: 0s; */
+         /* } */
+
         .submenu a, .submenu button,
         .sub-submenu a, .sub-submenu button {
             color: var(--submenu-text) !important;
@@ -210,20 +223,26 @@
              font-weight: 600;
              border-radius: 0.375rem;
         }
-        .main-menu-item .nav-link:hover,
-        .main-menu-item > button:hover
-        {
-            background-color: var(--header-hover-bg);
-            color: var(--header-text);
+        /* Áp dụng hover cho cả li chứa group */
+        .main-menu-item.group:hover .nav-link {
+             background-color: var(--header-hover-bg);
+             color: var(--header-text);
         }
+        /* Giữ hover cho nút khi li được hover */
+         .main-menu-item.group:hover .nav-link svg {
+             color: white;
+         }
+        /* Hover trực tiếp trên link/button không có dropdown */
+         .main-menu-item:not(.group) .nav-link:hover {
+              background-color: var(--header-hover-bg);
+             color: var(--header-text);
+         }
+
 
         .main-menu-item > button svg {
              color: #93c5fd;
              transition: color 0.15s ease-in-out;
         }
-         .main-menu-item > button:hover svg {
-             color: white;
-         }
 
         #navbar.shrink {}
         #navbar.shrink .nav-link {}
@@ -247,9 +266,9 @@
                     <li class="main-menu-item">
                         <a href="index.html" class="nav-link" data-lang-key="menu_home">Trang chủ</a>
                     </li>
-                    <li class="relative group main-menu-item">
-                        <button aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center group">
-                            <span data-lang-key="menu_about">Giới thiệu</span>
+
+                    <li class="relative main-menu-item group">
+                        <button aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center"> <span data-lang-key="menu_about">Giới thiệu</span>
                             <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                         </button>
                         <div class="submenu absolute hidden group-hover:block w-56 rounded-md shadow-lg py-1 z-50 mt-1">
@@ -259,8 +278,9 @@
                             <a href="hay-noi.html" class="nav-link" data-lang-key="menu_hay_noi_club">Chương trình "Hãy Nói"</a>
                         </div>
                     </li>
-                     <li class="relative group main-menu-item">
-                         <button aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center group">
+
+                     <li class="relative main-menu-item group">
+                         <button aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center">
                              <span data-lang-key="menu_training">Đào tạo</span>
                              <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                          </button>
@@ -302,8 +322,9 @@
                              <a href="english-placement.html" class="nav-link" data-lang-key="menu_placement_test">Kiểm tra trình độ</a>
                          </div>
                      </li>
-                    <li class="relative group main-menu-item">
-                         <button aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center group">
+
+                    <li class="relative main-menu-item group">
+                         <button aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center">
                               <span data-lang-key="menu_cooperation">Hợp tác</span>
                               <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                           </button>
@@ -315,8 +336,9 @@
                               <a href="tai-tro.html" class="nav-link" data-lang-key="menu_sponsorship">Tài trợ</a>
                           </div>
                       </li>
-                     <li class="relative group main-menu-item">
-                          <button aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center group">
+
+                    <li class="relative main-menu-item group">
+                          <button aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center">
                               <span data-lang-key="menu_services">Dịch vụ</span>
                               <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                            </button>
@@ -327,8 +349,9 @@
                                <a href="rnd-curriculum.html" class="nav-link" data-lang-key="menu_design_edu">Thiết kế Học liệu</a>
                            </div>
                        </li>
-                    <li class="relative group main-menu-item">
-                         <button aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center group">
+
+                    <li class="relative main-menu-item group">
+                         <button aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center">
                              <span data-lang-key="menu_healths">Sức khỏe</span>
                              <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                          </button>
@@ -337,8 +360,9 @@
                               <a href="health-luvyoga.html" class="nav-link" data-lang-key="menu_health_luvyoga">LuvYoga Lộc Hòa </a>
                           </div>
                       </li>
-                     <li class="relative group main-menu-item">
-                           <button aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center group">
+
+                    <li class="relative main-menu-item group">
+                           <button aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center">
                                <span data-lang-key="menu_library">Thư viện</span>
                                <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                            </button>
@@ -347,8 +371,9 @@
                                 <a href="ivsmedia.html" class="nav-link" data-lang-key="menu_library_media">IVSMedia</a>
                            </div>
                        </li>
-                    <li class="relative group main-menu-item">
-                           <button aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center group">
+
+                    <li class="relative main-menu-item group">
+                           <button aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center">
                                <span data-lang-key="menu_recruitment">Tuyển dụng</span>
                                <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                             </button>
@@ -357,6 +382,7 @@
                                 <a href="careerf.html" class="nav-link" data-lang-key="menu_recruitment_intl">Tuyển dụng quốc tế (Intl)</a>
                            </div>
                        </li>
+
                     <li class="main-menu-item">
                         <a href="contact.html" class="nav-link" data-lang-key="menu_contact">Liên hệ</a>
                     </li>
@@ -367,9 +393,11 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         <span class="sr-only" data-lang-key="search">Tìm kiếm</span>
                     </button>
+
                     <a href="dangkytuvan.html" class="bg-blue-600 text-white px-4 py-1.5 rounded-full hover:bg-blue-700 text-sm font-semibold transition duration-300 whitespace-nowrap" data-lang-key="register_consultation" style="background-color: var(--cta-bg); color: var(--cta-text);">
                          Đăng Ký Tư vấn
                      </a>
+
                      <div id="desktop-language-dropdown" class="language-dropdown relative border-l border-blue-500 pl-3 ml-1">
                           <button id="desktop-lang-toggle" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle text-sm font-semibold focus:outline-none inline-flex items-center px-2 py-1 rounded-md text-white hover:bg-blue-700 transition-colors duration-150">
                               <span id="desktop-current-lang">VN</span>
@@ -635,6 +663,7 @@
 
         desktopLangToggle.addEventListener('click', (e) => {
             e.stopPropagation();
+            // Close other dropdowns potentially?
             toggleDropdown(desktopLangDropdown);
         });
 
@@ -656,23 +685,24 @@
                  });
                 toggleDropdown(desktopLangDropdown, false);
                 toggleDropdown(mobileLangDropdown, false);
+                // Add language switching logic here
             });
         });
 
         window.addEventListener('click', function(event) {
-             if (!desktopLangDropdown.contains(event.target)) {
+             if (desktopLangDropdown && !desktopLangDropdown.contains(event.target)) {
                  toggleDropdown(desktopLangDropdown, false);
              }
-             if (!mobileMenuPanel.contains(event.target)) {
+             if (mobileMenuPanel && mobileLangDropdown && !mobileMenuPanel.contains(event.target)) {
                   toggleDropdown(mobileLangDropdown, false);
-             } else if (!mobileLangDropdown.contains(event.target)) {
+             } else if (mobileLangDropdown && !mobileLangDropdown.contains(event.target)) {
                  toggleDropdown(mobileLangDropdown, false);
              }
         });
 
          const initialLang = 'vi';
-         desktopCurrentLang.textContent = initialLang.toUpperCase();
-         mobileCurrentLang.textContent = initialLang.toUpperCase();
+         if(desktopCurrentLang) desktopCurrentLang.textContent = initialLang.toUpperCase();
+         if(mobileCurrentLang) mobileCurrentLang.textContent = initialLang.toUpperCase();
          langButtons.forEach(btn => {
              btn.disabled = btn.getAttribute('data-lang') === initialLang;
          });
@@ -680,13 +710,16 @@
          let lastScrollTop = 0;
          window.addEventListener('scroll', function() {
              let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-             if (scrollTop > 50) {
-                 navbar.classList.add('shrink');
-             } else {
-                 navbar.classList.remove('shrink');
+             if (navbar) { // Check if navbar exists
+                 if (scrollTop > 50) {
+                     navbar.classList.add('shrink');
+                 } else {
+                     navbar.classList.remove('shrink');
+                 }
              }
              lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
          }, false);
+
     });
 </script>
 
