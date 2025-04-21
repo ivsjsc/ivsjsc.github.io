@@ -20,13 +20,14 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+      // Tailwind CSS Configuration
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
+              sans: ['Inter', 'sans-serif'], // Set Inter as the default sans-serif font
             },
-            colors: {
+            colors: { // Define custom color palette based on user's code
               'primary': '#3b82f6', // blue-500
               'secondary': '#10b981', // emerald-500
               'purple-accent': '#8b5cf6', // purple-500
@@ -58,7 +59,7 @@
               'purple-50': '#faf5ff',
               'purple-600': '#9333ea',
               'red-500': '#ef4444',
-              'orange-600': '#ea580c' // Thêm màu cam nếu cần
+              'orange-600': '#ea580c'
             }
           }
         }
@@ -67,14 +68,19 @@
 
     <link rel="stylesheet" href="css/styles.css">
     <style>
+      /* Apply Inter font globally */
       body { font-family: 'Inter', sans-serif; }
+      /* Responsive video wrapper */
       .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; width: 100%; background-color: #000; border-radius: 0.5rem; }
       .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+      /* Disabled button style */
       button:disabled { opacity: 0.6; cursor: not-allowed; }
+      /* Custom scrollbar for news container */
       #news-container::-webkit-scrollbar { height: 8px; }
       #news-container::-webkit-scrollbar-track { background: #f3f4f6; border-radius: 10px; }
       #news-container::-webkit-scrollbar-thumb { background-color: #d1d5db; border-radius: 10px; border: 2px solid #f3f4f6; }
       #news-container::-webkit-scrollbar-thumb:hover { background-color: #9ca3af; }
+      /* Hover effect for service cards */
       .service-card-upgraded { transition: transform 0.3s ease, box-shadow 0.3s ease; }
       .service-card-upgraded:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
     </style>
@@ -87,55 +93,50 @@
         <section class="hero-section relative text-center mb-12 overflow-hidden rounded-b-lg shadow-xl bg-gray-200">
             <img src="/images/logo/webbanner.png" alt="IVS JSC Banner" class="hidden md:block w-full h-auto object-contain z-0 mx-auto" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
             <img src="/images/logo/webbannermo.png" alt="IVS JSC Banner Mobile" class="block md:hidden w-full h-auto object-contain z-0 mx-auto" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
-            {/* Phần div absolute đã bị xóa khỏi đây */}
         </section>
 
-        {/* ===== Quick Access Buttons Section Start ===== */}
-        {/* Phần này được đặt ngay sau hero section */}
         <section class="py-16 md:py-20 lg:py-24 bg-gray-50">
             <div class="container mx-auto px-4">
                 <h2 class="text-center text-3xl font-bold text-gray-800 mb-12" data-lang-key="quick_access_title">Truy Cập Nhanh</h2>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8 max-w-4xl mx-auto">
-                    <a href="#" class="block aspect-square rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 p-6 shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-white group">
-                        <h3 class="text-xl md:text-2xl font-semibold" data-lang-key="large_button_1_title">Nút Lớn 1</h3>
+                    <a href="howtouseai-ivs.html" class="block aspect-square rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 p-6 shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-white group">
+                        <h3 class="text-xl md:text-2xl font-semibold" data-lang-key="large_button_ai_guide">Hướng dẫn sử dụng AI - IVS</h3>
                     </a>
-                     <a href="#" class="block aspect-square rounded-xl bg-gradient-to-br from-green-500 to-green-700 p-6 shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-white group">
-                         <h3 class="text-xl md:text-2xl font-semibold" data-lang-key="large_button_2_title">Nút Lớn 2</h3>
-                     </a>
+                    <a href="about.html" class="block aspect-square rounded-xl bg-gradient-to-br from-green-500 to-green-700 p-6 shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-white group">
+                        <h3 class="text-xl md:text-2xl font-semibold" data-lang-key="large_button_about">Về IVS chúng tôi</h3>
+                    </a>
                 </div>
 
                 <div class="grid grid-cols-4 gap-3 md:gap-4 max-w-3xl mx-auto">
-                    <a href="howtouseai-ivs.html" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
-                         <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_1">Nút Nhỏ 1</span>
-                    </a>
+                     <a href="howtouseai-ivs.html" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
+                         <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_1">HDSD AI</span>
+                     </a>
                      <a href="#" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
                          <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_2">Nút Nhỏ 2</span>
-                    </a>
-                     <a href="#" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
-                        <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_3">Nút Nhỏ 3</span>
                      </a>
                      <a href="#" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
-                        <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_4">Nút Nhỏ 4</span>
+                         <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_3">Nút Nhỏ 3</span>
                      </a>
                      <a href="#" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
-                        <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_5">Nút Nhỏ 5</span>
+                         <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_4">Nút Nhỏ 4</span>
                      </a>
                      <a href="#" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
-                        <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_6">Nút Nhỏ 6</span>
+                         <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_5">Nút Nhỏ 5</span>
                      </a>
                      <a href="#" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
-                        <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_7">Nút Nhỏ 7</span>
+                         <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_6">Nút Nhỏ 6</span>
                      </a>
                      <a href="#" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
-                        <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_8">Nút Nhỏ 8</span>
+                         <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_7">Nút Nhỏ 7</span>
+                     </a>
+                     <a href="#" class="block aspect-square rounded-lg bg-white p-3 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group">
+                         <span class="text-xs md:text-sm font-medium" data-lang-key="small_button_8">Nút Nhỏ 8</span>
                      </a>
                 </div>
             </div>
         </section>
-        {/* ===== Quick Access Buttons Section End ===== */}
 
-        {/* Container và Section Tin tức RSS của VnExpress giữ lại */}
         <div class="container mx-auto px-4 py-8">
             <section class="news-section mb-12">
                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" data-lang-key="index_news_title">Tin Tức & Sự Kiện</h2>
@@ -144,13 +145,6 @@
                 </div>
             </section>
 
-            {/* === PHẦN VỀ CHÚNG TÔI ĐÃ BỊ XÓA === */}
-            {/* <section class="intro-section mb-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center"> ... </section> */}
-
-            {/* === PHẦN LĨNH VỰC HOẠT ĐỘNG ĐÃ BỊ XÓA === */}
-            {/* <section class="services-section mb-12"> ... </section> */}
-
-            {/* Phần Video giữ lại */}
             <section class="video-section mb-12">
                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-8" data-lang-key="index_video_title">Video Giới Thiệu</h2>
                 <div class="video-wrapper rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto">
@@ -158,7 +152,6 @@
                 </div>
             </section>
 
-            {/* Phần Tin tức VnExpress giữ lại */}
             <div class="container mx-auto max-w-5xl p-4 md:p-8 bg-white shadow-lg rounded-lg my-8">
                 <section class="mt-12">
                     <h2 class="text-2xl font-semibold text-orange-600 mb-4 pb-2 border-b border-gray-200" data-lang-key="index_vnexpress_title">
