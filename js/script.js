@@ -498,6 +498,78 @@ function initializeStickyNavbar(navbarElement) {
      }, { passive: true }); // Sử dụng passive listener để tối ưu hiệu năng cuộn
 }
 
+/**
+ * Tải và hiển thị tin tức nội bộ từ file posts.json.
+ */
+function loadInternalNews() {
+    const newsContainer = document.getElementById('news-container');
+    if (!newsContainer) {
+        console.error("[script.js] News container (#news-container) not found.");
+        return;
+    }
+
+    // Lấy ngôn ngữ hiện tại để hiển thị text "Đọc thêm"
+    const currentLang = localStorage.getItem('preferredLanguage') || 'vi';
+    const readMoreText = translations[currentLang]?.read_more || 'Read more →';
+    const newsTitleNaText = translations[currentLang]?.news_title_na || 'Title Not Available';
+    const newsImageAltText = translations[currentLang]?.news_image_alt || 'News image';
+
+    fetch('posts.json') // Fetch the JSON file
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status} fetching posts.json`);
+            }
+            return response.json();
+        })
+        .then(posts => {
+            newsContainer.innerHTML = ''; // Clear loading message
+
+            if (!posts || posts.length === 0) {
+                newsContainer.innerHTML = `<p class="text-gray-500 w-full text-center" data-lang-key="no_news">${translations[currentLang]?.no_news || 'No news yet.'}</p>`;
+                return;
+            }
+
+            // Giới hạn số lượng tin tức hiển thị (ví dụ: 6 tin)
+            const limitedPosts = posts.slice(0, 6);
+
+            limitedPosts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.className = 'news-card flex-shrink-0 w-72 bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105'; // Added hover effect
+
+                // Hot badge (optional)
+                const hotBadge = post.hot ? `<span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full">HOT</span>` : '';
+
+                postElement.innerHTML = `
+                    <a href="${post.link || '#'}" class="block group">
+                        <div class="relative">
+                            <img src="${post.image || 'https://placehold.co/300x200/e2e8f0/cbd5e1?text=Image'}"
+                                 alt="${post.title || newsImageAltText}"
+                                 class="w-full h-40 object-cover transition-transform duration-300 group-hover:scale-110"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/300x200/e2e8f0/cbd5e1?text=Image+Error';">
+                            ${hotBadge}
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2" title="${post.title || ''}">
+                                ${post.title || newsTitleNaText}
+                            </h3>
+                            <p class="text-sm text-gray-600 mb-3 line-clamp-3">
+                                ${post.excerpt || ''}
+                            </p>
+                            <div class="flex justify-between items-center text-xs text-gray-500">
+                                <span>${post.date ? new Date(post.date).toLocaleDateString('vi-VN') : ''}</span>
+                                <span class="text-blue-500 font-medium group-hover:underline">${readMoreText}</span>
+                            </div>
+                        </div>
+                    </a>
+                `;
+                newsContainer.appendChild(postElement);
+            });
+        })
+        .catch(error => {
+            console.error("[script.js] Error loading internal news:", error);
+            newsContainer.innerHTML = `<p class="text-red-500 w-full text-center" data-lang-key="news_load_error">${translations[currentLang]?.news_load_error || 'Could not load news.'}</p>`;
+        });
+}
 
 // --- MAIN EXECUTION ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -527,7 +599,10 @@ document.addEventListener('DOMContentLoaded', () => {
      Promise.allSettled(componentPromises) // Use allSettled để luôn chạy dù 1 cái lỗi
          .then((results) => {
              const headerLoaded = headerPlaceholder && results[0]?.status === 'fulfilled';
-             const footerLoaded = footerPlaceholder && results[componentPromises.length - 1]?.status === 'fulfilled'; // Index có thể thay đổi nếu chỉ có 1 placeholder
+             // Xác định index của footer promise một cách linh hoạt hơn
+             const footerPromiseIndex = componentPromises.findIndex(p => p.toString().includes('footer.html')); // Tìm index dựa trên URL (cần điều chỉnh nếu URL khác)
+             const footerLoaded = footerPlaceholder && footerPromiseIndex !== -1 && results[footerPromiseIndex]?.status === 'fulfilled';
+
              console.log(`[script.js] Header loaded: ${headerLoaded}, Footer loaded: ${footerLoaded}`);
              headerFooterLoaded = true; // Đánh dấu đã (cố gắng) tải xong
 
@@ -543,8 +618,8 @@ document.addEventListener('DOMContentLoaded', () => {
                        console.log("[script.js] Calling initializeLanguage() AFTER components attempt...");
                        initializeLanguage(); // Gọi hàm từ language.js (sẽ load translations, set lang,...)
                        // Sau khi initializeLanguage chạy xong, các nút ngôn ngữ mới có thể tồn tại
-                       if (headerLoaded && typeof window.attachLanguageButtonListeners === 'function') {
-                           // Gọi lại việc gắn listener sau khi ngôn ngữ đã khởi tạo và header đã load
+                       if (typeof window.attachLanguageButtonListeners === 'function') {
+                           // Gọi lại việc gắn listener sau khi ngôn ngữ đã khởi tạo và header/footer đã load
                            window.attachLanguageButtonListeners();
                        }
                   } else {
@@ -553,7 +628,7 @@ document.addEventListener('DOMContentLoaded', () => {
                        const currentLang = localStorage.getItem('preferredLanguage') || 'vi';
                        if(typeof applyTranslations === 'function') applyTranslations(currentLang);
                        // Và có thể cần gắn lại listener nếu DOM thay đổi nhiều
-                       if (headerLoaded && typeof window.attachLanguageButtonListeners === 'function') {
+                       if (typeof window.attachLanguageButtonListeners === 'function') {
                            window.attachLanguageButtonListeners();
                        }
                   }
@@ -576,14 +651,17 @@ document.addEventListener('DOMContentLoaded', () => {
      // Nên đặt các hàm này trong file riêng và import nếu phức tạp
      const bodyId = document.body.id;
      if (bodyId === 'page-index') { // Ví dụ trang chủ có id="page-index"
-          if (typeof loadInternalNews === 'function') {
-               console.log("[script.js] Index page: Loading internal news...");
-               loadInternalNews();
-          } else { console.warn("[script.js] loadInternalNews function not found."); }
-          if (typeof loadVnExpressFeed === 'function') {
+          // Gọi hàm loadInternalNews() đã định nghĩa ở trên
+          console.log("[script.js] Index page: Loading internal news...");
+          loadInternalNews();
+
+          // Kiểm tra và gọi loadVnExpressFeed nếu tồn tại
+          if (typeof loadVnExpressFeed === 'function') { // loadVnExpressFeed từ rss-loader.js
                console.log("[script.js] Index page: Loading VnExpress feed...");
-               loadVnExpressFeed();
-          } else { console.warn("[script.js] loadVnExpressFeed function not found."); }
+               loadVnExpressFeed(); // Gọi hàm này để tải feed từ VnExpress
+          } else {
+              console.warn("[script.js] loadVnExpressFeed function not found (expected in rss-loader.js).");
+          }
      } else if (bodyId === 'page-placement' && typeof initializePlacementTest === 'function') { // Trang placement test
           console.log("[script.js] Placement test page: Initializing test...");
           initializePlacementTest();

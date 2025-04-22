@@ -1198,13 +1198,5 @@ document.addEventListener('DOMContentLoaded', () => {
      // Set initial language from storage or default
      const initialLang = localStorage.getItem('language') || 'vi';
      setLanguageUI(initialLang);
-     // loadTranslations(initialLang); // Load bản dịch ban đầu
-
-     // ... các code khác trong DOMContentLoaded ...
 });
 }
-
-// Lưu ý: Hàm initializeLanguage() này nên được gọi từ script.js
-// sau khi header.html đã được tải thành công vào #header-placeholder.
-// Không cần gọi nó từ DOMContentLoaded listener trong file này nữa.
-
