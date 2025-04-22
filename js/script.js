@@ -1,339 +1,260 @@
-// /js/script.js
+// /js/script.js - File chính điều phối tải component và khởi tạo
 
-// Biến cờ để đảm bảo menu events chỉ được khởi tạo một lần
+// Biến cờ để đảm bảo các phần chỉ được khởi tạo một lần
+let headerFooterLoaded = false;
 let menuInitialized = false;
+// window.languageInitialized được quản lý trong language.js và kiểm tra ở đây
 
 /**
  * Tải nội dung từ một tệp HTML vào một phần tử placeholder.
  * @param {string} placeholderId ID của phần tử placeholder.
  * @param {string} componentUrl Đường dẫn đến tệp HTML component.
- * @returns {Promise<void>} Promise hoàn thành khi component được tải.
+ * @returns {Promise<void>} Promise hoàn thành khi component được tải hoặc báo lỗi.
  */
 function loadComponent(placeholderId, componentUrl) {
     const placeholder = document.getElementById(placeholderId);
     if (!placeholder) {
-        console.error(`Placeholder element with ID "${placeholderId}" not found.`);
+        console.error(`[script.js] Placeholder element with ID "${placeholderId}" not found.`);
         return Promise.reject(`Placeholder not found: ${placeholderId}`);
     }
+    // console.log(`[script.js] Starting load for ${componentUrl} into #${placeholderId}`);
+    // placeholder.innerHTML = '<p class="text-center text-gray-500 p-4">Loading...</p>'; // Optional loading indicator
 
     return fetch(componentUrl)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Failed to fetch ${componentUrl}: ${response.statusText}`);
+                throw new Error(`HTTP error! status: ${response.status} loading ${componentUrl}`);
             }
             return response.text();
         })
         .then(html => {
-            placeholder.innerHTML = html;
-            console.log(`Component ${componentUrl} loaded into #${placeholderId}`);
+            if (placeholder) { // Check again in case element removed during fetch
+                placeholder.innerHTML = html;
+                console.log(`[script.js] Component ${componentUrl} loaded into #${placeholderId}`);
+            } else {
+                 console.error(`[script.js] Placeholder #${placeholderId} disappeared before loading ${componentUrl}.`);
+                 // Reject the promise if placeholder is gone
+                 return Promise.reject(`Placeholder #${placeholderId} disappeared.`);
+            }
+            // Resolve successfully
+            return Promise.resolve();
         })
         .catch(error => {
-            console.error(`Error loading component ${componentUrl}:`, error);
-            placeholder.innerHTML = `<p class="text-red-500 text-center">Error loading component: ${componentUrl}</p>`;
+            console.error(`[script.js] Error loading component ${componentUrl}:`, error);
+            if (placeholder) { // Check again before writing error message
+                placeholder.innerHTML = `<p class="text-red-500 text-center p-4">Error loading component: ${componentUrl}. ${error.message}</p>`;
+            }
+            // Reject the promise on error
             return Promise.reject(error);
         });
 }
 
 /**
- * Khởi tạo các sự kiện cho menu (Phiên bản kết hợp: Slide cho main menu, MaxHeight cho submenu).
+ * Khởi tạo các sự kiện cho menu mobile và language dropdown.
  * Được gọi SAU KHI header đã được tải thành công.
  */
-function initializeCombinedMenuEvents() {
+function initializeHeaderMenuLogic() {
     if (menuInitialized) {
-        console.warn("DEBUG: Menu events already initialized. Skipping.");
+        console.warn("[script.js] Menu events already initialized. Skipping.");
         return;
     }
-    console.log("DEBUG: Initializing COMBINED menu events...");
-    // Tìm header bên trong placeholder SAU KHI nó đã được load
-    const headerElement = document.getElementById('header-placeholder')?.querySelector('header#navbar');
+    console.log("[script.js] Initializing header menu logic (Mobile & Language)...");
+
+    const headerPlaceholder = document.getElementById('header-placeholder');
+    const headerElement = headerPlaceholder?.querySelector('header#navbar'); // Query inside placeholder
 
     if (!headerElement) {
-        console.error("DEBUG: Header element (#navbar inside #header-placeholder) not found. Cannot initialize menu events.");
-        return; // Thoát nếu không tìm thấy header đã load
+        console.error("[script.js] Header element (#navbar inside #header-placeholder) not found AFTER loading. Cannot initialize menu events.");
+        return; // Exit if header isn't found after load attempt
     }
 
+    // Find elements *within* the loaded header
     const mobileMenuButton = headerElement.querySelector('#mobile-menu-button');
-    const mobileMenu = headerElement.querySelector('#mobile-menu');
+    const mobileMenuPanel = headerElement.querySelector('#mobile-menu-panel'); // Use the correct ID from your HTML
     const mobileMenuOverlay = headerElement.querySelector('#mobile-menu-overlay');
     const iconMenu = headerElement.querySelector('#icon-menu');
     const iconClose = headerElement.querySelector('#icon-close');
-    const mobileCloseButton = headerElement.querySelector('#mobile-close-button'); // Thêm nút đóng
+    const mobileCloseButton = headerElement.querySelector('#mobile-close-button');
+    const desktopLangDropdown = headerElement.querySelector('#desktop-language-dropdown');
+    const desktopLangToggle = headerElement.querySelector('#desktop-lang-toggle');
+    const mobileLangDropdown = headerElement.querySelector('#mobile-language-dropdown');
+    const mobileLangToggle = headerElement.querySelector('#mobile-lang-toggle');
+    // Find language buttons globally *after* header/footer load, as they might be in footer too
+    const langButtons = document.querySelectorAll('.lang-button');
 
-    // --- Logic Toggle Menu Mobile Chính (Slide Animation) ---
-    function toggleMobileMenuPanel() {
-        if (!mobileMenu || !mobileMenuButton || !mobileMenuOverlay || !iconMenu || !iconClose) {
-            console.error("DEBUG: Core mobile menu elements missing for toggle.");
+    // --- Mobile Menu Toggle ---
+    function toggleMobileMenu(open) {
+        if (!mobileMenuPanel || !mobileMenuOverlay || !iconMenu || !closeIcon || !mobileMenuButton) {
+            console.error("[script.js] Core mobile menu elements missing for toggle.");
             return;
         }
-        // Sử dụng class 'hidden' để kiểm tra trạng thái đóng/mở ban đầu
-        const isOpening = mobileMenu.classList.contains('hidden');
-        console.log(`DEBUG: Toggling mobile menu panel. Currently hidden: ${isOpening}`);
+        const isOpen = typeof open === 'boolean' ? open : mobileMenuButton.getAttribute('aria-expanded') === 'false';
 
-        mobileMenuButton.setAttribute('aria-expanded', String(isOpening)); // Chuyển sang chuỗi 'true'/'false'
-        iconMenu.classList.toggle('hidden', isOpening);
-        iconClose.classList.toggle('hidden', !isOpening);
+        mobileMenuButton.setAttribute('aria-expanded', isOpen.toString());
+        iconMenu.classList.toggle('hidden', isOpen);
+        iconClose.classList.toggle('hidden', !isOpen);
 
-        if (isOpening) {
-            // Mở menu
-            mobileMenuOverlay.classList.remove('hidden'); // Hiện overlay trước
-            mobileMenu.classList.remove('hidden'); // Hiện panel trước
-            // document.body.style.overflow = 'hidden'; // <<<----- BỎ DÒNG NÀY ĐI
-
-            // Buộc trình duyệt tính toán lại layout trước khi thêm class animation
+        if (isOpen) { // Opening
+            mobileMenuOverlay.classList.remove('hidden');
+            mobileMenuPanel.classList.remove('hidden');
             requestAnimationFrame(() => {
-                mobileMenuOverlay.classList.remove('opacity-0'); // Bắt đầu mờ dần overlay
-                mobileMenu.classList.remove('translate-x-full'); // Bắt đầu trượt panel vào
-                console.log("DEBUG: Mobile menu panel opening animation started.");
+                mobileMenuOverlay.classList.remove('opacity-0');
+                mobileMenuPanel.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden'; // Prevent body scroll when menu is open
             });
-        } else {
-            // Đóng menu
-            mobileMenuOverlay.classList.add('opacity-0'); // Bắt đầu mờ dần overlay
-            mobileMenu.classList.add('translate-x-full'); // Bắt đầu trượt panel ra
-            // document.body.style.overflow = ''; // <<<----- BỎ DÒNG NÀY ĐI
+        } else { // Closing
+            mobileMenuOverlay.classList.add('opacity-0');
+            mobileMenuPanel.classList.add('translate-x-full');
+            document.body.style.overflow = ''; // Restore body scroll
 
-            // Sử dụng sự kiện transitionend để ẩn hoàn toàn sau khi animation kết thúc
-            const handler = (event) => {
-                // Chỉ xử lý khi transition kết thúc trên chính mobileMenu (không phải các element con)
-                // và khi nó thực sự đã bị đẩy ra (translate-x-full)
-                if (event.target === mobileMenu && mobileMenu.classList.contains('translate-x-full')) {
+            // Use transitionend to hide elements after animation
+            const transitionEndHandler = (event) => {
+                 // Ensure the event is for the panel itself and it's fully closed
+                 if (event.target === mobileMenuPanel && mobileMenuPanel.classList.contains('translate-x-full')) {
+                    mobileMenuPanel.classList.add('hidden');
                     mobileMenuOverlay.classList.add('hidden');
-                    mobileMenu.classList.add('hidden');
-                    closeAllMobileSubmenus(mobileMenu); // Đóng tất cả submenu con khi panel chính đóng
-                    console.log("DEBUG: Mobile menu panel closing animation finished and elements hidden.");
-                    // Gỡ bỏ event listener sau khi đã chạy
-                    mobileMenu.removeEventListener('transitionend', handler);
-                }
+                    mobileMenuPanel.removeEventListener('transitionend', transitionEndHandler); // Clean up listener
+                 }
             };
-            // Gắn listener (sẽ tự gỡ bỏ nếu chạy)
-            mobileMenu.removeEventListener('transitionend', handler); // Đảm bảo không gắn trùng lặp
-            mobileMenu.addEventListener('transitionend', handler);
+            mobileMenuPanel.removeEventListener('transitionend', transitionEndHandler); // Remove previous listener if any
+            mobileMenuPanel.addEventListener('transitionend', transitionEndHandler, { once: true });
 
-            // Fallback bằng setTimeout nếu transitionend không kích hoạt (hiếm khi xảy ra)
-            setTimeout(() => {
-                if (mobileMenu.classList.contains('translate-x-full') && !mobileMenu.classList.contains('hidden')) {
-                    console.warn("DEBUG: Closing mobile menu via fallback timeout.");
-                    mobileMenuOverlay.classList.add('hidden');
-                    mobileMenu.classList.add('hidden');
-                    closeAllMobileSubmenus(mobileMenu);
-                    mobileMenu.removeEventListener('transitionend', handler); // Gỡ fallback listener nếu đã chạy
-                }
-            }, 350); // Thời gian lớn hơn transition duration một chút (300ms)
+             // Fallback timeout in case transitionend doesn't fire reliably
+             setTimeout(() => {
+                 if (mobileMenuPanel.classList.contains('translate-x-full') && !mobileMenuPanel.classList.contains('hidden')) {
+                     console.warn("[script.js] Closing mobile menu via fallback timeout.");
+                     mobileMenuPanel.classList.add('hidden');
+                     mobileMenuOverlay.classList.add('hidden');
+                     mobileMenuPanel.removeEventListener('transitionend', transitionEndHandler); // Clean up listener
+                 }
+             }, 350); // Slightly longer than transition duration
         }
     }
 
-    if (mobileMenuButton) {
-        mobileMenuButton.addEventListener('click', toggleMobileMenuPanel);
-    } else {
-        console.warn("DEBUG: Mobile menu button (#mobile-menu-button) not found.");
-    }
-    if (mobileMenuOverlay) {
-         mobileMenuOverlay.addEventListener('click', toggleMobileMenuPanel); // Đóng khi click overlay
-    }
-    // Thêm sự kiện cho nút đóng X bên trong menu
-    if (mobileCloseButton) {
-        mobileCloseButton.addEventListener('click', toggleMobileMenuPanel);
-    }
+    if (mobileMenuButton) mobileMenuButton.addEventListener('click', () => toggleMobileMenu());
+    if (mobileCloseButton) mobileCloseButton.addEventListener('click', () => toggleMobileMenu(false));
+    if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', () => toggleMobileMenu(false));
 
-
-    // --- Logic Toggle Submenu Mobile (MaxHeight Animation - REFINED v2) ---
-    const mobileMenuItems = mobileMenu?.querySelectorAll('.mobile-menu-item');
-
-    if (mobileMenuItems && mobileMenuItems.length > 0) {
-        mobileMenuItems.forEach(item => {
-            // Chỉ lấy button toggle trực tiếp của item này
-            const button = item.querySelector(':scope > button.mobile-submenu-toggle');
-            // Chỉ lấy submenu trực tiếp của item này
-            const submenu = item.querySelector(':scope > .mobile-submenu');
-
-            if (button && submenu) {
-                // Khởi tạo trạng thái và style cho animation nếu chưa có
-                if (!submenu.classList.contains('submenu-initialized')) {
-                    submenu.style.overflow = 'hidden';
-                    submenu.style.transition = 'max-height 0.3s ease-in-out';
-                    submenu.style.maxHeight = '0'; // Đảm bảo trạng thái ban đầu là đóng
-                    if (!submenu.classList.contains('hidden')) { // Đồng bộ class hidden nếu cần
-                         submenu.classList.add('hidden');
-                    }
-                    submenu.classList.add('submenu-initialized');
-                     // Thêm class để xoay icon mũi tên (nếu có)
-                     const arrowIcon = button.querySelector('svg');
-                     if (arrowIcon && !arrowIcon.classList.contains('submenu-arrow')) {
-                         arrowIcon.classList.add('submenu-arrow'); // Thêm class để CSS có thể target
-                     }
+    // Close mobile menu when a link inside it is clicked (if it's not a submenu toggle)
+    if (mobileMenuPanel) {
+        mobileMenuPanel.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (!link.closest('.mobile-submenu-toggle')) {
+                    setTimeout(() => toggleMobileMenu(false), 50);
                 }
+            });
+        });
+    }
 
-                // Gỡ bỏ listener cũ trước khi thêm mới để tránh lỗi
-                button.removeEventListener('click', handleSubmenuToggle);
-                button.addEventListener('click', handleSubmenuToggle);
+    // --- Mobile Submenu Toggle ---
+    const mobileSubmenuToggles = headerElement.querySelectorAll('#mobile-menu-panel .mobile-submenu-toggle');
+    mobileSubmenuToggles.forEach(button => {
+        // Initialize state
+        const parentItem = button.closest('.mobile-menu-item');
+        const submenu = parentItem?.querySelector(':scope > .mobile-submenu');
+        if(submenu) {
+            submenu.style.maxHeight = '0'; // Ensure closed initially
+            // Add arrow class if missing
+            const arrowIcon = button.querySelector('svg');
+            if (arrowIcon && !arrowIcon.classList.contains('submenu-arrow')) {
+                arrowIcon.classList.add('submenu-arrow');
+            }
+        }
+
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (!parentItem || !submenu) return;
+
+            const isOpen = parentItem.classList.toggle('open');
+            this.setAttribute('aria-expanded', isOpen.toString());
+
+            if (isOpen) {
+                submenu.style.maxHeight = submenu.scrollHeight + "px";
+            } else {
+                submenu.style.maxHeight = '0';
+                // Close nested submenus
+                submenu.querySelectorAll('.mobile-menu-item.open').forEach(nestedOpenItem => {
+                    nestedOpenItem.classList.remove('open');
+                    const nestedSub = nestedOpenItem.querySelector(':scope > .mobile-submenu');
+                    if(nestedSub) nestedSub.style.maxHeight = '0';
+                    nestedOpenItem.querySelector('button')?.setAttribute('aria-expanded', 'false');
+                });
+            }
+
+            // Close sibling submenus
+            const parentList = parentItem.parentNode;
+             if (parentList) {
+                Array.from(parentList.children).forEach(sibling => {
+                     if (sibling !== parentItem && sibling.classList.contains('mobile-menu-item') && sibling.classList.contains('open')) {
+                          sibling.classList.remove('open');
+                          const siblingSubmenu = sibling.querySelector(':scope > .mobile-submenu');
+                          if(siblingSubmenu) siblingSubmenu.style.maxHeight = '0';
+                          sibling.querySelector('button')?.setAttribute('aria-expanded', 'false');
+                     }
+                });
             }
         });
-    } else {
-        console.warn("DEBUG: No mobile menu items (.mobile-menu-item) found for submenu toggling.");
-    }
+    });
 
-    // Hàm xử lý toggle submenu (tách ra để tránh tạo hàm ẩn danh trong vòng lặp)
-    function handleSubmenuToggle(event) {
-        event.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
-        const button = event.currentTarget;
-        const item = button.closest('.mobile-menu-item');
-        const submenu = item.querySelector(':scope > .mobile-submenu');
+    // --- Language Dropdown Logic ---
+    function toggleDropdown(dropdownElement, forceState) {
+        if (!dropdownElement) return;
+        const content = dropdownElement.querySelector('.language-dropdown-content');
+        if (!content) return;
+        const currentlyOpen = dropdownElement.classList.contains('open');
+        const open = typeof forceState === 'boolean' ? forceState : !currentlyOpen;
+        const toggleButton = dropdownElement.querySelector('.dropdown-toggle');
 
-        if (!submenu) return;
-
-        const isCurrentlyHidden = submenu.classList.contains('hidden');
-
-        // Đóng các submenu anh em cùng cấp trước khi mở submenu mới
-        const parentContainer = item.parentElement;
-        if (parentContainer) {
-            // Chỉ tìm các item anh em trực tiếp
-            const siblingItems = Array.from(parentContainer.children).filter(child =>
-                child !== item && child.classList.contains('mobile-menu-item')
-            );
-            siblingItems.forEach(sibling => {
-                const otherSubmenu = sibling.querySelector(':scope > .mobile-submenu');
-                if (otherSubmenu && !otherSubmenu.classList.contains('hidden')) {
-                    closeSingleMobileSubmenu(sibling, otherSubmenu);
-                }
-            });
-        }
-
-        // Toggle submenu hiện tại
-        if (isCurrentlyHidden) {
-            // Mở submenu
-            submenu.classList.remove('hidden');
-            // Đặt maxHeight = scrollHeight để bắt đầu animation
-            // Cần tính scrollHeight *sau khi* đã bỏ hidden
-            requestAnimationFrame(() => {
-                submenu.style.maxHeight = submenu.scrollHeight + "px";
-                item.classList.add('open'); // Thêm class open để xoay icon
-                console.log(`DEBUG: Opening mobile submenu, set max-height: ${submenu.scrollHeight}px`);
-            });
-        } else {
-            // Đóng submenu
-            closeSingleMobileSubmenu(item, submenu);
+        dropdownElement.classList.toggle('open', open);
+         if (toggleButton) {
+            toggleButton.setAttribute('aria-expanded', open.toString());
         }
     }
 
+    if(desktopLangToggle) {
+        desktopLangToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleDropdown(desktopLangDropdown);
+        });
+    }
+    if(mobileLangToggle) {
+        mobileLangToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleDropdown(mobileLangDropdown);
+        });
+    }
 
-    // --- Đóng Menu Mobile Khi Click Bên Ngoài hoặc Nhấn Esc ---
-     function closeMenuFromOutside(event) {
-         if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-             // Kiểm tra xem click có nằm trong header (chứa cả nút toggle và panel) không
-             const isClickInsideHeader = headerElement && headerElement.contains(event.target);
+    // Attach listener to language buttons *after* header/footer load
+    if (typeof handleLanguageChange === 'function' && langButtons.length > 0) {
+        langButtons.forEach(button => {
+            button.removeEventListener('click', handleLanguageChange); // Prevent duplicates
+            button.addEventListener('click', handleLanguageChange);
+        });
+        console.log(`[script.js] Language listeners attached to ${langButtons.length} buttons.`);
+    } else if (typeof handleLanguageChange !== 'function') {
+         console.warn("[script.js] handleLanguageChange function not found. Language switching might not work.");
+    }
 
-             if (!isClickInsideHeader) {
-                 console.log("DEBUG: Clicked outside header, closing mobile menu.");
-                 toggleMobileMenuPanel(); // Gọi hàm đóng menu
-             }
+    // Close language dropdowns on outside click
+    window.addEventListener('click', function(event) {
+         if (desktopLangDropdown && desktopLangDropdown.classList.contains('open') && !desktopLangDropdown.contains(event.target)) {
+             toggleDropdown(desktopLangDropdown, false);
          }
-     }
-     function closeMenuOnEscape(event) {
-         if (event.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('hidden')) {
-             console.log("DEBUG: Escape pressed, closing mobile menu.");
-             toggleMobileMenuPanel(); // Gọi hàm đóng menu
+         if (mobileLangDropdown && mobileLangDropdown.classList.contains('open') && mobileMenuPanel && !mobileMenuPanel.contains(event.target)) {
+              toggleDropdown(mobileLangDropdown, false);
+         } else if (mobileLangDropdown && mobileLangDropdown.classList.contains('open') && !mobileLangDropdown.contains(event.target)) {
+              toggleDropdown(mobileLangDropdown, false);
          }
-     }
-     // Gắn listener vào document, chỉ gắn 1 lần
-     document.removeEventListener('click', closeMenuFromOutside); // Gỡ listener cũ nếu có
-     document.addEventListener('click', closeMenuFromOutside);
-     document.removeEventListener('keydown', closeMenuOnEscape); // Gỡ listener cũ nếu có
-     document.addEventListener('keydown', closeMenuOnEscape);
+    });
 
+    // --- Sticky Navbar Logic ---
+    initializeStickyNavbar(headerElement);
 
     // --- Active Menu Item Highlighting ---
     initializeActiveMenuHighlighting(headerElement);
 
-    // --- Sticky Navbar Logic (Optional) ---
-    initializeStickyNavbar(headerElement);
-
-    // --- Đặt cờ báo đã khởi tạo thành công ---
     menuInitialized = true;
-    console.log("DEBUG: COMBINED menu events initialized successfully.");
-
-    // Thêm CSS cho việc xoay icon mũi tên
-    const styleSheet = document.createElement("style");
-    styleSheet.innerText = `
-        .mobile-menu-item .submenu-arrow {
-            transition: transform 0.3s ease-in-out;
-        }
-        .mobile-menu-item.open > button .submenu-arrow {
-            transform: rotate(90deg);
-        }
-    `;
-    document.head.appendChild(styleSheet);
-}
-
-/**
- * Hàm đóng một submenu mobile cụ thể với animation maxHeight (REFINED v2).
- * @param {HTMLElement} item - Phần tử .mobile-menu-item cha.
- * @param {HTMLElement} submenu - Phần tử .mobile-submenu cần đóng.
- */
-function closeSingleMobileSubmenu(item, submenu) {
-    if (!item || !submenu || submenu.classList.contains('hidden')) return;
-
-    const button = item.querySelector(':scope > button.mobile-submenu-toggle');
-    const buttonText = button ? button.textContent.trim() : 'unknown';
-    console.log(`DEBUG: Closing single mobile submenu for "${buttonText}"`);
-
-    // 1. Đặt lại maxHeight về giá trị hiện tại (scrollHeight) nếu nó đang là '' hoặc 'none'
-    // Điều này quan trọng để transition từ giá trị cụ thể về 0
-    if (submenu.style.maxHeight === '' || submenu.style.maxHeight === 'none') {
-        submenu.style.maxHeight = submenu.scrollHeight + "px";
-    }
-
-    // 2. Xóa class 'open' để xoay icon lại
-    item.classList.remove('open');
-
-    // 3. Buộc reflow nhỏ và bắt đầu transition về maxHeight = 0
-    requestAnimationFrame(() => {
-        submenu.style.maxHeight = '0';
-        console.log(`DEBUG: Closing animation started for "${buttonText}", set max-height: 0`);
-    });
-
-    // 4. Lắng nghe transition kết thúc để thêm lại class 'hidden'
-    const closeTransitionHandler = (event) => {
-        // Chỉ xử lý khi transition kết thúc trên chính submenu và maxHeight đã về 0 (hoặc gần 0)
-        if (event.target === submenu && parseFloat(submenu.style.maxHeight) < 1) {
-             if (!submenu.classList.contains('hidden')) { // Kiểm tra lần nữa trước khi thêm hidden
-                 submenu.classList.add('hidden');
-                 // Không cần gọi đệ quy ở đây nữa, vì khi đóng cha thì con cũng bị ẩn theo max-height=0
-                 // closeAllMobileSubmenus(submenu); // Đệ quy đóng con cháu nếu có
-                 console.log(`DEBUG: Finished closing mobile submenu for "${buttonText}", added 'hidden'.`);
-             }
-             submenu.removeEventListener('transitionend', closeTransitionHandler); // Gỡ bỏ listener
-        }
-    };
-    submenu.removeEventListener('transitionend', closeTransitionHandler); // Gỡ listener cũ nếu có
-    submenu.addEventListener('transitionend', closeTransitionHandler);
-
-    // 5. Fallback nếu transitionend không kích hoạt
-     setTimeout(() => {
-         if (!submenu.classList.contains('hidden') && !item.classList.contains('open')) {
-             console.warn(`DEBUG: Closing mobile submenu for "${buttonText}" via fallback timeout.`);
-             submenu.classList.add('hidden');
-             // closeAllMobileSubmenus(submenu);
-             submenu.removeEventListener('transitionend', closeTransitionHandler); // Gỡ listener nếu fallback chạy
-         }
-     }, 350); // Thời gian > transition duration
-}
-
-/**
- * Hàm đóng tất cả các submenu mobile đang mở bên trong một phần tử cha (kể cả con cháu).
- * @param {HTMLElement} parentElement Phần tử cha (ví dụ: #mobile-menu hoặc một .mobile-submenu).
- */
-function closeAllMobileSubmenus(parentElement) {
-    if (!parentElement) return;
-    // Tìm tất cả các item đang mở trực tiếp bên trong parentElement
-    const openItems = parentElement.querySelectorAll(':scope > .mobile-menu-item.open');
-    openItems.forEach(item => {
-        const submenu = item.querySelector(':scope > .mobile-submenu');
-        if (submenu && !submenu.classList.contains('hidden')) {
-            closeSingleMobileSubmenu(item, submenu); // Gọi hàm đóng chuẩn
-        } else if (item.classList.contains('open')) {
-             // Nếu không có submenu hoặc submenu đã ẩn nhưng item vẫn có class 'open'
-             item.classList.remove('open');
-        }
-    });
+    console.log("[script.js] Header menu logic initialized successfully.");
 }
 
 /**
@@ -341,217 +262,185 @@ function closeAllMobileSubmenus(parentElement) {
  * @param {HTMLElement} headerElement Phần tử header chứa menu.
  */
 function initializeActiveMenuHighlighting(headerElement) {
-     if (!headerElement) {
-         console.warn("DEBUG: Header element not provided for active link highlighting.");
-         return;
-     }
-     console.log("DEBUG: Initializing active menu highlighting...");
-
+     if (!headerElement) return;
+     console.log("[script.js] Initializing active menu highlighting...");
      const currentPagePath = window.location.pathname;
-     const currentHref = window.location.href.split('#')[0]; // So sánh không bao gồm hash
+     const currentHref = window.location.href.split('#')[0];
+     // Query links within the loaded header element
+     const menuLinks = headerElement.querySelectorAll('.lg\\:flex a[href], #mobile-menu-panel a[href]');
 
-     // Lấy tất cả link trong cả menu desktop và mobile
-     const menuLinks = headerElement.querySelectorAll('.hidden.md\\:flex a[href], #mobile-menu a[href]');
-
-     // --- Xóa trạng thái active cũ ---
+     // Reset previous active states
      menuLinks.forEach(link => {
-         link.classList.remove('active-menu-item', 'font-semibold', 'text-blue-600');
+         link.classList.remove('active-menu-item', 'font-bold', 'text-blue-600', 'bg-blue-100', 'bg-blue-800'); // Reset all possible active classes
          const mobileItem = link.closest('.mobile-menu-item');
          if (mobileItem) {
-             mobileItem.classList.remove('open'); // Đảm bảo đóng submenu khi reset
-             const button = mobileItem.querySelector(':scope > button.mobile-submenu-toggle');
-             if(button) {
-                button.classList.remove('active-parent-item', 'font-semibold', 'text-blue-600', 'bg-gray-100');
-                const arrowIcon = button.querySelector('.submenu-arrow');
-                if(arrowIcon) arrowIcon.style.transform = ''; // Reset rotation
-             }
+             mobileItem.classList.remove('open');
+             mobileItem.querySelector('button.mobile-submenu-toggle')?.classList.remove('active-parent-item');
              const submenu = mobileItem.querySelector(':scope > .mobile-submenu');
-             // Reset style của submenu mobile nếu nó đã được khởi tạo
-             if (submenu && submenu.classList.contains('submenu-initialized')) {
-                  submenu.style.maxHeight = '0';
-                  if (!submenu.classList.contains('hidden')) {
-                       submenu.classList.add('hidden');
-                  }
-             }
+             if (submenu) submenu.style.maxHeight = '0'; // Ensure closed
          }
-         // Reset cả parent items của desktop menu
-         link.closest('.main-menu-item')?.querySelector(':scope > button')?.classList.remove('active-parent-item', 'font-semibold', 'text-blue-600');
-         link.closest('.sub-submenu-container')?.querySelector(':scope > button')?.classList.remove('active-parent-item', 'font-semibold', 'text-blue-600');
      });
 
-
-     // --- Tìm link khớp nhất ---
      let bestMatchLink = null;
-     let highestSpecificity = -1; // Độ ưu tiên: -1 (ko khớp), 0 (khớp path thường), 1 (khớp path gốc '/'), 2 (khớp href đầy đủ)
+     let highestSpecificity = -1;
 
      menuLinks.forEach(link => {
          const linkHref = link.getAttribute('href');
-         if (!linkHref || linkHref === '#') return; // Bỏ qua link trống hoặc chỉ là hash
-
+         if (!linkHref || linkHref === '#') return;
          let linkUrl;
-         try {
-             // Tạo URL đầy đủ để so sánh path dễ dàng
-             linkUrl = new URL(linkHref, window.location.origin);
-         } catch (e) {
-             console.warn(`DEBUG: Invalid URL in menu: ${linkHref}`);
-             return; // Bỏ qua link không hợp lệ
-         }
-
+         try { linkUrl = new URL(linkHref, window.location.origin); } catch (e) { return; }
          const linkPath = linkUrl.pathname;
-         const linkFullHref = linkUrl.href.split('#')[0]; // So sánh không hash
+         const linkFullHref = linkUrl.href.split('#')[0];
          let currentSpecificity = -1;
 
-         // Ưu tiên 1: Khớp hoàn toàn href (không hash)
-         if (linkFullHref === currentHref) {
-             currentSpecificity = 2;
-         } else {
-             // Ưu tiên 2: Khớp path sau khi chuẩn hóa
-             const normalizePath = (path) => {
-                 let p = path.endsWith('/') && path.length > 1 ? path.slice(0, -1) : path; // Bỏ dấu / cuối (trừ khi là /)
-                 // Chuẩn hóa index.html thành /
-                 if (p.endsWith('/index.html')) {
-                     p = p.substring(0, p.length - '/index.html'.length);
-                 }
-                 return p === '' ? '/' : p; // Trả về / nếu path rỗng
-             };
-             const normalizedLinkPath = normalizePath(linkPath);
-             const normalizedCurrentPath = normalizePath(currentPagePath);
+         const normalizePath = (path) => {
+             let p = path.endsWith('/') && path.length > 1 ? path.slice(0, -1) : path;
+             if (p.endsWith('/index.html')) p = p.substring(0, p.length - '/index.html'.length);
+             return p === '' ? '/' : p;
+         };
+         const normalizedLinkPath = normalizePath(linkPath);
+         const normalizedCurrentPath = normalizePath(currentPagePath);
 
-             if (normalizedLinkPath === normalizedCurrentPath) {
-                 // Ưu tiên trang chủ ('/') hơn các trang khác
-                 currentSpecificity = (normalizedCurrentPath === '/') ? 1 : 0;
-             }
-             // (Có thể thêm logic khớp cha nếu cần, ví dụ /about khớp với /about/team)
-         }
+         if (linkFullHref === currentHref) currentSpecificity = 2;
+         else if (normalizedLinkPath === normalizedCurrentPath) currentSpecificity = (normalizedCurrentPath === '/') ? 1 : 0;
 
-         // Cập nhật link khớp nhất dựa trên độ ưu tiên
          if (currentSpecificity > highestSpecificity) {
              highestSpecificity = currentSpecificity;
              bestMatchLink = link;
-         }
-         // Nếu độ ưu tiên bằng nhau, chọn link có path dài hơn (khớp cụ thể hơn)
-         else if (currentSpecificity === highestSpecificity && currentSpecificity >= 0) {
+         } else if (currentSpecificity === highestSpecificity && currentSpecificity >= 0) {
              if (bestMatchLink) {
                  try {
                      const bestMatchPath = (new URL(bestMatchLink.href, window.location.origin)).pathname;
-                     if (linkPath.length > bestMatchPath.length) {
-                         bestMatchLink = link;
-                     }
-                 } catch (e) { /* Bỏ qua lỗi URL của bestMatchLink cũ */ }
+                     if (linkPath.length > bestMatchPath.length) bestMatchLink = link;
+                 } catch (e) {}
              }
          }
      });
 
-     // --- Áp dụng class active ---
      if (bestMatchLink) {
-         bestMatchLink.classList.add('active-menu-item', 'font-semibold', 'text-blue-600');
-         console.log(`DEBUG: Final active link set for: ${bestMatchLink.getAttribute('href')}`);
+         bestMatchLink.classList.add('active-menu-item', 'font-bold');
+         if (bestMatchLink.closest('#mobile-menu-panel')) {
+             bestMatchLink.classList.add('text-blue-600', 'bg-blue-100'); // Mobile active style
+         } else if (bestMatchLink.closest('.main-menu-item')) {
+              bestMatchLink.classList.add('bg-blue-800'); // Desktop active style (adjust color if needed)
+         }
+         console.log(`[script.js] Active link set: ${bestMatchLink.getAttribute('href')}`);
 
-         // Đánh dấu và mở các menu cha (cả desktop và mobile)
+         // Open parent mobile submenus
          let currentElement = bestMatchLink;
          while (currentElement && currentElement !== headerElement) {
-             const parentMenuItem = currentElement.closest('.main-menu-item, .mobile-menu-item, .sub-submenu-container');
+             const parentMenuItem = currentElement.closest('.mobile-menu-item');
              if (parentMenuItem) {
-                 const parentToggle = parentMenuItem.querySelector(':scope > button.nav-link, :scope > button.mobile-submenu-toggle'); // Target buttons specifically
-                 if (parentToggle) {
-                     parentToggle.classList.add('active-parent-item', 'font-semibold');
-                     // Chỉ thêm text-blue-600 nếu nó chưa phải là link active cuối cùng
-                     if(!bestMatchLink.isSameNode(parentToggle)) {
-                        // parentToggle.classList.add('text-blue-600'); // Có thể làm rối nếu cha cũng là link
-                     }
-                      // Thêm background cho parent mobile item nếu là button toggle
-                      if (parentMenuItem.classList.contains('mobile-menu-item')) {
-                           parentToggle.classList.add('bg-gray-100');
-                      }
-                 }
-
-                 // Tự động mở submenu cha trên mobile nếu link active nằm trong đó
-                 if (parentMenuItem.classList.contains('mobile-menu-item')) {
+                 const parentToggle = parentMenuItem.querySelector(':scope > button.mobile-submenu-toggle');
+                 if (parentToggle) parentToggle.classList.add('active-parent-item');
+                 if (!parentMenuItem.classList.contains('open')) {
+                     parentMenuItem.classList.add('open');
                      const parentSubmenu = parentMenuItem.querySelector(':scope > .mobile-submenu');
-                     if (parentSubmenu && parentSubmenu.classList.contains('submenu-initialized') && parentSubmenu.classList.contains('hidden')) {
-                         parentMenuItem.classList.add('open'); // Thêm class để xoay icon
-                         parentSubmenu.classList.remove('hidden');
-                         // Đặt maxHeight về '' hoặc scrollHeight để nó tự tính toán chiều cao đầy đủ khi hiển thị
-                         // Dùng scrollHeight an toàn hơn khi phần tử vừa được bỏ hidden
-                         requestAnimationFrame(() => {
-                            parentSubmenu.style.maxHeight = parentSubmenu.scrollHeight + "px";
-                         });
-                         console.log(`DEBUG: Auto-opening active mobile submenu for: ${parentToggle?.textContent.trim()}`);
-                     }
+                     if (parentSubmenu) parentSubmenu.style.maxHeight = parentSubmenu.scrollHeight + "px";
                  }
-                 currentElement = parentMenuItem.parentElement; // Đi lên cây DOM
+                 currentElement = parentMenuItem.parentElement;
              } else {
-                 currentElement = currentElement.parentElement; // Đi lên tiếp nếu không phải menu item
+                 currentElement = currentElement.parentElement;
              }
          }
-     } else {
-         console.log("DEBUG: No suitable active link found.");
      }
 }
-
 
 /**
  * Khởi tạo logic cho sticky navbar.
  * @param {HTMLElement} navbarElement Phần tử header (navbar).
  */
 function initializeStickyNavbar(navbarElement) {
-    if (!navbarElement) {
-        console.warn("DEBUG: Navbar element not provided for sticky behavior.");
-        return;
-    }
-    console.log("DEBUG: Initializing sticky navbar behavior...");
+    if (!navbarElement) return;
+    console.log("[script.js] Initializing sticky navbar...");
     let lastScrollTop = 0;
-    // Sử dụng { passive: true } để cải thiện hiệu suất scroll
     window.addEventListener('scroll', function() {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        // Chỉ ẩn khi scroll xuống và đã qua khỏi chiều cao của navbar
         if (scrollTop > lastScrollTop && scrollTop > navbarElement.offsetHeight){
-            // Scroll Down
-            navbarElement.style.top = `-${navbarElement.offsetHeight}px`;
+             navbarElement.style.top = `-${navbarElement.offsetHeight}px`;
         } else {
-            // Scroll Up hoặc ở gần top
-            navbarElement.style.top = "0";
+             navbarElement.style.top = "0";
         }
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     }, { passive: true });
 }
 
-
-// --- Chạy các hàm khởi tạo chính khi DOM sẵn sàng ---
+// --- MAIN EXECUTION ---
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM fully loaded and parsed.");
-
-    // Biến cờ toàn cục để kiểm tra ngôn ngữ đã được khởi tạo chưa
-    window.languageInitialized = false;
+    console.log("[script.js] DOM fully loaded. Starting component loading...");
 
     // Tải Header và Footer đồng thời
     const headerPromise = loadComponent('header-placeholder', 'header.html');
     const footerPromise = loadComponent('footer-placeholder', 'footer.html');
 
     // Xử lý SAU KHI cả header và footer đã được tải XONG
-    Promise.all([headerPromise, footerPromise])
-        .then(() => {
-            console.log("Header and Footer loaded successfully.");
+    Promise.allSettled([headerPromise, footerPromise]) // Use allSettled to proceed even if one fails
+        .then((results) => {
+            const headerLoaded = results[0].status === 'fulfilled';
+            const footerLoaded = results[1].status === 'fulfilled';
+            console.log(`[script.js] Header loaded: ${headerLoaded}, Footer loaded: ${footerLoaded}`);
+            headerFooterLoaded = true; // Mark as loaded (or attempted)
 
-            // 1. Khởi tạo các sự kiện cho Menu (cần header đã load)
-            initializeCombinedMenuEvents(); // Gọi hàm khởi tạo menu events mới
-
-            // 2. Khởi tạo Ngôn ngữ (cần header và footer đã load để dịch)
-            if (typeof initializeLanguage === 'function') {
-                console.log("Calling initializeLanguage() from script.js AFTER components load...");
-                initializeLanguage(); // Gọi hàm khởi tạo ngôn ngữ từ language.js
-                window.languageInitialized = true; // Đánh dấu đã khởi tạo
-            } else {
-                console.warn("initializeLanguage function not found. Ensure language.js is loaded correctly AFTER script.js.");
+            if (headerLoaded) {
+                // 1. Khởi tạo Logic Header (chỉ khi header load thành công)
+                initializeHeaderMenuLogic();
             }
+
+            // 2. Khởi tạo Ngôn ngữ (chạy nếu language.js tồn tại, bất kể footer load thành công hay không)
+            if (typeof initializeLanguage === 'function') {
+                if (!window.languageInitialized) {
+                    console.log("[script.js] Calling initializeLanguage() AFTER components attempt...");
+                    initializeLanguage(); // Gọi hàm từ language.js
+                } else {
+                     console.log("[script.js] Language already initialized, applying translations again...");
+                     const currentLang = localStorage.getItem('preferredLanguage') || 'vi';
+                     if(typeof applyTranslations === 'function') applyTranslations(currentLang);
+                }
+            } else {
+                console.error("[script.js] initializeLanguage function not found. Language features won't work.");
+            }
+
+             // 3. Cập nhật năm ở footer (chỉ khi footer load thành công)
+             if (footerLoaded && typeof updateFooterYear === 'function') {
+                 updateFooterYear();
+             } else if (footerLoaded) {
+                 console.warn("[script.js] updateFooterYear function not found, but footer loaded.");
+             }
+
         })
-        .catch(errors => {
-            console.error("Error loading one or more components (header/footer). Menu and Language initialization might be affected.", errors);
+        .catch(error => {
+             // Catch should ideally not be reached with allSettled unless loadComponent itself throws uncaught error
+             console.error("[script.js] Unexpected error during Promise.allSettled:", error);
         });
 
-    console.log("script.js initial setup finished (async operations pending).");
+    // --- Các khởi tạo khác cho từng trang cụ thể ---
+    const bodyId = document.body.id;
+    if (bodyId === 'page-index') {
+        if (typeof loadInternalNews === 'function') {
+             console.log("[script.js] Index page: Loading internal news...");
+             loadInternalNews();
+        } else { console.warn("[script.js] loadInternalNews function not found."); }
+        if (typeof loadVnExpressFeed === 'function') {
+             console.log("[script.js] Index page: Loading VnExpress feed...");
+             loadVnExpressFeed();
+        } else { console.warn("[script.js] loadVnExpressFeed function not found."); }
+    }
+    if (bodyId === 'page-placement' && typeof initializePlacementTest === 'function') {
+        console.log("[script.js] Placement test page: Initializing test...");
+        initializePlacementTest();
+    }
+    // ... các trang khác ...
+
+    console.log("[script.js] Initial script execution finished (component loading might be pending).");
 });
 
-// Lưu ý: Cần đảm bảo language.js được tải SAU script.js trong HTML
-// và language.js KHÔNG tự gọi initializeLanguage() trong sự kiện DOMContentLoaded của nó nữa.
-
+// Hàm cập nhật năm ở footer (có thể đặt ở đây hoặc trong footer.html)
+function updateFooterYear() {
+    const yearElement = document.getElementById('current-year');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+        console.log("[script.js] Footer year updated.");
+    } else {
+        console.warn("[script.js] Footer year element (#current-year) not found.");
+    }
+}
