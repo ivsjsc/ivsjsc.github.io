@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IVS JSC Header - Orange Theme - Fixed Visibility</title>
+    <title>IVS JSC Header - Orange Theme - Fixed Nested Menu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* --- Theme Variables (Orange Header Theme) --- */
@@ -46,6 +46,8 @@
             font-weight: 600; /* font-semibold */
             border-radius: 0.375rem; /* rounded-md */
             line-height: 1.25rem; /* leading-5 */
+            display: inline-flex; /* Ensure button takes content width */
+            align-items: center; /* Align icon and text */
         }
         /* Arrow color in desktop dropdown buttons */
         .main-menu-item > button svg {
@@ -66,6 +68,7 @@
             background-color: var(--submenu-bg);
             border: 1px solid var(--submenu-border);
             position: absolute;
+            left: 0; /* Align submenu to the left of the parent */
             z-index: 50;
             margin-top: 0.25rem; /* mt-1 */
             border-radius: 0.375rem; /* rounded-md */
@@ -76,6 +79,7 @@
             visibility: hidden;
             transform: translateY(-10px) scale(0.95);
             transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+            min-width: 14rem; /* w-56, ensure minimum width */
         }
         /* Hiển thị submenu khi hover group cha */
         .main-menu-item:hover > .submenu {
@@ -93,9 +97,10 @@
             font-size: 0.875rem; /* text-sm */
             border-radius: 0.375rem; /* rounded-md inside submenu */
             transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
-            background: none; /* Đảm bảo không có nền mặc định */
-            border: none; /* Đảm bảo không có border mặc định */
+            background: none;
+            border: none;
             cursor: pointer;
+            white-space: nowrap; /* Prevent wrapping */
         }
         .submenu a:hover, .submenu button:hover {
             background-color: var(--submenu-hover-bg);
@@ -123,9 +128,11 @@
             visibility: hidden;
             transform: translateX(-10px) scale(0.95);
             transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
-            /* Visibility controlled by Tailwind group-hover/sub in HTML */
+            min-width: 14rem; /* w-56 */
+             /* Visibility controlled by Tailwind group-hover/sub in HTML */
         }
          /* Hiển thị sub-submenu khi hover group/sub cha */
+         /* Apply hover effect to the container (.sub-submenu-container) which has group/sub */
          .sub-submenu-container:hover > .sub-submenu {
              opacity: 1;
              visibility: visible;
@@ -133,10 +140,11 @@
          }
         /* Link và Button trong Sub-Submenu */
         .sub-submenu a, .sub-submenu button {
-            color: var(--submenu-text); /* Consistent text color */
+            color: var(--submenu-text);
              padding: 0.5rem 1rem;
              font-size: 0.875rem;
              border-radius: 0.375rem;
+             white-space: nowrap;
         }
         .sub-submenu a:hover, .sub-submenu button:hover {
             background-color: var(--submenu-hover-bg);
@@ -315,8 +323,6 @@
         #navbar.shrink {
              height: var(--header-height-shrink);
              box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow-md */
-             /* Optionally change background on shrink */
-             /* background-color: #c2410c; */ /* darker orange */
         }
         #navbar .logo-img {
              transition: height 0.3s ease-in-out;
@@ -325,67 +331,54 @@
          #navbar.shrink .logo-img {
               height: var(--logo-height-shrink);
          }
-         /* Adjust padding/font-size of links on shrink */
          #navbar.shrink .nav-link {
               padding-top: 0.375rem; /* py-1.5 */
               padding-bottom: 0.375rem;
               font-size: 0.8125rem; /* Slightly smaller text */
          }
-         /* Adjust main flex container height on shrink */
-         #navbar.shrink > nav > div { /* Targets the direct child div inside nav */
+         #navbar.shrink > nav > div {
              height: var(--header-height-shrink);
          }
 
          /* --- Active Menu Item Highlighting (Added by JS) --- */
-         /* Desktop Active Link/Button */
          .main-menu-item > a.nav-link.active-menu-item,
          .main-menu-item > button.nav-link.active-menu-item {
-             background-color: var(--header-hover-bg) !important; /* Use hover color for active */
-             /* box-shadow: inset 0 1px 2px rgba(0,0,0,0.1); */
+             background-color: var(--header-hover-bg) !important;
          }
-         /* Desktop Active Parent Button */
          .main-menu-item > button.nav-link.active-parent-item {
               background-color: var(--header-hover-bg) !important;
-              /* font-weight: 700; */ /* Optional: make parent bold too */
          }
-         /* Desktop Active Submenu Link */
          .submenu a.active-menu-item,
          .submenu button.active-menu-item {
-              background-color: #e0f2fe !important; /* light-blue-100 */
-              color: #0ea5e9 !important; /* light-blue-500 */
-              font-weight: 600 !important; /* semibold */
+              background-color: #e0f2fe !important;
+              color: #0ea5e9 !important;
+              font-weight: 600 !important;
          }
-         /* Desktop Active Sub-Submenu Parent Button */
          .sub-submenu-container > button.active-parent-item {
-              background-color: var(--submenu-hover-bg) !important; /* gray-100 */
-              color: var(--submenu-hover-text) !important; /* blue-600 */
+              background-color: var(--submenu-hover-bg) !important;
+              color: var(--submenu-hover-text) !important;
          }
-
-         /* Mobile Active Link/Button */
          #mobile-menu-panel .nav-link.active-menu-item,
          #mobile-menu-panel .mobile-submenu-toggle.active-menu-item {
-              background-color: #fed7aa !important; /* orange-200 */
-              color: #9a3412 !important; /* orange-800 */
+              background-color: #fed7aa !important;
+              color: #9a3412 !important;
               font-weight: 600 !important;
          }
-         /* Mobile Active Parent Button */
          #mobile-menu-panel .mobile-submenu-toggle.active-parent-item {
-              background-color: var(--mobile-menu-hover-bg) !important; /* orange-100 */
-              color: var(--mobile-menu-hover-text) !important; /* orange-700 */
-              font-weight: 600 !important; /* Make parent semibold */
+              background-color: var(--mobile-menu-hover-bg) !important;
+              color: var(--mobile-menu-hover-text) !important;
+              font-weight: 600 !important;
          }
-         /* Mobile Active Submenu Link */
          #mobile-menu-panel .mobile-submenu a.active-menu-item,
          #mobile-menu-panel .mobile-submenu button.active-menu-item {
-              background-color: #fed7aa !important; /* orange-200 */
-              color: #9a3412 !important; /* orange-800 */
+              background-color: #fed7aa !important;
+              color: #9a3412 !important;
               font-weight: 600 !important;
          }
-          /* Mobile Active Sub-Submenu Link */
          #mobile-menu-panel .mobile-submenu .mobile-submenu a.active-menu-item,
          #mobile-menu-panel .mobile-submenu .mobile-submenu button.active-menu-item {
-              background-color: #fecaca !important; /* red-200 - Adjust if needed */
-              color: #b91c1c !important; /* red-700 - Adjust if needed */
+              background-color: #fecaca !important;
+              color: #b91c1c !important;
               font-weight: 600 !important;
          }
 
@@ -430,7 +423,7 @@
                                     <span data-lang-key="menu_educational_link">Liên kết giáo dục</span>
                                     <svg class="ml-1 h-4 w-4 rotate-[-90deg]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                                 </button>
-                                <div class="sub-submenu w-56 hidden group-hover/sub:block">
+                                <div class="sub-submenu w-56">
                                     <a href="lkmamnon.html" data-lang-key="menu_link_preschool">Mầm non</a>
                                     <a href="lktieuhoc.html" data-lang-key="menu_link_primary">Tiểu học</a>
                                     <a href="lkthcsthpt.html" data-lang-key="menu_link_secondary">THCS & THPT</a>
@@ -442,7 +435,7 @@
                                     <span data-lang-key="menu_training_center">Tại trung tâm</span>
                                     <svg class="ml-1 h-4 w-4 rotate-[-90deg]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                                 </button>
-                                <div class="sub-submenu w-56 hidden group-hover/sub:block">
+                                <div class="sub-submenu w-56">
                                     <a href="ivslanguages.html" data-lang-key="menu_training_language">Đào tạo ngoại ngữ</a>
                                     <a href="ivslifeminds.html" data-lang-key="menu_training_lifeskills">Đào tạo kỹ năng sống</a>
                                 </div>
@@ -452,7 +445,7 @@
                                      <span data-lang-key="menu_training_teacher">Đào tạo giáo viên</span>
                                      <svg class="ml-1 h-4 w-4 rotate-[-90deg]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
                                  </button>
-                                 <div class="sub-submenu w-56 hidden group-hover/sub:block">
+                                 <div class="sub-submenu w-56">
                                      <a href="teachertrain.html" data-lang-key="menu_training_teacher_vn">Giáo viên VN</a>
                                      <a href="fteachertrain.html" data-lang-key="menu_training_teacher_foreign">Giáo viên nước ngoài</a>
                                  </div>
@@ -701,6 +694,18 @@
 </header>
 
 <main class="container mx-auto p-8">
+    <section class="my-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-blue-600 text-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-2">AI</h2>
+            <p class="text-lg font-semibold">Áp dụng AI với mọi ngành cùng IVS</p>
+            <p class="text-sm opacity-90 mt-1">Đây không phải chương trình đào tạo</p>
+        </div>
+        <div class="bg-green-600 text-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-2">IVS</h2>
+            <p class="text-lg font-semibold">Giới thiệu về IVS chúng tôi</p>
+        </div>
+    </section>
+
     <h1 class="text-3xl font-bold mb-4">Nội dung trang ở đây</h1>
     <p class="mb-2">Đây là nội dung mẫu để minh họa chức năng header và padding của body.</p>
     <p class="mb-2">Cuộn xuống để xem hiệu ứng thu nhỏ header.</p>
@@ -777,7 +782,6 @@
         if(mobileMenuPanel) {
             mobileMenuPanel.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', (e) => {
-                    // Only close if it's a direct link within the main panel, not inside a submenu
                     if (!link.closest('.mobile-submenu')) {
                        toggleMobileMenu(false);
                     }
@@ -825,12 +829,11 @@
 
                 if (!isOpen) {
                     submenu.style.maxHeight = submenu.scrollHeight + "px";
-                     // Add timeout to reset max-height after transition for potential content changes
                      setTimeout(() => {
-                         if (parentItem.classList.contains('open')) { // Check if still open
-                             submenu.style.maxHeight = 'none'; // Allow content to dictate height
+                         if (parentItem.classList.contains('open')) {
+                             submenu.style.maxHeight = 'none';
                          }
-                     }, 300); // Match transition duration
+                     }, 300);
                 } else {
                     submenu.style.maxHeight = '0';
                     submenu.querySelectorAll('.mobile-menu-item.open').forEach(nestedOpenItem => {
@@ -875,8 +878,7 @@
             button.addEventListener('click', function(e) {
                 e.stopPropagation();
                 const selectedLang = this.getAttribute('data-lang');
-                setLanguage(selectedLang); // Use a function to handle setting language
-                // Close dropdowns
+                setLanguage(selectedLang);
                 if(desktopLangDropdown) toggleDropdown(desktopLangDropdown, false);
                 if(mobileLangDropdown) toggleDropdown(mobileLangDropdown, false);
             });
@@ -903,14 +905,12 @@
              });
              console.log('Selected language:', lang);
              // !!! Placeholder for actual language switching logic !!!
-             // switchLanguage(lang); // This function would handle loading translations etc.
-             // alert(`Language set to: ${lang.toUpperCase()}. Implement actual switching logic.`);
-             // Update body attribute for potential CSS targeting
+             // switchLanguage(lang);
              document.documentElement.lang = lang;
          }
 
         // --- Set Initial Language State ---
-        setLanguage('vi'); // Set default language on load
+        setLanguage('vi');
 
         // --- Header Shrink on Scroll ---
         let lastScrollTop = 0;
@@ -926,39 +926,40 @@
              lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
          }, false);
 
-         // --- Active Menu Highlighting (Placeholder - Needs real logic) ---
+         // --- Active Menu Highlighting ---
          function highlightActiveMenu() {
-             const currentPage = window.location.pathname.split('/').pop() || 'index.html'; // Simple example
-             const menuLinks = document.querySelectorAll('#navbar a.nav-link'); // Select all relevant links
+             const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+             const menuLinks = document.querySelectorAll('#navbar a.nav-link'); // Select links inside navbar
 
              menuLinks.forEach(link => {
-                 const linkPage = link.getAttribute('href').split('/').pop() || 'index.html';
-                 const parentLi = link.closest('.main-menu-item, .mobile-menu-item');
-                 const parentButton = link.closest('.submenu, .mobile-submenu')?.previousElementSibling; // Button controlling the submenu
+                 const linkHref = link.getAttribute('href');
+                 if (!linkHref || linkHref === '#') return; // Skip empty or anchor links
 
-                 // Reset active classes
+                 const linkPage = linkHref.split('/').pop() || (linkHref === '/' ? 'index.html' : ''); // Handle root path
+
+                 // Reset classes first
                  link.classList.remove('active-menu-item');
-                 parentLi?.classList.remove('active-parent'); // Custom class for parent LI if needed
-                 parentButton?.classList.remove('active-parent-item'); // For button highlight
+                 const parentLi = link.closest('.main-menu-item, .mobile-menu-item');
+                 parentLi?.classList.remove('active-parent'); // Remove any potential custom parent class
+                 const parentButton = link.closest('.submenu, .mobile-submenu')?.previousElementSibling;
+                 parentButton?.classList.remove('active-parent-item');
+                 const topLevelButton = parentButton?.closest('.main-menu-item')?.querySelector(':scope > button.nav-link');
+                 topLevelButton?.classList.remove('active-parent-item');
+
 
                  if (linkPage === currentPage) {
                      link.classList.add('active-menu-item');
 
-                     // Highlight parent button if inside a submenu
-                     if (parentButton && parentButton.matches('button.nav-link')) {
+                     // Highlight parent button if inside a submenu (Desktop & Mobile)
+                     if (parentButton && parentButton.matches('button')) {
                           parentButton.classList.add('active-parent-item');
-                          // Also highlight the top-level parent if nested deeper
-                          const topLevelButton = parentButton.closest('.main-menu-item')?.querySelector('button.nav-link');
-                          topLevelButton?.classList.add('active-parent-item');
-                     } else if (parentLi && parentLi.classList.contains('main-menu-item')) {
-                          // If it's a top-level link/button itself
-                          const directButton = parentLi.querySelector(':scope > button.nav-link');
-                          if (directButton === link || parentLi.querySelector(':scope > a.nav-link') === link) {
-                              link.classList.add('active-menu-item'); // Re-apply if it's the button itself
+                          // Highlight top-level parent button as well (Desktop)
+                          if (topLevelButton) {
+                               topLevelButton.classList.add('active-parent-item');
                           }
                      }
 
-                     // --- Mobile Menu Specific Highlighting ---
+                     // --- Mobile Menu Specific Highlighting & Opening ---
                      if (link.closest('#mobile-menu-panel')) {
                          let current = link;
                          while(current && current !== mobileMenuPanel) {
@@ -967,12 +968,23 @@
                                    const toggle = parentMenuItem.querySelector(':scope > .mobile-submenu-toggle');
                                    if (toggle) {
                                         toggle.classList.add('active-parent-item');
-                                        // Optionally auto-open parent submenus on page load if active item is inside
-                                        // parentMenuItem.classList.add('open');
-                                        // const sub = parentMenuItem.querySelector(':scope > .mobile-submenu');
-                                        // if(sub) sub.style.maxHeight = sub.scrollHeight + 'px';
+                                        // Auto-open parent submenus containing the active link
+                                        if (!parentMenuItem.classList.contains('open')) {
+                                             parentMenuItem.classList.add('open');
+                                             const sub = parentMenuItem.querySelector(':scope > .mobile-submenu');
+                                             if(sub) {
+                                                 // Set initial max-height for transition, then remove it
+                                                 sub.style.maxHeight = sub.scrollHeight + 'px';
+                                                 setTimeout(() => {
+                                                      if (parentMenuItem.classList.contains('open')) {
+                                                           sub.style.maxHeight = 'none';
+                                                      }
+                                                 }, 300); // Match transition duration
+                                             }
+                                             toggle.setAttribute('aria-expanded', 'true');
+                                        }
                                    }
-                                   current = parentMenuItem.parentElement; // Move up
+                                   current = parentMenuItem.parentElement; // Move up the DOM tree
                               } else {
                                    break; // Exit loop if no more parent items found
                               }
