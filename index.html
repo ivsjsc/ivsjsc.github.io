@@ -740,8 +740,7 @@
                     </a>
                 </div>
 
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
-                    <a href="lkmamnon.html" class="small-action-button">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto"> <a href="lkmamnon.html" class="small-action-button">
                         <i class="fas fa-child fa-2x mb-2 text-blue-500"></i>
                         <span class="text-sm md:text-base font-medium" data-lang-key="small_button_preschool">Mầm non</span>
                     </a>
@@ -753,9 +752,22 @@
                         <i class="fas fa-user-graduate fa-2x mb-2 text-purple-500"></i>
                         <span class="text-sm md:text-base font-medium" data-lang-key="small_button_secondary">THCS/THPT</span>
                     </a>
-                    <a href="lkttnn.html" class="small-action-button"> <i class="fas fa-language fa-2x mb-2 text-red-500"></i>
+                    <a href="lkttnn.html" class="small-action-button">
+                        <i class="fas fa-language fa-2x mb-2 text-red-500"></i>
                         <span class="text-sm md:text-base font-medium" data-lang-key="small_button_language_center">TT Anh Ngữ</span>
                     </a>
+                    <a href="ivslifeminds.html" class="small-action-button"> <i class="fas fa-brain fa-2x mb-2 text-yellow-500"></i>
+                        <span class="text-sm md:text-base font-medium" data-lang-key="small_button_lifeskills">Kỹ năng sống</span>
+                    </a>
+                     <a href="#" class="small-action-button"> <i class="fas fa-rocket fa-2x mb-2 text-indigo-500"></i>
+                         <span class="text-sm md:text-base font-medium" data-lang-key="small_button_steam">STEAM</span>
+                     </a>
+                     <a href="lien-ket-quoc-te.html" class="small-action-button"> <i class="fas fa-globe fa-2x mb-2 text-teal-500"></i>
+                         <span class="text-sm md:text-base font-medium" data-lang-key="small_button_international">Hợp tác QT</span>
+                     </a>
+                     <a href="tuvan.html" class="small-action-button"> <i class="fas fa-comments fa-2x mb-2 text-pink-500"></i>
+                         <span class="text-sm md:text-base font-medium" data-lang-key="small_button_consulting">Tư vấn GD</span>
+                     </a>
                 </div>
             </div>
         </section>
@@ -794,29 +806,285 @@
     <script src="js/language.js" defer></script>
     <script src="js/script.js" defer></script>
     <script src="js/rss-loader.js" defer></script>
+    <script>
+        // Inline script from header (ensure it runs after DOM is ready)
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- Elements ---
+            const navbar = document.getElementById('navbar');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const mobileCloseButton = document.getElementById('mobile-close-button');
+            const menuIcon = document.getElementById('icon-menu');
+            const closeIcon = document.getElementById('icon-close');
+
+            const desktopLangDropdown = document.getElementById('desktop-language-dropdown');
+            const desktopLangToggle = document.getElementById('desktop-lang-toggle');
+            const mobileLangDropdown = document.getElementById('mobile-language-dropdown');
+            const mobileLangToggle = document.getElementById('mobile-lang-toggle');
+            const langButtons = document.querySelectorAll('.lang-button');
+
+            // --- Mobile Menu Toggle ---
+            function toggleMobileMenu(open) {
+                 if (!mobileMenuPanel || !mobileMenuOverlay || !menuIcon || !closeIcon || !mobileMenuButton) return;
+                const isOpen = typeof open === 'boolean' ? open : mobileMenuButton.getAttribute('aria-expanded') === 'false';
+
+                if (isOpen) {
+                    mobileMenuPanel.classList.remove('hidden');
+                    mobileMenuOverlay.classList.remove('hidden');
+                    requestAnimationFrame(() => {
+                        mobileMenuPanel.classList.remove('translate-x-full');
+                        mobileMenuOverlay.classList.remove('opacity-0');
+                        mobileMenuButton.setAttribute('aria-expanded', 'true');
+                        menuIcon?.classList.add('hidden');
+                        closeIcon?.classList.remove('hidden');
+                        document.body.style.overflow = 'hidden';
+                    });
+                } else {
+                    mobileMenuPanel.classList.add('translate-x-full');
+                    mobileMenuOverlay.classList.add('opacity-0');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    menuIcon?.classList.remove('hidden');
+                    closeIcon?.classList.add('hidden');
+                    document.body.style.overflow = '';
+
+                     const overlayTransitionHandler = () => {
+                        if (mobileMenuButton.getAttribute('aria-expanded') === 'false') {
+                            mobileMenuOverlay.classList.add('hidden');
+                            mobileMenuPanel.classList.add('hidden');
+                        }
+                         mobileMenuOverlay.removeEventListener('transitionend', overlayTransitionHandler);
+                     };
+                     mobileMenuOverlay.removeEventListener('transitionend', overlayTransitionHandler);
+                     mobileMenuOverlay.addEventListener('transitionend', overlayTransitionHandler, { once: true });
+
+                     setTimeout(() => {
+                        if (mobileMenuButton.getAttribute('aria-expanded') === 'false' && !mobileMenuOverlay.classList.contains('hidden')) {
+                             console.warn("Mobile menu close fallback timer triggered.");
+                             mobileMenuOverlay.classList.add('hidden');
+                             mobileMenuPanel.classList.add('hidden');
+                         }
+                    }, 350);
+                }
+            }
+
+            if(mobileMenuButton) mobileMenuButton.addEventListener('click', () => toggleMobileMenu());
+            if(mobileCloseButton) mobileCloseButton.addEventListener('click', () => toggleMobileMenu(false));
+            if(mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', () => toggleMobileMenu(false));
+
+            if(mobileMenuPanel) {
+                mobileMenuPanel.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        if (!link.closest('.mobile-submenu')) {
+                           toggleMobileMenu(false);
+                        }
+                     });
+                 });
+            }
+
+            // --- Mobile Submenu Toggle ---
+            const mobileSubmenuToggles = document.querySelectorAll('#mobile-menu-panel .mobile-submenu-toggle');
+            mobileSubmenuToggles.forEach(button => {
+                 const parentItem = button.closest('.mobile-menu-item');
+                 if (parentItem) {
+                      const submenu = parentItem.querySelector(':scope > .mobile-submenu');
+                      if (submenu) {
+                           submenu.style.maxHeight = '0';
+                           button.setAttribute('aria-expanded', 'false');
+                      }
+                 }
+
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const parentItem = this.closest('.mobile-menu-item');
+                    if (!parentItem) return;
+                    const submenu = parentItem.querySelector(':scope > .mobile-submenu');
+                    if (!submenu) return;
+
+                     const isOpen = parentItem.classList.contains('open');
+
+                    // Close siblings first
+                    const parentList = parentItem.parentNode;
+                     if (parentList) {
+                         Array.from(parentList.children).forEach(sibling => {
+                              if (sibling !== parentItem && sibling.classList.contains('mobile-menu-item') && sibling.classList.contains('open')) {
+                                   sibling.classList.remove('open');
+                                   const siblingSubmenu = sibling.querySelector(':scope > .mobile-submenu');
+                                   if (siblingSubmenu) siblingSubmenu.style.maxHeight = '0';
+                                   sibling.querySelector('.mobile-submenu-toggle')?.setAttribute('aria-expanded', 'false');
+                              }
+                         });
+                     }
+
+                    // Toggle current
+                    parentItem.classList.toggle('open', !isOpen);
+                    this.setAttribute('aria-expanded', !isOpen);
+
+                    if (!isOpen) {
+                        submenu.style.maxHeight = submenu.scrollHeight + "px";
+                         setTimeout(() => {
+                             if (parentItem.classList.contains('open')) {
+                                 submenu.style.maxHeight = 'none';
+                             }
+                         }, 300);
+                    } else {
+                        submenu.style.maxHeight = '0';
+                        submenu.querySelectorAll('.mobile-menu-item.open').forEach(nestedOpenItem => {
+                             nestedOpenItem.classList.remove('open');
+                             const nestedSub = nestedOpenItem.querySelector(':scope > .mobile-submenu');
+                             if (nestedSub) nestedSub.style.maxHeight = '0';
+                             nestedOpenItem.querySelector('.mobile-submenu-toggle')?.setAttribute('aria-expanded', 'false');
+                        });
+                    }
+                });
+            });
+
+            // --- Language Dropdown Logic ---
+            function toggleDropdown(dropdownElement, forceState) {
+                if (!dropdownElement) return;
+                const currentlyOpen = dropdownElement.classList.contains('open');
+                const open = typeof forceState === 'boolean' ? forceState : !currentlyOpen;
+                const toggleButton = dropdownElement.querySelector('.dropdown-toggle');
+
+                dropdownElement.classList.toggle('open', open);
+                if (toggleButton) {
+                    toggleButton.setAttribute('aria-expanded', open.toString());
+                }
+            }
+
+            if(desktopLangToggle) {
+                desktopLangToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleDropdown(desktopLangDropdown);
+                });
+            }
+
+            if(mobileLangToggle) {
+                mobileLangToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleDropdown(mobileLangDropdown);
+                });
+            }
+
+            // Language Selection Logic
+            langButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const selectedLang = this.getAttribute('data-lang');
+                    setLanguage(selectedLang);
+                    if(desktopLangDropdown) toggleDropdown(desktopLangDropdown, false);
+                    if(mobileLangDropdown) toggleDropdown(mobileLangDropdown, false);
+                });
+            });
+
+            // Close dropdowns on outside click
+            window.addEventListener('click', function(event) {
+                if (desktopLangDropdown && !desktopLangDropdown.contains(event.target)) {
+                     toggleDropdown(desktopLangDropdown, false);
+                 }
+                if (mobileLangDropdown && mobileLangDropdown.classList.contains('open') && !mobileLangDropdown.contains(event.target)) {
+                      toggleDropdown(mobileLangDropdown, false);
+                 }
+            });
+
+            // --- Function to Set Language (UI Update + Placeholder for Logic) ---
+            function setLanguage(lang) {
+                 const desktopCurrentLang = document.getElementById('desktop-current-lang');
+                 const mobileCurrentLang = document.getElementById('mobile-current-lang');
+                 if (desktopCurrentLang) desktopCurrentLang.textContent = lang.toUpperCase();
+                 if (mobileCurrentLang) mobileCurrentLang.textContent = lang.toUpperCase();
+                 langButtons.forEach(btn => {
+                     btn.disabled = (btn.getAttribute('data-lang') === lang);
+                 });
+                 console.log('Selected language:', lang);
+                 // !!! Placeholder for actual language switching logic !!!
+                 // switchLanguage(lang); // This function would handle loading translations etc.
+                 document.documentElement.lang = lang;
+                 // Re-highlight menu after language switch if needed (content might change)
+                 highlightActiveMenu();
+             }
+
+            // --- Set Initial Language State ---
+            setLanguage('vi');
+
+            // --- Header Shrink on Scroll ---
+            let lastScrollTop = 0;
+             window.addEventListener('scroll', function() {
+                 let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                 if (navbar) {
+                     if (scrollTop > 50) {
+                         navbar.classList.add('shrink');
+                     } else {
+                         navbar.classList.remove('shrink');
+                     }
+                 }
+                 lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+             }, false);
+
+             // --- Active Menu Highlighting ---
+             function highlightActiveMenu() {
+                 const currentPath = window.location.pathname; // Get full path
+                 const currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1) || 'index.html'; // Get filename or index.html
+
+                 const menuLinks = document.querySelectorAll('#navbar a'); // Select all links in navbar
+
+                 // Remove existing active classes
+                 document.querySelectorAll('.active-menu-item, .active-parent-item').forEach(el => {
+                     el.classList.remove('active-menu-item', 'active-parent-item');
+                 });
+
+                 let foundActive = false;
+
+                 menuLinks.forEach(link => {
+                     const linkHref = link.getAttribute('href');
+                     if (!linkHref || linkHref === '#') return;
+
+                     const linkPath = new URL(linkHref, window.location.origin).pathname; // Get full path of link
+                     const linkPage = linkPath.substring(linkPath.lastIndexOf('/') + 1) || (linkPath === '/' ? 'index.html' : '');
+
+                     if (linkPage === currentPage) {
+                         link.classList.add('active-menu-item');
+                         foundActive = true;
+
+                         // --- Highlight Parents (Desktop & Mobile) ---
+                         let current = link;
+                         while (current && current !== navbar) {
+                             const parentSubmenu = current.closest('.submenu, .mobile-submenu');
+                             if (parentSubmenu) {
+                                 const parentToggle = parentSubmenu.previousElementSibling; // Button/Link that toggles this submenu
+                                 if (parentToggle && (parentToggle.matches('button') || parentToggle.matches('a'))) {
+                                     parentToggle.classList.add('active-parent-item');
+                                 }
+                                 // For Mobile: Auto-open parent submenus
+                                 if (parentSubmenu.classList.contains('mobile-submenu')) {
+                                     const parentMenuItem = parentSubmenu.closest('.mobile-menu-item');
+                                     if (parentMenuItem && !parentMenuItem.classList.contains('open')) {
+                                         parentMenuItem.classList.add('open');
+                                         parentSubmenu.style.maxHeight = parentSubmenu.scrollHeight + 'px';
+                                          setTimeout(() => { // Reset max-height after transition
+                                              if (parentMenuItem.classList.contains('open')) {
+                                                   parentSubmenu.style.maxHeight = 'none';
+                                              }
+                                          }, 300);
+                                         parentMenuItem.querySelector('.mobile-submenu-toggle')?.setAttribute('aria-expanded', 'true');
+                                     }
+                                 }
+                             }
+                             current = parentSubmenu ? parentSubmenu.previousElementSibling : current.parentElement; // Move up
+                         }
+                     }
+                 });
+
+                  // If no specific page matched, highlight the "Trang chủ" link if on the root path
+                  if (!foundActive && (currentPath === '/' || currentPage === 'index.html')) {
+                      const homeLink = document.querySelector('#menu-items a[href="index.html"], #mobile-menu-panel a[href="index.html"]');
+                      homeLink?.classList.add('active-menu-item');
+                  }
+             }
+             highlightActiveMenu(); // Call on page load
+
+        });
+    </script>
+
 </body>
 </html>
-```
-
-**Giải thích các thay đổi:**
-
-1.  **Thay đổi Văn bản:**
-    * Trong `section.py-16`, khối `div` đầu tiên (có nền xanh dương), nội dung `<p>` đã được cập nhật thành:
-        ```html
-        <h3 class="text-xl md:text-2xl font-semibold" data-lang-key="large_button_ai_guide">Áp dụng AI với mọi ngành cùng IVS</h3>
-        <p class="text-sm opacity-90 mt-1" data-lang-key="large_button_ai_subtext">Đây không phải chương trình đào tạo</p>
-        ```
-    * Trong khối `div` thứ hai (có nền xanh lá), nội dung `<p>` đã được cập nhật thành:
-        ```html
-        <h3 class="text-xl md:text-2xl font-semibold" data-lang-key="large_button_about">Giới thiệu về IVS chúng tôi</h3>
-        ```
-    * **Lưu ý:** Tôi đã thêm các `data-lang-key` mới để bạn có thể quản lý bản dịch nếu cần. Màu chữ trắng được kế thừa từ lớp `text-white` của thẻ `<a>` cha.
-2.  **Sửa Menu Con Nhiều Cấp (Desktop):**
-    * Trong phần header (bên trong `<header id="header-placeholder">`), cấu trúc HTML cho menu "Đào tạo" đã được điều chỉnh.
-    * Thẻ `<div>` chứa nút "Liên kết giáo dục", "Tại trung tâm", "Đào tạo giáo viên" (là các mục con cấp 1) được thêm lớp `relative sub-submenu-container group/sub`.
-    * Thẻ `<div>` chứa các link cấp 2 (Mầm non, Tiểu học,...) được thêm lớp `sub-submenu` và quan trọng là `hidden group-hover/sub:block`. Điều này sử dụng tiện ích `group-hover` của Tailwind để chỉ hiển thị menu con cấp 2 khi di chuột qua container cha (`group/sub`).
-    * CSS cho `.sub-submenu-container:hover > .sub-submenu { display: block; }` đã được **xóa bỏ** vì Tailwind `group-hover` đã xử lý việc này.
-3.  **Cập nhật Link YouTube:** Đã thay `src` của `<iframe>` trong `section.video-section` bằng link bạn cung cấp.
-4.  **Cấu trúc Header:** Đã nhúng toàn bộ cấu trúc header đã sửa lỗi vào trong thẻ `<header id="header-placeholder">` của file `index.html`. Phần `<header>` gốc trong `index.html` đã bị xóa.
-
-Bây giờ, bạn hãy kiểm tra lại file `index.html` này. Văn bản đã được cập nhật và menu con nhiều cấp trên desktop ("Đào tạo" -> "Liên kết giáo dục" -> ...) sẽ hiển thị đúng khi bạn di chuột qua "Liên kết giáo dụ
