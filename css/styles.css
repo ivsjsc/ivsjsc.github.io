@@ -1,5 +1,6 @@
 /* ===================================== */
 /* Optimized CSS Styles for IVS JSC     */
+/* Version: Fixed Dropdown z-index      */
 /* ===================================== */
 
 /* --- 1. Theme Variables (Consolidated) --- */
@@ -81,8 +82,8 @@ body.overflow-hidden {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 50;
-  transition: height var(--menu-transition-duration) ease-in-out, background-color var(--menu-transition-duration) ease-in-out, top var(--menu-transition-duration) ease-in-out; /* Added 'top' transition for sticky */
+  z-index: 50; /* Ensure header is above most content */
+  transition: height var(--menu-transition-duration) ease-in-out, background-color var(--menu-transition-duration) ease-in-out, top var(--menu-transition-duration) ease-in-out;
 }
 #navbar.shrink {
   height: var(--header-height-shrink);
@@ -143,7 +144,7 @@ body.overflow-hidden {
   border: 1px solid var(--submenu-border);
   position: absolute;
   left: 0;
-  z-index: 51; /* Ensure above navbar content */
+  z-index: 51; /* Higher than navbar, lower than nested submenu */
   margin-top: 0.25rem; /* mt-1 */
   border-radius: 0.375rem; /* rounded-md */
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); /* shadow-lg */
@@ -243,7 +244,7 @@ body.overflow-hidden {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-  z-index: 90;
+  z-index: 90; /* Below panel */
   opacity: 0;
   visibility: hidden; /* Use visibility for transition */
   transition: opacity var(--menu-transition-duration) ease-in-out, visibility var(--menu-transition-duration) ease-in-out;
@@ -262,7 +263,7 @@ body.overflow-hidden {
   height: 100%;
   width: 80%; /* Responsive width */
   max-width: 300px; /* Max width */
-  z-index: 100;
+  z-index: 100; /* Above overlay */
   overflow-y: auto;
   transform: translateX(100%);
   transition: transform var(--menu-transition-duration) ease-in-out;
@@ -434,7 +435,7 @@ body.overflow-hidden {
   right: 0;
   margin-top: 0.5rem; /* mt-2 */
   width: 5rem; /* w-20 */
-  z-index: 55;
+  z-index: 55; /* Above submenu */
   background-color: var(--submenu-bg);
   border: 1px solid var(--submenu-border);
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
@@ -621,14 +622,9 @@ button:disabled {
 }
 
 /* Action Buttons on Index */
-.large-action-button {
-  /* Use Tailwind classes in HTML for this */
-  /* Example: class="block rounded-xl p-6 shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-white group min-h-[200px] md:min-h-[250px]" */
-}
-.small-action-button {
-  /* Use Tailwind classes in HTML for this */
-  /* Example: class="block rounded-lg bg-white p-4 shadow-md hover:shadow-lg hover:bg-gray-100 transition duration-300 ease-in-out transform hover:-translate-y-1 flex flex-col items-center justify-center text-center text-gray-700 group min-h-[100px]" */
-}
+/* Use Tailwind classes in HTML for these */
+.large-action-button { }
+.small-action-button { }
 
 /* Timeline (About Page) */
 .timeline {
@@ -670,8 +666,6 @@ button:disabled {
 .horizontal-scroll-gallery::-webkit-scrollbar-thumb { background-color: #9ca3af; border-radius: 10px; border: 2px solid #e5e7eb; }
 .horizontal-scroll-gallery::-webkit-scrollbar-thumb:hover { background-color: #6b7280; }
 /* Ensure scroll snapping is applied via Tailwind classes if needed */
-/* e.g., scroll-snap-type-x-mandatory */
-/* e.g., scroll-snap-align-start */
 
 /* Commitment List (About Page) */
 .commitment-list li {
@@ -692,6 +686,3 @@ button:disabled {
 .hero-text-shadow {
   text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
 }
-
-/* Add other page-specific styles or utilities as needed */
-
