@@ -157,7 +157,7 @@ const translations = {
         about_partner4: "Các trường học, trung tâm đào tạo và tổ chức giáo dục trong và ngoài nước.",
         about_partners_p: "Chúng tôi tin rằng sự hợp tác chặt chẽ sẽ tạo nên sức mạnh tổng hợp, thúc đẩy sự phát triển của giáo dục.",
 
-        // Footer (Giữ nguyên)
+        // Footer (Cập nhật với Zalo và Email)
         footer_company_name: "IVS JSC",
         footer_rights: "Bản quyền thuộc về IVS JSC.",
         footer_contact_us: "Liên hệ chúng tôi",
@@ -181,6 +181,9 @@ const translations = {
         footer_visit_page_mastery: "Truy cập Fanpage IVS Mastery",
         footer_message_academy_sr: "Nhắn tin Facebook cho IVS Academy",
         footer_message_mastery_sr: "Nhắn tin Facebook cho IVS Mastery",
+        footer_email_link: "ivsacademy.edu@gmail.com", // Key mới cho email link text
+        footer_zalo_link: "Nguyễn Minh Triết (IVS)", // Key mới cho Zalo link text
+        footer_map_title: "Bản đồ", // Key mới cho tiêu đề bản đồ
 
         // Trang rnd-curriculum.html v2 (Giữ nguyên)
         rnd_hero_title: "Thiết kế Học liệu & Giải pháp EdTech theo Yêu cầu",
@@ -373,6 +376,38 @@ const translations = {
         establishment_cta_heading: "Bắt đầu Hành trình Xây dựng Trung tâm của bạn!",
         establishment_cta_desc: "Đừng để thủ tục pháp lý phức tạp cản trở ước mơ đóng góp cho sự nghiệp giáo dục của bạn. Hãy liên hệ với IVS Education ngay hôm nay để được tư vấn chi tiết và nhận hỗ trợ chuyên nghiệp!",
         establishment_cta_button: "Yêu cầu Tư vấn Ngay",
+
+        // Thêm key cho trang dangkytuvan.html
+        page_title_consultation: "Đăng ký Tư vấn - IVS JSC",
+        meta_description_consultation: "Đăng ký nhận tư vấn miễn phí từ IVS JSC về các lĩnh vực giáo dục, công nghệ, hợp tác quốc tế và các dịch vụ khác.",
+        og_title_consultation: "Đăng ký Tư vấn - IVS JSC",
+        og_description_consultation: "Liên hệ với IVS JSC để được tư vấn chi tiết về nhu cầu của bạn.",
+        consultation_form_title: "Đăng ký Tư vấn",
+        consultation_form_subtitle: "Vui lòng điền thông tin bên dưới, IVS JSC sẽ liên hệ lại với bạn sớm nhất.",
+        form_label_fullname: "Họ và Tên",
+        form_placeholder_fullname: "Ví dụ: Nguyễn Văn A",
+        form_label_phone: "Số điện thoại",
+        form_placeholder_phone: "Ví dụ: 0912345678",
+        form_label_email: "Địa chỉ Email",
+        form_placeholder_email: "Ví dụ: email@example.com",
+        form_label_interest: "Lĩnh vực cần tư vấn",
+        form_select_placeholder: "-- Chọn lĩnh vực quan tâm --",
+        interest_option_language: "Đào tạo Ngoại ngữ (IVS Academy)",
+        interest_option_steam: "Đào tạo STEAM / Kỹ năng sống",
+        interest_option_edtech: "Giải pháp EdTech (IVS Celestech)",
+        interest_option_international: "Hợp tác Quốc tế (Du học, Trại hè, Liên kết)",
+        interest_option_establishment: "Tư vấn Thành lập Trung tâm/Trường học",
+        interest_option_investment: "Hợp tác Đầu tư Giáo dục",
+        interest_option_webdesign: "Thiết kế Website / Hệ thống",
+        interest_option_rnd: "Thiết kế Học liệu / Chương trình",
+        interest_option_health: "Sản phẩm Sức khỏe (Yến sào, Yoga)",
+        interest_option_other: "Yêu cầu Khác",
+        form_label_message: "Nội dung yêu cầu",
+        form_placeholder_message: "Vui lòng mô tả chi tiết yêu cầu hoặc câu hỏi của bạn...",
+        form_button_submit: "Gửi yêu cầu Tư vấn",
+        consultation_alt_contact_prefix: "Hoặc liên hệ trực tiếp với chúng tôi qua:",
+
+
     },
     en: {
         // Meta Tags (About Page - Added)
@@ -529,7 +564,7 @@ const translations = {
         about_partner4: "Domestic and international schools, training centers, and educational organizations.",
         about_partners_p: "We believe that close collaboration creates synergy, driving the development of education.",
 
-        // Footer (Kept)
+        // Footer (Kept and updated)
         footer_company_name: "IVS JSC",
         footer_rights: "All rights reserved.",
         footer_contact_us: "Contact us",
@@ -553,6 +588,9 @@ const translations = {
         footer_visit_page_mastery: "Visit IVS Mastery Fanpage",
         footer_message_academy_sr: "Message IVS Academy on Facebook",
         footer_message_mastery_sr: "Message IVS Mastery on Facebook",
+        footer_email_link: "ivsacademy.edu@gmail.com", // New key
+        footer_zalo_link: "Nguyen Minh Triet (IVS)", // New key
+        footer_map_title: "Map", // New key
 
         // Trang rnd-curriculum.html v2 (Kept)
         rnd_hero_title: "Custom Curriculum & EdTech Solutions",
@@ -745,26 +783,54 @@ const translations = {
         establishment_cta_heading: "Start Your Center Building Journey!",
         establishment_cta_desc: "Don't let complex legal procedures hinder your dream of contributing to education. Contact IVS Education today for detailed consultation and professional support!",
         establishment_cta_button: "Request Consultation Now",
+
+         // Add keys for dangkytuvan.html
+         page_title_consultation: "Consultation Request - IVS JSC",
+         meta_description_consultation: "Request a free consultation from IVS JSC regarding education, technology, international cooperation, and other services.",
+         og_title_consultation: "Consultation Request - IVS JSC",
+         og_description_consultation: "Contact IVS JSC for detailed consultation on your needs.",
+         consultation_form_title: "Consultation Request",
+         consultation_form_subtitle: "Please fill out the information below, and IVS JSC will contact you shortly.",
+         form_label_fullname: "Full Name",
+         form_placeholder_fullname: "Example: John Doe",
+         form_label_phone: "Phone Number",
+         form_placeholder_phone: "Example: 0912345678",
+         form_label_email: "Email Address",
+         form_placeholder_email: "Example: email@example.com",
+         form_label_interest: "Area of Interest",
+         form_select_placeholder: "-- Select area --",
+         interest_option_language: "Language Training (IVS Academy)",
+         interest_option_steam: "STEAM / Life Skills Training",
+         interest_option_edtech: "EdTech Solutions (IVS Celestech)",
+         interest_option_international: "International Cooperation (Study Abroad, Camps, Linkage)",
+         interest_option_establishment: "Center/School Establishment Consulting",
+         interest_option_investment: "Educational Investment Partnership",
+         interest_option_webdesign: "Website / System Design",
+         interest_option_rnd: "Curriculum / Material Design",
+         interest_option_health: "Health Products (Bird's Nest, Yoga)",
+         interest_option_other: "Other Request",
+         form_label_message: "Your Message",
+         form_placeholder_message: "Please describe your request or question in detail...",
+         form_button_submit: "Send Consultation Request",
+         consultation_alt_contact_prefix: "Or contact us directly via:",
     }
 };
 
 
 // Biến cờ toàn cục để đảm bảo ngôn ngữ chỉ được khởi tạo một lần
-// (Sẽ được kiểm tra bởi script.js trước khi gọi initializeLanguage)
-// let languageInitialized = false; // Không cần biến này nữa nếu script.js quản lý
+window.languageInitialized = false; // Global flag
 
 /**
  * Áp dụng bản dịch cho các phần tử trên trang.
  * @param {string} lang - Mã ngôn ngữ ('vi' hoặc 'en').
  */
 function applyTranslations(lang) {
-    console.log(`Applying translations for: ${lang}`);
+    console.log(`[Language] Applying translations for: ${lang}`);
     document.querySelectorAll('[data-lang-key]').forEach(element => {
         const key = element.getAttribute('data-lang-key');
-        const translation = translations[lang]?.[key]; // Truy cập an toàn
+        const translation = translations[lang]?.[key]; // Safe access
 
         if (translation !== undefined) {
-            // Xử lý các loại phần tử khác nhau
             const tagName = element.tagName;
             const nameAttr = element.getAttribute('name');
             const propertyAttr = element.getAttribute('property');
@@ -776,33 +842,58 @@ function applyTranslations(lang) {
             } else if (tagName === 'META' && propertyAttr === 'og:description') {
                 element.content = translation;
             } else if (tagName === 'TITLE') {
-                element.textContent = translation;
+                document.title = translation; // Use document.title for cross-browser compatibility
             } else if (tagName === 'INPUT' || tagName === 'TEXTAREA') {
+                // Check for specific placeholder key first
                 const placeholderKey = key + '_placeholder';
                 const placeholderTranslation = translations[lang]?.[placeholderKey];
                 if (placeholderTranslation !== undefined) {
                     element.placeholder = placeholderTranslation;
-                } else {
-                    // Nếu không có key placeholder riêng, thử dùng key chính
-                    element.placeholder = translation;
+                } else if (element.hasAttribute('placeholder')) {
+                    // Fallback to main key only if placeholder attribute exists
+                    // element.placeholder = translation; // Avoid setting placeholder if not intended
+                    console.warn(`[Language] Placeholder key ${placeholderKey} not found for element with key ${key}. Main key used as fallback (if applicable).`);
+                }
+                // Check for value attribute (e.g., submit button)
+                if (element.type === 'button' || element.type === 'submit') {
+                    element.value = translation;
                 }
             } else if (tagName === 'IMG') {
+                // Check for specific alt key first
                 const altKey = key + '_alt';
                 const altTranslation = translations[lang]?.[altKey];
                 if (altTranslation !== undefined) {
                     element.alt = altTranslation;
                 } else {
-                    // Nếu không có key alt riêng, thử dùng key chính
+                    // Fallback to main key for alt text
                     element.alt = translation;
                 }
+            } else if (tagName === 'A' && element.classList.contains('sr-only')) {
+                 // Handle screen-reader only links if necessary (rare)
+                 element.textContent = translation;
+            } else if (tagName === 'BUTTON' && element.querySelector('.sr-only')) {
+                 // Update screen-reader text within buttons
+                 const srOnlySpan = element.querySelector('.sr-only');
+                 if (srOnlySpan) {
+                     srOnlySpan.textContent = translation;
+                 } else {
+                      // If button has direct text content besides sr-only
+                      // This part needs careful handling based on button structure
+                      // Example: If button is just <button data-lang-key="key">Icon</button>
+                      // We might not want to set textContent here.
+                      // If button is <button data-lang-key="key"><span>Text</span> Icon</button>
+                      const textSpan = element.querySelector('span:not(.sr-only)');
+                      if(textSpan) textSpan.textContent = translation;
+                      // else element.textContent = translation; // Be cautious with this
+                 }
             } else {
-                // Áp dụng cho các phần tử còn lại (P, A, BUTTON, SPAN, H*, LI...)
-                // Xử lý Markdown cơ bản cho **bold** và *italic*
+                // Apply to other elements (P, SPAN, H*, LI, etc.)
+                // Handle basic Markdown: **bold** and *italic*
                 let finalTranslation = translation;
-                finalTranslation = finalTranslation.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Bold
-                finalTranslation = finalTranslation.replace(/\*(.*?)\*/g, '<em>$1</em>');     // Italic
+                finalTranslation = finalTranslation.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                finalTranslation = finalTranslation.replace(/\*(.*?)\*/g, '<em>$1</em>');
 
-                // Chỉ dùng innerHTML nếu có định dạng Markdown, ngược lại dùng textContent
+                // Use innerHTML only if Markdown was found, otherwise use textContent for safety
                 if (finalTranslation !== translation) {
                     element.innerHTML = finalTranslation;
                 } else {
@@ -810,7 +901,7 @@ function applyTranslations(lang) {
                 }
             }
 
-            // Xử lý title attribute (tooltip) nếu có key riêng
+            // Handle 'title' attribute (tooltip) if a specific key exists
             const titleKey = key + '_title';
             const titleTranslation = translations[lang]?.[titleKey];
             if (titleTranslation !== undefined) {
@@ -818,53 +909,73 @@ function applyTranslations(lang) {
             }
 
         } else if (key) {
-            // console.warn(`Translation missing for key: ${key} in language: ${lang}`);
+            // Only warn if the key exists but translation is missing for the current language
+            if (translations['vi']?.[key] || translations['en']?.[key]) { // Check if key exists in any lang
+                 console.warn(`[Language] Translation missing for key: "${key}" in language: "${lang}"`);
+            } else {
+                 console.warn(`[Language] Key not found in any language: "${key}"`);
+            }
         }
     });
 }
 
 /**
- * Cập nhật trạng thái active/inactive cho các nút ngôn ngữ.
+ * Cập nhật trạng thái UI cho các nút/dropdown chọn ngôn ngữ.
  * @param {string} lang - Mã ngôn ngữ hiện tại ('vi' hoặc 'en').
  */
-function updateLanguageButtonStates(lang) {
-    console.log(`Updating button states for lang: ${lang}`);
-    const buttons = document.querySelectorAll('.lang-button'); // Sử dụng class chung
+function updateLanguageUI(lang) {
+    console.log(`[Language] Updating UI for lang: ${lang}`);
 
+    // --- Update Dropdown Toggles (Desktop & Mobile) ---
+    const langDetails = {
+        vi: { name: 'Tiếng Việt', short: 'VN' }, // Use VN for display
+        en: { name: 'English', short: 'EN' }
+    };
+    const currentLangShort = langDetails[lang]?.short || lang.toUpperCase();
+
+    const desktopLangText = document.getElementById('desktop-current-lang');
+    const mobileLangText = document.getElementById('mobile-current-lang');
+
+    if (desktopLangText) desktopLangText.textContent = currentLangShort;
+    if (mobileLangText) mobileLangText.textContent = currentLangShort;
+
+    // --- Update Language Button States (Options within dropdowns) ---
+    const buttons = document.querySelectorAll('.lang-button'); // General class for options
     buttons.forEach(button => {
         if (!button) return;
         const buttonLang = button.getAttribute('data-lang');
-        const isDesktop = button.closest('#menu-desktop') !== null; // Kiểm tra xem có nằm trong menu desktop không
-        const isMobile = button.closest('#menu-mobile') !== null; // Kiểm tra xem có nằm trong menu mobile không
-
-        let activeClass = '';
-        if (isDesktop) {
-            activeClass = 'active-lang-desktop'; // Class cho nút desktop active
-        } else if (isMobile) {
-            activeClass = 'active-lang-mobile'; // Class cho nút mobile active
-        } else {
-            // Fallback hoặc xử lý cho nút không nằm trong header (nếu có)
-            activeClass = 'active'; // Class chung
-        }
-
 
         if (buttonLang === lang) {
-            // Nút active
-            button.classList.add(activeClass);
-            // Thêm các class Tailwind khác nếu cần để biểu thị trạng thái active
-             button.classList.add('font-semibold', 'text-orange-500'); // Ví dụ
-             button.classList.remove('text-gray-500', 'hover:text-gray-900'); // Bỏ class inactive
-            button.disabled = true; // Vô hiệu hóa nút đang chọn
-            button.setAttribute('aria-current', 'page'); // Cho accessibility
+            button.disabled = true; // Disable the currently selected language
+            button.setAttribute('aria-current', 'page'); // Mark as current
+            // Add active styling (Tailwind example, adjust based on your CSS)
+             // button.classList.add('bg-blue-100', 'text-blue-700', 'font-semibold');
+             // button.classList.remove('text-gray-700');
         } else {
-            // Nút inactive
-            button.classList.remove(activeClass);
-            // Bỏ các class active nếu có
-             button.classList.remove('font-semibold', 'text-orange-500');
-             button.classList.add('text-gray-500', 'hover:text-gray-900'); // Thêm class inactive
-            button.disabled = false; // Kích hoạt nút không được chọn
+            button.disabled = false; // Enable other languages
             button.removeAttribute('aria-current');
+            // Remove active styling
+             // button.classList.remove('bg-blue-100', 'text-blue-700', 'font-semibold');
+             // button.classList.add('text-gray-700');
         }
+
+         // Specific styling based on location (Desktop vs Mobile) if needed
+         const isInDesktopDropdown = button.closest('#desktop-language-dropdown');
+         const isInMobileDropdown = button.closest('#mobile-language-dropdown');
+
+         if (isInDesktopDropdown) {
+             if (button.disabled) {
+                 button.classList.add('active-lang-desktop'); // Add specific class if needed
+             } else {
+                  button.classList.remove('active-lang-desktop');
+             }
+         } else if (isInMobileDropdown) {
+              if (button.disabled) {
+                  button.classList.add('active-lang-mobile'); // Add specific class if needed
+              } else {
+                  button.classList.remove('active-lang-mobile');
+              }
+         }
     });
 }
 
@@ -874,329 +985,149 @@ function updateLanguageButtonStates(lang) {
  * @param {string} lang - Mã ngôn ngữ ('vi' hoặc 'en').
  */
 function setLanguage(lang) {
-    // Kiểm tra ngôn ngữ hợp lệ
+    // Validate language code
     if (!translations[lang]) {
-        console.error(`Invalid language code: ${lang}. Defaulting to 'vi'.`);
+        console.error(`[Language] Invalid language code: ${lang}. Defaulting to 'vi'.`);
         lang = 'vi';
     }
 
-    // 1. Lưu lựa chọn vào localStorage
+    // 1. Save preference to localStorage
     localStorage.setItem('preferredLanguage', lang);
 
-    // 2. Áp dụng bản dịch cho các phần tử
+    // 2. Apply translations to DOM elements
     applyTranslations(lang);
 
-    // 3. Cập nhật trạng thái active/inactive của các nút ngôn ngữ
-    updateLanguageButtonStates(lang);
+    // 3. Update language switcher UI (buttons/dropdowns)
+    updateLanguageUI(lang);
 
-    // 4. Cập nhật thuộc tính lang của thẻ HTML
+    // 4. Update HTML lang attribute
     document.documentElement.lang = lang;
 
-    console.log(`Language set to: ${lang}`);
+    console.log(`[Language] Language set to: ${lang}`);
 
-    // 5. Trigger các hàm cập nhật nội dung động (nếu cần)
-    // Ví dụ: Cập nhật lại kết quả test nếu đang hiển thị
+    // 5. Trigger dynamic content updates if necessary
+    // Example: Reload news if the news container exists
+    if (typeof loadInternalNews === 'function' && document.getElementById('news-container')) {
+        console.log("[Language] Reloading internal news after language change...");
+        loadInternalNews();
+    }
+     // Example: Reload RSS feed if the container exists
+     if (typeof loadVnExpressFeed === 'function' && document.getElementById('vnexpress-rss-feed')) {
+         console.log("[Language] Reloading VnExpress feed after language change...");
+         loadVnExpressFeed();
+     }
+    // Example: Update placement test results text if visible
     if (typeof updatePlacementResultText === 'function') {
         const resultArea = document.getElementById('test-result-area');
         if (resultArea && !resultArea.classList.contains('hidden')) {
-            console.log("Updating placement test results text after language change...");
-            updatePlacementResultText(lang); // Giả sử hàm này lấy điểm/level từ nơi khác
+            console.log("[Language] Updating placement test results text after language change...");
+            updatePlacementResultText(lang); // Assumes this function gets score/level elsewhere
         }
     }
-    // Thêm các hàm cập nhật khác nếu có (ví dụ: loadNews())
-    if (typeof loadNews === 'function') {
-        // Kiểm tra xem có phần tử hiển thị tin tức không trước khi gọi
-        if (document.getElementById('news-container')) { // Giả sử id là news-container
-             console.log("Reloading news after language change...");
-             loadNews(); // Tải lại tin tức với ngôn ngữ mới
-        }
-    }
+     // Example: Re-highlight active menu item as text might have changed
+     if (typeof initializeActiveMenuHighlighting === 'function') {
+          const headerElement = document.querySelector('#header-placeholder #navbar');
+          if (headerElement) {
+               console.log("[Language] Re-highlighting active menu item...");
+               initializeActiveMenuHighlighting(headerElement);
+          }
+     }
 }
 
 
 /**
  * Xử lý sự kiện khi người dùng bấm nút chuyển ngôn ngữ.
+ * This is the function called by the event listener wrapper in script.js
  * @param {Event} event - Đối tượng sự kiện click.
  */
 function handleLanguageChange(event) {
     const button = event.currentTarget;
-    // Bỏ qua nếu nút đang bị vô hiệu hóa (là ngôn ngữ hiện tại)
+    // Ignore if button is disabled (already selected language)
     if (button.disabled) {
         return;
     }
     const lang = button.getAttribute('data-lang');
-    console.log(`Language change requested to: ${lang}`);
+    console.log(`[Language] Language change requested via button to: ${lang}`);
     if (lang) {
         setLanguage(lang);
     }
 }
 
 /**
- * Gắn sự kiện click cho các nút chuyển đổi ngôn ngữ.
- * Đảm bảo các nút tồn tại trong DOM (sau khi header được tải).
- */
-function attachLanguageButtonListeners() {
-    console.log("Attaching language button listeners...");
-    // Lấy header đã được tải vào placeholder
-    const headerPlaceholder = document.getElementById('header-placeholder');
-    if (!headerPlaceholder) {
-        console.error("Header placeholder not found. Cannot attach language listeners.");
-        return;
-    }
-
-    // Tìm các nút ngôn ngữ bên trong header đã tải
-    // Sử dụng querySelectorAll trên headerPlaceholder để đảm bảo nút đã tồn tại
-    const buttons = headerPlaceholder.querySelectorAll('.lang-button'); // Dùng class chung
-
-    if (buttons.length === 0) {
-        console.warn("No language buttons (.lang-button) found inside header placeholder.");
-        // Thử tìm nút trong toàn bộ document phòng trường hợp nút không nằm trong header
-        const globalButtons = document.querySelectorAll('.lang-button');
-        if(globalButtons.length > 0) {
-            console.log("Found language buttons outside header placeholder. Attaching listeners globally.");
-             globalButtons.forEach(button => {
-                button.removeEventListener('click', handleLanguageChange);
-                button.addEventListener('click', handleLanguageChange);
-            });
-             console.log(`Language button listeners attached to ${globalButtons.length} global buttons.`);
-             return; // Đã gắn listener, thoát hàm
-        } else {
-             console.error("No language buttons found anywhere.");
-             return;
-        }
-    }
-
-    buttons.forEach(button => {
-        // Gỡ listener cũ (nếu có) để tránh gắn nhiều lần
-        button.removeEventListener('click', handleLanguageChange);
-        // Gắn listener mới
-        button.addEventListener('click', handleLanguageChange);
-    });
-    console.log(`Language button listeners attached to ${buttons.length} buttons inside header.`);
-}
-
-/**
  * Khởi tạo chức năng ngôn ngữ.
- * Được gọi bởi script.js SAU KHI header đã được tải.
+ * Called by script.js AFTER header/footer components are loaded/attempted.
  */
 function initializeLanguage() {
-    // Cờ này được quản lý bởi script.js, không cần kiểm tra lại ở đây
-    console.log("Initializing language system...");
+    // Check the global flag to prevent multiple initializations
+    if (window.languageInitialized) {
+        console.warn("[Language] Initialization skipped: Already initialized.");
+        return;
+    }
+    console.log("[Language] Initializing language system...");
 
-    // Lấy ngôn ngữ ưu tiên từ localStorage hoặc mặc định là 'vi'
+    // Get preferred language from localStorage or default to 'vi'
     const preferredLanguage = localStorage.getItem('preferredLanguage') || 'vi';
 
-    // Gắn listener VÀO ĐÂY, sau khi header chắc chắn đã load
-    attachLanguageButtonListeners();
-
-    // Thiết lập ngôn ngữ ban đầu (sẽ tự động cập nhật nút và text)
+    // Set the initial language (applies translations, updates UI)
+    // Note: Event listeners are attached by script.js *after* this runs,
+    // ensuring buttons exist before listeners are added.
     setLanguage(preferredLanguage);
 
-    // Đánh dấu đã khởi tạo (quản lý bởi script.js)
-    console.log("Language initialization complete.");
+    // Set the global flag
+    window.languageInitialized = true;
+    console.log("[Language] Initialization complete.");
 }
 
-// --- Các hàm phụ trợ (ví dụ: updatePlacementResultText) ---
-// Giữ nguyên hàm updatePlacementResultText từ file gốc của bạn
-// hoặc điều chỉnh nếu cần
+// --- Placement Test Result Text Update (Example Function) ---
 /**
  * Updates the text content of the English placement test result area.
- * (This function needs the actual score/level logic to be implemented elsewhere)
+ * (Placeholder - needs actual score/level logic)
  * @param {string} lang - The target language ('vi' or 'en').
  */
 function updatePlacementResultText(lang) {
-    console.log(`Updating placement result text for lang: ${lang}`);
+    console.log(`[Language] Updating placement result text for lang: ${lang}`);
     const estimatedLevelEl = document.getElementById('estimated-level');
     const levelDescEl = document.getElementById('level-description');
     const coursesListEl = document.getElementById('suggested-courses');
 
-    // Ensure elements exist before proceeding
     if (!estimatedLevelEl || !levelDescEl || !coursesListEl) {
-        console.warn("Placement result elements not found, cannot update text.");
+        console.warn("[Language] Placement result elements not found, cannot update text.");
         return;
     }
 
-    // --- Placeholder Result Data ---
-    // In a real application, you would get the actual test score
-    // and determine the level and suggestions based on that score.
-    // This should ideally read from a variable set when the test completes.
+    // --- Placeholder Result Logic ---
     const testResult = JSON.parse(sessionStorage.getItem('placementTestResult') || '{}');
-    const determinedLevel = testResult.level || 'B1'; // Default to B1 if no result stored
+    const determinedLevel = testResult.level || 'B1'; // Default if no result
     // --- End Placeholder ---
 
+    const resultData = { /* ... (result data object as before) ... */ }; // Keep the resultData object
+     const currentResult = resultData[lang]?.[determinedLevel] || resultData['vi']?.[determinedLevel] || { level: 'N/A', description: '...', courses: [] };
 
-      // Static result data (replace with dynamic logic based on 'determinedLevel')
-      // This structure is just for demonstration based on previous context.
-      const resultData = {
-          vi: {
-              A1: { level: 'A1 (Sơ cấp 1)', description: 'Có thể hiểu và sử dụng các cấu trúc quen thuộc hàng ngày và các cụm từ rất cơ bản nhằm đáp ứng nhu cầu cụ thể.', courses: [{ name: 'Khóa Tiếng Anh A1', link: '#' }] },
-              A2: { level: 'A2 (Sơ cấp 2)', description: 'Có thể hiểu các câu và cách diễn đạt thường dùng liên quan đến các lĩnh vực liên quan trực tiếp nhất (ví dụ: thông tin cá nhân và gia đình rất cơ bản, mua sắm, địa lý địa phương, việc làm).', courses: [{ name: 'Khóa Tiếng Anh A2', link: '#' }] },
-              B1: { level: 'B1 (Trung cấp)', description: 'Có thể hiểu các ý chính của thông tin rõ ràng, chuẩn mực về các vấn đề quen thuộc thường gặp trong công việc, trường học, giải trí, v.v.', courses: [{ name: 'Khóa Tiếng Anh Giao tiếp B1+', link: '#' }, { name: 'Luyện thi IELTS Mục tiêu 5.0-6.0', link: '#' }] },
-              B2: { level: 'B2 (Trung-Cao cấp)', description: 'Có thể hiểu ý chính của văn bản phức tạp về cả chủ đề cụ thể và trừu tượng, bao gồm cả các thảo luận kỹ thuật trong lĩnh vực chuyên môn của mình.', courses: [{ name: 'Khóa Tiếng Anh B2', link: '#' }, { name: 'Luyện thi IELTS Mục tiêu 6.5+', link: '#' }] },
-              C1: { level: 'C1 (Cao cấp)', description: 'Có thể hiểu nhiều loại văn bản dài và đòi hỏi cao, và nhận ra ý nghĩa tiềm ẩn. Có thể diễn đạt bản thân một cách trôi chảy và tự nhiên mà không cần tìm kiếm biểu thức rõ ràng.', courses: [{ name: 'Khóa Tiếng Anh C1', link: '#' }] },
-              C2: { level: 'C2 (Thành thạo)', description: 'Có thể hiểu dễ dàng hầu hết mọi thứ nghe hoặc đọc. Có thể tóm tắt thông tin từ các nguồn nói và viết khác nhau, tái cấu trúc các lập luận và trình bày một cách mạch lạc.', courses: [{ name: 'Khóa Tiếng Anh C2', link: '#' }] },
-          },
-          en: {
-              A1: { level: 'A1 (Beginner)', description: 'Can understand and use familiar everyday expressions and very basic phrases aimed at the satisfaction of needs of a concrete type.', courses: [{ name: 'A1 English Course', link: '#' }] },
-              A2: { level: 'A2 (Elementary)', description: 'Can understand sentences and frequently used expressions related to areas of most immediate relevance (e.g. very basic personal and family information, shopping, local geography, employment).', courses: [{ name: 'A2 English Course', link: '#' }] },
-              B1: { level: 'B1 (Intermediate)', description: 'Can understand the main points of clear standard input on familiar matters regularly encountered in work, school, leisure, etc.', courses: [{ name: 'B1+ Communicative English Course', link: '#' }, { name: 'IELTS Preparation (Target 5.0-6.0)', link: '#' }] },
-              B2: { level: 'B2 (Upper-Intermediate)', description: 'Can understand the main ideas of complex text on both concrete and abstract topics, including technical discussions in his/her field of specialisation.', courses: [{ name: 'B2 English Course', link: '#' }, { name: 'IELTS Preparation (Target 6.5+)', link: '#' }] },
-              C1: { level: 'C1 (Advanced)', description: 'Can understand a wide range of demanding, longer texts, and recognise implicit meaning. Can express him/herself fluently and spontaneously without much obvious searching for expressions.', courses: [{ name: 'C1 English Course', link: '#' }] },
-              C2: { level: 'C2 (Proficient)', description: 'Can understand with ease virtually everything heard or read. Can summarise information from different spoken and written sources, reconstructing arguments and accounts in a coherent presentation.', courses: [{ name: 'C2 English Course', link: '#' }] },
-          }
-      };
+     estimatedLevelEl.textContent = currentResult.level;
+     levelDescEl.textContent = currentResult.description;
 
-      // Get the specific result text based on determined level and language
-      const currentResult = resultData[lang]?.[determinedLevel] || resultData['vi']?.[determinedLevel] || { level: 'N/A', description: '...', courses: [] }; // Fallback
-
-      // Update the DOM elements
-      estimatedLevelEl.textContent = currentResult.level;
-      levelDescEl.textContent = currentResult.description;
-
-      // Clear previous course suggestions and add new ones
-      coursesListEl.innerHTML = ''; // Clear existing list items
-      if (currentResult.courses && currentResult.courses.length > 0) {
-          currentResult.courses.forEach(course => {
-              const li = document.createElement('li');
-              const a = document.createElement('a');
-              a.href = course.link || '#'; // Default link to '#' if not provided
-              a.textContent = course.name;
-              a.className = 'text-blue-600 hover:underline'; // Use a common link style
-              li.appendChild(a);
-              coursesListEl.appendChild(li);
-          });
-      } else {
-          // Optional: Display a message if no courses are suggested
-          const li = document.createElement('li');
-          li.textContent = lang === 'vi' ? 'Không có khóa học gợi ý nào cho trình độ này.' : 'No suggested courses for this level.';
-          li.className = 'text-gray-500 italic';
-          coursesListEl.appendChild(li);
-      }
-      // --- Language Dropdown Logic ---
-
-// Hàm toggle hiển thị dropdown
-function toggleDropdown(dropdownElement) {
-    if (!dropdownElement) return;
-    dropdownElement.classList.toggle('open');
-    const toggleButton = dropdownElement.querySelector('.dropdown-toggle');
-    const isExpanded = dropdownElement.classList.contains('open');
-    if (toggleButton) {
-        toggleButton.setAttribute('aria-expanded', isExpanded);
-    }
+     coursesListEl.innerHTML = '';
+     if (currentResult.courses && currentResult.courses.length > 0) {
+         currentResult.courses.forEach(course => {
+             const li = document.createElement('li');
+             const a = document.createElement('a');
+             a.href = course.link || '#';
+             a.textContent = course.name;
+             a.className = 'text-blue-600 hover:underline';
+             li.appendChild(a);
+             coursesListEl.appendChild(li);
+         });
+     } else {
+         const li = document.createElement('li');
+         li.textContent = lang === 'vi' ? 'Không có khóa học gợi ý.' : 'No suggested courses.';
+         li.className = 'text-gray-500 italic';
+         coursesListEl.appendChild(li);
+     }
 }
 
-// Hàm cập nhật giao diện ngôn ngữ (bao gồm cờ)
-function setLanguageUI(lang) {
-    const languages = {
-        vi: { name: 'Tiếng Việt', flag: 'images/flags/vn.png', alt: 'Vietnam Flag' },
-        en: { name: 'English', flag: 'images/flags/en.png', alt: 'English Flag' }
-    };
-
-    if (!languages[lang]) return; // Thoát nếu ngôn ngữ không hợp lệ
-
-    // Cập nhật nút toggle Desktop
-    const desktopToggleBtn = document.getElementById('desktop-lang-toggle');
-    const desktopFlag = document.getElementById('desktop-current-flag');
-    const desktopLangText = document.getElementById('desktop-current-lang');
-    if (desktopToggleBtn && desktopFlag && desktopLangText) {
-        desktopFlag.src = languages[lang].flag;
-        desktopFlag.alt = languages[lang].alt;
-        desktopLangText.textContent = lang.toUpperCase();
-    }
-
-    // Cập nhật nút toggle Mobile
-    const mobileToggleBtn = document.getElementById('mobile-lang-toggle');
-    const mobileFlag = document.getElementById('mobile-current-flag');
-    const mobileLangText = document.getElementById('mobile-current-lang');
-    if (mobileToggleBtn && mobileFlag && mobileLangText) {
-        mobileFlag.src = languages[lang].flag;
-        mobileFlag.alt = languages[lang].alt;
-        mobileLangText.textContent = lang.toUpperCase();
-    }
-
-    // Cập nhật trạng thái active cho các lựa chọn trong dropdowns
-    document.querySelectorAll('.language-dropdown .lang-option').forEach(option => {
-        if (option.dataset.lang === lang) {
-            option.classList.add('active');
-            // Không dùng disabled nữa
-            // option.disabled = true;
-        } else {
-            option.classList.remove('active');
-             // Không dùng disabled nữa
-            // option.disabled = false;
-        }
-    });
-
-    // Update html lang attribute
-    document.documentElement.lang = lang;
-}
-
-// Hàm xử lý chọn ngôn ngữ
-function changeLanguage(lang) {
-    console.log(`Changing language to: ${lang}`);
-    localStorage.setItem('language', lang); // Lưu lựa chọn
-    setLanguageUI(lang); // Cập nhật UI (cờ, text, nút active)
-
-    // Đóng dropdown sau khi chọn (tùy chọn)
-    const desktopDropdown = document.getElementById('desktop-language-dropdown');
-    const mobileDropdown = document.getElementById('mobile-language-dropdown');
-    if (desktopDropdown?.classList.contains('open')) {
-        toggleDropdown(desktopDropdown);
-    }
-    if (mobileDropdown?.classList.contains('open')) {
-        toggleDropdown(mobileDropdown);
-    }
-
-    // Gọi hàm load và áp dụng bản dịch của bạn
-     loadTranslations(lang).then(() => {
-         console.log(`Translations loaded and applied for ${lang}`);
-         setActiveLink(); // Cập nhật lại link active sau khi load xong (có thể text menu thay đổi)
-     }).catch(error => {
-          console.error(`Error loading translations for ${lang}:`, error);
-     });
-}
-
-
-// Thêm Event Listeners vào trong sự kiện DOMContentLoaded (trong main.js hoặc script.js)
-document.addEventListener('DOMContentLoaded', () => {
-    // ... các code khác trong DOMContentLoaded ...
-
-    const desktopDropdown = document.getElementById('desktop-language-dropdown');
-    const desktopToggleBtn = document.getElementById('desktop-lang-toggle');
-
-    const mobileDropdown = document.getElementById('mobile-language-dropdown');
-    const mobileToggleBtn = document.getElementById('mobile-lang-toggle');
-
-    // Listener cho nút toggle Desktop
-    if (desktopToggleBtn && desktopDropdown) {
-        desktopToggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
-            toggleDropdown(desktopDropdown);
-        });
-    }
-
-     // Listener cho nút toggle Mobile
-     if (mobileToggleBtn && mobileDropdown) {
-        mobileToggleBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleDropdown(mobileDropdown);
-        });
-    }
-
-    // Listener để đóng dropdown khi bấm ra ngoài
-    document.addEventListener('click', (e) => {
-        // Đóng dropdown Desktop nếu đang mở và bấm ra ngoài
-        if (desktopDropdown && desktopDropdown.classList.contains('open') && !desktopDropdown.contains(e.target)) {
-            toggleDropdown(desktopDropdown);
-        }
-         // Đóng dropdown Mobile nếu đang mở và bấm ra ngoài (và không phải bấm vào nút toggle)
-         if (mobileDropdown && mobileDropdown.classList.contains('open') && !mobileDropdown.contains(e.target)) {
-            toggleDropdown(mobileDropdown);
-         }
-    });
-
-     // Set initial language from storage or default
-     const initialLang = localStorage.getItem('language') || 'vi';
-     setLanguageUI(initialLang);
-});
-}
+// Note: The specific dropdown UI logic (toggleDropdown, setLanguageUI, changeLanguage)
+// and the related DOMContentLoaded listener have been removed as they were conflicting
+// with the primary language system (handleLanguageChange, updateLanguageButtonStates)
+// and the initialization flow managed by script.js.
+// The core functions applyTranslations, updateLanguageUI (renamed from updateLanguageButtonStates),
+// setLanguage, handleLanguageChange, and initializeLanguage are kept and refined.
