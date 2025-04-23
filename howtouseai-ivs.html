@@ -3,727 +3,672 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hướng dẫn Tư duy AI theo Ngành nghề - IVS Education</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title data-lang-key="page_title_ai_guide">Hướng dẫn Tư duy AI theo Ngành nghề - IVS Education</title>
+    <meta name="description" content="Khám phá cách áp dụng tư duy AI hiệu quả trong các ngành Giáo dục, Y tế, Tài chính, Bán lẻ, Sản xuất, Nông nghiệp, Du lịch cùng IVS Education." data-lang-key="meta_description_ai_guide">
+    <meta property="og:title" content="Hướng dẫn Tư duy AI theo Ngành nghề - IVS Education" data-lang-key="og_title_ai_guide">
+    <meta property="og:description" content="Định hình tư duy nền tảng để ứng dụng AI thành công, bất kể công cụ bạn sử dụng." data-lang-key="og_description_ai_guide">
+    <meta property="og:image" content="https://placehold.co/1200x630/4f46e5/ffffff?text=AI+Mindset+Guide"> <meta property="og:url" content="https://ivsjsc.github.io/howtouseai-ivs.html"> <meta property="og:type" content="website">
+
+    <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <style>
-        /* Apply Inter font globally */
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Tailwind config
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+             colors: {
+               'primary': '#3b82f6', // blue-500
+               'primary-dark': '#2563eb', // blue-600
+               'secondary': '#10b981', // emerald-500
+               'warning': '#f59e0b', // amber-500
+               'header-orange': '#f97316', // orange-600
+               'indigo': { // Adding indigo palette for this page's theme
+                 '50': '#eef2ff',
+                 '100': '#e0e7ff',
+                 '200': '#c7d2fe',
+                 '300': '#a5b4fc',
+                 '400': '#818cf8',
+                 '500': '#6366f1',
+                 '600': '#4f46e5',
+                 '700': '#4338ca',
+                 '800': '#3730a3',
+                 '900': '#312e81',
+               },
+               // Include other grays if needed
+               'gray-50': '#f9fafb',
+               'gray-100': '#f3f4f6',
+               'gray-200': '#e5e7eb',
+               'gray-300': '#d1d5db',
+               'gray-400': '#9ca3af',
+               'gray-500': '#6b7280',
+               'gray-600': '#4b5563',
+               'gray-700': '#374151',
+               'gray-800': '#1f2937',
+               'gray-900': '#111827',
+             }
+          }
+        }
+      }
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="css/styles.css"> <style>
+        /* Custom styles specific to this page */
         body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth; /* Add smooth scrolling for anchor links */
+            scroll-behavior: smooth;
         }
-        /* Custom styles for main content readability */
-        main h2 { /* Target H2 only within main */
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            font-size: 1.5rem; /* 24px */
-            line-height: 2rem; /* 32px */
-            font-weight: 600;
-            border-bottom: 1px solid #e5e7eb; /* cool-gray-200 */
-            padding-bottom: 0.5rem;
-        }
-        main h3 { /* Target H3 only within main */
-            margin-top: 1.5rem;
-            margin-bottom: 0.75rem;
-            font-size: 1.25rem; /* 20px */
-            line-height: 1.75rem; /* 28px */
-            font-weight: 600;
-        }
-        main h4 { /* Target H4 only within main */
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-            font-size: 1.125rem; /* 18px */
-            line-height: 1.75rem; /* 28px */
-            font-weight: 600;
-        }
-        main p { /* Target P only within main */
-            margin-bottom: 1rem;
-            line-height: 1.6; /* More readable line spacing */
-        }
-        main ul { /* Target UL only within main */
-            list-style-type: disc;
-            margin-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        main li { /* Target LI only within main */
-            margin-bottom: 0.5rem;
-        }
-        main strong { /* Target STRONG only within main */
-            font-weight: 600; /* Ensure consistent bolding */
-        }
-        /* Improved Table Styles */
-        .ai-tools-table-container {
-            border-radius: 0.5rem; /* Rounded corners for the container */
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* Subtle shadow */
-            overflow: hidden; /* Ensures rounded corners clip the table */
-            margin-bottom: 1.5rem;
-        }
-        .ai-tools-table {
-            width: 100%;
-            border-collapse: collapse;
-            /* overflow-x-auto is applied to the container div for better shadow/border handling */
-        }
-        .ai-tools-table th,
-        .ai-tools-table td {
-            padding: 0.75rem 1rem; /* Increased padding */
-            text-align: left;
-            vertical-align: top;
-            border-bottom: 1px solid #e5e7eb; /* Lighter border between rows */
-        }
-        .ai-tools-table thead th {
-            background-color: #f3f4f6; /* Lighter gray header */
-            font-weight: 600;
-            font-size: 0.75rem; /* Smaller header text */
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #374151; /* Darker gray text */
-            border-top: none; /* Remove top border if container has one */
-            border-bottom-width: 2px; /* Thicker bottom border for header */
-             border-color: #d1d5db;
-        }
-         /* Remove bottom border from last row for cleaner look inside container */
-        .ai-tools-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-        /* Alternating row colors (optional but nice) */
-        .ai-tools-table tbody tr:nth-child(even) {
-            background-color: #f9fafb; /* Very light gray for even rows */
-        }
-        .ai-tools-table td a {
-            color: #2563eb; /* Blue link color */
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .ai-tools-table td a:hover {
-            text-decoration: underline;
-            color: #1d4ed8; /* Darker blue on hover */
-        }
+        /* Enhanced Table Styles (from original, slightly adapted) */
+       .ai-tools-table-container {
+           border-radius: 0.75rem; /* lg */
+           box-shadow: theme('boxShadow.md');
+           overflow: hidden;
+           margin-bottom: 1.5rem;
+           border: 1px solid theme('colors.gray.200');
+       }
+       .ai-tools-table {
+           width: 100%;
+           border-collapse: collapse;
+       }
+       .ai-tools-table th,
+       .ai-tools-table td {
+           padding: 0.75rem 1rem; /* py-3 px-4 */
+           text-align: left;
+           vertical-align: top;
+           border-bottom: 1px solid theme('colors.gray.200');
+       }
+       .ai-tools-table thead th {
+           background-color: theme('colors.gray.100');
+           font-weight: 600; /* font-semibold */
+           font-size: 0.75rem; /* text-xs */
+           text-transform: uppercase;
+           letter-spacing: 0.05em;
+           color: theme('colors.gray.600');
+           border-bottom-width: 2px;
+           border-color: theme('colors.gray.300');
+       }
+       .ai-tools-table tbody tr:last-child td {
+           border-bottom: none;
+       }
+       /* Alternating row colors */
+       .ai-tools-table tbody tr:nth-child(even) {
+           background-color: theme('colors.gray.50');
+       }
+       .ai-tools-table td a {
+           color: theme('colors.blue.600');
+           text-decoration: none;
+           font-weight: 500; /* font-medium */
+       }
+       .ai-tools-table td a:hover {
+           text-decoration: underline;
+           color: theme('colors.blue.700');
+       }
         /* Language Pair Styling */
-        .lang-pair {
+       .lang-pair {
+           margin-bottom: 1rem;
+           padding: 1rem;
+           border-radius: 0.5rem; /* rounded-lg */
+           background-color: theme('colors.gray.50');
+           border: 1px solid theme('colors.gray.200');
+       }
+        .lang-pair p:first-child {
+            font-weight: 500; /* Medium weight for primary language */
+            color: theme('colors.gray.800');
+            margin-bottom: 0.5rem; /* Space between languages */
+        }
+       .lang-pair p.italic { /* Style for the secondary language */
+           color: theme('colors.gray.600');
+           font-size: 0.95em; /* Slightly smaller */
+           margin-bottom: 0;
+       }
+       /* Section Styling */
+       .industry-section {
+            scroll-margin-top: 80px; /* Offset for sticky header */
+       }
+       .industry-section h2 { /* Section title */
+            border-bottom: 2px solid theme('colors.indigo.600');
+            padding-bottom: 0.5rem;
             margin-bottom: 1.5rem;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            background-color: #f9fafb; /* Light gray background */
+            color: theme('colors.indigo.700');
+       }
+        .industry-section h3 { /* Subsection title */
+             color: theme('colors.indigo.600');
+             margin-top: 1.5rem;
+             margin-bottom: 0.75rem;
         }
-        .lang-pair p:last-child {
-            margin-bottom: 0;
+        .industry-section h4 { /* Further subsection title */
+             color: theme('colors.gray.700');
+             font-weight: 600;
+             margin-top: 1rem;
+             margin-bottom: 0.5rem;
         }
-        /* Header/Footer Basic Styles */
-        header, footer {
-             width: 100%;
-        }
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background-color: white; /* Ensure background for sticky header */
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* Subtle shadow for header */
-        }
+         .industry-section ul {
+             list-style: none; /* Remove default disc */
+             padding-left: 0;
+             margin-bottom: 1rem;
+         }
+         .industry-section ul li {
+             position: relative;
+             padding-left: 1.75rem; /* Space for icon */
+             margin-bottom: 0.5rem;
+             line-height: 1.6;
+         }
+         /* Custom bullet points with Font Awesome */
+         .industry-section ul li::before {
+             content: '\f00c'; /* Font Awesome check icon */
+             font-family: 'Font Awesome 6 Free';
+             font-weight: 900;
+             position: absolute;
+             left: 0;
+             top: 0.15em; /* Adjust vertical alignment */
+             color: theme('colors.indigo.500');
+             font-size: 0.9em;
+         }
+         .industry-section .lang-pair ul li::before {
+             content: '\2022'; /* Use standard bullet for nested lists in lang-pair */
+             font-family: inherit; /* Reset font family */
+             font-weight: bold;
+             color: theme('colors.gray.500');
+             font-size: 1.2em;
+             top: 0;
+         }
+
     </style>
-    </head>
-<body class="bg-gray-100 text-gray-800 flex flex-col min-h-screen">
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen" id="page-ai-guide">
 
-    <header class="bg-white">
-        <nav class="container mx-auto px-6 py-3">
-            <div class="flex justify-between items-center">
-                <div class="text-xl font-semibold text-gray-700">
-                    <a href="index.html" class="text-gray-800 hover:text-blue-600">
-                        <img src="https://placehold.co/150x50/e2e8f0/333?text=IVS+Logo" alt="IVS Logo" class="h-10 inline-block">
-                        </a>
-                </div>
-                <div class="hidden md:flex items-center space-x-3">
-                    <a href="index.html" class="py-2 px-3 text-gray-700 hover:text-blue-600">Trang chủ</a>
-                    <div class="relative group">
-                        <button class="py-2 px-3 text-gray-700 hover:text-blue-600 flex items-center">
-                            Giới thiệu <svg class="w-4 h-4 ml-1 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 12l-6-6h12z"/></svg>
-                        </button>
-                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block z-10">
-                            <a href="about.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Về IVS</a>
-                            <a href="lienminhiivsa.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Liên minh IIVSA</a>
-                        </div>
-                    </div>
-                    <div class="relative group">
-                        <button class="py-2 px-3 text-gray-700 hover:text-blue-600 flex items-center">
-                            Dịch vụ <svg class="w-4 h-4 ml-1 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 12l-6-6h12z"/></svg>
-                        </button>
-                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block z-10">
-                             <a href="ivslanguages.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">IVS Languages</a>
-                             <a href="ivslifeminds.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">IVS LifeMinds</a>
-                             <a href="ivsmedia.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">IVS Media</a>
-                             <a href="ivscelestech.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">IVS Celestech</a>
-                             <a href="rnd-curriculum.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">R&D Chương trình</a>
-                        </div>
-                    </div>
-                     <div class="relative group">
-                        <button class="py-2 px-3 text-gray-700 hover:text-blue-600 flex items-center">
-                            Hợp tác <svg class="w-4 h-4 ml-1 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 12l-6-6h12z"/></svg>
-                        </button>
-                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block z-10">
-                            <a href="hop-tac-dau-tu.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Hợp tác đầu tư</a>
-                            <a href="lien-ket-quoc-te.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Liên kết quốc tế</a>
-                        </div>
-                    </div>
-                    <a href="careervn.html" class="py-2 px-3 text-gray-700 hover:text-blue-600">Tuyển dụng</a>
-                    <a href="contact.html" class="py-2 px-3 text-gray-700 hover:text-blue-600">Liên hệ</a>
-                     <div class="relative group">
-                         <button class="py-2 px-3 text-gray-700 hover:text-blue-600 flex items-center">
-                             <i class="fas fa-globe mr-1"></i> VN <svg class="w-4 h-4 ml-1 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 12l-6-6h12z"/></svg>
-                         </button>
-                         <div class="absolute right-0 mt-2 w-24 bg-white rounded-md shadow-lg py-1 hidden group-hover:block z-10">
-                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white lang-switch" data-lang="vi">Tiếng Việt</a>
-                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-500 hover:text-white lang-switch" data-lang="en">English</a>
-                         </div>
-                     </div>
-                </div>
-                <div class="md:hidden flex items-center">
-                    <button class="mobile-menu-button py-2 px-3 text-gray-700 hover:text-blue-600">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="mobile-menu hidden md:hidden py-3">
-                <a href="index.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Trang chủ</a>
-                <a href="about.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Về IVS</a>
-                 <a href="lienminhiivsa.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Liên minh IIVSA</a>
-                <a href="ivslanguages.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">IVS Languages</a>
-                 <a href="ivslifeminds.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">IVS LifeMinds</a>
-                 <a href="ivsmedia.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">IVS Media</a>
-                 <a href="ivscelestech.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">IVS Celestech</a>
-                 <a href="rnd-curriculum.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">R&D Chương trình</a>
-                 <a href="hop-tac-dau-tu.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Hợp tác đầu tư</a>
-                 <a href="lien-ket-quoc-te.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Liên kết quốc tế</a>
-                <a href="careervn.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Tuyển dụng</a>
-                <a href="contact.html" class="block py-2 px-4 text-sm text-gray-700 hover:bg-blue-500 hover:text-white">Liên hệ</a>
-                <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-blue-500 hover:text-white lang-switch" data-lang="vi">Tiếng Việt</a>
-                 <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-blue-500 hover:text-white lang-switch" data-lang="en">English</a>
-            </div>
-        </nav>
-        </header>
-    <main class="container mx-auto px-4 py-8 max-w-4xl flex-grow">
+    <header id="header-placeholder"></header>
 
-        <h1 class="text-3xl font-bold text-center mb-6 text-indigo-700">IVS Education</h1>
-        <h2 class="text-2xl font-semibold text-center mb-8 text-gray-700">Hướng dẫn Tư duy AI theo Ngành nghề</h2>
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 flex-grow">
 
-        <section class="mb-8">
-            <h3 class="text-xl font-semibold text-indigo-600">Tầm Quan Trọng Của Tư Duy Khi Sử Dụng AI</h3>
-            <h4 class="text-lg font-medium text-gray-600 mb-4">The Importance of Mindset When Using AI</h4>
-            <div class="lang-pair">
-                <p>Thế giới Trí tuệ Nhân tạo (AI) hiện nay có vô vàn công cụ với đủ loại tính năng, hiệu năng và chất lượng khác nhau. Từ những mô hình ngôn ngữ lớn phức tạp đến các ứng dụng chuyên biệt cho từng ngành, sự lựa chọn là rất phong phú.</p>
-                <p class="text-gray-600 italic">The world of Artificial Intelligence (AI) today offers countless tools with diverse features, performance levels, and quality. From complex large language models to specialized applications for specific industries, the choices are abundant.</p>
+        <section class="text-center mb-12 md:mb-16">
+             <i class="fas fa-brain fa-3x text-indigo-600 mb-4"></i>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-indigo-800 mb-3" data-lang-key="ai_guide_page_title">Hướng dẫn Tư duy AI theo Ngành nghề</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto" data-lang-key="ai_guide_page_subtitle">Định hình tư duy nền tảng để ứng dụng Trí tuệ Nhân tạo thành công trong công việc của bạn.</p>
+             <p class="text-sm text-gray-500 mt-2" data-lang-key="ai_guide_developed_by">Phát triển bởi IVS Education (Một đơn vị của IVS JSC)</p>
+        </section>
+
+        <section class="mb-12 p-6 bg-indigo-50 rounded-lg shadow-sm border border-indigo-200">
+            <h2 class="text-2xl font-semibold text-indigo-700 !border-b-0 !pb-0 !mb-4" data-lang-key="ai_guide_importance_title"> <i class="fas fa-lightbulb mr-2"></i>Tầm Quan Trọng Của Tư Duy Khi Sử Dụng AI
+            </h2>
+             <h3 class="text-lg font-medium text-gray-600 mb-4" data-lang-key="ai_guide_importance_subtitle">The Importance of Mindset When Using AI</h3>
+            <div class="lang-pair bg-white">
+                <p data-lang-key="ai_guide_importance_p1">Thế giới Trí tuệ Nhân tạo (AI) hiện nay có vô vàn công cụ với đủ loại tính năng, hiệu năng và chất lượng khác nhau. Từ những mô hình ngôn ngữ lớn phức tạp đến các ứng dụng chuyên biệt cho từng ngành, sự lựa chọn là rất phong phú.</p>
+                <p class="italic" data-lang-key="ai_guide_importance_p1_en">The world of Artificial Intelligence (AI) today offers countless tools with diverse features, performance levels, and quality. From complex large language models to specialized applications for specific industries, the choices are abundant.</p>
             </div>
-            <div class="lang-pair bg-indigo-50">
-                <p>Tuy nhiên, điều quan trọng cần nhấn mạnh là: <strong>Công cụ AI, dù tiên tiến hay mạnh mẽ đến đâu, cũng chỉ là phương tiện.</strong> Chất lượng của kết quả cuối cùng không chỉ phụ thuộc vào công cụ bạn chọn, mà phần lớn được quyết định bởi <strong>chính tư duy của người sử dụng</strong>. Khả năng xác định đúng vấn đề cần giải quyết, cách bạn đặt câu hỏi, sự rõ ràng trong yêu cầu và khả năng đánh giá, tinh chỉnh kết quả do AI tạo ra – đó mới là những yếu tố then chốt để biến tiềm năng của AI thành những kết quả thực sự xuất sắc và hữu ích.</p>
-                <p class="text-gray-600 italic">However, <strong>it's crucial to emphasize: AI tools, no matter how advanced or powerful, are merely instruments.</strong> The quality of the final outcome depends not only on the tool you choose but largely on <strong>the user's mindset</strong>. The ability to correctly identify the problem to be solved, how you formulate questions, the clarity of your requirements, and the capacity to evaluate and refine the AI-generated results – these are the key factors that transform AI's potential into truly excellent and useful outcomes.</p>
+            <div class="lang-pair bg-white">
+                <p data-lang-key="ai_guide_importance_p2">Tuy nhiên, điều quan trọng cần nhấn mạnh là: **Công cụ AI, dù tiên tiến hay mạnh mẽ đến đâu, cũng chỉ là phương tiện.** Chất lượng của kết quả cuối cùng không chỉ phụ thuộc vào công cụ bạn chọn, mà phần lớn được quyết định bởi **chính tư duy của người sử dụng**. Khả năng xác định đúng vấn đề cần giải quyết, cách bạn đặt câu hỏi, sự rõ ràng trong yêu cầu và khả năng đánh giá, tinh chỉnh kết quả do AI tạo ra – đó mới là những yếu tố then chốt để biến tiềm năng của AI thành những kết quả thực sự xuất sắc và hữu ích.</p>
+                <p class="italic" data-lang-key="ai_guide_importance_p2_en">However, **it's crucial to emphasize: AI tools, no matter how advanced or powerful, are merely instruments.** The quality of the final outcome depends not only on the tool you choose but largely on **the user's mindset**. The ability to correctly identify the problem to be solved, how you formulate questions, the clarity of your requirements, and the capacity to evaluate and refine the AI-generated results – these are the key factors that transform AI's potential into truly excellent and useful outcomes.</p>
             </div>
         </section>
 
-        <section class="mb-8">
-            <h2 class="text-2xl font-semibold text-center text-indigo-700">HƯỚNG DẪN TƯ DUY AI THEO NGÀNH NGHỀ</h2>
-            <h3 class="text-xl font-medium text-center text-gray-600 mb-4">AI MINDSET GUIDE BY INDUSTRY (Full Version - Bilingual)</h3>
-            <div class="text-center text-gray-500 mb-6">
-                <p>Phát triển bởi: IVS Education (Một đơn vị của IVS JSC)</p>
-                <p>Developed by: IVS Education (A unit of IVS JSC)</p>
-            </div>
+         <section class="mb-12 p-6 bg-white rounded-lg shadow">
+             <h2 class="text-2xl font-semibold text-indigo-700 !border-b-0 !pb-0 !mb-4" data-lang-key="ai_guide_foreword_title">
+                 <i class="fas fa-book-open mr-2"></i>Lời nói đầu
+             </h2>
+             <h3 class="text-lg font-medium text-gray-600 mb-4" data-lang-key="ai_guide_foreword_subtitle">Foreword</h3>
+             <div class="lang-pair">
+                 <p data-lang-key="ai_guide_foreword_p1">Ứng dụng Trí tuệ Nhân tạo (AI) thành công không bắt đầu từ công nghệ phức tạp, mà bắt đầu từ **tư duy** – khả năng nhìn nhận vấn đề và cơ hội thông qua lăng kính của AI. Ngày nay, chúng ta có thể tiếp cận nhiều công cụ AI mạnh mẽ và đa dạng.</p>
+                 <p class="italic" data-lang-key="ai_guide_foreword_p1_en">Successful Artificial Intelligence (AI) application doesn't start with complex technology, but with **mindset** – the ability to perceive problems and opportunities through the lens of AI. Today, we have access to many powerful and diverse AI tools.</p>
+             </div>
+              <div class="lang-pair">
+                 <p data-lang-key="ai_guide_foreword_p2">Tuy nhiên, bộ hướng dẫn này không tập trung vào việc đánh giá hay hướng dẫn sử dụng từng công cụ cụ thể. Thay vào đó, chúng tôi tập trung vào việc định hình **tư duy nền tảng**. Thay vì hỏi "Tôi nên dùng công cụ AI nào?", hãy bắt đầu với "Vấn đề nào tôi có thể giải quyết hoặc cơ hội nào tôi có thể nắm bắt tốt hơn nhờ khả năng phân tích, dự đoán, tự động hóa của AI?". Hiểu đúng bản chất, đặt đúng câu hỏi và tiếp cận với tư duy cởi mở, bạn sẽ thấy việc ứng dụng AI không hề khó khăn như tưởng tượng, bất kể bạn sử dụng công cụ nào.</p>
+                 <p class="italic" data-lang-key="ai_guide_foreword_p2_en">However, this guide does not focus on evaluating or instructing how to use specific tools. Instead, we concentrate on shaping the **foundational mindset**. Instead of asking "Which AI tool should I use?", start with "What problem can I solve or what opportunity can I seize better thanks to AI's capabilities in analysis, prediction, and automation?". By understanding the essence, asking the right questions, and approaching with an open mind, you'll find that applying AI is not as daunting as imagined, regardless of the tool you use.</p>
+             </div>
+         </section>
 
-            <h4 class="font-semibold text-lg text-indigo-600">Lời nói đầu:</h4>
-            <h5 class="font-medium text-md text-gray-600 mb-3">Foreword:</h5>
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold text-indigo-700" data-lang-key="ai_guide_tools_title">
+                <i class="fas fa-tools mr-2"></i>Giới thiệu một số Công cụ AI Phổ biến (Tham khảo)
+            </h2>
+            <h3 class="text-lg font-medium text-gray-600 mb-4" data-lang-key="ai_guide_tools_subtitle">Introduction to Some Popular AI Tools (Reference)</h3>
             <div class="lang-pair">
-                <p>Ứng dụng Trí tuệ Nhân tạo (AI) thành công không bắt đầu từ công nghệ phức tạp, mà bắt đầu từ <strong>tư duy</strong> – khả năng nhìn nhận vấn đề và cơ hội thông qua lăng kính của AI. Ngày nay, chúng ta có thể tiếp cận nhiều công cụ AI mạnh mẽ và đa dạng.</p>
-                <p class="text-gray-600 italic">Successful Artificial Intelligence (AI) application doesn't start with complex technology, but with <strong>mindset</strong> – the ability to perceive problems and opportunities through the lens of AI. Today, we have access to many powerful and diverse AI tools.</p>
-            </div>
-             <div class="lang-pair">
-                <p>Tuy nhiên, bộ hướng dẫn này không tập trung vào việc đánh giá hay hướng dẫn sử dụng từng công cụ cụ thể. Thay vào đó, chúng tôi tập trung vào việc định hình <strong>tư duy nền tảng</strong>. Thay vì hỏi "Tôi nên dùng công cụ AI nào?", hãy bắt đầu với "Vấn đề nào tôi có thể giải quyết hoặc cơ hội nào tôi có thể nắm bắt tốt hơn nhờ khả năng phân tích, dự đoán, tự động hóa của AI?". Hiểu đúng bản chất, đặt đúng câu hỏi và tiếp cận với tư duy cởi mở, bạn sẽ thấy việc ứng dụng AI không hề khó khăn như tưởng tượng, bất kể bạn sử dụng công cụ nào.</p>
-                <p class="text-gray-600 italic">However, this guide does not focus on evaluating or instructing how to use specific tools. Instead, we concentrate on shaping the <strong>foundational mindset</strong>. Instead of asking "Which AI tool should I use?", start with "What problem can I solve or what opportunity can I seize better thanks to AI's capabilities in analysis, prediction, and automation?". By understanding the essence, asking the right questions, and approaching with an open mind, you'll find that applying AI is not as daunting as imagined, regardless of the tool you use.</p>
-            </div>
-        </section>
-
-        <section class="mb-8">
-            <h3 class="text-xl font-semibold text-indigo-600">Giới thiệu một số Công cụ AI Phổ biến (Tham khảo):</h3>
-            <h4 class="text-lg font-medium text-gray-600 mb-4">Introduction to Some Popular AI Tools (Reference):</h4>
-             <div class="lang-pair">
-                <p>Dưới đây là bảng liệt kê một số loại hình và công cụ AI tiêu biểu đang được sử dụng rộng rãi (đã cập nhật) nhằm minh họa sự đa dạng của các giải pháp AI hiện có. Đây không phải là danh sách đầy đủ hay một sự tiến cử cụ thể.</p>
-                <p class="text-gray-600 italic">Below is a table listing some typical types and examples of AI tools widely used today (updated) to illustrate the diversity of available AI solutions. This is not an exhaustive list or a specific endorsement.</p>
+                <p data-lang-key="ai_guide_tools_intro">Dưới đây là bảng liệt kê một số loại hình và công cụ AI tiêu biểu đang được sử dụng rộng rãi (đã cập nhật) nhằm minh họa sự đa dạng của các giải pháp AI hiện có. Đây không phải là danh sách đầy đủ hay một sự tiến cử cụ thể.</p>
+                <p class="italic" data-lang-key="ai_guide_tools_intro_en">Below is a table listing some typical types and examples of AI tools widely used today (updated) to illustrate the diversity of available AI solutions. This is not an exhaustive list or a specific endorsement.</p>
             </div>
 
-            <div class="ai-tools-table-container overflow-x-auto"> {/* Container for shadow, border-radius and horizontal scroll */}
-                <table class="ai-tools-table min-w-full"> {/* min-w-full ensures table tries to expand */}
+            <div class="ai-tools-table-container overflow-x-auto">
+                <table class="ai-tools-table min-w-full">
                     <thead>
                         <tr>
                             <th>Loại hình chính / Main Type</th>
                             <th>Ví dụ Công cụ / Example Tool</th>
                             <th>Nhà phát triển/Nguồn / Developer/Source</th>
                             <th>Mô tả Ngắn gọn / Brief Description</th>
-                            <th>Liên kết / Link</th> {/* New Column */}
+                            <th>Liên kết / Link</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="font-medium text-gray-900">Tạo sinh Ngôn ngữ / Language Generation<br><span class="text-sm text-gray-500">(LLMs)</span></td>
+                            <td class="font-medium text-gray-900" data-lang-key="ai_tool_type_llm">Tạo sinh Ngôn ngữ<br><span class="text-sm text-gray-500">(LLMs)</span></td>
                             <td>ChatGPT<br>Gemini<br>Claude<br>Grok<br>Deepseek<br>Copilot</td>
                             <td>OpenAI<br>Google<br>Anthropic<br>xAI<br>Deepseek AI<br>Microsoft</td>
-                            <td class="text-sm text-gray-700">Tạo văn bản, trả lời câu hỏi, dịch thuật, viết mã / Generates text, answers questions, translates, writes code<br>Tương tự ChatGPT, tích hợp sâu với hệ sinh thái Google / Similar to ChatGPT, deeply integrated with Google ecosystem<br>Tập trung vào an toàn và đạo đức AI, khả năng xử lý ngữ cảnh dài / Focuses on AI safety and ethics, long context processing<br>LLM tích hợp với X (Twitter), tập trung vào thông tin thời gian thực và hài hước / LLM integrated with X (Twitter), focuses on real-time info and humor<br>LLM mạnh về viết mã (code generation) và song ngữ / Strong LLM for code generation and bilingual capabilities<br>Trợ lý AI tích hợp trong các ứng dụng Microsoft 365 / AI assistant integrated into Microsoft 365 apps</td>
-                            <td> {/* Links Column */}
-                                <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer">Truy cập</a><br>
-                                <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer">Truy cập</a><br>
-                                <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer">Truy cập</a><br>
-                                <a href="https://grok.x.ai/" target="_blank" rel="noopener noreferrer">Truy cập</a><br>
-                                <a href="https://chat.deepseek.com/" target="_blank" rel="noopener noreferrer">Truy cập</a><br>
-                                <a href="https://copilot.microsoft.com/" target="_blank" rel="noopener noreferrer">Truy cập</a>
+                            <td class="text-sm text-gray-700">
+                                <span data-lang-key="ai_tool_desc_chatgpt">Tạo văn bản, trả lời câu hỏi, dịch thuật, viết mã</span><br>
+                                <span data-lang-key="ai_tool_desc_gemini">Tương tự ChatGPT, tích hợp sâu với hệ sinh thái Google</span><br>
+                                <span data-lang-key="ai_tool_desc_claude">Tập trung vào an toàn và đạo đức AI, khả năng xử lý ngữ cảnh dài</span><br>
+                                <span data-lang-key="ai_tool_desc_grok">LLM tích hợp với X (Twitter), tập trung vào thông tin thời gian thực và hài hước</span><br>
+                                <span data-lang-key="ai_tool_desc_deepseek">LLM mạnh về viết mã (code generation) và song ngữ</span><br>
+                                <span data-lang-key="ai_tool_desc_copilot">Trợ lý AI tích hợp trong các ứng dụng Microsoft 365</span>
+                            </td>
+                            <td>
+                                <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a><br>
+                                <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a><br>
+                                <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a><br>
+                                <a href="https://grok.x.ai/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a><br>
+                                <a href="https://chat.deepseek.com/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a><br>
+                                <a href="https://copilot.microsoft.com/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a>
                             </td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-gray-900">Công cụ Tìm kiếm/Trả lời Hỏi đáp / Conversational Search/Answer Engine</td>
+                            <td class="font-medium text-gray-900" data-lang-key="ai_tool_type_conv_search">Công cụ Tìm kiếm/Trả lời Hỏi đáp</td>
                             <td>Perplexity AI</td>
                             <td>Perplexity AI</td>
-                            <td class="text-sm text-gray-700">Công cụ tìm kiếm đối thoại, cung cấp câu trả lời kèm nguồn trích dẫn / Conversational search engine, provides answers with citations</td>
-                            <td><a href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer">Truy cập</a></td>
+                            <td class="text-sm text-gray-700" data-lang-key="ai_tool_desc_perplexity">Công cụ tìm kiếm đối thoại, cung cấp câu trả lời kèm nguồn trích dẫn</td>
+                            <td><a href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a></td>
                         </tr>
-                        <tr>
-                            <td class="font-medium text-gray-900">Tạo sinh Hình ảnh / Image Generation</td>
+                         <tr>
+                            <td class="font-medium text-gray-900" data-lang-key="ai_tool_type_image_gen">Tạo sinh Hình ảnh</td>
                             <td>Midjourney<br>Stable Diffusion<br>DALL-E</td>
                             <td>Midjourney, Inc.<br>Stability AI<br>OpenAI</td>
-                            <td class="text-sm text-gray-700">Tạo hình ảnh nghệ thuật từ mô tả văn bản / Creates artistic images from text descriptions<br>Tạo hình ảnh từ văn bản, mã nguồn mở / Creates images from text, open-source<br>Tạo hình ảnh từ mô tả văn bản / Creates images from text descriptions</td>
-                             <td>
-                                <a href="https://www.midjourney.com/" target="_blank" rel="noopener noreferrer">Truy cập</a><br>
-                                <a href="https://stablediffusionweb.com/" target="_blank" rel="noopener noreferrer">Truy cập (Web UI)</a><br> {/* Link to a popular web interface */}
-                                <a href="https://openai.com/dall-e-3/" target="_blank" rel="noopener noreferrer">Truy cập</a>
+                            <td class="text-sm text-gray-700">
+                                <span data-lang-key="ai_tool_desc_midjourney">Tạo hình ảnh nghệ thuật từ mô tả văn bản</span><br>
+                                <span data-lang-key="ai_tool_desc_stable_diffusion">Tạo hình ảnh từ văn bản, mã nguồn mở</span><br>
+                                <span data-lang-key="ai_tool_desc_dalle">Tạo hình ảnh từ mô tả văn bản</span>
+                            </td>
+                            <td>
+                                <a href="https://www.midjourney.com/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a><br>
+                                <a href="https://stablediffusionweb.com/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_stable_diffusion_webui">Truy cập (Web UI)</a><br>
+                                <a href="https://openai.com/dall-e-3/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a>
                             </td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-gray-900">Phân tích Dữ liệu & Trực quan hóa / Data Analysis & Visualization</td>
+                            <td class="font-medium text-gray-900" data-lang-key="ai_tool_type_data_analysis">Phân tích Dữ liệu & Trực quan hóa</td>
                             <td>Tableau (Einstein AI)<br>Power BI (AI features)</td>
                             <td>Salesforce<br>Microsoft</td>
-                            <td class="text-sm text-gray-700">Phân tích, trực quan hóa dữ liệu kinh doanh, tích hợp AI / Analyzes, visualizes business data, AI integration<br>Tương tự Tableau, tích hợp AI của Microsoft / Similar to Tableau, Microsoft AI integration</td>
-                            <td>
-                                <a href="https://www.tableau.com/" target="_blank" rel="noopener noreferrer">Truy cập</a><br>
-                                <a href="https://powerbi.microsoft.com/" target="_blank" rel="noopener noreferrer">Truy cập</a>
+                            <td class="text-sm text-gray-700">
+                                <span data-lang-key="ai_tool_desc_tableau">Phân tích, trực quan hóa dữ liệu kinh doanh, tích hợp AI</span><br>
+                                <span data-lang-key="ai_tool_desc_powerbi">Tương tự Tableau, tích hợp AI của Microsoft</span>
                             </td>
-                        </tr>
-                         <tr>
-                            <td class="font-medium text-gray-900">Nhận dạng Giọng nói & Trợ lý ảo / Speech Recognition & Virtual Asst.</td>
-                            <td>Google Assistant<br>Siri<br>Alexa</td>
-                            <td>Google<br>Apple<br>Amazon</td>
-                            <td class="text-sm text-gray-700">Trợ lý ảo trên điện thoại, loa thông minh / Virtual assistant on phones, smart speakers<br>Trợ lý ảo trên thiết bị Apple / Virtual assistant on Apple devices<br>Trợ lý ảo trên thiết bị Amazon Echo / Virtual assistant on Amazon Echo devices</td>
                             <td>
-                                <a href="https://assistant.google.com/" target="_blank" rel="noopener noreferrer">Truy cập</a><br>
-                                <a href="https://www.apple.com/siri/" target="_blank" rel="noopener noreferrer">Truy cập</a><br>
-                                <a href="https://developer.amazon.com/alexa" target="_blank" rel="noopener noreferrer">Truy cập</a>
+                                <a href="https://www.tableau.com/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a><br>
+                                <a href="https://powerbi.microsoft.com/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a>
                             </td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-gray-900">Thị giác Máy tính / Computer Vision</td>
-                            <td>Google Cloud Vision AI<br>Amazon Rekognition</td>
-                            <td>Google<br>Amazon</td>
-                            <td class="text-sm text-gray-700">Phân tích hình ảnh, nhận dạng đối tượng, văn bản / Analyzes images, recognizes objects, text<br>Phân tích hình ảnh và video / Analyzes images and video</td>
-                             <td>
-                                <a href="https://cloud.google.com/vision" target="_blank" rel="noopener noreferrer">Truy cập</a><br>
-                                <a href="https://aws.amazon.com/rekognition/" target="_blank" rel="noopener noreferrer">Truy cập</a>
+                            <td class="font-medium text-gray-900" data-lang-key="ai_tool_type_speech">Nhận dạng Giọng nói & Trợ lý ảo</td>
+                            <td>Google Assistant<br>Siri<br>Alexa</td>
+                            <td>Google<br>Apple<br>Amazon</td>
+                            <td class="text-sm text-gray-700">
+                                <span data-lang-key="ai_tool_desc_google_assistant">Trợ lý ảo trên điện thoại, loa thông minh</span><br>
+                                <span data-lang-key="ai_tool_desc_siri">Trợ lý ảo trên thiết bị Apple</span><br>
+                                <span data-lang-key="ai_tool_desc_alexa">Trợ lý ảo trên thiết bị Amazon Echo</span>
+                            </td>
+                            <td>
+                                <a href="https://assistant.google.com/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a><br>
+                                <a href="https://www.apple.com/siri/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a><br>
+                                <a href="https://developer.amazon.com/alexa" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a>
                             </td>
                         </tr>
-                         <tr>
-                            <td class="font-medium text-gray-900">Nền tảng Học máy / Machine Learning Platforms</td>
+                        <tr>
+                            <td class="font-medium text-gray-900" data-lang-key="ai_tool_type_cv">Thị giác Máy tính</td>
+                            <td>Google Cloud Vision AI<br>Amazon Rekognition</td>
+                            <td>Google<br>Amazon</td>
+                            <td class="text-sm text-gray-700">
+                                <span data-lang-key="ai_tool_desc_gcp_vision">Phân tích hình ảnh, nhận dạng đối tượng, văn bản</span><br>
+                                <span data-lang-key="ai_tool_desc_rekognition">Phân tích hình ảnh và video</span>
+                            </td>
+                            <td>
+                                <a href="https://cloud.google.com/vision" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a><br>
+                                <a href="https://aws.amazon.com/rekognition/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-gray-900" data-lang-key="ai_tool_type_ml_platform">Nền tảng Học máy</td>
                             <td>TensorFlow<br>PyTorch</td>
                             <td>Google<br>Meta AI (Facebook)</td>
-                            <td class="text-sm text-gray-700">Thư viện mã nguồn mở cho Machine Learning / Open-source library for Machine Learning<br>Thư viện mã nguồn mở phổ biến cho Deep Learning / Popular open-source library for Deep Learning</td>
-                             <td>
-                                <a href="https://www.tensorflow.org/" target="_blank" rel="noopener noreferrer">Truy cập</a><br>
-                                <a href="https://pytorch.org/" target="_blank" rel="noopener noreferrer">Truy cập</a>
+                            <td class="text-sm text-gray-700">
+                                <span data-lang-key="ai_tool_desc_tensorflow">Thư viện mã nguồn mở cho Machine Learning</span><br>
+                                <span data-lang-key="ai_tool_desc_pytorch">Thư viện mã nguồn mở phổ biến cho Deep Learning</span>
+                            </td>
+                            <td>
+                                <a href="https://www.tensorflow.org/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a><br>
+                                <a href="https://pytorch.org/" target="_blank" rel="noopener noreferrer" data-lang-key="ai_tool_link_access">Truy cập</a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="mt-4 text-sm text-gray-600 italic">
-                <p>*Lưu ý: Bảng này chỉ mang tính tham khảo, giới thiệu một phần nhỏ các công cụ hiện có. Thị trường AI phát triển rất nhanh với nhiều công cụ mới và chuyên biệt liên tục ra đời.</p>
-                <p>*Note: This table is for reference only, showcasing a small fraction of available tools. The AI market evolves rapidly with new and specialized tools emerging constantly.</p>
+                <p data-lang-key="ai_guide_tools_note">*Lưu ý: Bảng này chỉ mang tính tham khảo, giới thiệu một phần nhỏ các công cụ hiện có. Thị trường AI phát triển rất nhanh với nhiều công cụ mới và chuyên biệt liên tục ra đời.</p>
+                <p data-lang-key="ai_guide_tools_note_en">*Note: This table is for reference only, showcasing a small fraction of available tools. The AI market evolves rapidly with new and specialized tools emerging constantly.</p>
             </div>
         </section>
 
-        <section id="education" class="mb-12 p-6 bg-white rounded-lg shadow">
-            <h2>1. Tư duy AI trong Giáo dục & Đào tạo</h2>
-            <h3 class="text-lg font-medium text-gray-600 mb-4">1. AI Mindset in Education & Training</h3>
-            <h4>Câu hỏi cốt lõi:</h4>
-            <h5 class="text-md font-medium text-gray-500 mb-3">Core Questions:</h5>
-            <div class="lang-pair">
-                <p>Làm thế nào để mỗi học viên có trải nghiệm học tập phù hợp nhất? Làm sao giảm tải công việc thủ công cho giáo viên? Làm sao hỗ trợ sớm học viên gặp khó khăn?</p>
-                <p class="text-gray-600 italic">How can each student have the most suitable learning experience? How to reduce the manual workload for teachers? How to provide early support for struggling students?</p>
-            </div>
-            <h4>Hướng tư duy chi tiết:</h4>
-            <h5 class="text-md font-medium text-gray-500 mb-3">Detailed Mindset Approach:</h5>
-            <div class="mb-4">
-                <strong>Tư duy con người cần có:</strong> / <em class="text-gray-600">Required Human Mindset:</em>
-                <ul>
-                    <li>Tò mò về dữ liệu học tập: Luôn đặt câu hỏi "Dữ liệu này (điểm số, thời gian học, tương tác) nói lên điều gì về học viên?". / <em class="text-gray-600">Curiosity about learning data: Always ask "What does this data (scores, study time, interactions) tell us about the student?".</em></li>
-                    <li>Tập trung vào cá nhân hóa: Mong muốn tạo ra trải nghiệm riêng biệt cho từng người học, thay vì áp dụng một phương pháp chung. / <em class="text-gray-600">Focus on personalization: Desire to create unique experiences for each learner, rather than applying a one-size-fits-all method.</em></li>
-                    <li>Sẵn sàng thử nghiệm: Chấp nhận thử các công cụ AI mới (như hệ thống gợi ý, chatbot) ở quy mô nhỏ để đánh giá hiệu quả. / <em class="text-gray-600">Willingness to experiment: Be open to trying new AI tools (like recommendation systems, chatbots) on a small scale to evaluate effectiveness.</em></li>
-                    <li>Xem AI là trợ lý: Coi AI là công cụ giúp giáo viên có thêm thời gian tập trung vào chuyên môn, tương tác sâu hơn với học viên. / <em class="text-gray-600">View AI as an assistant: Consider AI as a tool that helps teachers free up time to focus on their expertise and interact more deeply with students.</em></li>
-                </ul>
-            </div>
-            <div class="mb-4">
-                <strong>Hiểu cốt lõi vận hành AI (Đơn giản hóa):</strong> / <em class="text-gray-600">Understanding Core AI Operations (Simplified):</em>
-                 <ul>
-                    <li>AI học từ mẫu: Khi AI gợi ý bài tập, nó dựa trên việc "học" từ dữ liệu của hàng ngàn học viên khác: "Những học viên gặp khó khăn ở điểm A thường cần luyện thêm dạng bài tập B". / <em class="text-gray-600">AI learns from patterns: When AI suggests exercises, it's based on "learning" from data of thousands of other students: "Students struggling with concept A often need more practice on exercise type B".</em></li>
-                    <li>AI nhận diện quy luật: Khi AI dự đoán học viên có nguy cơ bỏ học, nó tìm kiếm các "quy luật" trong dữ liệu như: "Học viên vắng mặt >X buổi và điểm số giảm >Y% thường có nguy cơ cao". / <em class="text-gray-600">AI identifies rules: When AI predicts dropout risk, it looks for "rules" in the data, such as: "Students absent >X times with a score decrease >Y% often have a high risk".</em></li>
-                </ul>
-            </div>
-            <div>
-                <strong>Bắt đầu với AI không hề phức tạp - Đây là vài gợi ý:</strong> / <em class="text-gray-600">Getting Started with AI is Simpler Than You Think - Here Are Some Ideas:</em>
-                 <ul>
-                    <li>Bắt đầu với các công cụ có sẵn: Sử dụng các tính năng AI tích hợp trong các nền tảng quản lý học tập (LMS) hoặc các ứng dụng giáo dục phổ biến. / <em class="text-gray-600">Start with available tools: Utilize built-in AI features in Learning Management Systems (LMS) or popular educational apps.</em></li>
-                    <li>Thử nghiệm chatbot đơn giản: Dùng chatbot để trả lời các câu hỏi lặp đi lặp lại về lịch học, thủ tục, tài liệu. / <em class="text-gray-600">Experiment with simple chatbots: Use chatbots to answer frequently asked questions about schedules, procedures, materials.</em></li>
-                    <li>Tập trung vào một vấn đề nhỏ, có thể đo lường: Ví dụ, thử dùng AI để phân tích kết quả bài kiểm tra và đo lường xem việc gợi ý tài liệu ôn tập cá nhân hóa có cải thiện điểm số trung bình của nhóm nhỏ đó trong bài kiểm tra tiếp theo không. / <em class="text-gray-600">Focus on a small, measurable problem: For example, try using AI to analyze test results and measure whether suggesting personalized review materials improves the average score of that small group on the subsequent test.</em></li>
-                </ul>
-            </div>
-        </section>
+        <div class="space-y-12 md:space-y-16">
+            <section id="education" class="industry-section p-6 md:p-8 bg-white rounded-lg shadow-lg border-l-4 border-indigo-500">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-graduation-cap mr-3 text-indigo-600"></i>
+                    <span data-lang-key="ai_guide_section_edu_title">1. Tư duy AI trong Giáo dục & Đào tạo</span>
+                </h2>
+                 <h3 class="text-lg font-medium text-gray-600 mb-6" data-lang-key="ai_guide_section_edu_subtitle">1. AI Mindset in Education & Training</h3>
 
-        <section id="healthcare" class="mb-12 p-6 bg-white rounded-lg shadow">
-            <h2>2. Tư duy AI trong Y tế & Chăm sóc sức khỏe</h2>
-            <h3 class="text-lg font-medium text-gray-600 mb-4">2. AI Mindset in Healthcare & Well-being</h3>
-            <h4>Câu hỏi cốt lõi:</h4>
-            <h5 class="text-md font-medium text-gray-500 mb-3">Core Questions:</h5>
-            <div class="lang-pair">
-                <p>Làm sao phát hiện bệnh sớm và chính xác hơn? Làm sao tối ưu quy trình khám chữa bệnh? Làm sao theo dõi bệnh nhân từ xa hiệu quả?</p>
-                <p class="text-gray-600 italic">How to detect diseases earlier and more accurately? How to optimize medical examination and treatment processes? How to effectively monitor patients remotely?</p>
-            </div>
-            <h4>Hướng tư duy chi tiết:</h4>
-            <h5 class="text-md font-medium text-gray-500 mb-3">Detailed Mindset Approach:</h5>
-            <div class="mb-4">
-                <strong>Tư duy con người cần có:</strong> / <em class="text-gray-600">Required Human Mindset:</em>
-                <ul>
-                    <li>Áp dụng cách tiếp cận 'Tin tưởng, nhưng kiểm chứng': Sẵn sàng tham khảo gợi ý từ AI (ví dụ trong chẩn đoán hình ảnh) nhưng luôn đối chiếu với kinh nghiệm và kiến thức lâm sàng chuyên môn. / <em class="text-gray-600">Adopt a 'Trust, but Verify' Approach: Be open to leveraging AI suggestions (e.g., in image diagnostics) while always validating them against professional experience and clinical knowledge.</em></li>
-                    <li>Chú trọng hiệu quả: Tìm cách dùng AI để giảm thời gian chờ đợi, tự động hóa các tác vụ hành chính (nhập liệu, lên lịch), giải phóng thời gian cho bác sĩ/điều dưỡng. / <em class="text-gray-600">Focus on efficiency: Look for ways AI can reduce waiting times, automate administrative tasks (data entry, scheduling), freeing up time for doctors/nurses.</em></li>
-                    <li>Ưu tiên bảo mật và đạo đức: Luôn đặt vấn đề bảo mật dữ liệu bệnh nhân và tính công bằng trong thuật toán lên hàng đầu. / <em class="text-gray-600">Prioritize security and ethics: Always place patient data confidentiality and algorithmic fairness at the forefront.</em></li>
-                </ul>
-            </div>
-             <div class="mb-4">
-                <strong>Hiểu cốt lõi vận hành AI (Đơn giản hóa):</strong> / <em class="text-gray-600">Understanding Core AI Operations (Simplified):</em>
-                 <ul>
-                    <li>AI nhận dạng hình ảnh: Khi AI phân tích ảnh X-quang, nó so sánh với hàng triệu ảnh đã được gán nhãn (bình thường/bất thường) để tìm ra các đặc điểm tương tự dấu hiệu bệnh lý. / <em class="text-gray-600">AI image recognition: When AI analyzes X-ray images, it compares them against millions of labeled images (normal/abnormal) to find features similar to pathological signs.</em></li>
-                    <li>AI dự đoán dựa trên dữ liệu: Khi AI cảnh báo về sức khỏe bệnh nhân từ xa, nó phân tích chuỗi dữ liệu (nhịp tim, huyết áp) và so sánh với các mẫu "bình thường" và "bất thường" đã học được. / <em class="text-gray-600">AI predicts based on data: When AI alerts about a remote patient's health, it analyzes data streams (heart rate, blood pressure) and compares them to learned "normal" and "abnormal" patterns.</em></li>
-                </ul>
-            </div>
-            <div>
-                <strong>Bắt đầu với AI không hề phức tạp - Đây là vài gợi ý:</strong> / <em class="text-gray-600">Getting Started with AI is Simpler Than You Think - Here Are Some Ideas:</em>
-                 <ul>
-                    <li>Ứng dụng AI trong quản lý: Sử dụng phần mềm có AI để tối ưu lịch hẹn, quản lý hồ sơ bệnh án điện tử hiệu quả hơn. / <em class="text-gray-600">Apply AI in management: Use AI-powered software to optimize appointments and manage electronic health records more effectively.</em></li>
-                    <li>Thử nghiệm công cụ hỗ trợ tra cứu: Dùng AI để nhanh chóng tìm kiếm thông tin y khoa, phác đồ điều trị cập nhật. / <em class="text-gray-600">Experiment with lookup support tools: Use AI to quickly search for medical information and updated treatment protocols.</em></li>
-                    <li>Tham gia các dự án thí điểm: Hợp tác với các đơn vị công nghệ để thử nghiệm AI trong phân tích hình ảnh hoặc dự đoán nguy cơ ở một phạm vi nhỏ, có kiểm soát. / <em class="text-gray-600">Participate in pilot projects: Collaborate with tech partners to test AI in image analysis or risk prediction on a small, controlled scale.</em></li>
-                </ul>
-            </div>
-        </section>
+                <h4 data-lang-key="ai_guide_core_questions_title">Câu hỏi cốt lõi:</h4>
+                 <h5 class="text-md font-medium text-gray-500 mb-3" data-lang-key="ai_guide_core_questions_subtitle">Core Questions:</h5>
+                <div class="lang-pair">
+                    <p data-lang-key="ai_guide_edu_q">Làm thế nào để mỗi học viên có trải nghiệm học tập phù hợp nhất? Làm sao giảm tải công việc thủ công cho giáo viên? Làm sao hỗ trợ sớm học viên gặp khó khăn?</p>
+                    <p class="italic" data-lang-key="ai_guide_edu_q_en">How can each student have the most suitable learning experience? How to reduce the manual workload for teachers? How to provide early support for struggling students?</p>
+                </div>
 
-        <section id="finance" class="mb-12 p-6 bg-white rounded-lg shadow">
-            <h2>3. Tư duy AI trong Tài chính & Ngân hàng</h2>
-             <h3 class="text-lg font-medium text-gray-600 mb-4">3. AI Mindset in Finance & Banking</h3>
-            <h4>Câu hỏi cốt lõi:</h4>
-            <h5 class="text-md font-medium text-gray-500 mb-3">Core Questions:</h5>
-            <div class="lang-pair">
-                <p>Làm sao chống gian lận hiệu quả? Làm sao đánh giá rủi ro tín dụng nhanh và công bằng? Làm sao cung cấp dịch vụ khách hàng 24/7?</p>
-                <p class="text-gray-600 italic">How to effectively combat fraud? How to assess credit risk quickly and fairly? How to provide 24/7 customer service?</p>
-            </div>
-            <h4>Hướng tư duy chi tiết:</h4>
-            <h5 class="text-md font-medium text-gray-500 mb-3">Detailed Mindset Approach:</h5>
-            <div class="mb-4">
-                <strong>Tư duy con người cần có:</strong> / <em class="text-gray-600">Required Human Mindset:</em>
-                <ul>
-                    <li>Nghi ngờ lành mạnh: Luôn tìm kiếm các dấu hiệu bất thường trong dữ liệu giao dịch, xem AI là công cụ khuếch đại khả năng phát hiện này. / <em class="text-gray-600">Healthy skepticism: Always look for anomalies in transaction data, viewing AI as a tool to amplify this detection capability.</em></li>
-                    <li>Tư duy dựa trên dữ liệu: Ra quyết định (ví dụ: phê duyệt tín dụng) dựa trên phân tích dữ liệu khách quan do AI cung cấp, bên cạnh các yếu tố kinh nghiệm. / <em class="text-gray-600">Data-driven thinking: Make decisions (e.g., credit approval) based on objective data analysis provided by AI, alongside experiential factors.</em></li>
-                    <li>Tập trung vào trải nghiệm khách hàng: Sử dụng AI để làm cho các tương tác (qua chatbot, gợi ý sản phẩm) trở nên nhanh chóng, thuận tiện và phù hợp hơn. / <em class="text-gray-600">Focus on customer experience: Use AI to make interactions (via chatbots, product suggestions) faster, more convenient, and more relevant.</em></li>
-                </ul>
-            </div>
-             <div class="mb-4">
-                <strong>Hiểu cốt lõi vận hành AI (Đơn giản hóa):</strong> / <em class="text-gray-600">Understanding Core AI Operations (Simplified):</em>
-                 <ul>
-                    <li>AI phát hiện mẫu bất thường: Hệ thống chống gian lận AI liên tục "học" các mẫu giao dịch bình thường của khách hàng. Khi có giao dịch đi lệch khỏi mẫu đó (ví dụ: địa điểm lạ, số tiền lớn bất thường), AI sẽ cảnh báo. / <em class="text-gray-600">AI detects abnormal patterns: AI fraud detection systems continuously "learn" customers' normal transaction patterns. When a transaction deviates (e.g., unusual location, abnormally large amount), AI flags it.</em></li>
-                    <li>AI phân loại và dự đoán: Mô hình chấm điểm tín dụng AI phân loại khách hàng vào các nhóm rủi ro dựa trên việc "học" mối liên hệ giữa các đặc điểm (thu nhập, lịch sử vay,...) và khả năng trả nợ trong quá khứ. / <em class="text-gray-600">AI classifies and predicts: AI credit scoring models classify customers into risk groups by "learning" the relationship between characteristics (income, loan history, etc.) and past repayment behavior.</em></li>
-                </ul>
-            </div>
-            <div>
-                <strong>Bắt đầu với AI không hề phức tạp - Đây là vài gợi ý:</strong> / <em class="text-gray-600">Getting Started with AI is Simpler Than You Think - Here Are Some Ideas:</em>
-                 <ul>
-                    <li>Triển khai chatbot cho các câu hỏi thường gặp: Giảm tải cho tổng đài viên bằng cách tự động hóa các câu trả lời đơn giản. / <em class="text-gray-600">Deploy chatbots for FAQs: Reduce call center load by automating simple answers.</em></li>
-                    <li>Sử dụng công cụ phân tích dữ liệu có sẵn AI: Khai thác các báo cáo, dashboard do AI tạo ra để hiểu rõ hơn về hành vi khách hàng và hiệu quả hoạt động. / <em class="text-gray-600">Use data analysis tools with built-in AI: Leverage AI-generated reports and dashboards to better understand customer behavior and operational efficiency.</em></li>
-                    <li>Thử nghiệm gợi ý sản phẩm: Bắt đầu gợi ý các sản phẩm đơn giản (ví dụ: gói tiết kiệm) dựa trên phân tích AI về hồ sơ khách hàng. / <em class="text-gray-600">Experiment with product recommendations: Start suggesting simple products (e.g., savings plans) based on AI analysis of customer profiles.</em></li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="retail" class="mb-12 p-6 bg-white rounded-lg shadow">
-             <h2>4. Tư duy AI trong Bán lẻ & Thương mại điện tử (Ngành lao động cao)</h2>
-             <h3 class="text-lg font-medium text-gray-600 mb-4">4. AI Mindset in Retail & E-commerce (High Labor Sector)</h3>
-            <h4>Câu hỏi cốt lõi:</h4>
-            <h5 class="text-md font-medium text-gray-500 mb-3">Core Questions:</h5>
-            <div class="lang-pair">
-                <p>Làm sao để khách hàng cảm thấy được quan tâm đặc biệt? Làm sao dự báo đúng nhu cầu để tối ưu tồn kho? Làm sao hiểu khách hàng đang nghĩ gì?</p>
-                 <p class="text-gray-600 italic">How to make customers feel uniquely valued? How to accurately forecast demand to optimize inventory? How to understand what customers are thinking?</p>
-            </div>
-            <h4>Hướng tư duy chi tiết:</h4>
-            <h5 class="text-md font-medium text-gray-500 mb-3">Detailed Mindset Approach:</h5>
-            <div class="mb-4">
-                <strong>Tư duy con người cần có:</strong> / <em class="text-gray-600">Required Human Mindset:</em>
-                <ul>
-                    <li>Đặt khách hàng làm trung tâm: Thay đổi tư duy từ 'bán sản phẩm' sang 'giải quyết nhu cầu khách hàng'. Luôn suy nghĩ "Làm sao AI giúp tôi phân tích dữ liệu để hiểu sâu sắc và phục vụ khách hàng này tốt hơn?". / <em class="text-gray-600">Customer-centricity: Shift the mindset from 'selling products' to 'solving customer needs'. Always think "How can AI help me analyze data to deeply understand and serve this customer better?".</em></li>
-                    <li>Tư duy tối ưu hóa liên tục: Nhìn vào quy trình (đặt hàng, quản lý kho, định giá) và tự hỏi "AI có thể giúp làm việc này hiệu quả hơn, tốn ít chi phí hơn không?". / <em class="text-gray-600">Continuous optimization mindset: Look at processes (ordering, inventory management, pricing) and ask "Can AI help do this more efficiently and cost-effectively?".</em></li>
-                    <li>Nhạy bén với dữ liệu: Xem mọi tương tác của khách hàng (click chuột, xem sản phẩm, đánh giá) là nguồn dữ liệu quý giá để AI phân tích. / <em class="text-gray-600">Data sensitivity: View every customer interaction (clicks, product views, reviews) as valuable data for AI analysis.</em></li>
-                     <li>Chấp nhận tự động hóa thông minh: Sẵn sàng để AI đảm nhận các việc lặp lại (trả lời chat, cập nhật tồn kho) để nhân viên tập trung vào tư vấn, giải quyết vấn đề phức tạp. / <em class="text-gray-600">Embrace intelligent automation: Be willing to let AI handle repetitive tasks (chat responses, inventory updates) so employees can focus on consulting and complex problem-solving.</em></li>
-                </ul>
-            </div>
-             <div class="mb-4">
-                <strong>Hiểu cốt lõi vận hành AI (Đơn giản hóa):</strong> / <em class="text-gray-600">Understanding Core AI Operations (Simplified):</em>
-                 <ul>
-                    <li>AI học sở thích: Khi bạn thấy gợi ý "Những người mua sản phẩm A cũng mua sản phẩm B", đó là AI đã "học" được quy luật này từ dữ liệu mua hàng của hàng triệu người. / <em class="text-gray-600">AI learns preferences: When you see recommendations like "Customers who bought product A also bought product B," AI has "learned" this rule from millions of purchase data points.</em></li>
-                    <li>AI dự báo xu hướng: Khi AI dự báo nhu cầu, nó phân tích dữ liệu bán hàng quá khứ, kết hợp với các yếu tố bên ngoài (ngày lễ, khuyến mãi, thời tiết) để tìm ra mô hình và dự đoán tương lai. / <em class="text-gray-600">AI forecasts trends: When AI forecasts demand, it analyzes past sales data, combined with external factors (holidays, promotions, weather), to find patterns and predict the future.</em></li>
-                    <li>AI hiểu ngôn ngữ: Khi AI phân tích đánh giá, nó dùng NLP để "đọc" và phân loại ý kiến (tích cực/tiêu cực) về các khía cạnh khác nhau của sản phẩm (giá cả, chất lượng, giao hàng). / <em class="text-gray-600">AI understands language: When AI analyzes reviews, it uses NLP to "read" and classify opinions (positive/negative) about different product aspects (price, quality, delivery).</em></li>
-                </ul>
-            </div>
-            <div>
-                <strong>Bắt đầu với AI không hề phức tạp - Đây là vài gợi ý:</strong> / <em class="text-gray-600">Getting Started with AI is Simpler Than You Think - Here Are Some Ideas:</em>
-                 <ul>
-                    <li>Kích hoạt tính năng gợi ý sản phẩm: Hầu hết các nền tảng TMĐT đều có sẵn tính năng này, hãy bật và theo dõi hiệu quả. / <em class="text-gray-600">Activate product recommendation features: Most e-commerce platforms offer this; enable it and monitor performance.</em></li>
-                    <li>Sử dụng chatbot cơ bản: Cài đặt chatbot để trả lời tự động các câu hỏi về tình trạng đơn hàng, chính sách đổi trả. / <em class="text-gray-600">Use basic chatbots: Set up chatbots to automatically answer questions about order status and return policies.</em></li>
-                    <li>Phân tích báo cáo bán hàng do AI tạo: Tập trung vào các insight về sản phẩm bán chạy, nhóm khách hàng tiềm năng mà AI chỉ ra. / <em class="text-gray-600">Analyze AI-generated sales reports: Focus on insights about best-selling products and potential customer segments identified by AI.</em></li>
-                     <li>Thử nghiệm quảng cáo thông minh: Sử dụng các nền tảng quảng cáo (Google, Facebook) có AI để tự động tối ưu đối tượng và ngân sách. / <em class="text-gray-600">Experiment with smart advertising: Use ad platforms (Google, Facebook) with AI to automatically optimize targeting and budget.</em></li>
-                </ul>
-            </div>
-        </section>
-
-         <section id="manufacturing" class="mb-12 p-6 bg-white rounded-lg shadow">
-             <h2>5. Tư duy AI trong Sản xuất & Công nghiệp (Ngành lao động cao)</h2>
-             <h3 class="text-lg font-medium text-gray-600 mb-4">5. AI Mindset in Manufacturing & Industry (High Labor Sector)</h3>
-            <h4>Câu hỏi cốt lõi:</h4>
-            <h5 class="text-md font-medium text-gray-500 mb-3">Core Questions:</h5>
-            <div class="lang-pair">
-                <p>Làm sao phát hiện lỗi sản phẩm ngay lập tức? Làm sao biết trước máy móc sắp hỏng? Làm sao tối ưu hóa dây chuyền và logistics?</p>
-                 <p class="text-gray-600 italic">How to detect product defects instantly? How to know in advance when machinery is about to fail? How to optimize production lines and logistics?</p>
-            </div>
-            <h4>Hướng tư duy chi tiết:</h4>
-            <h5 class="text-md font-medium text-gray-500 mb-3">Detailed Mindset Approach:</h5>
-            <div class="mb-4">
-                <strong>Tư duy con người cần có:</strong> / <em class="text-gray-600">Required Human Mindset:</em>
-                <ul>
-                    <li>Tư duy phòng ngừa: Thay vì chờ hỏng mới sửa, hãy nghĩ "Làm sao biết trước và ngăn chặn sự cố?" (ví dụ: bảo trì dự đoán). / <em class="text-gray-600">Preventive thinking: Instead of waiting for breakdowns, think "How can we anticipate and prevent issues?" (e.g., predictive maintenance).</em></li>
-                    <li>Chú trọng chất lượng tuyệt đối: Tìm cách dùng AI để kiểm tra 100% sản phẩm, không bỏ sót lỗi dù là nhỏ nhất. / <em class="text-gray-600">Focus on absolute quality: Seek ways to use AI for 100% product inspection, catching even the smallest defects.</em></li>
-                    <li>Tối ưu hóa từng mili giây: Luôn tìm cách cải thiện hiệu suất dây chuyền, giảm thời gian chết, tối ưu hóa lộ trình vận chuyển dù là nhỏ nhất. / <em class="text-gray-600">Optimize every millisecond: Constantly look for ways to improve line efficiency, reduce downtime, and optimize transport routes, however small.</em></li>
-                     <li>An toàn là trên hết: Suy nghĩ cách AI có thể giám sát và cảnh báo các rủi ro an toàn lao động tiềm ẩn. / <em class="text-gray-600">Safety first: Consider how AI can monitor and alert potential workplace safety hazards.</em></li>
-                </ul>
-            </div>
-             <div class="mb-4">
-                <strong>Hiểu cốt lõi vận hành AI (Đơn giản hóa):</strong> / <em class="text-gray-600">Understanding Core AI Operations (Simplified):</em>
-                 <ul>
-                    <li>AI "nhìn" và so sánh: Hệ thống kiểm tra chất lượng dùng camera và AI (Computer Vision) để so sánh hình ảnh sản phẩm thực tế với hình ảnh "chuẩn", phát hiện bất kỳ sai khác nào (vết nứt, màu sai, thiếu chi tiết). / <em class="text-gray-600">AI "sees" and compares: Quality inspection systems use cameras and AI (Computer Vision) to compare actual product images with "standard" images, detecting any discrepancies (cracks, wrong color, missing parts).</em></li>
-                    <li>AI "nghe" và dự đoán: Cảm biến trên máy móc ghi nhận rung động, nhiệt độ. AI phân tích các chuỗi dữ liệu này, tìm kiếm các mẫu tín hiệu bất thường báo hiệu một bộ phận sắp hỏng (tương tự bác sĩ nghe tim phổi). / <em class="text-gray-600">AI "listens" and predicts: Sensors on machinery record vibrations, temperature. AI analyzes these data streams, looking for abnormal signal patterns indicating an impending component failure (similar to a doctor listening to heart/lungs).</em></li>
-                    <li>AI tìm đường đi tối ưu: Khi tối ưu hóa logistics, AI tính toán hàng triệu phương án di chuyển dựa trên bản đồ nhà máy, tình trạng giao thông nội bộ, lịch trình sản xuất để tìm ra lộ trình nhanh nhất, tiết kiệm nhất. / <em class="text-gray-600">AI finds optimal paths: When optimizing logistics, AI calculates millions of movement options based on factory maps, internal traffic, production schedules to find the fastest, most economical routes.</em></li>
-                </ul>
-            </div>
-            <div>
-                <strong>Bắt đầu với AI không hề phức tạp - Đây là vài gợi ý:</strong> / <em class="text-gray-600">Getting Started with AI is Simpler Than You Think - Here Are Some Ideas:</em>
-                 <ul>
-                    <li>Lắp đặt camera giám sát chất lượng đơn giản: Bắt đầu với việc dùng camera và phần mềm AI cơ bản để phát hiện các lỗi rõ ràng trên một công đoạn. / <em class="text-gray-600">Install simple quality monitoring cameras: Start by using cameras and basic AI software to detect obvious defects in one process stage.</em></li>
-                    <li>Theo dõi dữ liệu cảm biến cơ bản: Sử dụng các phần mềm phân tích dữ liệu từ cảm biến có sẵn để theo dõi tình trạng máy móc, tìm kiếm các xu hướng bất thường. / <em class="text-gray-600">Monitor basic sensor data: Use available sensor data analysis software to track machine conditions and look for unusual trends.</em></li>
-                    <li>Thử nghiệm robot tự hành đơn giản (AGV): Sử dụng AGV cho các nhiệm vụ vận chuyển lặp đi lặp lại trên quãng đường cố định. / <em class="text-gray-600">Experiment with simple AGVs: Use Automated Guided Vehicles for repetitive transport tasks on fixed routes.</em></li>
-                     <li>Phân tích dữ liệu sản xuất: Dùng công cụ BI (Business Intelligence) có tích hợp AI để phân tích hiệu suất dây chuyền, tìm ra các điểm nghẽn. / <em class="text-gray-600">Analyze production data: Use BI tools with AI integration to analyze line performance and identify bottlenecks.</em></li>
-                </ul>
-            </div>
-        </section>
-
-         <section id="agriculture" class="mb-12 p-6 bg-white rounded-lg shadow">
-             <h2>6. Tư duy AI trong Nông nghiệp (Ngành lao động cao)</h2>
-             <h3 class="text-lg font-medium text-gray-600 mb-4">6. AI Mindset in Agriculture (High Labor Sector)</h3>
-            <h4>Câu hỏi cốt lõi:</h4>
-            <h5 class="text-md font-medium text-gray-500 mb-3">Core Questions:</h5>
-            <div class="lang-pair">
-                <p>Làm sao chăm sóc cây trồng/vật nuôi đúng nhu cầu nhất? Làm sao phát hiện sâu bệnh, dịch bệnh sớm? Làm sao dự báo năng suất chính xác?</p>
-                 <p class="text-gray-600 italic">How to care for crops/livestock according to their exact needs? How to detect pests and diseases early? How to accurately forecast yield?</p>
-            </div>
-            <h4>Hướng tư duy chi tiết:</h4>
-            <h5 class="text-md font-medium text-gray-500 mb-3">Detailed Mindset Approach:</h5>
-            <div class="mb-4">
-                <strong>Tư duy con người cần có:</strong> / <em class="text-gray-600">Required Human Mindset:</em>
-                <ul>
-                    <li>Quan sát chi tiết: Chú ý đến những thay đổi nhỏ trên cây trồng, vật nuôi và môi trường, xem dữ liệu là cách khuếch đại khả năng quan sát này. / <em class="text-gray-600">Detailed observation: Pay attention to small changes in crops, livestock, and the environment, viewing data as a way to amplify this observation skill.</em></li>
-                    <li>Tư duy chính xác: Mong muốn cung cấp đúng lượng nước, phân bón, thuốc cho đúng nơi, đúng lúc, thay vì làm đồng loạt. / <em class="text-gray-600">Precision thinking: Aim to provide the right amount of water, fertilizer, medicine to the right place at the right time, instead of uniform application.</em></li>
-                    <li>Thích ứng với môi trường: Sử dụng AI để hiểu rõ hơn về tác động của thời tiết, đất đai và đưa ra quyết định canh tác/chăn nuôi phù hợp. / <em class="text-gray-600">Adaptation to environment: Use AI to better understand the impact of weather and soil, making informed farming/livestock decisions.</em></li>
-                     <li>Tối ưu hóa tài nguyên: Tìm cách sử dụng nước, phân bón, thức ăn chăn nuôi hiệu quả nhất nhờ sự hỗ trợ của AI. / <em class="text-gray-600">Resource optimization: Seek ways to use water, fertilizer, and feed most efficiently with AI assistance.</em></li>
-                </ul>
-            </div>
-             <div class="mb-4">
-                <strong>Hiểu cốt lõi vận hành AI (Đơn giản hóa):</strong> / <em class="text-gray-600">Understanding Core AI Operations (Simplified):</em>
-                 <ul>
-                    <li>AI "nhìn" và phân loại: Khi AI phân tích ảnh chụp từ drone, nó so sánh màu sắc, kết cấu của lá cây với cơ sở dữ liệu ảnh đã được gán nhãn (khỏe mạnh, thiếu đạm, bị bệnh A,...) để chẩn đoán. / <em class="text-gray-600">AI "sees" and classifies: When AI analyzes drone images, it compares leaf color and texture against a labeled image database (healthy, nitrogen-deficient, disease A, etc.) for diagnosis.</em></li>
-                    <li>AI học mối quan hệ: Khi dự báo năng suất, AI "học" mối liên hệ phức tạp giữa các yếu tố đầu vào (lượng mưa, nhiệt độ, loại đất, lượng phân bón) và kết quả đầu ra (năng suất) từ dữ liệu lịch sử. / <em class="text-gray-600">AI learns relationships: When forecasting yield, AI "learns" the complex relationship between inputs (rainfall, temperature, soil type, fertilizer amount) and outputs (yield) from historical data.</em></li>
-                    <li>AI tối ưu hóa dựa trên điều kiện: Khi đưa ra quyết định tưới tiêu, AI xem xét dữ liệu độ ẩm đất, dự báo thời tiết, giai đoạn phát triển của cây để tính toán lượng nước tối ưu. / <em class="text-gray-600">AI optimizes based on conditions: When making irrigation decisions, AI considers soil moisture data, weather forecasts, and crop growth stage to calculate the optimal water amount.</em></li>
-                </ul>
-            </div>
-            <div>
-                <strong>Bắt đầu với AI không hề phức tạp - Đây là vài gợi ý:</strong> / <em class="text-gray-600">Getting Started with AI is Simpler Than You Think - Here Are Some Ideas:</em>
-                 <ul>
-                    <li>Sử dụng ứng dụng nông nghiệp thông minh: Cài đặt các ứng dụng di động cung cấp dự báo thời tiết nông nghiệp, cảnh báo sâu bệnh dựa trên AI. / <em class="text-gray-600">Use smart farming apps: Install mobile apps providing AI-based agricultural weather forecasts and pest alerts.</em></li>
-                    <li>Lắp đặt cảm biến đơn giản: Bắt đầu với cảm biến độ ẩm đất, nhiệt độ ở một vài khu vực đại diện để thu thập dữ liệu. / <em class="text-gray-600">Install simple sensors: Start with soil moisture and temperature sensors in a few representative areas to collect data.</em></li>
-                    <li>Sử dụng drone chụp ảnh cơ bản: Chụp ảnh tổng thể cánh đồng/trang trại định kỳ và sử dụng các phần mềm phân tích ảnh đơn giản (có thể có AI) để theo dõi sức khỏe cây trồng. / <em class="text-gray-600">Use basic drone photography: Take periodic aerial photos of the farm and use simple image analysis software (possibly AI-enabled) to monitor crop health.</em></li>
-                     <li>Tham khảo các mô hình dự báo năng suất: Sử dụng các công cụ trực tuyến hoặc dịch vụ cung cấp dự báo năng suất dựa trên AI cho khu vực của bạn. / <em class="text-gray-600">Consult yield forecast models: Use online tools or services providing AI-based yield forecasts for your region.</em></li>
-                </ul>
-            </div>
-        </section>
-
-         <section id="hospitality" class="mb-12 p-6 bg-white rounded-lg shadow">
-             <h2>7. Tư duy AI trong Du lịch & Nhà hàng Khách sạn (Ngành dịch vụ, lao động cao)</h2>
-             <h3 class="text-lg font-medium text-gray-600 mb-4">7. AI Mindset in Tourism & Hospitality (Service Sector, High Labor)</h3>
-            <h4>Câu hỏi cốt lõi:</h4>
-            <h5 class="text-md font-medium text-gray-500 mb-3">Core Questions:</h5>
-            <div class="lang-pair">
-                <p>Làm thế nào để cá nhân hóa trải nghiệm cho từng du khách? Làm sao để dự đoán nhu cầu đặt phòng/dịch vụ và tối ưu giá cả? Làm sao để quản lý đánh giá và phản hồi của khách hàng hiệu quả?</p>
-                 <p class="text-gray-600 italic">How to personalize the experience for each guest? How to predict booking/service demand and optimize pricing? How to effectively manage customer reviews and feedback?</p>
-            </div>
-            <h4>Hướng tư duy chi tiết:</h4>
-            <h5 class="text-md font-medium text-gray-500 mb-3">Detailed Mindset Approach:</h5>
-            <div class="mb-4">
-                <strong>Tư duy con người cần có:</strong> / <em class="text-gray-600">Required Human Mindset:</em>
-                <ul>
-                    <li>Thấu hiểu khách hàng sâu sắc: Mong muốn biết rõ sở thích, nhu cầu, hành vi của khách hàng để phục vụ tốt hơn (AI giúp phân tích dữ liệu để làm điều này). / <em class="text-gray-600">Deep customer understanding: Desire to know customer preferences, needs, and behaviors to serve them better (AI helps analyze data for this).</em></li>
-                    <li>Linh hoạt và thích ứng: Sẵn sàng điều chỉnh giá cả, dịch vụ dựa trên dự báo nhu cầu thay đổi liên tục do AI cung cấp. / <em class="text-gray-600">Flexibility and adaptability: Be ready to adjust pricing and services based on continuously changing demand forecasts provided by AI.</em></li>
-                    <li>Chú trọng danh tiếng trực tuyến: Coi trọng mọi đánh giá, phản hồi và sử dụng AI để theo dõi, phân tích và phản hồi kịp thời. / <em class="text-gray-600">Focus on online reputation: Value all reviews and feedback, using AI to monitor, analyze, and respond promptly.</em></li>
-                     <li>Tối ưu hóa hoạt động: Tìm cách dùng AI để tự động hóa các quy trình (như check-in/check-out đơn giản, trả lời câu hỏi thường gặp) và tối ưu hóa việc phân bổ nhân sự. / <em class="text-gray-600">Operational optimization: Look for ways to use AI to automate processes (like simple check-in/out, answering FAQs) and optimize staff allocation.</em></li>
-                </ul>
-            </div>
-             <div class="mb-4">
-                <strong>Hiểu cốt lõi vận hành AI (Đơn giản hóa):</strong> / <em class="text-gray-600">Understanding Core AI Operations (Simplified):</em>
-                 <ul>
-                    <li>AI gợi ý cá nhân hóa: Dựa trên lịch sử đặt phòng, tìm kiếm, hoặc hồ sơ khách hàng, AI "học" sở thích và gợi ý các gói dịch vụ, điểm tham quan, nhà hàng phù hợp. / <em class="text-gray-600">AI personalized recommendations: Based on booking history, searches, or customer profiles, AI "learns" preferences and suggests suitable service packages, attractions, or restaurants.</em></li>
-                    <li>AI định giá động: AI phân tích dữ liệu lịch sử đặt phòng, sự kiện sắp diễn ra, giá của đối thủ, dự báo thời tiết,... để "dự đoán" nhu cầu và đề xuất mức giá tối ưu nhằm tối đa hóa doanh thu. / <em class="text-gray-600">AI dynamic pricing: AI analyzes historical booking data, upcoming events, competitor pricing, weather forecasts, etc., to "predict" demand and suggest optimal prices to maximize revenue.</em></li>
-                    <li>AI phân tích cảm xúc: AI (NLP) "đọc" hàng ngàn đánh giá của khách hàng trên các nền tảng (Booking, Agoda, TripAdvisor) để xác định các chủ đề được nhắc đến nhiều nhất và sắc thái tình cảm (hài lòng/không hài lòng) về từng khía cạnh (phòng ốc, dịch vụ, đồ ăn,...). / <em class="text-gray-600">AI sentiment analysis: AI (NLP) "reads" thousands of customer reviews on platforms (Booking, Agoda, TripAdvisor) to identify the most mentioned topics and the sentiment (satisfied/dissatisfied) towards each aspect (rooms, service, food, etc.).</em></li>
-                </ul>
-            </div>
-            <div>
-                <strong>Bắt đầu với AI không hề phức tạp - Đây là vài gợi ý:</strong> / <em class="text-gray-600">Getting Started with AI is Simpler Than You Think - Here Are Some Ideas:</em>
-                 <ul>
-                    <li>Sử dụng hệ thống quản lý doanh thu (RMS) có AI: Các hệ thống này thường tích hợp sẵn tính năng định giá động và dự báo nhu cầu. / <em class="text-gray-600">Use AI-powered Revenue Management Systems (RMS): These systems often have built-in dynamic pricing and demand forecasting features.</em></li>
-                    <li>Triển khai chatbot trên website/fanpage: Tự động trả lời các câu hỏi về giờ mở cửa, địa chỉ, tiện nghi, chính sách đặt phòng. / <em class="text-gray-600">Deploy chatbots on website/fanpage: Automatically answer questions about opening hours, address, amenities, booking policies.</em></li>
-                    <li>Dùng công cụ quản lý danh tiếng trực tuyến: Sử dụng các phần mềm giúp tổng hợp và phân tích đánh giá từ nhiều nguồn, có thể tích hợp AI để tóm tắt ý chính. / <em class="text-gray-600">Use online reputation management tools: Utilize software that aggregates and analyzes reviews from multiple sources, possibly with AI for summarizing key points.</em></li>
-                     <li>Phân tích dữ liệu khách hàng cơ bản: Sử dụng các công cụ BI để xem báo cáo về nguồn khách, thời gian lưu trú, dịch vụ hay sử dụng, tìm kiếm các insight do AI gợi ý. / <em class="text-gray-600">Analyze basic customer data: Use BI tools to view reports on guest origins, length of stay, frequently used services, looking for AI-suggested insights.</em></li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="mt-12 p-6 bg-indigo-100 rounded-lg shadow">
-            <h3 class="text-xl font-semibold text-indigo-700 mb-4">Nhấn mạnh:</h3>
-            <h4 class="text-lg font-medium text-indigo-600 mb-4">Emphasis:</h4>
-             <div class="lang-pair bg-white p-4 rounded">
-                <p>Chìa khóa không nằm ở việc bạn phải biết lập trình AI, mà là khả năng <strong>đặt đúng câu hỏi</strong>, <strong>nhìn nhận vấn đề</strong> bằng tư duy dựa trên dữ liệu, và <strong>sẵn sàng thử nghiệm</strong> các giải pháp mới. AI là công cụ mạnh mẽ để hỗ trợ con người đưa ra quyết định tốt hơn, tối ưu hóa công việc và nâng cao hiệu quả. Hãy bắt đầu từ những vấn đề nhỏ, đo lường được và tập trung vào giá trị thực tế mà AI mang lại. Việc này hoàn toàn nằm trong tầm tay của bạn và đội ngũ.</p>
-                 <p class="text-gray-600 italic">The key is not needing to know AI programming, but the ability to <strong>ask the right questions</strong>, <strong>view problems</strong> with a data-driven mindset, and be <strong>willing to experiment</strong> with new solutions. AI is a powerful tool to help humans make better decisions, optimize work, and enhance efficiency. Start with small, measurable problems and focus on the real value AI brings. This is entirely within your and your team's reach.</p>
-             </div>
-        </section>
-
-    </main>
-    <footer class="bg-gray-800 text-white pt-10 pb-6">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <h5 class="text-xl font-semibold mb-4">IVS JSC</h5>
-                    <p class="text-gray-400 mb-2">Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy</p>
-                    <p class="text-gray-400 text-sm"><i class="fas fa-map-marker-alt mr-2"></i>1104, Tổ 6, Ấp Đất Mới, Long Phước, Long Thành, Đồng Nai</p>
-                    <p class="text-gray-400 text-sm"><i class="fas fa-phone-alt mr-2"></i> (+84) 988 123 456</p> <p class="text-gray-400 text-sm"><i class="fas fa-envelope mr-2"></i> info@ivs.id.vn</p> </div>
-                <div>
-                    <h5 class="text-lg font-semibold mb-4">Liên kết nhanh</h5>
+                <h4 data-lang-key="ai_guide_mindset_title">Hướng tư duy chi tiết:</h4>
+                 <h5 class="text-md font-medium text-gray-500 mb-3" data-lang-key="ai_guide_mindset_subtitle">Detailed Mindset Approach:</h5>
+                <div class="mb-6">
+                    <strong data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</strong> / <em class="text-gray-600" data-lang-key="ai_guide_human_mindset_title_en">Required Human Mindset:</em>
                     <ul>
-                        <li class="mb-2"><a href="about.html" class="text-gray-400 hover:text-white">Về chúng tôi</a></li>
-                        <li class="mb-2"><a href="contact.html" class="text-gray-400 hover:text-white">Liên hệ</a></li>
-                        <li class="mb-2"><a href="careervn.html" class="text-gray-400 hover:text-white">Tuyển dụng</a></li>
-                        <li class="mb-2"><a href="#" class="text-gray-400 hover:text-white">Điều khoản dịch vụ</a></li>
-                        <li class="mb-2"><a href="#" class="text-gray-400 hover:text-white">Chính sách bảo mật</a></li>
+                        <li><span data-lang-key="ai_guide_edu_mindset1">Tò mò về dữ liệu học tập: Luôn đặt câu hỏi "Dữ liệu này (điểm số, thời gian học, tương tác) nói lên điều gì về học viên?".</span> / <em class="text-gray-600" data-lang-key="ai_guide_edu_mindset1_en">Curiosity about learning data: Always ask "What does this data (scores, study time, interactions) tell us about the student?".</em></li>
+                        <li><span data-lang-key="ai_guide_edu_mindset2">Tập trung vào cá nhân hóa: Mong muốn tạo ra trải nghiệm riêng biệt cho từng người học, thay vì áp dụng một phương pháp chung.</span> / <em class="text-gray-600" data-lang-key="ai_guide_edu_mindset2_en">Focus on personalization: Desire to create unique experiences for each learner, rather than applying a one-size-fits-all method.</em></li>
+                        <li><span data-lang-key="ai_guide_edu_mindset3">Sẵn sàng thử nghiệm: Chấp nhận thử các công cụ AI mới (như hệ thống gợi ý, chatbot) ở quy mô nhỏ để đánh giá hiệu quả.</span> / <em class="text-gray-600" data-lang-key="ai_guide_edu_mindset3_en">Willingness to experiment: Be open to trying new AI tools (like recommendation systems, chatbots) on a small scale to evaluate effectiveness.</em></li>
+                        <li><span data-lang-key="ai_guide_edu_mindset4">Xem AI là trợ lý: Coi AI là công cụ giúp giáo viên có thêm thời gian tập trung vào chuyên môn, tương tác sâu hơn với học viên.</span> / <em class="text-gray-600" data-lang-key="ai_guide_edu_mindset4_en">View AI as an assistant: Consider AI as a tool that helps teachers free up time to focus on their expertise and interact more deeply with students.</em></li>
+                    </ul>
+                </div>
+                <div class="mb-6">
+                    <strong data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI (Đơn giản hóa):</strong> / <em class="text-gray-600" data-lang-key="ai_guide_core_ops_title_en">Understanding Core AI Operations (Simplified):</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_edu_ops1">AI học từ mẫu: Khi AI gợi ý bài tập, nó dựa trên việc "học" từ dữ liệu của hàng ngàn học viên khác: "Những học viên gặp khó khăn ở điểm A thường cần luyện thêm dạng bài tập B".</span> / <em class="text-gray-600" data-lang-key="ai_guide_edu_ops1_en">AI learns from patterns: When AI suggests exercises, it's based on "learning" from data of thousands of other students: "Students struggling with concept A often need more practice on exercise type B".</em></li>
+                        <li><span data-lang-key="ai_guide_edu_ops2">AI nhận diện quy luật: Khi AI dự đoán học viên có nguy cơ bỏ học, nó tìm kiếm các "quy luật" trong dữ liệu như: "Học viên vắng mặt >X buổi và điểm số giảm >Y% thường có nguy cơ cao".</span> / <em class="text-gray-600" data-lang-key="ai_guide_edu_ops2_en">AI identifies rules: When AI predicts dropout risk, it looks for "rules" in the data, such as: "Students absent >X times with a score decrease >Y% often have a high risk".</em></li>
                     </ul>
                 </div>
                 <div>
-                    <h5 class="text-lg font-semibold mb-4">Dịch vụ</h5>
+                    <strong data-lang-key="ai_guide_getting_started_title">Bắt đầu với AI không hề phức tạp - Đây là vài gợi ý:</strong> / <em class="text-gray-600" data-lang-key="ai_guide_getting_started_title_en">Getting Started with AI is Simpler Than You Think - Here Are Some Ideas:</em>
                     <ul>
-                        <li class="mb-2"><a href="ivslanguages.html" class="text-gray-400 hover:text-white">IVS Languages</a></li>
-                        <li class="mb-2"><a href="ivslifeminds.html" class="text-gray-400 hover:text-white">IVS LifeMinds</a></li>
-                        <li class="mb-2"><a href="ivsmedia.html" class="text-gray-400 hover:text-white">IVS Media</a></li>
-                        <li class="mb-2"><a href="ivscelestech.html" class="text-gray-400 hover:text-white">IVS Celestech</a></li>
-                         <li class="mb-2"><a href="rnd-curriculum.html" class="text-gray-400 hover:text-white">R&D Chương trình</a></li>
+                        <li><span data-lang-key="ai_guide_edu_start1">Bắt đầu với các công cụ có sẵn: Sử dụng các tính năng AI tích hợp trong các nền tảng quản lý học tập (LMS) hoặc các ứng dụng giáo dục phổ biến.</span> / <em class="text-gray-600" data-lang-key="ai_guide_edu_start1_en">Start with available tools: Utilize built-in AI features in Learning Management Systems (LMS) or popular educational apps.</em></li>
+                        <li><span data-lang-key="ai_guide_edu_start2">Thử nghiệm chatbot đơn giản: Dùng chatbot để trả lời các câu hỏi lặp đi lặp lại về lịch học, thủ tục, tài liệu.</span> / <em class="text-gray-600" data-lang-key="ai_guide_edu_start2_en">Experiment with simple chatbots: Use chatbots to answer frequently asked questions about schedules, procedures, materials.</em></li>
+                        <li><span data-lang-key="ai_guide_edu_start3">Tập trung vào một vấn đề nhỏ, có thể đo lường: Ví dụ, thử dùng AI để phân tích kết quả bài kiểm tra và đo lường xem việc gợi ý tài liệu ôn tập cá nhân hóa có cải thiện điểm số trung bình của nhóm nhỏ đó trong bài kiểm tra tiếp theo không.</span> / <em class="text-gray-600" data-lang-key="ai_guide_edu_start3_en">Focus on a small, measurable problem: For example, try using AI to analyze test results and measure whether suggesting personalized review materials improves the average score of that small group on the subsequent test.</em></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="healthcare" class="industry-section p-6 md:p-8 bg-white rounded-lg shadow-lg border-l-4 border-emerald-500">
+                 <h2 class="text-2xl font-bold flex items-center !border-emerald-600 text-emerald-700">
+                    <i class="fas fa-heartbeat mr-3 text-emerald-600"></i>
+                    <span data-lang-key="ai_guide_section_health_title">2. Tư duy AI trong Y tế & Chăm sóc sức khỏe</span>
+                </h2>
+                 <h3 class="text-lg font-medium text-gray-600 mb-6 !text-emerald-600" data-lang-key="ai_guide_section_health_subtitle">2. AI Mindset in Healthcare & Well-being</h3>
+
+                <h4 data-lang-key="ai_guide_core_questions_title">Câu hỏi cốt lõi:</h4>
+                 <h5 class="text-md font-medium text-gray-500 mb-3" data-lang-key="ai_guide_core_questions_subtitle">Core Questions:</h5>
+                <div class="lang-pair">
+                    <p data-lang-key="ai_guide_health_q">Làm sao phát hiện bệnh sớm và chính xác hơn? Làm sao tối ưu quy trình khám chữa bệnh? Làm sao theo dõi bệnh nhân từ xa hiệu quả?</p>
+                    <p class="italic" data-lang-key="ai_guide_health_q_en">How to detect diseases earlier and more accurately? How to optimize medical examination and treatment processes? How to effectively monitor patients remotely?</p>
+                </div>
+
+                <h4 data-lang-key="ai_guide_mindset_title">Hướng tư duy chi tiết:</h4>
+                 <h5 class="text-md font-medium text-gray-500 mb-3" data-lang-key="ai_guide_mindset_subtitle">Detailed Mindset Approach:</h5>
+                 <div class="mb-6">
+                    <strong data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</strong> / <em class="text-gray-600" data-lang-key="ai_guide_human_mindset_title_en">Required Human Mindset:</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_health_mindset1">Áp dụng cách tiếp cận 'Tin tưởng, nhưng kiểm chứng': Sẵn sàng tham khảo gợi ý từ AI (ví dụ trong chẩn đoán hình ảnh) nhưng luôn đối chiếu với kinh nghiệm và kiến thức lâm sàng chuyên môn.</span> / <em class="text-gray-600" data-lang-key="ai_guide_health_mindset1_en">Adopt a 'Trust, but Verify' Approach: Be open to leveraging AI suggestions (e.g., in image diagnostics) while always validating them against professional experience and clinical knowledge.</em></li>
+                        <li><span data-lang-key="ai_guide_health_mindset2">Chú trọng hiệu quả: Tìm cách dùng AI để giảm thời gian chờ đợi, tự động hóa các tác vụ hành chính (nhập liệu, lên lịch), giải phóng thời gian cho bác sĩ/điều dưỡng.</span> / <em class="text-gray-600" data-lang-key="ai_guide_health_mindset2_en">Focus on efficiency: Look for ways AI can reduce waiting times, automate administrative tasks (data entry, scheduling), freeing up time for doctors/nurses.</em></li>
+                        <li><span data-lang-key="ai_guide_health_mindset3">Ưu tiên bảo mật và đạo đức: Luôn đặt vấn đề bảo mật dữ liệu bệnh nhân và tính công bằng trong thuật toán lên hàng đầu.</span> / <em class="text-gray-600" data-lang-key="ai_guide_health_mindset3_en">Prioritize security and ethics: Always place patient data confidentiality and algorithmic fairness at the forefront.</em></li>
+                    </ul>
+                </div>
+                 <div class="mb-6">
+                    <strong data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI (Đơn giản hóa):</strong> / <em class="text-gray-600" data-lang-key="ai_guide_core_ops_title_en">Understanding Core AI Operations (Simplified):</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_health_ops1">AI nhận dạng hình ảnh: Khi AI phân tích ảnh X-quang, nó so sánh với hàng triệu ảnh đã được gán nhãn (bình thường/bất thường) để tìm ra các đặc điểm tương tự dấu hiệu bệnh lý.</span> / <em class="text-gray-600" data-lang-key="ai_guide_health_ops1_en">AI image recognition: When AI analyzes X-ray images, it compares them against millions of labeled images (normal/abnormal) to find features similar to pathological signs.</em></li>
+                        <li><span data-lang-key="ai_guide_health_ops2">AI dự đoán dựa trên dữ liệu: Khi AI cảnh báo về sức khỏe bệnh nhân từ xa, nó phân tích chuỗi dữ liệu (nhịp tim, huyết áp) và so sánh với các mẫu "bình thường" và "bất thường" đã học được.</span> / <em class="text-gray-600" data-lang-key="ai_guide_health_ops2_en">AI predicts based on data: When AI alerts about a remote patient's health, it analyzes data streams (heart rate, blood pressure) and compares them to learned "normal" and "abnormal" patterns.</em></li>
                     </ul>
                 </div>
                 <div>
-                    <h5 class="text-lg font-semibold mb-4">Kết nối với chúng tôi</h5>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                    <div class="mt-4">
-                         <a href="https://ivs.id.vn" class="text-indigo-400 hover:text-indigo-300">Website: ivs.id.vn</a>
-                    </div>
+                    <strong data-lang-key="ai_guide_getting_started_title">Bắt đầu với AI không hề phức tạp - Đây là vài gợi ý:</strong> / <em class="text-gray-600" data-lang-key="ai_guide_getting_started_title_en">Getting Started with AI is Simpler Than You Think - Here Are Some Ideas:</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_health_start1">Ứng dụng AI trong quản lý: Sử dụng phần mềm có AI để tối ưu lịch hẹn, quản lý hồ sơ bệnh án điện tử hiệu quả hơn.</span> / <em class="text-gray-600" data-lang-key="ai_guide_health_start1_en">Apply AI in management: Use AI-powered software to optimize appointments and manage electronic health records more effectively.</em></li>
+                        <li><span data-lang-key="ai_guide_health_start2">Thử nghiệm công cụ hỗ trợ tra cứu: Dùng AI để nhanh chóng tìm kiếm thông tin y khoa, phác đồ điều trị cập nhật.</span> / <em class="text-gray-600" data-lang-key="ai_guide_health_start2_en">Experiment with lookup support tools: Use AI to quickly search for medical information and updated treatment protocols.</em></li>
+                        <li><span data-lang-key="ai_guide_health_start3">Tham gia các dự án thí điểm: Hợp tác với các đơn vị công nghệ để thử nghiệm AI trong phân tích hình ảnh hoặc dự đoán nguy cơ ở một phạm vi nhỏ, có kiểm soát.</span> / <em class="text-gray-600" data-lang-key="ai_guide_health_start3_en">Participate in pilot projects: Collaborate with tech partners to test AI in image analysis or risk prediction on a small, controlled scale.</em></li>
+                    </ul>
                 </div>
-            </div>
-            <hr class="border-gray-700 my-6">
-            <div class="text-center text-gray-500 text-sm">
-                 <p>© <span id="current-year"></span> Bản quyền thuộc về Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy (IVS JSC).</p>
-                 <p>Một sản phẩm của IVS Education.</p>
-                 <p class="italic">© <span id="current-year-en"></span> Copyright Integrate Vision Synergy Trading Service Joint Stock Company (IVS JSC). An IVS Education product.</p>
-            </div>
-        </div>
-         </footer>
-    <script>
-        // Ensure the DOM is fully loaded before running scripts
-        document.addEventListener('DOMContentLoaded', () => {
-            // Mobile menu toggle
-            const menuButton = document.querySelector('.mobile-menu-button');
-            const mobileMenu = document.querySelector('.mobile-menu');
+            </section>
 
-            if (menuButton && mobileMenu) {
-                menuButton.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
+            <section id="finance" class="industry-section p-6 md:p-8 bg-white rounded-lg shadow-lg border-l-4 border-blue-500">
+                 <h2 class="text-2xl font-bold flex items-center !border-blue-600 text-blue-700">
+                    <i class="fas fa-piggy-bank mr-3 text-blue-600"></i>
+                    <span data-lang-key="ai_guide_section_finance_title">3. Tư duy AI trong Tài chính & Ngân hàng</span>
+                </h2>
+                 <h3 class="text-lg font-medium text-gray-600 mb-6 !text-blue-600" data-lang-key="ai_guide_section_finance_subtitle">3. AI Mindset in Finance & Banking</h3>
 
-            // Set current year in footer
-            const yearSpan = document.getElementById('current-year');
-            const yearSpanEn = document.getElementById('current-year-en');
-            const currentYear = new Date().getFullYear();
-            if(yearSpan) yearSpan.textContent = currentYear;
-            if(yearSpanEn) yearSpanEn.textContent = currentYear;
+                <h4 data-lang-key="ai_guide_core_questions_title">Câu hỏi cốt lõi:</h4>
+                 <h5 class="text-md font-medium text-gray-500 mb-3" data-lang-key="ai_guide_core_questions_subtitle">Core Questions:</h5>
+                <div class="lang-pair">
+                    <p data-lang-key="ai_guide_finance_q">Làm sao chống gian lận hiệu quả? Làm sao đánh giá rủi ro tín dụng nhanh và công bằng? Làm sao cung cấp dịch vụ khách hàng 24/7?</p>
+                    <p class="italic" data-lang-key="ai_guide_finance_q_en">How to effectively combat fraud? How to assess credit risk quickly and fairly? How to provide 24/7 customer service?</p>
+                </div>
 
-            // Basic Language Switcher (Example - requires more robust implementation)
-            const langSwitches = document.querySelectorAll('.lang-switch');
-            langSwitches.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const lang = e.target.getAttribute('data-lang');
-                    console.log(`Language selected: ${lang}`);
-                    // Add logic here to change language
-                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                    }
-                });
-            });
+                <h4 data-lang-key="ai_guide_mindset_title">Hướng tư duy chi tiết:</h4>
+                 <h5 class="text-md font-medium text-gray-500 mb-3" data-lang-key="ai_guide_mindset_subtitle">Detailed Mindset Approach:</h5>
+                 <div class="mb-6">
+                    <strong data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</strong> / <em class="text-gray-600" data-lang-key="ai_guide_human_mindset_title_en">Required Human Mindset:</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_finance_mindset1">Nghi ngờ lành mạnh: Luôn tìm kiếm các dấu hiệu bất thường trong dữ liệu giao dịch, xem AI là công cụ khuếch đại khả năng phát hiện này.</span> / <em class="text-gray-600" data-lang-key="ai_guide_finance_mindset1_en">Healthy skepticism: Always look for anomalies in transaction data, viewing AI as a tool to amplify this detection capability.</em></li>
+                        <li><span data-lang-key="ai_guide_finance_mindset2">Tư duy dựa trên dữ liệu: Ra quyết định (ví dụ: phê duyệt tín dụng) dựa trên phân tích dữ liệu khách quan do AI cung cấp, bên cạnh các yếu tố kinh nghiệm.</span> / <em class="text-gray-600" data-lang-key="ai_guide_finance_mindset2_en">Data-driven thinking: Make decisions (e.g., credit approval) based on objective data analysis provided by AI, alongside experiential factors.</em></li>
+                        <li><span data-lang-key="ai_guide_finance_mindset3">Tập trung vào trải nghiệm khách hàng: Sử dụng AI để làm cho các tương tác (qua chatbot, gợi ý sản phẩm) trở nên nhanh chóng, thuận tiện và phù hợp hơn.</span> / <em class="text-gray-600" data-lang-key="ai_guide_finance_mindset3_en">Focus on customer experience: Use AI to make interactions (via chatbots, product suggestions) faster, more convenient, and more relevant.</em></li>
+                    </ul>
+                </div>
+                 <div class="mb-6">
+                    <strong data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI (Đơn giản hóa):</strong> / <em class="text-gray-600" data-lang-key="ai_guide_core_ops_title_en">Understanding Core AI Operations (Simplified):</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_finance_ops1">AI phát hiện mẫu bất thường: Hệ thống chống gian lận AI liên tục "học" các mẫu giao dịch bình thường của khách hàng. Khi có giao dịch đi lệch khỏi mẫu đó (ví dụ: địa điểm lạ, số tiền lớn bất thường), AI sẽ cảnh báo.</span> / <em class="text-gray-600" data-lang-key="ai_guide_finance_ops1_en">AI detects abnormal patterns: AI fraud detection systems continuously "learn" customers' normal transaction patterns. When a transaction deviates (e.g., unusual location, abnormally large amount), AI flags it.</em></li>
+                        <li><span data-lang-key="ai_guide_finance_ops2">AI phân loại và dự đoán: Mô hình chấm điểm tín dụng AI phân loại khách hàng vào các nhóm rủi ro dựa trên việc "học" mối liên hệ giữa các đặc điểm (thu nhập, lịch sử vay,...) và khả năng trả nợ trong quá khứ.</span> / <em class="text-gray-600" data-lang-key="ai_guide_finance_ops2_en">AI classifies and predicts: AI credit scoring models classify customers into risk groups by "learning" the relationship between characteristics (income, loan history, etc.) and past repayment behavior.</em></li>
+                    </ul>
+                </div>
+                <div>
+                    <strong data-lang-key="ai_guide_getting_started_title">Bắt đầu với AI không hề phức tạp - Đây là vài gợi ý:</strong> / <em class="text-gray-600" data-lang-key="ai_guide_getting_started_title_en">Getting Started with AI is Simpler Than You Think - Here Are Some Ideas:</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_finance_start1">Triển khai chatbot cho các câu hỏi thường gặp: Giảm tải cho tổng đài viên bằng cách tự động hóa các câu trả lời đơn giản.</span> / <em class="text-gray-600" data-lang-key="ai_guide_finance_start1_en">Deploy chatbots for FAQs: Reduce call center load by automating simple answers.</em></li>
+                        <li><span data-lang-key="ai_guide_finance_start2">Sử dụng công cụ phân tích dữ liệu có sẵn AI: Khai thác các báo cáo, dashboard do AI tạo ra để hiểu rõ hơn về hành vi khách hàng và hiệu quả hoạt động.</span> / <em class="text-gray-600" data-lang-key="ai_guide_finance_start2_en">Use data analysis tools with built-in AI: Leverage AI-generated reports and dashboards to better understand customer behavior and operational efficiency.</em></li>
+                        <li><span data-lang-key="ai_guide_finance_start3">Thử nghiệm gợi ý sản phẩm: Bắt đầu gợi ý các sản phẩm đơn giản (ví dụ: gói tiết kiệm) dựa trên phân tích AI về hồ sơ khách hàng.</span> / <em class="text-gray-600" data-lang-key="ai_guide_finance_start3_en">Experiment with product recommendations: Start suggesting simple products (e.g., savings plans) based on AI analysis of customer profiles.</em></li>
+                    </ul>
+                </div>
+            </section>
 
-            // Close dropdowns when clicking outside (basic example)
-            // This requires specific knowledge of dropdown implementation in header.html
-            // A simple approach: close all potential dropdowns
-             document.addEventListener('click', function(event) {
-                const isDropdownButton = event.target.closest('.relative.group > button');
-                const isInsideDropdown = event.target.closest('.relative.group > div');
+            <section id="retail" class="industry-section p-6 md:p-8 bg-white rounded-lg shadow-lg border-l-4 border-pink-500">
+                 <h2 class="text-2xl font-bold flex items-center !border-pink-600 text-pink-700">
+                    <i class="fas fa-shopping-cart mr-3 text-pink-600"></i>
+                    <span data-lang-key="ai_guide_section_retail_title">4. Tư duy AI trong Bán lẻ & Thương mại điện tử</span>
+                </h2>
+                 <h3 class="text-lg font-medium text-gray-600 mb-6 !text-pink-600" data-lang-key="ai_guide_section_retail_subtitle">4. AI Mindset in Retail & E-commerce</h3>
 
-                // If the click is not on a dropdown button
-                if (!isDropdownButton) {
-                    // Find all open dropdowns (assuming they are direct children div of .relative.group and not hidden)
-                    document.querySelectorAll('.relative.group > div:not(.hidden)').forEach(dropdown => {
-                         // If the click was outside this specific dropdown, close it
-                         if (!dropdown.contains(event.target)) {
-                            // We cannot directly remove group-hover:block, so this basic approach might not work
-                            // depending on how the hover is implemented (CSS vs JS).
-                            // If it's pure CSS hover, clicking outside won't close it.
-                            // If dropdowns were JS-controlled, we'd add/remove a class here.
-                         }
-                    });
-                }
-             });
-        });
-    </script>
+                <h4 data-lang-key="ai_guide_core_questions_title">Câu hỏi cốt lõi:</h4>
+                 <h5 class="text-md font-medium text-gray-500 mb-3" data-lang-key="ai_guide_core_questions_subtitle">Core Questions:</h5>
+                <div class="lang-pair">
+                    <p data-lang-key="ai_guide_retail_q">Làm sao để khách hàng cảm thấy được quan tâm đặc biệt? Làm sao dự báo đúng nhu cầu để tối ưu tồn kho? Làm sao hiểu khách hàng đang nghĩ gì?</p>
+                    <p class="italic" data-lang-key="ai_guide_retail_q_en">How to make customers feel uniquely valued? How to accurately forecast demand to optimize inventory? How to understand what customers are thinking?</p>
+                </div>
 
-</body>
+                <h4 data-lang-key="ai_guide_mindset_title">Hướng tư duy chi tiết:</h4>
+                 <h5 class="text-md font-medium text-gray-500 mb-3" data-lang-key="ai_guide_mindset_subtitle">Detailed Mindset Approach:</h5>
+                 <div class="mb-6">
+                    <strong data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</strong> / <em class="text-gray-600" data-lang-key="ai_guide_human_mindset_title_en">Required Human Mindset:</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_retail_mindset1">Đặt khách hàng làm trung tâm: Thay đổi tư duy từ 'bán sản phẩm' sang 'giải quyết nhu cầu khách hàng'. Luôn suy nghĩ "Làm sao AI giúp tôi phân tích dữ liệu để hiểu sâu sắc và phục vụ khách hàng này tốt hơn?".</span> / <em class="text-gray-600" data-lang-key="ai_guide_retail_mindset1_en">Customer-centricity: Shift the mindset from 'selling products' to 'solving customer needs'. Always think "How can AI help me analyze data to deeply understand and serve this customer better?".</em></li>
+                        <li><span data-lang-key="ai_guide_retail_mindset2">Tư duy tối ưu hóa liên tục: Nhìn vào quy trình (đặt hàng, quản lý kho, định giá) và tự hỏi "AI có thể giúp làm việc này hiệu quả hơn, tốn ít chi phí hơn không?".</span> / <em class="text-gray-600" data-lang-key="ai_guide_retail_mindset2_en">Continuous optimization mindset: Look at processes (ordering, inventory management, pricing) and ask "Can AI help do this more efficiently and cost-effectively?".</em></li>
+                        <li><span data-lang-key="ai_guide_retail_mindset3">Nhạy bén với dữ liệu: Xem mọi tương tác của khách hàng (click chuột, xem sản phẩm, đánh giá) là nguồn dữ liệu quý giá để AI phân tích.</span> / <em class="text-gray-600" data-lang-key="ai_guide_retail_mindset3_en">Data sensitivity: View every customer interaction (clicks, product views, reviews) as valuable data for AI analysis.</em></li>
+                        <li><span data-lang-key="ai_guide_retail_mindset4">Chấp nhận tự động hóa thông minh: Sẵn sàng để AI đảm nhận các việc lặp lại (trả lời chat, cập nhật tồn kho) để nhân viên tập trung vào tư vấn, giải quyết vấn đề phức tạp.</span> / <em class="text-gray-600" data-lang-key="ai_guide_retail_mindset4_en">Embrace intelligent automation: Be willing to let AI handle repetitive tasks (chat responses, inventory updates) so employees can focus on consulting and complex problem-solving.</em></li>
+                    </ul>
+                </div>
+                 <div class="mb-6">
+                    <strong data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI (Đơn giản hóa):</strong> / <em class="text-gray-600" data-lang-key="ai_guide_core_ops_title_en">Understanding Core AI Operations (Simplified):</em>
+                     <ul>
+                        <li><span data-lang-key="ai_guide_retail_ops1">AI học sở thích: Khi bạn thấy gợi ý "Những người mua sản phẩm A cũng mua sản phẩm B", đó là AI đã "học" được quy luật này từ dữ liệu mua hàng của hàng triệu người.</span> / <em class="text-gray-600" data-lang-key="ai_guide_retail_ops1_en">AI learns preferences: When you see recommendations like "Customers who bought product A also bought product B," AI has "learned" this rule from millions of purchase data points.</em></li>
+                        <li><span data-lang-key="ai_guide_retail_ops2">AI dự báo xu hướng: Khi AI dự báo nhu cầu, nó phân tích dữ liệu bán hàng quá khứ, kết hợp với các yếu tố bên ngoài (ngày lễ, khuyến mãi, thời tiết) để tìm ra mô hình và dự đoán tương lai.</span> / <em class="text-gray-600" data-lang-key="ai_guide_retail_ops2_en">AI forecasts trends: When AI forecasts demand, it analyzes past sales data, combined with external factors (holidays, promotions, weather), to find patterns and predict the future.</em></li>
+                        <li><span data-lang-key="ai_guide_retail_ops3">AI hiểu ngôn ngữ: Khi AI phân tích đánh giá, nó dùng NLP để "đọc" và phân loại ý kiến (tích cực/tiêu cực) về các khía cạnh khác nhau của sản phẩm (giá cả, chất lượng, giao hàng).</span> / <em class="text-gray-600" data-lang-key="ai_guide_retail_ops3_en">AI understands language: When AI analyzes reviews, it uses NLP to "read" and classify opinions (positive/negative) about different product aspects (price, quality, delivery).</em></li>
+                    </ul>
+                </div>
+                <div>
+                    <strong data-lang-key="ai_guide_getting_started_title">Bắt đầu với AI không hề phức tạp - Đây là vài gợi ý:</strong> / <em class="text-gray-600" data-lang-key="ai_guide_getting_started_title_en">Getting Started with AI is Simpler Than You Think - Here Are Some Ideas:</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_retail_start1">Kích hoạt tính năng gợi ý sản phẩm: Hầu hết các nền tảng TMĐT đều có sẵn tính năng này, hãy bật và theo dõi hiệu quả.</span> / <em class="text-gray-600" data-lang-key="ai_guide_retail_start1_en">Activate product recommendation features: Most e-commerce platforms offer this; enable it and monitor performance.</em></li>
+                        <li><span data-lang-key="ai_guide_retail_start2">Sử dụng chatbot cơ bản: Cài đặt chatbot để trả lời tự động các câu hỏi về tình trạng đơn hàng, chính sách đổi trả.</span> / <em class="text-gray-600" data-lang-key="ai_guide_retail_start2_en">Use basic chatbots: Set up chatbots to automatically answer questions about order status and return policies.</em></li>
+                        <li><span data-lang-key="ai_guide_retail_start3">Phân tích báo cáo bán hàng do AI tạo: Tập trung vào các insight về sản phẩm bán chạy, nhóm khách hàng tiềm năng mà AI chỉ ra.</span> / <em class="text-gray-600" data-lang-key="ai_guide_retail_start3_en">Analyze AI-generated sales reports: Focus on insights about best-selling products and potential customer segments identified by AI.</em></li>
+                        <li><span data-lang-key="ai_guide_retail_start4">Thử nghiệm quảng cáo thông minh: Sử dụng các nền tảng quảng cáo (Google, Facebook) có AI để tự động tối ưu đối tượng và ngân sách.</span> / <em class="text-gray-600" data-lang-key="ai_guide_retail_start4_en">Experiment with smart advertising: Use ad platforms (Google, Facebook) with AI to automatically optimize targeting and budget.</em></li>
+                    </ul>
+                </div>
+            </section>
+
+             <section id="manufacturing" class="industry-section p-6 md:p-8 bg-white rounded-lg shadow-lg border-l-4 border-orange-500">
+                 <h2 class="text-2xl font-bold flex items-center !border-orange-600 text-orange-700">
+                    <i class="fas fa-industry mr-3 text-orange-600"></i>
+                    <span data-lang-key="ai_guide_section_manu_title">5. Tư duy AI trong Sản xuất & Công nghiệp</span>
+                </h2>
+                 <h3 class="text-lg font-medium text-gray-600 mb-6 !text-orange-600" data-lang-key="ai_guide_section_manu_subtitle">5. AI Mindset in Manufacturing & Industry</h3>
+
+                <h4 data-lang-key="ai_guide_core_questions_title">Câu hỏi cốt lõi:</h4>
+                 <h5 class="text-md font-medium text-gray-500 mb-3" data-lang-key="ai_guide_core_questions_subtitle">Core Questions:</h5>
+                <div class="lang-pair">
+                    <p data-lang-key="ai_guide_manu_q">Làm sao phát hiện lỗi sản phẩm ngay lập tức? Làm sao biết trước máy móc sắp hỏng? Làm sao tối ưu hóa dây chuyền và logistics?</p>
+                    <p class="italic" data-lang-key="ai_guide_manu_q_en">How to detect product defects instantly? How to know in advance when machinery is about to fail? How to optimize production lines and logistics?</p>
+                </div>
+
+                <h4 data-lang-key="ai_guide_mindset_title">Hướng tư duy chi tiết:</h4>
+                 <h5 class="text-md font-medium text-gray-500 mb-3" data-lang-key="ai_guide_mindset_subtitle">Detailed Mindset Approach:</h5>
+                <div class="mb-6">
+                    <strong data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</strong> / <em class="text-gray-600" data-lang-key="ai_guide_human_mindset_title_en">Required Human Mindset:</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_manu_mindset1">Tư duy phòng ngừa: Thay vì chờ hỏng mới sửa, hãy nghĩ "Làm sao biết trước và ngăn chặn sự cố?" (ví dụ: bảo trì dự đoán).</span> / <em class="text-gray-600" data-lang-key="ai_guide_manu_mindset1_en">Preventive thinking: Instead of waiting for breakdowns, think "How can we anticipate and prevent issues?" (e.g., predictive maintenance).</em></li>
+                        <li><span data-lang-key="ai_guide_manu_mindset2">Chú trọng chất lượng tuyệt đối: Tìm cách dùng AI để kiểm tra 100% sản phẩm, không bỏ sót lỗi dù là nhỏ nhất.</span> / <em class="text-gray-600" data-lang-key="ai_guide_manu_mindset2_en">Focus on absolute quality: Seek ways to use AI for 100% product inspection, catching even the smallest defects.</em></li>
+                        <li><span data-lang-key="ai_guide_manu_mindset3">Tối ưu hóa từng mili giây: Luôn tìm cách cải thiện hiệu suất dây chuyền, giảm thời gian chết, tối ưu hóa lộ trình vận chuyển dù là nhỏ nhất.</span> / <em class="text-gray-600" data-lang-key="ai_guide_manu_mindset3_en">Optimize every millisecond: Constantly look for ways to improve line efficiency, reduce downtime, and optimize transport routes, however small.</em></li>
+                        <li><span data-lang-key="ai_guide_manu_mindset4">An toàn là trên hết: Suy nghĩ cách AI có thể giám sát và cảnh báo các rủi ro an toàn lao động tiềm ẩn.</span> / <em class="text-gray-600" data-lang-key="ai_guide_manu_mindset4_en">Safety first: Consider how AI can monitor and alert potential workplace safety hazards.</em></li>
+                    </ul>
+                </div>
+                 <div class="mb-6">
+                    <strong data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI (Đơn giản hóa):</strong> / <em class="text-gray-600" data-lang-key="ai_guide_core_ops_title_en">Understanding Core AI Operations (Simplified):</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_manu_ops1">AI "nhìn" và so sánh: Hệ thống kiểm tra chất lượng dùng camera và AI (Computer Vision) để so sánh hình ảnh sản phẩm thực tế với hình ảnh "chuẩn", phát hiện bất kỳ sai khác nào (vết nứt, màu sai, thiếu chi tiết).</span> / <em class="text-gray-600" data-lang-key="ai_guide_manu_ops1_en">AI "sees" and compares: Quality inspection systems use cameras and AI (Computer Vision) to compare actual product images with "standard" images, detecting any discrepancies (cracks, wrong color, missing parts).</em></li>
+                        <li><span data-lang-key="ai_guide_manu_ops2">AI "nghe" và dự đoán: Cảm biến trên máy móc ghi nhận rung động, nhiệt độ. AI phân tích các chuỗi dữ liệu này, tìm kiếm các mẫu tín hiệu bất thường báo hiệu một bộ phận sắp hỏng (tương tự bác sĩ nghe tim phổi).</span> / <em class="text-gray-600" data-lang-key="ai_guide_manu_ops2_en">AI "listens" and predicts: Sensors on machinery record vibrations, temperature. AI analyzes these data streams, looking for abnormal signal patterns indicating an impending component failure (similar to a doctor listening to heart/lungs).</em></li>
+                        <li><span data-lang-key="ai_guide_manu_ops3">AI tìm đường đi tối ưu: Khi tối ưu hóa logistics, AI tính toán hàng triệu phương án di chuyển dựa trên bản đồ nhà máy, tình trạng giao thông nội bộ, lịch trình sản xuất để tìm ra lộ trình nhanh nhất, tiết kiệm nhất.</span> / <em class="text-gray-600" data-lang-key="ai_guide_manu_ops3_en">AI finds optimal paths: When optimizing logistics, AI calculates millions of movement options based on factory maps, internal traffic, production schedules to find the fastest, most economical routes.</em></li>
+                    </ul>
+                </div>
+                <div>
+                    <strong data-lang-key="ai_guide_getting_started_title">Bắt đầu với AI không hề phức tạp - Đây là vài gợi ý:</strong> / <em class="text-gray-600" data-lang-key="ai_guide_getting_started_title_en">Getting Started with AI is Simpler Than You Think - Here Are Some Ideas:</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_manu_start1">Lắp đặt camera giám sát chất lượng đơn giản: Bắt đầu với việc dùng camera và phần mềm AI cơ bản để phát hiện các lỗi rõ ràng trên một công đoạn.</span> / <em class="text-gray-600" data-lang-key="ai_guide_manu_start1_en">Install simple quality monitoring cameras: Start by using cameras and basic AI software to detect obvious defects in one process stage.</em></li>
+                        <li><span data-lang-key="ai_guide_manu_start2">Theo dõi dữ liệu cảm biến cơ bản: Sử dụng các phần mềm phân tích dữ liệu từ cảm biến có sẵn để theo dõi tình trạng máy móc, tìm kiếm các xu hướng bất thường.</span> / <em class="text-gray-600" data-lang-key="ai_guide_manu_start2_en">Monitor basic sensor data: Use available sensor data analysis software to track machine conditions and look for unusual trends.</em></li>
+                        <li><span data-lang-key="ai_guide_manu_start3">Thử nghiệm robot tự hành đơn giản (AGV): Sử dụng AGV cho các nhiệm vụ vận chuyển lặp đi lặp lại trên quãng đường cố định.</span> / <em class="text-gray-600" data-lang-key="ai_guide_manu_start3_en">Experiment with simple AGVs: Use Automated Guided Vehicles for repetitive transport tasks on fixed routes.</em></li>
+                        <li><span data-lang-key="ai_guide_manu_start4">Phân tích dữ liệu sản xuất: Dùng công cụ BI (Business Intelligence) có tích hợp AI để phân tích hiệu suất dây chuyền, tìm ra các điểm nghẽn.</span> / <em class="text-gray-600" data-lang-key="ai_guide_manu_start4_en">Analyze production data: Use BI tools with AI integration to analyze line performance and identify bottlenecks.</em></li>
+                    </ul>
+                </div>
+            </section>
+
+             <section id="agriculture" class="industry-section p-6 md:p-8 bg-white rounded-lg shadow-lg border-l-4 border-lime-500">
+                 <h2 class="text-2xl font-bold flex items-center !border-lime-600 text-lime-700">
+                    <i class="fas fa-seedling mr-3 text-lime-600"></i>
+                    <span data-lang-key="ai_guide_section_agri_title">6. Tư duy AI trong Nông nghiệp</span>
+                </h2>
+                 <h3 class="text-lg font-medium text-gray-600 mb-6 !text-lime-600" data-lang-key="ai_guide_section_agri_subtitle">6. AI Mindset in Agriculture</h3>
+
+                <h4 data-lang-key="ai_guide_core_questions_title">Câu hỏi cốt lõi:</h4>
+                 <h5 class="text-md font-medium text-gray-500 mb-3" data-lang-key="ai_guide_core_questions_subtitle">Core Questions:</h5>
+                <div class="lang-pair">
+                    <p data-lang-key="ai_guide_agri_q">Làm sao chăm sóc cây trồng/vật nuôi đúng nhu cầu nhất? Làm sao phát hiện sâu bệnh, dịch bệnh sớm? Làm sao dự báo năng suất chính xác?</p>
+                    <p class="italic" data-lang-key="ai_guide_agri_q_en">How to care for crops/livestock according to their exact needs? How to detect pests and diseases early? How to accurately forecast yield?</p>
+                </div>
+
+                <h4 data-lang-key="ai_guide_mindset_title">Hướng tư duy chi tiết:</h4>
+                 <h5 class="text-md font-medium text-gray-500 mb-3" data-lang-key="ai_guide_mindset_subtitle">Detailed Mindset Approach:</h5>
+                 <div class="mb-6">
+                    <strong data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</strong> / <em class="text-gray-600" data-lang-key="ai_guide_human_mindset_title_en">Required Human Mindset:</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_agri_mindset1">Quan sát chi tiết: Chú ý đến những thay đổi nhỏ trên cây trồng, vật nuôi và môi trường, xem dữ liệu là cách khuếch đại khả năng quan sát này.</span> / <em class="text-gray-600" data-lang-key="ai_guide_agri_mindset1_en">Detailed observation: Pay attention to small changes in crops, livestock, and the environment, viewing data as a way to amplify this observation skill.</em></li>
+                        <li><span data-lang-key="ai_guide_agri_mindset2">Tư duy chính xác: Mong muốn cung cấp đúng lượng nước, phân bón, thuốc cho đúng nơi, đúng lúc, thay vì làm đồng loạt.</span> / <em class="text-gray-600" data-lang-key="ai_guide_agri_mindset2_en">Precision thinking: Aim to provide the right amount of water, fertilizer, medicine to the right place at the right time, instead of uniform application.</em></li>
+                        <li><span data-lang-key="ai_guide_agri_mindset3">Thích ứng với môi trường: Sử dụng AI để hiểu rõ hơn về tác động của thời tiết, đất đai và đưa ra quyết định canh tác/chăn nuôi phù hợp.</span> / <em class="text-gray-600" data-lang-key="ai_guide_agri_mindset3_en">Adaptation to environment: Use AI to better understand the impact of weather and soil, making informed farming/livestock decisions.</em></li>
+                        <li><span data-lang-key="ai_guide_agri_mindset4">Tối ưu hóa tài nguyên: Tìm cách sử dụng nước, phân bón, thức ăn chăn nuôi hiệu quả nhất nhờ sự hỗ trợ của AI.</span> / <em class="text-gray-600" data-lang-key="ai_guide_agri_mindset4_en">Resource optimization: Seek ways to use water, fertilizer, and feed most efficiently with AI assistance.</em></li>
+                    </ul>
+                </div>
+                 <div class="mb-6">
+                    <strong data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI (Đơn giản hóa):</strong> / <em class="text-gray-600" data-lang-key="ai_guide_core_ops_title_en">Understanding Core AI Operations (Simplified):</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_agri_ops1">AI "nhìn" và phân loại: Khi AI phân tích ảnh chụp từ drone, nó so sánh màu sắc, kết cấu của lá cây với cơ sở dữ liệu ảnh đã được gán nhãn (khỏe mạnh, thiếu đạm, bị bệnh A,...) để chẩn đoán.</span> / <em class="text-gray-600" data-lang-key="ai_guide_agri_ops1_en">AI "sees" and classifies: When AI analyzes drone images, it compares leaf color and texture against a labeled image database (healthy, nitrogen-deficient, disease A, etc.) for diagnosis.</em></li>
+                        <li><span data-lang-key="ai_guide_agri_ops2">AI học mối quan hệ: Khi dự báo năng suất, AI "học" mối liên hệ phức tạp giữa các yếu tố đầu vào (lượng mưa, nhiệt độ, loại đất, lượng phân bón) và kết quả đầu ra (năng suất) từ dữ liệu lịch sử.</span> / <em class="text-gray-600" data-lang-key="ai_guide_agri_ops2_en">AI learns relationships: When forecasting yield, AI "learns" the complex relationship between inputs (rainfall, temperature, soil type, fertilizer amount) and outputs (yield) from historical data.</em></li>
+                        <li><span data-lang-key="ai_guide_agri_ops3">AI tối ưu hóa dựa trên điều kiện: Khi đưa ra quyết định tưới tiêu, AI xem xét dữ liệu độ ẩm đất, dự báo thời tiết, giai đoạn phát triển của cây để tính toán lượng nước tối ưu.</span> / <em class="text-gray-600" data-lang-key="ai_guide_agri_ops3_en">AI optimizes based on conditions: When making irrigation decisions, AI considers soil moisture data, weather forecasts, and crop growth stage to calculate the optimal water amount.</em></li>
+                    </ul>
+                </div>
+                <div>
+                    <strong data-lang-key="ai_guide_getting_started_title">Bắt đầu với AI không hề phức tạp - Đây là vài gợi ý:</strong> / <em class="text-gray-600" data-lang-key="ai_guide_getting_started_title_en">Getting Started with AI is Simpler Than You Think - Here Are Some Ideas:</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_agri_start1">Sử dụng ứng dụng nông nghiệp thông minh: Cài đặt các ứng dụng di động cung cấp dự báo thời tiết nông nghiệp, cảnh báo sâu bệnh dựa trên AI.</span> / <em class="text-gray-600" data-lang-key="ai_guide_agri_start1_en">Use smart farming apps: Install mobile apps providing AI-based agricultural weather forecasts and pest alerts.</em></li>
+                        <li><span data-lang-key="ai_guide_agri_start2">Lắp đặt cảm biến đơn giản: Bắt đầu với cảm biến độ ẩm đất, nhiệt độ ở một vài khu vực đại diện để thu thập dữ liệu.</span> / <em class="text-gray-600" data-lang-key="ai_guide_agri_start2_en">Install simple sensors: Start with soil moisture and temperature sensors in a few representative areas to collect data.</em></li>
+                        <li><span data-lang-key="ai_guide_agri_start3">Sử dụng drone chụp ảnh cơ bản: Chụp ảnh tổng thể cánh đồng/trang trại định kỳ và sử dụng các phần mềm phân tích ảnh đơn giản (có thể có AI) để theo dõi sức khỏe cây trồng.</span> / <em class="text-gray-600" data-lang-key="ai_guide_agri_start3_en">Use basic drone photography: Take periodic aerial photos of the farm and use simple image analysis software (possibly AI-enabled) to monitor crop health.</em></li>
+                        <li><span data-lang-key="ai_guide_agri_start4">Tham khảo các mô hình dự báo năng suất: Sử dụng các công cụ trực tuyến hoặc dịch vụ cung cấp dự báo năng suất dựa trên AI cho khu vực của bạn.</span> / <em class="text-gray-600" data-lang-key="ai_guide_agri_start4_en">Consult yield forecast models: Use online tools or services providing AI-based yield forecasts for your region.</em></li>
+                    </ul>
+                </div>
+            </section>
+
+             <section id="hospitality" class="industry-section p-6 md:p-8 bg-white rounded-lg shadow-lg border-l-4 border-purple-500">
+                 <h2 class="text-2xl font-bold flex items-center !border-purple-600 text-purple-700">
+                    <i class="fas fa-concierge-bell mr-3 text-purple-600"></i>
+                    <span data-lang-key="ai_guide_section_hosp_title">7. Tư duy AI trong Du lịch & Nhà hàng Khách sạn</span>
+                </h2>
+                 <h3 class="text-lg font-medium text-gray-600 mb-6 !text-purple-600" data-lang-key="ai_guide_section_hosp_subtitle">7. AI Mindset in Tourism & Hospitality</h3>
+
+                <h4 data-lang-key="ai_guide_core_questions_title">Câu hỏi cốt lõi:</h4>
+                 <h5 class="text-md font-medium text-gray-500 mb-3" data-lang-key="ai_guide_core_questions_subtitle">Core Questions:</h5>
+                <div class="lang-pair">
+                    <p data-lang-key="ai_guide_hosp_q">Làm thế nào để cá nhân hóa trải nghiệm cho từng du khách? Làm sao để dự đoán nhu cầu đặt phòng/dịch vụ và tối ưu giá cả? Làm sao để quản lý đánh giá và phản hồi của khách hàng hiệu quả?</p>
+                    <p class="italic" data-lang-key="ai_guide_hosp_q_en">How to personalize the experience for each guest? How to predict booking/service demand and optimize pricing? How to effectively manage customer reviews and feedback?</p>
+                </div>
+
+                <h4 data-lang-key="ai_guide_mindset_title">Hướng tư duy chi tiết:</h4>
+                 <h5 class="text-md font-medium text-gray-500 mb-3" data-lang-key="ai_guide_mindset_subtitle">Detailed Mindset Approach:</h5>
+                 <div class="mb-6">
+                    <strong data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</strong> / <em class="text-gray-600" data-lang-key="ai_guide_human_mindset_title_en">Required Human Mindset:</em>
+                     <ul>
+                        <li><span data-lang-key="ai_guide_hosp_mindset1">Thấu hiểu khách hàng sâu sắc: Mong muốn biết rõ sở thích, nhu cầu, hành vi của khách hàng để phục vụ tốt hơn (AI giúp phân tích dữ liệu để làm điều này).</span> / <em class="text-gray-600" data-lang-key="ai_guide_hosp_mindset1_en">Deep customer understanding: Desire to know customer preferences, needs, and behaviors to serve them better (AI helps analyze data for this).</em></li>
+                        <li><span data-lang-key="ai_guide_hosp_mindset2">Linh hoạt và thích ứng: Sẵn sàng điều chỉnh giá cả, dịch vụ dựa trên dự báo nhu cầu thay đổi liên tục do AI cung cấp.</span> / <em class="text-gray-600" data-lang-key="ai_guide_hosp_mindset2_en">Flexibility and adaptability: Be ready to adjust pricing and services based on continuously changing demand forecasts provided by AI.</em></li>
+                        <li><span data-lang-key="ai_guide_hosp_mindset3">Chú trọng danh tiếng trực tuyến: Coi trọng mọi đánh giá, phản hồi và sử dụng AI để theo dõi, phân tích và phản hồi kịp thời.</span> / <em class="text-gray-600" data-lang-key="ai_guide_hosp_mindset3_en">Focus on online reputation: Value all reviews and feedback, using AI to monitor, analyze, and respond promptly.</em></li>
+                        <li><span data-lang-key="ai_guide_hosp_mindset4">Tối ưu hóa hoạt động: Tìm cách dùng AI để tự động hóa các quy trình (như check-in/check-out đơn giản, trả lời câu hỏi thường gặp) và tối ưu hóa việc phân bổ nhân sự.</span> / <em class="text-gray-600" data-lang-key="ai_guide_hosp_mindset4_en">Operational optimization: Look for ways to use AI to automate processes (like simple check-in/out, answering FAQs) and optimize staff allocation.</em></li>
+                    </ul>
+                </div>
+                 <div class="mb-6">
+                    <strong data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI (Đơn giản hóa):</strong> / <em class="text-gray-600" data-lang-key="ai_guide_core_ops_title_en">Understanding Core AI Operations (Simplified):</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_hosp_ops1">AI gợi ý cá nhân hóa: Dựa trên lịch sử đặt phòng, tìm kiếm, hoặc hồ sơ khách hàng, AI "học" sở thích và gợi ý các gói dịch vụ, điểm tham quan, nhà hàng phù hợp.</span> / <em class="text-gray-600" data-lang-key="ai_guide_hosp_ops1_en">AI personalized recommendations: Based on booking history, searches, or customer profiles, AI "learns" preferences and suggests suitable service packages, attractions, or restaurants.</em></li>
+                        <li><span data-lang-key="ai_guide_hosp_ops2">AI định giá động: AI phân tích dữ liệu lịch sử đặt phòng, sự kiện sắp diễn ra, giá của đối thủ, dự báo thời tiết,... để "dự đoán" nhu cầu và đề xuất mức giá tối ưu nhằm tối đa hóa doanh thu.</span> / <em class="text-gray-600" data-lang-key="ai_guide_hosp_ops2_en">AI dynamic pricing: AI analyzes historical booking data, upcoming events, competitor pricing, weather forecasts, etc., to "predict" demand and suggest optimal prices to maximize revenue.</em></li>
+                        <li><span data-lang-key="ai_guide_hosp_ops3">AI phân tích cảm xúc: AI (NLP) "đọc" hàng ngàn đánh giá của khách hàng trên các nền tảng (Booking, Agoda, TripAdvisor) để xác định các chủ đề được nhắc đến nhiều nhất và sắc thái tình cảm (hài lòng/không hài lòng) về từng khía cạnh (phòng ốc, dịch vụ, đồ ăn,...).</span> / <em class="text-gray-600" data-lang-key="ai_guide_hosp_ops3_en">AI sentiment analysis: AI (NLP) "reads" thousands of customer reviews on platforms (Booking, Agoda, TripAdvisor) to identify the most mentioned topics and the sentiment (satisfied/dissatisfied) towards each aspect (rooms, service, food, etc.).</em></li>
+                    </ul>
+                </div>
+                <div>
+                    <strong data-lang-key="ai_guide_getting_started_title">Bắt đầu với AI không hề phức tạp - Đây là vài gợi ý:</strong> / <em class="text-gray-600" data-lang-key="ai_guide_getting_started_title_en">Getting Started with AI is Simpler Than You Think - Here Are Some Ideas:</em>
+                    <ul>
+                        <li><span data-lang-key="ai_guide_hosp_start1">Sử dụng hệ thống quản lý doanh thu (RMS) có AI: Các hệ thống này thường tích hợp sẵn tính năng định giá động và dự báo nhu cầu.</span> / <em class="text-gray-600" data-lang-key="ai_guide_hosp_start1_en">Use AI-powered Revenue Management Systems (RMS): These systems often have built-in dynamic pricing and demand forecasting features.</em></li>
+                        <li><span data-lang-key="ai_guide_hosp_start2">Triển khai chatbot trên website/fanpage: Tự động trả lời các câu hỏi về giờ mở cửa, địa chỉ, tiện nghi, chính sách đặt phòng.</span> / <em class="text-gray-600" data-lang-key="ai_guide_hosp_start2_en">Deploy chatbots on website/fanpage: Automatically answer questions about opening hours, address, amenities, booking policies.</em></li>
+                        <li><span data-lang-key="ai_guide_hosp_start3">Dùng công cụ quản lý danh tiếng trực tuyến: Sử dụng các phần mềm giúp tổng hợp và phân tích đánh giá từ nhiều nguồn, có thể tích hợp AI để tóm tắt ý chính.</span> / <em class="text-gray-600" data-lang-key="ai_guide_hosp_start3_en">Use online reputation management tools: Utilize software that aggregates and analyzes reviews from multiple sources, possibly with AI for summarizing key points.</em></li>
+                        <li><span data-lang-key="ai_guide_hosp_start4">Phân tích dữ liệu khách hàng cơ bản: Sử dụng các công cụ BI để xem báo cáo về nguồn khách, thời gian lưu trú, dịch vụ hay sử dụng, tìm kiếm các insight do AI gợi ý.</span> / <em class="text-gray-600" data-lang-key="ai_guide_hosp_start4_en">Analyze basic customer data: Use BI tools to view reports on guest origins, length of stay, frequently used services, looking for AI-suggested insights.</em></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="mt-16 p-6 md:p-8 bg-indigo-100 rounded-lg shadow-inner border border-indigo-300">
+                <h2 class="text-2xl font-semibold text-indigo-700 !border-b-0 !pb-0 !mb-4 flex items-center">
+                    <i class="fas fa-star mr-2"></i> <span data-lang-key="ai_guide_emphasis_title">Nhấn mạnh</span>
+                </h2>
+                 <h3 class="text-lg font-medium text-indigo-600 mb-4" data-lang-key="ai_guide_emphasis_subtitle">Emphasis</h3>
+                <div class="lang-pair bg-white p-4 rounded shadow-sm">
+                    <p data-lang-key="ai_guide_emphasis_p1">Chìa khóa không nằm ở việc bạn phải biết lập trình AI, mà là khả năng **đặt đúng câu hỏi**, **nhìn nhận vấn đề** bằng tư duy dựa trên dữ liệu, và **sẵn sàng thử nghiệm** các giải pháp mới. AI là công cụ mạnh mẽ để hỗ trợ con người đưa ra quyết định tốt hơn, tối ưu hóa công việc và nâng cao hiệu quả. Hãy bắt đầu từ những vấn đề nhỏ, đo lường được và tập trung vào giá trị thực tế mà AI mang lại. Việc này hoàn toàn nằm trong tầm tay của bạn và đội ngũ.</p>
+                    <p class="italic" data-lang-key="ai_guide_emphasis_p1_en">The key is not needing to know AI programming, but the ability to **ask the right questions**, **view problems** with a data-driven mindset, and be **willing to experiment** with new solutions. AI is a powerful tool to help humans make better decisions, optimize work, and enhance efficiency. Start with small, measurable problems and focus on the real value AI brings. This is entirely within your and your team's reach.</p>
+                </div>
+            </section>
+        </div> </main>
+
+    <footer id="footer-placeholder"></footer>
+
+    <script src="js/language.js" defer></script>
+    <script src="js/script.js" defer></script>
+    </body>
 </html>
