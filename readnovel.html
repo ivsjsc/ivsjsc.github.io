@@ -1,1 +1,167 @@
-a
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn Truyện Để Đọc</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .dark-mode .container {
+            background-color: #2c2c2c;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .dark-mode h1 {
+            color: #b0c4de;
+        }
+        .novel-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .novel-card {
+            width: 250px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .dark-mode .novel-card {
+            background-color: #3a3a3a;
+        }
+        .novel-card:hover {
+            transform: scale(1.05);
+        }
+        .novel-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .novel-card h3 {
+            margin: 10px;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+        .dark-mode .novel-card h3 {
+            color: #b0c4de;
+        }
+        .novel-card p {
+            margin: 0 10px 10px;
+            font-size: 14px;
+            color: #555;
+        }
+        .dark-mode .novel-card p {
+            color: #ccc;
+        }
+        .novel-card a {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 0 0 8px 8px;
+            transition: background-color 0.3s;
+        }
+        .novel-card a:hover {
+            background-color: #2980b9;
+        }
+        .settings {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .settings button {
+            padding: 8px 15px;
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .settings button:hover {
+            background-color: #c0392b;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            .novel-card {
+                width: 100%;
+            }
+            .settings {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chọn Truyện Để Đọc</h1>
+        <div class="settings">
+            <button onclick="toggleDarkMode()">Chuyển chế độ sáng/tối</button>
+        </div>
+        <div class="novel-list">
+            <div class="novel-card">
+                <img src="https://via.placeholder.com/250x150?text=LEGNAXE+VI+P1" alt="LEGNAXE Cover VI P1">
+                <h3>LEGNAXE: Bí Mật Cuộc Đại Chiến Thiên Đàng (Phần 1 - Tiếng Việt)</h3>
+                <p>Bí mật đằng sau cuộc chiến vĩ đại trên Thiên Đàng.</p>
+                <a href="legnaxe_part1_vi.html">Đọc ngay</a>
+            </div>
+            <div class="novel-card">
+                <img src="https://via.placeholder.com/250x150?text=LEGNAXE+EN+P1" alt="LEGNAXE Cover EN P1">
+                <h3>LEGNAXE: Secrets of Heaven's Great War (Part 1 - English)</h3>
+                <p>The secrets behind the great war in Heaven.</p>
+                <a href="legnaxe_part1_en.html">Read Now</a>
+            </div>
+             <div class="novel-card">
+                <img src="https://via.placeholder.com/250x150?text=LEGNAXE+VI+P2" alt="LEGNAXE Cover VI P2">
+                <h3>LEGNAXE: Heavenly, Human’s Heart (Phần 2 - Tiếng Việt)</h3>
+                <p>Hành trình ở Trần Gian và bài học về trái tim con người.</p>
+                <a href="legnaxe_part2_vi.html">Đọc ngay</a>
+            </div>
+             <div class="novel-card">
+                <img src="https://via.placeholder.com/250x150?text=LEGNAXE+EN+P2 (Coming Soon)" alt="LEGNAXE Cover EN P2">
+                <h3>LEGNAXE: Heavenly, Human’s Heart (Part 2 - English - Coming Soon)</h3>
+                <p>The journey on Earth and the lesson of the human heart.</p>
+                <a href="#" onclick="alert('Truyện đang được cập nhật.')">Đọc ngay</a>
+            </div>
+            </div>
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+</body>
+</html>
