@@ -1,6 +1,6 @@
 /* ========================== */
 /* Optimized JavaScript Logic */
-/* Version: Combined Language & Search */
+/* Version: Fixed script load order for translations */
 /* ========================== */
 
 // --- Constants ---
@@ -11,7 +11,7 @@ const HEADER_PLACEHOLDER_ID = 'header-placeholder';
 const FOOTER_PLACEHOLDER_ID = 'footer-placeholder';
 const NEWS_CONTAINER_ID = 'news-container';
 const FOOTER_YEAR_ID = 'current-year';
-const SEARCH_HIGHLIGHT_CLASS = 'search-highlight'; // Class for highlighting
+const SEARCH_HIGHLIGHT_CLASS = 'search-highlight';
 
 // --- State Flags ---
 let headerFooterLoadAttempted = false;
@@ -296,10 +296,12 @@ function loadInternalNews() {
     const newsContainer = document.getElementById(NEWS_CONTAINER_ID);
     if (!newsContainer) return;
 
+    // FIXED: Check for window.translations AFTER language system is initialized
     if (typeof window.translations === 'undefined') {
-        console.error("[Script] Translations object not found.");
-        newsContainer.innerHTML = `<p class="text-red-500">Lỗi: Không tìm thấy dữ liệu dịch.</p>`;
-        return;
+        console.error("[Script] Translations object not found when loadInternalNews called.");
+        // Display a generic loading message or wait, don't show translation error yet
+        newsContainer.innerHTML = `<p class="text-gray-500 w-full text-center">Đang chuẩn bị dữ liệu...</p>`;
+        return; // Exit if translations aren't ready
     }
 
     const currentLang = localStorage.getItem('preferredLanguage') || 'vi';
@@ -328,12 +330,9 @@ function loadInternalNews() {
                 const postElement = document.createElement('div');
                 postElement.className = 'news-card flex-shrink-0 w-72 bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 scroll-snap-align-start';
 
-                // --- Read multi-language title/excerpt ---
                 const postTitle = post.title?.[currentLang] || post.title?.['vi'] || newsTitleNaText;
                 const postExcerpt = post.excerpt?.[currentLang] || post.excerpt?.['vi'] || '';
                 const imageAlt = post.title?.[currentLang] || post.title?.['vi'] || newsImageAltText;
-                // --- End multi-language read ---
-
                 const hotBadge = post.hot ? `<span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full z-10">HOT</span>` : '';
                 const imageSrc = post.image || 'https://placehold.co/300x200/e2e8f0/cbd5e1?text=Image';
                 let postDate = '';
@@ -402,30 +401,39 @@ document.addEventListener('DOMContentLoaded', () => {
         if (footerLoaded) updateFooterYear();
 
         // Initialize language system AFTER components are loaded
+        // Use a small delay to increase chance language.js has executed
         setTimeout(() => {
             if (typeof initializeLanguage === 'function') {
                 if (!window.languageInitialized) {
-                    console.log("[Script] Initializing language...");
-                    initializeLanguage(); // Applies initial translations
-                    window.attachLanguageButtonListeners?.();
+                    console.log("[Script] Initializing language system...");
+                    initializeLanguage(); // This will call setLanguage, which calls applyTranslations and loadInternalNews
+                    window.attachLanguageButtonListeners?.(); // Attach listeners after init
                 } else {
-                    console.log("[Script] Re-applying translations/listeners...");
+                    // If already initialized (e.g., SPA navigation), just re-apply and attach listeners
+                    console.log("[Script] Language already initialized, re-applying translations/listeners...");
                     const currentLang = localStorage.getItem('preferredLanguage') || 'vi';
-                    applyTranslations?.(currentLang);
+                    if(typeof applyTranslations === 'function') applyTranslations(currentLang);
+                    // Re-load news explicitly if needed on re-init, though setLanguage should handle it
+                    if (document.getElementById(NEWS_CONTAINER_ID)) loadInternalNews();
                     window.attachLanguageButtonListeners?.();
                 }
             } else {
-                console.error("[Script] initializeLanguage not found.");
+                console.error("[Script] initializeLanguage function not found. Language features disabled.");
+                // If language fails, maybe try loading news with default language?
+                if (document.getElementById(NEWS_CONTAINER_ID)) {
+                    console.warn("[Script] Language system failed, attempting to load news with default language.");
+                    // Temporarily define minimal translations for loadInternalNews fallbacks
+                    window.translations = { vi: { read_more: 'Đọc thêm →', news_title_na: 'Tiêu đề không có sẵn', news_image_alt: 'Hình ảnh tin tức', no_news: 'Chưa có tin tức nào.', news_load_error: 'Không thể tải tin tức.', loading_news: 'Đang tải tin tức...' } };
+                    loadInternalNews();
+                }
             }
-        }, 50);
+        }, 100); // Increased delay slightly
     });
 
+    // --- Page-Specific Initializations (Run after DOMContentLoaded, potentially before language is fully ready) ---
     const bodyId = document.body.id;
-    // News loading is triggered by language initialization/change via setLanguage in language.js
-    // if (bodyId === 'page-index' || document.getElementById(NEWS_CONTAINER_ID)) {
-    //     console.log("[Script] Loading news initially...");
-    //     loadInternalNews();
-    // }
+
+    // REMOVED initial call to loadInternalNews here - it's now handled by language initialization
 
     if (document.getElementById('vnexpress-rss-feed')) {
         console.log("[Script] RSS container found.");
