@@ -269,7 +269,7 @@ const translations = {
         form_button_submit: "Gửi yêu cầu Tư vấn",
         consultation_alt_contact_prefix: "Hoặc liên hệ trực tiếp với chúng tôi qua:",
         phone_number: "Số điện thoại", // Key mới (nếu dùng riêng)
-        email_address: "Địa chỉ Email", // Key mới (nếu dùng riêng)
+        email_address: "Địa chỉ Email: ivscorp.vn@gmail.com", // Key mới (nếu dùng riêng)
 
         // --- Trang Hướng dẫn AI ---
         ai_guide_page_title: "Hướng dẫn Tư duy AI theo Ngành nghề - IVS Education",
