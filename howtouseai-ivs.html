@@ -8,8 +8,7 @@
     <meta property="og:title" content="Hướng dẫn Tư duy AI theo Ngành nghề - IVS Education" data-lang-key="og_title_ai_guide">
     <meta property="og:description" content="Định hình tư duy nền tảng để ứng dụng AI thành công, bất kể công cụ bạn sử dụng." data-lang-key="og_description_ai_guide">
     <meta property="og:image" content="https://placehold.co/1200x630/4f46e5/ffffff?text=AI+Mindset+Guide">
-    <meta property="og:url" content="https://ivsjsc.github.io/howtouseai-ivs.html">
-    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ivsjsc.github.io/howtouseai-ivs.html"> <meta property="og:type" content="website">
 
     <link rel="icon" href="images/logo/logo.png" type="image/x-icon" onerror="this.href='https://placehold.co/32x32/4f46e5/ffffff?text=IVS'">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,275 +47,259 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-      body {
-        scroll-behavior: smooth;
-        -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit */
-        -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
+      :root {
+          /* Define CSS variables for header colors and height */
+          --header-bg-initial: theme('colors.header-orange'); /* Initial background */
+          --header-bg-scroll: theme('colors.white'); /* Background on scroll */
+          --header-text-initial: theme('colors.white'); /* Initial text color */
+          --header-text-scroll: theme('colors.gray.800'); /* Text color on scroll */
+          --header-hover-bg-initial: theme('colors.orange.600'); /* Hover background initial */
+          --header-hover-bg-scroll: theme('colors.gray.100'); /* Hover background on scroll */
+          --cta-bg-initial: theme('colors.white'); /* CTA button background initial */
+          --cta-bg-scroll: theme('colors.blue.600'); /* CTA button background on scroll */
+          --cta-text-initial: theme('colors.header-orange'); /* CTA button text initial */
+          --cta-text-scroll: theme('colors.white'); /* CTA button text on scroll */
+          --cta-hover-bg-initial: theme('colors.gray.100'); /* CTA hover background initial */
+          --cta-hover-bg-scroll: theme('colors.blue.700'); /* CTA hover background on scroll */
+          --header-height-initial: 5rem; /* 80px */
+          --header-height-scroll: 4rem; /* 64px */
       }
+
+      html {
+          scroll-behavior: smooth;
+      }
+
+      body {
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          padding-top: var(--header-height-initial); /* Add padding to body to prevent content overlap */
+          transition: padding-top 0.3s ease-in-out; /* Smooth transition for padding */
+      }
+
+      body.scrolled {
+          padding-top: var(--header-height-scroll); /* Adjust padding when header is scrolled */
+      }
+
+      /* Header Styling */
+      #navbar {
+          background-color: var(--header-bg-initial);
+          color: var(--header-text-initial);
+          height: var(--header-height-initial);
+          --header-bg: var(--header-bg-initial); /* Set CSS variable for JS */
+          --header-hover-bg: var(--header-hover-bg-initial);
+          --cta-bg: var(--cta-bg-initial);
+          --cta-text: var(--cta-text-initial);
+          --cta-hover-bg: var(--cta-hover-bg-initial);
+          transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, height 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      }
+      #navbar.scrolled {
+          background-color: var(--header-bg-scroll);
+          color: var(--header-text-scroll);
+          height: var(--header-height-scroll);
+          box-shadow: theme('boxShadow.md');
+          --header-bg: var(--header-bg-scroll);
+          --header-hover-bg: var(--header-hover-bg-scroll);
+          --cta-bg: var(--cta-bg-scroll);
+          --cta-text: var(--cta-text-scroll);
+          --cta-hover-bg: var(--cta-hover-bg-scroll);
+      }
+      #navbar .nav-link,
+      #navbar .main-menu-item > button {
+          padding: 0.5rem 0.75rem;
+          border-radius: 0.375rem; /* rounded-md */
+          font-weight: 500; /* font-medium */
+          transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+          color: inherit; /* Ensure button text color matches parent */
+          display: inline-flex; /* Align icon correctly */
+          align-items: center; /* Align icon correctly */
+          cursor: pointer;
+          background: none; /* Remove default button background */
+          border: none; /* Remove default button border */
+          text-align: left; /* Align text left */
+      }
+      #navbar .nav-link:hover,
+      #navbar .nav-link:focus,
+      #navbar .main-menu-item > button:hover,
+      #navbar .main-menu-item > button:focus {
+          background-color: var(--header-hover-bg);
+          color: var(--header-text-initial); /* Keep initial text color on hover for contrast */
+          outline: none; /* Remove focus outline */
+      }
+      #navbar.scrolled .nav-link:hover,
+      #navbar.scrolled .nav-link:focus,
+      #navbar.scrolled .main-menu-item > button:hover,
+      #navbar.scrolled .main-menu-item > button:focus {
+          color: var(--header-text-scroll); /* Use scrolled text color on hover when scrolled */
+      }
+      /* Logo height transition */
+      #navbar .logo-img {
+          height: calc(var(--header-height-initial) - 2.5rem); /* Adjust padding */
+          transition: height 0.3s ease-in-out;
+      }
+      #navbar.scrolled .logo-img {
+          height: calc(var(--header-height-scroll) - 1.5rem); /* Adjust padding */
+      }
+      /* Dropdown Menu Styling */
+      .submenu, .sub-submenu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          z-index: 1000;
+          display: none;
+          min-width: 100%; /* Make dropdown at least as wide as parent */
+          width: max-content; /* Allow dropdown to expand based on content */
+          padding-top: 0.5rem; /* space above submenu */
+          padding-bottom: 0.5rem; /* space below submenu */
+          background-color: white;
+          border-radius: 0.5rem; /* rounded-lg */
+          box-shadow: theme('boxShadow.lg');
+          border: 1px solid theme('colors.gray.200');
+          opacity: 0;
+          transform: translateY(10px);
+          transition: opacity 0.2s ease-out, transform 0.2s ease-out, display 0s linear 0.2s; /* Delay hiding */
+      }
+      .sub-submenu {
+          top: -0.5rem; /* Align with parent item */
+          left: 100%;
+          margin-left: 0.25rem; /* Small gap */
+      }
+      .group:hover .submenu,
+      .group:focus-within .submenu, /* Show on focus */
+      .group\/sub:hover .sub-submenu,
+      .group\/sub:focus-within .sub-submenu {
+          display: block;
+          opacity: 1;
+          transform: translateY(0);
+          transition: opacity 0.2s ease-out, transform 0.2s ease-out, display 0s linear 0s; /* Show immediately */
+      }
+      .submenu a, .submenu button,
+      .sub-submenu a, .sub-submenu button {
+          display: block;
+          width: 100%; /* Ensure full width */
+          padding: 0.6rem 1rem; /* py-2.5 px-4 */
+          font-size: 0.875rem; /* text-sm */
+          color: theme('colors.gray.700');
+          white-space: nowrap;
+          transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+          text-align: left; /* Align text left */
+          background: none; /* Remove default button background */
+          border: none; /* Remove default button border */
+          cursor: pointer;
+      }
+      .submenu a:hover, .submenu button:hover,
+      .sub-submenu a:hover, .sub-submenu button:hover {
+          background-color: theme('colors.gray.100');
+          color: theme('colors.gray.900');
+      }
+      /* Language Dropdown */
+      .language-dropdown .dropdown-toggle {
+          display: inline-flex;
+          align-items: center;
+          padding: 0.5rem 0.75rem;
+          border-radius: 9999px; /* rounded-full */
+          font-weight: 500;
+          transition: background-color 0.2s ease-in-out;
+          cursor: pointer;
+          background: none; border: none;
+          color: inherit; /* Inherit color from header */
+      }
+      .language-dropdown .dropdown-toggle:hover {
+          background-color: var(--header-hover-bg);
+      }
+      .language-dropdown-content {
+          position: absolute;
+          right: 0;
+          top: calc(100% + 0.5rem);
+          background-color: white;
+          border-radius: 0.375rem; /* rounded-md */
+          box-shadow: theme('boxShadow.lg');
+          border: 1px solid theme('colors.gray.200');
+          z-index: 1000;
+          min-width: 4rem; /* Adjust as needed */
+          overflow: hidden;
+          display: none; /* Hidden by default */
+      }
+      .language-dropdown-content.show {
+          display: block; /* Show when toggled */
+      }
+      .language-dropdown-content button {
+          display: block; /* Ensure buttons are block level */
+          width: 100%; /* Full width */
+          padding: 0.5rem 1rem;
+          font-size: 0.875rem;
+          color: theme('colors.gray.700');
+          transition: background-color 0.15s ease-in-out;
+          text-align: left;
+          background: none; border: none; cursor: pointer;
+      }
+      .language-dropdown-content button:hover {
+          background-color: theme('colors.gray.100');
+      }
+
+      /* Mobile Menu Styling */
+      #mobile-menu-panel { background-color: white; color: theme('colors.gray.800'); }
+      #mobile-menu-panel .nav-link { color: theme('colors.gray.700'); }
+      #mobile-menu-panel .nav-link:hover { background-color: theme('colors.gray.100'); color: theme('colors.gray.900'); }
+      .mobile-submenu { display: none; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+      .mobile-submenu.open { display: block; max-height: 500px; /* Adjust as needed */ }
+      .mobile-submenu-toggle { cursor: pointer; background: none; border: none; width: 100%; text-align: left; padding: 0; } /* Style toggle button */
+      .mobile-submenu-toggle .submenu-arrow { transition: transform 0.2s ease-in-out; }
+      .mobile-submenu-toggle[aria-expanded="true"] .submenu-arrow { transform: rotate(90deg); }
+      #mobile-language-dropdown .language-dropdown-content { bottom: calc(100% + 0.5rem); top: auto; } /* Position above button */
+
       /* Style for the AI tools table */
       .ai-tools-table-container {
-        border-radius: 0.75rem; /* rounded-xl */
-        box-shadow: theme('boxShadow.lg');
-        overflow: hidden;
-        margin-bottom: 2rem; /* mb-8 */
-        border: 1px solid theme('colors.gray.200');
+          border-radius: 0.75rem; box-shadow: theme('boxShadow.lg'); overflow: hidden; margin-bottom: 2rem; border: 1px solid theme('colors.gray.200');
       }
-      .ai-tools-table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-      .ai-tools-table th,
-      .ai-tools-table td {
-        padding: 1rem 1.25rem; /* px-5 py-4 */
-        text-align: left;
-        vertical-align: top;
-        border-bottom: 1px solid theme('colors.gray.200');
-        font-size: 0.9rem; /* Slightly smaller text */
-        line-height: 1.6;
-      }
-      .ai-tools-table thead th {
-        background-color: theme('colors.gray.100');
-        font-weight: 700; /* font-bold */
-        font-size: 0.8rem; /* text-xs */
-        text-transform: uppercase;
-        letter-spacing: 0.05em; /* tracking-wider */
-        color: theme('colors.gray.700');
-        border-bottom-width: 2px;
-        border-color: theme('colors.gray.300');
-      }
-      .ai-tools-table tbody tr:last-child td {
-        border-bottom: none;
-      }
-      .ai-tools-table tbody tr:nth-child(even) {
-        background-color: theme('colors.gray.50');
-      }
-      .ai-tools-table td a {
-        color: theme('colors.blue.600');
-        text-decoration: none;
-        font-weight: 600; /* font-semibold */
-      }
-      .ai-tools-table td a:hover {
-        text-decoration: underline;
-        color: theme('colors.blue.700');
-      }
-      /* Responsive table styles for mobile - IMPROVED READABILITY */
+      .ai-tools-table { width: 100%; border-collapse: collapse; }
+      .ai-tools-table th, .ai-tools-table td { padding: 1rem 1.25rem; text-align: left; vertical-align: top; border-bottom: 1px solid theme('colors.gray.200'); font-size: 0.9rem; line-height: 1.6; }
+      .ai-tools-table thead th { background-color: theme('colors.gray.100'); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: theme('colors.gray.700'); border-bottom-width: 2px; border-color: theme('colors.gray.300'); }
+      .ai-tools-table tbody tr:last-child td { border-bottom: none; }
+      .ai-tools-table tbody tr:nth-child(even) { background-color: theme('colors.gray.50'); }
+      .ai-tools-table td a { color: theme('colors.blue.600'); text-decoration: none; font-weight: 600; }
+      .ai-tools-table td a:hover { text-decoration: underline; color: theme('colors.blue.700'); }
+      /* Responsive Table - Improved */
       @media (max-width: 768px) {
-        .ai-tools-table thead {
-          display: none;
-        }
-        .ai-tools-table tr {
-          display: block;
-          margin-bottom: 1.5rem;
-          border: 1px solid theme('colors.gray.200');
-          border-radius: 0.5rem;
-          overflow: hidden;
-          box-shadow: theme('boxShadow.md');
-        }
-        .ai-tools-table td {
-          display: flex; /* Use flexbox for better alignment */
-          justify-content: space-between; /* Space between label and value */
-          align-items: flex-start; /* Align items to the top */
-          text-align: right;
-          padding: 0.75rem 1rem;
-          border-bottom: 1px solid theme('colors.gray.100');
-          position: relative;
-          min-height: 3rem; /* Ensure minimum height */
-          flex-wrap: wrap; /* Allow wrapping if needed */
-        }
-        .ai-tools-table td:last-child {
-            border-bottom: none;
-        }
-        /* Label styling */
-        .ai-tools-table td::before {
-          content: attr(data-label);
-          font-weight: 600;
-          color: theme('colors.gray.800');
-          text-align: left;
-          text-transform: uppercase;
-          font-size: 0.75rem;
-          padding-right: 1rem; /* Space between label and value */
-          flex-basis: 40%; /* Give label some width */
-          flex-shrink: 0; /* Prevent label from shrinking */
-          margin-bottom: 0.25rem; /* Space below label if value wraps */
-        }
-        /* Value styling */
-        .ai-tools-table td > :not(a):not(span) { /* Target direct text content or simple elements */
-            flex-basis: 55%; /* Give value remaining width */
-            text-align: right;
-        }
-        .ai-tools-table td > a,
-        .ai-tools-table td > span { /* Handle links and spans */
-            display: block;
-            width: 100%; /* Take full width if wrapped */
-            text-align: right;
-            margin-top: 0.25rem;
-        }
-         /* Specific adjustments for description cell */
-        .ai-tools-table td[data-label="Mô tả Ngắn gọn"] {
-            flex-direction: column; /* Stack label and description */
-            align-items: flex-start; /* Align left */
-            text-align: left;
-        }
-        .ai-tools-table td[data-label="Mô tả Ngắn gọn"]::before {
-             flex-basis: auto; /* Reset basis */
-             width: 100%;
-             margin-bottom: 0.5rem; /* More space */
-        }
-        .ai-tools-table td[data-label="Mô tả Ngắn gọn"] > span {
-             text-align: left;
-             line-height: 1.5;
-             margin-top: 0.1rem;
-        }
-        /* Specific adjustments for link cell */
-        .ai-tools-table td[data-label="Liên kết"] {
-             flex-direction: column;
-             align-items: flex-start;
-        }
-         .ai-tools-table td[data-label="Liên kết"] > a {
-             text-align: left;
-             margin-top: 0.25rem;
-         }
+          .ai-tools-table thead { display: none; }
+          .ai-tools-table tr { display: block; margin-bottom: 1.5rem; border: 1px solid theme('colors.gray.200'); border-radius: 0.5rem; overflow: hidden; box-shadow: theme('boxShadow.md'); background-color: white; /* Add background for cards */ }
+          .ai-tools-table td { display: flex; /* Use flex for better alignment */ justify-content: space-between; align-items: center; /* Center align items vertically */ text-align: right; padding: 0.75rem 1rem; border-bottom: 1px solid theme('colors.gray.100'); position: relative; min-height: 3rem; flex-wrap: wrap; /* Allow wrapping */ }
+          .ai-tools-table td:last-child { border-bottom: none; }
+          .ai-tools-table td::before { content: attr(data-label); font-weight: 600; color: theme('colors.gray.600'); /* Slightly lighter label */ text-align: left; text-transform: uppercase; font-size: 0.75rem; padding-right: 1rem; flex-basis: 40%; /* Adjust basis */ flex-shrink: 0; margin-bottom: 0.25rem; line-height: 1.5; /* Improve label line height */ }
+          .ai-tools-table td > * { flex-basis: 55%; text-align: right; /* Align content to the right */ }
+          /* Specific adjustments for better layout */
+          .ai-tools-table td[data-label="Mô tả Ngắn gọn"] { align-items: flex-start; /* Align description content top */ }
+          .ai-tools-table td[data-label="Mô tả Ngắn gọn"]::before { align-self: flex-start; margin-bottom: 0.5rem; }
+          .ai-tools-table td[data-label="Mô tả Ngắn gọn"] > span { text-align: left; width: 100%; /* Full width for description text */ line-height: 1.5; margin-top: 0.1rem; }
+          .ai-tools-table td[data-label="Liên kết"] { align-items: flex-start; }
+          .ai-tools-table td[data-label="Liên kết"] > a { text-align: left; margin-top: 0.25rem; display: inline-block; /* Allow multiple links */ margin-right: 0.5rem; /* Space between links */ }
       }
+
 
       /* Style for bilingual content pairs */
-      .lang-pair {
-        margin-bottom: 1.5rem; /* mb-6 */
-        padding: 0; /* Remove padding for base */
-        border-radius: 0;
-        background-color: transparent;
-        border: none;
-        box-shadow: none;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.5rem; /* gap-6 */
-        transition: all 0.3s ease;
-      }
-      /* Add back styling for specific pairs (like intro/conclusion) */
-      .styled-lang-pair {
-          padding: 1.5rem; /* p-6 */
-          border-radius: 0.75rem; /* rounded-xl */
-          background-color: theme('colors.white');
-          border: 1px solid theme('colors.gray.100');
-          box-shadow: theme('boxShadow.sm');
-      }
-      .lang-pair .vietnamese,
-      .lang-pair .english {
-        flex: 1;
-        min-width: 250px;
-      }
-      .lang-pair .vietnamese p,
-      .lang-pair .vietnamese li,
-      .lang-pair .vietnamese h3 {
-        font-weight: 500;
-        color: theme('colors.gray.900');
-        line-height: 1.7;
-        font-size: 1rem;
-        margin: 0 0 0.5rem 0; /* Add bottom margin */
-      }
-      .lang-pair .english p,
-      .lang-pair .english li,
-      .lang-pair .english h3 {
-        color: theme('colors.gray.500');
-        font-size: 0.95rem;
-        line-height: 1.7;
-        font-style: italic;
-        margin: 0 0 0.5rem 0; /* Add bottom margin */
-      }
-       /* Remove bottom margin from last element in a pair */
-       .lang-pair .vietnamese > *:last-child,
-       .lang-pair .english > *:last-child {
-           margin-bottom: 0;
-       }
-      /* Specific styles for list items within lang-pair */
-      .lang-pair ul {
-          list-style: none;
-          padding-left: 0;
-          margin: 0 0 0.5rem 0; /* Consistent bottom margin */
-      }
-      .lang-pair li {
-          position: relative;
-          padding-left: 1.75rem;
-          margin-bottom: 0.5rem;
-      }
-       .lang-pair li::before {
-           content: '\2022'; /* Standard bullet */
-           position: absolute;
-           left: 0.5rem;
-           top: 0;
-           color: theme('colors.gray.400');
-           font-weight: bold;
-       }
-       /* Specific styles for headings within lang-pair */
-       .lang-pair h3 {
-           font-size: 1.125rem; /* text-lg */
-           font-weight: 600; /* font-semibold */
-           margin-bottom: 0.75rem; /* mb-3 */
-           margin-top: 1rem; /* mt-4 */
-           line-height: 1.5;
-       }
-       .lang-pair h3:first-child {
-            margin-top: 0; /* Remove top margin for the first heading */
-       }
-       .lang-pair .english h3 {
-           color: theme('colors.gray.600');
-       }
+      .lang-pair { margin-bottom: 1.5rem; padding: 0; border-radius: 0; background-color: transparent; border: none; box-shadow: none; display: flex; flex-wrap: wrap; gap: 1.5rem; transition: all 0.3s ease; }
+      .styled-lang-pair { padding: 1.5rem; border-radius: 0.75rem; background-color: theme('colors.white'); border: 1px solid theme('colors.gray.100'); box-shadow: theme('boxShadow.sm'); }
+      .lang-pair .vietnamese, .lang-pair .english { flex: 1; min-width: 250px; }
+      .lang-pair .vietnamese p, .lang-pair .vietnamese li, .lang-pair .vietnamese h3 { font-weight: 500; color: theme('colors.gray.900'); line-height: 1.7; font-size: 1rem; margin: 0 0 0.5rem 0; }
+      .lang-pair .english p, .lang-pair .english li, .lang-pair .english h3 { color: theme('colors.gray.500'); font-size: 0.95rem; line-height: 1.7; font-style: italic; margin: 0 0 0.5rem 0; }
+      .lang-pair .vietnamese > *:last-child, .lang-pair .english > *:last-child { margin-bottom: 0; }
+      .lang-pair ul { list-style: none; padding-left: 0; margin: 0 0 0.5rem 0; }
+      .lang-pair li { position: relative; padding-left: 1.75rem; margin-bottom: 0.5rem; }
+      .lang-pair li::before { content: '\2022'; position: absolute; left: 0.5rem; top: 0; color: theme('colors.gray.400'); font-weight: bold; }
+      .lang-pair h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.75rem; margin-top: 1rem; line-height: 1.5; }
+      .lang-pair h3:first-child { margin-top: 0; }
+      .lang-pair .english h3 { color: theme('colors.gray.600'); }
+      .lang-pair.english-hidden .english { display: none; }
+      .lang-pair.english-hidden .vietnamese { flex: 1 0 100%; }
 
-      /* Class to hide English text */
-      .lang-pair.english-hidden .english {
-        display: none;
-      }
-      /* Make Vietnamese text take full width when English is hidden */
-      .lang-pair.english-hidden .vietnamese {
-        flex: 1 0 100%;
-      }
+      /* Language toggle button */
+      .language-toggle { display: inline-block; padding: 0.5rem 1rem; background-color: theme('colors.indigo.600'); color: white; border-radius: 0.5rem; font-size: 0.9rem; font-weight: 500; cursor: pointer; margin-bottom: 1rem; transition: background-color 0.3s; border: none; }
+      .language-toggle:hover { background-color: theme('colors.indigo.700'); }
 
-      /* Style for the language toggle button */
-      .language-toggle {
-        display: inline-block;
-        padding: 0.5rem 1rem; /* px-4 py-2 */
-        background-color: theme('colors.indigo.600');
-        color: white;
-        border-radius: 0.5rem; /* rounded-lg */
-        font-size: 0.9rem;
-        font-weight: 500; /* font-medium */
-        cursor: pointer;
-        margin-bottom: 1rem; /* mb-4 */
-        transition: background-color 0.3s;
-      }
-      .language-toggle:hover {
-        background-color: theme('colors.indigo.700');
-      }
-
-      /* Style for individual industry sections */
-      .industry-section {
-        scroll-margin-top: 100px; /* Offset for fixed header */
-        margin-bottom: 3.5rem; /* mb-14 */
-        padding: 2rem 2.5rem; /* p-8 md:p-10 */
-        border-radius: 1rem; /* rounded-2xl */
-        box-shadow: theme('boxShadow.xl');
-        border-left-width: 8px;
-        position: relative; /* Needed for absolute positioning of toggle */
-      }
-      .industry-section h2 {
-        border-bottom-width: 3px;
-        padding-bottom: 0.75rem; /* pb-3 */
-        margin-bottom: 1.5rem; /* mb-6 */
-        font-size: 1.875rem; /* text-3xl */
-        font-weight: 800; /* font-extrabold */
-        display: flex;
-        align-items: center;
-      }
-      .industry-section h2 i {
-          margin-right: 0.75rem; /* mr-3 */
-      }
-       /* Minor headings within sections (like "Ví dụ thực tế") */
-      .industry-section h4 {
-        font-size: 1.125rem; /* text-lg */
-        color: theme('colors.gray.800');
-        font-weight: 600; /* font-semibold */
-        margin-top: 1.5rem; /* mt-6 */
-        margin-bottom: 0.75rem; /* mb-3 */
-      }
+      /* Industry sections */
+      .industry-section { scroll-margin-top: 100px; /* Adjusted for potentially smaller scrolled header */ margin-bottom: 3.5rem; padding: 2rem 2.5rem; border-radius: 1rem; box-shadow: theme('boxShadow.xl'); border-left-width: 8px; position: relative; }
+      .industry-section h2 { border-bottom-width: 3px; padding-bottom: 0.75rem; margin-bottom: 1.5rem; font-size: 1.875rem; font-weight: 800; display: flex; align-items: center; }
+      .industry-section h2 i { margin-right: 0.75rem; }
+      .industry-section h4 { font-size: 1.125rem; color: theme('colors.gray.800'); font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; }
 
       /* Section specific color themes */
       #education { border-color: theme('colors.indigo.500'); background-color: theme('colors.indigo.50'); }
@@ -403,205 +386,435 @@
       #hospitality .language-toggle { background-color: theme('colors.purple.600'); }
       #hospitality .language-toggle:hover { background-color: theme('colors.purple.700'); }
 
-      /* Style for the final emphasis/conclusion section */
-      #emphasis-section {
-        background-color: theme('colors.indigo.100');
-        border: 2px solid theme('colors.indigo.300');
-        border-radius: 1rem; /* rounded-2xl */
-        box-shadow: theme('boxShadow.inner');
-        padding: 2rem 2.5rem; /* p-8 md:p-10 */
-        margin-top: 3rem; /* mt-12 */
-      }
-      #emphasis-section h2 {
-        color: theme('colors.indigo.800');
-        font-size: 1.875rem; /* text-3xl */
-        font-weight: 800; /* font-extrabold */
-        border-bottom: none !important; /* Override general h2 style */
-        padding-bottom: 0 !important;
-        margin-bottom: 1rem !important; /* mb-4 */
-        display: flex;
-        align-items: center;
-      }
-       #emphasis-section h2 i {
-           margin-right: 0.75rem; /* mr-3 */
-           color: theme('colors.indigo.600');
-       }
-      #emphasis-section .lang-pair { /* Apply styled pair class */
-        background-color: theme('colors.white');
-        border-color: theme('colors.indigo.200');
-        box-shadow: theme('boxShadow.md');
-        padding: 1.5rem;
-        border-radius: 0.75rem;
-        border-width: 1px;
-        margin-bottom: 0; /* Remove bottom margin for the last element */
-      }
+      /* Conclusion section */
+      #emphasis-section { background-color: theme('colors.indigo.100'); border: 2px solid theme('colors.indigo.300'); border-radius: 1rem; box-shadow: theme('boxShadow.inner'); padding: 2rem 2.5rem; margin-top: 3rem; }
+      #emphasis-section h2 { color: theme('colors.indigo.800'); font-size: 1.875rem; font-weight: 800; border-bottom: none !important; padding-bottom: 0 !important; margin-bottom: 1rem !important; display: flex; align-items: center; }
+      #emphasis-section h2 i { margin-right: 0.75rem; color: theme('colors.indigo.600'); }
+      #emphasis-section .lang-pair { background-color: theme('colors.white'); border-color: theme('colors.indigo.200'); box-shadow: theme('boxShadow.md'); padding: 1.5rem; border-radius: 0.75rem; border-width: 1px; margin-bottom: 0; }
 
       /* Accordion Styles */
-      .accordion-header {
-        background-color: theme('colors.gray.100');
-        padding: 0.75rem 1.25rem; /* py-3 px-5 */
-        border-radius: 0.5rem; /* rounded-lg */
-        width: 100%;
-        text-align: left;
-        font-weight: 600; /* font-semibold */
-        color: theme('colors.gray.800');
-        transition: background-color 0.3s;
-        margin-bottom: 0.5rem; /* mb-2 */
-        border: none;
-        cursor: pointer;
-        display: flex; /* Use flexbox for alignment */
-        justify-content: space-between; /* Space between text and icon */
-        align-items: center; /* Center items vertically */
-      }
-      .accordion-header:hover {
-        background-color: theme('colors.gray.200');
-      }
-      .accordion-header::after { /* Add dropdown icon */
-          content: '\f078'; /* Font Awesome chevron-down */
-          font-family: 'Font Awesome 6 Free';
-          font-weight: 900;
-          font-size: 0.8em;
-          color: theme('colors.gray.500');
-          transition: transform 0.3s ease;
-      }
-      .accordion-header.active::after { /* Rotate icon when active */
-          transform: rotate(-180deg);
-      }
-      .accordion-content {
-        display: none; /* Hidden by default */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.5rem; /* rounded-lg */
-        background-color: theme('colors.white');
-        border: 1px solid theme('colors.gray.200');
-        margin-bottom: 1rem; /* mb-4 */
-        overflow: hidden; /* Smooth transition */
-        transition: max-height 0.3s ease-out, padding 0.3s ease;
-        max-height: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-      }
-      .accordion-content.active {
-        display: block; /* Show when active */
-        max-height: 2000px; /* Increased arbitrary large height */
-        padding: 1.5rem;
-      }
-       /* Remove margin for last lang-pair inside accordion */
-       .accordion-content .lang-pair:last-child {
-           margin-bottom: 0;
-       }
+      .accordion-header { background-color: theme('colors.gray.100'); padding: 0.75rem 1.25rem; border-radius: 0.5rem; width: 100%; text-align: left; font-weight: 600; color: theme('colors.gray.800'); transition: background-color 0.3s; margin-bottom: 0.5rem; border: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+      .accordion-header:hover { background-color: theme('colors.gray.200'); }
+      .accordion-header::after { content: '\f078'; font-family: 'Font Awesome 6 Free'; font-weight: 900; font-size: 0.8em; color: theme('colors.gray.500'); transition: transform 0.3s ease; }
+      .accordion-header.active::after { transform: rotate(-180deg); }
+      .accordion-content { display: none; padding: 1.5rem; border-radius: 0.5rem; background-color: theme('colors.white'); border: 1px solid theme('colors.gray.200'); margin-bottom: 1rem; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease, border 0.3s ease, opacity 0.3s ease; max-height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; border-width: 0; }
+      .accordion-content.active { display: block; max-height: 3000px; /* Increased max height */ padding: 1.5rem; opacity: 1; border-width: 1px; }
+      .accordion-content .lang-pair:last-child { margin-bottom: 0; }
 
       /* Learn More Toggle Styles */
-      .learn-more-toggle {
-        cursor: pointer;
-        display: inline-block;
-        color: white;
-        padding: 0.5rem 1rem; /* px-4 py-2 */
-        border-radius: 0.5rem; /* rounded-lg */
-        font-weight: 600; /* font-semibold */
-        font-size: 0.9rem;
-        transition: background-color 0.3s;
-        margin-top: 0.5rem; /* mt-2 */
-      }
-      .learn-more-content {
-        display: none; /* Hidden by default */
-        margin-top: 1rem; /* mt-4 */
-        padding: 1.5rem; /* p-6 */
-        background-color: theme('colors.white');
-        border-radius: 0.75rem; /* rounded-xl */
-        box-shadow: theme('boxShadow.md');
-        border: 1px solid theme('colors.gray.200');
-        overflow: hidden; /* Smooth transition */
-        transition: max-height 0.3s ease-out, padding 0.3s ease;
-        max-height: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-      }
-      .learn-more-content.active {
-        display: block; /* Show when active */
-        max-height: 1500px; /* Arbitrary large height */
-        padding: 1.5rem;
-      }
-       .learn-more-content .lang-pair {
-           /* Use styled pair for the example within learn more */
-           padding: 1rem;
-           border-radius: 0.5rem;
-           background-color: theme('colors.gray.50');
-           border: 1px solid theme('colors.gray.200');
-           box-shadow: none;
-           margin-bottom: 0;
-       }
+      .learn-more-toggle { cursor: pointer; display: inline-block; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; font-size: 0.9rem; transition: background-color 0.3s; margin-top: 0.5rem; border: none; }
+      .learn-more-content { display: none; margin-top: 1rem; padding: 1.5rem; background-color: theme('colors.white'); border-radius: 0.75rem; box-shadow: theme('boxShadow.md'); border: 1px solid theme('colors.gray.200'); overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease, border 0.3s ease, opacity 0.3s ease; max-height: 0; padding-top: 0; padding-bottom: 0; opacity: 0; border-width: 0; }
+      .learn-more-content.active { display: block; max-height: 2000px; /* Increased max height */ padding: 1.5rem; opacity: 1; border-width: 1px; }
+      .learn-more-content .lang-pair { padding: 1rem; border-radius: 0.5rem; background-color: theme('colors.gray.50'); border: 1px solid theme('colors.gray.200'); box-shadow: none; margin-bottom: 0; }
 
-      /* Responsive adjustments for mobile readability */
+      /* Responsive adjustments */
+      @media (max-width: 1024px) { /* Adjust breakpoint for header changes */
+          body { padding-top: var(--header-height-scroll); } /* Adjust padding for smaller header earlier */
+          #navbar { height: var(--header-height-scroll); } /* Force smaller height earlier */
+          #navbar.scrolled { height: var(--header-height-scroll); } /* Ensure height stays same when scrolled */
+          #navbar .logo-img { height: calc(var(--header-height-scroll) - 1.5rem); } /* Adjust logo for smaller header */
+      }
+
       @media (max-width: 768px) {
-          .industry-section {
-              padding: 1.5rem; /* p-6 */
-          }
-          .industry-section h2 {
-              font-size: 1.5rem; /* text-2xl */
-          }
-          .lang-pair {
-              flex-direction: column; /* Stack languages vertically */
-              /* Removed padding override for general lang-pair */
-              gap: 1rem; /* gap-4 */
-          }
-           /* Ensure styled pairs keep padding */
-           .styled-lang-pair {
-               padding: 1rem;
-           }
-          .lang-pair .vietnamese p,
-          .lang-pair .vietnamese li,
-          .lang-pair .vietnamese h3 { font-size: 0.95rem; } /* Slightly smaller on mobile */
-          .lang-pair .english p,
-          .lang-pair .english li,
-          .lang-pair .english h3 { font-size: 0.9rem; } /* Slightly smaller on mobile */
-          .lang-pair h3 { font-size: 1.05rem; } /* Adjust heading size */
-
+          .industry-section { padding: 1.5rem; }
+          .industry-section h2 { font-size: 1.5rem; }
+          .lang-pair { flex-direction: column; gap: 1rem; }
+          .styled-lang-pair { padding: 1rem; }
+          .lang-pair .vietnamese p, .lang-pair .vietnamese li, .lang-pair .vietnamese h3 { font-size: 0.95rem; }
+          .lang-pair .english p, .lang-pair .english li, .lang-pair .english h3 { font-size: 0.9rem; }
+          .lang-pair h3 { font-size: 1.05rem; }
           .language-toggle { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
-          .learn-more-content, .accordion-content { padding: 1rem; } /* p-4 */
-          .accordion-content.active { max-height: 3000px; } /* Increase max height for mobile */
-          .learn-more-content.active { max-height: 2000px; } /* Increase max height for mobile */
+          .learn-more-content, .accordion-content { padding: 1rem; }
+          .accordion-content.active { max-height: 4000px; /* Further increase max height */ padding: 1rem; }
+          .learn-more-content.active { max-height: 3000px; /* Further increase max height */ padding: 1rem; }
+          #emphasis-section { padding: 1.5rem; }
+          #emphasis-section h2 { font-size: 1.5rem; }
       }
-       @media (max-width: 640px) {
-            #emphasis-section {
-                padding: 1.5rem; /* p-6 */
-            }
-             #emphasis-section h2 {
-                font-size: 1.5rem; /* text-2xl */
-            }
-            .industry-section {
-                padding: 1rem; /* Further reduce padding */
-            }
-            .industry-section h2 {
-                font-size: 1.375rem; /* text-xl equivalent */
-                margin-bottom: 1rem;
-            }
-             .ai-tools-table td {
-                 padding: 0.6rem 0.8rem;
-             }
-             .ai-tools-table td::before {
-                 font-size: 0.7rem;
-             }
-       }
+      @media (max-width: 640px) {
+          .industry-section { padding: 1rem; border-left-width: 6px; }
+          .industry-section h2 { font-size: 1.375rem; margin-bottom: 1rem; }
+          .ai-tools-table td { padding: 0.6rem 0.8rem; }
+          .ai-tools-table td::before { font-size: 0.7rem; flex-basis: 100%; text-align: left; margin-bottom: 0.3rem; color: theme('colors.gray.800'); } /* Label takes full width */
+          .ai-tools-table td > * { flex-basis: 100%; text-align: left; } /* Content takes full width below label */
+          .ai-tools-table td[data-label="Mô tả Ngắn gọn"] > span,
+          .ai-tools-table td[data-label="Liên kết"] > a { text-align: left; } /* Ensure left alignment */
+          /* Footer adjustments */
+          footer .grid { grid-template-columns: 1fr; } /* Stack columns */
+          footer .text-sm { font-size: 0.8rem; }
+          footer h3 { font-size: 1rem; }
+          footer .space-y-6 > .space-y-3 { margin-top: 1.5rem; } /* Adjust spacing */
+          footer .flex.space-x-5 { justify-content: center; } /* Center social icons */
+          footer iframe { max-width: 100% !important; width: 100% !important; } /* Ensure iframe fits */
+      }
+
+      /* Mobile Menu Transition */
+      #mobile-menu-panel {
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother transition */
+      }
+      #mobile-menu-panel.open {
+          transform: translateX(0);
+      }
+      #mobile-menu-overlay {
+          transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      #mobile-menu-overlay.open {
+          opacity: 1;
+          display: block; /* Make sure it's displayed */
+      }
 
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen antialiased font-sans" id="page-ai-guide">
 
-    <header id="header-placeholder"></header>
+    <header id="navbar" class="text-white shadow-md fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-[var(--header-height-initial)]">
+
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="flex items-center" aria-label="Trang chủ IVS JSC">
+                        <img class="w-auto rounded-md logo-img"
+                             src="images/logo/logo1.png"
+                             alt="IVS JSC Logo"
+                             data-lang-key="logo_alt"
+                             onerror="this.onerror=null; this.src='images/logo/logo.png'; this.onerror=null; this.src='https://placehold.co/150x40/ffffff/F97316?text=IVS+Logo';">
+                    </a>
+                </div>
+
+                <nav class="hidden lg:flex lg:items-center lg:ml-6" aria-label="Main navigation">
+                    <div class="flex items-center space-x-3 xl:space-x-4">
+                        <ul id="menu-items" class="flex items-center space-x-1 xl:space-x-2">
+                            <li class="main-menu-item">
+                                <a href="index.html" class="nav-link" data-lang-key="menu_home">Trang chủ</a>
+                            </li>
+                            <li class="relative main-menu-item group">
+                                <button type="button" aria-haspopup="true" aria-expanded="false" class="nav-link">
+                                    <span data-lang-key="menu_about">Giới thiệu</span>
+                                    <svg class="ml-1 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                </button>
+                                <div class="submenu w-56">
+                                    <a href="about.html" data-lang-key="menu_about_ivs">Về IVS JSC</a>
+                                    <a href="summercamp.html" data-lang-key="menu_summer_camp">Trại hè Quốc tế</a>
+                                    <a href="hocbong.html" data-lang-key="menu_scholarships">Học bổng</a>
+                                    <a href="hay-noi.html" data-lang-key="menu_hay_noi_club">Chương trình "Hãy Nói"</a>
+                                </div>
+                            </li>
+                            <li class="relative main-menu-item group">
+                                <button type="button" aria-haspopup="true" aria-expanded="false" class="nav-link">
+                                    <span data-lang-key="menu_training">Đào tạo</span>
+                                    <svg class="ml-1 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                </button>
+                                <div class="submenu w-64">
+                                    <div class="relative sub-submenu-container group/sub">
+                                        <button type="button" aria-haspopup="true" aria-expanded="false" class="w-full inline-flex items-center justify-between">
+                                            <span data-lang-key="menu_educational_link">Liên kết giáo dục</span>
+                                            <svg class="ml-1 h-3.5 w-3.5 rotate-[-90deg]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                        </button>
+                                        <div class="sub-submenu w-56">
+                                            <a href="lkmamnon.html" data-lang-key="menu_link_preschool">Mầm non</a>
+                                            <a href="lktieuhoc.html" data-lang-key="menu_link_primary">Tiểu học</a>
+                                            <a href="lkthcsthpt.html" data-lang-key="menu_link_secondary">THCS & THPT</a>
+                                            <a href="lkttnn.html" data-lang-key="menu_link_language_center">Trung tâm Ngoại ngữ</a>
+                                        </div>
+                                    </div>
+                                    <div class="relative sub-submenu-container group/sub">
+                                        <button type="button" aria-haspopup="true" aria-expanded="false" class="w-full inline-flex items-center justify-between">
+                                            <span data-lang-key="menu_training_center">Tại trung tâm</span>
+                                            <svg class="ml-1 h-3.5 w-3.5 rotate-[-90deg]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                        </button>
+                                        <div class="sub-submenu w-56">
+                                            <a href="ivslanguages.html" data-lang-key="menu_training_language">Đào tạo ngoại ngữ</a>
+                                            <a href="ivslifeminds.html" data-lang-key="menu_training_lifeskills">Đào tạo kỹ năng sống</a>
+                                        </div>
+                                    </div>
+                                    <div class="relative sub-submenu-container group/sub">
+                                        <button type="button" aria-haspopup="true" aria-expanded="false" class="w-full inline-flex items-center justify-between">
+                                            <span data-lang-key="menu_training_teacher">Đào tạo giáo viên</span>
+                                            <svg class="ml-1 h-3.5 w-3.5 rotate-[-90deg]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                        </button>
+                                        <div class="sub-submenu w-56">
+                                            <a href="teachertrain.html" data-lang-key="menu_training_teacher_vn">Giáo viên VN</a>
+                                            <a href="fteachertrain.html" data-lang-key="menu_training_teacher_foreign">Giáo viên nước ngoài</a>
+                                        </div>
+                                    </div>
+                                    <hr class="my-1 border-gray-200">
+                                    <a href="bosungchungchi.html" data-lang-key="menu_training_teacher_cert">Bổ sung chứng chỉ NVSP</a>
+                                    <a href="english-placement.html" data-lang-key="menu_placement_test">Kiểm tra trình độ</a>
+                                </div>
+                            </li>
+                             <li class="relative main-menu-item group">
+                                <button type="button" aria-haspopup="true" aria-expanded="false" class="nav-link">
+                                    <span data-lang-key="menu_cooperation">Hợp tác</span>
+                                    <svg class="ml-1 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                </button>
+                                <div class="submenu w-64">
+                                    <a href="lien-ket-quoc-te.html" data-lang-key="menu_international_link">Liên kết Quốc tế</a>
+                                    <a href="lienminhiivsa.html" data-lang-key="menu_iivsa_alliance">Liên minh IIVSA</a>
+                                    <a href="hop-tac-dau-tu.html" data-lang-key="menu_investment_cooperation">Hợp tác Đầu tư</a>
+                                    <a href="philoinhuan.html" data-lang-key="menu_non_profit">Tổ chức Phi lợi nhuận</a>
+                                    <a href="tai-tro.html" data-lang-key="menu_sponsorship">Tài trợ</a>
+                                </div>
+                            </li>
+                            <li class="relative main-menu-item group">
+                                <button type="button" aria-haspopup="true" aria-expanded="false" class="nav-link">
+                                    <span data-lang-key="menu_services">Dịch vụ</span>
+                                    <svg class="ml-1 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                </button>
+                                <div class="submenu w-56">
+                                    <a href="tuvan.html" data-lang-key="menu_edu_consulting">Tư vấn Giáo dục</a>
+                                    <a href="thanhlaptrungtam.html" data-lang-key="menu_center_establishment">Thành lập Trung tâm</a>
+                                    <a href="webdesign.html" data-lang-key="menu_web_design">Thiết kế Web</a>
+                                    <a href="rnd-curriculum.html" data-lang-key="menu_design_edu">Thiết kế Học liệu</a>
+                                </div>
+                            </li>
+                            <li class="relative main-menu-item group">
+                                <button type="button" aria-haspopup="true" aria-expanded="false" class="nav-link">
+                                    <span data-lang-key="menu_healths">Sức khỏe</span>
+                                    <svg class="ml-1 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                </button>
+                                <div class="submenu w-56">
+                                    <a href="health-yensao.html" data-lang-key="menu_health_yensao">Yến sào Thanh Yến</a>
+                                    <a href="health-luvyoga.html" data-lang-key="menu_health_luvyoga">LuvYoga Lộc Hòa </a>
+                                </div>
+                            </li>
+                            <li class="relative main-menu-item group">
+                                <button type="button" aria-haspopup="true" aria-expanded="false" class="nav-link">
+                                    <span data-lang-key="menu_library">Thư viện</span>
+                                     <svg class="ml-1 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                </button>
+                                <div class="submenu w-56">
+                                    <a href="tailieugd.html" data-lang-key="menu_library_docs">Tài liệu giáo dục</a>
+                                    <a href="ivsmedia.html" data-lang-key="menu_library_media">IVSMedia</a>
+                                </div>
+                            </li>
+                            <li class="relative main-menu-item group">
+                                <button type="button" aria-haspopup="true" aria-expanded="false" class="nav-link">
+                                    <span data-lang-key="menu_recruitment">Tuyển dụng</span>
+                                    <svg class="ml-1 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                </button>
+                                <div class="submenu w-64">
+                                    <a href="careervn.html" data-lang-key="menu_recruitment_vn">Tuyển dụng nội địa (VN)</a>
+                                    <a href="careerf.html" data-lang-key="menu_recruitment_intl">Tuyển dụng quốc tế (Intl)</a>
+                                </div>
+                            </li>
+                            <li class="main-menu-item">
+                                <a href="contact.html" class="nav-link" data-lang-key="menu_contact">Liên hệ</a>
+                            </li>
+                        </ul>
+
+                        <div class="flex items-center space-x-3 ml-4">
+                            <button type="button" class="p-2 rounded-full hover:bg-[var(--header-hover-bg)] focus:bg-[var(--header-hover-bg)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--header-bg)] focus:ring-orange-400 transition duration-150 ease-in-out" aria-label="Tìm kiếm" data-lang-key="search_button_label">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                <span class="sr-only" data-lang-key="search">Tìm kiếm</span>
+                            </button>
+                            <a href="dangkytuvan.html" class="px-4 py-1.5 rounded-full text-sm font-semibold transition duration-300 whitespace-nowrap hover:bg-[var(--cta-hover-bg)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[var(--header-bg)] focus:ring-blue-400" style="background-color: var(--cta-bg); color: var(--cta-text);" data-lang-key="consultation_cta_button">
+                                Đăng Ký Tư vấn
+                            </a>
+                            <div id="desktop-language-dropdown" class="language-dropdown relative">
+                                <button id="desktop-lang-toggle" type="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
+                                    <span id="desktop-current-lang">VN</span>
+                                    <svg class="ml-1 h-3.5 w-3.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"></path></svg>
+                                </button>
+                                <div id="desktop-lang-options" class="language-dropdown-content">
+                                    <button type="button" class="lang-option lang-button" data-lang="vi">VN</button>
+                                    <button type="button" class="lang-option lang-button" data-lang="en">EN</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-orange-200 hover:text-white hover:bg-[var(--header-hover-bg)] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu-panel" aria-expanded="false">
+                        <span class="sr-only" data-lang-key="open_main_menu">Mở menu chính</span>
+                        <svg id="icon-menu" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                        <svg id="icon-close" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="mobile-menu-overlay" class="lg:hidden hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-40 opacity-0" aria-hidden="true"></div>
+
+        <div id="mobile-menu-panel" class="lg:hidden hidden fixed top-0 right-0 h-full w-72 max-w-[80%] bg-white shadow-xl z-50 transform translate-x-full flex flex-col" role="dialog" aria-modal="true">
+            <div id="mobile-header" class="flex items-center justify-between px-4 py-3 border-b border-gray-200 flex-shrink-0">
+                <a href="index.html" class="flex items-center" aria-label="Trang chủ IVS JSC">
+                    <img class="h-8 w-auto rounded-sm logo-img-mobile" src="images/logo/logo.png" alt="IVS JSC Logo Mobile" data-lang-key="logo_alt" onerror="this.onerror=null; this.src='https://placehold.co/120x32/ea580c/ffffff?text=IVS';">
+                </a>
+                <button id="mobile-close-button" type="button" class="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Đóng menu" data-lang-key="close_menu">
+                    <span class="sr-only" data-lang-key="close_menu_sr">Đóng menu</span>
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <nav id="mobile-menu-content" class="flex-grow overflow-y-auto py-2 px-2 space-y-1" aria-label="Mobile navigation">
+                <a href="index.html" class="nav-link block text-base font-medium rounded-md py-2 px-3" data-lang-key="menu_home">Trang chủ</a>
+
+                <div class="mobile-menu-item">
+                    <button type="button" aria-expanded="false" aria-controls="mobile-submenu-about" class="mobile-submenu-toggle w-full flex items-center justify-between text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md py-2 px-3">
+                        <span data-lang-key="menu_about">Giới thiệu</span>
+                        <svg class="ml-1 h-4 w-4 transform submenu-arrow text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+                    <div id="mobile-submenu-about" class="mobile-submenu space-y-1 pl-3 mt-1">
+                        <a href="about.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_about_ivs">Về IVS JSC</a>
+                        <a href="summercamp.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_summer_camp">Trại hè Quốc tế</a>
+                        <a href="hocbong.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_scholarships">Học bổng</a>
+                        <a href="hay-noi.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_hay_noi_club">Chương trình "Hãy Nói"</a>
+                    </div>
+                </div>
+
+                <div class="mobile-menu-item">
+                    <button type="button" aria-expanded="false" aria-controls="mobile-submenu-training" class="mobile-submenu-toggle w-full flex items-center justify-between text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md py-2 px-3">
+                        <span data-lang-key="menu_training">Đào tạo</span>
+                        <svg class="ml-1 h-4 w-4 transform submenu-arrow text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+                    <div id="mobile-submenu-training" class="mobile-submenu space-y-1 pl-3 mt-1">
+                        <div class="mobile-menu-item">
+                            <button type="button" aria-expanded="false" aria-controls="mobile-subsubmenu-edu-link" class="mobile-submenu-toggle w-full flex items-center justify-between text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md py-1.5 px-3">
+                                <span data-lang-key="menu_educational_link">Liên kết giáo dục</span>
+                                <svg class="ml-1 h-4 w-4 transform submenu-arrow text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                            </button>
+                            <div id="mobile-subsubmenu-edu-link" class="mobile-submenu space-y-1 pl-3 mt-1">
+                                <a href="lkmamnon.html" class="nav-link block text-xs text-gray-500 rounded-md py-1 px-3" data-lang-key="menu_link_preschool">Mầm non</a>
+                                <a href="lktieuhoc.html" class="nav-link block text-xs text-gray-500 rounded-md py-1 px-3" data-lang-key="menu_link_primary">Tiểu học</a>
+                                <a href="lkthcsthpt.html" class="nav-link block text-xs text-gray-500 rounded-md py-1 px-3" data-lang-key="menu_link_secondary">THCS & THPT</a>
+                                <a href="lkttnn.html" class="nav-link block text-xs text-gray-500 rounded-md py-1 px-3" data-lang-key="menu_link_language_center">Trung tâm Ngoại ngữ</a>
+                            </div>
+                        </div>
+                        <div class="mobile-menu-item">
+                            <button type="button" aria-expanded="false" aria-controls="mobile-subsubmenu-center-training" class="mobile-submenu-toggle w-full flex items-center justify-between text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md py-1.5 px-3">
+                                <span data-lang-key="menu_training_center">Tại trung tâm</span>
+                                <svg class="ml-1 h-4 w-4 transform submenu-arrow text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                            </button>
+                             <div id="mobile-subsubmenu-center-training" class="mobile-submenu space-y-1 pl-3 mt-1">
+                                <a href="ivslanguages.html" class="nav-link block text-xs text-gray-500 rounded-md py-1 px-3" data-lang-key="menu_training_language">Đào tạo ngoại ngữ</a>
+                                <a href="ivslifeminds.html" class="nav-link block text-xs text-gray-500 rounded-md py-1 px-3" data-lang-key="menu_training_lifeskills">Đào tạo kỹ năng sống</a>
+                            </div>
+                        </div>
+                        <div class="mobile-menu-item">
+                            <button type="button" aria-expanded="false" aria-controls="mobile-subsubmenu-teacher-training" class="mobile-submenu-toggle w-full flex items-center justify-between text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md py-1.5 px-3">
+                                <span data-lang-key="menu_training_teacher">Đào tạo giáo viên</span>
+                                <svg class="ml-1 h-4 w-4 transform submenu-arrow text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                            </button>
+                            <div id="mobile-subsubmenu-teacher-training" class="mobile-submenu space-y-1 pl-3 mt-1">
+                                <a href="teachertrain.html" class="nav-link block text-xs text-gray-500 rounded-md py-1 px-3" data-lang-key="menu_training_teacher_vn">Giáo viên VN</a>
+                                <a href="fteachertrain.html" class="nav-link block text-xs text-gray-500 rounded-md py-1 px-3" data-lang-key="menu_training_teacher_foreign">Giáo viên nước ngoài</a>
+                            </div>
+                        </div>
+                        <hr class="my-2 border-gray-200">
+                        <a href="bosungchungchi.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_training_teacher_cert">Bổ sung chứng chỉ NVSP</a>
+                        <a href="english-placement.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_placement_test">Kiểm tra trình độ</a>
+                    </div>
+                </div>
+
+                <div class="mobile-menu-item">
+                    <button type="button" aria-expanded="false" aria-controls="mobile-submenu-coop" class="mobile-submenu-toggle w-full flex items-center justify-between text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md py-2 px-3">
+                        <span data-lang-key="menu_cooperation">Hợp tác</span>
+                        <svg class="ml-1 h-4 w-4 transform submenu-arrow text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+                    <div id="mobile-submenu-coop" class="mobile-submenu space-y-1 pl-3 mt-1">
+                         <a href="lien-ket-quoc-te.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_international_link">Liên kết Quốc tế</a>
+                        <a href="lienminhiivsa.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_iivsa_alliance">Liên minh IIVSA</a>
+                        <a href="hop-tac-dau-tu.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_investment_cooperation">Hợp tác Đầu tư</a>
+                        <a href="philoinhuan.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_non_profit">Tổ chức Phi lợi nhuận</a>
+                        <a href="tai-tro.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_sponsorship">Tài trợ</a>
+                    </div>
+                </div>
+
+                <div class="mobile-menu-item">
+                    <button type="button" aria-expanded="false" aria-controls="mobile-submenu-services" class="mobile-submenu-toggle w-full flex items-center justify-between text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md py-2 px-3">
+                        <span data-lang-key="menu_services">Dịch vụ</span>
+                        <svg class="ml-1 h-4 w-4 transform submenu-arrow text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+                    <div id="mobile-submenu-services" class="mobile-submenu space-y-1 pl-3 mt-1">
+                         <a href="tuvan.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_edu_consulting">Tư vấn Giáo dục</a>
+                        <a href="thanhlaptrungtam.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_center_establishment">Thành lập Trung tâm</a>
+                        <a href="webdesign.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_web_design">Thiết kế Web</a>
+                        <a href="rnd-curriculum.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_design_edu">Thiết kế Học liệu</a>
+                    </div>
+                </div>
+
+                <div class="mobile-menu-item">
+                    <button type="button" aria-expanded="false" aria-controls="mobile-submenu-health" class="mobile-submenu-toggle w-full flex items-center justify-between text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md py-2 px-3">
+                        <span data-lang-key="menu_healths">Sức khỏe</span>
+                        <svg class="ml-1 h-4 w-4 transform submenu-arrow text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+                    <div id="mobile-submenu-health" class="mobile-submenu space-y-1 pl-3 mt-1">
+                        <a href="health-yensao.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_health_yensao">Yến sào Thanh Yến</a>
+                        <a href="health-luvyoga.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_health_luvyoga">LuvYoga Lộc Hòa </a>
+                    </div>
+                </div>
+
+                <div class="mobile-menu-item">
+                    <button type="button" aria-expanded="false" aria-controls="mobile-submenu-library" class="mobile-submenu-toggle w-full flex items-center justify-between text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md py-2 px-3">
+                        <span data-lang-key="menu_library">Thư viện</span>
+                        <svg class="ml-1 h-4 w-4 transform submenu-arrow text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+                    <div id="mobile-submenu-library" class="mobile-submenu space-y-1 pl-3 mt-1">
+                         <a href="tailieugd.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_library_docs">Tài liệu giáo dục</a>
+                        <a href="ivsmedia.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_library_media">IVSMedia</a>
+                    </div>
+                </div>
+
+                <div class="mobile-menu-item">
+                     <button type="button" aria-expanded="false" aria-controls="mobile-submenu-recruitment" class="mobile-submenu-toggle w-full flex items-center justify-between text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md py-2 px-3">
+                        <span data-lang-key="menu_recruitment">Tuyển dụng</span>
+                        <svg class="ml-1 h-4 w-4 transform submenu-arrow text-gray-400 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+                    </button>
+                    <div id="mobile-submenu-recruitment" class="mobile-submenu space-y-1 pl-3 mt-1">
+                        <a href="careervn.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_recruitment_vn">Tuyển dụng nội địa (VN)</a>
+                        <a href="careerf.html" class="nav-link block text-sm text-gray-600 rounded-md py-1.5 px-3" data-lang-key="menu_recruitment_intl">Tuyển dụng quốc tế (Intl)</a>
+                    </div>
+                </div>
+
+                <a href="contact.html" class="nav-link block text-base font-medium rounded-md py-2 px-3" data-lang-key="menu_contact">Liên hệ</a>
+
+                <div class="px-3 pt-4 pb-2">
+                    <label for="mobile-search" class="sr-only" data-lang-key="search">Tìm kiếm</label>
+                    <div class="relative">
+                        <input type="search" name="mobile-search" id="mobile-search" class="block w-full rounded-md border-gray-300 pl-3 pr-10 py-2 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Tìm kiếm..." data-lang-key="search_placeholder">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+            </nav>
+            <div id="mobile-footer" class="p-4 border-t border-gray-200 flex-shrink-0 bg-gray-50">
+                <div id="mobile-language-dropdown" class="language-dropdown relative w-full">
+                    <button id="mobile-lang-toggle" type="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle w-full flex items-center justify-between text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-md p-2">
+                        <span id="mobile-current-lang">VN</span>
+                        <svg class="w-4 h-4 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"></path></svg>
+                    </button>
+                    <div id="mobile-lang-options" class="language-dropdown-content hidden absolute bottom-full left-0 right-0 mb-1 w-full bg-white shadow-lg rounded-md border border-gray-200 overflow-hidden">
+                        <button type="button" class="lang-option lang-button block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="vi">VN</button>
+                        <button type="button" class="lang-option lang-button block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-lang="en">EN</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 flex-grow">
         <section class="text-center mb-12 md:mb-20">
             <i class="fas fa-brain fa-4x text-indigo-600 mb-5 animate-pulse"></i>
             <h1 class="text-4xl md:text-5xl font-extrabold text-indigo-800 mb-4" data-lang-key="ai_guide_page_title">Hướng dẫn Tư duy AI theo Ngành nghề</h1>
             <div class="lang-pair max-w-3xl mx-auto intro-lang-pair">
-                 <div class="vietnamese">
-                     <p class="text-xl text-gray-600" data-lang-key="ai_guide_page_subtitle">Định hình tư duy nền tảng để ứng dụng Trí tuệ Nhân tạo thành công trong công việc của bạn.</p>
-                 </div>
-                 <div class="english">
-                     <p class="text-xl text-gray-500 italic" data-lang-key="ai_guide_page_subtitle_en">Shape the foundational mindset to successfully apply Artificial Intelligence in your work.</p>
-                 </div>
+                <div class="vietnamese">
+                    <p class="text-xl text-gray-600" data-lang-key="ai_guide_page_subtitle">Định hình tư duy nền tảng để ứng dụng Trí tuệ Nhân tạo thành công trong công việc của bạn.</p>
+                </div>
+                <div class="english">
+                    <p class="text-xl text-gray-500 italic" data-lang-key="ai_guide_page_subtitle_en">Shape the foundational mindset to successfully apply Artificial Intelligence in your work.</p>
+                </div>
             </div>
-             <p class="text-sm text-gray-500 mt-3" data-lang-key="ai_guide_developed_by">Phát triển bởi IVS Education (Một đơn vị của IVS JSC)</p>
+            <p class="text-sm text-gray-500 mt-3" data-lang-key="ai_guide_developed_by">Phát triển bởi IVS Education (Một đơn vị của IVS JSC)</p>
         </section>
 
         <section class="mb-12 md:mb-16 p-6 md:p-8 bg-indigo-50 rounded-xl shadow-lg border border-indigo-200">
