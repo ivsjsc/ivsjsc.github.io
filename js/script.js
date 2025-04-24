@@ -1,5 +1,6 @@
 /* ========================== */
 /* Optimized JavaScript Logic */
+/* Version: Fixed mobile overlay issue */
 /* ========================== */
 
 // /js/script.js - File chính điều phối tải component và khởi tạo
@@ -98,7 +99,7 @@ function initializeHeaderMenuLogic() {
     const mobileLangToggle = headerElement.querySelector('#mobile-lang-toggle');
     const mobileMenuItems = headerElement.querySelectorAll('#mobile-menu-panel .mobile-menu-item'); // Cache all mobile items
 
-    // --- Mobile Menu Toggle ---
+    // --- Mobile Menu Toggle (FIXED OVERLAY ISSUE) ---
     function toggleMobileMenu(forceOpenState) {
         if (!mobileMenuPanel || !mobileMenuOverlay || !iconMenu || !iconClose || !mobileMenuButton) {
              console.error("[Script] Core mobile menu elements missing for toggle.");
@@ -110,44 +111,58 @@ function initializeHeaderMenuLogic() {
         iconMenu.classList.toggle('hidden', shouldBeOpen);
         iconClose.classList.toggle('hidden', !shouldBeOpen);
 
-        // Function to handle hiding after transition
-        const hideMenuAfterTransition = (event) => {
-            if (event.target === mobileMenuPanel && mobileMenuPanel.classList.contains('translate-x-full')) {
-                mobileMenuPanel.classList.add('hidden');
-                mobileMenuOverlay.classList.add('hidden');
-                mobileMenuPanel.removeEventListener('transitionend', hideMenuAfterTransition); // Clean up listener
+        // Use requestAnimationFrame to ensure class changes happen after potential DOM updates
+        requestAnimationFrame(() => {
+            if (shouldBeOpen) {
+                // Show panel and overlay BEFORE starting transitions
+                mobileMenuOverlay.classList.remove('hidden'); // Remove initial hidden if present
+                mobileMenuPanel.classList.remove('hidden');   // Remove initial hidden if present
+
+                // Add 'active' classes to trigger transitions
+                mobileMenuOverlay.classList.add('active'); // For opacity
+                mobileMenuPanel.classList.add('active');   // For transform
+                document.body.classList.add('overflow-hidden'); // Prevent body scroll
+            } else {
+                // Remove 'active' classes to trigger closing transitions
+                mobileMenuOverlay.classList.remove('active');
+                mobileMenuPanel.classList.remove('active');
+                document.body.classList.remove('overflow-hidden');
+
+                // Add listener to hide elements *after* transition completes
+                // Use transitionend on the panel as it's the main moving part
+                const hideAfterTransition = (event) => {
+                    // Ensure the event is from the panel itself and it's no longer active
+                    if (event.target === mobileMenuPanel && !mobileMenuPanel.classList.contains('active')) {
+                        mobileMenuPanel.classList.add('hidden');
+                        mobileMenuOverlay.classList.add('hidden');
+                        // Clean up listener
+                        mobileMenuPanel.removeEventListener('transitionend', hideAfterTransition);
+                    }
+                };
+                // Remove previous listener before adding a new one
+                mobileMenuPanel.removeEventListener('transitionend', hideAfterTransition);
+                mobileMenuPanel.addEventListener('transitionend', hideAfterTransition, { once: true });
+
+                // Fallback timeout in case transitionend doesn't fire
+                setTimeout(() => {
+                    if (!mobileMenuPanel.classList.contains('active')) {
+                         mobileMenuPanel.classList.add('hidden');
+                         mobileMenuOverlay.classList.add('hidden');
+                    }
+                }, 350); // Slightly longer than transition duration
             }
-        };
-
-        if (shouldBeOpen) {
-            mobileMenuOverlay.classList.remove('hidden');
-            mobileMenuPanel.classList.remove('hidden');
-            requestAnimationFrame(() => {
-                 mobileMenuOverlay.classList.add('active'); // Use class for opacity transition
-                 mobileMenuPanel.classList.add('active'); // Use class for transform transition
-                 document.body.classList.add('overflow-hidden'); // Prevent body scroll
-            });
-            // Remove any previous listeners before adding a new one
-            mobileMenuPanel.removeEventListener('transitionend', hideMenuAfterTransition);
-        } else {
-            mobileMenuOverlay.classList.remove('active');
-            mobileMenuPanel.classList.remove('active');
-            document.body.classList.remove('overflow-hidden');
-
-            // Add listener to hide elements after transition completes
-            mobileMenuPanel.removeEventListener('transitionend', hideMenuAfterTransition); // Ensure no duplicates
-            mobileMenuPanel.addEventListener('transitionend', hideMenuAfterTransition, { once: true });
-
-            // Fallback timeout
-            setTimeout(() => {
-                if (!mobileMenuPanel.classList.contains('active') && !mobileMenuPanel.classList.contains('hidden')) {
-                    console.warn("[Script] Closing mobile menu via fallback timeout.");
-                    mobileMenuPanel.classList.add('hidden');
-                    mobileMenuOverlay.classList.add('hidden');
-                }
-            }, 350); // Slightly longer than transition
-        }
+        });
     }
+
+    // Ensure overlay and panel are hidden initially on desktop load
+    // (lg:hidden class in HTML handles the display none, JS manages active/hidden for transitions)
+    if (mobileMenuOverlay && mobileMenuPanel) {
+        // No need to explicitly add 'hidden' here if it's in the HTML,
+        // but ensure 'active' is not present initially.
+        mobileMenuOverlay.classList.remove('active');
+        mobileMenuPanel.classList.remove('active');
+    }
+
 
     if (mobileMenuButton) mobileMenuButton.addEventListener('click', () => toggleMobileMenu());
     if (mobileCloseButton) mobileCloseButton.addEventListener('click', () => toggleMobileMenu(false));
@@ -159,7 +174,7 @@ function initializeHeaderMenuLogic() {
             // Check if the link is NOT inside a submenu toggle button
             if (!link.closest('.mobile-submenu-toggle')) {
                 link.addEventListener('click', () => {
-                    // Close menu after a short delay
+                    // Close menu after a short delay to allow navigation
                     setTimeout(() => toggleMobileMenu(false), 50);
                 });
             }
@@ -175,41 +190,50 @@ function initializeHeaderMenuLogic() {
         if (button && submenu) {
             // Initialize state
             submenu.style.maxHeight = '0';
-            submenu.style.overflow = 'hidden';
+            submenu.style.overflow = 'hidden'; // Ensure content is clipped
             button.setAttribute('aria-expanded', 'false');
             item.classList.remove('open'); // Ensure closed initially
 
             button.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const parentItem = this.closest('.mobile-menu-item'); // Get the li parent
+                e.stopPropagation(); // Prevent closing the main menu if clicking inside
+                const parentItem = this.closest('.mobile-menu-item');
                 if (!parentItem) return;
 
                 const isOpen = parentItem.classList.toggle('open');
                 this.setAttribute('aria-expanded', isOpen.toString());
 
                 if (isOpen) {
+                    // Open this submenu
                     submenu.style.maxHeight = submenu.scrollHeight + "px";
+                    submenu.style.overflow = 'visible'; // Allow content to be seen
+
                     // Close sibling submenus at the same level
                     const siblings = Array.from(parentItem.parentNode.children).filter(
-                        child => child !== parentItem && child.classList.contains('mobile-menu-item')
+                        child => child !== parentItem && child.classList.contains('mobile-menu-item') && child.classList.contains('open')
                     );
                     siblings.forEach(sibling => {
-                        if (sibling.classList.contains('open')) {
-                            sibling.classList.remove('open');
-                            const siblingSubmenu = sibling.querySelector(':scope > .mobile-submenu');
-                            const siblingButton = sibling.querySelector(':scope > button.mobile-submenu-toggle');
-                            if (siblingSubmenu) siblingSubmenu.style.maxHeight = '0';
-                            if (siblingButton) siblingButton.setAttribute('aria-expanded', 'false');
+                        sibling.classList.remove('open');
+                        const siblingSubmenu = sibling.querySelector(':scope > .mobile-submenu');
+                        const siblingButton = sibling.querySelector(':scope > button.mobile-submenu-toggle');
+                        if (siblingSubmenu) {
+                            siblingSubmenu.style.maxHeight = '0';
+                            siblingSubmenu.style.overflow = 'hidden';
                         }
+                        if (siblingButton) siblingButton.setAttribute('aria-expanded', 'false');
                     });
                 } else {
+                    // Close this submenu
                     submenu.style.maxHeight = '0';
+                    submenu.style.overflow = 'hidden';
                     // Close all nested submenus within this one when closing
                     parentItem.querySelectorAll('.mobile-menu-item.open').forEach(nestedOpenItem => {
                         nestedOpenItem.classList.remove('open');
                         const nestedSub = nestedOpenItem.querySelector(':scope > .mobile-submenu');
                         const nestedButton = nestedOpenItem.querySelector(':scope > button.mobile-submenu-toggle');
-                        if (nestedSub) nestedSub.style.maxHeight = '0';
+                        if (nestedSub) {
+                            nestedSub.style.maxHeight = '0';
+                            nestedSub.style.overflow = 'hidden';
+                        }
                         if (nestedButton) nestedButton.setAttribute('aria-expanded', 'false');
                     });
                 }
@@ -230,19 +254,19 @@ function initializeHeaderMenuLogic() {
         dropdownContainer.classList.toggle('open', open);
         toggleButton.setAttribute('aria-expanded', open.toString());
 
-        // Handle content visibility (specific logic for mobile if needed)
+        // Handle content visibility
+        content.classList.toggle('hidden', !open); // Use hidden class for desktop/mobile consistency
+        // For mobile specifically, transition max-height if needed (can be done with CSS open state)
         if (dropdownContainer.id === 'mobile-language-dropdown') {
-            content.style.maxHeight = open ? content.scrollHeight + 'px' : '0';
-        } else {
-            // Desktop uses CSS :hover/:focus-within or the 'open' class
-             content.classList.toggle('hidden', !open); // Simple toggle hidden class
+             // Example: Add a class for CSS transition or handle directly
+             // content.style.maxHeight = open ? content.scrollHeight + 'px' : '0';
         }
     }
 
     // Attach listeners to toggles
     if (desktopLangToggle && desktopLangDropdown) {
         desktopLangToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
+            e.stopPropagation(); // Prevent window click listener from closing immediately
             toggleDropdown(desktopLangDropdown);
         });
     }
@@ -258,13 +282,17 @@ function initializeHeaderMenuLogic() {
         if (desktopLangDropdown && desktopLangDropdown.classList.contains('open') && !desktopLangDropdown.contains(event.target)) {
             toggleDropdown(desktopLangDropdown, false);
         }
+        // Mobile dropdown might need different closing logic if it's inside the panel
         if (mobileLangDropdown && mobileLangDropdown.classList.contains('open') && !mobileLangDropdown.contains(event.target)) {
-            toggleDropdown(mobileLangDropdown, false);
+             // Check if the click is outside the entire mobile panel
+             const mobilePanel = document.getElementById('mobile-menu-panel');
+             if (mobilePanel && !mobilePanel.contains(event.target)) {
+                 toggleDropdown(mobileLangDropdown, false);
+             }
         }
     });
 
     // --- Language Button Click Handling (Wrapper) ---
-    // The actual attachment happens later via window.attachLanguageButtonListeners
     function handleLanguageChangeWrapper(event) {
         if (typeof handleLanguageChange === 'function') {
             handleLanguageChange(event); // Call the function from language.js
@@ -322,8 +350,13 @@ function initializeStickyNavbar(navbarElement) {
 
         // Hide/show logic (optional, can be combined with shrink)
         // Hide only if scrolling down significantly past the initial header height
-        if (scrollTop > lastScrollTop && scrollTop > parseInt(getComputedStyle(navbarElement).getPropertyValue('--header-height-initial') || '64', 10)) {
-            navbarElement.style.top = `-${navbarElement.offsetHeight}px`; // Hide
+        const initialHeight = parseInt(getComputedStyle(navbarElement).getPropertyValue('--header-height-initial') || '64', 10);
+        if (scrollTop > lastScrollTop && scrollTop > initialHeight) {
+            // Hide only if not currently showing mobile menu
+            const mobilePanel = document.getElementById('mobile-menu-panel');
+            if (!mobilePanel || !mobilePanel.classList.contains('active')) {
+                 navbarElement.style.top = `-${navbarElement.offsetHeight}px`; // Hide
+            }
         } else {
             navbarElement.style.top = "0"; // Show
         }
@@ -362,7 +395,7 @@ function initializeActiveMenuHighlighting(headerElement) {
             if (path.endsWith('.html')) {
                  path = path.slice(0, -'.html'.length);
             }
-             // Ensure root path is just '/'
+             // Ensure root path is just '/' or '/index' maps to '/'
              return (path === '/index' || path === '') ? '/' : path;
         } catch (e) {
             console.warn(`[Script] Invalid URL for normalization: ${url}`, e);
@@ -375,6 +408,7 @@ function initializeActiveMenuHighlighting(headerElement) {
         console.error("[Script] Could not normalize current URL.");
         return;
     }
+     console.log(`[Script] Normalized current path: ${normalizedCurrentPath}`);
 
     // --- Reset Active States ---
     menuLinks.forEach(link => {
@@ -389,7 +423,10 @@ function initializeActiveMenuHighlighting(headerElement) {
     headerElement.querySelectorAll('#mobile-menu-panel .mobile-menu-item.open').forEach(item => {
         item.classList.remove('open');
         const submenu = item.querySelector(':scope > .mobile-submenu');
-        if (submenu) submenu.style.maxHeight = '0';
+        if (submenu) {
+            submenu.style.maxHeight = '0';
+            submenu.style.overflow = 'hidden';
+        }
         item.querySelector(':scope > button.mobile-submenu-toggle')?.setAttribute('aria-expanded', 'false');
     });
 
@@ -406,7 +443,7 @@ function initializeActiveMenuHighlighting(headerElement) {
 
         let currentSpecificity = -1;
 
-        // 1. Exact Href Match (Highest priority)
+        // 1. Exact Href Match (Highest priority) - Compare full URLs
         try {
             const absoluteLinkHref = new URL(linkHref, window.location.origin).href.split('#')[0].split('?')[0];
             if (absoluteLinkHref === currentHref) {
@@ -416,7 +453,8 @@ function initializeActiveMenuHighlighting(headerElement) {
 
         // 2. Normalized Path Match (if not exact href match)
         if (currentSpecificity < 2 && normalizedLinkPath === normalizedCurrentPath) {
-            currentSpecificity = (normalizedCurrentPath === '/') ? 1 : 0; // Root path has higher specificity than other paths
+             // Give root path slightly higher specificity than other matching paths
+            currentSpecificity = (normalizedCurrentPath === '/') ? 1 : 0;
         }
 
         // 3. Update best match based on specificity or path length for ties
@@ -435,15 +473,17 @@ function initializeActiveMenuHighlighting(headerElement) {
     if (bestMatch.link) {
         const activeLink = bestMatch.link;
         activeLink.classList.add('active-menu-item');
-        console.log(`[Script] Active link set: ${activeLink.getAttribute('href')} (Specificity: ${bestMatch.specificity})`);
+        console.log(`[Script] Active link set: ${activeLink.getAttribute('href')} (Specificity: ${bestMatch.specificity}) Path: ${normalizeUrl(activeLink.getAttribute('href'))}`);
 
         // Apply parent highlighting and open mobile submenus
         let element = activeLink;
         while (element && element !== headerElement) {
+            // Find the closest parent list item or container that holds a toggle button
             const parentMenuItem = element.closest('.mobile-menu-item, .sub-submenu-container, .main-menu-item');
             if (!parentMenuItem) break; // Stop if no more relevant parents
 
-            const parentToggle = parentMenuItem.querySelector(':scope > button.mobile-submenu-toggle, :scope > button'); // Select the direct button child
+            // Find the direct toggle button child of that parent item
+            const parentToggle = parentMenuItem.querySelector(':scope > button.mobile-submenu-toggle, :scope > button.nav-link');
             if (parentToggle) {
                 parentToggle.classList.add('active-parent-item');
             }
@@ -452,7 +492,10 @@ function initializeActiveMenuHighlighting(headerElement) {
             if (parentMenuItem.classList.contains('mobile-menu-item') && !parentMenuItem.classList.contains('open')) {
                 parentMenuItem.classList.add('open');
                 const submenu = parentMenuItem.querySelector(':scope > .mobile-submenu');
-                if (submenu) submenu.style.maxHeight = submenu.scrollHeight + "px";
+                if (submenu) {
+                    submenu.style.maxHeight = submenu.scrollHeight + "px";
+                    submenu.style.overflow = 'visible';
+                }
                 parentToggle?.setAttribute('aria-expanded', 'true');
             }
 
@@ -509,9 +552,9 @@ function loadInternalNews() {
 
                 const hotBadge = post.hot ? `<span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full z-10">HOT</span>` : '';
                 const imageSrc = post.image || 'https://placehold.co/300x200/e2e8f0/cbd5e1?text=Image';
-                const imageAlt = post.title || newsImageAltText;
-                const postTitle = post.title || newsTitleNaText;
-                const postExcerpt = post.excerpt || '';
+                const imageAlt = post.title?.[currentLang] || post.title?.['vi'] || newsImageAltText; // Use translated title for alt
+                const postTitle = post.title?.[currentLang] || post.title?.['vi'] || newsTitleNaText; // Get translated title
+                const postExcerpt = post.excerpt?.[currentLang] || post.excerpt?.['vi'] || ''; // Get translated excerpt
                 // Basic date formatting, consider a library for more complex needs
                 let postDate = '';
                 if (post.date) {
@@ -645,17 +688,16 @@ document.addEventListener('DOMContentLoaded', () => {
         loadInternalNews(); // Load news if it's the index or the container exists
     }
 
-    if (bodyId === 'page-index' || document.getElementById('vnexpress-rss-feed')) {
-        // Check if the RSS loader script/function is available
-        if (typeof loadVnExpressFeed === 'function') { // Assuming rss-loader.js defines this globally
-             console.log("[Script] Index page or RSS container found: Loading VnExpress feed...");
-             loadVnExpressFeed();
-        } else if (document.getElementById('vnexpress-rss-feed')) {
-             // If the container exists but the function doesn't, maybe rss-loader.js failed or wasn't included
-             console.warn("[Script] VnExpress RSS container found, but loadVnExpressFeed function is missing.");
-             document.getElementById('vnexpress-rss-feed').innerHTML = '<p class="text-red-500">Error: RSS loading script failed.</p>';
-        }
+    // Check for RSS Feed container and load if function exists
+    const rssFeedContainer = document.getElementById('vnexpress-rss-feed');
+    if (rssFeedContainer) {
+        // Check if the RSS loader script/function is available (assuming it's loaded via <script> tag)
+        // Note: rss-loader.js uses DOMContentLoaded, so it might run independently.
+        // This check is more for confirming if the container exists.
+        console.log("[Script] VnExpress RSS container found.");
+        // rss-loader.js should handle the loading itself via its DOMContentLoaded listener.
     }
+
 
     if (bodyId === 'page-placement') {
         // Check if the placement test script/function is available
