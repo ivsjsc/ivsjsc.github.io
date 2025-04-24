@@ -1047,3 +1047,564 @@ Below is the complete HTML code, continuing from the `<section id="hospitality">
                 <div class="lang-pair">
                     <p data-lang-key="ai_guide_emphasis_p1_revised">Chìa khóa để ứng dụng AI là tư duy chiến lược và tinh thần thử nghiệm. Bắt đầu từ những bước nhỏ, sử dụng công cụ phù hợp, và liên hệ IVS Education để được tư vấn chi tiết.</p>
                     <p class="italic" data-lang-key="ai_guide_emphasis_p1_en_revised">The key to leveraging AI is strategic thinking and experimentation. Start small, use the right tools, and contact IVS Education for detailed guidance.</p
+                        <style>
+                            .lang-pair {
+                                margin-bottom: 1.5rem;
+                                padding: 1.5rem;
+                                border-radius: 0.75rem;
+                                background-color: theme('colors.white');
+                                border: 1px solid theme('colors.gray.100');
+                                box-shadow: theme('boxShadow.sm');
+                                display: flex;
+                                flex-wrap: wrap;
+                                gap: 1.5rem;
+                                transition: all 0.3s ease;
+                            }
+                            .lang-pair .vietnamese,
+                            .lang-pair .english {
+                                flex: 1;
+                                min-width: 0;
+                            }
+                            .lang-pair .vietnamese p {
+                                font-weight: 500;
+                                color: theme('colors.gray.900');
+                                line-height: 1.7;
+                                font-size: 1rem;
+                                margin: 0;
+                            }
+                            .lang-pair .english p {
+                                color: theme('colors.gray.500');
+                                font-size: 0.95rem;
+                                line-height: 1.7;
+                                font-style: italic;
+                                margin: 0;
+                            }
+                            .lang-pair.english-hidden .english {
+                                display: none;
+                            }
+                            .lang-pair.english-hidden .vietnamese {
+                                flex: 1 0 100%;
+                            }
+                            .language-toggle {
+                                display: inline-block;
+                                padding: 0.5rem 1rem;
+                                background-color: theme('colors.indigo.600');
+                                color: white;
+                                border-radius: 0.5rem;
+                                font-size: 0.9rem;
+                                font-weight: 500;
+                                cursor: pointer;
+                                margin-bottom: 1rem;
+                                transition: background-color 0.3s;
+                            }
+                            .language-toggle:hover {
+                                background-color: theme('colors.indigo.700');
+                            }
+                            .learn-more-content {
+                                display: none;
+                                margin-top: 1rem;
+                                padding: 1.5rem;
+                                background-color: theme('colors.white');
+                                border-radius: 0.75rem;
+                                box-shadow: theme('boxShadow.md');
+                            }
+                            .learn-more-content.active {
+                                display: block;
+                            }
+                            .learn-more-content .lang-pair {
+                                background-color: theme('colors.gray.50');
+                            }
+                            @media (max-width: 640px) {
+                                .lang-pair {
+                                    flex-direction: column;
+                                    padding: 1rem;
+                                    margin-bottom: 1rem;
+                                    gap: 1rem;
+                                }
+                                .lang-pair .vietnamese p {
+                                    font-size: 0.95rem;
+                                }
+                                .lang-pair .english p {
+                                    font-size: 0.9rem;
+                                }
+                                .language-toggle {
+                                    padding: 0.4rem 0.8rem;
+                                    font-size: 0.85rem;
+                                }
+                            }
+                        </style>
+                        
+                        <script>
+                            document.addEventListener('DOMContentLoaded', () => {
+                                // Accordion toggle
+                                document.querySelectorAll('.accordion-header').forEach(button => {
+                                    button.addEventListener('click', () => {
+                                        const content = button.nextElementSibling;
+                                        content.classList.toggle('active');
+                                    });
+                                });
+                        
+                                // Learn more toggle
+                                document.querySelectorAll('.learn-more-toggle').forEach(toggle => {
+                                    toggle.addEventListener('click', () => {
+                                        const content = toggle.nextElementSibling;
+                                        content.classList.toggle('active');
+                                        toggle.textContent = content.classList.contains('active') ? 'Ẩn bớt' : 'Tìm hiểu thêm';
+                                    });
+                                });
+                        
+                                // Language toggle
+                                document.querySelectorAll('.language-toggle').forEach(toggle => {
+                                    toggle.addEventListener('click', () => {
+                                        const section = toggle.closest('.industry-section');
+                                        const langPairs = section.querySelectorAll('.lang-pair');
+                                        langPairs.forEach(pair => pair.classList.toggle('english-hidden'));
+                                        toggle.textContent = langPairs[0].classList.contains('english-hidden') ? 'Hiển thị song ngữ' : 'Chỉ tiếng Việt';
+                                    });
+                                });
+                            });
+                        </script>
+                        
+                        <div class="space-y-16 md:space-y-20">
+                            <section id="education" class="industry-section">
+                                <p class="text-lg font-semibold text-gray-700 mb-4">AI giúp cá nhân hóa học tập, tự động hóa tác vụ, và hỗ trợ học viên hiệu quả hơn.</p>
+                                <h2 data-lang-key="ai_guide_section_edu_title">1. Tư duy AI trong Giáo dục & Đào tạo</h2>
+                                <button class="language-toggle">Chỉ tiếng Việt</button>
+                                <div class="accordion">
+                                    <button class="accordion-header">Câu hỏi cốt lõi</button>
+                                    <div class="accordion-content">
+                                        <div class="lang-pair">
+                                            <div class="vietnamese">
+                                                <p data-lang-key="ai_guide_edu_q_revised">Làm thế nào cá nhân hóa lộ trình học tập? Làm sao tự động hóa tác vụ lặp lại? Làm sao hỗ trợ học viên kịp thời?</p>
+                                            </div>
+                                            <div class="english">
+                                                <p data-lang-key="ai_guide_edu_q_en_revised">How to personalize learning paths? How to automate repetitive tasks? How to support students promptly?</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="accordion-header">Hướng tư duy chi tiết</button>
+                                    <div class="accordion-content">
+                                        <strong data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</strong>
+                                        <ul>
+                                            <li data-lang-key="ai_guide_edu_mindset1_revised">Phân tích dữ liệu học tập để hiểu học viên.</li>
+                                            <li data-lang-key="ai_guide_edu_mindset2_revised">Ưu tiên cá nhân hóa trải nghiệm học tập.</li>
+                                            <li data-lang-key="ai_guide_edu_mindset3_revised">Thử nghiệm và cải tiến với công cụ AI.</li>
+                                            <li data-lang-key="ai_guide_edu_mindset4_revised">Xem AI như trợ lý giảm tải công việc.</li>
+                                        </ul>
+                                        <strong data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</strong>
+                                        <ul>
+                                            <li data-lang-key="ai_guide_edu_ops1_revised">AI phân tích dữ liệu để gợi ý bài tập phù hợp.</li>
+                                            <li data-lang-key="ai_guide_edu_ops2_revised">AI dự đoán học viên cần hỗ trợ dựa trên dữ liệu.</li>
+                                        </ul>
+                                    </div>
+                                    <button class="accordion-header">Gợi ý thực tế</button>
+                                    <div class="accordion-content">
+                                        <ul>
+                                            <li data-lang-key="ai_guide_edu_start1_revised">Tận dụng AI trong hệ thống quản lý học tập.</li>
+                                            <li data-lang-key="ai_guide_edu_start2_revised">Sử dụng chatbot trả lời câu hỏi thường gặp.</li>
+                                            <li data-lang-key="ai_guide_edu_start3_revised">Phân tích kết quả kiểm tra để cá nhân hóa.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <strong>Ví dụ thực tế:</strong>
+                                    <div class="lang-pair">
+                                        <div class="vietnamese">
+                                            <p>Trường học X tại Mỹ dùng AI để gợi ý bài tập cá nhân hóa, giúp 80% học sinh cải thiện điểm số trong 6 tháng.</p>
+                                        </div>
+                                        <div class="english">
+                                            <p>School X in the US used AI to suggest personalized assignments, improving grades for 80% of students in 6 months.</p>
+                                        </div>
+                                    </div>
+                                    <span class="learn-more-toggle">Tìm hiểu thêm</span>
+                                    <div class="learn-more-content">
+                                        <div class="lang-pair">
+                                            <div class="vietnamese">
+                                                <p>Trường học X đã tích hợp một hệ thống quản lý học tập (LMS) sử dụng AI để phân tích dữ liệu học tập từ bài kiểm tra, bài tập về nhà và tương tác trực tuyến của học sinh. Hệ thống này sử dụng các mô hình học máy để xác định điểm mạnh, điểm yếu của từng học sinh, từ đó gợi ý các bài tập phù hợp và lộ trình học tập cá nhân hóa. Kết quả, 80% học sinh cải thiện điểm số trong vòng 6 tháng, đồng thời giáo viên giảm 30% thời gian chấm bài nhờ tự động hóa. Ngoài ra, chatbot AI được triển khai để trả lời các câu hỏi thường gặp, giúp học sinh nhận hỗ trợ 24/7. Để bắt đầu, bạn có thể thử tích hợp các công cụ như Google Classroom với các tính năng AI hoặc sử dụng nền tảng như Coursera for Campus.</p>
+                                            </div>
+                                            <div class="english">
+                                                <p>School X integrated an AI-powered Learning Management System (LMS) to analyze student data from tests, homework, and online interactions. Using machine learning models, the system identified each student’s strengths and weaknesses, suggesting tailored assignments and personalized learning paths. As a result, 80% of students improved their grades within 6 months, while teachers reduced grading time by 30% through automation. Additionally, an AI chatbot was deployed to answer common questions, providing 24/7 support. To start, you can try integrating tools like Google Classroom with AI features or using platforms like Coursera for Campus.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        
+                            <section id="healthcare" class="industry-section">
+                                <p class="text-lg font-semibold text-gray-700 mb-4">AI nâng cao chẩn đoán, tối ưu quy trình, và giám sát sức khỏe hiệu quả.</p>
+                                <h2 data-lang-key="ai_guide_section_health_title">2. Tư duy AI trong Y tế & Chăm sóc sức khỏe</h2>
+                                <button class="language-toggle">Chỉ tiếng Việt</button>
+                                <div class="accordion">
+                                    <button class="accordion-header">Câu hỏi cốt lõi</button>
+                                    <div class="accordion-content">
+                                        <div class="lang-pair">
+                                            <div class="vietnamese">
+                                                <p data-lang-key="ai_guide_health_q_revised">Làm sao nâng cao chẩn đoán? Làm thế nào tối ưu quy trình khám chữa? Làm sao giám sát sức khỏe từ xa?</p>
+                                            </div>
+                                            <div class="english">
+                                                <p data-lang-key="ai_guide_health_q_en_revised">How to enhance diagnostics? How to optimize workflows? How to monitor health remotely?</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="accordion-header">Hướng tư duy chi tiết</button>
+                                    <div class="accordion-content">
+                                        <strong data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</strong>
+                                        <ul>
+                                            <li data-lang-key="ai_guide_health_mindset1_revised">Tin tưởng nhưng xác minh gợi ý AI.</li>
+                                            <li data-lang-key="ai_guide_health_mindset2_revised">Tập trung vào hiệu quả vận hành.</li>
+                                            <li data-lang-key="ai_guide_health_mindset3_revised">Ưu tiên bảo mật và đạo đức.</li>
+                                        </ul>
+                                        <strong data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</strong>
+                                        <ul>
+                                            <li data-lang-key="ai_guide_health_ops1_revised">AI phân tích ảnh y tế để phát hiện bất thường.</li>
+                                            <li data-lang-key="ai_guide_health_ops2_revised">AI giám sát dữ liệu sinh tồn để cảnh báo sớm.</li>
+                                        </ul>
+                                    </div>
+                                    <button class="accordion-header">Gợi ý thực tế</button>
+                                    <div class="accordion-content">
+                                        <ul>
+                                            <li data-lang-key="ai_guide_health_start1_revised">Tối ưu quản lý hành chính bằng AI.</li>
+                                            <li data-lang-key="ai_guide_health_start2_revised">Sử dụng AI tra cứu thông tin y khoa.</li>
+                                            <li data-lang-key="ai_guide_health_start3_revised">Thử nghiệm AI trong phân tích hình ảnh.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <strong>Ví dụ thực tế:</strong>
+                                    <div class="lang-pair">
+                                        <div class="vietnamese">
+                                            <p>Bệnh viện Y tại Nhật dùng AI phân tích CT scan, giảm 30% thời gian chẩn đoán ung thư phổi.</p>
+                                        </div>
+                                        <div class="english">
+                                            <p>Hospital Y in Japan used AI to analyze CT scans, reducing lung cancer diagnosis time by 30%.</p>
+                                        </div>
+                                    </div>
+                                    <span class="learn-more-toggle">Tìm hiểu thêm</span>
+                                    <div class="learn-more-content">
+                                        <div class="lang-pair">
+                                            <div class="vietnamese">
+                                                <p>Bệnh viện Y tại Nhật Bản đã triển khai hệ thống AI dựa trên thị giác máy tính để phân tích hình ảnh CT scan, giúp phát hiện sớm các dấu hiệu ung thư phổi. Công cụ này sử dụng mô hình học sâu, được huấn luyện trên hàng triệu hình ảnh y tế, để nhận diện các bất thường với độ chính xác cao. Kết quả, thời gian chẩn đoán giảm 30%, cho phép bác sĩ tập trung vào việc lập kế hoạch điều trị. Ngoài ra, bệnh viện sử dụng AI để tối ưu hóa lịch khám và quản lý hồ sơ bệnh nhân, giảm thiểu sai sót hành chính. Để áp dụng tương tự, bạn có thể thử các công cụ như Google Cloud Vision AI cho phân tích hình ảnh hoặc các hệ thống quản lý bệnh viện tích hợp AI như Epic Systems.</p>
+                                            </div>
+                                            <div class="english">
+                                                <p>Hospital Y in Japan implemented an AI system based on computer vision to analyze CT scans, detecting early signs of lung cancer. The tool, trained on millions of medical images, identifies abnormalities with high accuracy, reducing diagnosis time by 30% and allowing doctors to focus on treatment planning. Additionally, the hospital used AI to optimize appointment scheduling and patient record management, minimizing administrative errors. To apply similar solutions, you can try tools like Google Cloud Vision AI for image analysis or AI-integrated hospital management systems like Epic Systems.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        
+                            <section id="finance" class="industry-section">
+                                <p class="text-lg font-semibold text-gray-700 mb-4">AI tăng cường phát hiện gian lận, đánh giá rủi ro, và hỗ trợ khách hàng tức thì.</p>
+                                <h2 data-lang-key="ai_guide_section_finance_title">3. Tư duy AI trong Tài chính & Ngân hàng</h2>
+                                <button class="language-toggle">Chỉ tiếng Việt</button>
+                                <div class="accordion">
+                                    <button class="accordion-header">Câu hỏi cốt lõi</button>
+                                    <div class="accordion-content">
+                                        <div class="lang-pair">
+                                            <div class="vietnamese">
+                                                <p data-lang-key="ai_guide_finance_q_revised">Làm sao ngăn chặn gian lận? Làm sao đánh giá rủi ro nhanh? Làm sao hỗ trợ khách hàng 24/7?</p>
+                                            </div>
+                                            <div class="english">
+                                                <p data-lang-key="ai_guide_finance_q_en_revised">How to prevent fraud? How to assess risk quickly? How to support customers 24/7?</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="accordion-header">Hướng tư duy chi tiết</button>
+                                    <div class="accordion-content">
+                                        <strong data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</strong>
+                                        <ul>
+                                            <li data-lang-key="ai_guide_finance_mindset1_revised">Tìm kiếm mẫu hình bất thường bằng AI.</li>
+                                            <li data-lang-key="ai_guide_finance_mindset2_revised">Quyết định dựa trên dữ liệu AI.</li>
+                                            <li data-lang-key="ai_guide_finance_mindset3_revised">Nâng cao trải nghiệm khách hàng.</li>
+                                        </ul>
+                                        <strong data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</strong>
+                                        <ul>
+                                            <li data-lang-key="ai_guide_finance_ops1_revised">AI phát hiện giao dịch bất thường.</li>
+                                            <li data-lang-key="ai_guide_finance_ops2_revised">AI chấm điểm tín dụng dựa trên dữ liệu.</li>
+                                        </ul>
+                                    </div>
+                                    <button class="accordion-header">Gợi ý thực tế</button>
+                                    <div class="accordion-content">
+                                        <ul>
+                                            <li data-lang-key="ai_guide_finance_start1_revised">Triển khai chatbot hỗ trợ cơ bản.</li>
+                                            <li data-lang-key="ai_guide_finance_start2_revised">Khai thác báo cáo phân tích AI.</li>
+                                            <li data-lang-key="ai_guide_finance_start3_revised">Thử nghiệm gợi ý sản phẩm tài chính.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <strong>Ví dụ thực tế:</strong>
+                                    <div class="lang-pair">
+                                        <div class="vietnamese">
+                                            <p>Ngân hàng Z dùng AI để phát hiện gian lận, giảm 40% thiệt hại từ giao dịch bất thường.</p>
+                                        </div>
+                                        <div class="english">
+                                            <p>Bank Z used AI to detect fraud, reducing losses from irregular transactions by 40%.</p>
+                                        </div>
+                                    </div>
+                                    <span class="learn-more-toggle">Tìm hiểu thêm</span>
+                                    <div class="learn-more-content">
+                                        <div class="lang-pair">
+                                            <div class="vietnamese">
+                                                <p>Ngân hàng Z đã tích hợp AI vào hệ thống giám sát giao dịch, sử dụng các thuật toán học máy để phân tích hành vi giao dịch theo thời gian thực. Hệ thống này phát hiện các mẫu giao dịch bất thường, như chi tiêu bất thường ở nước ngoài, và tự động gửi cảnh báo hoặc khóa tài khoản tạm thời. Kết quả, ngân hàng giảm 40% thiệt hại do gian lận. Ngoài ra, chatbot AI được triển khai để hỗ trợ khách hàng 24/7, trả lời các câu hỏi về tài khoản và dịch vụ, giảm tải cho nhân viên. Bạn có thể bắt đầu với các giải pháp như IBM Watson Financial Services hoặc chatbot AI như Dialogflow để triển khai các tính năng tương tự.</p>
+                                            </div>
+                                            <div class="english">
+                                                <p>Bank Z integrated AI into its transaction monitoring system, using machine learning algorithms to analyze transaction behavior in real-time. The system detects irregular patterns, such as unusual overseas spending, and automatically sends alerts or temporarily locks accounts. As a result, the bank reduced fraud losses by 40%. Additionally, an AI chatbot was deployed to support customers 24/7, answering questions about accounts and services, reducing staff workload. You can start with solutions like IBM Watson Financial Services or AI chatbots like Dialogflow to implement similar features.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        
+                            <section id="retail" class="industry-section">
+                                <p class="text-lg font-semibold text-gray-700 mb-4">AI cá nhân hóa mua sắm, dự báo nhu cầu, và nắm bắt tâm lý khách hàng.</p>
+                                <h2 data-lang-key="ai_guide_section_retail_title">4. Tư duy AI trong Bán lẻ & Thương mại điện tử</h2>
+                                <button class="language-toggle">Chỉ tiếng Việt</button>
+                                <div class="accordion">
+                                    <button class="accordion-header">Câu hỏi cốt lõi</button>
+                                    <div class="accordion-content">
+                                        <div class="lang-pair">
+                                            <div class="vietnamese">
+                                                <p data-lang-key="ai_guide_retail_q_revised">Làm sao cá nhân hóa mua sắm? Làm sao dự báo nhu cầu? Làm sao nắm bắt tâm lý khách?</p>
+                                            </div>
+                                            <div class="english">
+                                                <p data-lang-key="ai_guide_retail_q_en_revised">How to personalize shopping? How to forecast demand? How to capture customer sentiment?</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="accordion-header">Hướng tư duy chi tiết</button>
+                                    <div class="accordion-content">
+                                        <strong data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</strong>
+                                        <ul>
+                                            <li data-lang-key="ai_guide_retail_mindset1_revised">Lấy khách hàng làm trung tâm.</li>
+                                            <li data-lang-key="ai_guide_retail_mindset2_revised">Tối ưu hóa mọi quy trình.</li>
+                                            <li data-lang-key="ai_guide_retail_mindset3_revised">Nhạy bén với dữ liệu khách hàng.</li>
+                                        </ul>
+                                        <strong data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</strong>
+                                        <ul>
+                                            <li data-lang-key="ai_guide_retail_ops1_revised">AI gợi ý sản phẩm dựa trên hành vi.</li>
+                                            <li data-lang-key="ai_guide_retail_ops2_revised">AI dự báo nhu cầu và tối ưu tồn kho.</li>
+                                        </ul>
+                                    </div>
+                                    <button class="accordion-header">Gợi ý thực tế</button>
+                                    <div class="accordion-content">
+                                        <ul>
+                                            <li data-lang-key="ai_guide_retail_start1_revised">Kích hoạt gợi ý sản phẩm AI.</li>
+                                            <li data-lang-key="ai_guide_retail_start2_revised">Sử dụng chatbot xử lý yêu cầu cơ bản.</li>
+                                            <li data-lang-key="ai_guide_retail_start3_revised">Phân tích báo cáo thông minh.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <strong>Ví dụ thực tế:</strong>
+                                    <div class="lang-pair">
+                                        <div class="vietnamese">
+                                            <p>Cửa hàng T dùng AI gợi ý sản phẩm, tăng 25% doanh số bán hàng trực tuyến.</p>
+                                        </div>
+                                        <div class="english">
+                                            <p>Store T used AI to suggest products, increasing online sales by 25%.</p>
+                                        </div>
+                                    </div>
+                                    <span class="learn-more-toggle">Tìm hiểu thêm</span>
+                                    <div class="learn-more-content">
+                                        <div class="lang-pair">
+                                            <div class="vietnamese">
+                                                <p>Cửa hàng T, một nền tảng thương mại điện tử, đã sử dụng AI để phân tích hành vi mua sắm, như lịch sử duyệt web và giỏ hàng, để gợi ý sản phẩm phù hợp cho từng khách hàng. Hệ thống AI này, dựa trên các thuật toán học máy, tăng tỷ lệ nhấp vào sản phẩm gợi ý lên 25%, dẫn đến tăng trưởng doanh số trực tuyến. Ngoài ra, AI được sử dụng để dự báo nhu cầu, giúp tối ưu hóa tồn kho và giảm 15% chi phí lưu kho. Cửa hàng cũng triển khai chatbot AI để xử lý các yêu cầu như tra cứu đơn hàng, cải thiện trải nghiệm khách hàng. Bạn có thể thử các công cụ như Shopify AI hoặc Dynamic Yield để triển khai các tính năng tương tự.</p>
+                                            </div>
+                                            <div class="english">
+                                                <p>Store T, an e-commerce platform, used AI to analyze shopping behavior, such as browsing history and cart activity, to suggest tailored products for each customer. This AI system, based on machine learning algorithms, increased click-through rates on suggested products by 25%, driving online sales growth. Additionally, AI was used to forecast demand, optimizing inventory and reducing storage costs by 15%. The store also deployed an AI chatbot to handle requests like order tracking, enhancing customer experience. You can try tools like Shopify AI or Dynamic Yield to implement similar features.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        
+                            <section id="manufacturing" class="industry-section">
+                                <p class="text-lg font-semibold text-gray-700 mb-4">AI phát hiện khuyết tật, dự đoán sự cố, và tối ưu hóa sản xuất.</p>
+                                <h2 data-lang-key="ai_guide_section_manu_title">5. Tư duy AI trong Sản xuất & Công nghiệp</h2>
+                                <button class="language-toggle">Chỉ tiếng Việt</button>
+                                <div class="accordion">
+                                    <button class="accordion-header">Câu hỏi cốt lõi</button>
+                                    <div class="accordion-content">
+                                        <div class="lang-pair">
+                                            <div class="vietnamese">
+                                                <p data-lang-key="ai_guide_manu_q_revised">Làm sao phát hiện khuyết tật? Làm sao dự đoán sự cố? Làm sao tối ưu logistics?</p>
+                                            </div>
+                                            <div class="english">
+                                                <p data-lang-key="ai_guide_manu_q_en_revised">How to detect defects? How to predict failures? How to optimize logistics?</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="accordion-header">Hướng tư duy chi tiết</button>
+                                    <div class="accordion-content">
+                                        <strong data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</strong>
+                                        <ul>
+                                            <li data-lang-key="ai_guide_manu_mindset1_revised">Tư duy phòng ngừa và dự đoán.</li>
+                                            <li data-lang-key="ai_guide_manu_mindset2_revised">Cam kết chất lượng toàn diện.</li>
+                                            <li data-lang-key="ai_guide_manu_mindset3_revised">Tối ưu hóa từng công đoạn.</li>
+                                        </ul>
+                                        <strong data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</strong>
+                                        <ul>
+                                            <li data-lang-key="ai_guide_manu_ops1_revised">AI kiểm tra chất lượng bằng hình ảnh.</li>
+                                            <li data-lang-key="ai_guide_manu_ops2_revised">AI phân tích cảm biến dự đoán sự cố.</li>
+                                        </ul>
+                                    </div>
+                                    <button class="accordion-header">Gợi ý thực tế</button>
+                                    <div class="accordion-content">
+                                        <ul>
+                                            <li data-lang-key="ai_guide_manu_start1_revised">Kiểm tra chất lượng bằng camera AI.</li>
+                                            <li data-lang-key="ai_guide_manu_start2_revised">Giám sát máy móc bằng cảm biến.</li>
+                                            <li data-lang-key="ai_guide_manu_start3_revised">Thử nghiệm robot tự hành (AGV).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <strong>Ví dụ thực tế:</strong>
+                                    <div class="lang-pair">
+                                        <div class="vietnamese">
+                                            <p>Nhà máy K dùng AI kiểm tra chất lượng, giảm 50% lỗi sản phẩm xuất xưởng.</p>
+                                        </div>
+                                        <div class="english">
+                                            <p>Factory K used AI for quality inspection, reducing product defects by 50%.</p>
+                                        </div>
+                                    </div>
+                                    <span class="learn-more-toggle">Tìm hiểu thêm</span>
+                                    <div class="learn-more-content">
+                                        <div class="lang-pair">
+                                            <div class="vietnamese">
+                                                <p>Nhà máy K đã triển khai hệ thống kiểm tra chất lượng sử dụng camera AI, được huấn luyện để phát hiện các khuyết tật trên sản phẩm với độ chính xác cao. Hệ thống này thay thế kiểm tra thủ công, giảm 50% lỗi sản phẩm xuất xưởng và tiết kiệm 20% thời gian kiểm tra. Ngoài ra, nhà máy sử dụng cảm biến IoT kết hợp AI để giám sát máy móc, dự đoán các sự cố tiềm ẩn trước khi xảy ra, giảm thời gian ngừng máy xuống 30%. Các robot tự hành (AGV) cũng được thử nghiệm để tối ưu hóa logistics nội bộ. Bạn có thể bắt đầu với các giải pháp như AWS Panorama hoặc Siemens MindSphere để triển khai các tính năng tương tự.</p>
+                                            </div>
+                                            <div class="english">
+                                                <p>Factory K implemented an AI-powered camera system for quality inspection, trained to detect product defects with high accuracy. This system replaced manual checks, reducing defects by 50% and saving 20% of inspection time. Additionally, IoT sensors combined with AI monitored machinery, predicting potential failures and reducing downtime by 30%. Autonomous guided vehicles (AGVs) were also tested to optimize internal logistics. You can start with solutions like AWS Panorama or Siemens MindSphere to implement similar features.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        
+                            <section id="agriculture" class="industry-section">
+                                <p class="text-lg font-semibold text-gray-700 mb-4">AI tối ưu hóa tài nguyên, phát hiện sâu bệnh, và dự báo năng suất.</p>
+                                <h2 data-lang-key="ai_guide_section_agri_title">6. Tư duy AI trong Nông nghiệp</h2>
+                                <button class="language-toggle">Chỉ tiếng Việt</button>
+                                <div class="accordion">
+                                    <button class="accordion-header">Câu hỏi cốt lõi</button>
+                                    <div class="accordion-content">
+                                        <div class="lang-pair">
+                                            <div class="vietnamese">
+                                                <p data-lang-key="ai_guide_agri_q_revised">Làm sao tối ưu tài nguyên? Làm sao phát hiện sâu bệnh? Làm sao dự báo năng suất?</p>
+                                            </div>
+                                            <div class="english">
+                                                <p data-lang-key="ai_guide_agri_q_en_revised">How to optimize resources? How to detect pests? How to forecast yields?</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="accordion-header">Hướng tư duy chi tiết</button>
+                                    <div class="accordion-content">
+                                        <strong data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</strong>
+                                        <ul>
+                                            <li data-lang-key="ai_guide_agri_mindset1_revised">Quan sát tinh tế và kết hợp dữ liệu.</li>
+                                            <li data-lang-key="ai_guide_agri_mindset2_revised">Canh tác chính xác.</li>
+                                            <li data-lang-key="ai_guide_agri_mindset3_revised">Thích ứng với môi trường.</li>
+                                        </ul>
+                                        <strong data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</strong>
+                                        <ul>
+                                            <li data-lang-key="ai_guide_agri_ops1_revised">AI phân tích ảnh drone để kiểm tra cây trồng.</li>
+                                            <li data-lang-key="ai_guide_agri_ops2_revised">AI dự báo năng suất dựa trên dữ liệu.</li>
+                                        </ul>
+                                    </div>
+                                    <button class="accordion-header">Gợi ý thực tế</button>
+                                    <div class="accordion-content">
+                                        <ul>
+                                            <li data-lang-key="ai_guide_agri_start1_revised">Sử dụng ứng dụng nông nghiệp thông minh.</li>
+                                            <li data-lang-key="ai_guide_agri_start2_revised">Lắp đặt cảm biến môi trường.</li>
+                                            <li data-lang-key="ai_guide_agri_start3_revised">Chụp ảnh drone định kỳ.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <strong>Ví dụ thực tế:</strong>
+                                    <div class="lang-pair">
+                                        <div class="vietnamese">
+                                            <p>Trang trại N dùng AI phân tích ảnh drone, giảm 20% thiệt hại do sâu bệnh.</p>
+                                        </div>
+                                        <div class="english">
+                                            <p>Farm N used AI to analyze drone images, reducing pest damage by 20%.</p>
+                                        </div>
+                                    </div>
+                                    <span class="learn-more-toggle">Tìm hiểu thêm</span>
+                                    <div class="learn-more-content">
+                                        <div class="lang-pair">
+                                            <div class="vietnamese">
+                                                <p>Trang trại N đã sử dụng drone tích hợp AI để chụp ảnh cây trồng và phân tích dữ liệu hình ảnh, giúp phát hiện sớm các dấu hiệu sâu bệnh và thiếu dinh dưỡng. Hệ thống AI này, sử dụng các mô hình thị giác máy tính, cung cấp bản đồ chi tiết về tình trạng cây trồng, giảm 20% thiệt hại do sâu bệnh. Ngoài ra, cảm biến môi trường được lắp đặt để đo độ ẩm và nhiệt độ, kết hợp với AI để tối ưu hóa tưới tiêu, tiết kiệm 15% lượng nước. Trang trại cũng sử dụng AI để dự báo năng suất dựa trên dữ liệu thời tiết và đất. Bạn có thể thử các công cụ như Agremo hoặc Farm-ng để triển khai các giải pháp tương tự.</p>
+                                            </div>
+                                            <div class="english">
+                                                <p>Farm N used AI-integrated drones to capture crop images and analyze data, detecting early signs of pests and nutrient deficiencies. This AI system, leveraging computer vision models, provided detailed crop health maps, reducing pest damage by 20%. Additionally, environmental sensors measured humidity and temperature, combined with AI to optimize irrigation, saving 15% of water. The farm also used AI to forecast yields based on weather and soil data. You can try tools like Agremo or Farm-ng to implement similar solutions.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        
+                            <section id="hospitality" class="industry-section">
+                                <p class="text-lg font-semibold text-gray-700 mb-4">AI cá nhân hóa trải nghiệm, tối ưu giá, và quản lý danh tiếng.</p>
+                                <h2 data-lang-key="ai_guide_section_hosp_title">7. Tư duy AI trong Du lịch & Nhà hàng Khách sạn</h2>
+                                <button class="language-toggle">Chỉ tiếng Việt</button>
+                                <div class="accordion">
+                                    <button class="accordion-header">Câu hỏi cốt lõi</button>
+                                    <div class="accordion-content">
+                                        <div class="lang-pair">
+                                            <div class="vietnamese">
+                                                <p data-lang-key="ai_guide_hosp_q_revised">Làm sao cá nhân hóa trải nghiệm? Làm sao tối ưu giá? Làm sao quản lý danh tiếng?</p>
+                                            </div>
+                                            <div class="english">
+                                                <p data-lang-key="ai_guide_hosp_q_en_revised">How to personalize experiences? How to optimize pricing? How to manage reputation?</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="accordion-header">Hướng tư duy chi tiết</button>
+                                    <div class="accordion-content">
+                                        <strong data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</strong>
+                                        <ul>
+                                            <li data-lang-key="ai_guide_hosp_mindset1_revised">Thấu hiểu khách hàng toàn diện.</li>
+                                            <li data-lang-key="ai_guide_hosp_mindset2_revised">Linh hoạt trong định giá.</li>
+                                            <li data-lang-key="ai_guide_hosp_mindset3_revised">Quản lý danh tiếng chủ động.</li>
+                                        </ul>
+                                        <strong data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</strong>
+                                        <ul>
+                                            <li data-lang-key="ai_guide_hosp_ops1_revised">AI gợi ý dịch vụ dựa trên sở thích.</li>
+                                            <li data-lang-key="ai_guide_hosp_ops2_revised">AI điều chỉnh giá theo nhu cầu.</li>
+                                        </ul>
+                                    </div>
+                                    <button class="accordion-header">Gợi ý thực tế</button>
+                                    <div class="accordion-content">
+                                        <ul>
+                                            <li data-lang-key="ai_guide_hosp_start1_revised">Sử dụng hệ thống quản lý doanh thu.</li>
+                                            <li data-lang-key="ai_guide_hosp_start2_revised">Triển khai chatbot hỗ trợ khách.</li>
+                                            <li data-lang-key="ai_guide_hosp_start3_revised">Quản lý đánh giá trực tuyến.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <strong>Ví dụ thực tế:</strong>
+                                    <div class="lang-pair">
+                                        <div class="vietnamese">
+                                            <p>Khách sạn M dùng AI gợi ý dịch vụ, tăng 15% tỷ lệ đặt phòng trực tiếp.</p>
+                                        </div>
+                                        <div class="english">
+                                            <p>Hotel M used AI to suggest services, increasing direct booking rates by 15%.</p>
+                                        </div>
+                                    </div>
+                                    <span class="learn-more-toggle">Tìm hiểu thêm</span>
+                                    <div class="learn-more-content">
+                                        <div class="lang-pair">
+                                            <div class="vietnamese">
+                                                <p>Khách sạn M đã sử dụng AI để phân tích sở thích của khách, dựa trên lịch sử đặt phòng và đánh giá, để gợi ý các dịch vụ như spa hoặc tour du lịch phù hợp. Hệ thống AI này, được tích hợp vào website và ứng dụng đặt phòng, tăng tỷ lệ đặtSouce: Grok, created by xAI đặt phòng trực tiếp lên 15%, giảm phụ thuộc vào các nền tảng bên thứ ba. Ngoài ra, AI được sử dụng để tối ưu hóa giá phòng theo nhu cầu thị trường, giúp tăng doanh thu 10%. Khách sạn cũng triển khai chatbot AI để trả lời các câu hỏi về đặt phòng và tiện ích, cải thiện trải nghiệm khách hàng. Bạn có thể thử các công cụ như Duetto cho quản lý doanh thu hoặc chatbot AI như Ada để triển khai các tính năng tương tự.</p>
+                                            </div>
+                                            <div class="english">
+                                                <p>Hotel M used AI to analyze guest preferences, based on booking history and reviews, to suggest tailored services like spa treatments or tours. This AI system, integrated into the website and booking app, increased direct bookings by 15%, reducing reliance on third-party platforms. Additionally, AI optimized room pricing based on market demand, boosting revenue by 10%. The hotel also deployed an AI chatbot to answer questions about bookings and amenities, enhancing guest experience. You can try tools like Duetto for revenue management or AI chatbots like Ada to implement similar features.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
