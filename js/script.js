@@ -1,6 +1,6 @@
 /* ========================== */
 /* Optimized JavaScript Logic */
-/* Version: Supports multi-language posts.json */
+/* Version: Combined Language & Search */
 /* ========================== */
 
 // --- Constants ---
@@ -11,7 +11,7 @@ const HEADER_PLACEHOLDER_ID = 'header-placeholder';
 const FOOTER_PLACEHOLDER_ID = 'footer-placeholder';
 const NEWS_CONTAINER_ID = 'news-container';
 const FOOTER_YEAR_ID = 'current-year';
-const SEARCH_HIGHLIGHT_CLASS = 'search-highlight'; // Keep search class
+const SEARCH_HIGHLIGHT_CLASS = 'search-highlight'; // Class for highlighting
 
 // --- State Flags ---
 let headerFooterLoadAttempted = false;
@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const footerLoaded = !!footerPlaceholder;
         console.log(`[Script] Header: ${headerLoaded}, Footer: ${footerLoaded}`);
 
-        if (headerLoaded) initializeHeaderMenuLogic();
+        if (headerLoaded) initializeHeaderMenuLogic(); // Initializes menu AND search
         if (footerLoaded) updateFooterYear();
 
         // Initialize language system AFTER components are loaded
@@ -406,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typeof initializeLanguage === 'function') {
                 if (!window.languageInitialized) {
                     console.log("[Script] Initializing language...");
-                    initializeLanguage();
+                    initializeLanguage(); // Applies initial translations
                     window.attachLanguageButtonListeners?.();
                 } else {
                     console.log("[Script] Re-applying translations/listeners...");
@@ -421,9 +421,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const bodyId = document.body.id;
-    // News loading is now triggered by language initialization/change
+    // News loading is triggered by language initialization/change via setLanguage in language.js
     // if (bodyId === 'page-index' || document.getElementById(NEWS_CONTAINER_ID)) {
-    //     console.log("[Script] Loading news...");
+    //     console.log("[Script] Loading news initially...");
     //     loadInternalNews();
     // }
 
