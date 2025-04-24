@@ -1,6 +1,6 @@
 /* ===================================== */
 /* Optimized CSS Styles for IVS JSC     */
-/* Version: Fixed Dropdown z-index      */
+/* Version: Integrated button styles   */
 /* ===================================== */
 
 /* --- 1. Theme Variables (Consolidated) --- */
@@ -97,11 +97,12 @@ body.overflow-hidden {
   height: var(--logo-height-shrink);
 }
 /* Adjust container height within shrinking navbar */
-#navbar > nav > div {
+/* Targeting the flex container inside the main container */
+#navbar > .container > div {
   height: var(--header-height-initial); /* Match initial navbar height */
   transition: height var(--menu-transition-duration) ease-in-out;
 }
-#navbar.shrink > nav > div {
+#navbar.shrink > .container > div {
   height: var(--header-height-shrink); /* Match shrunk navbar height */
 }
 
@@ -130,7 +131,7 @@ body.overflow-hidden {
   width: 0.875rem; /* w-3.5 */
   height: 0.875rem; /* h-3.5 */
 }
-.main-menu-item > button.group:hover svg { /* Use group hover from Tailwind */
+.main-menu-item > button:hover svg {
   color: var(--header-arrow-hover-color);
 }
 .main-menu-item > a.nav-link:hover,
@@ -288,10 +289,17 @@ body.overflow-hidden {
 }
 #mobile-menu-content { /* Scrollable content area */
   padding: 0.5rem 0.5rem; /* py-2 px-2 */
-  space-y: 0.25rem; /* space-y-1 */
   overflow-y: auto; /* Enable scrolling for content */
   flex-grow: 1; /* Allow content to take available space */
 }
+/* Add margin between direct children of mobile menu content */
+#mobile-menu-content > * {
+    margin-bottom: 0.25rem; /* space-y-1 equivalent */
+}
+#mobile-menu-content > *:last-child {
+    margin-bottom: 0;
+}
+
 #mobile-footer { /* Footer within the panel */
   padding: 0.75rem 1rem; /* py-3 px-4 */
   border-top: 1px solid var(--mobile-menu-border);
@@ -310,6 +318,10 @@ body.overflow-hidden {
   transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
   font-size: 0.9375rem; /* Slightly larger base font */
   color: var(--mobile-menu-text);
+  /* Ensure buttons have default appearance removed */
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 #mobile-menu-content .nav-link:hover,
 #mobile-menu-content .mobile-submenu-toggle:hover,
@@ -352,7 +364,16 @@ body.overflow-hidden {
 }
 .mobile-menu-item.open > .mobile-submenu {
   max-height: 1000px; /* Set a large max-height to allow transition */
+  overflow: visible; /* Make sure content isn't clipped when open */
 }
+/* Add margin between items inside submenu */
+.mobile-submenu > * {
+    margin-bottom: 0.25rem;
+}
+.mobile-submenu > *:last-child {
+    margin-bottom: 0;
+}
+
 .mobile-submenu a,
 .mobile-submenu button.mobile-submenu-toggle { /* Apply to nested toggles too */
   font-size: 0.875rem; /* text-sm */
@@ -395,10 +416,12 @@ body.overflow-hidden {
 
 /* --- 5. Language Dropdown Styles --- */
 .language-dropdown-content { display: none; }
+/* Use JS to toggle 'hidden' class instead of relying solely on 'open' for CSS */
 .language-dropdown.open .language-dropdown-content { display: block; }
 
 /* Desktop Language Dropdown */
 #desktop-language-dropdown {
+  position: relative; /* Needed for absolute positioning of content */
   border-left: 1px solid var(--header-lang-border);
   padding-left: 0.75rem; /* pl-3 */
   margin-left: 0.25rem; /* ml-1 */
@@ -413,6 +436,9 @@ body.overflow-hidden {
   border-radius: 0.375rem; /* rounded-md */
   color: var(--header-text);
   transition: background-color 0.15s ease-in-out;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 #desktop-language-dropdown .dropdown-toggle:hover,
 #desktop-language-dropdown .dropdown-toggle:focus {
@@ -450,6 +476,9 @@ body.overflow-hidden {
   display: block;
   width: 100%;
   text-align: left;
+  background: none; /* Ensure no default button background */
+  border: none; /* Ensure no default button border */
+  cursor: pointer;
 }
 #desktop-language-dropdown .lang-button:hover,
 #desktop-language-dropdown .lang-button:focus {
@@ -475,6 +504,11 @@ body.overflow-hidden {
   align-items: center;
   padding: 0.5rem 0.75rem; /* py-2 px-3 */
   border-radius: 0.375rem;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
 }
 #mobile-language-dropdown .dropdown-toggle:hover,
 #mobile-language-dropdown .dropdown-toggle:focus {
@@ -495,19 +529,14 @@ body.overflow-hidden {
   transform: rotate(180deg);
 }
 #mobile-language-dropdown .language-dropdown-content {
-  position: static; /* Not absolute */
+  /* Position relative to the toggle button or footer */
   box-shadow: none;
   margin-top: 0.5rem;
   background-color: white;
   border-radius: 0.375rem;
   border: 1px solid var(--mobile-menu-border);
   padding: 0.5rem 0;
-  max-height: 0; /* Hidden by default */
-  overflow: hidden;
-  transition: max-height var(--menu-transition-duration) ease-out;
-}
-#mobile-language-dropdown.open .language-dropdown-content {
-  max-height: 200px; /* Or large enough value */
+  overflow: hidden; /* Keep hidden */
 }
 #mobile-language-dropdown .lang-button { /* Options */
   color: var(--submenu-text);
@@ -517,6 +546,9 @@ body.overflow-hidden {
   display: block;
   width: 100%;
   text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 #mobile-language-dropdown .lang-button:hover,
 #mobile-language-dropdown .lang-button:focus {
@@ -607,6 +639,18 @@ button:disabled {
 }
 
 /* News Container Scrollbar */
+#news-container {
+    /* Enable horizontal scrolling */
+    overflow-x: auto;
+    /* Improve scrolling experience on touch devices */
+    -webkit-overflow-scrolling: touch;
+    /* Hide scrollbar visually if desired, while still allowing scroll */
+    /* scrollbar-width: none;  /* Firefox */
+    /* -ms-overflow-style: none; /* IE and Edge */
+}
+/* #news-container::-webkit-scrollbar { display: none; } /* Chrome, Safari, Opera */
+
+/* Style scrollbar (Optional) */
 #news-container::-webkit-scrollbar { height: 8px; }
 #news-container::-webkit-scrollbar-track { background: #f3f4f6; border-radius: 10px; }
 #news-container::-webkit-scrollbar-thumb { background-color: #d1d5db; border-radius: 10px; border: 2px solid #f3f4f6; }
@@ -621,10 +665,87 @@ button:disabled {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-/* Action Buttons on Index */
-/* Use Tailwind classes in HTML for these */
-.large-action-button { }
-.small-action-button { }
+/* --- Action Buttons on Index (Moved from index.html) --- */
+.large-action-button {
+  position: relative;
+  display: block;
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.5rem; /* p-6 */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+  transition-property: box-shadow, transform, background-color; /* Added background-color */
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  min-height: 200px;
+  overflow: hidden; /* Keep overflow hidden */
+}
+.large-action-button:hover {
+  /* Tailwind hover:-translate-y-1 */
+  --tw-translate-y: -0.25rem;
+  transform: translate(var(--tw-translate-x, 0), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+  /* Tailwind hover:shadow-xl */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+/* Overlay for large buttons */
+.large-action-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.25); /* Initial overlay */
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
+.large-action-button:hover::before {
+  background-color: rgba(0, 0, 0, 0.15); /* Lighter overlay on hover */
+}
+/* Ensure content is above overlay */
+.large-action-button > * {
+  position: relative;
+  z-index: 2;
+}
+/* Responsive height for large buttons */
+@media (min-width: 768px) { /* md breakpoint */
+  .large-action-button {
+    min-height: 250px;
+  }
+}
+
+.small-action-button {
+  display: block;
+  border-radius: 0.5rem; /* rounded-lg */
+  background-color: white;
+  padding: 1rem; /* p-4 */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+  transition-property: box-shadow, transform, background-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #374151; /* text-gray-700 */
+  min-height: 100px;
+}
+.small-action-button:hover {
+   /* Tailwind hover:-translate-y-1 */
+  --tw-translate-y: -0.25rem;
+  transform: translate(var(--tw-translate-x, 0), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+   /* Tailwind hover:shadow-lg */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+   /* Tailwind hover:bg-gray-100 */
+  background-color: #f3f4f6;
+}
+/* --- End Action Button Styles --- */
+
 
 /* Timeline (About Page) */
 .timeline {
@@ -661,6 +782,14 @@ button:disabled {
 }
 
 /* Horizontal Scroll Gallery (About Page) */
+.horizontal-scroll-gallery {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    /* scrollbar-width: none; */ /* Optional: Hide scrollbar */
+    /* -ms-overflow-style: none; */ /* Optional: Hide scrollbar */
+}
+/* .horizontal-scroll-gallery::-webkit-scrollbar { display: none; } */ /* Optional: Hide scrollbar */
+
 .horizontal-scroll-gallery::-webkit-scrollbar { height: 8px; }
 .horizontal-scroll-gallery::-webkit-scrollbar-track { background: #e5e7eb; border-radius: 10px; }
 .horizontal-scroll-gallery::-webkit-scrollbar-thumb { background-color: #9ca3af; border-radius: 10px; border: 2px solid #e5e7eb; }
@@ -684,5 +813,4 @@ button:disabled {
 
 /* --- 8. Utility Classes --- */
 .hero-text-shadow {
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-}
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3)
