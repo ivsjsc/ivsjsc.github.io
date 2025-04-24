@@ -8,9 +8,10 @@
     <meta property="og:title" content="Hướng dẫn Tư duy AI theo Ngành nghề - IVS Education" data-lang-key="og_title_ai_guide">
     <meta property="og:description" content="Định hình tư duy nền tảng để ứng dụng AI thành công, bất kể công cụ bạn sử dụng." data-lang-key="og_description_ai_guide">
     <meta property="og:image" content="https://placehold.co/1200x630/4f46e5/ffffff?text=AI+Mindset+Guide">
-    <meta property="og:url" content="https://ivsjsc.github.io/howtouseai-ivs.html"> <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ivsjsc.github.io/howtouseai-ivs.html">
+    <meta property="og:type" content="website">
 
-    <link rel="icon" href="images/logo/logo.png" type="image/x-icon" onerror="this.href='https://placehold.co/32x32/ffffff/000000?text=IVS'">
+    <link rel="icon" href="images/logo/logo.png" type="image/x-icon" onerror="this.href='https://placehold.co/32x32/4f46e5/ffffff?text=IVS'">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -24,6 +25,7 @@
               sans: ['Inter', 'sans-serif'],
             },
             colors: {
+              // Added full color palettes for better theme consistency
               'primary': '#3b82f6', // blue-500
               'primary-dark': '#2563eb', // blue-600
               'secondary': '#10b981', // emerald-500
@@ -47,7 +49,9 @@
 
     <style>
       body {
-        scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased; /* Smoother fonts on WebKit */
+        -moz-osx-font-smoothing: grayscale; /* Smoother fonts on Firefox */
       }
       /* Style for the AI tools table */
       .ai-tools-table-container {
@@ -95,83 +99,168 @@
         text-decoration: underline;
         color: theme('colors.blue.700');
       }
-      /* Responsive table styles for mobile */
-      @media (max-width: 768px) { /* Adjusted breakpoint for better tablet view */
+      /* Responsive table styles for mobile - IMPROVED READABILITY */
+      @media (max-width: 768px) {
         .ai-tools-table thead {
-          display: none; /* Hide table header on small screens */
+          display: none;
         }
         .ai-tools-table tr {
           display: block;
-          margin-bottom: 1.5rem; /* mb-6 */
+          margin-bottom: 1.5rem;
           border: 1px solid theme('colors.gray.200');
-          border-radius: 0.5rem; /* rounded-lg */
-          overflow: hidden; /* Ensure borders are contained */
+          border-radius: 0.5rem;
+          overflow: hidden;
           box-shadow: theme('boxShadow.md');
         }
         .ai-tools-table td {
-          display: block;
-          text-align: right; /* Align text to the right */
-          padding: 0.75rem 1rem; /* px-4 py-3 */
-          border-bottom: 1px solid theme('colors.gray.100'); /* Lighter border between cells */
+          display: flex; /* Use flexbox for better alignment */
+          justify-content: space-between; /* Space between label and value */
+          align-items: flex-start; /* Align items to the top */
+          text-align: right;
+          padding: 0.75rem 1rem;
+          border-bottom: 1px solid theme('colors.gray.100');
           position: relative;
+          min-height: 3rem; /* Ensure minimum height */
+          flex-wrap: wrap; /* Allow wrapping if needed */
         }
         .ai-tools-table td:last-child {
             border-bottom: none;
         }
-        /* Use data-label for pseudo-header */
+        /* Label styling */
         .ai-tools-table td::before {
           content: attr(data-label);
-          font-weight: 600; /* font-semibold */
+          font-weight: 600;
           color: theme('colors.gray.800');
-          position: absolute;
-          left: 1rem; /* px-4 */
-          top: 0.75rem; /* py-3 */
           text-align: left;
           text-transform: uppercase;
-          font-size: 0.75rem; /* text-xs */
+          font-size: 0.75rem;
+          padding-right: 1rem; /* Space between label and value */
+          flex-basis: 40%; /* Give label some width */
+          flex-shrink: 0; /* Prevent label from shrinking */
+          margin-bottom: 0.25rem; /* Space below label if value wraps */
         }
-        .ai-tools-table td span[data-lang-key] {
-            display: block; /* Ensure spans stack */
-            margin-top: 0.25rem; /* Add space between lines if needed */
+        /* Value styling */
+        .ai-tools-table td > :not(a):not(span) { /* Target direct text content or simple elements */
+            flex-basis: 55%; /* Give value remaining width */
+            text-align: right;
         }
-        .ai-tools-table td a {
-            display: inline-block; /* Make links behave like buttons */
+        .ai-tools-table td > a,
+        .ai-tools-table td > span { /* Handle links and spans */
+            display: block;
+            width: 100%; /* Take full width if wrapped */
+            text-align: right;
             margin-top: 0.25rem;
         }
+         /* Specific adjustments for description cell */
+        .ai-tools-table td[data-label="Mô tả Ngắn gọn"] {
+            flex-direction: column; /* Stack label and description */
+            align-items: flex-start; /* Align left */
+            text-align: left;
+        }
+        .ai-tools-table td[data-label="Mô tả Ngắn gọn"]::before {
+             flex-basis: auto; /* Reset basis */
+             width: 100%;
+             margin-bottom: 0.5rem; /* More space */
+        }
+        .ai-tools-table td[data-label="Mô tả Ngắn gọn"] > span {
+             text-align: left;
+             line-height: 1.5;
+             margin-top: 0.1rem;
+        }
+        /* Specific adjustments for link cell */
+        .ai-tools-table td[data-label="Liên kết"] {
+             flex-direction: column;
+             align-items: flex-start;
+        }
+         .ai-tools-table td[data-label="Liên kết"] > a {
+             text-align: left;
+             margin-top: 0.25rem;
+         }
       }
 
       /* Style for bilingual content pairs */
       .lang-pair {
         margin-bottom: 1.5rem; /* mb-6 */
-        padding: 1.5rem; /* p-6 */
-        border-radius: 0.75rem; /* rounded-xl */
-        background-color: theme('colors.white');
-        border: 1px solid theme('colors.gray.100');
-        box-shadow: theme('boxShadow.sm');
+        padding: 0; /* Remove padding for base */
+        border-radius: 0;
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
         display: flex;
-        flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        flex-wrap: wrap;
         gap: 1.5rem; /* gap-6 */
         transition: all 0.3s ease;
       }
+      /* Add back styling for specific pairs (like intro/conclusion) */
+      .styled-lang-pair {
+          padding: 1.5rem; /* p-6 */
+          border-radius: 0.75rem; /* rounded-xl */
+          background-color: theme('colors.white');
+          border: 1px solid theme('colors.gray.100');
+          box-shadow: theme('boxShadow.sm');
+      }
       .lang-pair .vietnamese,
       .lang-pair .english {
-        flex: 1; /* Each language takes half the space */
-        min-width: 250px; /* Prevent excessive shrinking */
+        flex: 1;
+        min-width: 250px;
       }
-      .lang-pair .vietnamese p {
-        font-weight: 500; /* font-medium */
+      .lang-pair .vietnamese p,
+      .lang-pair .vietnamese li,
+      .lang-pair .vietnamese h3 {
+        font-weight: 500;
         color: theme('colors.gray.900');
         line-height: 1.7;
-        font-size: 1rem; /* text-base */
-        margin: 0;
+        font-size: 1rem;
+        margin: 0 0 0.5rem 0; /* Add bottom margin */
       }
-      .lang-pair .english p {
+      .lang-pair .english p,
+      .lang-pair .english li,
+      .lang-pair .english h3 {
         color: theme('colors.gray.500');
-        font-size: 0.95rem; /* Slightly smaller */
+        font-size: 0.95rem;
         line-height: 1.7;
         font-style: italic;
-        margin: 0;
+        margin: 0 0 0.5rem 0; /* Add bottom margin */
       }
+       /* Remove bottom margin from last element in a pair */
+       .lang-pair .vietnamese > *:last-child,
+       .lang-pair .english > *:last-child {
+           margin-bottom: 0;
+       }
+      /* Specific styles for list items within lang-pair */
+      .lang-pair ul {
+          list-style: none;
+          padding-left: 0;
+          margin: 0 0 0.5rem 0; /* Consistent bottom margin */
+      }
+      .lang-pair li {
+          position: relative;
+          padding-left: 1.75rem;
+          margin-bottom: 0.5rem;
+      }
+       .lang-pair li::before {
+           content: '\2022'; /* Standard bullet */
+           position: absolute;
+           left: 0.5rem;
+           top: 0;
+           color: theme('colors.gray.400');
+           font-weight: bold;
+       }
+       /* Specific styles for headings within lang-pair */
+       .lang-pair h3 {
+           font-size: 1.125rem; /* text-lg */
+           font-weight: 600; /* font-semibold */
+           margin-bottom: 0.75rem; /* mb-3 */
+           margin-top: 1rem; /* mt-4 */
+           line-height: 1.5;
+       }
+       .lang-pair h3:first-child {
+            margin-top: 0; /* Remove top margin for the first heading */
+       }
+       .lang-pair .english h3 {
+           color: theme('colors.gray.600');
+       }
+
       /* Class to hide English text */
       .lang-pair.english-hidden .english {
         display: none;
@@ -220,55 +309,23 @@
       .industry-section h2 i {
           margin-right: 0.75rem; /* mr-3 */
       }
-      .industry-section h3 { /* Sub-headings like 'Tư duy con người', 'Hiểu cốt lõi' */
-        font-size: 1.25rem; /* text-xl */
-        font-weight: 700; /* font-bold */
-        margin-top: 1.5rem; /* mt-6 */
-        margin-bottom: 0.75rem; /* mb-3 */
-      }
-      .industry-section h4 { /* Minor headings */
+       /* Minor headings within sections (like "Ví dụ thực tế") */
+      .industry-section h4 {
         font-size: 1.125rem; /* text-lg */
         color: theme('colors.gray.800');
         font-weight: 600; /* font-semibold */
         margin-top: 1.5rem; /* mt-6 */
         margin-bottom: 0.75rem; /* mb-3 */
       }
-      .industry-section ul {
-        list-style: none;
-        padding-left: 0;
-        margin-bottom: 1.5rem; /* mb-6 */
-      }
-      .industry-section ul li {
-        position: relative;
-        padding-left: 2.25rem; /* pl-9 */
-        line-height: 1.75;
-        color: theme('colors.gray.700');
-        margin-bottom: 1rem; /* mb-4 */
-      }
-      /* Custom bullet point using Font Awesome checkmark */
-      .industry-section ul li::before {
-        content: '\f00c'; /* Font Awesome check icon */
-        font-family: 'Font Awesome 6 Free';
-        font-weight: 900; /* Solid style */
-        position: absolute;
-        left: 0;
-        top: 0.2em;
-        font-size: 1.3em;
-        width: 1.5rem; /* w-6 */
-        text-align: center;
-        opacity: 1;
-      }
-      /* Specific styling for lists within accordion content */
-      .accordion-content ul li::before {
-          color: theme('colors.gray.500'); /* Neutral color for accordion lists */
-      }
 
       /* Section specific color themes */
       #education { border-color: theme('colors.indigo.500'); background-color: theme('colors.indigo.50'); }
       #education h2 { border-color: theme('colors.indigo.600'); color: theme('colors.indigo.800'); }
       #education h2 i { color: theme('colors.indigo.600'); }
-      #education h3 { color: theme('colors.indigo.700'); }
-      #education ul li::before { color: theme('colors.indigo.500'); }
+      #education h4 { color: theme('colors.indigo.800'); }
+      #education .lang-pair h3 { color: theme('colors.indigo.700'); }
+      #education .lang-pair .english h3 { color: theme('colors.indigo.600'); }
+      #education .lang-pair li::before { color: theme('colors.indigo.400'); }
       #education .learn-more-toggle { background-color: theme('colors.indigo.600'); }
       #education .learn-more-toggle:hover { background-color: theme('colors.indigo.700'); }
       #education .language-toggle { background-color: theme('colors.indigo.600'); }
@@ -277,8 +334,10 @@
       #healthcare { border-color: theme('colors.emerald.500'); background-color: theme('colors.emerald.50'); }
       #healthcare h2 { border-color: theme('colors.emerald.600'); color: theme('colors.emerald.800'); }
       #healthcare h2 i { color: theme('colors.emerald.600'); }
-      #healthcare h3 { color: theme('colors.emerald.700'); }
-      #healthcare ul li::before { color: theme('colors.emerald.500'); }
+      #healthcare h4 { color: theme('colors.emerald.800'); }
+      #healthcare .lang-pair h3 { color: theme('colors.emerald.700'); }
+      #healthcare .lang-pair .english h3 { color: theme('colors.emerald.600'); }
+      #healthcare .lang-pair li::before { color: theme('colors.emerald.400'); }
       #healthcare .learn-more-toggle { background-color: theme('colors.emerald.600'); }
       #healthcare .learn-more-toggle:hover { background-color: theme('colors.emerald.700'); }
       #healthcare .language-toggle { background-color: theme('colors.emerald.600'); }
@@ -287,8 +346,10 @@
       #finance { border-color: theme('colors.blue.500'); background-color: theme('colors.blue.50'); }
       #finance h2 { border-color: theme('colors.blue.600'); color: theme('colors.blue.800'); }
       #finance h2 i { color: theme('colors.blue.600'); }
-      #finance h3 { color: theme('colors.blue.700'); }
-      #finance ul li::before { color: theme('colors.blue.500'); }
+      #finance h4 { color: theme('colors.blue.800'); }
+      #finance .lang-pair h3 { color: theme('colors.blue.700'); }
+      #finance .lang-pair .english h3 { color: theme('colors.blue.600'); }
+      #finance .lang-pair li::before { color: theme('colors.blue.400'); }
       #finance .learn-more-toggle { background-color: theme('colors.blue.600'); }
       #finance .learn-more-toggle:hover { background-color: theme('colors.blue.700'); }
       #finance .language-toggle { background-color: theme('colors.blue.600'); }
@@ -297,8 +358,10 @@
       #retail { border-color: theme('colors.pink.500'); background-color: theme('colors.pink.50'); }
       #retail h2 { border-color: theme('colors.pink.600'); color: theme('colors.pink.800'); }
       #retail h2 i { color: theme('colors.pink.600'); }
-      #retail h3 { color: theme('colors.pink.700'); }
-      #retail ul li::before { color: theme('colors.pink.500'); }
+      #retail h4 { color: theme('colors.pink.800'); }
+      #retail .lang-pair h3 { color: theme('colors.pink.700'); }
+      #retail .lang-pair .english h3 { color: theme('colors.pink.600'); }
+      #retail .lang-pair li::before { color: theme('colors.pink.400'); }
       #retail .learn-more-toggle { background-color: theme('colors.pink.600'); }
       #retail .learn-more-toggle:hover { background-color: theme('colors.pink.700'); }
       #retail .language-toggle { background-color: theme('colors.pink.600'); }
@@ -307,8 +370,10 @@
       #manufacturing { border-color: theme('colors.orange.500'); background-color: theme('colors.orange.50'); }
       #manufacturing h2 { border-color: theme('colors.orange.600'); color: theme('colors.orange.800'); }
       #manufacturing h2 i { color: theme('colors.orange.600'); }
-      #manufacturing h3 { color: theme('colors.orange.700'); }
-      #manufacturing ul li::before { color: theme('colors.orange.500'); }
+      #manufacturing h4 { color: theme('colors.orange.800'); }
+      #manufacturing .lang-pair h3 { color: theme('colors.orange.700'); }
+      #manufacturing .lang-pair .english h3 { color: theme('colors.orange.600'); }
+      #manufacturing .lang-pair li::before { color: theme('colors.orange.400'); }
       #manufacturing .learn-more-toggle { background-color: theme('colors.orange.600'); }
       #manufacturing .learn-more-toggle:hover { background-color: theme('colors.orange.700'); }
       #manufacturing .language-toggle { background-color: theme('colors.orange.600'); }
@@ -317,8 +382,10 @@
       #agriculture { border-color: theme('colors.lime.500'); background-color: theme('colors.lime.50'); }
       #agriculture h2 { border-color: theme('colors.lime.600'); color: theme('colors.lime.800'); }
       #agriculture h2 i { color: theme('colors.lime.600'); }
-      #agriculture h3 { color: theme('colors.lime.700'); }
-      #agriculture ul li::before { color: theme('colors.lime.500'); }
+      #agriculture h4 { color: theme('colors.lime.800'); }
+      #agriculture .lang-pair h3 { color: theme('colors.lime.700'); }
+      #agriculture .lang-pair .english h3 { color: theme('colors.lime.600'); }
+      #agriculture .lang-pair li::before { color: theme('colors.lime.400'); }
       #agriculture .learn-more-toggle { background-color: theme('colors.lime.600'); }
       #agriculture .learn-more-toggle:hover { background-color: theme('colors.lime.700'); }
       #agriculture .language-toggle { background-color: theme('colors.lime.600'); }
@@ -327,8 +394,10 @@
       #hospitality { border-color: theme('colors.purple.500'); background-color: theme('colors.purple.50'); }
       #hospitality h2 { border-color: theme('colors.purple.600'); color: theme('colors.purple.800'); }
       #hospitality h2 i { color: theme('colors.purple.600'); }
-      #hospitality h3 { color: theme('colors.purple.700'); }
-      #hospitality ul li::before { color: theme('colors.purple.500'); }
+      #hospitality h4 { color: theme('colors.purple.800'); }
+      #hospitality .lang-pair h3 { color: theme('colors.purple.700'); }
+      #hospitality .lang-pair .english h3 { color: theme('colors.purple.600'); }
+      #hospitality .lang-pair li::before { color: theme('colors.purple.400'); }
       #hospitality .learn-more-toggle { background-color: theme('colors.purple.600'); }
       #hospitality .learn-more-toggle:hover { background-color: theme('colors.purple.700'); }
       #hospitality .language-toggle { background-color: theme('colors.purple.600'); }
@@ -357,10 +426,13 @@
            margin-right: 0.75rem; /* mr-3 */
            color: theme('colors.indigo.600');
        }
-      #emphasis-section .lang-pair {
+      #emphasis-section .lang-pair { /* Apply styled pair class */
         background-color: theme('colors.white');
         border-color: theme('colors.indigo.200');
         box-shadow: theme('boxShadow.md');
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        border-width: 1px;
         margin-bottom: 0; /* Remove bottom margin for the last element */
       }
 
@@ -410,11 +482,12 @@
       }
       .accordion-content.active {
         display: block; /* Show when active */
-        max-height: 1000px; /* Arbitrary large height for transition */
+        max-height: 2000px; /* Increased arbitrary large height */
         padding: 1.5rem;
       }
-       .accordion-content .lang-pair {
-           margin-bottom: 0; /* Remove margin for last element */
+       /* Remove margin for last lang-pair inside accordion */
+       .accordion-content .lang-pair:last-child {
+           margin-bottom: 0;
        }
 
       /* Learn More Toggle Styles */
@@ -445,15 +518,20 @@
       }
       .learn-more-content.active {
         display: block; /* Show when active */
-        max-height: 1000px; /* Arbitrary large height */
+        max-height: 1500px; /* Arbitrary large height */
         padding: 1.5rem;
       }
        .learn-more-content .lang-pair {
+           /* Use styled pair for the example within learn more */
+           padding: 1rem;
+           border-radius: 0.5rem;
            background-color: theme('colors.gray.50');
-           margin-bottom: 0; /* Remove margin for last element */
+           border: 1px solid theme('colors.gray.200');
+           box-shadow: none;
+           margin-bottom: 0;
        }
 
-      /* Responsive adjustments */
+      /* Responsive adjustments for mobile readability */
       @media (max-width: 768px) {
           .industry-section {
               padding: 1.5rem; /* p-6 */
@@ -463,13 +541,25 @@
           }
           .lang-pair {
               flex-direction: column; /* Stack languages vertically */
-              padding: 1rem; /* p-4 */
+              /* Removed padding override for general lang-pair */
               gap: 1rem; /* gap-4 */
           }
-          .lang-pair .vietnamese p { font-size: 0.95rem; }
-          .lang-pair .english p { font-size: 0.9rem; }
+           /* Ensure styled pairs keep padding */
+           .styled-lang-pair {
+               padding: 1rem;
+           }
+          .lang-pair .vietnamese p,
+          .lang-pair .vietnamese li,
+          .lang-pair .vietnamese h3 { font-size: 0.95rem; } /* Slightly smaller on mobile */
+          .lang-pair .english p,
+          .lang-pair .english li,
+          .lang-pair .english h3 { font-size: 0.9rem; } /* Slightly smaller on mobile */
+          .lang-pair h3 { font-size: 1.05rem; } /* Adjust heading size */
+
           .language-toggle { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
           .learn-more-content, .accordion-content { padding: 1rem; } /* p-4 */
+          .accordion-content.active { max-height: 3000px; } /* Increase max height for mobile */
+          .learn-more-content.active { max-height: 2000px; } /* Increase max height for mobile */
       }
        @media (max-width: 640px) {
             #emphasis-section {
@@ -478,20 +568,46 @@
              #emphasis-section h2 {
                 font-size: 1.5rem; /* text-2xl */
             }
+            .industry-section {
+                padding: 1rem; /* Further reduce padding */
+            }
+            .industry-section h2 {
+                font-size: 1.375rem; /* text-xl equivalent */
+                margin-bottom: 1rem;
+            }
+             .ai-tools-table td {
+                 padding: 0.6rem 0.8rem;
+             }
+             .ai-tools-table td::before {
+                 font-size: 0.7rem;
+             }
        }
 
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen antialiased font-sans" id="page-ai-guide">
 
-    <header id="header-placeholder" class="sticky top-0 z-50">
-        </header>
+    <header id="header-placeholder" class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="images/logo/logo.png" alt="IVS Logo" class="h-10 w-auto mr-3" onerror="this.onerror=null; this.src='https://placehold.co/100x40/4f46e5/ffffff?text=IVS+Logo'; this.alt='IVS Placeholder Logo'">
+                <span class="font-bold text-xl text-indigo-700">IVS Education</span>
+            </div>
+            <nav>
+                <ul class="flex space-x-4 text-gray-600">
+                    <li><a href="#" class="hover:text-indigo-600">Trang chủ</a></li>
+                    <li><a href="#" class="hover:text-indigo-600">Giới thiệu</a></li>
+                    <li><a href="#contact" class="hover:text-indigo-600">Liên hệ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
     <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 flex-grow">
         <section class="text-center mb-12 md:mb-20">
             <i class="fas fa-brain fa-4x text-indigo-600 mb-5 animate-pulse"></i>
             <h1 class="text-4xl md:text-5xl font-extrabold text-indigo-800 mb-4" data-lang-key="ai_guide_page_title">Hướng dẫn Tư duy AI theo Ngành nghề</h1>
-            <div class="lang-pair max-w-3xl mx-auto bg-transparent shadow-none border-none p-0 english-hidden">
+            <div class="lang-pair max-w-3xl mx-auto intro-lang-pair">
                  <div class="vietnamese">
                      <p class="text-xl text-gray-600" data-lang-key="ai_guide_page_subtitle">Định hình tư duy nền tảng để ứng dụng Trí tuệ Nhân tạo thành công trong công việc của bạn.</p>
                  </div>
@@ -507,7 +623,7 @@
                 <i class="fas fa-lightbulb fa-fw mr-3 text-yellow-400"></i>
                 <span data-lang-key="ai_guide_importance_title">Tại sao Tư duy AI Quan trọng?</span>
             </h2>
-            <div class="lang-pair">
+            <div class="lang-pair styled-lang-pair">
                 <div class="vietnamese">
                     <p data-lang-key="ai_guide_importance_p1_revised">Thành công với AI không chỉ phụ thuộc vào công cụ, mà vào tư duy: khả năng đặt đúng câu hỏi, xác định vấn đề, và tận dụng dữ liệu để tạo giá trị thực tiễn.</p>
                 </div>
@@ -522,7 +638,7 @@
                 <i class="fas fa-tools fa-fw mr-3 text-indigo-500"></i>
                 <span data-lang-key="ai_guide_tools_title">Giới thiệu một số Công cụ AI Phổ biến (Tham khảo)</span>
             </h2>
-            <div class="lang-pair">
+            <div class="lang-pair intro-lang-pair">
                 <div class="vietnamese">
                     <p data-lang-key="ai_guide_tools_intro_revised">Bảng dưới đây liệt kê một số công cụ AI tiêu biểu, minh họa sự đa dạng của các giải pháp hiện có.</p>
                 </div>
@@ -644,7 +760,7 @@
                 </table>
             </div>
             <div class="mt-6 text-sm text-gray-600 italic">
-                 <div class="lang-pair bg-transparent shadow-none border-none p-0 english-hidden">
+                 <div class="lang-pair intro-lang-pair">
                      <div class="vietnamese">
                         <p data-lang-key="ai_guide_tools_note">*Lưu ý: Bảng này chỉ mang tính tham khảo, thị trường AI phát triển nhanh với nhiều công cụ mới liên tục ra đời.</p>
                      </div>
@@ -660,7 +776,7 @@
             <section id="education" class="industry-section">
                 <button class="language-toggle" data-lang-key="lang_toggle_vi">Chỉ tiếng Việt</button>
                 <h2 data-lang-key="ai_guide_section_edu_title"><i class="fas fa-graduation-cap fa-fw"></i>1. Tư duy AI trong Giáo dục & Đào tạo</h2>
-                <div class="lang-pair">
+                <div class="lang-pair intro-lang-pair">
                     <div class="vietnamese"><p class="text-lg font-semibold text-gray-700">AI giúp cá nhân hóa học tập, tự động hóa tác vụ, và hỗ trợ học viên hiệu quả hơn.</p></div>
                     <div class="english"><p class="text-lg font-semibold text-gray-600 italic">AI helps personalize learning, automate tasks, and support students more effectively.</p></div>
                 </div>
@@ -668,43 +784,72 @@
                     <button class="accordion-header" data-lang-key="ai_guide_core_q_title">Câu hỏi cốt lõi</button>
                     <div class="accordion-content">
                         <div class="lang-pair">
-                            <div class="vietnamese"><p data-lang-key="ai_guide_edu_q_revised">Làm thế nào cá nhân hóa lộ trình học tập? Làm sao tự động hóa tác vụ lặp lại? Làm sao hỗ trợ học viên kịp thời?</p></div>
-                            <div class="english"><p data-lang-key="ai_guide_edu_q_en_revised">How to personalize learning paths? How to automate repetitive tasks? How to support students promptly?</p></div>
+                            <div class="vietnamese"><p data-lang-key="ai_guide_edu_q_revised">Làm thế nào cá nhân hóa lộ trình học tập? Làm sao tự động hóa tác vụ lặp lại (chấm điểm, tạo bài tập)? Làm sao hỗ trợ học viên kịp thời?</p></div>
+                            <div class="english"><p data-lang-key="ai_guide_edu_q_en_revised">How to personalize learning paths? How to automate repetitive tasks (grading, creating exercises)? How to support students promptly?</p></div>
                         </div>
                     </div>
                     <button class="accordion-header" data-lang-key="ai_guide_mindset_detail_title">Hướng tư duy chi tiết</button>
                     <div class="accordion-content">
-                        <h3 data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</h3>
-                        <ul>
-                            <li data-lang-key="ai_guide_edu_mindset1_revised">Phân tích dữ liệu học tập để hiểu học viên.</li>
-                            <li data-lang-key="ai_guide_edu_mindset2_revised">Ưu tiên cá nhân hóa trải nghiệm học tập.</li>
-                            <li data-lang-key="ai_guide_edu_mindset3_revised">Thử nghiệm và cải tiến với công cụ AI.</li>
-                            <li data-lang-key="ai_guide_edu_mindset4_revised">Xem AI như trợ lý giảm tải công việc.</li>
-                        </ul>
-                        <h3 data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</h3>
-                        <ul>
-                            <li data-lang-key="ai_guide_edu_ops1_revised">AI phân tích dữ liệu để gợi ý bài tập phù hợp.</li>
-                            <li data-lang-key="ai_guide_edu_ops2_revised">AI dự đoán học viên cần hỗ trợ dựa trên dữ liệu.</li>
-                        </ul>
+                        <div class="lang-pair">
+                            <div class="vietnamese">
+                                <h3 data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_edu_mindset1_revised">Phân tích dữ liệu học tập để hiểu điểm mạnh/yếu của từng học viên.</li>
+                                    <li data-lang-key="ai_guide_edu_mindset2_revised">Ưu tiên cá nhân hóa trải nghiệm học tập, không phải "một cỡ vừa tất cả".</li>
+                                    <li data-lang-key="ai_guide_edu_mindset3_revised">Sẵn sàng thử nghiệm và cải tiến phương pháp dạy với công cụ AI.</li>
+                                    <li data-lang-key="ai_guide_edu_mindset4_revised">Xem AI như trợ lý ảo giúp giảm tải công việc hành chính, lặp lại.</li>
+                                </ul>
+                                <h3 data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_edu_ops1_revised">AI phân tích dữ liệu (kết quả, thời gian hoàn thành) để gợi ý bài tập/tài liệu phù hợp.</li>
+                                    <li data-lang-key="ai_guide_edu_ops2_revised">AI dự đoán học viên có nguy cơ tụt hậu hoặc cần hỗ trợ thêm dựa trên mẫu hình dữ liệu.</li>
+                                </ul>
+                            </div>
+                            <div class="english">
+                                <h3 data-lang-key="ai_guide_human_mindset_title_en">Required Human Mindset:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_edu_mindset1_en_revised">Analyze learning data to understand individual student strengths/weaknesses.</li>
+                                    <li data-lang-key="ai_guide_edu_mindset2_en_revised">Prioritize personalized learning experiences, not "one-size-fits-all".</li>
+                                    <li data-lang-key="ai_guide_edu_mindset3_en_revised">Willingness to experiment and refine teaching methods with AI tools.</li>
+                                    <li data-lang-key="ai_guide_edu_mindset4_en_revised">View AI as a virtual assistant to reduce administrative, repetitive tasks.</li>
+                                </ul>
+                                <h3 data-lang-key="ai_guide_core_ops_title_en">Understanding AI Core Operations:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_edu_ops1_en_revised">AI analyzes data (results, completion time) to suggest suitable exercises/materials.</li>
+                                    <li data-lang-key="ai_guide_edu_ops2_en_revised">AI predicts students at risk of falling behind or needing extra support based on data patterns.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <button class="accordion-header" data-lang-key="ai_guide_practical_tips_title">Gợi ý thực tế</button>
                     <div class="accordion-content">
-                        <ul>
-                            <li data-lang-key="ai_guide_edu_start1_revised">Tận dụng AI trong hệ thống quản lý học tập (LMS).</li>
-                            <li data-lang-key="ai_guide_edu_start2_revised">Sử dụng chatbot trả lời câu hỏi thường gặp.</li>
-                            <li data-lang-key="ai_guide_edu_start3_revised">Phân tích kết quả kiểm tra để cá nhân hóa lộ trình.</li>
-                        </ul>
+                        <div class="lang-pair">
+                           <div class="vietnamese">
+                                <ul>
+                                    <li data-lang-key="ai_guide_edu_start1_revised">Tận dụng các tính năng AI có sẵn trong hệ thống quản lý học tập (LMS).</li>
+                                    <li data-lang-key="ai_guide_edu_start2_revised">Sử dụng chatbot AI để trả lời các câu hỏi thường gặp về khóa học, lịch trình.</li>
+                                    <li data-lang-key="ai_guide_edu_start3_revised">Phân tích kết quả kiểm tra bằng AI để xác định các chủ đề cần củng cố và cá nhân hóa lộ trình ôn tập.</li>
+                                </ul>
+                           </div>
+                           <div class="english">
+                               <ul>
+                                    <li data-lang-key="ai_guide_edu_start1_en_revised">Leverage built-in AI features within your Learning Management System (LMS).</li>
+                                    <li data-lang-key="ai_guide_edu_start2_en_revised">Use AI chatbots to answer frequently asked questions about courses, schedules.</li>
+                                    <li data-lang-key="ai_guide_edu_start3_en_revised">Analyze test results with AI to identify topics needing reinforcement and personalize review paths.</li>
+                                </ul>
+                           </div>
+                        </div>
                     </div>
                 </div>
                 <div class="mt-6">
-                    <h4 class="font-semibold text-gray-800" data-lang-key="ai_guide_real_example_title">Ví dụ thực tế:</h4>
-                    <div class="lang-pair">
+                    <h4 data-lang-key="ai_guide_real_example_title">Ví dụ thực tế:</h4>
+                    <div class="lang-pair intro-lang-pair">
                         <div class="vietnamese"><p>Trường học X tại Mỹ dùng AI để gợi ý bài tập cá nhân hóa, giúp 80% học sinh cải thiện điểm số trong 6 tháng.</p></div>
                         <div class="english"><p>School X in the US used AI to suggest personalized assignments, improving grades for 80% of students in 6 months.</p></div>
                     </div>
                     <span class="learn-more-toggle" data-lang-key="learn_more">Tìm hiểu thêm</span>
                     <div class="learn-more-content">
-                        <div class="lang-pair">
+                        <div class="lang-pair styled-lang-pair">
                             <div class="vietnamese"><p>Trường học X đã tích hợp một hệ thống quản lý học tập (LMS) sử dụng AI để phân tích dữ liệu học tập từ bài kiểm tra, bài tập về nhà và tương tác trực tuyến của học sinh. Hệ thống này sử dụng các mô hình học máy để xác định điểm mạnh, điểm yếu của từng học sinh, từ đó gợi ý các bài tập phù hợp và lộ trình học tập cá nhân hóa. Kết quả, 80% học sinh cải thiện điểm số trong vòng 6 tháng, đồng thời giáo viên giảm 30% thời gian chấm bài nhờ tự động hóa. Ngoài ra, chatbot AI được triển khai để trả lời các câu hỏi thường gặp, giúp học sinh nhận hỗ trợ 24/7. Để bắt đầu, bạn có thể thử tích hợp các công cụ như Google Classroom với các tính năng AI hoặc sử dụng nền tảng như Coursera for Campus.</p></div>
                             <div class="english"><p>School X integrated an AI-powered Learning Management System (LMS) to analyze student data from tests, homework, and online interactions. Using machine learning models, the system identified each student’s strengths and weaknesses, suggesting tailored assignments and personalized learning paths. As a result, 80% of students improved their grades within 6 months, while teachers reduced grading time by 30% through automation. Additionally, an AI chatbot was deployed to answer common questions, providing 24/7 support. To start, you can try integrating tools like Google Classroom with AI features or using platforms like Coursera for Campus.</p></div>
                         </div>
@@ -715,7 +860,7 @@
             <section id="healthcare" class="industry-section">
                  <button class="language-toggle" data-lang-key="lang_toggle_vi">Chỉ tiếng Việt</button>
                 <h2 data-lang-key="ai_guide_section_health_title"><i class="fas fa-heartbeat fa-fw"></i>2. Tư duy AI trong Y tế & Chăm sóc sức khỏe</h2>
-                 <div class="lang-pair">
+                 <div class="lang-pair intro-lang-pair">
                     <div class="vietnamese"><p class="text-lg font-semibold text-gray-700">AI nâng cao chẩn đoán, tối ưu quy trình, và giám sát sức khỏe hiệu quả.</p></div>
                     <div class="english"><p class="text-lg font-semibold text-gray-600 italic">AI enhances diagnostics, optimizes processes, and enables effective health monitoring.</p></div>
                 </div>
@@ -723,42 +868,70 @@
                     <button class="accordion-header" data-lang-key="ai_guide_core_q_title">Câu hỏi cốt lõi</button>
                     <div class="accordion-content">
                         <div class="lang-pair">
-                            <div class="vietnamese"><p data-lang-key="ai_guide_health_q_revised">Làm sao nâng cao chẩn đoán? Làm thế nào tối ưu quy trình khám chữa? Làm sao giám sát sức khỏe từ xa?</p></div>
-                            <div class="english"><p data-lang-key="ai_guide_health_q_en_revised">How to enhance diagnostics? How to optimize workflows? How to monitor health remotely?</p></div>
+                            <div class="vietnamese"><p data-lang-key="ai_guide_health_q_revised">Làm sao nâng cao độ chính xác và tốc độ chẩn đoán? Làm thế nào tối ưu quy trình khám chữa bệnh, giảm thời gian chờ đợi? Làm sao giám sát sức khỏe bệnh nhân từ xa hiệu quả?</p></div>
+                            <div class="english"><p data-lang-key="ai_guide_health_q_en_revised">How to enhance diagnostic accuracy and speed? How to optimize clinical workflows and reduce waiting times? How to effectively monitor patient health remotely?</p></div>
                         </div>
                     </div>
                     <button class="accordion-header" data-lang-key="ai_guide_mindset_detail_title">Hướng tư duy chi tiết</button>
                     <div class="accordion-content">
-                        <h3 data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</h3>
-                        <ul>
-                            <li data-lang-key="ai_guide_health_mindset1_revised">Tin tưởng nhưng xác minh gợi ý AI (luôn cần chuyên môn y tế).</li>
-                            <li data-lang-key="ai_guide_health_mindset2_revised">Tập trung vào hiệu quả vận hành và giảm tải cho nhân viên y tế.</li>
-                            <li data-lang-key="ai_guide_health_mindset3_revised">Ưu tiên bảo mật dữ liệu bệnh nhân và đạo đức y khoa.</li>
-                        </ul>
-                        <h3 data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</h3>
-                        <ul>
-                            <li data-lang-key="ai_guide_health_ops1_revised">AI phân tích ảnh y tế (X-quang, CT, MRI) để phát hiện bất thường.</li>
-                            <li data-lang-key="ai_guide_health_ops2_revised">AI giám sát dữ liệu sinh tồn từ thiết bị đeo để cảnh báo sớm.</li>
-                        </ul>
+                        <div class="lang-pair">
+                            <div class="vietnamese">
+                                <h3 data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_health_mindset1_revised">Tin tưởng nhưng luôn xác minh gợi ý từ AI bằng kiến thức chuyên môn y tế.</li>
+                                    <li data-lang-key="ai_guide_health_mindset2_revised">Tập trung vào cải thiện hiệu quả vận hành và giảm tải công việc cho nhân viên y tế.</li>
+                                    <li data-lang-key="ai_guide_health_mindset3_revised">Ưu tiên hàng đầu là bảo mật dữ liệu bệnh nhân và tuân thủ đạo đức y khoa.</li>
+                                </ul>
+                                <h3 data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_health_ops1_revised">AI phân tích hình ảnh y tế (X-quang, CT, MRI) để phát hiện các dấu hiệu bất thường mà mắt người có thể bỏ sót.</li>
+                                    <li data-lang-key="ai_guide_health_ops2_revised">AI giám sát liên tục dữ liệu sinh tồn từ thiết bị đeo (wearables) để cảnh báo sớm các vấn đề sức khỏe.</li>
+                                </ul>
+                            </div>
+                            <div class="english">
+                                <h3 data-lang-key="ai_guide_human_mindset_title_en">Required Human Mindset:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_health_mindset1_en_revised">Trust but always verify AI suggestions with medical expertise.</li>
+                                    <li data-lang-key="ai_guide_health_mindset2_en_revised">Focus on improving operational efficiency and reducing workload for healthcare staff.</li>
+                                    <li data-lang-key="ai_guide_health_mindset3_en_revised">Prioritize patient data security and medical ethics above all.</li>
+                                </ul>
+                                <h3 data-lang-key="ai_guide_core_ops_title_en">Understanding AI Core Operations:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_health_ops1_en_revised">AI analyzes medical images (X-rays, CT, MRI) to detect subtle abnormalities potentially missed by the human eye.</li>
+                                    <li data-lang-key="ai_guide_health_ops2_en_revised">AI continuously monitors vital signs data from wearables for early warning of health issues.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <button class="accordion-header" data-lang-key="ai_guide_practical_tips_title">Gợi ý thực tế</button>
                     <div class="accordion-content">
-                        <ul>
-                            <li data-lang-key="ai_guide_health_start1_revised">Tối ưu quản lý lịch hẹn, hồ sơ bệnh án bằng AI.</li>
-                            <li data-lang-key="ai_guide_health_start2_revised">Sử dụng AI hỗ trợ tra cứu thông tin y khoa, phác đồ điều trị.</li>
-                            <li data-lang-key="ai_guide_health_start3_revised">Thử nghiệm AI trong phân tích hình ảnh y tế (với sự giám sát).</li>
-                        </ul>
+                        <div class="lang-pair">
+                            <div class="vietnamese">
+                                <ul>
+                                    <li data-lang-key="ai_guide_health_start1_revised">Sử dụng AI để tối ưu hóa việc quản lý lịch hẹn, phân bổ nguồn lực và quản lý hồ sơ bệnh án điện tử.</li>
+                                    <li data-lang-key="ai_guide_health_start2_revised">Ứng dụng AI như một công cụ hỗ trợ tra cứu nhanh thông tin y khoa, phác đồ điều trị cập nhật.</li>
+                                    <li data-lang-key="ai_guide_health_start3_revised">Thử nghiệm các công cụ AI trong phân tích hình ảnh y tế (luôn có sự giám sát và đánh giá của bác sĩ).</li>
+                                </ul>
+                            </div>
+                            <div class="english">
+                                <ul>
+                                    <li data-lang-key="ai_guide_health_start1_en_revised">Use AI to optimize appointment scheduling, resource allocation, and electronic health record (EHR) management.</li>
+                                    <li data-lang-key="ai_guide_health_start2_en_revised">Apply AI as a tool to quickly look up medical information and updated treatment protocols.</li>
+                                    <li data-lang-key="ai_guide_health_start3_en_revised">Pilot AI tools for medical image analysis (always under physician supervision and validation).</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
                  <div class="mt-6">
-                    <h4 class="font-semibold text-gray-800" data-lang-key="ai_guide_real_example_title">Ví dụ thực tế:</h4>
-                    <div class="lang-pair">
+                    <h4 data-lang-key="ai_guide_real_example_title">Ví dụ thực tế:</h4>
+                    <div class="lang-pair intro-lang-pair">
                         <div class="vietnamese"><p>Bệnh viện Y tại Nhật dùng AI phân tích CT scan, giảm 30% thời gian chẩn đoán ung thư phổi.</p></div>
                         <div class="english"><p>Hospital Y in Japan used AI to analyze CT scans, reducing lung cancer diagnosis time by 30%.</p></div>
                     </div>
                     <span class="learn-more-toggle" data-lang-key="learn_more">Tìm hiểu thêm</span>
                     <div class="learn-more-content">
-                        <div class="lang-pair">
+                        <div class="lang-pair styled-lang-pair">
                             <div class="vietnamese"><p>Bệnh viện Y tại Nhật Bản đã triển khai hệ thống AI dựa trên thị giác máy tính để phân tích hình ảnh CT scan, giúp phát hiện sớm các dấu hiệu ung thư phổi. Công cụ này sử dụng mô hình học sâu, được huấn luyện trên hàng triệu hình ảnh y tế, để nhận diện các bất thường với độ chính xác cao. Kết quả, thời gian chẩn đoán giảm 30%, cho phép bác sĩ tập trung vào việc lập kế hoạch điều trị. Ngoài ra, bệnh viện sử dụng AI để tối ưu hóa lịch khám và quản lý hồ sơ bệnh nhân, giảm thiểu sai sót hành chính. Để áp dụng tương tự, bạn có thể thử các công cụ như Google Cloud Vision AI cho phân tích hình ảnh hoặc các hệ thống quản lý bệnh viện tích hợp AI như Epic Systems.</p></div>
                             <div class="english"><p>Hospital Y in Japan implemented an AI system based on computer vision to analyze CT scans, detecting early signs of lung cancer. The tool, trained on millions of medical images, identifies abnormalities with high accuracy, reducing diagnosis time by 30% and allowing doctors to focus on treatment planning. Additionally, the hospital used AI to optimize appointment scheduling and patient record management, minimizing administrative errors. To apply similar solutions, you can try tools like Google Cloud Vision AI for image analysis or AI-integrated hospital management systems like Epic Systems.</p></div>
                         </div>
@@ -769,7 +942,7 @@
             <section id="finance" class="industry-section">
                  <button class="language-toggle" data-lang-key="lang_toggle_vi">Chỉ tiếng Việt</button>
                 <h2 data-lang-key="ai_guide_section_finance_title"><i class="fas fa-landmark fa-fw"></i>3. Tư duy AI trong Tài chính & Ngân hàng</h2>
-                 <div class="lang-pair">
+                 <div class="lang-pair intro-lang-pair">
                     <div class="vietnamese"><p class="text-lg font-semibold text-gray-700">AI tăng cường phát hiện gian lận, đánh giá rủi ro, và hỗ trợ khách hàng tức thì.</p></div>
                     <div class="english"><p class="text-lg font-semibold text-gray-600 italic">AI enhances fraud detection, risk assessment, and provides instant customer support.</p></div>
                 </div>
@@ -777,42 +950,70 @@
                     <button class="accordion-header" data-lang-key="ai_guide_core_q_title">Câu hỏi cốt lõi</button>
                     <div class="accordion-content">
                         <div class="lang-pair">
-                            <div class="vietnamese"><p data-lang-key="ai_guide_finance_q_revised">Làm sao ngăn chặn gian lận hiệu quả? Làm sao đánh giá rủi ro tín dụng nhanh chóng? Làm sao hỗ trợ khách hàng 24/7?</p></div>
-                            <div class="english"><p data-lang-key="ai_guide_finance_q_en_revised">How to prevent fraud effectively? How to assess credit risk quickly? How to support customers 24/7?</p></div>
+                            <div class="vietnamese"><p data-lang-key="ai_guide_finance_q_revised">Làm sao ngăn chặn gian lận giao dịch hiệu quả hơn? Làm sao đánh giá rủi ro tín dụng nhanh chóng và chính xác? Làm sao cung cấp hỗ trợ khách hàng 24/7 mà không tăng chi phí nhân sự?</p></div>
+                            <div class="english"><p data-lang-key="ai_guide_finance_q_en_revised">How to prevent transaction fraud more effectively? How to assess credit risk quickly and accurately? How to provide 24/7 customer support without increasing personnel costs?</p></div>
                         </div>
                     </div>
                     <button class="accordion-header" data-lang-key="ai_guide_mindset_detail_title">Hướng tư duy chi tiết</button>
                     <div class="accordion-content">
-                        <h3 data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</h3>
-                        <ul>
-                            <li data-lang-key="ai_guide_finance_mindset1_revised">Tìm kiếm mẫu hình bất thường trong giao dịch bằng AI.</li>
-                            <li data-lang-key="ai_guide_finance_mindset2_revised">Quyết định dựa trên phân tích dữ liệu và đánh giá rủi ro từ AI.</li>
-                            <li data-lang-key="ai_guide_finance_mindset3_revised">Nâng cao trải nghiệm khách hàng thông qua hỗ trợ tự động.</li>
-                        </ul>
-                        <h3 data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</h3>
-                        <ul>
-                            <li data-lang-key="ai_guide_finance_ops1_revised">AI phát hiện giao dịch bất thường dựa trên lịch sử và quy tắc.</li>
-                            <li data-lang-key="ai_guide_finance_ops2_revised">AI chấm điểm tín dụng dựa trên nhiều nguồn dữ liệu.</li>
-                        </ul>
+                        <div class="lang-pair">
+                           <div class="vietnamese">
+                                <h3 data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_finance_mindset1_revised">Chủ động tìm kiếm các mẫu hình bất thường và điểm đáng ngờ trong dữ liệu giao dịch bằng AI.</li>
+                                    <li data-lang-key="ai_guide_finance_mindset2_revised">Ra quyết định dựa trên phân tích dữ liệu và đánh giá rủi ro khách quan do AI cung cấp.</li>
+                                    <li data-lang-key="ai_guide_finance_mindset3_revised">Tập trung nâng cao trải nghiệm khách hàng thông qua các dịch vụ hỗ trợ tự động, tức thì.</li>
+                                </ul>
+                                <h3 data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_finance_ops1_revised">AI phát hiện các giao dịch bất thường (ví dụ: địa điểm, số tiền, tần suất) dựa trên lịch sử và các quy tắc được thiết lập.</li>
+                                    <li data-lang-key="ai_guide_finance_ops2_revised">AI chấm điểm tín dụng bằng cách phân tích nhiều nguồn dữ liệu (thu nhập, lịch sử tín dụng, hành vi chi tiêu...).</li>
+                                </ul>
+                           </div>
+                           <div class="english">
+                                <h3 data-lang-key="ai_guide_human_mindset_title_en">Required Human Mindset:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_finance_mindset1_en_revised">Proactively search for unusual patterns and suspicious points in transaction data using AI.</li>
+                                    <li data-lang-key="ai_guide_finance_mindset2_en_revised">Make decisions based on data analysis and objective risk assessments provided by AI.</li>
+                                    <li data-lang-key="ai_guide_finance_mindset3_en_revised">Focus on enhancing customer experience through automated, instant support services.</li>
+                                </ul>
+                                <h3 data-lang-key="ai_guide_core_ops_title_en">Understanding AI Core Operations:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_finance_ops1_en_revised">AI detects unusual transactions (e.g., location, amount, frequency) based on history and established rules.</li>
+                                    <li data-lang-key="ai_guide_finance_ops2_en_revised">AI scores creditworthiness by analyzing multiple data sources (income, credit history, spending behavior...).</li>
+                                </ul>
+                           </div>
+                        </div>
                     </div>
                     <button class="accordion-header" data-lang-key="ai_guide_practical_tips_title">Gợi ý thực tế</button>
                     <div class="accordion-content">
-                        <ul>
-                            <li data-lang-key="ai_guide_finance_start1_revised">Triển khai chatbot hỗ trợ các yêu cầu cơ bản và câu hỏi thường gặp.</li>
-                            <li data-lang-key="ai_guide_finance_start2_revised">Sử dụng công cụ AI để phân tích báo cáo tài chính, dự báo xu hướng.</li>
-                            <li data-lang-key="ai_guide_finance_start3_revised">Thử nghiệm AI gợi ý sản phẩm tài chính cá nhân hóa.</li>
-                        </ul>
+                        <div class="lang-pair">
+                            <div class="vietnamese">
+                                <ul>
+                                    <li data-lang-key="ai_guide_finance_start1_revised">Triển khai chatbot AI để xử lý các yêu cầu hỗ trợ cơ bản (kiểm tra số dư, lịch sử giao dịch) và trả lời câu hỏi thường gặp.</li>
+                                    <li data-lang-key="ai_guide_finance_start2_revised">Sử dụng các công cụ AI để tự động hóa việc phân tích báo cáo tài chính, dự báo dòng tiền và xu hướng thị trường.</li>
+                                    <li data-lang-key="ai_guide_finance_start3_revised">Thử nghiệm các hệ thống AI gợi ý sản phẩm tài chính (tiết kiệm, đầu tư, vay) được cá nhân hóa cho khách hàng.</li>
+                                </ul>
+                            </div>
+                            <div class="english">
+                                <ul>
+                                    <li data-lang-key="ai_guide_finance_start1_en_revised">Deploy AI chatbots to handle basic support requests (balance checks, transaction history) and answer FAQs.</li>
+                                    <li data-lang-key="ai_guide_finance_start2_en_revised">Use AI tools to automate the analysis of financial reports, forecast cash flow, and market trends.</li>
+                                    <li data-lang-key="ai_guide_finance_start3_en_revised">Pilot AI systems that suggest personalized financial products (savings, investments, loans) to customers.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
                  <div class="mt-6">
-                    <h4 class="font-semibold text-gray-800" data-lang-key="ai_guide_real_example_title">Ví dụ thực tế:</h4>
-                    <div class="lang-pair">
+                    <h4 data-lang-key="ai_guide_real_example_title">Ví dụ thực tế:</h4>
+                    <div class="lang-pair intro-lang-pair">
                         <div class="vietnamese"><p>Ngân hàng Z dùng AI để phát hiện gian lận, giảm 40% thiệt hại từ giao dịch bất thường.</p></div>
                         <div class="english"><p>Bank Z used AI to detect fraud, reducing losses from irregular transactions by 40%.</p></div>
                     </div>
                     <span class="learn-more-toggle" data-lang-key="learn_more">Tìm hiểu thêm</span>
                     <div class="learn-more-content">
-                        <div class="lang-pair">
+                        <div class="lang-pair styled-lang-pair">
                             <div class="vietnamese"><p>Ngân hàng Z đã tích hợp AI vào hệ thống giám sát giao dịch, sử dụng các thuật toán học máy để phân tích hành vi giao dịch theo thời gian thực. Hệ thống này phát hiện các mẫu giao dịch bất thường, như chi tiêu bất thường ở nước ngoài, và tự động gửi cảnh báo hoặc khóa tài khoản tạm thời. Kết quả, ngân hàng giảm 40% thiệt hại do gian lận. Ngoài ra, chatbot AI được triển khai để hỗ trợ khách hàng 24/7, trả lời các câu hỏi về tài khoản và dịch vụ, giảm tải cho nhân viên. Bạn có thể bắt đầu với các giải pháp như IBM Watson Financial Services hoặc chatbot AI như Dialogflow để triển khai các tính năng tương tự.</p></div>
                             <div class="english"><p>Bank Z integrated AI into its transaction monitoring system, using machine learning algorithms to analyze transaction behavior in real-time. The system detects irregular patterns, such as unusual overseas spending, and automatically sends alerts or temporarily locks accounts. As a result, the bank reduced fraud losses by 40%. Additionally, an AI chatbot was deployed to support customers 24/7, answering questions about accounts and services, reducing staff workload. You can start with solutions like IBM Watson Financial Services or AI chatbots like Dialogflow to implement similar features.</p></div>
                         </div>
@@ -823,50 +1024,78 @@
             <section id="retail" class="industry-section">
                  <button class="language-toggle" data-lang-key="lang_toggle_vi">Chỉ tiếng Việt</button>
                 <h2 data-lang-key="ai_guide_section_retail_title"><i class="fas fa-shopping-cart fa-fw"></i>4. Tư duy AI trong Bán lẻ & Thương mại điện tử</h2>
-                 <div class="lang-pair">
-                    <div class="vietnamese"><p class="text-lg font-semibold text-gray-700">AI cá nhân hóa mua sắm, dự báo nhu cầu, và nắm bắt tâm lý khách hàng.</p></div>
-                    <div class="english"><p class="text-lg font-semibold text-gray-600 italic">AI personalizes shopping, forecasts demand, and captures customer sentiment.</p></div>
+                 <div class="lang-pair intro-lang-pair">
+                    <div class="vietnamese"><p class="text-lg font-semibold text-gray-700">AI cá nhân hóa trải nghiệm mua sắm, dự báo nhu cầu, và tối ưu hóa quản lý tồn kho.</p></div>
+                    <div class="english"><p class="text-lg font-semibold text-gray-600 italic">AI personalizes the shopping experience, forecasts demand, and optimizes inventory management.</p></div>
                 </div>
                 <div class="accordion">
                     <button class="accordion-header" data-lang-key="ai_guide_core_q_title">Câu hỏi cốt lõi</button>
                     <div class="accordion-content">
                         <div class="lang-pair">
-                            <div class="vietnamese"><p data-lang-key="ai_guide_retail_q_revised">Làm sao cá nhân hóa trải nghiệm mua sắm? Làm sao dự báo nhu cầu chính xác? Làm sao nắm bắt tâm lý khách hàng?</p></div>
-                            <div class="english"><p data-lang-key="ai_guide_retail_q_en_revised">How to personalize the shopping experience? How to forecast demand accurately? How to capture customer sentiment?</p></div>
+                            <div class="vietnamese"><p data-lang-key="ai_guide_retail_q_revised">Làm sao để gợi ý sản phẩm đúng với sở thích của từng khách hàng? Làm sao dự báo nhu cầu sản phẩm chính xác để tránh tồn kho hoặc hết hàng? Làm sao nắm bắt nhanh chóng tâm lý và phản hồi của khách hàng?</p></div>
+                            <div class="english"><p data-lang-key="ai_guide_retail_q_en_revised">How to suggest products tailored to each customer's preferences? How to accurately forecast product demand to avoid overstock or stockouts? How to quickly capture customer sentiment and feedback?</p></div>
                         </div>
                     </div>
                     <button class="accordion-header" data-lang-key="ai_guide_mindset_detail_title">Hướng tư duy chi tiết</button>
                     <div class="accordion-content">
-                        <h3 data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</h3>
-                        <ul>
-                            <li data-lang-key="ai_guide_retail_mindset1_revised">Lấy khách hàng làm trung tâm trong mọi quyết định.</li>
-                            <li data-lang-key="ai_guide_retail_mindset2_revised">Tối ưu hóa chuỗi cung ứng và quản lý tồn kho.</li>
-                            <li data-lang-key="ai_guide_retail_mindset3_revised">Nhạy bén với dữ liệu hành vi và phản hồi của khách hàng.</li>
-                        </ul>
-                        <h3 data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</h3>
-                        <ul>
-                            <li data-lang-key="ai_guide_retail_ops1_revised">AI gợi ý sản phẩm dựa trên lịch sử duyệt/mua hàng.</li>
-                            <li data-lang-key="ai_guide_retail_ops2_revised">AI dự báo nhu cầu theo mùa/xu hướng và tối ưu tồn kho.</li>
-                        </ul>
+                         <div class="lang-pair">
+                             <div class="vietnamese">
+                                <h3 data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_retail_mindset1_revised">Đặt khách hàng làm trung tâm trong mọi chiến lược và quyết định.</li>
+                                    <li data-lang-key="ai_guide_retail_mindset2_revised">Tập trung vào tối ưu hóa chuỗi cung ứng và hiệu quả quản lý tồn kho.</li>
+                                    <li data-lang-key="ai_guide_retail_mindset3_revised">Luôn nhạy bén với dữ liệu về hành vi mua sắm và phản hồi của khách hàng.</li>
+                                </ul>
+                                <h3 data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_retail_ops1_revised">AI xây dựng hồ sơ khách hàng và gợi ý sản phẩm dựa trên lịch sử duyệt web, mua hàng, và các yếu tố tương tự.</li>
+                                    <li data-lang-key="ai_guide_retail_ops2_revised">AI phân tích dữ liệu bán hàng lịch sử, xu hướng thị trường, yếu tố mùa vụ để dự báo nhu cầu và tối ưu tồn kho.</li>
+                                </ul>
+                             </div>
+                             <div class="english">
+                                 <h3 data-lang-key="ai_guide_human_mindset_title_en">Required Human Mindset:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_retail_mindset1_en_revised">Place the customer at the center of all strategies and decisions.</li>
+                                    <li data-lang-key="ai_guide_retail_mindset2_en_revised">Focus on optimizing the supply chain and inventory management efficiency.</li>
+                                    <li data-lang-key="ai_guide_retail_mindset3_en_revised">Always be sensitive to data on shopping behavior and customer feedback.</li>
+                                </ul>
+                                <h3 data-lang-key="ai_guide_core_ops_title_en">Understanding AI Core Operations:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_retail_ops1_en_revised">AI builds customer profiles and suggests products based on browsing/purchase history and similar factors.</li>
+                                    <li data-lang-key="ai_guide_retail_ops2_en_revised">AI analyzes historical sales data, market trends, and seasonal factors to forecast demand and optimize inventory.</li>
+                                </ul>
+                             </div>
+                         </div>
                     </div>
                     <button class="accordion-header" data-lang-key="ai_guide_practical_tips_title">Gợi ý thực tế</button>
                     <div class="accordion-content">
-                        <ul>
-                            <li data-lang-key="ai_guide_retail_start1_revised">Kích hoạt tính năng gợi ý sản phẩm AI trên nền tảng TMĐT.</li>
-                            <li data-lang-key="ai_guide_retail_start2_revised">Sử dụng chatbot AI xử lý yêu cầu đơn giản (tra cứu đơn hàng, chính sách).</li>
-                            <li data-lang-key="ai_guide_retail_start3_revised">Phân tích báo cáo bán hàng và tồn kho thông minh từ AI.</li>
-                        </ul>
+                        <div class="lang-pair">
+                            <div class="vietnamese">
+                                <ul>
+                                    <li data-lang-key="ai_guide_retail_start1_revised">Kích hoạt và tinh chỉnh tính năng gợi ý sản phẩm dựa trên AI có sẵn trên nền tảng thương mại điện tử của bạn.</li>
+                                    <li data-lang-key="ai_guide_retail_start2_revised">Sử dụng chatbot AI để xử lý các yêu cầu đơn giản như tra cứu tình trạng đơn hàng, thông tin sản phẩm, chính sách đổi trả.</li>
+                                    <li data-lang-key="ai_guide_retail_start3_revised">Tận dụng các báo cáo bán hàng và tồn kho thông minh do AI tạo ra để đưa ra quyết định nhập hàng, khuyến mãi.</li>
+                                </ul>
+                            </div>
+                            <div class="english">
+                                <ul>
+                                    <li data-lang-key="ai_guide_retail_start1_en_revised">Activate and fine-tune AI-based product recommendation features available on your e-commerce platform.</li>
+                                    <li data-lang-key="ai_guide_retail_start2_en_revised">Use AI chatbots to handle simple requests like order status lookup, product information, return policies.</li>
+                                    <li data-lang-key="ai_guide_retail_start3_en_revised">Leverage AI-generated smart sales and inventory reports to make decisions on stocking and promotions.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
                  <div class="mt-6">
-                    <h4 class="font-semibold text-gray-800" data-lang-key="ai_guide_real_example_title">Ví dụ thực tế:</h4>
-                    <div class="lang-pair">
+                    <h4 data-lang-key="ai_guide_real_example_title">Ví dụ thực tế:</h4>
+                    <div class="lang-pair intro-lang-pair">
                         <div class="vietnamese"><p>Cửa hàng T dùng AI gợi ý sản phẩm, tăng 25% doanh số bán hàng trực tuyến.</p></div>
                         <div class="english"><p>Store T used AI to suggest products, increasing online sales by 25%.</p></div>
                     </div>
                     <span class="learn-more-toggle" data-lang-key="learn_more">Tìm hiểu thêm</span>
                     <div class="learn-more-content">
-                        <div class="lang-pair">
+                        <div class="lang-pair styled-lang-pair">
                             <div class="vietnamese"><p>Cửa hàng T, một nền tảng thương mại điện tử, đã sử dụng AI để phân tích hành vi mua sắm, như lịch sử duyệt web và giỏ hàng, để gợi ý sản phẩm phù hợp cho từng khách hàng. Hệ thống AI này, dựa trên các thuật toán học máy, tăng tỷ lệ nhấp vào sản phẩm gợi ý lên 25%, dẫn đến tăng trưởng doanh số trực tuyến. Ngoài ra, AI được sử dụng để dự báo nhu cầu, giúp tối ưu hóa tồn kho và giảm 15% chi phí lưu kho. Cửa hàng cũng triển khai chatbot AI để xử lý các yêu cầu như tra cứu đơn hàng, cải thiện trải nghiệm khách hàng. Bạn có thể thử các công cụ như Shopify AI hoặc Dynamic Yield để triển khai các tính năng tương tự.</p></div>
                             <div class="english"><p>Store T, an e-commerce platform, used AI to analyze shopping behavior, such as browsing history and cart activity, to suggest tailored products for each customer. This AI system, based on machine learning algorithms, increased click-through rates on suggested products by 25%, driving online sales growth. Additionally, AI was used to forecast demand, optimizing inventory and reducing storage costs by 15%. The store also deployed an AI chatbot to handle requests like order tracking, enhancing customer experience. You can try tools like Shopify AI or Dynamic Yield to implement similar features.</p></div>
                         </div>
@@ -877,7 +1106,7 @@
             <section id="manufacturing" class="industry-section">
                  <button class="language-toggle" data-lang-key="lang_toggle_vi">Chỉ tiếng Việt</button>
                 <h2 data-lang-key="ai_guide_section_manu_title"><i class="fas fa-industry fa-fw"></i>5. Tư duy AI trong Sản xuất & Công nghiệp</h2>
-                 <div class="lang-pair">
+                 <div class="lang-pair intro-lang-pair">
                     <div class="vietnamese"><p class="text-lg font-semibold text-gray-700">AI phát hiện khuyết tật, dự đoán bảo trì, và tối ưu hóa quy trình sản xuất.</p></div>
                     <div class="english"><p class="text-lg font-semibold text-gray-600 italic">AI detects defects, predicts maintenance needs, and optimizes production processes.</p></div>
                 </div>
@@ -885,42 +1114,70 @@
                     <button class="accordion-header" data-lang-key="ai_guide_core_q_title">Câu hỏi cốt lõi</button>
                     <div class="accordion-content">
                         <div class="lang-pair">
-                            <div class="vietnamese"><p data-lang-key="ai_guide_manu_q_revised">Làm sao phát hiện khuyết tật sản phẩm sớm? Làm sao dự đoán thời điểm cần bảo trì máy móc? Làm sao tối ưu hóa logistics và chuỗi cung ứng?</p></div>
-                            <div class="english"><p data-lang-key="ai_guide_manu_q_en_revised">How to detect product defects early? How to predict machine maintenance needs? How to optimize logistics and supply chain?</p></div>
+                            <div class="vietnamese"><p data-lang-key="ai_guide_manu_q_revised">Làm sao phát hiện khuyết tật sản phẩm ngay trên dây chuyền? Làm sao dự đoán chính xác thời điểm cần bảo trì máy móc để tránh dừng sản xuất đột ngột? Làm sao tối ưu hóa logistics nội bộ và chuỗi cung ứng?</p></div>
+                            <div class="english"><p data-lang-key="ai_guide_manu_q_en_revised">How to detect product defects right on the production line? How to accurately predict machine maintenance needs to avoid sudden downtime? How to optimize internal logistics and the supply chain?</p></div>
                         </div>
                     </div>
                     <button class="accordion-header" data-lang-key="ai_guide_mindset_detail_title">Hướng tư duy chi tiết</button>
                     <div class="accordion-content">
-                        <h3 data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</h3>
-                        <ul>
-                            <li data-lang-key="ai_guide_manu_mindset1_revised">Tư duy phòng ngừa và dự đoán thay vì phản ứng.</li>
-                            <li data-lang-key="ai_guide_manu_mindset2_revised">Cam kết chất lượng toàn diện trong từng công đoạn.</li>
-                            <li data-lang-key="ai_guide_manu_mindset3_revised">Tối ưu hóa hiệu suất và giảm thiểu lãng phí.</li>
-                        </ul>
-                        <h3 data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</h3>
-                        <ul>
-                            <li data-lang-key="ai_guide_manu_ops1_revised">AI kiểm tra chất lượng sản phẩm bằng phân tích hình ảnh (thị giác máy tính).</li>
-                            <li data-lang-key="ai_guide_manu_ops2_revised">AI phân tích dữ liệu từ cảm biến (IoT) để dự đoán sự cố máy móc.</li>
-                        </ul>
+                         <div class="lang-pair">
+                            <div class="vietnamese">
+                                <h3 data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_manu_mindset1_revised">Chuyển từ tư duy phản ứng (sửa chữa khi hỏng) sang phòng ngừa và dự đoán (bảo trì trước khi hỏng).</li>
+                                    <li data-lang-key="ai_guide_manu_mindset2_revised">Cam kết đạt chất lượng toàn diện (Total Quality Management) trong từng công đoạn sản xuất.</li>
+                                    <li data-lang-key="ai_guide_manu_mindset3_revised">Luôn tìm cách tối ưu hóa hiệu suất hoạt động và giảm thiểu lãng phí (nguyên liệu, thời gian, năng lượng).</li>
+                                </ul>
+                                <h3 data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_manu_ops1_revised">AI sử dụng thị giác máy tính (phân tích hình ảnh/video) để kiểm tra chất lượng sản phẩm tự động, phát hiện lỗi nhỏ.</li>
+                                    <li data-lang-key="ai_guide_manu_ops2_revised">AI phân tích dữ liệu từ các cảm biến (nhiệt độ, độ rung, âm thanh) gắn trên máy móc (IoT) để dự đoán sự cố và nhu cầu bảo trì.</li>
+                                </ul>
+                            </div>
+                            <div class="english">
+                                <h3 data-lang-key="ai_guide_human_mindset_title_en">Required Human Mindset:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_manu_mindset1_en_revised">Shift from reactive thinking (fix when broken) to preventive and predictive (maintain before failure).</li>
+                                    <li data-lang-key="ai_guide_manu_mindset2_en_revised">Commitment to Total Quality Management in every production stage.</li>
+                                    <li data-lang-key="ai_guide_manu_mindset3_en_revised">Constantly seek ways to optimize operational performance and minimize waste (materials, time, energy).</li>
+                                </ul>
+                                <h3 data-lang-key="ai_guide_core_ops_title_en">Understanding AI Core Operations:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_manu_ops1_en_revised">AI uses computer vision (image/video analysis) for automated product quality inspection, detecting minor defects.</li>
+                                    <li data-lang-key="ai_guide_manu_ops2_en_revised">AI analyzes data from sensors (temperature, vibration, sound) attached to machinery (IoT) to predict failures and maintenance needs.</li>
+                                </ul>
+                            </div>
+                         </div>
                     </div>
                     <button class="accordion-header" data-lang-key="ai_guide_practical_tips_title">Gợi ý thực tế</button>
                     <div class="accordion-content">
-                        <ul>
-                            <li data-lang-key="ai_guide_manu_start1_revised">Thử nghiệm kiểm tra chất lượng bằng camera AI trên một dây chuyền.</li>
-                            <li data-lang-key="ai_guide_manu_start2_revised">Sử dụng AI phân tích dữ liệu cảm biến để giám sát máy móc quan trọng.</li>
-                            <li data-lang-key="ai_guide_manu_start3_revised">Ứng dụng AI tối ưu hóa lộ trình vận chuyển nội bộ (ví dụ: AGV).</li>
-                        </ul>
+                        <div class="lang-pair">
+                            <div class="vietnamese">
+                                <ul>
+                                    <li data-lang-key="ai_guide_manu_start1_revised">Thử nghiệm hệ thống kiểm tra chất lượng bằng camera AI trên một dây chuyền sản xuất cụ thể.</li>
+                                    <li data-lang-key="ai_guide_manu_start2_revised">Bắt đầu sử dụng AI để phân tích dữ liệu từ cảm biến của các máy móc quan trọng, dễ gặp sự cố.</li>
+                                    <li data-lang-key="ai_guide_manu_start3_revised">Xem xét ứng dụng AI để tối ưu hóa lộ trình di chuyển của xe tự hành (AGV) hoặc robot trong nhà máy.</li>
+                                </ul>
+                            </div>
+                            <div class="english">
+                                <ul>
+                                    <li data-lang-key="ai_guide_manu_start1_en_revised">Pilot an AI camera-based quality inspection system on a specific production line.</li>
+                                    <li data-lang-key="ai_guide_manu_start2_en_revised">Start using AI to analyze sensor data from critical, failure-prone machinery.</li>
+                                    <li data-lang-key="ai_guide_manu_start3_en_revised">Consider applying AI to optimize the routes of Autonomous Guided Vehicles (AGVs) or robots within the factory.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
                  <div class="mt-6">
-                    <h4 class="font-semibold text-gray-800" data-lang-key="ai_guide_real_example_title">Ví dụ thực tế:</h4>
-                    <div class="lang-pair">
+                    <h4 data-lang-key="ai_guide_real_example_title">Ví dụ thực tế:</h4>
+                     <div class="lang-pair intro-lang-pair">
                         <div class="vietnamese"><p>Nhà máy K dùng AI kiểm tra chất lượng, giảm 50% lỗi sản phẩm xuất xưởng.</p></div>
                         <div class="english"><p>Factory K used AI for quality inspection, reducing product defects by 50%.</p></div>
                     </div>
                     <span class="learn-more-toggle" data-lang-key="learn_more">Tìm hiểu thêm</span>
                     <div class="learn-more-content">
-                        <div class="lang-pair">
+                        <div class="lang-pair styled-lang-pair">
                             <div class="vietnamese"><p>Nhà máy K đã triển khai hệ thống kiểm tra chất lượng sử dụng camera AI, được huấn luyện để phát hiện các khuyết tật trên sản phẩm với độ chính xác cao. Hệ thống này thay thế kiểm tra thủ công, giảm 50% lỗi sản phẩm xuất xưởng và tiết kiệm 20% thời gian kiểm tra. Ngoài ra, nhà máy sử dụng cảm biến IoT kết hợp AI để giám sát máy móc, dự đoán các sự cố tiềm ẩn trước khi xảy ra, giảm thời gian ngừng máy xuống 30%. Các robot tự hành (AGV) cũng được thử nghiệm để tối ưu hóa logistics nội bộ. Bạn có thể bắt đầu với các giải pháp như AWS Panorama hoặc Siemens MindSphere để triển khai các tính năng tương tự.</p></div>
                             <div class="english"><p>Factory K implemented an AI-powered camera system for quality inspection, trained to detect product defects with high accuracy. This system replaced manual checks, reducing defects by 50% and saving 20% of inspection time. Additionally, IoT sensors combined with AI monitored machinery, predicting potential failures and reducing downtime by 30%. Autonomous guided vehicles (AGVs) were also tested to optimize internal logistics. You can start with solutions like AWS Panorama or Siemens MindSphere to implement similar features.</p></div>
                         </div>
@@ -931,7 +1188,7 @@
             <section id="agriculture" class="industry-section">
                  <button class="language-toggle" data-lang-key="lang_toggle_vi">Chỉ tiếng Việt</button>
                 <h2 data-lang-key="ai_guide_section_agri_title"><i class="fas fa-tractor fa-fw"></i>6. Tư duy AI trong Nông nghiệp</h2>
-                 <div class="lang-pair">
+                 <div class="lang-pair intro-lang-pair">
                     <div class="vietnamese"><p class="text-lg font-semibold text-gray-700">AI tối ưu hóa việc sử dụng tài nguyên, phát hiện sâu bệnh, và dự báo năng suất.</p></div>
                     <div class="english"><p class="text-lg font-semibold text-gray-600 italic">AI optimizes resource usage, detects pests and diseases, and forecasts yields.</p></div>
                 </div>
@@ -939,42 +1196,70 @@
                     <button class="accordion-header" data-lang-key="ai_guide_core_q_title">Câu hỏi cốt lõi</button>
                     <div class="accordion-content">
                         <div class="lang-pair">
-                            <div class="vietnamese"><p data-lang-key="ai_guide_agri_q_revised">Làm sao tối ưu hóa việc sử dụng nước và phân bón? Làm sao phát hiện sớm sâu bệnh? Làm sao dự báo năng suất chính xác hơn?</p></div>
-                            <div class="english"><p data-lang-key="ai_guide_agri_q_en_revised">How to optimize water and fertilizer usage? How to detect pests and diseases early? How to forecast yields more accurately?</p></div>
+                            <div class="vietnamese"><p data-lang-key="ai_guide_agri_q_revised">Làm sao tối ưu hóa việc sử dụng nước và phân bón cho từng khu vực cụ thể? Làm sao phát hiện sớm và chính xác các loại sâu bệnh? Làm sao dự báo năng suất cây trồng đáng tin cậy hơn?</p></div>
+                            <div class="english"><p data-lang-key="ai_guide_agri_q_en_revised">How to optimize water and fertilizer use for specific areas? How to detect pests and diseases early and accurately? How to forecast crop yields more reliably?</p></div>
                         </div>
                     </div>
                     <button class="accordion-header" data-lang-key="ai_guide_mindset_detail_title">Hướng tư duy chi tiết</button>
                     <div class="accordion-content">
-                        <h3 data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</h3>
-                        <ul>
-                            <li data-lang-key="ai_guide_agri_mindset1_revised">Quan sát tinh tế tình trạng cây trồng và kết hợp với dữ liệu AI.</li>
-                            <li data-lang-key="ai_guide_agri_mindset2_revised">Áp dụng canh tác chính xác dựa trên nhu cầu thực tế.</li>
-                            <li data-lang-key="ai_guide_agri_mindset3_revised">Thích ứng với điều kiện môi trường và thời tiết thay đổi.</li>
-                        </ul>
-                        <h3 data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</h3>
-                        <ul>
-                            <li data-lang-key="ai_guide_agri_ops1_revised">AI phân tích ảnh từ drone/vệ tinh để đánh giá sức khỏe cây trồng.</li>
-                            <li data-lang-key="ai_guide_agri_ops2_revised">AI dự báo năng suất dựa trên dữ liệu lịch sử, thời tiết, đất đai.</li>
-                        </ul>
+                        <div class="lang-pair">
+                            <div class="vietnamese">
+                                <h3 data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_agri_mindset1_revised">Kết hợp kinh nghiệm thực tế và quan sát tinh tế tình trạng cây trồng với dữ liệu do AI cung cấp.</li>
+                                    <li data-lang-key="ai_guide_agri_mindset2_revised">Áp dụng phương pháp canh tác chính xác (precision agriculture), tác động đúng nơi, đúng lúc.</li>
+                                    <li data-lang-key="ai_guide_agri_mindset3_revised">Sẵn sàng thích ứng với các điều kiện môi trường và biến đổi khí hậu dựa trên dự báo AI.</li>
+                                </ul>
+                                <h3 data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_agri_ops1_revised">AI phân tích hình ảnh từ drone hoặc vệ tinh để đánh giá sức khỏe cây trồng, mật độ, phát hiện vùng bất thường.</li>
+                                    <li data-lang-key="ai_guide_agri_ops2_revised">AI xây dựng mô hình dự báo năng suất dựa trên dữ liệu lịch sử canh tác, thời tiết, độ ẩm đất, dinh dưỡng...</li>
+                                </ul>
+                            </div>
+                            <div class="english">
+                                <h3 data-lang-key="ai_guide_human_mindset_title_en">Required Human Mindset:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_agri_mindset1_en_revised">Combine practical experience and keen observation of crop conditions with AI-provided data.</li>
+                                    <li data-lang-key="ai_guide_agri_mindset2_en_revised">Apply precision agriculture methods, acting at the right place and right time.</li>
+                                    <li data-lang-key="ai_guide_agri_mindset3_en_revised">Willingness to adapt to environmental conditions and climate change based on AI forecasts.</li>
+                                </ul>
+                                <h3 data-lang-key="ai_guide_core_ops_title_en">Understanding AI Core Operations:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_agri_ops1_en_revised">AI analyzes images from drones or satellites to assess crop health, density, and detect abnormal areas.</li>
+                                    <li data-lang-key="ai_guide_agri_ops2_en_revised">AI builds yield prediction models based on historical farming data, weather, soil moisture, nutrients, etc.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <button class="accordion-header" data-lang-key="ai_guide_practical_tips_title">Gợi ý thực tế</button>
                     <div class="accordion-content">
-                        <ul>
-                            <li data-lang-key="ai_guide_agri_start1_revised">Sử dụng ứng dụng nông nghiệp thông minh để theo dõi và nhận khuyến nghị.</li>
-                            <li data-lang-key="ai_guide_agri_start2_revised">Lắp đặt cảm biến độ ẩm đất, nhiệt độ, ánh sáng để thu thập dữ liệu.</li>
-                            <li data-lang-key="ai_guide_agri_start3_revised">Sử dụng dịch vụ phân tích ảnh drone định kỳ để kiểm tra đồng ruộng.</li>
-                        </ul>
+                         <div class="lang-pair">
+                             <div class="vietnamese">
+                                <ul>
+                                    <li data-lang-key="ai_guide_agri_start1_revised">Sử dụng các ứng dụng nông nghiệp thông minh trên điện thoại để theo dõi thời tiết, nhận diện sâu bệnh và nhận khuyến nghị canh tác.</li>
+                                    <li data-lang-key="ai_guide_agri_start2_revised">Lắp đặt các cảm biến đơn giản để đo độ ẩm đất, nhiệt độ, ánh sáng tại các khu vực trọng yếu.</li>
+                                    <li data-lang-key="ai_guide_agri_start3_revised">Sử dụng dịch vụ phân tích ảnh drone định kỳ để có cái nhìn tổng quan về tình trạng đồng ruộng.</li>
+                                </ul>
+                             </div>
+                             <div class="english">
+                                 <ul>
+                                    <li data-lang-key="ai_guide_agri_start1_en_revised">Use smart farming mobile apps to monitor weather, identify pests/diseases, and receive cultivation recommendations.</li>
+                                    <li data-lang-key="ai_guide_agri_start2_en_revised">Install simple sensors to measure soil moisture, temperature, and light in key areas.</li>
+                                    <li data-lang-key="ai_guide_agri_start3_en_revised">Utilize periodic drone image analysis services to get an overview of field conditions.</li>
+                                </ul>
+                             </div>
+                         </div>
                     </div>
                 </div>
                  <div class="mt-6">
-                    <h4 class="font-semibold text-gray-800" data-lang-key="ai_guide_real_example_title">Ví dụ thực tế:</h4>
-                    <div class="lang-pair">
+                    <h4 data-lang-key="ai_guide_real_example_title">Ví dụ thực tế:</h4>
+                     <div class="lang-pair intro-lang-pair">
                         <div class="vietnamese"><p>Trang trại N dùng AI phân tích ảnh drone, giảm 20% thiệt hại do sâu bệnh.</p></div>
                         <div class="english"><p>Farm N used AI to analyze drone images, reducing pest damage by 20%.</p></div>
                     </div>
                     <span class="learn-more-toggle" data-lang-key="learn_more">Tìm hiểu thêm</span>
                     <div class="learn-more-content">
-                        <div class="lang-pair">
+                        <div class="lang-pair styled-lang-pair">
                             <div class="vietnamese"><p>Trang trại N đã sử dụng drone tích hợp AI để chụp ảnh cây trồng và phân tích dữ liệu hình ảnh, giúp phát hiện sớm các dấu hiệu sâu bệnh và thiếu dinh dưỡng. Hệ thống AI này, sử dụng các mô hình thị giác máy tính, cung cấp bản đồ chi tiết về tình trạng cây trồng, giảm 20% thiệt hại do sâu bệnh. Ngoài ra, cảm biến môi trường được lắp đặt để đo độ ẩm và nhiệt độ, kết hợp với AI để tối ưu hóa tưới tiêu, tiết kiệm 15% lượng nước. Trang trại cũng sử dụng AI để dự báo năng suất dựa trên dữ liệu thời tiết và đất. Bạn có thể thử các công cụ như Agremo hoặc Farm-ng để triển khai các giải pháp tương tự.</p></div>
                             <div class="english"><p>Farm N used AI-integrated drones to capture crop images and analyze data, detecting early signs of pests and nutrient deficiencies. This AI system, leveraging computer vision models, provided detailed crop health maps, reducing pest damage by 20%. Additionally, environmental sensors measured humidity and temperature, combined with AI to optimize irrigation, saving 15% of water. The farm also used AI to forecast yields based on weather and soil data. You can try tools like Agremo or Farm-ng to implement similar solutions.</p></div>
                         </div>
@@ -985,7 +1270,7 @@
             <section id="hospitality" class="industry-section">
                  <button class="language-toggle" data-lang-key="lang_toggle_vi">Chỉ tiếng Việt</button>
                 <h2 data-lang-key="ai_guide_section_hosp_title"><i class="fas fa-concierge-bell fa-fw"></i>7. Tư duy AI trong Du lịch & Nhà hàng Khách sạn</h2>
-                 <div class="lang-pair">
+                 <div class="lang-pair intro-lang-pair">
                     <div class="vietnamese"><p class="text-lg font-semibold text-gray-700">AI cá nhân hóa trải nghiệm khách hàng, tối ưu hóa giá cả, và quản lý danh tiếng trực tuyến.</p></div>
                     <div class="english"><p class="text-lg font-semibold text-gray-600 italic">AI personalizes guest experiences, optimizes pricing, and manages online reputation.</p></div>
                 </div>
@@ -993,42 +1278,70 @@
                     <button class="accordion-header" data-lang-key="ai_guide_core_q_title">Câu hỏi cốt lõi</button>
                     <div class="accordion-content">
                         <div class="lang-pair">
-                            <div class="vietnamese"><p data-lang-key="ai_guide_hosp_q_revised">Làm sao cá nhân hóa trải nghiệm cho từng khách hàng? Làm sao tối ưu hóa giá phòng/dịch vụ theo thời điểm? Làm sao quản lý hiệu quả đánh giá và danh tiếng trực tuyến?</p></div>
-                            <div class="english"><p data-lang-key="ai_guide_hosp_q_en_revised">How to personalize the experience for each guest? How to optimize room/service pricing dynamically? How to effectively manage online reviews and reputation?</p></div>
+                            <div class="vietnamese"><p data-lang-key="ai_guide_hosp_q_revised">Làm sao để cung cấp trải nghiệm được cá nhân hóa cao cho từng khách hàng? Làm sao tối ưu hóa giá phòng và dịch vụ một cách linh hoạt theo thời điểm và nhu cầu? Làm sao quản lý hiệu quả các đánh giá và danh tiếng của cơ sở trên mạng?</p></div>
+                            <div class="english"><p data-lang-key="ai_guide_hosp_q_en_revised">How to provide a highly personalized experience for each guest? How to dynamically optimize room and service pricing based on time and demand? How to effectively manage online reviews and the establishment's reputation?</p></div>
                         </div>
                     </div>
                     <button class="accordion-header" data-lang-key="ai_guide_mindset_detail_title">Hướng tư duy chi tiết</button>
                     <div class="accordion-content">
-                        <h3 data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</h3>
-                        <ul>
-                            <li data-lang-key="ai_guide_hosp_mindset1_revised">Thấu hiểu nhu cầu và sở thích của khách hàng một cách toàn diện.</li>
-                            <li data-lang-key="ai_guide_hosp_mindset2_revised">Linh hoạt trong chiến lược định giá và quản lý doanh thu.</li>
-                            <li data-lang-key="ai_guide_hosp_mindset3_revised">Chủ động quản lý và phản hồi các đánh giá trực tuyến.</li>
-                        </ul>
-                        <h3 data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</h3>
-                        <ul>
-                            <li data-lang-key="ai_guide_hosp_ops1_revised">AI gợi ý dịch vụ, nâng cấp phòng dựa trên hồ sơ và sở thích khách hàng.</li>
-                            <li data-lang-key="ai_guide_hosp_ops2_revised">AI điều chỉnh giá động (dynamic pricing) dựa trên cung cầu, sự kiện.</li>
-                        </ul>
+                        <div class="lang-pair">
+                            <div class="vietnamese">
+                                <h3 data-lang-key="ai_guide_human_mindset_title">Tư duy con người cần có:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_hosp_mindset1_revised">Thấu hiểu sâu sắc nhu cầu, sở thích và hành vi của các phân khúc khách hàng khác nhau.</li>
+                                    <li data-lang-key="ai_guide_hosp_mindset2_revised">Áp dụng chiến lược định giá linh hoạt và quản lý doanh thu (revenue management) hiệu quả.</li>
+                                    <li data-lang-key="ai_guide_hosp_mindset3_revised">Chủ động theo dõi, phân tích và phản hồi các đánh giá trực tuyến để cải thiện dịch vụ.</li>
+                                </ul>
+                                <h3 data-lang-key="ai_guide_core_ops_title">Hiểu cốt lõi vận hành AI:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_hosp_ops1_revised">AI phân tích hồ sơ khách hàng (lịch sử đặt phòng, sở thích đã khai báo, đánh giá trước đây) để gợi ý dịch vụ, nâng cấp phòng phù hợp.</li>
+                                    <li data-lang-key="ai_guide_hosp_ops2_revised">AI thực hiện điều chỉnh giá động (dynamic pricing) dựa trên phân tích dữ liệu về cung cầu, sự kiện địa phương, giá đối thủ cạnh tranh.</li>
+                                </ul>
+                            </div>
+                            <div class="english">
+                                <h3 data-lang-key="ai_guide_human_mindset_title_en">Required Human Mindset:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_hosp_mindset1_en_revised">Deeply understand the needs, preferences, and behaviors of different customer segments.</li>
+                                    <li data-lang-key="ai_guide_hosp_mindset2_en_revised">Apply flexible pricing strategies and effective revenue management.</li>
+                                    <li data-lang-key="ai_guide_hosp_mindset3_en_revised">Proactively monitor, analyze, and respond to online reviews to improve service.</li>
+                                </ul>
+                                <h3 data-lang-key="ai_guide_core_ops_title_en">Understanding AI Core Operations:</h3>
+                                <ul>
+                                    <li data-lang-key="ai_guide_hosp_ops1_en_revised">AI analyzes customer profiles (booking history, declared preferences, past reviews) to suggest relevant services or room upgrades.</li>
+                                    <li data-lang-key="ai_guide_hosp_ops2_en_revised">AI performs dynamic pricing adjustments based on data analysis of supply/demand, local events, and competitor pricing.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <button class="accordion-header" data-lang-key="ai_guide_practical_tips_title">Gợi ý thực tế</button>
                     <div class="accordion-content">
-                        <ul>
-                            <li data-lang-key="ai_guide_hosp_start1_revised">Sử dụng hệ thống quản lý doanh thu (RMS) tích hợp AI để tối ưu giá.</li>
-                            <li data-lang-key="ai_guide_hosp_start2_revised">Triển khai chatbot AI hỗ trợ đặt phòng, trả lời câu hỏi về tiện nghi.</li>
-                            <li data-lang-key="ai_guide_hosp_start3_revised">Dùng công cụ AI để theo dõi và phân tích đánh giá trực tuyến.</li>
-                        </ul>
+                         <div class="lang-pair">
+                             <div class="vietnamese">
+                                <ul>
+                                    <li data-lang-key="ai_guide_hosp_start1_revised">Sử dụng các hệ thống quản lý doanh thu (RMS) có tích hợp AI để tự động hóa việc tối ưu giá phòng/dịch vụ.</li>
+                                    <li data-lang-key="ai_guide_hosp_start2_revised">Triển khai chatbot AI trên website/ứng dụng để hỗ trợ khách hàng đặt phòng, trả lời câu hỏi về tiện nghi, dịch vụ 24/7.</li>
+                                    <li data-lang-key="ai_guide_hosp_start3_revised">Sử dụng các công cụ AI để theo dõi, tổng hợp và phân tích tình cảm (sentiment analysis) từ các đánh giá trực tuyến trên nhiều nền tảng.</li>
+                                </ul>
+                             </div>
+                             <div class="english">
+                                 <ul>
+                                    <li data-lang-key="ai_guide_hosp_start1_en_revised">Use Revenue Management Systems (RMS) with AI integration to automate room/service price optimization.</li>
+                                    <li data-lang-key="ai_guide_hosp_start2_en_revised">Deploy AI chatbots on website/app to assist customers with bookings and answer questions about amenities/services 24/7.</li>
+                                    <li data-lang-key="ai_guide_hosp_start3_en_revised">Use AI tools to monitor, aggregate, and perform sentiment analysis on online reviews across multiple platforms.</li>
+                                </ul>
+                             </div>
+                         </div>
                     </div>
                 </div>
                  <div class="mt-6">
-                    <h4 class="font-semibold text-gray-800" data-lang-key="ai_guide_real_example_title">Ví dụ thực tế:</h4>
-                    <div class="lang-pair">
+                    <h4 data-lang-key="ai_guide_real_example_title">Ví dụ thực tế:</h4>
+                     <div class="lang-pair intro-lang-pair">
                         <div class="vietnamese"><p>Khách sạn M dùng AI gợi ý dịch vụ, tăng 15% tỷ lệ đặt phòng trực tiếp.</p></div>
                         <div class="english"><p>Hotel M used AI to suggest services, increasing direct booking rates by 15%.</p></div>
                     </div>
                     <span class="learn-more-toggle" data-lang-key="learn_more">Tìm hiểu thêm</span>
                     <div class="learn-more-content">
-                        <div class="lang-pair">
+                        <div class="lang-pair styled-lang-pair">
                             <div class="vietnamese"><p>Khách sạn M đã sử dụng AI để phân tích sở thích của khách, dựa trên lịch sử đặt phòng và đánh giá, để gợi ý các dịch vụ như spa hoặc tour du lịch phù hợp. Hệ thống AI này, được tích hợp vào website và ứng dụng đặt phòng, tăng tỷ lệ đặt phòng trực tiếp lên 15%, giảm phụ thuộc vào các nền tảng bên thứ ba. Ngoài ra, AI được sử dụng để tối ưu hóa giá phòng theo nhu cầu thị trường, giúp tăng doanh thu 10%. Khách sạn cũng triển khai chatbot AI để trả lời các câu hỏi về đặt phòng và tiện ích, cải thiện trải nghiệm khách hàng. Bạn có thể thử các công cụ như Duetto cho quản lý doanh thu hoặc chatbot AI như Ada để triển khai các tính năng tương tự.</p></div>
                             <div class="english"><p>Hotel M used AI to analyze guest preferences, based on booking history and reviews, to suggest tailored services like spa treatments or tours. This AI system, integrated into the website and booking app, increased direct bookings by 15%, reducing reliance on third-party platforms. Additionally, AI optimized room pricing based on market demand, boosting revenue by 10%. The hotel also deployed an AI chatbot to answer questions about bookings and amenities, enhancing guest experience. You can try tools like Duetto for revenue management or AI chatbots like Ada to implement similar features.</p></div>
                         </div>
@@ -1038,7 +1351,7 @@
 
         </div> <section id="emphasis-section">
              <h2 data-lang-key="ai_guide_emphasis_title"><i class="fas fa-rocket fa-fw"></i>Kết luận & Hành động</h2>
-             <div class="lang-pair">
+             <div class="lang-pair styled-lang-pair">
                  <div class="vietnamese">
                      <p data-lang-key="ai_guide_emphasis_p1_revised">Chìa khóa để ứng dụng AI thành công không nằm ở việc chạy theo công cụ mới nhất, mà ở tư duy chiến lược, khả năng xác định vấn đề cốt lõi và tinh thần thử nghiệm liên tục. Hãy bắt đầu từ những bước nhỏ, tập trung vào giải quyết vấn đề cụ thể trong ngành của bạn, sử dụng công cụ phù hợp và đo lường hiệu quả. Liên hệ IVS Education để được tư vấn chi tiết về lộ trình ứng dụng AI cho doanh nghiệp của bạn.</p>
                  </div>
@@ -1046,12 +1359,42 @@
                      <p data-lang-key="ai_guide_emphasis_p1_en_revised">The key to successful AI adoption lies not in chasing the latest tools, but in strategic thinking, identifying core problems, and continuous experimentation. Start small, focus on solving specific industry challenges, use appropriate tools, and measure the impact. Contact IVS Education for detailed guidance on an AI adoption roadmap for your business.</p>
                  </div>
              </div>
-             </section>
+             <div class="mt-6 text-center">
+                 <a href="#contact" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300" data-lang-key="cta_contact_us">Liên hệ Tư vấn</a>
+             </div>
+        </section>
 
     </main>
 
-    <footer id="footer-placeholder">
-        </footer>
+    <footer id="footer-placeholder" class="bg-gray-800 text-gray-300 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h5 class="text-lg font-semibold text-white mb-3">IVS Education</h5>
+                    <p class="text-sm">Đơn vị thuộc IVS JSC, cung cấp giải pháp giáo dục STEAM và học tập số.</p>
+                    <p class="text-sm mt-2">MST: 3603960189</p>
+                </div>
+                <div>
+                    <h5 class="text-lg font-semibold text-white mb-3">Liên kết nhanh</h5>
+                    <ul class="text-sm space-y-2">
+                        <li><a href="#" class="hover:text-white">Về chúng tôi</a></li>
+                        <li><a href="#" class="hover:text-white">Chương trình đào tạo</a></li>
+                        <li><a href="#" class="hover:text-white">Tin tức</a></li>
+                        <li><a href="#contact" class="hover:text-white">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div id="contact">
+                    <h5 class="text-lg font-semibold text-white mb-3">Liên hệ</h5>
+                    <p class="text-sm">1104, Tổ 6, Ấp Đất Mới, Xã Long Phước, Huyện Long Thành, Tỉnh Đồng Nai</p>
+                    <p class="text-sm mt-2">Email: info@ivs.id.vn</p>
+                    <p class="text-sm mt-2">Điện thoại: [Số điện thoại]</p>
+                    </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm">
+                &copy; <span id="footer-year"></span> IVS JSC. All rights reserved.
+            </div>
+        </div>
+    </footer>
 
     <script defer>
         document.addEventListener('DOMContentLoaded', () => {
@@ -1062,43 +1405,28 @@
                     const content = button.nextElementSibling;
                     const isActive = button.classList.contains('active');
 
-                    // Close other open accordions within the same group (optional)
-                    // button.closest('.accordion').querySelectorAll('.accordion-header').forEach(otherButton => {
-                    //     if (otherButton !== button && otherButton.classList.contains('active')) {
-                    //         otherButton.classList.remove('active');
-                    //         otherButton.nextElementSibling.classList.remove('active');
-                    //         otherButton.nextElementSibling.style.maxHeight = null;
-                    //         otherButton.nextElementSibling.style.paddingTop = null;
-                    //         otherButton.nextElementSibling.style.paddingBottom = null;
-                    //     }
-                    // });
-
                     // Toggle current accordion
                     button.classList.toggle('active', !isActive);
                     content.classList.toggle('active', !isActive);
 
                     if (!isActive) {
-                        // Temporarily set display to block to measure scrollHeight
-                        content.style.display = 'block';
-                        content.style.maxHeight = content.scrollHeight + "px";
-                        content.style.paddingTop = '1.5rem'; // Adjust based on your padding
-                        content.style.paddingBottom = '1.5rem'; // Adjust based on your padding
-                        // Remove display: block after transition starts
-                        setTimeout(() => {
-                             if (!content.classList.contains('active')) {
-                                content.style.display = 'none';
-                             }
-                        }, 300); // Match transition duration
+                        content.style.display = 'block'; // Make it visible to measure scrollHeight
+                        // Set max-height after a tiny delay to allow display:block to apply
+                        requestAnimationFrame(() => {
+                            content.style.maxHeight = content.scrollHeight + "px";
+                            content.style.paddingTop = '1.5rem';
+                            content.style.paddingBottom = '1.5rem';
+                        });
                     } else {
-                        content.style.maxHeight = null;
-                        content.style.paddingTop = null;
-                        content.style.paddingBottom = null;
-                         // Set display to none after transition ends
-                        setTimeout(() => {
+                        content.style.maxHeight = '0px'; // Start collapsing
+                        content.style.paddingTop = '0';
+                        content.style.paddingBottom = '0';
+                        // Set display to none after transition ends
+                        content.addEventListener('transitionend', () => {
                             if (!content.classList.contains('active')) {
                                 content.style.display = 'none';
                             }
-                        }, 300); // Match transition duration
+                        }, { once: true }); // Important: remove listener after it runs once
                     }
                 });
             });
@@ -1106,51 +1434,42 @@
             // --- Learn More Toggle Functionality ---
             document.querySelectorAll('.learn-more-toggle').forEach(toggle => {
                 const content = toggle.nextElementSibling;
-                const learnMoreText = toggle.dataset.langKey === 'learn_more' ? 'Tìm hiểu thêm' : 'Learn More'; // Default text
-                const hideText = toggle.dataset.langKey === 'learn_more' ? 'Ẩn bớt' : 'Hide'; // Default text
-
-                // Set initial text based on data-lang-key (simple example)
-                // A more robust solution would use a proper i18n library
                 const currentLang = document.documentElement.lang || 'vi';
-                toggle.textContent = currentLang === 'vi' ? 'Tìm hiểu thêm' : 'Learn More';
+                const learnMoreText = currentLang === 'vi' ? 'Tìm hiểu thêm' : 'Learn More';
+                const hideText = currentLang === 'vi' ? 'Ẩn bớt' : 'Hide';
 
+                toggle.textContent = learnMoreText; // Set initial text
 
                 toggle.addEventListener('click', () => {
                     const isActive = content.classList.contains('active');
                     content.classList.toggle('active', !isActive);
 
-                     if (!isActive) {
-                        // Temporarily set display to block to measure scrollHeight
-                        content.style.display = 'block';
-                        content.style.maxHeight = content.scrollHeight + "px";
-                        content.style.paddingTop = '1.5rem'; // Adjust based on your padding
-                        content.style.paddingBottom = '1.5rem'; // Adjust based on your padding
-                         // Remove display: block after transition starts
-                        setTimeout(() => {
+                    if (!isActive) {
+                        content.style.display = 'block'; // Make visible to measure
+                         requestAnimationFrame(() => {
+                            content.style.maxHeight = content.scrollHeight + "px";
+                            content.style.paddingTop = '1.5rem';
+                            content.style.paddingBottom = '1.5rem';
+                         });
+                        toggle.textContent = hideText;
+                    } else {
+                        content.style.maxHeight = '0px'; // Collapse
+                        content.style.paddingTop = '0';
+                        content.style.paddingBottom = '0';
+                        content.addEventListener('transitionend', () => {
                              if (!content.classList.contains('active')) {
                                 content.style.display = 'none';
                              }
-                        }, 300); // Match transition duration
-                        toggle.textContent = currentLang === 'vi' ? 'Ẩn bớt' : 'Hide';
-                    } else {
-                        content.style.maxHeight = null;
-                        content.style.paddingTop = null;
-                        content.style.paddingBottom = null;
-                         // Set display to none after transition ends
-                        setTimeout(() => {
-                            if (!content.classList.contains('active')) {
-                                content.style.display = 'none';
-                            }
-                        }, 300); // Match transition duration
-                        toggle.textContent = currentLang === 'vi' ? 'Tìm hiểu thêm' : 'Learn More';
+                        }, { once: true });
+                        toggle.textContent = learnMoreText;
                     }
                 });
             });
 
             // --- Language Toggle Functionality ---
              document.querySelectorAll('.language-toggle').forEach(toggle => {
-                const section = toggle.closest('.industry-section, section'); // Find parent section
-                if (!section) return; // Skip if no parent section found
+                const section = toggle.closest('.industry-section, section');
+                if (!section) return;
 
                 const langPairs = section.querySelectorAll('.lang-pair');
                 const currentLang = document.documentElement.lang || 'vi';
@@ -1159,20 +1478,25 @@
 
                 // Initial state: Hide English by default
                 langPairs.forEach(pair => pair.classList.add('english-hidden'));
-                toggle.textContent = showBilingualText;
-
+                toggle.textContent = showBilingualText; // Button initially offers to show bilingual
 
                 toggle.addEventListener('click', () => {
-                    const isEnglishHidden = langPairs[0]?.classList.contains('english-hidden'); // Check state of the first pair
+                    const isEnglishHidden = langPairs[0]?.classList.contains('english-hidden');
 
                     langPairs.forEach(pair => {
                         pair.classList.toggle('english-hidden', !isEnglishHidden);
                     });
 
-                    // Update button text
-                    toggle.textContent = !isEnglishHidden ? showBilingualText : showVietnameseOnlyText;
+                    // Update button text based on the new state
+                    toggle.textContent = isEnglishHidden ? showVietnameseOnlyText : showBilingualText;
                 });
             });
+
+            // --- Set Footer Year ---
+            const footerYear = document.getElementById('footer-year');
+            if (footerYear) {
+                footerYear.textContent = new Date().getFullYear();
+            }
 
             // --- Load Header/Footer Dynamically (Optional Example) ---
             // function loadComponent(elementId, url) {
@@ -1180,22 +1504,12 @@
             //         .then(response => response.ok ? response.text() : Promise.reject('Network response was not ok.'))
             //         .then(html => {
             //             const element = document.getElementById(elementId);
-            //             if (element) {
-            //                 element.innerHTML = html;
-            //             } else {
-            //                 console.error(`Element with ID "${elementId}" not found.`);
-            //             }
+            //             if (element) element.innerHTML = html;
             //         })
-            //         .catch(error => {
-            //             console.error(`Failed to load component from ${url}:`, error);
-            //             const element = document.getElementById(elementId);
-            //             if (element) {
-            //                 element.innerHTML = `<p class="text-red-500 text-center">Failed to load ${elementId}.</p>`;
-            //             }
-            //         });
+            //         .catch(error => console.error(`Failed to load ${elementId}:`, error));
             // }
-            // loadComponent('header-placeholder', '/path/to/header.html'); // Replace with actual path
-            // loadComponent('footer-placeholder', '/path/to/footer.html'); // Replace with actual path
+            // loadComponent('header-placeholder', 'path/to/your/header.html');
+            // loadComponent('footer-placeholder', 'path/to/your/footer.html');
 
         });
     </script>
