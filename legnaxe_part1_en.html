@@ -910,27 +910,67 @@
 
         </div>
 
+        <!-- Navigation for Chapters -->
         <div class="navigation">
-            <a href="../index.html">&laquo; Back to List</a>
-            <button class="dark-mode-toggle" onclick="toggleDarkMode()">Light/Dark</button>
+            <button id="prev-chapter" disabled>Chương Trước</button>
+            <button id="next-chapter">Chương Sau</button>
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer id="footer" class="bg-neutral-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="footer-links">
+                <a href="readnovel.html">Trờ về</a>
+                <a href="legnaxe_part2_vi.html">Đầu trang</a>                
+                <a href="legnaxe_part1_en.html">English</a> 
+                <a href="author-about.html">Về Tác Giả</a>
+            </div>
+            <p class="mt-4">© 2025 LEGNAXE. Mọi quyền được bảo lưu. Author # Nguyen Minh Triet</p>
+        </div>
+    </footer>
+
     <script>
-        // Check and apply saved dark mode preference
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            document.body.classList.add('dark-mode');
+        // Chapter Navigation Logic
+        const chapters = document.querySelectorAll('.chapter');
+        let currentChapter = 0;
+
+        function showChapter(index) {
+            chapters.forEach((chapter, i) => {
+                chapter.classList.toggle('active', i === index);
+            });
+
+            document.getElementById('prev-chapter').disabled = index === 0;
+            document.getElementById('next-chapter').disabled = index === chapters.length - 1;
         }
 
-        function toggleDarkMode() {
-            document.body.classList.toggle("dark-mode");
-            // Save the user's preference to localStorage
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                localStorage.removeItem('darkMode');
+        document.getElementById('prev-chapter').addEventListener('click', () => {
+            if (currentChapter > 0) {
+                currentChapter--;
+                showChapter(currentChapter);
             }
-        }
+        });
+
+        document.getElementById('next-chapter').addEventListener('click', () => {
+            if (currentChapter < chapters.length - 1) {
+                currentChapter++;
+                showChapter(currentChapter);
+            }
+        });
+
+        // Show the first chapter initially
+        showChapter(currentChapter);
+
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const icon = themeToggle.querySelector('i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        });
     </script>
 </body>
 </html>
