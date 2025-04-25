@@ -132,7 +132,7 @@ const translations = {
         index_section_title_trusted_edu: "IVS - Nền tảng giáo dục đáng tin cậy", // Key đã thêm
         large_button_ai_guide: "Áp dụng AI với mọi ngành cùng IVS", // Key đã thêm
         large_button_ai_subtext: "Đây không phải chương trình đào tạo", // Key đã thêm
-        large_button_about: "Giới thiệu về IVS chúng tôi", // Key đã thêm
+        large_button_about: "Read Magical Novels in the Library of Magic", // Key đã thêm
         large_button_scholarship: "Học bổng & Trại hè", // Key đã thêm
         large_button_scholarship_subtext: "Cơ hội vươn ra thế giới", // Key đã thêm
         large_button_placement: "English Placement Test", // Key đã thêm
