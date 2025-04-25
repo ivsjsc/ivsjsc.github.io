@@ -461,7 +461,61 @@
           opacity: 1;
           display: block; /* Make sure it's displayed */
       }
+    /* Table Container */
+    .ai-tools-table-container {
+        @apply rounded-lg overflow-hidden;
+    }
 
+    /* Table Styling */
+    .ai-tools-table-container .grid {
+        @apply border border-gray-200 dark:border-gray-700;
+    }
+
+    .table-row {
+        @apply hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200;
+    }
+
+    .table-cell {
+        @apply align-top;
+    }
+
+    /* Mobile Card Layout */
+    .table-row.block {
+        @apply bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700;
+    }
+
+    .table-cell.block {
+        @apply py-2 px-0;
+    }
+
+    .table-cell.block:not(:last-child) {
+        @apply border-b border-gray-200 dark:border-gray-600 pb-3 mb-3;
+    }
+
+    /* Links */
+    .table-cell a {
+        @apply underline font-medium min-h-[44px] flex items-center touch-action-manipulation;
+    }
+
+    /* Responsive Adjustments */
+    @media (min-width: 768px) {
+        .table-row {
+            @apply flex flex-col md:table-row;
+        }
+
+        .table-cell {
+            @apply align-middle;
+        }
+
+        .table-row.block {
+            @apply p-0 rounded-none shadow-none border-0;
+        }
+
+        .table-cell.block {
+            @apply py-3 px-4 border-b-0 mb-0;
+        }
+    }          
+            
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen antialiased font-sans" id="page-ai-guide">
@@ -837,138 +891,199 @@
                 <i class="fas fa-tools fa-fw mr-3 text-indigo-500"></i>
                 <span data-lang-key="ai_guide_tools_title">Giới thiệu một số Công cụ AI Phổ biến (Tham khảo)</span>
             </h2>
-            <div class="lang-pair intro-lang-pair">
+            <div class="lang-pair intro-lang-pair mb-6">
                 <div class="vietnamese">
-                    <p data-lang-key="ai_guide_tools_intro_revised">Bảng dưới đây liệt kê một số công cụ AI tiêu biểu, minh họa sự đa dạng của các giải pháp hiện có.</p>
+                    <p data-lang-key="ai_guide_tools_intro_revised" class="text-gray-700 text-sm md:text-base">Bảng dưới đây liệt kê một số công cụ AI tiêu biểu, minh họa sự đa dạng của các giải pháp hiện có.</p>
                 </div>
                 <div class="english">
-                    <p data-lang-key="ai_guide_tools_intro_en_revised">The table below lists some typical AI tools, illustrating the diversity of available solutions.</p>
+                    <p data-lang-key="ai_guide_tools_intro_en_revised" class="text-gray-700 text-sm md:text-base">The table below lists some typical AI tools, illustrating the diversity of available solutions.</p>
                 </div>
             </div>
-
-            <div class="ai-tools-table-container overflow-x-auto">
-                <table class="ai-tools-table min-w-full">
-                    <thead>
-                        <tr>
-                            <th data-lang-key="ai_tools_header_type">Loại hình chính</th>
-                            <th data-lang-key="ai_tools_header_example">Ví dụ Công cụ</th>
-                            <th data-lang-key="ai_tools_header_dev">Nhà phát triển</th>
-                            <th data-lang-key="ai_tools_header_desc">Mô tả Ngắn gọn</th>
-                            <th data-lang-key="ai_tools_header_link">Liên kết</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td data-label="Loại hình chính" class="font-medium text-gray-900" data-lang-key="ai_tool_type_llm">Tạo sinh Ngôn ngữ<br><span class="text-sm text-gray-500">(LLMs)</span></td>
-                            <td data-label="Ví dụ Công cụ">ChatGPT<br>Gemini<br>Claude<br>Grok<br>Deepseek<br>Copilot</td>
-                            <td data-label="Nhà phát triển">OpenAI<br>Google<br>Anthropic<br>xAI<br>Deepseek AI<br>Microsoft</td>
-                            <td data-label="Mô tả Ngắn gọn" class="text-sm text-gray-700">
+        
+            <div class="ai-tools-table-container">
+                <div class="grid grid-cols-1 gap-4 md:table min-w-full bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <div class="hidden md:table-header-group">
+                        <div class="table-row bg-indigo-50 dark:bg-indigo-900">
+                            <div class="table-cell py-3 px-4 text-left text-xs font-semibold text-indigo-700 dark:text-indigo-300 uppercase" data-lang-key="ai_tools_header_type">Loại hình chính</div>
+                            <div class="table-cell py-3 px-4 text-left text-xs font-semibold text-indigo-700 dark:text-indigo-300 uppercase" data-lang-key="ai_tools_header_example">Ví dụ Công cụ</div>
+                            <div class="table-cell py-3 px-4 text-left text-xs font-semibold text-indigo-700 dark:text-indigo-300 uppercase" data-lang-key="ai_tools_header_dev">Nhà phát triển</div>
+                            <div class="table-cell py-3 px-4 text-left text-xs font-semibold text-indigo-700 dark:text-indigo-300 uppercase" data-lang-key="ai_tools_header_desc">Mô tả Ngắn gọn</div>
+                            <div class="table-cell py-3 px-4 text-left text-xs font-semibold text-indigo-700 dark:text-indigo-300 uppercase" data-lang-key="ai_tools_header_link">Liên kết</div>
+                        </div>
+                    </div>
+                    <div class="table-row-group">
+                        <div class="table-row md:table-row block border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+                            <div class="table-cell md:table-cell block py-3 px-4 font-medium text-gray-900 dark:text-gray-100 text-sm" data-label="Loại hình chính" data-lang-key="ai_tool_type_llm">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Loại hình chính: </span>Tạo sinh Ngôn ngữ<br><span class="text-xs text-gray-500 dark:text-gray-400">(LLMs)</span>
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Ví dụ Công cụ">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Ví dụ Công cụ: </span>ChatGPT<br>Gemini<br>Claude<br>Grok<br>Deepseek<br>Copilot
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Nhà phát triển">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Nhà phát triển: </span>OpenAI<br>Google<br>Anthropic<br>xAI<br>Deepseek AI<br>Microsoft
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Mô tả Ngắn gọn">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Mô tả: </span>
                                 <span data-lang-key="ai_tool_desc_chatgpt">Tạo văn bản, trả lời câu hỏi, dịch thuật, viết mã</span><br>
                                 <span data-lang-key="ai_tool_desc_gemini">Tích hợp sâu với hệ sinh thái Google</span><br>
                                 <span data-lang-key="ai_tool_desc_claude">Tập trung vào an toàn và đạo đức AI</span><br>
                                 <span data-lang-key="ai_tool_desc_grok">Tích hợp với X, thông tin thời gian thực</span><br>
                                 <span data-lang-key="ai_tool_desc_deepseek">Mạnh về viết mã và song ngữ</span><br>
                                 <span data-lang-key="ai_tool_desc_copilot">Trợ lý AI trong Microsoft 365</span>
-                            </td>
-                            <td data-label="Liên kết">
-                                <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập ChatGPT của OpenAI" data-lang-key="ai_tool_link_access">Truy cập</a><br>
-                                <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Gemini của Google" data-lang-key="ai_tool_link_access">Truy cập</a><br>
-                                <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Claude của Anthropic" data-lang-key="ai_tool_link_access">Truy cập</a><br>
-                                <a href="https://grok.x.ai/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Grok của xAI" data-lang-key="ai_tool_link_access">Truy cập</a><br>
-                                <a href="https://chat.deepseek.com/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Deepseek" data-lang-key="ai_tool_link_access">Truy cập</a><br>
-                                <a href="https://copilot.microsoft.com/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Copilot của Microsoft" data-lang-key="ai_tool_link_access">Truy cập</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-label="Loại hình chính" class="font-medium text-gray-900" data-lang-key="ai_tool_type_conv_search">Tìm kiếm/Trả lời Hỏi đáp</td>
-                            <td data-label="Ví dụ Công cụ">Perplexity AI</td>
-                            <td data-label="Nhà phát triển">Perplexity AI</td>
-                            <td data-label="Mô tả Ngắn gọn" class="text-sm text-gray-700" data-lang-key="ai_tool_desc_perplexity">Tìm kiếm đối thoại, cung cấp câu trả lời kèm nguồn</td>
-                            <td data-label="Liên kết"><a href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Perplexity AI" data-lang-key="ai_tool_link_access">Truy cập</a></td>
-                        </tr>
-                        <tr>
-                            <td data-label="Loại hình chính" class="font-medium text-gray-900" data-lang-key="ai_tool_type_image_gen">Tạo sinh Hình ảnh</td>
-                            <td data-label="Ví dụ Công cụ">Midjourney<br>Stable Diffusion<br>DALL-E</td>
-                            <td data-label="Nhà phát triển">Midjourney, Inc.<br>Stability AI<br>OpenAI</td>
-                            <td data-label="Mô tả Ngắn gọn" class="text-sm text-gray-700">
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm" data-label="Liên kết">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Liên kết: </span>
+                                <a href="https://chat.openai.com/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập ChatGPT của OpenAI" data-lang-key="ai_tool_link_access">Truy cập</a>
+                                <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Gemini của Google" data-lang-key="ai_tool_link_access">Truy cập</a>
+                                <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Claude của Anthropic" data-lang-key="ai_tool_link_access">Truy cập</a>
+                                <a href="https://grok.x.ai/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Grok của xAI" data-lang-key="ai_tool_link_access">Truy cập</a>
+                                <a href="https://chat.deepseek.com/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Deepseek" data-lang-key="ai_tool_link_access">Truy cập</a>
+                                <a href="https://copilot.microsoft.com/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Copilot của Microsoft" data-lang-key="ai_tool_link_access">Truy cập</a>
+                            </div>
+                        </div>
+                        <div class="table-row md:table-row block border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+                            <div class="table-cell md:table-cell block py-3 px-4 font-medium text-gray-900 dark:text-gray-100 text-sm" data-label="Loại hình chính" data-lang-key="ai_tool_type_conv_search">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Loại hình chính: </span>Tìm kiếm/Trả lời Hỏi đáp
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Ví dụ Công cụ">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Ví dụ Công cụ: </span>Perplexity AI
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Nhà phát triển">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Nhà phát triển: </span>Perplexity AI
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Mô tả Ngắn gọn" data-lang-key="ai_tool_desc_perplexity">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Mô tả: </span>Tìm kiếm đối thoại, cung cấp câu trả lời kèm nguồn
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm" data-label="Liên kết">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Liên kết: </span>
+                                <a href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Perplexity AI" data-lang-key="ai_tool_link_access">Truy cập</a>
+                            </div>
+                        </div>
+                        <div class="table-row md:table-row block border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+                            <div class="table-cell md:table-cell block py-3 px-4 font-medium text-gray-900 dark:text-gray-100 text-sm" data-label="Loại hình chính" data-lang-key="ai_tool_type_image_gen">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Loại hình chính: </span>Tạo sinh Hình ảnh
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Ví dụ Công cụ">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Ví dụ Công cụ: </span>Midjourney<br>Stable Diffusion<br>DALL-E
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Nhà phát triển">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Nhà phát triển: </span>Midjourney, Inc.<br>Stability AI<br>OpenAI
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Mô tả Ngắn gọn">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Mô tả: </span>
                                 <span data-lang-key="ai_tool_desc_midjourney">Tạo hình ảnh nghệ thuật từ văn bản</span><br>
                                 <span data-lang-key="ai_tool_desc_stable_diffusion">Tạo hình ảnh, mã nguồn mở</span><br>
                                 <span data-lang-key="ai_tool_desc_dalle">Tạo hình ảnh từ văn bản</span>
-                            </td>
-                            <td data-label="Liên kết">
-                                <a href="https://www.midjourney.com/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Midjourney" data-lang-key="ai_tool_link_access">Truy cập</a><br>
-                                <a href="https://stablediffusionweb.com/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Stable Diffusion Web UI" data-lang-key="ai_tool_link_stable_diffusion_webui">Truy cập</a><br>
-                                <a href="https://openai.com/dall-e-3/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập DALL-E của OpenAI" data-lang-key="ai_tool_link_access">Truy cập</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-label="Loại hình chính" class="font-medium text-gray-900" data-lang-key="ai_tool_type_data_analysis">Phân tích Dữ liệu</td>
-                            <td data-label="Ví dụ Công cụ">Tableau<br>Power BI</td>
-                            <td data-label="Nhà phát triển">Salesforce<br>Microsoft</td>
-                            <td data-label="Mô tả Ngắn gọn" class="text-sm text-gray-700">
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm" data-label="Liên kết">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Liên kết: </span>
+                                <a href="https://www.midjourney.com/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Midjourney" data-lang-key="ai_tool_link_access">Truy cập</a>
+                                <a href="https://stablediffusionweb.com/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Stable Diffusion Web UI" data-lang-key="ai_tool_link_stable_diffusion_webui">Truy cập</a>
+                                <a href="https://openai.com/dall-e-3/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập DALL-E của OpenAI" data-lang-key="ai_tool_link_access">Truy cập</a>
+                            </div>
+                        </div>
+                        <div class="table-row md:table-row block border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+                            <div class="table-cell md:table-cell block py-3 px-4 font-medium text-gray-900 dark:text-gray-100 text-sm" data-label="Loại hình chính" data-lang-key="ai_tool_type_data_analysis">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Loại hình chính: </span>Phân tích Dữ liệu
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Ví dụ Công cụ">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Ví dụ Công cụ: </span>Tableau<br>Power BI
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Nhà phát triển">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Nhà phát triển: </span>Salesforce<br>Microsoft
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Mô tả Ngắn gọn">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Mô tả: </span>
                                 <span data-lang-key="ai_tool_desc_tableau">Phân tích, trực quan hóa dữ liệu kinh doanh</span><br>
                                 <span data-lang-key="ai_tool_desc_powerbi">Tích hợp AI của Microsoft</span>
-                            </td>
-                            <td data-label="Liên kết">
-                                <a href="https://www.tableau.com/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Tableau của Salesforce" data-lang-key="ai_tool_link_access">Truy cập</a><br>
-                                <a href="https://powerbi.microsoft.com/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Power BI của Microsoft" data-lang-key="ai_tool_link_access">Truy cập</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-label="Loại hình chính" class="font-medium text-gray-900" data-lang-key="ai_tool_type_speech">Nhận dạng Giọng nói</td>
-                            <td data-label="Ví dụ Công cụ">Google Assistant<br>Siri<br>Alexa</td>
-                            <td data-label="Nhà phát triển">Google<br>Apple<br>Amazon</td>
-                            <td data-label="Mô tả Ngắn gọn" class="text-sm text-gray-700">
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm" data-label="Liên kết">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Liên kết: </span>
+                                <a href="https://www.tableau.com/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Tableau của Salesforce" data-lang-key="ai_tool_link_access">Truy cập</a>
+                                <a href="https://powerbi.microsoft.com/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Power BI của Microsoft" data-lang-key="ai_tool_link_access">Truy cập</a>
+                            </div>
+                        </div>
+                        <div class="table-row md:table-row block border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+                            <div class="table-cell md:table-cell block py-3 px-4 font-medium text-gray-900 dark:text-gray-100 text-sm" data-label="Loại hình chính" data-lang-key="ai_tool_type_speech">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Loại hình chính: </span>Nhận dạng Giọng nói
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Ví dụ Công cụ">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Ví dụ Công cụ: </span>Google Assistant<br>Siri<br>Alexa
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Nhà phát triển">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Nhà phát triển: </span>Google<br>Apple<br>Amazon
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Mô tả Ngắn gọn">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Mô tả: </span>
                                 <span data-lang-key="ai_tool_desc_google_assistant">Trợ lý ảo trên thiết bị thông minh</span><br>
                                 <span data-lang-key="ai_tool_desc_siri">Trợ lý ảo trên thiết bị Apple</span><br>
                                 <span data-lang-key="ai_tool_desc_alexa">Trợ lý ảo trên Amazon Echo</span>
-                            </td>
-                            <td data-label="Liên kết">
-                                <a href="https://assistant.google.com/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Google Assistant" data-lang-key="ai_tool_link_access">Truy cập</a><br>
-                                <a href="https://www.apple.com/siri/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Siri của Apple" data-lang-key="ai_tool_link_access">Truy cập</a><br>
-                                <a href="https://developer.amazon.com/alexa" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Alexa của Amazon" data-lang-key="ai_tool_link_access">Truy cập</a>
-                            </td>
-                        </tr>
-                         <tr>
-                            <td data-label="Loại hình chính" class="font-medium text-gray-900" data-lang-key="ai_tool_type_cv">Thị giác Máy tính</td>
-                            <td data-label="Ví dụ Công cụ">Google Cloud Vision AI<br>Amazon Rekognition</td>
-                            <td data-label="Nhà phát triển">Google<br>Amazon</td>
-                            <td data-label="Mô tả Ngắn gọn" class="text-sm text-gray-700">
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm" data-label="Liên kết">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Liên kết: </span>
+                                <a href="https://assistant.google.com/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Google Assistant" data-lang-key="ai_tool_link_access">Truy cập</a>
+                                <a href="https://www.apple.com/siri/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Siri của Apple" data-lang-key="ai_tool_link_access">Truy cập</a>
+                                <a href="https://developer.amazon.com/alexa" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Alexa của Amazon" data-lang-key="ai_tool_link_access">Truy cập</a>
+                            </div>
+                        </div>
+                        <div class="table-row md:table-row block border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+                            <div class="table-cell md:table-cell block py-3 px-4 font-medium text-gray-900 dark:text-gray-100 text-sm" data-label="Loại hình chính" data-lang-key="ai_tool_type_cv">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Loại hình chính: </span>Thị giác Máy tính
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Ví dụ Công cụ">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Ví dụ Công cụ: </span>Google Cloud Vision AI<br>Amazon Rekognition
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Nhà phát triển">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Nhà phát triển: </span>Google<br>Amazon
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Mô tả Ngắn gọn">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Mô tả: </span>
                                 <span data-lang-key="ai_tool_desc_gcp_vision">Phân tích hình ảnh, nhận dạng đối tượng</span><br>
                                 <span data-lang-key="ai_tool_desc_rekognition">Phân tích hình ảnh và video</span>
-                            </td>
-                            <td data-label="Liên kết">
-                                <a href="https://cloud.google.com/vision" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Google Cloud Vision AI" data-lang-key="ai_tool_link_access">Truy cập</a><br>
-                                <a href="https://aws.amazon.com/rekognition/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Amazon Rekognition" data-lang-key="ai_tool_link_access">Truy cập</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-label="Loại hình chính" class="font-medium text-gray-900" data-lang-key="ai_tool_type_ml_platform">Nền tảng Học máy</td>
-                            <td data-label="Ví dụ Công cụ">TensorFlow<br>PyTorch</td>
-                            <td data-label="Nhà phát triển">Google<br>Meta AI</td>
-                            <td data-label="Mô tả Ngắn gọn" class="text-sm text-gray-700">
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm" data-label="Liên kết">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Liên kết: </span>
+                                <a href="https://cloud.google.com/vision" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Google Cloud Vision AI" data-lang-key="ai_tool_link_access">Truy cập</a>
+                                <a href="https://aws.amazon.com/rekognition/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập Amazon Rekognition" data-lang-key="ai_tool_link_access">Truy cập</a>
+                            </div>
+                        </div>
+                        <div class="table-row md:table-row block border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+                            <div class="table-cell md:table-cell block py-3 px-4 font-medium text-gray-900 dark:text-gray-100 text-sm" data-label="Loại hình chính" data-lang-key="ai_tool_type_ml_platform">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Loại hình chính: </span>Nền tảng Học máy
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Ví dụ Công cụ">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Ví dụ Công cụ: </span>TensorFlow<br>PyTorch
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Nhà phát triển">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Nhà phát triển: </span>Google<br>Meta AI
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm text-gray-700 dark:text-gray-300" data-label="Mô tả Ngắn gọn">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Mô tả: </span>
                                 <span data-lang-key="ai_tool_desc_tensorflow">Thư viện mã nguồn mở cho Machine Learning</span><br>
                                 <span data-lang-key="ai_tool_desc_pytorch">Thư viện phổ biến cho Deep Learning</span>
-                            </td>
-                            <td data-label="Liên kết">
-                                <a href="https://www.tensorflow.org/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập TensorFlow của Google" data-lang-key="ai_tool_link_access">Truy cập</a><br>
-                                <a href="https://pytorch.org/" target="_blank" rel="noopener noreferrer" aria-label="Truy cập PyTorch của Meta AI" data-lang-key="ai_tool_link_access">Truy cập</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            </div>
+                            <div class="table-cell md:table-cell block py-3 px-4 text-sm" data-label="Liên kết">
+                                <span class="md:hidden font-semibold text-indigo-600 dark:text-indigo-400">Liên kết: </span>
+                                <a href="https://www.tensorflow.org/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập TensorFlow của Google" data-lang-key="ai_tool_link_access">Truy cập</a>
+                                <a href="https://pytorch.org/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 block" aria-label="Truy cập PyTorch của Meta AI" data-lang-key="ai_tool_link_access">Truy cập</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="mt-6 text-sm text-gray-600 italic">
-                 <div class="lang-pair intro-lang-pair">
-                     <div class="vietnamese">
+            <div class="mt-6 text-sm text-gray-600 dark:text-gray-400 italic">
+                <div class="lang-pair intro-lang-pair">
+                    <div class="vietnamese">
                         <p data-lang-key="ai_guide_tools_note">*Lưu ý: Bảng này chỉ mang tính tham khảo, thị trường AI phát triển nhanh với nhiều công cụ mới liên tục ra đời.</p>
-                     </div>
-                     <div class="english">
+                    </div>
+                    <div class="english">
                         <p data-lang-key="ai_guide_tools_note_en">*Note: This table is for reference only, the AI market evolves rapidly with new tools emerging constantly.</p>
-                     </div>
-                 </div>
+                    </div>
+                </div>
             </div>
         </section>
+        
+
 
         <div class="space-y-12 md:space-y-16">
 
