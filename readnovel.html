@@ -13,7 +13,11 @@
                 extend: {
                     colors: {
                         // Bạn có thể định nghĩa màu tùy chỉnh ở đây nếu muốn
-                    }
+                    },
+                    // Thêm aspect-ratio nếu dùng Tailwind v3+ hoặc plugin
+                    // aspectRatio: {
+                    //   'book': '2 / 3',
+                    // },
                 }
             },
             darkMode: 'class' // Kích hoạt dark mode bằng class
@@ -80,7 +84,7 @@
         /* --- Header Styles --- */
         #navbar {
             height: var(--header-height-initial);
-            transition: height 0.3s ease-in-out; /* Thêm transition cho chiều cao */
+            transition: height 0.3s ease-in-out;
         }
         #navbar.scrolled {
             height: var(--header-height-scrolled);
@@ -115,7 +119,7 @@
         /* --- Dropdown Menu Styles --- */
         .submenu, .sub-submenu {
             min-width: 100%;
-            @apply z-60; /* Đảm bảo dropdown hiển thị trên header */
+            @apply z-60;
         }
         .submenu a, .submenu button,
         .sub-submenu a, .sub-submenu button {
@@ -130,7 +134,7 @@
 
         /* --- Language Dropdown --- */
         .language-dropdown-content {
-             @apply z-60; /* Đảm bảo dropdown hiển thị trên header */
+             @apply z-60;
         }
         .language-dropdown-content .lang-button {
              @apply block w-full text-left px-3 py-1.5 text-sm hover:bg-gray-100 text-gray-700;
@@ -138,7 +142,7 @@
 
         /* --- Mobile Menu Styles --- */
         #mobile-menu-panel {
-             @apply z-[55]; /* Cao hơn header (50) nhưng thấp hơn dropdown (60) */
+             @apply z-[55];
         }
          #mobile-menu-panel .nav-link {
              @apply block text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md py-2 px-3;
@@ -172,54 +176,70 @@
              transform: rotate(90deg);
          }
          #mobile-language-dropdown .language-dropdown-content {
-            @apply z-60; /* Đảm bảo dropdown hiển thị trên panel */
+            @apply z-60;
          }
 
 
-        /* --- CSS cho phần nội dung truyện (Sử dụng Tailwind nhiều hơn) --- */
+        /* --- CSS cho phần nội dung truyện (Giao diện bìa sách) --- */
         .page-content-container {
-            @apply mt-6 mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-lg; /* Tăng padding, bo tròn, bóng đổ */
+            @apply mt-6 mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-lg;
         }
         h1.page-title {
-            @apply text-center text-3xl sm:text-4xl font-bold text-gray-800 mt-4 mb-8; /* Tăng kích thước, đậm hơn */
+            @apply text-center text-3xl sm:text-4xl font-bold text-gray-800 mt-4 mb-8;
         }
         .novel-list {
-            /* Grid layout responsive: 1 cột trên mobile, 2 trên sm, 3 trên lg, 4 trên xl */
-            @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+            /* Grid layout responsive */
+            @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6; /* Nhiều cột hơn cho giống kệ sách */
         }
         .novel-card {
-            @apply bg-white rounded-lg overflow-hidden shadow-md border border-gray-200 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1; /* Thêm viền, flex column, hiệu ứng hover */
+            @apply bg-white rounded-md overflow-hidden shadow-lg border border-gray-200 flex flex-col transition-all duration-300 hover:shadow-2xl hover:-translate-y-1.5 perspective; /* Thêm perspective */
+            transform-style: preserve-3d; /* Cho hiệu ứng 3D */
+            /* aspect-ratio: 2 / 3; */ /* Tỷ lệ chiều rộng/cao giống cuốn sách - Cần Tailwind v3+ hoặc CSS tùy chỉnh */
+            /* min-height: 300px; */ /* Chiều cao tối thiểu để giữ form */
         }
-        .novel-card img {
-            @apply w-full h-48 object-cover flex-shrink-0; /* Chiều cao ảnh lớn hơn, không co lại */
+
+        .novel-card .cover-link {
+             display: block;
+             /* aspect-ratio: 2 / 3; */ /* Áp dụng tỷ lệ cho ảnh bìa */
+             overflow: hidden; /* Đảm bảo ảnh không tràn */
+             @apply flex-shrink-0; /* Không co lại */
+        }
+
+        .novel-card img.book-cover {
+            @apply w-full h-full object-cover transition-transform duration-300 group-hover:scale-105; /* Phóng to nhẹ khi hover card */
+             /* Đảm bảo ảnh chiếm toàn bộ không gian link */
         }
         .novel-card .card-content {
-             @apply p-5 flex flex-col flex-grow; /* Padding lớn hơn, flex-grow để nội dung chiếm không gian */
+             @apply p-3 sm:p-4 flex flex-col flex-grow bg-gray-50 dark:bg-gray-700; /* Nền khác cho phần nội dung */
         }
         .novel-card h3 {
-            @apply text-xl font-semibold text-gray-900 mb-2 leading-tight; /* Font lớn hơn, đậm hơn */
+            @apply text-sm sm:text-base font-semibold text-gray-900 mb-1 leading-tight line-clamp-2; /* Giới hạn 2 dòng */
         }
-        .novel-card p {
-            @apply text-sm text-gray-600 mb-4 flex-grow; /* flex-grow để đẩy nút xuống dưới */
+        .novel-card p { /* Mô tả ngắn */
+            @apply text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-3 flex-grow line-clamp-3; /* Giới hạn 3 dòng */
         }
-        .novel-card a {
-            @apply block w-full text-center py-2.5 px-4 bg-gradient-to-r from-blue-500 to-sky-500 text-white rounded-md transition-all duration-300 hover:from-blue-600 hover:to-sky-600 text-base font-semibold shadow-md hover:shadow-lg mt-auto; /* Gradient, padding lớn hơn, font lớn hơn, shadow, mt-auto để nút luôn ở cuối */
+        .novel-card a.read-button { /* Đổi tên class nút đọc */
+            @apply block w-full text-center py-2 px-3 bg-gradient-to-r from-blue-500 to-sky-500 text-white rounded text-xs sm:text-sm font-medium shadow transition-all duration-300 hover:from-blue-600 hover:to-sky-600 hover:shadow-md mt-auto;
         }
-        /* Style cho nút bị vô hiệu hóa */
-        .novel-card a[aria-disabled='true'] {
+        .novel-card a.read-button[aria-disabled='true'] {
             @apply bg-gradient-to-r from-gray-400 to-gray-500 cursor-not-allowed hover:from-gray-400 hover:to-gray-500 shadow-none hover:shadow-none;
         }
         .settings {
-            @apply flex justify-center items-center gap-4 mb-8; /* Tăng mb */
+            @apply flex justify-center items-center gap-4 mb-8;
         }
         .settings button {
-            @apply py-2 px-5 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full cursor-pointer transition-all duration-300 hover:from-red-600 hover:to-pink-600 text-sm font-medium shadow hover:shadow-md; /* Gradient, bo tròn, shadow */
+            @apply py-2 px-5 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full cursor-pointer transition-all duration-300 hover:from-red-600 hover:to-pink-600 text-sm font-medium shadow hover:shadow-md;
         }
 
         /* Đảm bảo footer không bị che */
         .main-content-wrapper {
-            flex-grow: 1; /* Đẩy footer xuống dưới */
+            flex-grow: 1;
         }
+
+        /* Tiện ích Perspective (Tùy chọn, cho hiệu ứng hover 3D nhẹ) */
+        .perspective { perspective: 1000px; }
+        .novel-card:hover { transform: translateY(-6px) rotateX(5deg); } /* Hiệu ứng nghiêng nhẹ */
+
 
     </style>
 </head>
@@ -562,42 +582,46 @@
                     <button onclick="toggleDarkMode()">Chuyển chế độ sáng/tối</button>
                 </div>
                 <div class="novel-list">
-                    <div class="novel-card">
-                        <img src="https://via.placeholder.com/300x200/eee/aaa?text=LEGNAXE+VI+P1" alt="LEGNAXE Cover VI P1" onerror="this.src='https://placehold.co/300x200/eee/aaa?text=Ảnh+lỗi'">
+                    <div class="novel-card group"> <a href="legnaxe_part1_vi.html" class="cover-link">
+                            <img src="images/pages/novels/legnaxe1.png" alt="Bìa LEGNAXE Phần 1 Tiếng Việt" class="book-cover" onerror="this.onerror=null; this.src='https://placehold.co/200x300/eee/aaa?text=Ảnh+Lỗi';">
+                        </a>
                         <div class="card-content">
-                            <h3>LEGNAXE: Bí Mật Cuộc Đại Chiến Thiên Đàng (Phần 1 - Tiếng Việt)</h3>
+                            <h3>LEGNAXE: Bí Mật Cuộc Đại Chiến Thiên Đàng (P1 - TV)</h3>
                             <p>Bí mật đằng sau cuộc chiến vĩ đại trên Thiên Đàng.</p>
-                            <a href="legnaxe_part1_vi.html">Đọc ngay</a>
+                            <a href="legnaxe_part1_vi.html" class="read-button">Đọc ngay</a>
                         </div>
                     </div>
-                    <div class="novel-card">
-                         <img src="https://via.placeholder.com/300x200/eee/aaa?text=LEGNAXE+EN+P1" alt="LEGNAXE Cover EN P1" onerror="this.src='https://placehold.co/300x200/eee/aaa?text=Image+Error'">
+                    <div class="novel-card group">
+                         <a href="legnaxe_part1_en.html" class="cover-link">
+                            <img src="https://placehold.co/200x300/ddd/999?text=LEGNAXE+P1+EN" alt="Bìa LEGNAXE Phần 1 Tiếng Anh" class="book-cover" onerror="this.onerror=null; this.src='https://placehold.co/200x300/eee/aaa?text=Image+Error';"> </a>
                          <div class="card-content">
-                            <h3>LEGNAXE: Secrets of Heaven's Great War (Part 1 - English)</h3>
+                            <h3>LEGNAXE: Secrets of Heaven's Great War (P1 - EN)</h3>
                             <p>The secrets behind the great war in Heaven.</p>
-                            <a href="legnaxe_part1_en.html">Read Now</a>
+                            <a href="legnaxe_part1_en.html" class="read-button">Read Now</a>
                         </div>
                     </div>
-                    <div class="novel-card">
-                        <img src="https://via.placeholder.com/300x200/eee/aaa?text=LEGNAXE+VI+P2" alt="LEGNAXE Cover VI P2" onerror="this.src='https://placehold.co/300x200/eee/aaa?text=Ảnh+lỗi'">
+                    <div class="novel-card group">
+                        <a href="legnaxe_part2_vi.html" class="cover-link">
+                            <img src="images/pages/novels/legnaxe2.png" alt="Bìa LEGNAXE Phần 2 Tiếng Việt" class="book-cover" onerror="this.onerror=null; this.src='https://placehold.co/200x300/eee/aaa?text=Ảnh+Lỗi';"> </a>
                         <div class="card-content">
-                            <h3>LEGNAXE: Heavenly, Human’s Heart (Phần 2 - Tiếng Việt)</h3>
+                            <h3>LEGNAXE: Heavenly, Human’s Heart (P2 - TV)</h3>
                             <p>Hành trình ở Trần Gian và bài học về trái tim con người.</p>
-                            <a href="legnaxe_part2_vi.html">Đọc ngay</a>
+                            <a href="legnaxe_part2_vi.html" class="read-button">Đọc ngay</a>
                         </div>
                     </div>
-                    <div class="novel-card">
-                        <img src="https://via.placeholder.com/300x200/eee/aaa?text=LEGNAXE+EN+P2+(Soon)" alt="LEGNAXE Cover EN P2" onerror="this.src='https://placehold.co/300x200/eee/aaa?text=Image+Error'">
+                    <div class="novel-card group opacity-70"> <a href="#" class="cover-link cursor-default"> <img src="https://placehold.co/200x300/ccc/888?text=LEGNAXE+P2+EN+(Soon)" alt="Bìa LEGNAXE Phần 2 Tiếng Anh (Sắp có)" class="book-cover" onerror="this.onerror=null; this.src='https://placehold.co/200x300/eee/aaa?text=Image+Error';">
+                        </a>
                         <div class="card-content">
-                            <h3>LEGNAXE: Heavenly, Human’s Heart (Part 2 - English - Coming Soon)</h3>
+                            <h3>LEGNAXE: Heavenly, Human’s Heart (P2 - EN - Soon)</h3>
                             <p>The journey on Earth and the lesson of the human heart.</p>
-                            <a href="#" class="opacity-50 cursor-not-allowed" aria-disabled="true">Đọc ngay</a> </div>
+                            <a href="#" class="read-button" aria-disabled="true">Đọc ngay</a> </div>
                     </div>
                      </div>
             </div>
         </div>
     </div>
-    <footer class="relative bg-gray-900 text-gray-400 pt-16 pb-8 overflow-hidden mt-auto"> <div class="absolute inset-0 z-0 opacity-[0.07]"> <img src="/images/pages/footer.png" alt="Footer Background Pattern" class="w-full h-full object-cover" onerror="this.style.display='none'">
+    <footer class="relative bg-gray-900 text-gray-400 pt-16 pb-8 overflow-hidden mt-auto">
+         <div class="absolute inset-0 z-0 opacity-[0.07]"> <img src="/images/pages/footer.png" alt="Footer Background Pattern" class="w-full h-full object-cover" onerror="this.style.display='none'">
         </div>
         <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
@@ -747,7 +771,10 @@
                 // Check if navbar exists before accessing classList
                 currentHeaderHeight = navbar && navbar.classList.contains('scrolled') ? scrolledHeight : initialHeight;
             }
-            bodyElement.style.paddingTop = `${currentHeaderHeight}px`;
+            // Ensure bodyElement exists before setting style
+            if(bodyElement) {
+                bodyElement.style.paddingTop = `${currentHeaderHeight}px`;
+            }
         }
 
         window.addEventListener('scroll', () => {
@@ -802,8 +829,8 @@
             iconClose.classList.add('hidden');
             // Add a delay to hide overlay and panel after transition
             setTimeout(() => {
-                mobileMenuPanel.classList.add('hidden');
-                mobileMenuOverlay.classList.add('hidden');
+                if (mobileMenuPanel) mobileMenuPanel.classList.add('hidden'); // Check again before adding class
+                if (mobileMenuOverlay) mobileMenuOverlay.classList.add('hidden');
                 document.body.style.overflow = ''; // Restore scroll
 
                 // Close all open submenus when closing the main mobile menu
@@ -863,13 +890,14 @@
                     if (submenu.classList.contains('open')) {
                         // Ensure scrollHeight is calculated correctly after display: block
                         submenu.style.display = 'block'; // Temporarily ensure it's block for scrollHeight calculation
-                        submenu.style.maxHeight = submenu.scrollHeight + "px";
-                         // Optional: Reset display if needed after transition (might not be necessary with max-height)
-                        // setTimeout(() => { if (!submenu.classList.contains('open')) submenu.style.display = 'none'; }, 300);
+                        // Timeout to allow display:block to take effect before calculating scrollHeight
+                        setTimeout(() => {
+                           submenu.style.maxHeight = submenu.scrollHeight + "px";
+                        }, 0);
                     } else {
                         submenu.style.maxHeight = null;
-                         // Optional: Add display none after transition ends if using display toggle
-                        // setTimeout(() => { submenu.style.display = 'none'; }, 300);
+                        // Optional: Add display none after transition ends if using display toggle
+                        // setTimeout(() => { if(!submenu.classList.contains('open')) submenu.style.display = 'none'; }, 300); // Match transition duration
                     }
                 }
             });
@@ -883,7 +911,6 @@
 
             // Exit if essential elements are missing
             if (!dropdown || !toggleButton || !optionsContainer) {
-                 // console.warn(`Language dropdown elements not found for ID: ${dropdownId}`);
                  return;
             }
 
@@ -923,8 +950,6 @@
 
                      optionsContainer.classList.add('hidden');
                      toggleButton.setAttribute('aria-expanded', 'false');
-
-                     // Update aria-label or other attributes if needed based on language
                  });
              });
 
@@ -932,7 +957,10 @@
              document.addEventListener('click', (event) => {
                  if (dropdown && !dropdown.contains(event.target)) {
                      optionsContainer.classList.add('hidden');
-                     toggleButton.setAttribute('aria-expanded', 'false');
+                     // Check if toggleButton exists before setting attribute
+                     if (toggleButton) {
+                        toggleButton.setAttribute('aria-expanded', 'false');
+                     }
                  }
              });
          }
