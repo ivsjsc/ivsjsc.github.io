@@ -19,6 +19,9 @@
             darkMode: 'class' // Kích hoạt dark mode bằng class
         }
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* CSS tùy chỉnh tối thiểu */
@@ -35,6 +38,9 @@
             font-family: 'Inter', sans-serif; /* Sử dụng font Inter */
             transition: background-color 0.3s, color 0.3s;
             @apply bg-gray-100 text-gray-800; /* Màu nền và chữ mặc định */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* Điều chỉnh padding-top cho màn hình nhỏ hơn lg (mobile/tablet) */
@@ -52,10 +58,10 @@
              @apply bg-gray-800;
         }
         html.dark h1.page-title {
-             @apply text-blue-300; /* Màu tiêu đề dark mode */
+             @apply text-sky-400; /* Màu tiêu đề dark mode */
         }
          html.dark .novel-card {
-             @apply bg-gray-700;
+             @apply bg-gray-700 border-gray-600; /* Nền và viền card dark mode */
          }
          html.dark .novel-card h3 {
              @apply text-gray-100;
@@ -63,26 +69,30 @@
          html.dark .novel-card p {
              @apply text-gray-400;
          }
-         /* Header dark mode đã được xử lý bằng Tailwind */
+         html.dark .novel-card a:not([aria-disabled='true']) { /* Chỉ áp dụng cho nút không bị vô hiệu hóa */
+             @apply bg-sky-600 hover:bg-sky-700;
+         }
+         html.dark .settings button {
+             @apply bg-pink-600 hover:bg-pink-700;
+         }
+
 
         /* --- Header Styles --- */
         #navbar {
-            /* Sử dụng class Tailwind: fixed top-0 left-0 right-0 z-50 bg-gray-900 text-white shadow-md transition-all duration-300 */
             height: var(--header-height-initial);
+            transition: height 0.3s ease-in-out; /* Thêm transition cho chiều cao */
         }
         #navbar.scrolled {
             height: var(--header-height-scrolled);
-            @apply bg-gray-800 shadow-lg; /* Thay đổi màu nền và bóng đổ khi cuộn */
+            @apply bg-gray-800 shadow-lg;
         }
-        /* Điều chỉnh chiều cao logo */
         #navbar .logo-img {
-            height: calc(var(--header-height-initial) - 32px); /* 16px padding top/bottom */
+            height: calc(var(--header-height-initial) - 32px);
             transition: height 0.3s ease-in-out;
         }
         #navbar.scrolled .logo-img {
-             height: calc(var(--header-height-scrolled) - 24px); /* 12px padding top/bottom */
+             height: calc(var(--header-height-scrolled) - 24px);
         }
-        /* Style cho link và button trong header */
         #navbar .nav-link,
         #navbar .main-menu-item > button,
         #navbar .dropdown-toggle,
@@ -93,7 +103,7 @@
         #navbar.scrolled .main-menu-item > button,
         #navbar.scrolled .dropdown-toggle,
         #navbar.scrolled .search-button {
-             @apply focus:ring-offset-gray-800; /* Điều chỉnh offset ring khi cuộn */
+             @apply focus:ring-offset-gray-800;
         }
          #navbar .cta-button {
              @apply text-white px-4 py-1.5 rounded-full text-sm font-semibold transition duration-300 whitespace-nowrap bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-400;
@@ -104,8 +114,8 @@
 
         /* --- Dropdown Menu Styles --- */
         .submenu, .sub-submenu {
-            /* Tailwind: absolute hidden bg-white text-gray-700 shadow-lg rounded-md py-2 mt-1 group-hover:block z-60 */
-            min-width: 100%; /* Đảm bảo dropdown không hẹp hơn nút cha */
+            min-width: 100%;
+            @apply z-60; /* Đảm bảo dropdown hiển thị trên header */
         }
         .submenu a, .submenu button,
         .sub-submenu a, .sub-submenu button {
@@ -114,30 +124,21 @@
         .submenu button, .sub-submenu button {
              @apply flex items-center justify-between;
         }
-        /* Hiển thị submenu khi hover vào container của nó */
         .sub-submenu-container:hover .sub-submenu {
              @apply block;
-        }
-        .sub-submenu {
-            /* Tailwind: absolute top-0 left-full ml-1 hidden group-hover/sub:block */
-             /* Vị trí menu con cấp 2 */
         }
 
         /* --- Language Dropdown --- */
         .language-dropdown-content {
-            /* Tailwind: absolute right-0 mt-1 w-20 bg-white rounded-md shadow-lg py-1 text-gray-700 ring-1 ring-black ring-opacity-5 z-60 hidden */
+             @apply z-60; /* Đảm bảo dropdown hiển thị trên header */
         }
         .language-dropdown-content .lang-button {
-             @apply block w-full text-left px-3 py-1.5 text-sm hover:bg-gray-100 text-gray-700; /* Đảm bảo màu chữ */
+             @apply block w-full text-left px-3 py-1.5 text-sm hover:bg-gray-100 text-gray-700;
         }
 
         /* --- Mobile Menu Styles --- */
-        #mobile-menu-overlay {
-             /* Tailwind: lg:hidden hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-40 transition-opacity duration-300 ease-in-out opacity-0 */
-        }
         #mobile-menu-panel {
-             /* Tailwind: lg:hidden hidden fixed top-0 right-0 h-full w-72 max-w-[80%] bg-white shadow-xl z-[55] transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col */
-             /* Tăng z-index lên 55 để cao hơn header (50) nhưng thấp hơn dropdown (60) nếu cần */
+             @apply z-[55]; /* Cao hơn header (50) nhưng thấp hơn dropdown (60) */
         }
          #mobile-menu-panel .nav-link {
              @apply block text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md py-2 px-3;
@@ -146,15 +147,14 @@
              @apply w-full flex items-center justify-between text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md py-2 px-3;
          }
          #mobile-menu-panel .mobile-submenu {
-             display: none; /* Ẩn mặc định */
-             max-height: 0; /* Cho animation */
-             overflow: hidden; /* Cho animation */
-             transition: max-height 0.3s ease-out; /* Animation */
+             display: none;
+             max-height: 0;
+             overflow: hidden;
+             transition: max-height 0.3s ease-out;
              @apply space-y-1 pl-3 mt-1;
          }
          #mobile-menu-panel .mobile-submenu.open {
-            display: block; /* Hiện khi active */
-            /* max-height sẽ được set bằng JS */
+            display: block;
          }
          #mobile-menu-panel .mobile-submenu .nav-link {
              @apply text-sm text-gray-600 py-1.5;
@@ -172,59 +172,56 @@
              transform: rotate(90deg);
          }
          #mobile-language-dropdown .language-dropdown-content {
-            /* Tailwind: hidden absolute bottom-full left-0 right-0 mb-1 w-full bg-white shadow-lg rounded-md border border-gray-200 overflow-hidden z-60 */
+            @apply z-60; /* Đảm bảo dropdown hiển thị trên panel */
          }
 
 
-        /* --- CSS cho phần nội dung truyện --- */
+        /* --- CSS cho phần nội dung truyện (Sử dụng Tailwind nhiều hơn) --- */
         .page-content-container {
-            @apply mt-5 mb-5 p-5 bg-white rounded-lg shadow-md; /* Sử dụng class Tailwind */
+            @apply mt-6 mb-8 p-4 sm:p-6 bg-white rounded-xl shadow-lg; /* Tăng padding, bo tròn, bóng đổ */
         }
         h1.page-title {
-            @apply text-center text-2xl sm:text-3xl font-semibold text-gray-700 mt-6 mb-6;
+            @apply text-center text-3xl sm:text-4xl font-bold text-gray-800 mt-4 mb-8; /* Tăng kích thước, đậm hơn */
         }
         .novel-list {
-            @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5; /* Grid layout cho card */
+            /* Grid layout responsive: 1 cột trên mobile, 2 trên sm, 3 trên lg, 4 trên xl */
+            @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
         }
         .novel-card {
-            @apply bg-gray-50 rounded-lg overflow-hidden shadow-sm transition-transform duration-300 hover:scale-105;
+            @apply bg-white rounded-lg overflow-hidden shadow-md border border-gray-200 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1; /* Thêm viền, flex column, hiệu ứng hover */
         }
         .novel-card img {
-            @apply w-full h-40 object-cover; /* Chiều cao ảnh cố định */
+            @apply w-full h-48 object-cover flex-shrink-0; /* Chiều cao ảnh lớn hơn, không co lại */
         }
         .novel-card .card-content {
-             @apply p-4; /* Padding cho nội dung card */
+             @apply p-5 flex flex-col flex-grow; /* Padding lớn hơn, flex-grow để nội dung chiếm không gian */
         }
         .novel-card h3 {
-            @apply text-lg font-semibold text-gray-800 mb-2;
+            @apply text-xl font-semibold text-gray-900 mb-2 leading-tight; /* Font lớn hơn, đậm hơn */
         }
         .novel-card p {
-            @apply text-sm text-gray-600 mb-3;
+            @apply text-sm text-gray-600 mb-4 flex-grow; /* flex-grow để đẩy nút xuống dưới */
         }
         .novel-card a {
-            @apply block w-full text-center py-2 px-4 bg-blue-500 text-white rounded-md transition-colors duration-300 hover:bg-blue-600 text-sm font-medium;
+            @apply block w-full text-center py-2.5 px-4 bg-gradient-to-r from-blue-500 to-sky-500 text-white rounded-md transition-all duration-300 hover:from-blue-600 hover:to-sky-600 text-base font-semibold shadow-md hover:shadow-lg mt-auto; /* Gradient, padding lớn hơn, font lớn hơn, shadow, mt-auto để nút luôn ở cuối */
+        }
+        /* Style cho nút bị vô hiệu hóa */
+        .novel-card a[aria-disabled='true'] {
+            @apply bg-gradient-to-r from-gray-400 to-gray-500 cursor-not-allowed hover:from-gray-400 hover:to-gray-500 shadow-none hover:shadow-none;
         }
         .settings {
-            @apply flex justify-center items-center gap-4 mb-6;
+            @apply flex justify-center items-center gap-4 mb-8; /* Tăng mb */
         }
         .settings button {
-            @apply py-2 px-4 bg-red-500 text-white rounded-md cursor-pointer transition-colors duration-300 hover:bg-red-600 text-sm font-medium;
+            @apply py-2 px-5 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full cursor-pointer transition-all duration-300 hover:from-red-600 hover:to-pink-600 text-sm font-medium shadow hover:shadow-md; /* Gradient, bo tròn, shadow */
         }
 
         /* Đảm bảo footer không bị che */
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
         .main-content-wrapper {
             flex-grow: 1; /* Đẩy footer xuống dưới */
         }
 
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class=""> <header id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-gray-900 text-white shadow-md transition-all duration-300">
        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -566,7 +563,7 @@
                 </div>
                 <div class="novel-list">
                     <div class="novel-card">
-                        <img src="https://via.placeholder.com/250x150/eee/aaa?text=LEGNAXE+VI+P1" alt="LEGNAXE Cover VI P1" onerror="this.src='https://placehold.co/250x150/eee/aaa?text=Ảnh+lỗi'">
+                        <img src="https://via.placeholder.com/300x200/eee/aaa?text=LEGNAXE+VI+P1" alt="LEGNAXE Cover VI P1" onerror="this.src='https://placehold.co/300x200/eee/aaa?text=Ảnh+lỗi'">
                         <div class="card-content">
                             <h3>LEGNAXE: Bí Mật Cuộc Đại Chiến Thiên Đàng (Phần 1 - Tiếng Việt)</h3>
                             <p>Bí mật đằng sau cuộc chiến vĩ đại trên Thiên Đàng.</p>
@@ -574,7 +571,7 @@
                         </div>
                     </div>
                     <div class="novel-card">
-                         <img src="https://via.placeholder.com/250x150/eee/aaa?text=LEGNAXE+EN+P1" alt="LEGNAXE Cover EN P1" onerror="this.src='https://placehold.co/250x150/eee/aaa?text=Image+Error'">
+                         <img src="https://via.placeholder.com/300x200/eee/aaa?text=LEGNAXE+EN+P1" alt="LEGNAXE Cover EN P1" onerror="this.src='https://placehold.co/300x200/eee/aaa?text=Image+Error'">
                          <div class="card-content">
                             <h3>LEGNAXE: Secrets of Heaven's Great War (Part 1 - English)</h3>
                             <p>The secrets behind the great war in Heaven.</p>
@@ -582,7 +579,7 @@
                         </div>
                     </div>
                     <div class="novel-card">
-                        <img src="https://via.placeholder.com/250x150/eee/aaa?text=LEGNAXE+VI+P2" alt="LEGNAXE Cover VI P2" onerror="this.src='https://placehold.co/250x150/eee/aaa?text=Ảnh+lỗi'">
+                        <img src="https://via.placeholder.com/300x200/eee/aaa?text=LEGNAXE+VI+P2" alt="LEGNAXE Cover VI P2" onerror="this.src='https://placehold.co/300x200/eee/aaa?text=Ảnh+lỗi'">
                         <div class="card-content">
                             <h3>LEGNAXE: Heavenly, Human’s Heart (Phần 2 - Tiếng Việt)</h3>
                             <p>Hành trình ở Trần Gian và bài học về trái tim con người.</p>
@@ -590,7 +587,7 @@
                         </div>
                     </div>
                     <div class="novel-card">
-                        <img src="https://via.placeholder.com/250x150/eee/aaa?text=LEGNAXE+EN+P2+(Soon)" alt="LEGNAXE Cover EN P2" onerror="this.src='https://placehold.co/250x150/eee/aaa?text=Image+Error'">
+                        <img src="https://via.placeholder.com/300x200/eee/aaa?text=LEGNAXE+EN+P2+(Soon)" alt="LEGNAXE Cover EN P2" onerror="this.src='https://placehold.co/300x200/eee/aaa?text=Image+Error'">
                         <div class="card-content">
                             <h3>LEGNAXE: Heavenly, Human’s Heart (Part 2 - English - Coming Soon)</h3>
                             <p>The journey on Earth and the lesson of the human heart.</p>
@@ -721,7 +718,6 @@
     <script>
         // --- Dark Mode Toggle ---
         function toggleDarkMode() {
-            // Toggle class on the <html> element
             const isDarkMode = document.documentElement.classList.toggle("dark");
             localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
         }
@@ -748,13 +744,17 @@
             if (isMobile) {
                 currentHeaderHeight = mobileHeight; // Mobile always uses fixed height
             } else {
-                currentHeaderHeight = navbar.classList.contains('scrolled') ? scrolledHeight : initialHeight;
+                // Check if navbar exists before accessing classList
+                currentHeaderHeight = navbar && navbar.classList.contains('scrolled') ? scrolledHeight : initialHeight;
             }
             bodyElement.style.paddingTop = `${currentHeaderHeight}px`;
         }
 
         window.addEventListener('scroll', () => {
             const isMobile = window.innerWidth < 1024;
+            // Check if navbar exists
+            if (!navbar) return;
+
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
@@ -778,6 +778,8 @@
         const iconClose = document.getElementById('icon-close');
 
         function openMobileMenu() {
+             // Check if elements exist
+            if (!mobileMenuPanel || !mobileMenuOverlay || !mobileMenuButton || !iconMenu || !iconClose) return;
             mobileMenuPanel.classList.remove('hidden', 'translate-x-full');
             mobileMenuPanel.classList.add('translate-x-0');
             mobileMenuOverlay.classList.remove('hidden', 'opacity-0');
@@ -789,6 +791,8 @@
         }
 
         function closeMobileMenu() {
+            // Check if elements exist
+            if (!mobileMenuPanel || !mobileMenuOverlay || !mobileMenuButton || !iconMenu || !iconClose) return;
             mobileMenuPanel.classList.add('translate-x-full');
             mobileMenuPanel.classList.remove('translate-x-0');
             mobileMenuOverlay.classList.add('opacity-0');
@@ -816,9 +820,11 @@
             }, 300); // Match transition duration
         }
 
-        mobileMenuButton.addEventListener('click', openMobileMenu);
-        mobileCloseButton.addEventListener('click', closeMobileMenu);
-        mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+        // Add event listeners only if buttons exist
+        if (mobileMenuButton) mobileMenuButton.addEventListener('click', openMobileMenu);
+        if (mobileCloseButton) mobileCloseButton.addEventListener('click', closeMobileMenu);
+        if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
 
         // --- Mobile Submenu Toggle with Animation ---
         const mobileSubmenuToggles = document.querySelectorAll('#mobile-menu-panel .mobile-submenu-toggle');
@@ -834,16 +840,19 @@
                     const isOpen = submenu.classList.contains('open');
 
                     // Close other open submenus at the same level (optional, for cleaner UI)
-                     const parentMenu = button.closest('.mobile-menu-item').parentElement; // Find parent container (ul or nav)
-                     parentMenu.querySelectorAll(':scope > .mobile-menu-item > .mobile-submenu.open').forEach(openSubmenu => {
-                         if (openSubmenu !== submenu) {
-                             openSubmenu.classList.remove('open');
-                             openSubmenu.style.maxHeight = null;
-                             const otherButton = openSubmenu.previousElementSibling;
-                             otherButton?.setAttribute('aria-expanded', 'false');
-                             otherButton?.querySelector('.submenu-arrow')?.classList.remove('rotate-90');
-                         }
-                     });
+                     const parentMenuItem = button.closest('.mobile-menu-item'); // Find parent list item
+                     if (parentMenuItem && parentMenuItem.parentElement) {
+                         parentMenuItem.parentElement.querySelectorAll(':scope > .mobile-menu-item > .mobile-submenu.open').forEach(openSubmenu => {
+                             if (openSubmenu !== submenu) {
+                                 openSubmenu.classList.remove('open');
+                                 openSubmenu.style.maxHeight = null;
+                                 const otherButton = openSubmenu.previousElementSibling;
+                                 otherButton?.setAttribute('aria-expanded', 'false');
+                                 otherButton?.querySelector('.submenu-arrow')?.classList.remove('rotate-90');
+                             }
+                         });
+                     }
+
 
                     // Toggle current submenu
                     submenu.classList.toggle('open');
@@ -852,9 +861,15 @@
 
                     // Set max-height for animation
                     if (submenu.classList.contains('open')) {
+                        // Ensure scrollHeight is calculated correctly after display: block
+                        submenu.style.display = 'block'; // Temporarily ensure it's block for scrollHeight calculation
                         submenu.style.maxHeight = submenu.scrollHeight + "px";
+                         // Optional: Reset display if needed after transition (might not be necessary with max-height)
+                        // setTimeout(() => { if (!submenu.classList.contains('open')) submenu.style.display = 'none'; }, 300);
                     } else {
                         submenu.style.maxHeight = null;
+                         // Optional: Add display none after transition ends if using display toggle
+                        // setTimeout(() => { submenu.style.display = 'none'; }, 300);
                     }
                 }
             });
@@ -865,13 +880,16 @@
             const dropdown = document.getElementById(dropdownId);
             const toggleButton = document.getElementById(toggleId);
             const optionsContainer = document.getElementById(optionsId);
+
+            // Exit if essential elements are missing
+            if (!dropdown || !toggleButton || !optionsContainer) {
+                 // console.warn(`Language dropdown elements not found for ID: ${dropdownId}`);
+                 return;
+            }
+
             const langButtons = optionsContainer.querySelectorAll('.lang-button');
             const currentLangSpanDesktop = document.getElementById('desktop-current-lang');
             const currentLangSpanMobile = document.getElementById('mobile-current-lang');
-
-
-            if (!dropdown || !toggleButton || !optionsContainer ) return;
-            if (!currentLangSpanDesktop && !currentLangSpanMobile) return; // Need at least one span
 
 
             toggleButton.addEventListener('click', (event) => {
@@ -914,16 +932,17 @@
              document.addEventListener('click', (event) => {
                  if (dropdown && !dropdown.contains(event.target)) {
                      optionsContainer.classList.add('hidden');
-                     // Check if toggleButton exists before setting attribute
-                     if (toggleButton) {
-                        toggleButton.setAttribute('aria-expanded', 'false');
-                     }
+                     toggleButton.setAttribute('aria-expanded', 'false');
                  }
              });
          }
 
-         setupLanguageDropdown('desktop-language-dropdown', 'desktop-lang-toggle', 'desktop-lang-options');
-         setupLanguageDropdown('mobile-language-dropdown', 'mobile-lang-toggle', 'mobile-lang-options');
+         // Setup dropdowns after DOM is loaded
+         document.addEventListener('DOMContentLoaded', () => {
+            setupLanguageDropdown('desktop-language-dropdown', 'desktop-lang-toggle', 'desktop-lang-options');
+            setupLanguageDropdown('mobile-language-dropdown', 'mobile-lang-toggle', 'mobile-lang-options');
+         });
+
 
         // --- Footer Current Year ---
         const currentYearSpan = document.getElementById("current-year");
