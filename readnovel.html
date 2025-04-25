@@ -6,48 +6,77 @@
     <title>Chọn Truyện Để Đọc</title>
     <meta name="description" content="Danh sách truyện hấp dẫn: LEGNAXE - Bí mật cuộc chiến Thiên Đàng.">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> <style>
-        /* CSS tùy chỉnh cho trang truyện */
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        /* CSS tùy chỉnh TỐI GIẢN cho trang truyện */
+        :root {
+           /* Biến cho chiều cao header - dùng trong JS và CSS */
+           --header-height-initial: 80px;
+           --header-height-scrolled: 60px;
+           --header-height-mobile: 60px;
+
+           /* Các biến màu cho header - đồng bộ với Tailwind */
+           --header-bg: theme('colors.gray.900');
+           --header-bg-scrolled: theme('colors.gray.800');
+           --header-text: theme('colors.white');
+           --header-hover-bg: theme('colors.gray.700' / 75%);
+           --cta-bg: theme('colors.orange.500');
+           --cta-text: theme('colors.white');
+           --cta-hover-bg: theme('colors.orange.600');
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial, sans-serif; /* Giữ lại font cơ bản nếu muốn */
+            padding-top: var(--header-height-initial); /* Quan trọng: Đẩy nội dung xuống dưới header */
             margin: 0;
-            padding-top: 80px; /* Thêm padding top để tránh header che nội dung */
             background-color: #f4f4f4;
             color: #333;
             line-height: 1.6;
             transition: background-color 0.3s, color 0.3s;
         }
+
         .dark-mode {
             background-color: #1a1a1a;
             color: #e0e0e0;
         }
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
+
+        /* CSS cho phần nội dung truyện */
+        .page-content-container { /* Đổi tên class để tránh xung đột với .container của Tailwind */
+            /* max-width: 900px; */ /* Để Tailwind quản lý max-width */
+            margin-top: 20px; /* Khoảng cách với header */
+            margin-bottom: 20px; /* Khoảng cách với footer */
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             transition: background-color 0.3s;
         }
-        .dark-mode .container {
+
+        .dark-mode .page-content-container {
             background-color: #2c2c2c;
         }
-        h1 {
+
+        h1.page-title { /* Đặt class riêng cho H1 này */
             text-align: center;
             color: #2c3e50;
-            margin-top: 1.5rem; /* Điều chỉnh margin top cho h1 */
+            margin-top: 1.5rem;
             margin-bottom: 1.5rem;
+            font-size: 1.875rem; /* Tương đương text-3xl của Tailwind */
+            font-weight: 600; /* Tương đương semibold */
         }
-        .dark-mode h1 {
+
+        .dark-mode h1.page-title {
             color: #b0c4de;
         }
+
         .novel-list {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
         }
+
         .novel-card {
             width: 250px;
             background-color: #f9f9f9;
@@ -56,33 +85,41 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, background-color 0.3s;
         }
+
         .dark-mode .novel-card {
             background-color: #3a3a3a;
         }
+
         .novel-card:hover {
             transform: scale(1.05);
         }
+
         .novel-card img {
             width: 100%;
             height: 150px;
             object-fit: cover;
         }
+
         .novel-card h3 {
             margin: 10px;
             font-size: 18px;
             color: #2c3e50;
         }
+
         .dark-mode .novel-card h3 {
             color: #b0c4de;
         }
+
         .novel-card p {
             margin: 0 10px 10px;
             font-size: 14px;
             color: #555;
         }
+
         .dark-mode .novel-card p {
             color: #ccc;
         }
+
         .novel-card a {
             display: block;
             text-align: center;
@@ -93,9 +130,11 @@
             border-radius: 0 0 8px 8px;
             transition: background-color 0.3s;
         }
+
         .novel-card a:hover {
             background-color: #2980b9;
         }
+
         .settings {
             display: flex;
             justify-content: center;
@@ -103,6 +142,7 @@
             gap: 15px;
             margin-bottom: 20px;
         }
+
         .settings button {
             padding: 8px 15px;
             background-color: #e74c3c;
@@ -110,27 +150,19 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
+
         .settings button:hover {
             background-color: #c0392b;
         }
 
-        /* CSS cho Header (điều chỉnh nếu cần) */
-        :root {
-           --header-height-initial: 80px; /* Chiều cao ban đầu */
-           --header-height-scrolled: 60px; /* Chiều cao khi cuộn */
-           --header-bg: theme('colors.gray.900'); /* Màu nền mặc định */
-           --header-bg-scrolled: theme('colors.gray.800'); /* Màu nền khi cuộn */
-           --header-text: theme('colors.white');
-           --header-hover-bg: theme('colors.gray.700' / 75%);
-           --cta-bg: theme('colors.orange.500');
-           --cta-text: theme('colors.white');
-           --cta-hover-bg: theme('colors.orange.600');
-        }
-
+        /* CSS cho Header (Đã có trong mã header) */
+        /* Đảm bảo các class Tailwind trong header được ưu tiên */
         #navbar {
             background-color: var(--header-bg);
             height: var(--header-height-initial);
+            /* z-index: 50; */ /* Đã có trong class z-50 của Tailwind */
         }
 
         #navbar.scrolled {
@@ -138,57 +170,53 @@
             height: var(--header-height-scrolled);
             box-shadow: theme('boxShadow.lg');
         }
-
-        #navbar .logo-img {
+         #navbar .logo-img {
             height: calc(var(--header-height-initial) - 32px); /* 16px padding top/bottom */
             transition: height 0.3s ease-in-out;
         }
         #navbar.scrolled .logo-img {
              height: calc(var(--header-height-scrolled) - 24px); /* 12px padding top/bottom */
         }
-        #navbar .nav-link {
-            @apply text-sm font-medium px-2.5 py-1.5 rounded-md transition duration-200 ease-in-out whitespace-nowrap;
-            color: var(--header-text);
+
+        /* Responsive adjustments */
+        @media (max-width: 1024px) { /* lg breakpoint của Tailwind */
+             body {
+                 padding-top: var(--header-height-mobile); /* Điều chỉnh padding cho mobile header */
+             }
         }
-        #navbar .nav-link:hover,
-        #navbar .nav-link:focus,
-        #navbar .main-menu-item > button:hover,
-        #navbar .main-menu-item > button:focus {
-             background-color: var(--header-hover-bg);
-        }
-        #navbar .main-menu-item > button.active { /* Thêm kiểu active nếu cần */
-             background-color: var(--header-hover-bg);
-        }
-        /* Dropdown Menu */
-        .submenu, .sub-submenu {
-            @apply absolute hidden bg-white text-gray-700 shadow-lg rounded-md py-2 mt-1 group-hover:block z-50;
-            min-width: 100%; /* Đảm bảo dropdown không hẹp hơn nút cha */
-        }
-        .submenu a, .submenu button,
-        .sub-submenu a, .sub-submenu button {
-             @apply block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 whitespace-nowrap;
-        }
-        .submenu button, .sub-submenu button {
-             @apply flex items-center justify-between;
-        }
-        .sub-submenu-container:hover .sub-submenu {
-             @apply block;
-        }
-        .sub-submenu {
-             @apply top-0 left-full ml-1; /* Vị trí menu con cấp 2 */
-        }
-        /* Language Dropdown */
-        .language-dropdown-content {
-            @apply absolute right-0 mt-1 w-20 bg-white rounded-md shadow-lg py-1 text-gray-700 ring-1 ring-black ring-opacity-5 z-50;
-        }
-        .language-dropdown-content .lang-button {
-             @apply block w-full text-left px-3 py-1.5 text-sm hover:bg-gray-100;
-        }
-        .dropdown-toggle {
-             @apply inline-flex items-center text-sm font-medium p-1.5 rounded-md hover:bg-[var(--header-hover-bg)] transition duration-150 ease-in-out;
-             color: var(--header-text);
+        @media (max-width: 600px) {
+             /* CSS cũ cho mobile có thể bỏ nếu Tailwind xử lý tốt */
+            /* .page-content-container {
+                margin: 10px;
+                padding: 15px;
+            } */
+            .novel-card {
+                width: 100%; /* Đảm bảo card chiếm full width trên mobile */
+            }
+            /* .settings {
+                flex-direction: column;
+                gap: 10px;
+            } */
         }
 
+        /* Dropdown Menu Styles (đảm bảo hoạt động đúng) */
+        .submenu, .sub-submenu {
+            /* Tailwind classes đã xử lý position, display, bg, shadow */
+             min-width: 100%;
+             z-index: 60; /* Đảm bảo cao hơn header (z-50) nếu cần */
+        }
+         .submenu a, .submenu button,
+        .sub-submenu a, .sub-submenu button {
+             @apply block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 whitespace-nowrap text-gray-700; /* Thêm màu chữ */
+        }
+        .sub-submenu {
+             /* Tailwind classes đã xử lý vị trí */
+        }
+         /* Language Dropdown */
+        .language-dropdown-content {
+           /* Tailwind classes đã xử lý */
+            z-index: 60;
+        }
          /* Mobile Menu Styles */
          #mobile-menu-panel .nav-link {
              @apply block text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md py-2 px-3;
@@ -197,58 +225,26 @@
              @apply w-full flex items-center justify-between text-base font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded-md py-2 px-3;
          }
          #mobile-menu-panel .mobile-submenu {
-             display: none; /* Ẩn mặc định */
+             display: none;
              @apply space-y-1 pl-3 mt-1;
          }
          #mobile-menu-panel .mobile-submenu.open {
-            display: block; /* Hiện khi active */
+            display: block;
          }
-         #mobile-menu-panel .mobile-submenu .nav-link {
-             @apply text-sm text-gray-600 py-1.5;
-         }
-         #mobile-menu-panel .mobile-submenu .mobile-submenu-toggle {
-             @apply text-sm text-gray-600 py-1.5;
-         }
-         #mobile-menu-panel .mobile-submenu .mobile-submenu .nav-link {
-             @apply text-xs text-gray-500 py-1;
-         }
+         /* ... các style mobile menu khác ... */
          #mobile-menu-panel .submenu-arrow {
              transition: transform 0.2s ease-in-out;
          }
          #mobile-menu-panel .submenu-arrow.rotate-90 {
              transform: rotate(90deg);
          }
-          /* Mobile Language Dropdown */
-         #mobile-language-dropdown .language-dropdown-content {
-             @apply absolute bottom-full left-0 right-0 mb-1 w-full bg-white shadow-lg rounded-md border border-gray-200 overflow-hidden;
-             /* Không dùng hidden ở đây vì JS sẽ xử lý */
-         }
 
 
-        @media (max-width: 600px) {
-            .container {
-                margin: 10px;
-                padding: 15px;
-            }
-            .novel-card {
-                width: 100%;
-            }
-            .settings {
-                flex-direction: column;
-                gap: 10px;
-            }
-            body {
-               padding-top: 60px; /* Điều chỉnh padding cho header mobile */
-            }
-           :root {
-                --header-height-initial: 60px; /* Chiều cao mobile */
-           }
-        }
     </style>
 </head>
 <body>
     <header id="navbar" class="text-white shadow-md fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-[var(--header-height-initial)] transition-all duration-300">
 
                 <div class="flex-shrink-0">
@@ -323,8 +319,8 @@
                                     <a href="english-placement.html" data-lang-key="menu_placement_test">Kiểm tra trình độ</a>
                                 </div>
                             </li>
-
-                            <li class="relative main-menu-item group">
+                            {/* Các mục menu khác giữ nguyên */}
+                              <li class="relative main-menu-item group">
                                  <button type="button" aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center">
                                       <span data-lang-key="menu_cooperation">Hợp tác</span>
                                       <svg class="ml-1 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
@@ -425,10 +421,10 @@
             </div>
         </div>
 
-        <div id="mobile-menu-overlay" class="lg:hidden hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-40 transition-opacity duration-300 ease-in-out opacity-0" aria-hidden="true"></div>
-
-        <div id="mobile-menu-panel" class="lg:hidden hidden fixed top-0 right-0 h-full w-72 max-w-[80%] bg-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col" role="dialog" aria-modal="true">
-             <div id="mobile-header" class="flex items-center justify-between px-4 py-3 border-b border-gray-200 flex-shrink-0">
+       <div id="mobile-menu-overlay" class="lg:hidden hidden fixed inset-0 bg-gray-800 bg-opacity-75 z-40 transition-opacity duration-300 ease-in-out opacity-0" aria-hidden="true"></div>
+       <div id="mobile-menu-panel" class="lg:hidden hidden fixed top-0 right-0 h-full w-72 max-w-[80%] bg-white shadow-xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col" role="dialog" aria-modal="true">
+           {/* Nội dung mobile menu giữ nguyên như cũ */}
+           <div id="mobile-header" class="flex items-center justify-between px-4 py-3 border-b border-gray-200 flex-shrink-0">
                  <a href="index.html" class="flex items-center" aria-label="Trang chủ IVS JSC">
                      <img class="h-8 w-auto rounded-sm logo-img-mobile" src="images/logo/logo.png" alt="IVS JSC Logo Mobile" data-lang-key="logo_alt" onerror="this.onerror=null; this.src='https://placehold.co/120x32/ea580c/ffffff?text=IVS';">
                  </a>
@@ -452,7 +448,7 @@
                          <a href="hay-noi.html" class="nav-link" data-lang-key="menu_hay_noi_club">Chương trình "Hãy Nói"</a>
                      </div>
                  </div>
-
+                {/* Các mục mobile menu khác giữ nguyên */}
                  <div class="mobile-menu-item">
                      <button type="button" aria-expanded="false" aria-controls="mobile-submenu-training" class="mobile-submenu-toggle">
                          <span data-lang-key="menu_training">Đào tạo</span>
@@ -585,39 +581,41 @@
              </div>
         </div>
     </header>
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <h1>Chọn Truyện Để Đọc</h1>
-        <div class="settings">
-            <button onclick="toggleDarkMode()">Chuyển chế độ sáng/tối</button>
-        </div>
-        <div class="novel-list">
-            <div class="novel-card">
-                <img src="https://via.placeholder.com/250x150?text=LEGNAXE+VI+P1" alt="LEGNAXE Cover VI P1">
-                <h3>LEGNAXE: Bí Mật Cuộc Đại Chiến Thiên Đàng (Phần 1 - Tiếng Việt)</h3>
-                <p>Bí mật đằng sau cuộc chiến vĩ đại trên Thiên Đàng.</p>
-                <a href="legnaxe_part1_vi.html">Đọc ngay</a>
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="page-content-container">
+            <h1 class="page-title">Chọn Truyện Để Đọc</h1>
+            <div class="settings">
+                <button onclick="toggleDarkMode()">Chuyển chế độ sáng/tối</button>
             </div>
-            <div class="novel-card">
-                <img src="https://via.placeholder.com/250x150?text=LEGNAXE+EN+P1" alt="LEGNAXE Cover EN P1">
-                <h3>LEGNAXE: Secrets of Heaven's Great War (Part 1 - English)</h3>
-                <p>The secrets behind the great war in Heaven.</p>
-                <a href="legnaxe_part1_en.html">Read Now</a>
-            </div>
-             <div class="novel-card">
-                <img src="https://via.placeholder.com/250x150?text=LEGNAXE+VI+P2" alt="LEGNAXE Cover VI P2">
-                <h3>LEGNAXE: Heavenly, Human’s Heart (Phần 2 - Tiếng Việt)</h3>
-                <p>Hành trình ở Trần Gian và bài học về trái tim con người.</p>
-                <a href="legnaxe_part2_vi.html">Đọc ngay</a>
-            </div>
-             <div class="novel-card">
-                <img src="https://via.placeholder.com/250x150?text=LEGNAXE+EN+P2 (Coming Soon)" alt="LEGNAXE Cover EN P2">
-                <h3>LEGNAXE: Heavenly, Human’s Heart (Part 2 - English - Coming Soon)</h3>
-                <p>The journey on Earth and the lesson of the human heart.</p>
-                <a href="legnaxe_part2_vi.html">Đọc ngay</a> </div>
-             </div>
+            <div class="novel-list">
+                <div class="novel-card">
+                    <img src="https://via.placeholder.com/250x150?text=LEGNAXE+VI+P1" alt="LEGNAXE Cover VI P1">
+                    <h3>LEGNAXE: Bí Mật Cuộc Đại Chiến Thiên Đàng (Phần 1 - Tiếng Việt)</h3>
+                    <p>Bí mật đằng sau cuộc chiến vĩ đại trên Thiên Đàng.</p>
+                    <a href="legnaxe_part1_vi.html">Đọc ngay</a>
+                </div>
+                <div class="novel-card">
+                    <img src="https://via.placeholder.com/250x150?text=LEGNAXE+EN+P1" alt="LEGNAXE Cover EN P1">
+                    <h3>LEGNAXE: Secrets of Heaven's Great War (Part 1 - English)</h3>
+                    <p>The secrets behind the great war in Heaven.</p>
+                    <a href="legnaxe_part1_en.html">Read Now</a>
+                </div>
+                 <div class="novel-card">
+                    <img src="https://via.placeholder.com/250x150?text=LEGNAXE+VI+P2" alt="LEGNAXE Cover VI P2">
+                    <h3>LEGNAXE: Heavenly, Human’s Heart (Phần 2 - Tiếng Việt)</h3>
+                    <p>Hành trình ở Trần Gian và bài học về trái tim con người.</p>
+                    <a href="legnaxe_part2_vi.html">Đọc ngay</a>
+                </div>
+                 <div class="novel-card">
+                    <img src="https://via.placeholder.com/250x150?text=LEGNAXE+EN+P2 (Coming Soon)" alt="LEGNAXE Cover EN P2">
+                    <h3>LEGNAXE: Heavenly, Human’s Heart (Part 2 - English - Coming Soon)</h3>
+                    <p>The journey on Earth and the lesson of the human heart.</p>
+                    <a href="legnaxe_part2_vi.html">Đọc ngay</a> </div>
+                 </div>
         </div>
     </div>
-
-    <footer class="relative bg-gray-900 text-gray-400 pt-16 pb-8 overflow-hidden mt-16"> <div class="absolute inset-0 z-0 opacity-[0.07]"> <img src="/images/pages/footer.png" alt="Footer Background Pattern" class="w-full h-full object-cover" onerror="this.style.display='none'">
+    <footer class="relative bg-gray-900 text-gray-400 pt-16 pb-8 overflow-hidden mt-16">
+         <div class="absolute inset-0 z-0 opacity-[0.07]"> <img src="/images/pages/footer.png" alt="Footer Background Pattern" class="w-full h-full object-cover" onerror="this.style.display='none'">
         </div>
 
         <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
@@ -653,8 +651,8 @@
                          </div>
                      </div>
                 </div>
-
-                <div>
+                {/* Các cột footer khác giữ nguyên */}
+                 <div>
                     <h3 class="text-base font-semibold text-white mb-5 uppercase tracking-wider" data-lang-key="quick_links">Liên Kết Nhanh</h3>
                     <ul class="space-y-3 text-sm">
                         <li><a href="/about.html" class="hover:text-orange-400 transition-colors duration-200" data-lang-key="footer_about_us">Về chúng tôi</a></li>
@@ -745,33 +743,47 @@
     <script>
         function toggleDarkMode() {
             document.body.classList.toggle("dark-mode");
-            // Lưu trạng thái dark mode vào localStorage nếu muốn
              if (document.body.classList.contains('dark-mode')) {
                  localStorage.setItem('darkMode', 'enabled');
              } else {
                   localStorage.setItem('darkMode', 'disabled');
              }
         }
-
-         // Kiểm tra trạng thái dark mode đã lưu
          if (localStorage.getItem('darkMode') === 'enabled') {
              document.body.classList.add('dark-mode');
          }
 
-
-         // --- Navbar Scroll Effect ---
          const navbar = document.getElementById('navbar');
          const initialHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height-initial'));
+         const mobileHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height-mobile'));
+         const bodyElement = document.body;
+
+         function adjustBodyPadding() {
+             const isMobile = window.innerWidth < 1024; // lg breakpoint
+             const currentHeaderHeight = navbar.classList.contains('scrolled')
+                 ? parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height-scrolled'))
+                 : (isMobile ? mobileHeight : initialHeight);
+              bodyElement.style.paddingTop = `${currentHeaderHeight}px`;
+         }
+
 
          window.addEventListener('scroll', () => {
-             if (window.scrollY > 50) { // Thay đổi 50 thành ngưỡng cuộn bạn muốn
+            const isMobile = window.innerWidth < 1024;
+             if (window.scrollY > 50) {
                  navbar.classList.add('scrolled');
+                 bodyElement.style.paddingTop = `${isMobile ? mobileHeight : parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height-scrolled'))}px`;
+
              } else {
                  navbar.classList.remove('scrolled');
+                 bodyElement.style.paddingTop = `${isMobile ? mobileHeight : initialHeight}px`;
              }
+            // adjustBodyPadding(); // Gọi lại khi cuộn để điều chỉnh padding nếu chiều cao header thay đổi
          });
 
-         // --- Mobile Menu Toggle ---
+          window.addEventListener('resize', adjustBodyPadding); // Gọi khi resize
+          document.addEventListener('DOMContentLoaded', adjustBodyPadding); // Gọi khi load xong DOM
+
+
          const mobileMenuButton = document.getElementById('mobile-menu-button');
          const mobileMenuPanel = document.getElementById('mobile-menu-panel');
          const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
@@ -787,7 +799,7 @@
              mobileMenuButton.setAttribute('aria-expanded', 'true');
              iconMenu.classList.add('hidden');
              iconClose.classList.remove('hidden');
-             document.body.style.overflow = 'hidden'; // Prevent background scroll
+             document.body.style.overflow = 'hidden';
          }
 
          function closeMobileMenu() {
@@ -798,19 +810,17 @@
              mobileMenuButton.setAttribute('aria-expanded', 'false');
              iconMenu.classList.remove('hidden');
              iconClose.classList.add('hidden');
-             // Add a delay to hide overlay and panel after transition
              setTimeout(() => {
                  mobileMenuPanel.classList.add('hidden');
                  mobileMenuOverlay.classList.add('hidden');
-                 document.body.style.overflow = ''; // Restore scroll
-             }, 300); // Match transition duration
+                 document.body.style.overflow = '';
+             }, 300);
          }
 
          mobileMenuButton.addEventListener('click', openMobileMenu);
          mobileCloseButton.addEventListener('click', closeMobileMenu);
          mobileMenuOverlay.addEventListener('click', closeMobileMenu);
 
-         // --- Mobile Submenu Toggle ---
          const mobileSubmenuToggles = document.querySelectorAll('.mobile-submenu-toggle');
 
          mobileSubmenuToggles.forEach(button => {
@@ -821,25 +831,11 @@
 
                  if (submenu) {
                      const isOpen = submenu.classList.contains('open');
-                     // Đóng tất cả các submenu khác cùng cấp trước khi mở submenu mới
-                     // (Tùy chọn: bỏ qua nếu bạn muốn nhiều submenu mở cùng lúc)
-                     button.closest('.mobile-menu-item').parentElement.querySelectorAll(':scope > .mobile-menu-item > .mobile-submenu.open').forEach(openSubmenu => {
-                         if (openSubmenu !== submenu) {
-                             openSubmenu.classList.remove('open');
-                             openSubmenu.style.maxHeight = null; // Reset max-height
-                             const otherButton = openSubmenu.previousElementSibling;
-                             otherButton.setAttribute('aria-expanded', 'false');
-                             otherButton.querySelector('.submenu-arrow')?.classList.remove('rotate-90');
-                         }
-                     });
-
-
-                     // Mở/đóng submenu hiện tại
+                     // Simple toggle without closing others
                      submenu.classList.toggle('open');
                      button.setAttribute('aria-expanded', !isOpen);
                      arrow?.classList.toggle('rotate-90');
 
-                     // Animation mở/đóng (tùy chọn)
                      if (submenu.classList.contains('open')) {
                          submenu.style.maxHeight = submenu.scrollHeight + "px";
                      } else {
@@ -849,21 +845,18 @@
              });
          });
 
-        // --- Language Dropdown Toggle (Desktop & Mobile) ---
         function setupLanguageDropdown(dropdownId, toggleId, optionsId) {
             const dropdown = document.getElementById(dropdownId);
             const toggleButton = document.getElementById(toggleId);
             const optionsContainer = document.getElementById(optionsId);
             const langButtons = optionsContainer.querySelectorAll('.lang-button');
-            const currentLangSpan = document.getElementById(toggleId.replace('-toggle', '-current-lang')); // e.g., desktop-current-lang
+            const currentLangSpan = document.getElementById(toggleId.replace('-toggle', '-current-lang'));
 
-            if (!dropdown || !toggleButton || !optionsContainer || !currentLangSpan) return; // Exit if elements not found
+            if (!dropdown || !toggleButton || !optionsContainer || !currentLangSpan) return;
 
             toggleButton.addEventListener('click', (event) => {
-                event.stopPropagation(); // Prevent closing immediately if clicking outside logic is added
+                event.stopPropagation();
                 const isHidden = optionsContainer.classList.contains('hidden');
-                // Hide other potential open dropdowns (optional)
-                // document.querySelectorAll('.language-dropdown-content').forEach(el => el.classList.add('hidden'));
                 optionsContainer.classList.toggle('hidden');
                 toggleButton.setAttribute('aria-expanded', !isHidden);
             });
@@ -871,16 +864,13 @@
              langButtons.forEach(button => {
                  button.addEventListener('click', () => {
                      const selectedLang = button.getAttribute('data-lang');
-                     currentLangSpan.textContent = button.textContent; // Update displayed language
-                     // Add your language switching logic here
-                     console.log(`Language selected: ${selectedLang}`); // Placeholder action
-                     // switchLanguage(selectedLang); // Call your language function
+                     currentLangSpan.textContent = button.textContent;
+                     console.log(`Language selected: ${selectedLang}`);
                      optionsContainer.classList.add('hidden');
                      toggleButton.setAttribute('aria-expanded', 'false');
                  });
              });
 
-             // Close dropdown when clicking outside
              document.addEventListener('click', (event) => {
                  if (!dropdown.contains(event.target)) {
                      optionsContainer.classList.add('hidden');
@@ -892,22 +882,11 @@
          setupLanguageDropdown('desktop-language-dropdown', 'desktop-lang-toggle', 'desktop-lang-options');
          setupLanguageDropdown('mobile-language-dropdown', 'mobile-lang-toggle', 'mobile-lang-options');
 
-
-         // --- Footer Current Year ---
          document.getElementById("current-year").textContent = new Date().getFullYear();
 
-         // --- Close Mobile Menu on Link Click ---
          document.querySelectorAll('#mobile-menu-content a').forEach(link => {
             link.addEventListener('click', closeMobileMenu);
          });
-
-         // --- Placeholder for Language Switching Function ---
-         // function switchLanguage(lang) {
-         //   console.log(`Switching language to: ${lang}`);
-         //   // Implement your actual language switching logic (e.g., loading JSON, changing text)
-         //   // Remember to update data-lang attributes if needed for CSS or other JS logic
-         //   document.documentElement.lang = lang;
-         // }
 
     </script>
 </body>
