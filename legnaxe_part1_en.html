@@ -1,118 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEGNAXE: Secrets of Heaven's Great War (Part 1)</title>
+    <title>TÊN TRANG</title>
+    <meta name="description" content="LEGNAXE Phần 2: Heavenly, Human’s Heart - Hành trình của các thiên thần sa ngã trên Trái Đất, khám phá ý nghĩa của lòng trắc ẩn và tự do.">
+    <meta property="og:title" content="LEGNAXE: Heavenly, Human’s Heart (Phần 2)">
+    <meta property="og:description" content="Khám phá câu chuyện đầy cảm xúc về các thiên thần sa ngã, học cách yêu thương và trưởng thành trong thế giới loài người.">
+    <meta property="og:image" content="images/logo/logo.png">
+    <meta property="og:url" content="https://example.com/legnaxe_part2_vi.html">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#3b82f6',
+                        'primary-dark': '#2563eb',
+                        'secondary': '#10b981',
+                        'purple-accent': '#8b5cf6',
+                        'warning': '#f59e0b',
+                        'neutral-50': '#f9fafb',
+                        'neutral-100': '#f3f4f6',
+                        'neutral-200': '#e5e7eb',
+                        'neutral-300': '#d1d5db',
+                        'neutral-500': '#6b7280',
+                        'neutral-600': '#4b5563',
+                        'neutral-700': '#374151',
+                        'neutral-800': '#1f2937',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        /* CSS identical to the previous version */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
             color: #333;
-            line-height: 1.8;
             transition: background-color 0.3s, color 0.3s;
-        }
-        .dark-mode {
-            background-color: #1a1a1a;
-            color: #e0e0e0;
         }
         .container {
             max-width: 800px;
             margin: 20px auto;
-            padding: 30px;
-            background-color: #fff;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            transition: background-color 0.3s;
         }
-        .dark-mode .container {
-            background-color: #2c2c2c;
-            box-shadow: 0 2px 15px rgba(255, 255, 255, 0.05);
-        }
-        h1, h2 {
+        h1, h2, h3 {
             text-align: center;
             color: #2c3e50;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 1.8em;
             margin-bottom: 20px;
         }
-        .dark-mode h1, .dark-mode h2 {
-            color: #b0c4de;
+        h3 {
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
         }
         p {
-            margin-bottom: 1.5em;
-            text-align: justify; /* Justify text for better readability */
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: justify;
         }
-        .story-content img { /* Optional banner image styling */
+        em {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+        .chapter {
+            display: none;
+        }
+        .chapter.active {
             display: block;
-            max-width: 60%;
-            height: auto;
-            margin: 20px auto;
-            border-radius: 5px;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.1);
         }
         .navigation {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
             margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        .dark-mode .navigation {
-             border-top: 1px solid #444;
         }
         .navigation a, .navigation button {
-            padding: 10px 18px;
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 10px;
             background-color: #3498db;
-            color: #fff;
+            color: white;
             text-decoration: none;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            font-size: 14px;
+            transition: background-color 0.3s;
         }
         .navigation a:hover, .navigation button:hover {
             background-color: #2980b9;
-            transform: translateY(-2px);
         }
-         .navigation button.dark-mode-toggle {
-             background-color: #e74c3c;
-         }
-         .navigation button.dark-mode-toggle:hover {
-             background-color: #c0392b;
-         }
-
-        @media (max-width: 600px) {
-            .container {
-                margin: 10px;
-                padding: 20px;
-            }
-            .story-content img {
-                max-width: 80%;
-            }
-            .navigation {
-                flex-direction: column;
-                gap: 15px;
-            }
-             .navigation a, .navigation button {
-                 width: 100%;
-                 text-align: center;
-             }
+        .navigation button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        body.dark-mode {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+        body.dark-mode .container {
+            background-color: #34495e;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 {
+            color: #ecf0f1;
+        }
+        body.dark-mode em {
+            color: #bdc3c7;
+        }
+        body.dark-mode .navigation a, body.dark-mode .navigation button {
+            background-color: #2980b9;
+        }
+        body.dark-mode .navigation a:hover, body.dark-mode .navigation button:hover {
+            background-color: #3498db;
+        }
+        body.dark-mode .navigation button:disabled {
+            background-color: #7f8c8d;
+        }
+        /* Header styles */
+        header {
+            background-color: #1f2937;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header .logo img {
+            height: 40px;
+        }
+        header nav a {
+            color: #bfdbfe;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        header nav a:hover {
+            color: white;
+        }
+        header button#theme-toggle {
+            background: none;
+            border: none;
+            color: #bfdbfe;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        header button#theme-toggle:hover {
+            color: white;
+        }
+        /* Footer styles */
+        footer {
+            background-color: #1f2937;
+            color: #bfdbfe;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        footer a {
+            color: #bfdbfe;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        footer a:hover {
+            color: white;
+        }
+        footer .footer-links a {
+            margin: 0 1rem;
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
+    <header id="navbar" class="bg-neutral-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo/logo.png" alt="LEGNAXE Logo">
+                </a>
+            </div>
+            <nav class="flex items-center space-x-6">
+                <a href="index.html" class="hover:text-white">Trang Chủ</a>
+                <a href="legnaxe_part1_vi.html" class="hover:text-white">Phần 1</a>
+                <a href="legnaxe_part2_vi.html" class="text-white font-semibold">Phần 2</a>
+                <a href="about.html" class="hover:text-white">Về Tác Giả</a>
+                <button id="theme-toggle" aria-label="Chuyển đổi chế độ sáng tối">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
     <div class="container">
         <h1>LEGNAXE</h1>
         <h2>Part 1: Secrets of Heaven's Great War</h2>
-
-        <div class="story-content">
-            <img src="https://via.placeholder.com/400x200?text=LEGNAXE+EN+P1+Banner" alt="LEGNAXE Cover EN P1">
-
-            <p><strong>Chapter 1: The Eternal Harmony</strong></p>
+        <div id="chapter-1" class="chapter">
+            <h3>Chapter 1: The Eternal Harmony</h3>
             <p>Heaven, before the dawn of humankind, was a breathtakingly perfect picture. Imagine rivers of gleaming gold, shimmering like soft silk ribbons, winding through valleys of transparent crystal. The murmuring sound of flowing water resembled a gentle symphony, capable of soothing even the most troubled souls. But within this endless beauty, a sense of repetitive boredom crept in – an unchanging perfection, without the slightest alteration, as if it had imprisoned itself in a gilded cage. High above, towers of pure light stretched straight into the infinite azure sky. The light emanating from them shifted subtly, blending with the immortal celestial symphony. Vibrant patterns swirled and changed on the towers' surfaces, creating a hypnotic dance, beautiful yet monotonous in its eternity. Sometimes, at the farthest edges of Heaven, where the light seemed thinner, a few guardian angels whispered about strange ripples in the fabric of reality, "silent intervals" where the eternal melody seemed to skip a beat, but no one dared discuss it openly.</p>
             <p>There was no day or night here, for time was merely a fleeting concept. Heaven was not measured in hours, but by the eternal heartbeat of creation. Angels moved gently, gracefully as light itself, radiant and ethereal. They knew no fear, pain, or doubt. Duty and devotion were deeply ingrained in their beings, as natural as breathing is to mortals.</p>
             <p>But amidst this seemingly perfect chorus, there was a solitary figure.</p>
@@ -129,8 +233,9 @@
             <p>Michael paused for a moment, a flicker of unease crossing his face before being replaced by his usual determination. "The purpose is to serve the Creator, Lucifer. It is the highest honor."</p>
             <p>"Honor," Lucifer repeated, a faint smile touching his lips. "Or just habit?"</p>
             <p><em>(To be continued...)</em></p>
-
-            <p><strong>Chapter 2: The Decree from Heaven</strong></p>
+        </div>
+        <div id="chapter-1" class="chapter">
+            <h3>Chapter 2: The Decree from Heaven</h3>
             <p>The light of Heaven shone brighter than ever. Angels gathered in the Throne Room – a vast space beyond mortal comprehension, infinite, timeless, endless. The walls shimmered like a calm sea, gently rippling as if responding to the very heartbeat of the Creator. The floor was not solid stone but a mirror-like surface, reflecting the radiant glory of the angels and the eternal symphony echoing throughout the celestial realm.</p>
             <p>At the center of the room was the Throne, an infinite mass of light, formless, boundless. Merely gazing upon it was overwhelming, like trying to grasp infinity. The angels did not see the Creator with physical eyes, for no eyes could withstand such dazzling light. Instead, they felt Him. His presence permeated every cell, warm like sunlight on a cold winter day.</p>
             <p><strong>The Creator's Declaration</strong></p>
@@ -148,8 +253,9 @@
             <p>Michael, the epitome of a loyal soldier, did not flinch, at least outwardly. His silver armor reflected the gentle light as he replied, his voice striving for calm: "It is His will. We are not permitted to question, Lucifer."</p>
             <p>Lucifer stepped closer, his wings flaring slightly, their golden brilliance almost overwhelming everything around. "You kneel too easily, Michael. Perhaps you are content as a servant. But I was not born to kneel before anyone, except the One who created me."</p>
             <p><em>(To be continued...)</em></p>
-
-            <p><strong>Chapter 3: Sparks of Rebellion</strong></p>
+        </div>
+        <div id="chapter-1" class="chapter">
+            <h3>Chapter 3: Sparks of Rebellion</h3>
             <p>Heaven, though still filled with light and harmonious melody, was now shrouded in a vague, growing sense of unease.</p>
             <p>The Creator's declaration – "You shall serve Humankind" – had shaken the celestial order to its core. Whispers began to spread through the towering spires, carried on winds that seemed heavier than before. Though no angel openly defied the supreme will, their silence resonated louder than any open rebellion. Some began to recall the rumors of the "silent intervals" at Heaven's edge, wondering if the appearance of Humankind was connected to those potential instabilities.</p>
             <p><strong>The Meeting at the Seraphim Court</strong></p>
@@ -188,8 +294,9 @@
             <p>"If Heaven cannot see reason," Lucifer declared, his voice steady and sure, "then we will show them. If the Creator's will cannot be questioned, then perhaps the Creator Himself must be questioned."</p>
             <p>The surrounding angels exchanged worried glances, but no one voiced opposition. The first spark of rebellion had been ignited.</p>
             <p><em>(To be continued...)</em></p>
-
-            <p><strong>Chapter 4: The First Creations</strong></p>
+        </div>
+        <div id="chapter-1" class="chapter">
+            <h3>Chapter 4: The First Creations</h3>
             <p><strong>The Genesis of Earth</strong></p>
             <p>Deep below the gleaming golden spires of Heaven lay Earth, a new world, vibrant with life. Rivers shimmered like liquid silver under the light of a thousand stars. Trees stretched their green branches as if to embrace the sky. Every blade of grass, every drop of dew, pulsed with its own purpose, a testament to the Creator's boundless imagination.</p>
             <p>And at the heart of this paradise garden, two figures existed. They were entirely different from anything the angels had known – not ethereal, not radiant like Heaven's inhabitants, but tangible, bound to the earth, yet possessing a strange, captivating beauty.</p>
@@ -210,7 +317,9 @@
             <p>From above, Lucifer's gaze settled on Lilith, an unnamed emotion flickering within him – twisted empathy? Or the recognition of a potential tool? She was not like Adam. There was defiance in her, a spark of rebellion calling to something deep within him.</p>
             <p>He turned away, his voice barely a whisper, yet certain: "She will break before she bows. Of that, I am sure."</p>
             <p><em>(To be continued...)</em></p>
-
+        </div>
+        <div id="chapter-1" class="chapter">
+            <h3>Chapter 5: Light and Shadow</h3>
             <p><strong>Chapter 5: Light and Shadow</strong></p>
             <p><strong>Twilight in Heaven</strong></p>
             <p>The golden light of Heaven softened gently as twilight fell upon the celestial realms. Though there was no true night, the Creator had woven cycles of light and dark into the very fabric of the place – a rhythm reflecting the harmony of all things. Yet, amidst this perfection, discord was silently blooming.</p>
@@ -232,6 +341,16 @@
             <p>As Healiangel witnessed the exchange, he felt a profound spark of doubt ignite within him. For eons, he had served as a healer, soothing pain, mending wounds. But now, he wondered – could Lucifer be right? Did humanity truly deserve the Creator's attention, His love?</p>
             <p>He tried to push the thought away, but it lingered, like a phantom at the edge of his heart.</p>
             <p><em>(To be continued...)</em></p>
+        </div>
+        <div id="chapter-1" class="chapter">
+            <h3>"#"</h3>
+
+        </div>   
+
+    </div>
+
+
+
 
             <p><strong>Chapter 6: The Serpent's Whisper</strong></p>
             <p><strong>Wondrous Eden</strong></p>

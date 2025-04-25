@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEGNAXE: Bí Mật Cuộc Đại Chiến Thiên Đàng (Phần 1 - Lật từng chương)</title>
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>LEGNAXE - Part 1 Tiếng Việt</title>
+    <meta name="description" content="Đọc truyện LEGNAXE Phần 1: Bí Mật Cuộc Đại Chiến Thiên Đàng - phiên bản tiếng Việt, lật từng chương." data-lang-key="story_meta_description">
+    <meta property="og:title" content="LEGNAXE - Part 1 Tiếng Việt" data-lang-key="og_title_story_vi_p1">
+    <meta property="og:description" content="Khám phá Phần 1 của LEGNAXE bằng tiếng Việt, theo dõi cuộc chiến trên Thiên Đàng qua từng chương." data-lang-key="og_description_story_vi_p1">
+    <meta property="og:image" content="https://via.placeholder.com/400x200?text=LEGNAXE+VI+P1+Banner"> <meta property="og:url" content="[URL_CUA_TRANG_TRUYEN_NAY]"> <meta property="og:type" content="article"> <link rel="icon" href="../images/favicon.ico" type="image/x-icon"> <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -26,52 +28,78 @@
           plugins: [],
         }
     </script>
-    <style>
+    <link rel="stylesheet" href="../css/styles.css"> <style>
         /* CSS cơ bản và chế độ tối */
         body {
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
+            /* margin: 0; Bỏ margin để header/footer chiếm toàn bộ */
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #f4f4f4; /* Màu nền mặc định */
             color: #333;
             line-height: 1.8;
             transition: background-color 0.3s, color 0.3s;
+            display: flex; /* Sử dụng flexbox để đẩy footer xuống dưới */
+            flex-direction: column; /* Sắp xếp các phần tử theo chiều dọc */
+            min-height: 100vh; /* Đảm bảo body chiếm ít nhất toàn bộ chiều cao màn hình */
         }
         .dark-mode {
-            background-color: #1a1a1a;
+            background-color: #1f2937; /* Màu nền tối hơn */
             color: #e0e0e0;
         }
-        .container {
+        main.container { /* Đổi div.container thành main.container */
+            flex-grow: 1; /* Cho phép nội dung chính co giãn để đẩy footer xuống */
             max-width: 800px;
-            margin: 20px auto;
+            margin: 20px auto; /* Giữ căn giữa */
             padding: 30px;
             background-color: #fff;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             transition: background-color 0.3s;
+            width: 95%; /* Thêm chiều rộng để không bị quá sát lề */
         }
-        .dark-mode .container {
-            background-color: #2c2c2c;
+        .dark-mode main.container {
+            background-color: #374151; /* Màu nền container tối */
             box-shadow: 0 2px 15px rgba(255, 255, 255, 0.05);
+            color: #f3f4f6; /* Màu chữ sáng hơn trong container tối */
         }
+
+        /* --- CSS cho Header và Footer --- */
+        /* (Bạn có thể đã có CSS này trong file styles.css chung) */
+        header, footer {
+             background-color: #1f2937; /* Màu nền header/footer tối */
+             color: #f3f4f6; /* Màu chữ header/footer sáng */
+             padding: 1rem 0;
+        }
+        /* Thêm CSS cụ thể cho header/footer nếu cần */
+        /* Ví dụ: */
+        header nav a { color: #d1d5db; }
+        header nav a:hover { color: #ffffff; }
+        footer a { color: #9ca3af; }
+        footer a:hover { color: #e5e7eb; }
+        /* Đảm bảo các nút ngôn ngữ trong header có màu phù hợp */
+        header button[data-lang] { color: #9ca3af; }
+        header button[data-lang]:disabled { color: #ffffff; opacity: 1; }
+        header button[data-lang]:not(:disabled):hover { color: #ffffff; }
+
+        /* --- CSS cho nội dung truyện (Giữ nguyên và điều chỉnh nếu cần) --- */
         h1, h2 {
             text-align: center;
-            color: #2c3e50;
+            color: #1f2937; /* Màu tiêu đề chính tối hơn */
             margin-bottom: 20px;
         }
         .dark-mode h1, .dark-mode h2 {
-            color: #b0c4de;
+            color: #e5e7eb; /* Màu tiêu đề chính sáng hơn trong dark mode */
         }
-        h3 { /* Styling for Chapter Titles */
-            color: #16a085; /* Teal color */
-            margin-top: 1.5em; /* Giảm margin top */
+        h3 { /* Tiêu đề chương */
+            color: #0d9488; /* Teal đậm hơn */
+            margin-top: 1.5em;
             margin-bottom: 1em;
             text-align: center;
             font-weight: 600;
-            font-size: 1.5em; /* Tăng kích thước font */
+            font-size: 1.5em;
         }
        .dark-mode h3 {
-           color: #1abc9c; /* Lighter teal for dark mode */
+           color: #2dd4bf; /* Teal sáng hơn cho dark mode */
        }
         p {
             margin-bottom: 1.5em;
@@ -85,32 +113,32 @@
             border-radius: 5px;
             box-shadow: 0 1px 5px rgba(0,0,0,0.1);
         }
-        .story-content em { /* Styling for '(Còn tiếp...)' */
+        .story-content em { /* '(Còn tiếp...)' */
             display: block;
             text-align: center;
             margin-top: 2em;
             font-style: italic;
-            color: #7f8c8d;
+            color: #6b7280; /* Màu xám đậm hơn */
         }
         .dark-mode .story-content em {
-            color: #95a5a6;
+            color: #9ca3af; /* Màu xám nhạt hơn */
         }
 
         /* CSS cho việc lật trang */
         .chapter {
-            display: none; /* Ẩn tất cả các chương ban đầu */
-            padding-bottom: 20px; /* Thêm khoảng đệm dưới mỗi chương */
-            border-bottom: 1px dashed #eee; /* Phân cách nhẹ giữa các chương (khi hiển thị) */
-            margin-bottom: 20px; /* Khoảng cách dưới đường kẻ */
+            display: none;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #e5e7eb; /* Màu đường kẻ nhạt hơn */
+            margin-bottom: 20px;
         }
         .dark-mode .chapter {
-            border-bottom-color: #444;
+            border-bottom-color: #4b5563; /* Màu đường kẻ tối */
         }
         .chapter.active {
-            display: block; /* Hiển thị chương hiện tại */
+            display: block;
         }
         .chapter:last-of-type {
-             border-bottom: none; /* Bỏ đường kẻ ở chương cuối */
+             border-bottom: none;
              margin-bottom: 0;
         }
 
@@ -121,14 +149,14 @@
             align-items: center;
             margin-top: 30px;
             padding-top: 20px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid #e5e7eb; /* Màu đường kẻ nhạt hơn */
         }
         .dark-mode .story-navigation {
-             border-top: 1px solid #444;
+             border-top: 1px solid #4b5563; /* Màu đường kẻ tối */
         }
         .story-navigation button, .story-navigation a {
             padding: 10px 18px;
-            background-color: #3498db;
+            background-color: #3b82f6; /* Màu primary */
             color: #fff;
             text-decoration: none;
             border: none;
@@ -136,38 +164,38 @@
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s, opacity 0.3s;
             font-size: 14px;
-            display: inline-flex; /* Căn icon và text */
+            display: inline-flex;
             align-items: center;
-            gap: 8px; /* Khoảng cách giữa icon và text */
+            gap: 8px;
         }
         .story-navigation button:hover, .story-navigation a:hover {
-            background-color: #2980b9;
+            background-color: #2563eb; /* Màu primary-dark */
             transform: translateY(-2px);
         }
         .story-navigation button:disabled {
-            background-color: #bdc3c7; /* Màu xám khi bị vô hiệu hóa */
+            background-color: #9ca3af; /* Màu gray-400 khi bị vô hiệu hóa */
             cursor: not-allowed;
             opacity: 0.7;
             transform: none;
         }
         .dark-mode .story-navigation button:disabled {
-            background-color: #7f8c8d;
+            background-color: #6b7280; /* Màu gray-500 */
         }
         .story-navigation .dark-mode-toggle {
-             background-color: #e74c3c;
+             background-color: #f59e0b; /* Màu warning */
          }
         .story-navigation .dark-mode-toggle:hover {
-             background-color: #c0392b;
+             background-color: #d97706; /* Màu warning tối hơn */
          }
         .chapter-nav {
             display: flex;
-            gap: 10px; /* Khoảng cách giữa nút Prev/Next */
+            gap: 10px;
         }
 
         /* Responsive adjustments */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) { /* Điều chỉnh breakpoint nếu cần */
             .container {
-                margin: 10px;
+                margin: 10px auto; /* Giữ căn giữa nhưng giảm margin trên dưới */
                 padding: 20px;
             }
             .story-content img {
@@ -179,30 +207,122 @@
             }
             .story-navigation a, .story-navigation button {
                  width: 100%;
-                 justify-content: center; /* Căn giữa nội dung nút trên mobile */
+                 justify-content: center;
             }
             .chapter-nav {
                 width: 100%;
-                justify-content: space-between; /* Đẩy nút Prev/Next ra hai bên */
+                justify-content: space-between;
             }
             .chapter-nav button {
-                flex-grow: 1; /* Cho nút chiếm không gian */
-                margin: 0 5px; /* Thêm khoảng cách nhỏ */
+                flex-grow: 1;
+                margin: 0 5px;
             }
-            .story-navigation a {
-                order: 3; /* Đẩy nút Quay lại xuống dưới cùng */
-            }
-            .story-navigation .dark-mode-toggle {
-                order: 2; /* Nút Sáng/Tối ở giữa */
-            }
-             .chapter-nav {
-                 order: 1; /* Nút chương lên đầu */
-             }
+            .story-navigation a { order: 3; }
+            .story-navigation .dark-mode-toggle { order: 2; }
+            .chapter-nav { order: 1; }
         }
     </style>
 </head>
-<body>
-    <div class="container">
+<body class="font-sans antialiased"> <header id="navbar" class="bg-neutral-800 text-white sticky top-0 z-50 shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex-shrink-0">
+            <a href="../index.html" class="flex items-center space-x-2">
+              <img class="h-10 w-auto" src="../images/logo/logo_icon_light.png" alt="IVS JSC Logo">
+              <span class="font-bold text-xl hidden md:inline">IVS JSC</span>
+            </a>
+          </div>
+
+          <nav class="hidden md:flex space-x-4">
+            <a href="../index.html" class="text-gray-300 hover:bg-neutral-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out" data-lang-key="home">Trang Chủ</a>
+            <a href="../about.html" class="text-gray-300 hover:bg-neutral-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out" data-lang-key="about">Về Chúng Tôi</a>
+            <div class="relative group">
+              <button class="text-gray-300 group-hover:bg-neutral-700 group-hover:text-white px-3 py-2 rounded-md text-sm font-medium inline-flex items-center transition duration-150 ease-in-out" data-lang-key="services">
+                <span>Dịch Vụ</span>
+                <svg class="ml-2 -mr-1 h-5 w-5 text-gray-400 group-hover:text-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </button>
+              <div class="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-xs sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-in-out">
+                <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+                  <div class="relative grid gap-6 bg-white dark:bg-neutral-700 px-5 py-6 sm:gap-8 sm:p-8">
+                    <a href="../services/language-skills.html" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 dark:hover:bg-neutral-600 transition ease-in-out duration-150">
+                      <i class="fa-solid fa-language fa-fw text-xl text-primary flex-shrink-0 mt-1"></i>
+                      <div class="ml-4">
+                        <p class="text-base font-medium text-gray-900 dark:text-white" data-lang-key="language_skills">Ngoại Ngữ & Kỹ Năng</p>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" data-lang-key="language_skills_desc">Đào tạo tiếng Anh, Nhật, Hàn và kỹ năng mềm.</p>
+                      </div>
+                    </a>
+                    <a href="../services/steam-education.html" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 dark:hover:bg-neutral-600 transition ease-in-out duration-150">
+                      <i class="fa-solid fa-rocket fa-fw text-xl text-secondary flex-shrink-0 mt-1"></i>
+                      <div class="ml-4">
+                        <p class="text-base font-medium text-gray-900 dark:text-white" data-lang-key="steam_education">Giáo Dục STEAM</p>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" data-lang-key="steam_education_desc">Chương trình STEAM cho mầm non và tiểu học.</p>
+                      </div>
+                    </a>
+                     <a href="../services/edtech-solutions.html" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 dark:hover:bg-neutral-600 transition ease-in-out duration-150">
+                        <i class="fa-solid fa-laptop-code fa-fw text-xl text-purple-accent flex-shrink-0 mt-1"></i>
+                        <div class="ml-4">
+                            <p class="text-base font-medium text-gray-900 dark:text-white" data-lang-key="edtech_solutions">Giải Pháp EdTech</p>
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" data-lang-key="edtech_solutions_desc">Phát triển phần mềm và nền tảng học tập số.</p>
+                        </div>
+                    </a>
+                    <a href="../services/international-cooperation.html" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50 dark:hover:bg-neutral-600 transition ease-in-out duration-150">
+                      <i class="fa-solid fa-handshake-angle fa-fw text-xl text-warning flex-shrink-0 mt-1"></i>
+                      <div class="ml-4">
+                        <p class="text-base font-medium text-gray-900 dark:text-white" data-lang-key="international_cooperation">Hợp Tác Quốc Tế</p>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" data-lang-key="international_cooperation_desc">Kết nối giáo dục Việt Nam và thế giới.</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a href="../news.html" class="text-gray-300 hover:bg-neutral-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out" data-lang-key="news">Tin Tức</a>
+            <a href="../contact.html" class="text-gray-300 hover:bg-neutral-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out" data-lang-key="contact">Liên Hệ</a>
+            <a href="../story.html" class="bg-primary text-white px-3 py-2 rounded-md text-sm font-medium transition duration-150 ease-in-out hover:bg-primary-dark" data-lang-key="story_legnaxe">Truyện LEGNAXE</a>
+          </nav>
+
+           <div class="flex items-center">
+             <div class="flex items-center mr-4">
+                <button onclick="changeLanguage('vi')" data-lang="vi" class="text-sm font-medium px-2 py-1 rounded hover:bg-neutral-700 disabled:opacity-100 disabled:text-white text-blue-200" disabled>VN</button>
+                <span class="text-gray-500">|</span>
+                <button onclick="changeLanguage('en')" data-lang="en" class="text-sm font-medium px-2 py-1 rounded hover:bg-neutral-700 disabled:opacity-100 disabled:text-white text-blue-200">EN</button>
+            </div>
+
+            <div class="md:hidden">
+              <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                <span class="sr-only">Mở menu chính</span>
+                <i id="menu-icon-open" class="fas fa-bars fa-fw h-6 w-6 block"></i>
+                <i id="menu-icon-close" class="fas fa-times fa-fw h-6 w-6 hidden"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="md:hidden hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <a href="../index.html" class="text-gray-300 hover:bg-neutral-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" data-lang-key="home">Trang Chủ</a>
+          <a href="../about.html" class="text-gray-300 hover:bg-neutral-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" data-lang-key="about">Về Chúng Tôi</a>
+          <div>
+            <button id="mobile-services-button" class="w-full text-left text-gray-300 hover:bg-neutral-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" data-lang-key="services">
+                Dịch Vụ <i class="fas fa-chevron-down fa-xs ml-1"></i>
+            </button>
+            <div id="mobile-services-submenu" class="pl-4 mt-1 space-y-1 hidden">
+                <a href="../services/language-skills.html" class="text-gray-400 hover:bg-neutral-600 hover:text-white block px-3 py-2 rounded-md text-sm font-medium" data-lang-key="language_skills">Ngoại Ngữ & Kỹ Năng</a>
+                <a href="../services/steam-education.html" class="text-gray-400 hover:bg-neutral-600 hover:text-white block px-3 py-2 rounded-md text-sm font-medium" data-lang-key="steam_education">Giáo Dục STEAM</a>
+                <a href="../services/edtech-solutions.html" class="text-gray-400 hover:bg-neutral-600 hover:text-white block px-3 py-2 rounded-md text-sm font-medium" data-lang-key="edtech_solutions">Giải Pháp EdTech</a>
+                <a href="../services/international-cooperation.html" class="text-gray-400 hover:bg-neutral-600 hover:text-white block px-3 py-2 rounded-md text-sm font-medium" data-lang-key="international_cooperation">Hợp Tác Quốc Tế</a>
+            </div>
+          </div>
+          <a href="../news.html" class="text-gray-300 hover:bg-neutral-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" data-lang-key="news">Tin Tức</a>
+          <a href="../contact.html" class="text-gray-300 hover:bg-neutral-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium" data-lang-key="contact">Liên Hệ</a>
+           <a href="../story.html" class="bg-primary text-white block px-3 py-2 rounded-md text-base font-medium transition duration-150 ease-in-out hover:bg-primary-dark" data-lang-key="story_legnaxe">Truyện LEGNAXE</a>
+        </div>
+      </div>
+    </header>
+    <main class="container">
         <h1>LEGNAXE</h1>
         <h2>Phần 1: Bí Mật Cuộc Đại Chiến Thiên Đàng</h2>
 
@@ -451,24 +571,96 @@
              </div>
              <button class="dark-mode-toggle" onclick="toggleDarkMode()" title="Chuyển chế độ Sáng/Tối"><i class="fas fa-adjust"></i> Sáng/Tối</button>
         </div>
-    </div>
+    </main>
 
+    <footer class="bg-neutral-800 text-neutral-300 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center space-x-3 mb-4">
+                    <img src="../images/logo/logo_icon_light.png" alt="IVS JSC Logo" class="h-10">
+                    <span class="text-xl font-semibold text-white">IVS JSC</span>
+                </div>
+                <p class="text-sm" data-lang-key="footer_company_desc">Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy - Tiên phong trong giáo dục và hợp tác quốc tế.</p>
+                <p class="text-sm mt-2" data-lang-key="tax_code">MST: 3603960189</p>
+            </div>
+
+            <div>
+                <h3 class="text-sm font-semibold text-neutral-400 tracking-wider uppercase" data-lang-key="quick_links">Liên Kết Nhanh</h3>
+                <ul class="mt-4 space-y-2">
+                    <li><a href="../about.html" class="text-sm hover:text-white transition-colors duration-200" data-lang-key="about">Về Chúng Tôi</a></li>
+                    <li><a href="../services.html" class="text-sm hover:text-white transition-colors duration-200" data-lang-key="services">Dịch Vụ</a></li>
+                    <li><a href="../news.html" class="text-sm hover:text-white transition-colors duration-200" data-lang-key="news">Tin Tức</a></li>
+                    <li><a href="../contact.html" class="text-sm hover:text-white transition-colors duration-200" data-lang-key="contact">Liên Hệ</a></li>
+                     <li><a href="../story.html" class="text-sm hover:text-white transition-colors duration-200" data-lang-key="story_legnaxe">Truyện LEGNAXE</a></li>
+                     <li><a href="../privacy.html" class="text-sm hover:text-white transition-colors duration-200" data-lang-key="privacy_policy">Chính sách bảo mật</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-sm font-semibold text-neutral-400 tracking-wider uppercase" data-lang-key="contact_info">Thông Tin Liên Hệ</h3>
+                <ul class="mt-4 space-y-2 text-sm">
+                    <li class="flex items-start">
+                        <i class="fas fa-map-marker-alt fa-fw mt-1 mr-2 text-neutral-400"></i>
+                        <span data-lang-key="address">1104, Tổ 6, Ấp Đất Mới, X. Long Phước, H. Long Thành, T. Đồng Nai</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-phone fa-fw mr-2 text-neutral-400"></i>
+                        <a href="tel:+84901646189" class="hover:text-white transition-colors duration-200">0901 646 189</a>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-envelope fa-fw mr-2 text-neutral-400"></i>
+                        <a href="mailto:ivs@ivs.id.vn" class="hover:text-white transition-colors duration-200">ivs@ivs.id.vn</a>
+                    </li>
+                     <li class="flex items-center">
+                        <i class="fas fa-globe fa-fw mr-2 text-neutral-400"></i>
+                        <a href="https://ivs.id.vn" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-200">ivs.id.vn</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-sm font-semibold text-neutral-400 tracking-wider uppercase" data-lang-key="follow_us">Theo Dõi Chúng Tôi</h3>
+                <div class="flex mt-4 space-x-4">
+                    <a href="https://www.facebook.com/ivs.jsc" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors duration-200">
+                        <span class="sr-only">Facebook</span>
+                        <i class="fab fa-facebook-f fa-lg"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@ivs-jsc" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors duration-200">
+                         <span class="sr-only">YouTube</span>
+                         <i class="fab fa-youtube fa-lg"></i>
+                     </a>
+                    <a href="https://www.linkedin.com/company/ivs-jsc" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors duration-200">
+                        <span class="sr-only">LinkedIn</span>
+                        <i class="fab fa-linkedin-in fa-lg"></i>
+                    </a>
+                     <a href="https://zalo.me/ivsjsc" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors duration-200">
+                         <span class="sr-only">Zalo</span>
+                         <i class="fa fa-comment-dots fa-lg"></i> </a>
+                </div>
+                 <p class="mt-4 text-sm" data-lang-key="iivsa_member">Thành viên chính thức của <a href="https://iivsa.org" target="_blank" rel="noopener noreferrer" class="font-semibold text-secondary hover:text-emerald-400">IIVSA Global</a>.</p>
+            </div>
+        </div>
+
+        <div class="mt-8 border-t border-neutral-700 pt-8 text-center">
+            <p class="text-sm text-neutral-400" data-lang-key="copyright">&copy; 2024 IVS JSC. Đã đăng ký Bản quyền.</p>
+        </div>
+    </footer>
     <script>
         // --- Dark Mode Logic ---
         const darkModeToggle = document.querySelector('.dark-mode-toggle');
-        // Kiểm tra và áp dụng chế độ tối đã lưu
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            document.body.classList.add('dark-mode');
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark'); // Thêm class dark vào thẻ html
+          document.body.classList.add('dark-mode'); // Thêm class dark-mode vào body
+        } else {
+          document.documentElement.classList.remove('dark');
+          document.body.classList.remove('dark-mode');
         }
-        // Hàm chuyển đổi chế độ tối
+
         function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
             document.body.classList.toggle("dark-mode");
-            // Lưu trạng thái vào localStorage
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                localStorage.removeItem('darkMode');
-            }
+            const isDarkMode = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
         }
 
         // --- Chapter Navigation Logic ---
@@ -477,28 +669,27 @@
         const nextButton = document.getElementById('next-chapter');
         let currentChapterIndex = 0; // Bắt đầu từ chương đầu tiên (index 0)
 
-        // Hàm hiển thị chương theo index
         function showChapter(index) {
-            // Ẩn tất cả các chương
-            chapters.forEach(chapter => chapter.classList.remove('active'));
-            // Hiển thị chương được chọn
-            if (chapters[index]) {
-                chapters[index].classList.add('active');
-                // Cuộn lên đầu trang hoặc đầu chương khi chuyển
-                // window.scrollTo(0, 0); // Cuộn lên đầu trang
-                chapters[index].scrollIntoView({ behavior: 'smooth', block: 'start' }); // Cuộn tới đầu chương
-            }
-            // Cập nhật trạng thái nút
+            chapters.forEach((chapter, i) => {
+                if (i === index) {
+                    chapter.classList.add('active');
+                    // Chỉ cuộn nếu chương không phải là chương đầu tiên được tải
+                    if (index !== 0 || !document.body.dataset.initialLoad) {
+                       chapter.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                } else {
+                    chapter.classList.remove('active');
+                }
+            });
+            document.body.dataset.initialLoad = 'false'; // Đánh dấu đã tải xong lần đầu
             updateNavButtons();
         }
 
-        // Hàm cập nhật trạng thái nút Prev/Next
         function updateNavButtons() {
-            prevButton.disabled = currentChapterIndex === 0; // Vô hiệu hóa nút Prev ở chương đầu
-            nextButton.disabled = currentChapterIndex === chapters.length - 1; // Vô hiệu hóa nút Next ở chương cuối
+            prevButton.disabled = currentChapterIndex === 0;
+            nextButton.disabled = currentChapterIndex === chapters.length - 1;
         }
 
-        // Hàm chuyển đến chương tiếp theo
         function nextChapter() {
             if (currentChapterIndex < chapters.length - 1) {
                 currentChapterIndex++;
@@ -506,7 +697,6 @@
             }
         }
 
-        // Hàm quay lại chương trước
         function prevChapter() {
             if (currentChapterIndex > 0) {
                 currentChapterIndex--;
@@ -515,10 +705,45 @@
         }
 
         // --- Initialization ---
-        // Hiển thị chương đầu tiên khi tải trang
-        showChapter(currentChapterIndex);
+        document.body.dataset.initialLoad = 'true'; // Đánh dấu tải lần đầu
+        showChapter(currentChapterIndex); // Hiển thị chương đầu tiên
+
+        // --- Mobile Menu Logic --- (Thêm từ header bạn cung cấp)
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+        const mobileServicesButton = document.getElementById('mobile-services-button');
+        const mobileServicesSubmenu = document.getElementById('mobile-services-submenu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+            mobileMenuButton.setAttribute('aria-expanded', !expanded);
+            mobileMenu.classList.toggle('hidden');
+            menuIconOpen.classList.toggle('hidden');
+            menuIconClose.classList.toggle('hidden');
+            // Đảm bảo submenu dịch vụ đóng khi menu chính đóng
+            if (expanded) {
+                 mobileServicesSubmenu.classList.add('hidden');
+                 mobileServicesButton.querySelector('i').classList.remove('rotate-180');
+            }
+        });
+
+         mobileServicesButton?.addEventListener('click', (e) => {
+             e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài
+             mobileServicesSubmenu.classList.toggle('hidden');
+             mobileServicesButton.querySelector('i').classList.toggle('rotate-180');
+         });
+
+        // Đóng menu khi click bên ngoài (tùy chọn)
+        document.addEventListener('click', (event) => {
+          const isClickInsideMenu = mobileMenu.contains(event.target);
+          const isClickOnButton = mobileMenuButton.contains(event.target);
+          if (!isClickInsideMenu && !isClickOnButton && !mobileMenu.classList.contains('hidden')) {
+            mobileMenuButton.click(); // Simulate click để đóng menu
+          }
+        });
 
     </script>
-
-    </body>
+    <script src="../js/language.js" defer></script> </body>
 </html>
