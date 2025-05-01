@@ -222,13 +222,3 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error("Lỗi trong quá trình khởi tạo trang:", error);
     }
 });
-
-// Có thể thêm các hàm khởi tạo khác ở đây nếu cần
-// Ví dụ: Hàm khởi tạo dark mode
-/*
-function initDarkMode() {
-    // Logic kiểm tra localStorage hoặc cài đặt hệ thống để bật/tắt dark mode
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classL
