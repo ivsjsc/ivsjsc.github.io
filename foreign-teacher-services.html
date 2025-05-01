@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giáo viên Nước ngoài & Thủ tục Work Permit - IVS JSC</title>
     <meta name="description" content="Thông tin chi tiết về yêu cầu, hồ sơ và chi phí xin Giấy phép lao động (Work Permit) cho giáo viên nước ngoài tại Việt Nam thông qua IVS JSC.">
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="keywords" content="Work Permit, Giáo viên nước ngoài, IVS JSC, Giấy phép lao động Việt Nam">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="IVS JSC">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,13 +21,13 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                     },
-                    colors: { // Bảng màu cơ bản, có thể mở rộng
-                        'primary': '#3b82f6', // blue-500
-                        'primary-dark': '#2563eb', // blue-600
-                        'secondary': '#10b981', // emerald-500
-                        'warning': '#f59e0b', // amber-500
-                        'info': '#0ea5e9', // sky-500
-                        'danger': '#ef4444', // red-500
+                    colors: {
+                        'primary': '#3b82f6',
+                        'primary-dark': '#2563eb',
+                        'secondary': '#10b981',
+                        'warning': '#f59e0b',
+                        'info': '#0ea5e9',
+                        'danger': '#ef4444',
                         'gray-100': '#f3f4f6',
                         'gray-200': '#e5e7eb',
                         'gray-300': '#d1d5db',
@@ -35,247 +39,304 @@
                         'emerald-50': '#ecfdf5',
                     }
                 }
-            },
-            plugins: [],
+            }
         };
     </script>
-    <link rel="stylesheet" href="css/styles.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            padding-top: 60px; /* Default padding for mobile header */
+            padding-top: 60px;
         }
         @media (min-width: 1024px) {
-            body { padding-top: 80px; } /* Padding for desktop header */
+            body { padding-top: 80px; }
         }
-        /* Fetch Error Message Styles */
         .fetch-error-message {
             text-align: center; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; color: #b91c1c; background-color: #fee2e2;
         }
         .fetch-error-message.header-error {
-             position: fixed; top: 0; left: 0; right: 0; z-index: 50; min-height: 60px; display: flex; align-items: center; justify-content: center;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 50; min-height: 60px; display: flex; align-items: center; justify-content: center;
         }
-         @media (min-width: 1024px) { .fetch-error-message.header-error { min-height: 80px; } }
+        @media (min-width: 1024px) { .fetch-error-message.header-error { min-height: 80px; } }
         .fetch-error-message.footer-error { margin-top: 1rem; }
         html.dark .fetch-error-message { background-color: rgba(127, 29, 29, 0.5); border-color: #b91c1c; color: #fecaca; }
-
-        /* Custom list style for requirements */
-        .requirement-list li {
-            @apply mb-3 pl-6 relative;
+        
+        /* Custom list style for accordion */
+        details summary {
+            @apply flex items-center gap-2 font-semibold cursor-pointer;
         }
-        .requirement-list li::before {
-            content: "\f058"; /* Font Awesome check-circle icon */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            @apply absolute left-0 top-1 text-secondary; /* Màu xanh lá */
+        details[open] summary i {
+            @apply transform rotate-90;
         }
+        
         /* Custom style for cost sections */
         .cost-section {
-            @apply border border-gray-200 rounded-lg p-5 mb-6 shadow-sm;
+            @apply border border-gray-200 rounded-lg p-5 shadow-sm transition hover:shadow-md;
         }
-        .cost-section h3 {
-            @apply text-xl font-semibold text-primary mb-3;
+        
+        /* Quick nav */
+        .quick-nav {
+            @apply sticky top-16 bg-white shadow-sm rounded-lg p-4 mb-8 z-10;
         }
-        .cost-section p strong {
-             @apply font-semibold text-gray-700;
+        
+        /* Back to top button */
+        #back-to-top {
+            @apply fixed bottom-6 right-6 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-dark transition;
+        }
+        
+        /* Responsive typography */
+        @media (max-width: 640px) {
+            body { @apply text-base; }
+            h1 { @apply text-2xl; }
+            h2 { @apply text-xl; }
         }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-700 antialiased">
-
-    <header id="header-placeholder">
-        <div class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-gray-200 text-gray-500 animate-pulse" style="height: 60px;">Đang tải header...</div>
-         @media (min-width: 1024px) {
-             <div class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-gray-200 text-gray-500 animate-pulse" style="height: 80px;">Đang tải header...</div>
-         }
+    <header id="header-placeholder" class="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-primary">IVS JSC</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="/" class="text-gray-600 hover:text-primary">Trang chủ</a>
+                <a href="/services" class="text-gray-600 hover:text-primary">Dịch vụ</a>
+                <a href="/contact" class="text-gray-600 hover:text-primary">Liên hệ</a>
+            </nav>
+            <button class="md:hidden" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
     </header>
 
     <main class="py-12 md:py-16">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+            <nav class="quick-nav">
+                <ul class="flex flex-wrap gap-4 text-sm font-medium text-primary">
+                    <li><a href="#requirements" class="hover:underline">Yêu cầu</a></li>
+                    <li><a href="#documents" class="hover:underline">Hồ sơ</a></li>
+                    <li><a href="#permit-info" class="hover:underline">Work Permit</a></li>
+                    <li><a href="#costs" class="hover:underline">Chi phí</a></li>
+                    <li><a href="#post-permit" class="hover:underline">Sau Work Permit</a></li>
+                    <li><a href="#contact-cta" class="hover:underline">Liên hệ</a></li>
+                </ul>
+            </nav>
+            
             <article class="bg-white p-6 md:p-10 rounded-xl shadow-lg border border-gray-200">
                 <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 border-b pb-4">Dịch vụ Giáo viên Nước ngoài & Thủ tục Work Permit</h1>
 
-                <section id="requirements" class="mb-8">
-                    <h2 class="text-2xl font-semibold text-primary mb-4">Yêu cầu Bắt buộc đối với Giáo viên</h2>
-                    <p class="mb-4 text-gray-600">Để xin Giấy phép lao động (Work Permit) tại Việt Nam, giáo viên nước ngoài cần đáp ứng đầy đủ các tiêu chí sau:</p>
-                    <ul class="requirement-list list-none space-y-3 text-gray-700">
-                        <li>Trên 18 tuổi và có đủ năng lực hành vi dân sự.</li>
-                        <li>
-                            <strong>Giấy khám sức khỏe:</strong> Còn giá trị trong vòng 12 tháng. Nếu được cấp ở nước ngoài, cần được hợp pháp hóa lãnh sự và dịch thuật công chứng.
-                        </li>
-                        <li>
-                            <strong>Phiếu lý lịch tư pháp:</strong> Còn giá trị trong vòng 6 tháng. Nếu được cấp ở nước ngoài, cần được hợp pháp hóa lãnh sự và dịch thuật công chứng.
-                        </li>
-                        <li>
-                            <strong>Trình độ chuyên môn (Đáp ứng MỘT trong các điều kiện sau):</strong>
+                <section id="requirements" class="mb-12">
+                    <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6">Yêu cầu Bắt buộc đối với Giáo viên</h2>
+                    <p class="mb-6 text-gray-600 leading-relaxed">Để xin Giấy phép lao động (Work Permit) tại Việt Nam, giáo viên nước ngoài cần đáp ứng các tiêu chí sau:</p>
+                    <div class="space-y-4">
+                        <details class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <summary class="text-gray-800"><i class="fas fa-chevron-right text-secondary"></i> Trên 18 tuổi và năng lực hành vi dân sự</summary>
+                            <p class="mt-2 text-gray-600">Giáo viên phải đủ 18 tuổi và có năng lực hành vi dân sự theo quy định pháp luật.</p>
+                        </details>
+                        <details class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <summary class="text-gray-800"><i class="fas fa-chevron-right text-secondary"></i> Giấy khám sức khỏe</summary>
+                            <p class="mt-2 text-gray-600">Còn giá trị trong vòng 12 tháng. Nếu được cấp ở nước ngoài, cần được hợp pháp hóa lãnh sự và dịch thuật công chứng.</p>
+                        </details>
+                        <details class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <summary class="text-gray-800"><i class="fas fa-chevron-right text-secondary"></i> Phiếu lý lịch tư pháp</summary>
+                            <p class="mt-2 text-gray-600">Còn giá trị trong vòng 6 tháng. Nếu được cấp ở nước ngoài, cần được hợp pháp hóa lãnh sự và dịch thuật công chứng.</p>
+                        </details>
+                        <details class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <summary class="text-gray-800"><i class="fas fa-chevron-right text-secondary"></i> Trình độ chuyên môn</summary>
                             <ul class="list-disc pl-6 mt-2 space-y-1 text-sm text-gray-600">
                                 <li>Bằng cao đẳng sư phạm ngoại ngữ trở lên.</li>
                                 <li>Bằng cao đẳng ngoại ngữ và có chứng chỉ giảng dạy ngoại ngữ phù hợp (ví dụ: TESOL, TEFL, CELTA).</li>
                                 <li>Bằng cao đẳng chuyên ngành khác, có chứng chỉ năng lực ngoại ngữ bậc 5 trở lên theo Khung năng lực ngoại ngữ 6 bậc dùng cho Việt Nam (hoặc tương đương C1 CEFR) và có chứng chỉ giảng dạy ngoại ngữ phù hợp.</li>
                                 <li>Đối với giáo viên là người bản ngữ (ví dụ: tiếng Anh): Bằng cao đẳng trở lên và có chứng chỉ giảng dạy ngoại ngữ phù hợp.</li>
                             </ul>
-                        </li>
-                        <li>
-                            <strong>Kinh nghiệm (Chỉ yêu cầu nếu đăng ký vị trí Chuyên gia):</strong>
-                             <ul class="list-disc pl-6 mt-2 space-y-1 text-sm text-gray-600">
-                                 <li>Có bằng đại học trở lên và ít nhất 3 năm kinh nghiệm làm việc trong chuyên ngành được đào tạo phù hợp với vị trí công việc dự kiến làm việc tại Việt Nam; HOẶC</li>
-                                 <li>Có chứng chỉ hành nghề (nếu có) và ít nhất 5 năm kinh nghiệm.</li>
-                                 <li>*Lưu ý: Giấy tờ chứng minh kinh nghiệm cần được hợp pháp hóa lãnh sự.*</li>
-                             </ul>
-                        </li>
-                         <li>
-                            <strong>Hộ chiếu:</strong> Còn giá trị sử dụng theo quy định.
-                        </li>
-                    </ul>
-                     <p class="mt-4 text-sm text-danger font-medium"><i class="fas fa-exclamation-triangle mr-1"></i> Tất cả các yêu cầu trên đều là bắt buộc và không có ngoại lệ. Trình độ/bằng cấp là yếu tố tiên quyết.</p>
+                        </details>
+                        <details class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <summary class="text-gray-800"><i class="fas fa-chevron-right text-secondary"></i> Kinh nghiệm (Chỉ cho vị trí Chuyên gia)</summary>
+                            <ul class="list-disc pl-6 mt-2 space-y-1 text-sm text-gray-600">
+                                <li>Có bằng đại học trở lên và ít nhất 3 năm kinh nghiệm làm việc trong chuyên ngành được đào tạo phù hợp với vị trí công việc dự kiến làm việc tại Việt Nam; HOẶC</li>
+                                <li>Có chứng chỉ hành nghề (nếu có) và ít nhất 5 năm kinh nghiệm.</li>
+                                <li>Giấy tờ chứng minh kinh nghiệm cần được hợp pháp hóa lãnh sự.</li>
+                            </ul>
+                        </details>
+                        <details class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <summary class="text-gray-800"><i class="fas fa-chevron-right text-secondary"></i> Hộ chiếu</summary>
+                            <p class="mt-2 text-gray-600">Còn giá trị sử dụng theo quy định.</p>
+                        </details>
+                    </div>
+                    <p class="mt-6 text-sm text-danger font-medium"><i class="fas fa-exclamation-triangle mr-1"></i> Tất cả các yêu cầu trên đều là bắt buộc và không có ngoại lệ. Trình độ/bằng cấp là yếu tố tiên quyết.</p>
                 </section>
 
-                <section id="documents" class="mb-8">
-                    <h2 class="text-2xl font-semibold text-primary mb-4">Hồ sơ Cần chuẩn bị</h2>
-                     <p class="mb-4 text-gray-600">Giáo viên cần chuẩn bị đầy đủ các giấy tờ sau:</p>
-                    <ul class="requirement-list list-none space-y-3 text-gray-700">
-                        <li>Giấy khám sức khỏe (theo quy định).</li>
-                        <li>Phiếu lý lịch tư pháp (theo quy định).</li>
-                        <li>Bằng cấp, chứng chỉ giảng dạy ngoại ngữ, chứng chỉ năng lực ngoại ngữ (nếu có). Các giấy tờ này cần được <strong class="text-danger">hợp pháp hóa lãnh sự</strong> và <strong class="text-danger">dịch thuật công chứng</strong> sang tiếng Việt.</li>
-                        <li>Bản sao hộ chiếu có chứng thực.</li>
-                        <li>02 ảnh màu kích thước 4x6 cm (nền trắng, chụp trong vòng 6 tháng gần nhất).</li>
-                        <li>Các giấy tờ khác theo yêu cầu của cơ quan chức năng và đơn vị bảo lãnh (nếu có).</li>
-                    </ul>
+                <section id="documents" class="mb-12">
+                    <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6">Hồ sơ Cần chuẩn bị</h2>
+                    <p class="mb-6 text-gray-600 leading-relaxed">Giáo viên cần chuẩn bị đầy đủ các giấy tờ sau:</p>
+                    <div class="space-y-4">
+                        <details class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <summary class="text-gray-800"><i class="fas fa-chevron-right text-secondary"></i> Giấy khám sức khỏe</summary>
+                            <p class="mt-2 text-gray-600">Theo quy định, còn giá trị trong 12 tháng.</p>
+                        </details>
+                        <details class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <summary class="text-gray-800"><i class="fas fa-chevron-right text-secondary"></i> Phiếu lý lịch tư pháp</summary>
+                            <p class="mt-2 text-gray-600">Theo quy định, còn giá trị trong 6 tháng.</p>
+                        </details>
+                        <details class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <summary class="text-gray-800"><i class="fas fa-chevron-right text-secondary"></i> Bằng cấp và chứng chỉ</summary>
+                            <p class="mt-2 text-gray-600">Bằng cấp, chứng chỉ giảng dạy ngoại ngữ, chứng chỉ năng lực ngoại ngữ (nếu có). Các giấy tờ này cần được <strong class="text-danger">hợp pháp hóa lãnh sự</strong> và <strong class="text-danger">dịch thuật công chứng</strong> sang tiếng Việt.</p>
+                        </details>
+                        <details class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <summary class="text-gray-800"><i class="fas fa-chevron-right text-secondary"></i> Bản sao hộ chiếu</summary>
+                            <p class="mt-2 text-gray-600">Bản sao có chứng thực.</p>
+                        </details>
+                        <details class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <summary class="text-gray-800"><i class="fas fa-chevron-right text-secondary"></i> Ảnh 4x6</summary>
+                            <p class="mt-2 text-gray-600">02 ảnh màu kích thước 4x6 cm (nền trắng, chụp trong vòng 6 tháng gần nhất).</p>
+                        </details>
+                        <details class="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+                            <summary class="text-gray-800"><i class="fas fa-chevron-right text-secondary"></i> Giấy tờ khác</summary>
+                            <p class="mt-2 text-gray-600">Theo yêu cầu của cơ quan chức năng và đơn vị bảo lãnh (nếu có).</p>
+                        </details>
+                    </div>
                 </section>
 
-                 <section id="permit-info" class="mb-8">
-                    <h2 class="text-2xl font-semibold text-primary mb-4">Thông tin về Work Permit</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                            <p class="font-medium text-blue-800"><i class="fas fa-clock mr-2"></i>Thời gian xử lý (dự kiến):</p>
-                            <p class="text-blue-700">5 - 7 ngày làm việc (sau khi nộp đầy đủ hồ sơ hợp lệ).</p>
+                <section id="permit-info" class="mb-12">
+                    <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6">Thông tin về Work Permit</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 flex items-start gap-4">
+                            <i class="fas fa-clock text-2xl text-blue-800"></i>
+                            <div>
+                                <p class="font-medium text-blue-800">Thời gian xử lý (dự kiến):</p>
+                                <p class="text-blue-700">5 - 7 ngày làm việc (sau khi nộp đầy đủ hồ sơ hợp lệ).</p>
+                            </div>
                         </div>
-                        <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200">
-                             <p class="font-medium text-emerald-800"><i class="fas fa-calendar-alt mr-2"></i>Thời hạn Work Permit:</p>
-                             <p class="text-emerald-700">Tối đa 02 năm (có thể gia hạn).</p>
+                        <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200 flex items-start gap-4">
+                            <i class="fas fa-calendar-alt text-2xl text-emerald-800"></i>
+                            <div>
+                                <p class="font-medium text-emerald-800">Thời hạn Work Permit:</p>
+                                <p class="text-emerald-700">Tối đa 02 năm (có thể gia hạn).</p>
+                            </div>
                         </div>
-                    </div>
-                 </section>
-
-                <section id="costs" class="mb-8">
-                    <h2 class="text-2xl font-semibold text-primary mb-4">Chi phí Dịch vụ Work Permit (Tham khảo)</h2>
-                    <p class="mb-4 text-gray-600">Chi phí làm Work Permit có thể thay đổi tùy thuộc vào nhiều yếu tố như quốc tịch của giáo viên, địa điểm làm việc, tình trạng hồ sơ và đơn vị thực hiện dịch vụ. Dưới đây là mức phí tham khảo cho Work Permit có thời hạn 2 năm:</p>
-
-                    <div class="cost-section bg-emerald-50 border-secondary">
-                        <h3 class="text-secondary"><i class="fas fa-check-circle mr-2"></i>Trường hợp 1: Đã có Công ty/Trung tâm Bảo lãnh</h3>
-                        <p>Khi giáo viên đã có một đơn vị tại Việt Nam (trường học, trung tâm ngoại ngữ...) đồng ý đứng ra bảo lãnh để làm Work Permit.</p>
-                        <p class="mt-2"><strong>Chi phí ước tính:</strong> <strong class="text-xl text-secondary">$1,200 - $1,500 USD</strong></p>
-                        <p class="text-sm text-gray-600 mt-1">Bao gồm các thủ tục cần thiết như xử lý hồ sơ, lệ phí nhà nước...</p>
-                        <p class="text-sm text-gray-600 mt-2"><i class="fas fa-handshake mr-1"></i> <strong>Lưu ý về chi trả:</strong> Chi phí này có thể do giáo viên tự chi trả, hoặc trung tâm bảo lãnh hỗ trợ một phần (ví dụ: 50/50), hoặc trung tâm chi trả toàn bộ. Điều này phụ thuộc hoàn toàn vào <strong class="font-semibold">thỏa thuận trong hợp đồng</strong> giữa giáo viên và trung tâm.</p>
-                    </div>
-
-                    <div class="cost-section bg-blue-50 border-primary">
-                        <h3 class="text-primary"><i class="fas fa-building mr-2"></i>Trường hợp 2: Chưa có Công ty/Trung tâm Bảo lãnh</h3>
-                        <p>Khi giáo viên chưa có đơn vị nào tại Việt Nam đứng ra bảo lãnh.</p>
-                        <p class="mt-2"><strong>Chi phí ước tính:</strong> <strong class="text-xl text-primary">$1,800 - $2,500 USD</strong></p>
-                        <p class="text-sm text-gray-600 mt-1">Bao gồm chi phí ở Trường hợp 1 <strong class="font-semibold">CỘNG THÊM</strong> chi phí dịch vụ tìm và trả cho một đơn vị đứng tên bảo lãnh (khoảng $1,000 - $1,500 USD). Đơn vị này chịu trách nhiệm pháp lý về việc bảo lãnh nhưng thường không có nhu cầu tuyển dụng trực tiếp giáo viên đó.</p>
-                        <p class="text-sm text-gray-600 mt-2"><i class="fas fa-info-circle mr-1"></i> IVS JSC có thể hỗ trợ tìm đơn vị bảo lãnh phù hợp trong trường hợp này.</p>
-                    </div>
-
-                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm text-amber-800">
-                       <p><strong class="font-semibold">Quan trọng:</strong> Các mức phí trên chỉ là tham khảo từ một số đơn vị dịch vụ và có thể thay đổi. Chi phí chính xác chỉ có thể xác định sau khi đã có đầy đủ hồ sơ và tiến hành nộp.</p>
                     </div>
                 </section>
 
-                 <section id="post-permit" class="mb-8">
-                     <h2 class="text-2xl font-semibold text-primary mb-4">Sau khi có Work Permit</h2>
-                     <p class="text-gray-600">Việc quản lý giáo viên sau khi được cấp Work Permit và hỗ trợ tìm lớp dạy sẽ phụ thuộc vào thỏa thuận giữa giáo viên và đơn vị bảo lãnh hoặc đơn vị tuyển dụng trực tiếp.</p>
-                     <p class="mt-2 text-gray-600">Vui lòng liên hệ trực tiếp với IVS JSC để thảo luận chi tiết về quyền lợi và trách nhiệm của các bên trong từng trường hợp cụ thể.</p>
-                 </section>
+                <section id="costs" class="mb-12">
+                    <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6">Chi phí Dịch vụ Work Permit (Tham khảo)</h2>
+                    <p class="mb-6 text-gray-600 leading-relaxed">Chi phí làm Work Permit có thể thay đổi tùy thuộc vào quốc tịch, địa điểm làm việc, tình trạng hồ sơ và đơn vị thực hiện dịch vụ. Dưới đây là mức phí tham khảo:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="cost-section bg-emerald-50 border-secondary flex items-start gap-4">
+                            <i class="fas fa-check-circle text-3xl text-secondary"></i>
+                            <div>
+                                <h3 class="text-secondary text-xl font-semibold">Có Công ty Bảo lãnh</h3>
+                                <p class="mt-2 text-gray-600">Khi giáo viên đã có đơn vị tại Việt Nam (trường học, trung tâm ngoại ngữ...) đồng ý bảo lãnh.</p>
+                                <p class="mt-2"><strong>Chi phí:</strong> <span class="text-xl text-secondary">$1,200 - $1,500 USD</span></p>
+                                <p class="text-sm text-gray-600 mt-2">Bao gồm thủ tục, lệ phí nhà nước. Chi phí có thể do trung tâm hỗ trợ tùy thỏa thuận.</p>
+                            </div>
+                        </div>
+                        <div class="cost-section bg-blue-50 border-primary flex items-start gap-4">
+                            <i class="fas fa-building text-3xl text-primary"></i>
+                            <div>
+                                <h3 class="text-primary text-xl font-semibold">Chưa có Công ty Bảo lãnh</h3>
+                                <p class="mt-2 text-gray-600">Khi giáo viên chưa có đơn vị nào tại Việt Nam đứng ra bảo lãnh.</p>
+                                <p class="mt-2"><strong>Chi phí:</strong> <span class="text-xl text-primary">$1,800 - $2,500 USD</span></p>
+                                <p class="text-sm text-gray-600 mt-2">Bao gồm chi phí tìm đơn vị bảo lãnh ($1,000 - $1,500 USD). IVS JSC có thể hỗ trợ.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mt-6 text-sm text-amber-800">
+                        <p><strong>Quan trọng:</strong> Các mức phí trên chỉ là tham khảo và có thể thay đổi. Chi phí chính xác sẽ được xác định sau khi nộp hồ sơ.</p>
+                    </div>
+                </section>
 
-                 <section id="contact-cta" class="text-center border-t pt-6 mt-8">
-                      <p class="text-lg font-medium text-gray-800 mb-4">Bạn cần hỗ trợ về thủ tục Work Permit hoặc tìm kiếm giáo viên nước ngoài?</p>
-                      <a href="contact.html" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-blue-500 hover:from-primary-dark hover:to-primary text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition duration-300 text-base">
-                          <i class="fas fa-headset"></i> Liên hệ IVS JSC ngay
-                      </a>
-                 </section>
+                <section id="post-permit" class="mb-12">
+                    <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6">Sau khi có Work Permit</h2>
+                    <p class="text-gray-600 leading-relaxed">Việc quản lý giáo viên sau khi được cấp Work Permit và hỗ trợ tìm lớp dạy sẽ phụ thuộc vào thỏa thuận giữa giáo viên và đơn vị bảo lãnh hoặc đơn vị tuyển dụng trực tiếp.</p>
+                    <p class="mt-4 text-gray-600 leading-relaxed">Vui lòng liên hệ trực tiếp với IVS JSC để thảo luận chi tiết về quyền lợi và trách nhiệm của các bên.</p>
+                </section>
 
+                <section id="contact-cta" class="text-center border-t pt-6 mt-8">
+                    <p class="text-lg font-medium text-gray-800 mb-4">Bạn cần hỗ trợ về thủ tục Work Permit hoặc tìm kiếm giáo viên nước ngoài?</p>
+                    <a href="contact.html" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-blue-500 hover:from-primary-dark hover:to-primary text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-1 text-base">
+                        <i class="fas fa-headset"></i> Liên hệ IVS JSC ngay
+                    </a>
+                </section>
             </article>
         </div>
     </main>
 
-    <footer id="footer-placeholder">
-        <div class="bg-gray-200 text-gray-500 text-center p-4 animate-pulse">Đang tải footer...</div>
+    <footer id="footer-placeholder" class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>© <span id="current-year">2025</span> IVS JSC. All rights reserved.</p>
+            <div class="mt-4 flex justify-center gap-6">
+                <a href="#" class="hover:text-primary"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="hover:text-primary"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
     </footer>
+
+    <button id="back-to-top" class="opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const headerPlaceholder = document.getElementById('header-placeholder');
             const footerPlaceholder = document.getElementById('footer-placeholder');
-            // !! QUAN TRỌNG: Đảm bảo tên file header/footer chính xác !!
             const headerPath = 'header.html';
             const footerPath = 'footer.html';
 
-            // --- Helper function to handle fetch errors ---
             function handleFetchError(error, placeholderElement, type) {
-                console.error(`Error fetching or processing ${type}:`, error);
-                let errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${type}.`;
-                let errorDetails = ` (${error.message})`;
-
-                if (error instanceof TypeError && (error.message.includes('Failed to parse URL') || error.message.includes('Failed to fetch'))) {
-                     if(window.location.protocol === 'file:') {
-                         errorMessage = `<i class="fas fa-exclamation-circle mr-2"></i> <strong>Không thể tải ${type} trực tiếp từ file.</strong><br>Vui lòng chạy trang web này qua một máy chủ cục bộ (local server).`;
-                         errorDetails = "";
-                     } else {
-                          errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi mạng khi tải ${type}.`;
-                     }
-                } else if (error.message.includes('HTTP error')) {
-                     errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${type}. Không tìm thấy file (${type === 'header' ? headerPath : footerPath}) hoặc lỗi máy chủ.`;
-                } else {
-                     errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi không xác định khi tải ${type}.`;
-                }
-                placeholderElement.innerHTML = `<div class="fetch-error-message ${type}-error">${errorMessage}${errorDetails}</div>`;
+                console.error(`Error fetching ${type}:`, error);
+                const errorDiv = document.createElement('div');
+                errorDiv.className = `fetch-error-message ${type}-error`;
+                errorDiv.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-exclamation-circle text-danger"></i>
+                        <p>Không thể tải ${type}. Vui lòng kiểm tra kết nối hoặc liên hệ hỗ trợ.</p>
+                    </div>
+                `;
+                placeholderElement.replaceWith(errorDiv);
             }
 
-            // --- Fetch Header ---
             if (headerPlaceholder) {
                 fetch(headerPath)
                     .then(response => { if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`); return response.text(); })
                     .then(data => { headerPlaceholder.innerHTML = data; initializeHeaderScriptsIfNeeded(); })
                     .catch(error => handleFetchError(error, headerPlaceholder, 'header'));
-            } else {
-                 console.warn("Header placeholder not found.");
             }
 
-            // --- Fetch Footer ---
             if (footerPlaceholder) {
                 fetch(footerPath)
                     .then(response => { if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`); return response.text(); })
                     .then(data => { footerPlaceholder.innerHTML = data; initializeFooterScriptsIfNeeded(); })
                     .catch(error => handleFetchError(error, footerPlaceholder, 'footer'));
-            } else {
-                 console.warn("Footer placeholder not found.");
-             }
+            }
+
+            function initializeHeaderScriptsIfNeeded() {
+                console.log("Initializing header scripts...");
+                try {
+                    if (typeof toggleMobileMenu === 'function') toggleMobileMenu();
+                } catch(e) { console.error("Error in initializeHeaderScriptsIfNeeded:", e); }
+            }
+
+            function initializeFooterScriptsIfNeeded() {
+                console.log("Initializing footer scripts...");
+                try {
+                    const currentYearSpan = document.querySelector('#current-year');
+                    if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
+                } catch(e) { console.error("Error in initializeFooterScriptsIfNeeded:", e); }
+            }
+
+            const backToTopBtn = document.getElementById('back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.add('opacity-100', 'visible');
+                    backToTopBtn.classList.remove('opacity-0', 'invisible');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'invisible');
+                    backToTopBtn.classList.remove('opacity-100', 'visible');
+                }
+            });
+            backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
         });
 
-        // --- Placeholder Functions for Script Initialization ---
-        function initializeHeaderScriptsIfNeeded() {
-            console.log("Initializing header scripts (if any)...");
-            try {
-                // Call header-specific JS initialization functions if they exist
-                if (typeof initializeMobileMenu === 'function') initializeMobileMenu();
-                if (typeof initializeLanguageSwitcher === 'function') initializeLanguageSwitcher();
-                // Add other header init calls here
-            } catch(e) { console.error("Error in initializeHeaderScriptsIfNeeded:", e); }
-        }
-
-        function initializeFooterScriptsIfNeeded() {
-            console.log("Initializing footer scripts (if any)...");
-            try {
-                // Update copyright year
-                const footerElement = document.getElementById('footer-placeholder');
-                if (footerElement) {
-                    const currentYearSpan = footerElement.querySelector('#current-year');
-                    if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
-                }
-                // Call other footer init calls here
-            } catch(e) { console.error("Error in initializeFooterScriptsIfNeeded:", e); }
+        function toggleMobileMenu() {
+            console.log("Toggle mobile menu...");
         }
     </script>
-    </body>
+</body>
 </html>
