@@ -3,300 +3,518 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chọn Truyện Để Đọc - IVS</title>
-    <meta name="description" content="Danh sách truyện hấp dẫn từ IVS: LEGNAXE - Bí mật cuộc chiến Thiên Đàng.">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {}
-                }
-            },
-            darkMode: 'class'
-        }
-    </script>
+    <title data-lang-key="readnovel_page_title">Chọn Truyện Để Đọc - IVS</title>
+    <meta name="description" content="Danh sách truyện song ngữ hấp dẫn từ IVS: LEGNAXE - Bí mật cuộc chiến Thiên Đàng và nhiều hơn nữa." data-lang-key="readnovel_meta_description">
+    <meta property="og:title" content="Chọn Truyện Để Đọc - IVS Read Novel" data-lang-key="readnovel_og_title">
+    <meta property="og:description" content="Khám phá thế giới truyện song ngữ độc đáo tại IVS. Đọc LEGNAXE và các tác phẩm khác." data-lang-key="readnovel_og_description">
+    <meta property="og:image" content="images/pages/novels/legnaxe1.png"> <meta property="og:url" content="https://ivs.id.vn/readnovel.html"> <meta property="og:type" content="website">
+
+    <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/styles.css">
+
+    <script>
+        // Tailwind config (Giữ lại để nhất quán)
+        tailwind.config = {
+          theme: {
+            extend: {
+              fontFamily: {
+                sans: ['Inter', 'sans-serif'],
+              },
+              colors: { // Đảm bảo các màu dùng trong trang này được định nghĩa
+                'primary': '#3b82f6', // blue-500
+                'primary-dark': '#2563eb', // blue-600
+                'secondary': '#10b981', // emerald-500
+                'warning': '#f59e0b', // amber-500
+                'header-orange': '#f97316', // orange-600
+                'blue': { '50': '#eff6ff', '100': '#dbeafe', '200': '#bfdbfe', '500': '#3b82f6', '600': '#2563eb', '700': '#1d4ed8', '800': '#1e40af', '900': '#1e3a8a'}, // Thêm các sắc thái blue
+                'green': { '500': '#22c55e', '600': '#16a34a', '700': '#15803d' },
+                'amber': { '500': '#f59e0b', '700': '#b45309' },
+                'purple': { '500': '#8b5cf6', '600': '#7c3aed', '700': '#6d28d9' },
+                'red': { '100': '#fee2e2', '300': '#fca5a5', '500': '#ef4444', '600': '#dc2626', '700':'#b91c1c', '900': '#7f1d1d' }, // Thêm sắc thái red
+                'yellow': { '500': '#eab308', '600': '#ca8a04' },
+                'indigo': { '500': '#6366f1', '600': '#4f46e5' },
+                'teal': { '500': '#14b8a6', '600': '#0d9488' },
+                'pink': { '500': '#ec4899', '600': '#db2777' },
+                // Bao gồm các màu gray cần thiết
+                'gray-50': '#f9fafb', '100': '#f3f4f6', '200': '#e5e7eb', '300': '#d1d5db', '400': '#9ca3af', '500': '#6b7280', '600': '#4b5563', '700': '#374151', '800': '#1f2937', '900': '#111827',
+              }
+            }
+          },
+          darkMode: 'class' // Kích hoạt dark mode bằng class
+        }
+      </script>
+
     <style>
         :root {
-            --header-height-initial: 80px;
-            --header-height-scrolled: 60px;
-            --header-height-mobile: 60px;
+            --header-height-initial: 80px; /* Chiều cao header ban đầu trên desktop */
+            --header-height-scrolled: 60px; /* Chiều cao header khi cuộn trên desktop */
+            --header-height-mobile: 60px; /* Chiều cao header trên mobile */
         }
 
         body {
-            padding-top: var(--header-height-mobile);
+            padding-top: var(--header-height-mobile); /* Padding top cho mobile */
             font-family: 'Inter', sans-serif;
+            @apply bg-gray-100 text-gray-800; /* Nền sáng mặc định */
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        @media (min-width: 1024px) {
-            body { padding-top: var(--header-height-initial); }
+        @media (min-width: 1024px) { /* lg breakpoint */
+            body { padding-top: var(--header-height-initial); } /* Padding top cho desktop */
         }
 
-        html.dark body { }
-        html.dark .page-content-container { }
-        html.dark h1.page-title { }
-        html.dark .novel-card { }
-        html.dark .novel-card h3 { }
-        html.dark .novel-card p { }
-        html.dark .novel-card a.read-button:not([aria-disabled='true']) { }
-        html.dark .novel-card a.read-button.english-button:not([aria-disabled='true']) { }
-        html.dark .settings button { }
-        html.dark .novel-card a.read-button[aria-disabled='true'] { }
+        /* Dark Mode Styles */
+        html.dark body {
+            @apply bg-gray-900 text-gray-200;
+        }
+        html.dark .page-content-container {
+            @apply bg-gray-800;
+        }
+        html.dark h1.page-title {
+            @apply text-gray-100 border-gray-700;
+        }
+        html.dark .novel-card {
+            @apply bg-gray-800 border-gray-700 shadow-lg shadow-gray-900/50;
+        }
+        html.dark .novel-card h3 {
+            @apply text-gray-100;
+        }
+        html.dark .novel-card p {
+            @apply text-gray-400;
+        }
+        html.dark .novel-card a.read-button:not([aria-disabled='true']) {
+            @apply bg-blue-600 hover:bg-blue-700 text-white;
+        }
+        html.dark .novel-card a.read-button.english-button:not([aria-disabled='true']) {
+            @apply bg-green-600 hover:bg-green-700 text-white;
+        }
+        html.dark .settings button {
+            @apply bg-gray-700 text-gray-300 hover:bg-gray-600;
+        }
+        html.dark .novel-card a.read-button[aria-disabled='true'] {
+            @apply bg-gray-600 text-gray-400 cursor-not-allowed;
+        }
+        html.dark .fetch-error-message {
+            @apply bg-red-900 border-red-700 text-red-200;
+        }
+        /* End Dark Mode Styles */
 
         #header-placeholder {
-            min-height: var(--header-height-mobile);
+            min-height: var(--header-height-mobile); /* Đảm bảo không bị giật khi header load */
         }
         @media (min-width: 1024px) {
              #header-placeholder { min-height: var(--header-height-initial); }
         }
 
-        .page-content-container 
-        
+        .main-content-wrapper {
+            @apply flex flex-col min-h-screen; /* Đảm bảo footer luôn ở dưới */
+        }
 
-        h1.page-title 
-        
+        .page-content-container {
+            @apply container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 bg-white rounded-lg shadow-md mt-6;
+            @apply dark:bg-gray-800; /* Thêm dark mode */
+        }
 
-        .novel-list 
-        
+        h1.page-title {
+            @apply text-3xl md:text-4xl font-bold text-center text-gray-900 mb-8 md:mb-12 pb-4 border-b border-gray-200;
+            @apply dark:text-gray-100 dark:border-gray-700; /* Thêm dark mode */
+        }
 
-        .novel-card 
-        
+        .novel-list {
+            @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8;
+        }
 
-        .novel-card .cover-link 
-        
+        .novel-card {
+            @apply bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 flex flex-col transition-shadow duration-300 hover:shadow-xl;
+            @apply dark:bg-gray-800 dark:border-gray-700 dark:shadow-lg dark:shadow-gray-900/50; /* Thêm dark mode */
+        }
 
-        .novel-card img.book-cover 
-        
+        .novel-card .cover-link {
+            @apply block overflow-hidden aspect-[2/3] relative; /* Tỷ lệ 2:3 cho bìa sách */
+        }
 
-        .novel-card .card-content 
-        
+        .novel-card img.book-cover {
+            @apply w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105;
+        }
 
-        .novel-card h3 
-        
+        .novel-card .card-content {
+            @apply p-4 md:p-5 flex flex-col flex-grow; /* Đảm bảo nội dung card co giãn */
+        }
 
-        .novel-card p 
-        
+        .novel-card h3 {
+            @apply text-lg md:text-xl font-semibold text-gray-900 mb-1;
+            @apply dark:text-gray-100; /* Thêm dark mode */
+        }
 
-        .novel-card a.read-button 
-        
-        .novel-card a.read-button.english-button 
-        
+        .novel-card p {
+            @apply text-sm text-gray-600 line-clamp-2 flex-grow mb-4; /* Giới hạn 2 dòng, co giãn và thêm margin bottom */
+            @apply dark:text-gray-400; /* Thêm dark mode */
+        }
 
-        .novel-card a.read-button[aria-disabled='true'] 
-        
+        .novel-card a.read-button {
+            @apply inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200;
+            @apply dark:bg-blue-600 dark:hover:bg-blue-700; /* Thêm dark mode */
+        }
+        .novel-card a.read-button.english-button {
+            @apply bg-green-600 hover:bg-green-700 focus:ring-green-500;
+            @apply dark:bg-green-600 dark:hover:bg-green-700; /* Thêm dark mode */
+        }
 
-        .settings 
-        
+        .novel-card a.read-button[aria-disabled='true'] {
+            @apply bg-gray-400 hover:bg-gray-400 cursor-not-allowed opacity-70;
+            @apply dark:bg-gray-600 dark:text-gray-400; /* Thêm dark mode */
+        }
+        .novel-card a.read-button i {
+             @apply mr-2; /* Khoảng cách cho icon */
+        }
 
-        .settings button         
-        #footer-placeholder 
-    
+        .settings {
+            @apply absolute top-4 right-4 z-10; /* Đặt góc trên bên phải */
+        }
 
-        .fetch-error-message 
-        
-        .fetch-error-message.header-error 
+        .settings button {
+            @apply p-2 rounded-full bg-gray-200 text-gray-600 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200;
+            @apply dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600; /* Thêm dark mode */
+        }
+
+        #footer-placeholder {
+             /* Footer sẽ được load vào đây */
+        }
+
+        /* Styles for fetch error messages */
+        .fetch-error-message {
+            @apply text-center p-4 rounded-md border text-sm; /* Giảm kích thước chữ */
+            @apply bg-red-100 border-red-300 text-red-700;
+            @apply dark:bg-red-900 dark:border-red-700 dark:text-red-200;
+        }
+        .fetch-error-message.header-error {
              min-height: var(--header-height-mobile);
-
-         @media (min-width: 1024px) {
-             .fetch-error-message.header-error { min-height: var(--header-height-initial); }
-         }
-        .fetch-error-message.footer-error         
-        html.dark .fetch-error-message
+             @apply flex items-center justify-center font-medium; /* Thêm font-medium */
+             @media (min-width: 1024px) { min-height: var(--header-height-initial); }
+        }
+        .fetch-error-message.footer-error {
+             @apply p-6 font-medium; /* Thêm font-medium */
+        }
+        .fetch-error-message strong {
+            @apply font-semibold; /* Đảm bảo strong có tác dụng */
+        }
+        .fetch-error-message i {
+            @apply mr-2 text-red-500 dark:text-red-400; /* Icon màu đỏ */
+        }
+        .fetch-error-message code {
+            @apply bg-red-200 dark:bg-red-800 px-1 py-0.5 rounded text-xs; /* Style cho tên file */
+        }
 
     </style>
 </head>
 <body class="antialiased">
 
     <header id="header-placeholder">
-        <div class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 animate-pulse" style="height: var(--header-height-mobile);">
-             Đang tải header...
+        <div class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 animate-pulse" style="min-height: var(--header-height-mobile);"> <i class="fas fa-spinner fa-spin mr-2"></i> Đang tải header...
         </div>
     </header>
 
     <div class="main-content-wrapper flex-grow">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="page-content-container">
-                <h1 class="page-title">Chọn Truyện Để Đọc</h1>
+        <div class="page-content-container relative"> <h1 class="page-title" data-lang-key="readnovel_title">Chọn Truyện Để Đọc</h1>
 
-                <div class="settings">
-                    <button onclick="toggleDarkMode()" aria-label="Chuyển chế độ Sáng/Tối">
-                        <i class="fas fa-adjust mr-1"></i>
-                        <span class="hidden sm:inline">Sáng/Tối</span>
+            <div class="settings">
+                <button onclick="toggleDarkMode()" aria-label="Chuyển chế độ Sáng/Tối" title="Chuyển chế độ Sáng/Tối">
+                    <i class="fas fa-adjust"></i>
                     </button>
-                </div>
+            </div>
 
-                <div class="novel-list">
+            <div class="novel-list">
 
-                    <div class="novel-card group">
-                        <a href="legnaxe_part1_vi.html" class="cover-link" aria-label="Đọc LEGNAXE Phần 1 Tiếng Việt">
-                            <picture>
-                                <source srcset="images/pages/novels/legnaxe1.webp" type="image/webp">
-                                <img src="images/pages/novels/legnaxe1.png" alt="[Image of Bìa LEGNAXE Phần 1]" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/EBF4FF/4A5568?text=LEGNAXE+P1';">
-                            </picture>
-                        </a>
-                        <div class="card-content">
-                            <h3 class="!line-clamp-1">LEGNAXE: Phần 1</h3>
-                            <p class="mb-4">Bí mật cuộc đại chiến Thiên Đàng / Secrets of Heaven's Great War.</p>
-                            <div class="flex flex-col sm:flex-row gap-3 mt-auto">
-                                <a href="legnaxe_part1_vi.html" class="read-button">
-                                    <i class="fas fa-book-open"></i> Đọc (TV)
-                                </a>
-                                <a href="legnaxe_part1_en.html" class="read-button english-button">
-                                    <i class="fas fa-book-open"></i> Read (EN)
-                                </a>
-                            </div>
+                <div class="novel-card group">
+                    <a href="legnaxe_part1_vi.html" class="cover-link" aria-label="Đọc LEGNAXE Phần 1 Tiếng Việt">
+                        <picture>
+                            <source srcset="images/pages/novels/legnaxe1.webp" type="image/webp">
+                            <img src="images/pages/novels/legnaxe1.png" alt="Bìa truyện LEGNAXE Phần 1" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/EBF4FF/4A5568?text=LEGNAXE+P1'; this.alt='Lỗi tải ảnh bìa LEGNAXE Phần 1';">
+                        </picture>
+                    </a>
+                    <div class="card-content">
+                        <h3 class="!line-clamp-1" data-lang-key="readnovel_legnaxe1_title">LEGNAXE: Phần 1</h3>
+                        <p data-lang-key="readnovel_legnaxe1_desc">Bí mật cuộc đại chiến Thiên Đàng / Secrets of Heaven's Great War.</p>
+                        <div class="flex flex-col sm:flex-row gap-3 mt-auto">
+                            <a href="legnaxe_part1_vi.html" class="read-button" data-lang-key="readnovel_read_vi">
+                                <i class="fas fa-book-open"></i> Đọc (TV)
+                            </a>
+                            <a href="legnaxe_part1_en.html" class="read-button english-button" data-lang-key="readnovel_read_en">
+                                <i class="fas fa-book-open"></i> Read (EN)
+                            </a>
                         </div>
                     </div>
+                </div>
 
-                    <div class="novel-card group">
-                         <a href="legnaxe_part2_vi.html" class="cover-link" aria-label="Đọc LEGNAXE Phần 2 Tiếng Việt">
-                             <picture>
-                                 <source srcset="images/pages/novels/legnaxe2.webp" type="image/webp">
-                                 <img src="images/pages/novels/legnaxe2.png" alt="" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/FFF5F5/7F1D1D?text=LEGNAXE+P2';">
-                             </picture>
-                         </a>
-                         <div class="card-content">
-                             <h3 class="!line-clamp-1">LEGNAXE: Phần 2</h3>
-                             <p class="mb-4">Hành trình Trần Gian & Trái tim con người / Heavenly, Human’s Heart.</p>
-                             <div class="flex flex-col sm:flex-row gap-3 mt-auto">
-                                 <a href="legnaxe_part2_vi.html" class="read-button">
-                                     <i class="fas fa-book-open"></i> Đọc (TV)
-                                 </a>
-                                 <a href="#" class="read-button" aria-disabled="true" >
-                                     <i class="fas fa-clock mr-1"></i> Read (EN - Soon)
-                                 </a>
-                             </div>
-                         </div>
-                    </div>
-
-                    <div class="novel-card group opacity-50"> <a href="#" class="cover-link cursor-default" aria-label="Truyện sắp ra mắt">
-                             <picture>
-                                 <source srcset="https://placehold.co/400x600/F3E8FF/6B46C1?text=Coming+Soon.webp" type="image/webp">
-                                 <img src="https://placehold.co/400x600/F3E8FF/6B46C1?text=Coming+Soon" alt="[Image of Bìa truyện sắp ra mắt]" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/eee/aaa?text=Image+Error';">
-                             </picture>
-                         </a>
-                         <div class="card-content">
-                             <h3 class="!line-clamp-1">Truyện Mới</h3>
-                             <p class="mb-4">Một cuộc phiêu lưu kỳ thú khác sắp bắt đầu...</p>
-                             <div class="flex flex-col sm:flex-row gap-3 mt-auto">
-                                 <a href="#" class="read-button" aria-disabled="true">
-                                     <i class="fas fa-clock"></i> Sắp ra mắt
-                                 </a>
-                                  <a href="#" class="read-button english-button" aria-disabled="true">
-                                     <i class="fas fa-clock"></i> Coming Soon
-                                 </a>
-                             </div>
+                <div class="novel-card group">
+                     <a href="legnaxe_part2_vi.html" class="cover-link" aria-label="Đọc LEGNAXE Phần 2 Tiếng Việt">
+                         <picture>
+                             <source srcset="images/pages/novels/legnaxe2.webp" type="image/webp">
+                             <img src="images/pages/novels/legnaxe2.png" alt="Bìa truyện LEGNAXE Phần 2" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/FFF5F5/7F1D1D?text=LEGNAXE+P2'; this.alt='Lỗi tải ảnh bìa LEGNAXE Phần 2';">
+                         </picture>
+                     </a>
+                     <div class="card-content">
+                         <h3 class="!line-clamp-1" data-lang-key="readnovel_legnaxe2_title">LEGNAXE: Phần 2</h3>
+                         <p data-lang-key="readnovel_legnaxe2_desc">Hành trình Trần Gian & Trái tim con người / Heavenly, Human’s Heart.</p>
+                         <div class="flex flex-col sm:flex-row gap-3 mt-auto">
+                             <a href="legnaxe_part2_vi.html" class="read-button" data-lang-key="readnovel_read_vi">
+                                 <i class="fas fa-book-open"></i> Đọc (TV)
+                             </a>
+                             <a href="#" class="read-button english-button" aria-disabled="true" data-lang-key="readnovel_read_en_soon">
+                                 <i class="fas fa-clock"></i> Read (EN - Soon)
+                             </a>
                          </div>
                      </div>
+                 </div>
 
-                </div> </div> </div> </div> <footer id="footer-placeholder">
+                 <div class="novel-card group opacity-60"> <a href="#" class="cover-link cursor-default" aria-label="Truyện sắp ra mắt">
+                          <picture>
+                              <source srcset="https://placehold.co/400x600/F3E8FF/6B46C1?text=Coming+Soon.webp" type="image/webp">
+                              <img src="https://placehold.co/400x600/F3E8FF/6B46C1?text=Coming+Soon" alt="Bìa truyện sắp ra mắt" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/eee/aaa?text=Image+Error'; this.alt='Lỗi tải ảnh bìa truyện sắp ra mắt';">
+                          </picture>
+                      </a>
+                      <div class="card-content">
+                          <h3 class="!line-clamp-1" data-lang-key="readnovel_coming_soon_title">Truyện Mới</h3>
+                          <p data-lang-key="readnovel_coming_soon_desc">Một cuộc phiêu lưu kỳ thú khác sắp bắt đầu...</p>
+                          <div class="flex flex-col sm:flex-row gap-3 mt-auto">
+                              <a href="#" class="read-button" aria-disabled="true" data-lang-key="readnovel_coming_soon_vi">
+                                  <i class="fas fa-clock"></i> Sắp ra mắt
+                              </a>
+                               <a href="#" class="read-button english-button" aria-disabled="true" data-lang-key="readnovel_coming_soon_en">
+                                  <i class="fas fa-clock"></i> Coming Soon
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+
+                </div> </div> </div> <footer id="footer-placeholder">
         <div class="bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-center p-4 animate-pulse">
-            Đang tải footer...
+             <i class="fas fa-spinner fa-spin mr-2"></i> Đang tải footer...
         </div>
     </footer>
 
     <script>
+        // Dark Mode Toggle Function
         function toggleDarkMode() {
             const isDarkMode = document.documentElement.classList.toggle("dark");
             localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+            // Optional: Change button icon based on mode
+            const icon = document.querySelector('.settings button i');
+            if (icon) {
+                 // Example: toggle between fa-moon and fa-sun if needed
+                 // icon.classList.toggle('fa-moon');
+                 // icon.classList.toggle('fa-sun');
+            }
         }
 
-        if (localStorage.getItem('darkMode') === 'enabled' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add("dark");
-        } else {
-             document.documentElement.classList.remove("dark");
+        // Apply Dark Mode on Load
+        function applyInitialDarkMode() {
+            if (localStorage.getItem('darkMode') === 'enabled' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add("dark");
+            } else {
+                 document.documentElement.classList.remove("dark");
+            }
+            // Optional: Set initial button icon based on mode
         }
+        applyInitialDarkMode(); // Apply mode as soon as possible
 
+        // Fetch Header and Footer
         document.addEventListener('DOMContentLoaded', function() {
             const headerPlaceholder = document.getElementById('header-placeholder');
             const footerPlaceholder = document.getElementById('footer-placeholder');
+
+            // --- !!! QUAN TRỌNG: SỬA ĐƯỜNG DẪN NẾU CẦN !!! ---
+            // Đặt đường dẫn chính xác đến file _header.html và _footer.html
+            // Ví dụ: Nếu chúng nằm trong thư mục 'includes', đổi thành 'includes/_header.html'
             const headerPath = '_header.html';
             const footerPath = '_footer.html';
+            // ----------------------------------------------------
 
-            function handleFetchError(error, placeholderElement, type) {
-                let errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${type}.`;
-                let errorDetails = ` (${error.message})`;
+            // Function to handle fetch errors - Improved Messages
+            function handleFetchError(error, placeholderElement, type, filePath) {
+                console.error(`Error fetching ${type} from ${filePath}:`, error); // Log lỗi chi tiết hơn
+                let userMessage = ''; // Tin nhắn cho người dùng
+                let consoleInfo = `(Kiểm tra Console (F12) để biết chi tiết: ${error.message})`; // Thông tin cho dev
 
-                if (error instanceof TypeError && error.message.includes('Failed to parse URL') || error.message.includes('Failed to fetch')) {
-                     if(window.location.protocol === 'file:') {
-                         errorMessage = `<i class="fas fa-exclamation-circle mr-2"></i> <strong>Không thể tải ${type} trực tiếp từ file.</strong><br>Vui lòng chạy trang web này qua một máy chủ cục bộ (local server) để tính năng fetch hoạt động.`;
-                         errorDetails = "";
-                     } else {
-                          errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi mạng khi tải ${type}. Vui lòng kiểm tra kết nối và Console (F12).`;
-                     }
-
-                } else if (error.message.includes('HTTP error')) {
-                     errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${type}. Không tìm thấy file hoặc lỗi máy chủ. Vui lòng kiểm tra đường dẫn file và Console (F12).`;
-                } else {
-                     errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi không xác định khi tải ${type}. Vui lòng kiểm tra Console (F12).`;
+                if (window.location.protocol === 'file:') {
+                    userMessage = `<i class="fas fa-exclamation-circle mr-2"></i><strong>Lỗi Tải Giao Diện (${type}):</strong><br> Trang này không thể tải ${type} khi mở trực tiếp từ file. Vui lòng chạy qua máy chủ web cục bộ (ví dụ: Live Server trong VS Code).`;
+                    consoleInfo = ''; // Không cần thông tin console thêm
+                } else if (error instanceof TypeError || error.message.includes('Failed to fetch')) { // Lỗi mạng hoặc URL không hợp lệ (Bao gồm cả lỗi CORS)
+                     userMessage = `<i class="fas fa-network-wired mr-2"></i><strong>Lỗi Mạng/Kết Nối (${type}):</strong><br> Không thể kết nối hoặc tải file <code>${filePath}</code>. Vui lòng kiểm tra kết nối mạng và đường dẫn file.`;
+                     consoleInfo = `(Lỗi cụ thể: ${error.message})`;
+                } else if (error.message.includes('HTTP error')) { // Lỗi HTTP (404, 500...)
+                    const statusMatch = error.message.match(/Status: (\d+)/);
+                    const status = statusMatch ? statusMatch[1] : 'không rõ';
+                    if (status === '404') {
+                         userMessage = `<i class="fas fa-file-excel mr-2"></i><strong>Không Tìm Thấy File (${type} - 404):</strong><br> Không tìm thấy file tại đường dẫn <code>${filePath}</code>. Vui lòng kiểm tra lại đường dẫn trong mã nguồn.`;
+                    } else {
+                         userMessage = `<i class="fas fa-server mr-2"></i><strong>Lỗi Máy Chủ (${type}):</strong><br> Có lỗi xảy ra phía máy chủ khi tải <code>${filePath}</code> (Mã lỗi: ${status}).`;
+                    }
+                } else { // Lỗi không xác định khác
+                    userMessage = `<i class="fas fa-exclamation-triangle mr-2"></i><strong>Lỗi Không Xác Định (${type}):</strong><br> Có lỗi xảy ra khi tải <code>${filePath}</code>.`;
                 }
 
-                placeholderElement.innerHTML = `<div class="fetch-error-message ${type}-error">${errorMessage}${errorDetails}</div>`;
+                placeholderElement.innerHTML = `<div class="fetch-error-message ${type}-error">${userMessage}<br><small class="text-gray-500 dark:text-gray-400">${consoleInfo}</small></div>`;
             }
 
+            // --- Fetch Header ---
             if (headerPlaceholder) {
                 fetch(headerPath)
                     .then(response => {
                         if (!response.ok) {
+                            // Ném lỗi với thông tin trạng thái HTTP
                             throw new Error(`HTTP error fetching header! Status: ${response.status} ${response.statusText}`);
                         }
-                        return response.text();
+                        return response.text(); // Trả về nội dung text của file HTML
                     })
                     .then(data => {
-                        headerPlaceholder.innerHTML = data;
-                        initializeHeaderScriptsIfNeeded();
+                        headerPlaceholder.innerHTML = data; // Chèn HTML vào placeholder
+                        // *** QUAN TRỌNG: Gọi lại các hàm khởi tạo cho header ***
+                        if (typeof initializeMobileMenu === 'function') initializeMobileMenu();
+                        if (typeof initializeLanguageSwitcher === 'function') initializeLanguageSwitcher();
+                        if (typeof initializeHeaderScroll === 'function') initializeHeaderScroll();
+                        console.log("Header loaded successfully."); // Log thành công
                     })
                     .catch(error => {
-                        handleFetchError(error, headerPlaceholder, 'header');
+                        // Xử lý lỗi fetch header
+                        handleFetchError(error, headerPlaceholder, 'header', headerPath);
                     });
+            } else {
+                console.warn("Header placeholder not found.");
             }
 
+            // --- Fetch Footer ---
             if (footerPlaceholder) {
                 fetch(footerPath)
                     .then(response => {
-                        if (!response.ok) {
+                         if (!response.ok) {
+                             // Ném lỗi với thông tin trạng thái HTTP
                              throw new Error(`HTTP error fetching footer! Status: ${response.status} ${response.statusText}`);
                          }
-                        return response.text();
+                         return response.text(); // Trả về nội dung text của file HTML
                      })
                     .then(data => {
-                        footerPlaceholder.innerHTML = data;
-                        initializeFooterScriptsIfNeeded();
-                     })
+                        footerPlaceholder.innerHTML = data; // Chèn HTML vào placeholder
+                        // *** QUAN TRỌNG: Gọi lại các hàm khởi tạo cho footer ***
+                         if (typeof updateCopyrightYear === 'function') updateCopyrightYear();
+                         console.log("Footer loaded successfully."); // Log thành công
+                    })
                     .catch(error => {
-                         handleFetchError(error, footerPlaceholder, 'footer');
+                         // Xử lý lỗi fetch footer
+                         handleFetchError(error, footerPlaceholder, 'footer', footerPath);
                      });
+            } else {
+                 console.warn("Footer placeholder not found.");
             }
 
         });
 
-        function initializeHeaderScriptsIfNeeded() {
-            try {
-                 const mobileMenuButton = document.getElementById('mobile-menu-button');
-                 if (mobileMenuButton) {
-                 }
-             } catch (e) {
-             }
-        }
+        // --- Các hàm khởi tạo mẫu ---
+        // (Nên đặt các hàm này trong file script.js chung để tái sử dụng)
+        function initializeMobileMenu() {
+             const btn = document.getElementById('mobile-menu-button');
+             const menu = document.getElementById('mobile-menu');
+             const openIcon = btn?.querySelector('.fa-bars');
+             const closeIcon = btn?.querySelector('.fa-times');
 
-        function initializeFooterScriptsIfNeeded() {
-             try {
-                const footerElement = document.getElementById('footer-placeholder');
-                if (footerElement) {
-                    const currentYearSpan = footerElement.querySelector('#current-year');
-                    if (currentYearSpan) {
-                        currentYearSpan.textContent = new Date().getFullYear();
-                    }
-                }
-             } catch (e) {
+             if (btn && menu && openIcon && closeIcon) {
+                 btn.addEventListener('click', () => {
+                     const expanded = btn.getAttribute('aria-expanded') === 'true' || false;
+                     btn.setAttribute('aria-expanded', !expanded);
+                     menu.classList.toggle('hidden');
+                     openIcon.classList.toggle('block');
+                     openIcon.classList.toggle('hidden');
+                     closeIcon.classList.toggle('hidden');
+                     closeIcon.classList.toggle('block');
+                 });
+                  // Thêm xử lý cho dropdown menu mobile (nếu có trong _header.html)
+                  const mobileDropdownToggles = menu.querySelectorAll('button[data-dropdown-toggle]'); // Giả sử nút dropdown có attribute này
+                  mobileDropdownToggles.forEach(toggle => {
+                      toggle.addEventListener('click', (e) => {
+                          e.preventDefault();
+                          const targetId = toggle.getAttribute('data-dropdown-toggle');
+                          const submenu = document.getElementById(targetId);
+                          if (submenu) {
+                              submenu.classList.toggle('hidden');
+                              const icon = toggle.querySelector('i.fa-chevron-down');
+                              if(icon) icon.classList.toggle('rotate-180'); // Xoay icon
+                          }
+                      });
+                  });
+             } else {
+                 console.warn("Mobile menu elements not found after header load.");
              }
+         }
+
+        function initializeLanguageSwitcher() {
+            // Logic chuyển đổi ngôn ngữ của bạn ở đây
+            const langOptions = document.querySelectorAll('.lang-option');
+            langOptions.forEach(option => {
+                option.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const lang = option.getAttribute('data-lang');
+                    if (typeof setLanguage === 'function') {
+                        setLanguage(lang); // Gọi hàm setLanguage từ language.js
+                    } else {
+                        console.warn("setLanguage function not found.");
+                    }
+                    // Cập nhật hiển thị ngôn ngữ hiện tại (nếu cần)
+                    const currentLangDesktop = document.getElementById('current-lang-desktop');
+                    if(currentLangDesktop) currentLangDesktop.textContent = lang.toUpperCase();
+                    // Đóng dropdown (nếu có)
+                });
+            });
+             console.log("Language switcher initialized.");
+         }
+
+        function initializeHeaderScroll() {
+            // Logic thay đổi style header khi cuộn trang của bạn ở đây
+             const headerPlaceholder = document.getElementById('header-placeholder'); // Chọn placeholder
+             const headerNav = headerPlaceholder?.querySelector('nav'); // Chọn nav bên trong
+             if (headerNav) {
+                 const initialHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height-initial'));
+                 const scrolledHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height-scrolled'));
+
+                 window.addEventListener('scroll', () => {
+                    // Chỉ áp dụng hiệu ứng scroll cho desktop
+                    if (window.innerWidth >= 1024) {
+                         if (window.scrollY > 50) {
+                             headerNav.style.height = `${scrolledHeight}px`;
+                             headerNav.classList.add('shadow-md'); // Thêm bóng đổ nhẹ
+                         } else {
+                             headerNav.style.height = `${initialHeight}px`;
+                             headerNav.classList.remove('shadow-md');
+                         }
+                    } else {
+                        // Reset về chiều cao mobile nếu không phải desktop
+                        headerNav.style.height = `${parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height-mobile'))}px`;
+                        headerNav.classList.remove('shadow-md');
+                    }
+                 });
+                 console.log("Header scroll effect initialized.");
+             } else {
+                  console.warn("Header nav element not found for scroll effect.");
+             }
+         }
+
+        function updateCopyrightYear() {
+            const yearSpan = document.getElementById('current-year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+                console.log("Copyright year updated.");
+            } else {
+                 console.warn("Copyright year span not found.");
+            }
         }
 
     </script>
+    <script src="js/script.js" defer></script>
+    <script src="js/language.js" defer></script>
 
 </body>
 </html>

@@ -3,316 +3,444 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tầm Nhìn Giáo Dục STEAM của IVS</title>
+    <title data-lang-key="steam_page_title">Tầm Nhìn Giáo Dục STEAM của IVS</title>
+    <meta name="description" content="Khám phá tầm nhìn, triết lý và các chương trình giáo dục STEAM tiên phong của IVS, kiến tạo tương lai cho thế hệ trẻ Việt Nam." data-lang-key="steam_meta_description">
+    <meta property="og:title" content="Tầm Nhìn Giáo Dục STEAM của IVS" data-lang-key="steam_og_title">
+    <meta property="og:description" content="Tìm hiểu cách IVS tích hợp Khoa học, Công nghệ, Kỹ thuật, Nghệ thuật và Toán học để phát triển năng lực thế kỷ 21 cho học sinh." data-lang-key="steam_og_description">
+    <meta property="og:image" content="images/logo/ivs_steam_banner.png">
+    <meta property="og:url" content="https://ivs.id.vn/steambyivs.html">
+    <meta property="og:type" content="website">
+
     <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="css/styles.css">
 
     <script>
-        // Tailwind config (Giữ lại để nhất quán)
+        // Tailwind config
         tailwind.config = {
-          theme: {
-            extend: {
-              fontFamily: {
-                sans: ['Inter', 'sans-serif'],
-              },
-              colors: { // Đảm bảo các màu dùng trong trang này được định nghĩa
-                'primary': '#3b82f6', // blue-500
-                'primary-dark': '#2563eb', // blue-600
-                'secondary': '#10b981', // emerald-500
-                'warning': '#f59e0b', // amber-500
-                'header-orange': '#f97316', // orange-600
-                'blue': { '50': '#eff6ff', '100': '#dbeafe', '200': '#bfdbfe', '500': '#3b82f6', '600': '#2563eb', '700': '#1d4ed8', '800': '#1e40af' }, // Thêm các sắc thái blue
-                'green': { '500': '#22c55e', '600': '#16a34a', '700': '#15803d' },
-                'amber': { '500': '#f59e0b', '700': '#b45309' },
-                'purple': { '500': '#8b5cf6', '600': '#7c3aed', '700': '#6d28d9' },
-                'red': { '500': '#ef4444', '600': '#dc2626' },
-                'yellow': { '500': '#eab308', '600': '#ca8a04' },
-                'indigo': { '500': '#6366f1', '600': '#4f46e5' },
-                'teal': { '500': '#14b8a6', '600': '#0d9488' },
-                'pink': { '500': '#ec4899', '600': '#db2777' },
-                // Bao gồm các màu gray cần thiết
-                'gray-50': '#f9fafb', '100': '#f3f4f6', '200': '#e5e7eb', '300': '#d1d5db', '400': '#9ca3af', '500': '#6b7280', '600': '#4b5563', '700': '#374151', '800': '#1f2937', '900': '#111827',
-              }
-            }
-          }
-        }
-      </script>
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary': '#3b82f6',
+                        'primary-dark': '#2563eb',
+                        'secondary': '#10b981',
+                        'warning': '#f59e0b',
+                        'header-orange': '#f97316',
+                        'blue': { '50': '#eff6ff', '100': '#dbeafe', '200': '#bfdbfe', '500': '#3b82f6', '600': '#2563eb', '700': '#1d4ed8', '800': '#1e40af', '900': '#1e3a8a' },
+                        'green': { '500': '#22c55e', '600': '#16a34a', '700': '#15803d' },
+                        'amber': { '500': '#f59e0b', '700': '#b45309' },
+                        'purple': { '500': '#8b5cf6', '600': '#7c3aed', '700': '#6d28d9' },
+                        'red': { '100': '#fee2e2', '300': '#fca5a5', '500': '#ef4444', '600': '#dc2626', '700': '#b91c1c', '900': '#7f1d1d' },
+                        'yellow': { '500': '#eab308', '600': '#ca8a04' },
+                        'indigo': { '500': '#6366f1', '600': '#4f46e5' },
+                        'teal': { '500': '#14b8a6', '600': '#0d9488' },
+                        'pink': { '500': '#ec4899', '600': '#db2777' },
+                        'gray': { '50': '#f9fafb', '100': '#f3f4f6', '200': '#e5e7eb', '300': '#d1d5db', '400': '#9ca3af', '500': '#6b7280', '600': '#4b5563', '700': '#374151', '800': '#1f2937', '900': '#111827' },
+                    },
+                },
+            },
+            darkMode: 'class',
+        };
+    </script>
 
     <style>
-        /* Thêm các style tùy chỉnh từ styles.css hoặc ghi đè tại đây nếu cần */
-        .vision-section {
-            @apply mb-8 p-6 bg-white rounded-lg shadow-md;
+        :root {
+            --header-height-initial: 80px;
+            --header-height-scrolled: 60px;
+            --header-height-mobile: 60px;
         }
-        .vision-title {
-            @apply text-2xl font-semibold text-blue-700 mb-4 border-b-2 border-blue-200 pb-2;
+
+        body {
+            padding-top: var(--header-height-mobile);
+            font-family: 'Inter', sans-serif;
+            @apply bg-gray-50 text-gray-800;
+            @apply dark:bg-gray-900 dark:text-gray-200;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        .vision-subtitle {
-            @apply text-xl font-semibold text-gray-800 mt-6 mb-3;
+
+        @media (min-width: 1024px) {
+            body { padding-top: var(--header-height-initial); }
         }
-        .vision-text {
-            @apply text-gray-700 leading-relaxed;
+
+        /* General Styles */
+        .content-section {
+            @apply mb-16 p-6 md:p-8 rounded-xl shadow-lg border border-gray-200;
+            @apply dark:bg-gray-800 dark:border-gray-700;
         }
-        .vision-list {
-            @apply list-disc list-inside text-gray-700 leading-relaxed space-y-2 ml-4;
+
+        .section-title {
+            @apply text-2xl md:text-3xl font-bold text-primary mb-6 pb-3 border-b-2 border-blue-100;
+            @apply dark:text-blue-400 dark:border-gray-700;
         }
+
+        .section-subtitle {
+            @apply text-xl md:text-2xl font-semibold text-gray-800 mt-6 mb-4;
+            @apply dark:text-gray-100;
+        }
+
+        .section-text {
+            @apply text-base md:text-lg text-gray-700 leading-relaxed mb-4;
+            @apply dark:text-gray-300;
+            line-height: 1.75;
+            letter-spacing: 0.02em;
+        }
+
+        .section-list {
+            @apply list-none space-y-4 pl-0;
+        }
+
+        .section-list li {
+            @apply flex items-start;
+        }
+
+        .section-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            @apply text-green-500 mr-3 mt-1 text-lg flex-shrink-0;
+            @apply dark:text-green-400;
+        }
+
         .highlight {
-            @apply text-blue-600 font-medium;
+            @apply text-blue-600 font-semibold;
+            @apply dark:text-blue-400;
         }
+
         .core-value {
-            @apply inline-block bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded;
+            @apply inline-block text-sm font-semibold mr-2 mb-2 px-3 py-1 rounded-full shadow-sm transition transform hover:scale-105;
         }
-        .footer-link { /* Đảm bảo class này tồn tại */
-             @apply text-gray-300 hover:text-white text-sm transition-colors duration-200;
-         }
-         /* Đảm bảo các lớp header-nav hoạt động */
-         .header-nav a {
-             @apply text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200;
-         }
-         .header-nav a.active { /* Thêm class active nếu cần */
-             @apply text-primary font-semibold;
-         }
-         /* Style cho mobile menu active */
-         #mobile-menu a.active {
-            @apply bg-blue-50 border-primary text-primary;
-         }
-         #mobile-menu a:not(.active) {
-            @apply border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800;
-         }
+
+        .core-value:nth-child(1) { @apply bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200; }
+        .core-value:nth-child(2) { @apply bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-200; }
+        .core-value:nth-child(3) { @apply bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-200; }
+        .core-value:nth-child(4) { @apply bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-200; }
+
+        .program-card {
+            @apply p-6 rounded-lg shadow-md mb-6 border border-blue-200 transition transform hover:-translate-y-1 hover:shadow-xl;
+            @apply dark:border-gray-600;
+        }
+
+        .program-card.grade-6 { @apply bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-800 dark:to-blue-900; }
+        .program-card.grade-7 { @apply bg-gradient-to-br from-green-100 to-green-200 dark:from-green-800 dark:to-green-900; }
+        .program-card.grade-8 { @apply bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-800 dark:to-purple-900; }
+        .program-card.grade-9 { @apply bg-gradient-to-br from-amber-100 to-amber-200 dark:from-amber-800 dark:to-amber-900; }
+
+        .program-card h4 {
+            @apply text-lg font-semibold text-indigo-700 mb-2;
+            @apply dark:text-indigo-300;
+        }
+
+        .program-card ul {
+            @apply list-disc list-inside text-gray-600 text-base space-y-2;
+            @apply dark:text-gray-400;
+        }
+
+        /* Header/Footer Placeholder */
+        #header-placeholder, #footer-placeholder {
+            min-height: var(--header-height-mobile);
+        }
+
+        @media (min-width: 1024px) {
+            #header-placeholder { min-height: var(--header-height-initial); }
+        }
+
+        .header-skeleton {
+            @apply fixed top-0 left-0 right-0 z-50 bg-gray-100 dark:bg-gray-800;
+        }
+
+        .fetch-error-message {
+            @apply text-center p-4 rounded-lg border text-sm bg-red-50 border-red-200 text-red-600 flex items-center justify-center;
+            @apply dark:bg-red-950 dark:border-red-800 dark:text-red-300;
+        }
+
+        .fetch-error-message i {
+            @apply text-lg mr-3;
+        }
+
+        .fetch-error-message.header-error {
+            min-height: var(--header-height-mobile);
+            @apply font-medium;
+            @media (min-width: 1024px) { min-height: var(--header-height-initial); }
+        }
+
+        .fetch-error-message.footer-error {
+            @apply p-6 font-medium;
+        }
+
+        .cta-button {
+            @apply inline-block px-6 py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-primary-dark transition duration-300 ease-in-out transform hover:scale-105;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 640px) {
+            .content-section { @apply p-4 mb-12; }
+            .program-card { @apply p-4; }
+            .section-text, .program-card ul { @apply text-base; }
+            h1 { @apply text-3xl; }
+            .section-title { @apply text-xl; }
+        }
     </style>
 </head>
-<body class="bg-gray-100 antialiased">
+<body class="antialiased">
 
-    <header id="header-placeholder" class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <a href="index.html">
-                            <img class="block h-8 md:h-10 w-auto" src="images/logo/logo.png" alt="IVS Logo" onerror="this.onerror=null; this.src='https://placehold.co/150x40/003399/FFFFFF?text=IVS+Logo';">
-                        </a>
-                    </div>
-                </div>
-                <div class="hidden sm:ml-6 sm:flex sm:items-center header-nav space-x-4">
-                    <a href="index.html" data-lang-key="nav_home">Trang chủ</a>
-                    <div class="relative group">
-                        <a href="about.html" class="inline-flex items-center" data-lang-key="nav_about">
-                            Giới thiệu <i class="fas fa-chevron-down text-xs ml-1"></i>
-                        </a>
-                        <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out invisible group-hover:visible z-20">
-                            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                <a href="about.html#vision-mission" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" data-lang-key="nav_vision_mission">Tầm nhìn & Sứ mệnh</a>
-                                <a href="about.html#core-values" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" data-lang-key="nav_core_values">Giá trị cốt lõi</a>
-                                <a href="about.html#leadership" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" data-lang-key="nav_leadership">Đội ngũ lãnh đạo</a>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="relative group">
-                        <a href="#" class="inline-flex items-center active" data-lang-key="nav_programs"> Chương trình <i class="fas fa-chevron-down text-xs ml-1"></i>
-                        </a>
-                        <div class="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out invisible group-hover:visible z-20">
-                            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                <a href="steambyivs.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active" role="menuitem" data-lang-key="nav_steam">STEAM</a> <a href="english-programs.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" data-lang-key="nav_english">Ngoại ngữ</a>
-                                <a href="ivslifeminds.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" data-lang-key="nav_lifeskills">Kỹ năng sống</a>
-                                <a href="hocbong.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" data-lang-key="nav_scholarship_camp">Học bổng & Trại hè</a>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="news.html" data-lang-key="nav_news">Tin tức</a>
-                    <a href="contact.html" data-lang-key="nav_contact">Liên hệ</a>
-                    <div class="relative group">
-                         <a href="#" id="language-switcher-desktop" class="inline-flex items-center">
-                             <i class="fas fa-globe mr-1"></i> <span id="current-lang-desktop">VI</span> <i class="fas fa-chevron-down text-xs ml-1"></i>
-                         </a>
-                         <div class="absolute right-0 mt-2 w-24 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-in-out invisible group-hover:visible z-20">
-                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="language-options-menu">
-                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 lang-option" role="menuitem" data-lang="vi">Tiếng Việt</a>
-                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 lang-option" role="menuitem" data-lang="en">English</a>
-                             </div>
-                         </div>
-                     </div>
-                </div>
-                <div class="-mr-2 flex items-center sm:hidden">
-                    <button type="button" id="mobile-menu-button" class="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary" aria-controls="mobile-menu" aria-expanded="false">
-                        <span class="sr-only">Mở menu chính</span>
-                        <i class="fas fa-bars fa-lg block"></i>
-                        <i class="fas fa-times fa-lg hidden"></i>
-                    </button>
-                </div>
+    <header id="header-placeholder" class="header-skeleton">
+        <div class="max-w-5xl mx-auto px-4 md:px-6 flex items-center justify-between h-[var(--header-height-mobile)] md:h-[var(--header-height-initial)]">
+            <div class="h-10 w-32 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
+            <div class="hidden md:flex space-x-4">
+                <div class="h-6 w-20 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
+                <div class="h-6 w-20 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
+                <div class="h-6 w-20 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
             </div>
-        </nav>
-
-        <div class="hidden sm:hidden" id="mobile-menu">
-            <div class="pt-2 pb-3 space-y-1">
-                <a href="index.html" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-lang-key="nav_home">Trang chủ</a>
-                <a href="about.html" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-lang-key="nav_about">Giới thiệu</a>
-                <div>
-                     <button class="w-full text-left block pl-3 pr-4 py-2 border-l-4 text-base font-medium active" data-lang-key="nav_programs"> Chương trình <i class="fas fa-chevron-down text-xs ml-1 float-right mt-1"></i>
-                     </button>
-                     <div class="pl-8 space-y-1 hidden">
-                         <a href="steambyivs.html" class="block pl-3 pr-4 py-2 text-base font-medium active" role="menuitem" data-lang-key="nav_steam">STEAM</a> <a href="english-programs.html" class="block pl-3 pr-4 py-2 text-base font-medium" role="menuitem" data-lang-key="nav_english">Ngoại ngữ</a>
-                         <a href="ivslifeminds.html" class="block pl-3 pr-4 py-2 text-base font-medium" role="menuitem" data-lang-key="nav_lifeskills">Kỹ năng sống</a>
-                         <a href="hocbong.html" class="block pl-3 pr-4 py-2 text-base font-medium" role="menuitem" data-lang-key="nav_scholarship_camp">Học bổng & Trại hè</a>
-                     </div>
-                 </div>
-                <a href="news.html" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-lang-key="nav_news">Tin tức</a>
-                <a href="contact.html" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium" data-lang-key="nav_contact">Liên hệ</a>
-                 <div class="pt-4 pb-3 border-t border-gray-200">
-                     <div class="flex items-center px-4">
-                         <i class="fas fa-globe mr-2 text-gray-500"></i>
-                         <span class="text-base font-medium text-gray-800">Ngôn ngữ</span>
-                     </div>
-                     <div class="mt-3 space-y-1">
-                         <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 lang-option" data-lang="vi">Tiếng Việt</a>
-                         <a href="#" class="block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 lang-option" data-lang="en">English</a>
-                     </div>
-                 </div>
-            </div>
+            <div class="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded-full animate-pulse"></div>
         </div>
     </header>
 
-    <main class="pt-16"> <div class="max-w-4xl mx-auto p-4 md:p-8">
-
-            <header class="text-center mb-10 mt-8">
-                <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-2" data-lang-key="steam_vision_title">Tầm Nhìn Đích Thực về Giáo Dục STEAM của IVS</h1>
-                <p class="text-lg text-gray-600" data-lang-key="steam_vision_subtitle">Kiến tạo tương lai thông qua giáo dục tích hợp và đổi mới</p>
-            </header>
-
-            <section class="vision-section">
-                <h2 class="vision-title" data-lang-key="steam_vision_section1_title">1. Triết Lý Cốt Lõi: STEAM Không Chỉ Là Môn Học</h2>
-                <p class="vision-text" data-lang-key="steam_vision_section1_p1">
-                    Tại IVS (Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy), chúng tôi nhìn nhận STEAM (Khoa học - Công nghệ - Kỹ thuật - Nghệ thuật - Toán học) không đơn thuần là sự ghép nối các môn học rời rạc. Tầm nhìn của chúng tôi là xây dựng STEAM thành một <span class="highlight">triết lý giáo dục toàn diện</span>, một cách tiếp cận liên ngành nhằm trang bị cho thế hệ trẻ không chỉ kiến thức, mà quan trọng hơn là <span class="highlight">năng lực tư duy và kỹ năng thiết yếu</span> để làm chủ tương lai trong một thế giới công nghệ không ngừng biến đổi.
-                </p>
-                <p class="vision-text mt-3" data-lang-key="steam_vision_section1_p2">
-                    Chúng tôi tin rằng, việc tích hợp hài hòa giữa tư duy logic, khoa học (Science, Technology, Engineering, Math) với sự sáng tạo, thẩm mỹ (Art) sẽ tạo ra những cá nhân phát triển cân bằng, có khả năng <span class="highlight">giải quyết vấn đề một cách sáng tạo và hiệu quả</span>.
-                </p>
+    <main class="pt-8 md:pt-12">
+        <div class="max-w-5xl mx-auto px-4 md:px-6 lg:px-8">
+            <!-- Hero Banner -->
+            <section class="relative h-96 bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center mb-12 rounded-xl overflow-hidden" data-aos="fade-in">
+                <img src="images/steam-banner.jpg" alt="STEAM Banner" class="absolute inset-0 w-full h-full object-cover opacity-50" loading="lazy">
+                <div class="relative text-center text-white">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold" style="background: linear-gradient(to right, #3b82f6, #8b5cf6); -webkit-background-clip: text; background-clip: text; color: transparent;" data-lang-key="steam_vision_main_title">
+                        IVS STEAM: Kiến Tạo Tương Lai Sáng Tạo
+                    </h1>
+                    <p class="text-lg md:text-xl mt-4 max-w-2xl mx-auto" data-lang-key="steam_vision_main_subtitle">
+                        Tầm nhìn và cam kết của IVS trong việc phát triển năng lực thế kỷ 21 thông qua giáo dục STEAM tích hợp và đổi mới.
+                    </p>
+                </div>
             </section>
 
-            <section class="vision-section">
-                <h2 class="vision-title" data-lang-key="steam_vision_section2_title">2. Mục Tiêu Chiến Lược: Vượt Lên Kiến Thức, Hướng Tới Năng Lực</h2>
-                <p class="vision-text" data-lang-key="steam_vision_section2_intro">
-                    Tầm nhìn STEAM của IVS không chỉ dừng lại ở việc truyền thụ kiến thức sách vở. Mục tiêu chiến lược của chúng tôi là kiến tạo một môi trường học tập nơi học sinh có thể:
-                </p>
-                <ul class="vision-list mt-4">
-                    <li data-lang-key="steam_vision_section2_li1"><strong>Phát triển Tư duy Phản biện & Giải quyết Vấn đề:</strong> Học sinh được khuyến khích đặt câu hỏi, phân tích thông tin từ nhiều góc độ, và tìm ra giải pháp tối ưu cho các thách thức thực tế, từ đơn giản đến phức tạp.</li>
-                    <li data-lang-key="steam_vision_section2_li2"><strong>Nuôi dưỡng Sự Sáng tạo & Đổi mới:</strong> Chúng tôi tạo không gian để học sinh tự do khám phá, thử nghiệm ý tưởng, chấp nhận thất bại như một phần của quá trình học, và không ngừng đổi mới. Yếu tố "Art" (Nghệ thuật) được lồng ghép để kích thích tư duy đa chiều và khả năng biểu đạt sáng tạo.</li>
-                    <li data-lang-key="steam_vision_section2_li3"><strong>Rèn luyện Kỹ năng Hợp tác & Giao tiếp:</strong> Thông qua các dự án nhóm (như trong chương trình IVSInnovate360), học sinh học cách làm việc cùng nhau, chia sẻ ý tưởng, lắng nghe và tôn trọng ý kiến khác biệt, và trình bày quan điểm một cách rõ ràng, thuyết phục.</li>
-                    <li data-lang-key="steam_vision_section2_li4"><strong>Xây dựng Năng lực Công nghệ & Kỹ thuật Số:</strong> Học sinh được tiếp cận và thực hành với các công nghệ nền tảng (Scratch, Python) và tiên tiến (Robotics, AI), giúp các em không chỉ là người sử dụng mà còn có thể trở thành người kiến tạo công nghệ.</li>
-                    <li data-lang-key="steam_vision_section2_li5"><strong>Kết nối Kiến thức Liên ngành & Thực tiễn:</strong> Chương trình học được thiết kế để học sinh thấy rõ mối liên hệ giữa các lĩnh vực STEAM và ứng dụng của chúng trong việc giải quyết các vấn đề của cuộc sống, xã hội và các vấn đề toàn cầu (như phát triển bền vững).</li>
-                </ul>
+            <!-- Section 1 -->
+            <section class="content-section bg-white" data-aos="fade-up">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-rocket text-4xl text-primary mr-4"></i>
+                    <h2 class="section-title" data-lang-key="steam_vision_section1_title">1. Triết Lý Cốt Lõi: STEAM Là Tư Duy</h2>
+                </div>
+                <p class="section-text" data-lang-key="steam_vision_section1_p1">...</p>
+                <p class="section-text" data-lang-key="steam_vision_section1_p2">...</p>
             </section>
 
-            <section class="vision-section">
-                <h2 class="vision-title" data-lang-key="steam_vision_section3_title">3. Phương Pháp Tiếp Cận: Học Qua Trải Nghiệm và Dự Án</h2>
-                <p class="vision-text" data-lang-key="steam_vision_section3_intro">
-                    Để hiện thực hóa tầm nhìn, IVS áp dụng các phương pháp giáo dục tiên tiến, lấy học sinh làm trung tâm:
-                </p>
-                <ul class="vision-list mt-4">
-                    <li data-lang-key="steam_vision_section3_li1"><strong>Học tập dựa trên dự án (Project-Based Learning):</strong> Học sinh chủ động tìm tòi, nghiên cứu và thực hiện các dự án thực tế, từ lên ý tưởng, lập kế hoạch, triển khai đến trình bày sản phẩm.</li>
-                    <li data-lang-key="steam_vision_section3_li2"><strong>Học tập qua trải nghiệm (Experiential Learning):</strong> Ưu tiên các hoạt động thực hành, thí nghiệm, chế tạo mô hình, lập trình robot... giúp học sinh "học bằng cách làm".</li>
-                    <li data-lang-key="steam_vision_section3_li3"><strong>Môi trường học tập tương tác:</strong> Khuyến khích thảo luận, tranh biện, làm việc nhóm, và phản hồi đa chiều giữa giáo viên và học sinh, giữa học sinh với nhau.</li>
-                    <li data-lang-key="steam_vision_section3_li4"><strong>Lộ trình học tập cá nhân hóa:</strong> Chương trình được thiết kế theo từng cấp độ (từ Mầm non với Goaldigger, Tiểu học với Super Minds, THCS với IVSInnovate360, đến THPT với The New High), đảm bảo sự liền mạch và phù hợp với năng lực, lứa tuổi của học sinh.</li>
-                    <li data-lang-key="steam_vision_section3_li5"><strong>Tích hợp công nghệ:</strong> Sử dụng các công cụ, phần mềm và thiết bị công nghệ hiện đại để hỗ trợ giảng dạy và học tập, giúp học sinh làm quen và ứng dụng công nghệ một cách tự nhiên.</li>
-                </ul>
+            <!-- Section 2 -->
+            <section class="content-section bg-gradient-to-br from-teal-50 to-cyan-100 dark:from-teal-800 dark:to-cyan-900" data-aos="fade-up" data-aos-delay="100">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-bullseye text-4xl text-primary mr-4"></i>
+                    <h2 class="section-title" data-lang-key="steam_vision_section2_title">2. Mục Tiêu Chiến Lược</h2>
+                </div>
+                <p class="section-text" data-lang-key="steam_vision_section2_intro">...</p>
+                <ul class="section-list mt-4">...</ul>
             </section>
 
-             <section class="vision-section">
-                <h2 class="vision-title" data-lang-key="steam_vision_section4_title">4. Định Hướng "STEAM+ Intelligence": Nâng Tầm Trí Tuệ</h2>
-                <p class="vision-text" data-lang-key="steam_vision_section4_intro">
-                    IVS không chỉ dừng lại ở STEAM. Chúng tôi hướng tới mô hình <span class="highlight">"STEAM+ Intelligence"</span>, nơi yếu tố "Trí tuệ" (Intelligence) được nhấn mạnh. Điều này có nghĩa là:
-                </p>
-                <ul class="vision-list mt-4">
-                    <li data-lang-key="steam_vision_section4_li1"><strong>Phát triển tư duy bậc cao:</strong> Ngoài kỹ năng cơ bản, chương trình tập trung rèn luyện khả năng phân tích sâu, đánh giá đa chiều, tư duy hệ thống và đưa ra quyết định dựa trên dữ liệu và lập luận logic.</li>
-                    <li data-lang-key="steam_vision_section4_li2"><strong>Ứng dụng trí tuệ nhân tạo (AI) và dữ liệu lớn (Big Data):</strong> Học sinh được làm quen và học cách ứng dụng các công nghệ trí tuệ để giải quyết vấn đề hiệu quả hơn, không chỉ trong học tập mà còn trong cuộc sống.</li>
-                    <li data-lang-key="steam_vision_section4_li3"><strong>Hình thành năng lực tự học và học tập suốt đời:</strong> Trang bị cho học sinh phương pháp học tập chủ động, khả năng tự nghiên cứu và cập nhật kiến thức trong một thế giới không ngừng thay đổi.</li>
-                </ul>
+            <!-- Section 3 -->
+            <section class="content-section bg-white" data-aos="fade-up" data-aos-delay="200">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-hands-helping text-4xl text-primary mr-4"></i>
+                    <h2 class="section-title" data-lang-key="steam_vision_section3_title">3. Phương Pháp Tiếp Cận</h2>
+                </div>
+                <p class="section-text" data-lang-key="steam_vision_section3_intro">...</p>
+                <ul class="section-list mt-4">...</ul>
             </section>
 
-            <section class="vision-section">
-                <h2 class="vision-title" data-lang-key="steam_vision_section5_title">5. Cam Kết Tương Lai: Kiến Tạo Công Dân Toàn Cầu Sáng Tạo</h2>
-                <p class="vision-text" data-lang-key="steam_vision_section5_p1">
-                    Tầm nhìn STEAM của IVS là một cam kết dài hạn. Chúng tôi mong muốn đào tạo nên những thế hệ học sinh không chỉ giỏi về kiến thức chuyên môn mà còn sở hữu đầy đủ <span class="highlight">năng lực cốt lõi của thế kỷ 21</span>. Đó là những công dân toàn cầu tự tin, năng động, sáng tạo, có khả năng thích ứng, hợp tác và tạo ra những giá trị tích cực cho cộng đồng và xã hội.
-                </p>
-                 <p class="vision-text mt-3" data-lang-key="steam_vision_section5_p2">
-                    Tầm nhìn này được xây dựng dựa trên các giá trị cốt lõi của IVS: <span class="core-value">Chất lượng</span>, <span class="core-value">Tận tâm</span>, <span class="core-value">Sáng tạo</span>, và <span class="core-value">Bình đẳng</span>, đồng thời được củng cố qua các hợp tác quốc tế uy tín như với The Power to Inspire (Mỹ) và dự án Kinderlink25.
-                </p>
-                <p class="vision-text mt-3" data-lang-key="steam_vision_section5_p3">
-                    Với đội ngũ lãnh đạo tâm huyết như CEO Nguyễn Minh Triết và sự đầu tư bài bản vào chương trình, IVS tự tin sẽ hiện thực hóa tầm nhìn STEAM, góp phần vào sự phát triển của nền giáo dục Việt Nam.
-                </p>
+            <!-- Section 4 -->
+            <section class="content-section bg-gradient-to-br from-purple-50 to-indigo-100 dark:from-purple-800 dark:to-indigo-900" data-aos="fade-up" data-aos-delay="300">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-brain text-4xl text-primary mr-4"></i>
+                    <h2 class="section-title" data-lang-key="steam_vision_section4_title">4. Định Hướng "STEAM+ Intelligence"</h2>
+                </div>
+                <p class="section-text" data-lang-key="steam_vision_section4_intro">...</p>
+                <ul class="section-list mt-4">...</ul>
             </section>
 
+            <!-- Section 5: Programs -->
+            <section class="content-section bg-white" data-aos="fade-up" data-aos-delay="400">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-graduation-cap text-4xl text-primary mr-4"></i>
+                    <h2 class="section-title" data-lang-key="steam_programs_overview_title">5. Chương Trình STEAM Tại IVS</h2>
+                </div>
+                <p class="section-text" data-lang-key="steam_programs_overview_intro">...</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="program-card grade-6">
+                        <div class="flex items-center mb-4">
+                            <img src="images/icons/scratch.png" alt="Scratch Icon" class="w-10 h-10 mr-3" loading="lazy">
+                            <h4 data-lang-key="steam_program_grade6_title">Khối 6: Nền tảng STEAM</h4>
+                        </div>
+                        <ul data-lang-key="steam_program_grade6_details">...</ul>
+                    </div>
+                    <div class="program-card grade-7">
+                        <div class="flex items-center mb-4">
+                            <img src="images/icons/python.png" alt="Python Icon" class="w-10 h-10 mr-3" loading="lazy">
+                            <h4 data-lang-key="steam_program_grade7_title">Khối 7: Khám phá & Ứng dụng</h4>
+                        </div>
+                        <ul data-lang-key="steam_program_grade7_details">...</ul>
+                    </div>
+                    <div class="program-card grade-8">
+                        <div class="flex items-center mb-4">
+                            <img src="images/icons/robotics.png" alt="Robotics Icon" class="w-10 h-10 mr-3" loading="lazy">
+                            <h4 data-lang-key="steam_program_grade8_title">Khối 8: Chuyên sâu & Sáng tạo</h4>
+                        </div>
+                        <ul data-lang-key="steam_program_grade8_details">...</ul>
+                    </div>
+                    <div class="program-card grade-9">
+                        <div class="flex items-center mb-4">
+                            <img src="images/icons/ai.png" alt="AI Icon" class="w-10 h-10 mr-3" loading="lazy">
+                            <h4 data-lang-key="steam_program_grade9_title">Khối 9: Tích hợp & Định hướng</h4>
+                        </div>
+                        <ul data-lang-key="steam_program_grade9_details">...</ul>
+                    </div>
+                </div>
+                <p class="section-text mt-6" data-lang-key="steam_programs_note">...</p>
+                <div class="text-center mt-8">
+                    <a href="/register" class="cta-button">Đăng ký Ngay</a>
+                </div>
+            </section>
+
+            <!-- Section 6: Commitment -->
+            <section class="content-section bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl shadow-xl" data-aos="fade-up" data-aos-delay="500">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-handshake text-4xl text-white mr-4"></i>
+                    <h2 class="section-title text-white border-blue-300" data-lang-key="steam_vision_section5_title">6. Cam Kết Tương Lai</h2>
+                </div>
+                <p class="section-text text-blue-100" data-lang-key="steam_vision_section5_p1">...</p>
+                <blockquote class="border-l-4 border-white pl-4 italic text-lg text-blue-100 my-6">
+                    "IVS tin tưởng vào sức mạnh của giáo dục STEAM trong việc khai phá tiềm năng và định hình tương lai."
+                </blockquote>
+                <p class="section-text text-blue-100" data-lang-key="steam_vision_section5_p2">...</p>
+                <p class="section-text text-blue-100 mt-4" data-lang-key="steam_vision_section5_p3">...</p>
+            </section>
         </div>
     </main>
 
-    <footer id="footer-placeholder" class="bg-gray-900 text-gray-400 mt-12">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                 <div class="space-y-4">
-                     <a href="index.html">
-                         <img class="h-10 w-auto" src="images/logo/logo.png" alt="IVS Logo Footer" onerror="this.onerror=null; this.src='https://placehold.co/160x40/ffffff/1f2937?text=IVS+Logo';">
-                     </a>
-                     <p class="text-sm" data-lang-key="footer_company_name">Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy</p>
-                     <p class="text-sm" data-lang-key="footer_tax_code">MST: 3603960189</p>
-                     <p class="text-sm" data-lang-key="footer_address">Trụ sở: 1104, Tổ 6, Ấp Đất Mới, Long Phước, Long Thành, Đồng Nai</p>
-                 </div>
-
-                 <div>
-                     <h3 class="text-sm font-semibold text-gray-200 tracking-wider uppercase" data-lang-key="footer_quick_links">Liên kết nhanh</h3>
-                     <ul class="mt-4 space-y-2">
-                         <li><a href="about.html" class="footer-link" data-lang-key="nav_about_footer">Về IVS</a></li>
-                         <li><a href="steambyivs.html" class="footer-link" data-lang-key="nav_steam_footer">Chương trình STEAM</a></li>
-                         <li><a href="english-programs.html" class="footer-link" data-lang-key="nav_english_footer">Chương trình Ngoại ngữ</a></li>
-                         <li><a href="ivslifeminds.html" class="footer-link" data-lang-key="nav_lifeskills_footer">Kỹ năng sống</a></li>
-                         <li><a href="news.html" class="footer-link" data-lang-key="nav_news_footer">Tin tức</a></li>
-                         <li><a href="contact.html" class="footer-link" data-lang-key="nav_contact_footer">Liên hệ</a></li>
-                     </ul>
-                 </div>
-
-                 <div>
-                     <h3 class="text-sm font-semibold text-gray-200 tracking-wider uppercase" data-lang-key="footer_other_programs">Chương trình khác</h3>
-                     <ul class="mt-4 space-y-2">
-                         <li><a href="hocbong.html" class="footer-link" data-lang-key="nav_scholarship_camp_footer">Học bổng & Trại hè</a></li>
-                         <li><a href="lien-ket-quoc-te.html" class="footer-link" data-lang-key="nav_international_coop_footer">Hợp tác Quốc tế</a></li>
-                         <li><a href="tuvan.html" class="footer-link" data-lang-key="nav_consulting_footer">Tư vấn Giáo dục</a></li>
-                         <li><a href="english-placement.html" class="footer-link" data-lang-key="nav_placement_test_footer">Kiểm tra trình độ</a></li>
-                          <li><a href="howtouseai-ivs.html" class="footer-link" data-lang-key="nav_ai_guide_footer">Hướng dẫn AI</a></li>
-                          <li><a href="readnovel.html" class="footer-link" data-lang-key="nav_readnovel_footer">Đọc truyện Song ngữ</a></li>
-                     </ul>
-                 </div>
-
-                 <div>
-                     <h3 class="text-sm font-semibold text-gray-200 tracking-wider uppercase" data-lang-key="footer_connect">Kết nối</h3>
-                     <ul class="mt-4 space-y-2">
-                         <li><a href="mailto:info@ivs.id.vn" class="footer-link">info@ivs.id.vn</a></li>
-                         <li><a href="tel:+84xxxxxxxxx" class="footer-link" data-lang-key="footer_phone">[Số điện thoại]</a></li>
-                         <li class="flex space-x-4 mt-4">
-                              <a href="https://www.facebook.com/IVS.JSC" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white">
-                                 <span class="sr-only">Facebook</span>
-                                  <i class="fab fa-facebook-f fa-lg"></i>
-                             </a>
-                              <a href="https://www.youtube.com/@IVSJSC" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white">
-                                 <span class="sr-only">YouTube</span>
-                                 <i class="fab fa-youtube fa-lg"></i>
-                             </a>
-                             <a href="https://zalo.me/xxxxxxxxxx" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white">
-                                 <span class="sr-only">Zalo</span>
-                                  <img src="images/logo/zalo.svg" alt="Zalo" class="h-5 w-5"> </a>
-                         </li>
-                     </ul>
-                 </div>
-             </div>
-
-             <div class="mt-8 border-t border-gray-700 pt-8 text-center">
-                 <p class="text-sm text-gray-400">&copy; <span id="current-year"></span> <span data-lang-key="footer_copyright">Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy (IVS JSC). All rights reserved.</span></p>
-             </div>
-         </div>
+    <footer id="footer-placeholder">
+        <div class="bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-center p-4 animate-pulse">
+            <div class="max-w-5xl mx-auto px-4 md:px-6">
+                <div class="h-6 w-48 bg-gray-300 dark:bg-gray-600 rounded mx-auto mb-4"></div>
+                <div class="flex justify-center space-x-4">
+                    <div class="h-4 w-20 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                    <div class="h-4 w-20 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                    <div class="h-4 w-20 bg-gray-300 dark:bg-gray-600 rounded"></div>
+                </div>
+            </div>
+        </div>
     </footer>
 
-    <script src="js/language.js" defer></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({ duration: 800, once: true });
+
+        // Dark Mode Logic
+        function toggleDarkMode() {
+            const isDarkMode = document.documentElement.classList.toggle("dark");
+            localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+        }
+
+        function applyInitialDarkMode() {
+            if (localStorage.getItem('darkMode') === 'enabled' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+            }
+        }
+        applyInitialDarkMode();
+
+        // Fetch Header and Footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            const footerPlaceholder = document.getElementById('footer-placeholder');
+            const headerPath = '_header.html';
+            const footerPath = '_footer.html';
+
+            function handleFetchError(error, placeholderElement, type, filePath) {
+                console.error(`Error fetching ${type} from ${filePath}:`, error);
+                let userMessage = '';
+                let consoleInfo = `(Kiểm tra Console (F12) để biết chi tiết: ${error.message})`;
+
+                if (window.location.protocol === 'file:') {
+                    userMessage = `<i class="fas fa-exclamation-circle"></i><strong>Lỗi Tải Giao Diện (${type}):</strong><br> Trang này không thể tải ${type} khi mở trực tiếp từ file. Vui lòng chạy qua máy chủ web cục bộ.`;
+                    consoleInfo = '';
+                } else if (error instanceof TypeError || error.message.includes('Failed to fetch')) {
+                    userMessage = `<i class="fas fa-network-wired"></i><strong>Lỗi Mạng/Kết Nối (${type}):</strong><br> Không thể kết nối hoặc tải file <code>${filePath}</code>. Vui lòng kiểm tra kết nối mạng và đường dẫn file.`;
+                } else if (error.message.includes('HTTP error')) {
+                    const statusMatch = error.message.match(/Status: (\d+)/);
+                    const status = statusMatch ? statusMatch[1] : 'không rõ';
+                    if (status === '404') {
+                        userMessage = `<i class="fas fa-file-excel"></i><strong>Không Tìm Thấy File (${type} - 404):</strong><br> Không tìm thấy file tại đường dẫn <code>${filePath}</code>.`;
+                    } else {
+                        userMessage = `<i class="fas fa-server"></i><strong>Lỗi Máy Chủ (${type}):</strong><br> Có lỗi xảy ra phía máy chủ khi tải <code>${filePath}</code> (Mã lỗi: ${status}).`;
+                    }
+                } else {
+                    userMessage = `<i class="fas fa-exclamation-triangle"></i><strong>Lỗi Không Xác Định (${type}):</strong><br> Có lỗi xảy ra khi tải <code>${filePath}</code>.`;
+                }
+                placeholderElement.innerHTML = `<div class="fetch-error-message ${type}-error">${userMessage}<br><small class="text-gray-500 dark:text-gray-400">${consoleInfo}</small></div>`;
+            }
+
+            // Fetch Header
+            if (headerPlaceholder) {
+                fetch(headerPath)
+                    .then(response => {
+                        if (!response.ok) throw new Error(`HTTP error fetching header! Status: ${response.status} ${response.statusText}`);
+                        return response.text();
+                    })
+                    .then(data => {
+                        headerPlaceholder.innerHTML = data;
+                        if (typeof initializeMobileMenu === 'function') initializeMobileMenu();
+                        if (typeof initializeLanguageSwitcher === 'function') initializeLanguageSwitcher();
+                        if (typeof initializeHeaderScroll === 'function') initializeHeaderScroll();
+                        setActiveNavLink('steambyivs.html');
+                        console.log("Header loaded successfully.");
+                    })
+                    .catch(error => handleFetchError(error, headerPlaceholder, 'header', headerPath));
+            }
+
+            // Fetch Footer
+            if (footerPlaceholder) {
+                fetch(footerPath)
+                    .then(response => {
+                        if (!response.ok) throw new Error(`HTTP error fetching footer! Status: ${response.status} ${response.statusText}`);
+                        return response.text();
+                    })
+                    .then(data => {
+                        footerPlaceholder.innerHTML = data;
+                        if (typeof updateCopyrightYear === 'function') updateCopyrightYear();
+                        console.log("Footer loaded successfully.");
+                    })
+                    .catch(error => handleFetchError(error, footerPlaceholder, 'footer', footerPath));
+            }
+        });
+
+        // Placeholder Functions
+        function initializeMobileMenu() {}
+        function initializeLanguageSwitcher() {}
+        function initializeHeaderScroll() {}
+        function updateCopyrightYear() {}
+        function setActiveNavLink(currentPageHref) {
+            const navLinks = document.querySelectorAll('#header-placeholder a, #mobile-menu a');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPageHref || link.getAttribute('data-lang-key') === currentPageHref) {
+                    link.classList.add('active');
+                    const parentDropdown = link.closest('.relative.group');
+                    if (parentDropdown) {
+                        parentDropdown.querySelector('a:first-child')?.classList.add('active');
+                    }
+                    const mobileParentButton = link.closest('div')?.previousElementSibling;
+                    if (mobileParentButton && mobileParentButton.tagName === 'BUTTON') {
+                        mobileParentButton.classList.add('active');
+                    }
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            console.log(`Set active link for: ${currentPageHref}`);
+        }
+    </script>
     <script src="js/script.js" defer></script>
-    </body>
+    <script src="js/language.js" defer></script>
+</body>
 </html>
