@@ -68,8 +68,7 @@
 </head>
 <body>
 
-    <header id="header-placeholder">
-        </header>
+    <header id="header-placeholder"></header>
     <main class="container">
         <h1>Hướng dẫn Tư duy AI Tích cực</h1>
         <p class="page-subtitle">Làm chủ AI trong Công việc & Cuộc sống bằng cách suy nghĩ đơn giản và hiệu quả.</p>
@@ -816,8 +815,7 @@
             <p>Liên hệ IVS Education nếu bạn cần hỗ trợ xây dựng lộ trình AI cho cá nhân hoặc doanh nghiệp.</p>
             <a href="#contact-form-placeholder" class="contact-button">Liên hệ Tư vấn ngay</a> </section>
     </main>
-    <footer id="footer-placeholder">
-        </footer>
+    <footer id="footer-placeholder"></footer>
     <script src="your-scripts.js"></script>
     <script>
         // Ví dụ JS đơn giản để xử lý accordion (cần hoàn thiện)
@@ -864,7 +862,41 @@
                     .catch(error => console.error('Error fetching footer:', error));
             }
          });
+         document.addEventListener('DOMContentLoaded', function() {
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            const footerPlaceholder = document.getElementById('footer-placeholder');
 
+            // Fetch Header
+            if (headerPlaceholder) {
+                fetch('_header.html') // Đảm bảo file này cùng thư mục
+                    .then(response => response.ok ? response.text() : Promise.reject('Header not found'))
+                    .then(data => headerPlaceholder.innerHTML = data)
+                    .catch(error => console.error('Error fetching header:', error));
+            }
+
+            // Fetch Footer
+            if (footerPlaceholder) {
+                fetch('_footer.html') // Đảm bảo file này cùng thư mục
+                    .then(response => response.ok ? response.text() : Promise.reject('Footer not found'))
+                    .then(data => footerPlaceholder.innerHTML = data)
+                    .catch(error => console.error('Error fetching footer:', error));
+            }
+
+            // --- GIỮ NGUYÊN CODE JS CHO ACCORDION VÀ LEARN MORE CỦA BẠN Ở ĐÂY ---
+            document.querySelectorAll('.accordion-placeholder h4').forEach(header => {
+                header.addEventListener('click', () => {
+                    // ... code accordion ...
+                });
+            });
+
+            document.querySelectorAll('.learn-more-placeholder a').forEach(link => {
+                 link.addEventListener('click', (event) => {
+                    // ... code learn more ...
+                });
+            });
+            // --- HẾT PHẦN CODE JS KHÁC ---
+
+        });
     </script>
 
 </body>
