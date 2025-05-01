@@ -335,23 +335,3 @@
 
 </body>
 </html>
-```
-
-**Giải thích và Lưu ý:**
-
-1.  **Cấu trúc HTML:** File này là một trang HTML hoàn chỉnh, bạn có thể lưu nó với tên ví dụ như `chon-truyen.html`.
-2.  **CSS:** Bao gồm cả Tailwind CDN, cấu hình Tailwind cơ bản, Google Fonts và các CSS tùy chỉnh cho giao diện trang chọn truyện, bao gồm cả dark mode.
-3.  **Placeholders:** Các thẻ `<header id="header-placeholder">` và `<footer id="footer-placeholder">` được đặt ở vị trí mong muốn. Có thêm nội dung tạm thời ("Đang tải...") để người dùng biết điều gì đang xảy ra.
-4.  **JavaScript Fetch:** Mã JavaScript ở cuối cùng sẽ thực hiện:
-    * Áp dụng dark mode khi tải trang.
-    * Chờ DOM tải xong (`DOMContentLoaded`).
-    * Tìm các placeholder.
-    * Dùng `fetch` để lấy nội dung từ `_header.html` và `_footer.html`.
-    * **Xử lý lỗi:** Có thêm `catch` để bắt lỗi nếu không tìm thấy file hoặc có vấn đề khi fetch, và hiển thị thông báo lỗi trên trang cũng như trong Console (F12).
-    * Chèn nội dung vào placeholder.
-    * **Gọi hàm khởi tạo:** Gọi `initializeHeaderScriptsIfNeeded()` và `initializeFooterScriptsIfNeeded()`. **Đây là phần quan trọng** nếu header/footer của bạn có JavaScript riêng cần chạy lại (ví dụ: menu dropdown, nút chuyển ngôn ngữ). Bạn cần thêm code vào các hàm này để khởi tạo lại JS đó. Hiện tại, chúng chỉ log ra console và cập nhật năm copyright trong footer làm ví dụ.
-5.  **Giao diện danh sách truyện:** Phần `<div class="novel-list">` đã được cập nhật để nhóm các phiên bản ngôn ngữ vào cùng một thẻ card, sử dụng flexbox cho các nút đọc.
-6.  **Ảnh:** Sử dụng thẻ `<picture>` để có thể cung cấp định dạng ảnh tối ưu (như `.webp`) và fallback về `.png` hoặc `.jpg`. Có thêm `onerror` để hiển thị ảnh placeholder nếu ảnh gốc bị lỗi.
-7.  **Accessibility:** Thêm `aria-label` cho các link và nút để cải thiện khả năng tiếp cận.
-
-Hãy đảm bảo bạn đã tạo các file `_header.html` và `_footer.html` và đặt chúng cùng cấp với file HTML này. Sau đó, mở file HTML này trong trình duyệt để xem kết q
