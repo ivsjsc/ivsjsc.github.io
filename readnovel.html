@@ -20,6 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --header-height-initial: 80px; /* Chiều cao header ban đầu (desktop) */
@@ -134,17 +135,35 @@
              /* Có thể thêm min-height nếu cần */
         }
 
+        /* Style cho thông báo lỗi fetch */
+        .fetch-error-message {
+             @apply text-sm p-3 rounded-md border;
+        }
+        .fetch-error-message.header-error {
+             @apply fixed top-0 left-0 right-0 z-50 bg-red-100 border-red-300 text-red-800;
+             min-height: var(--header-height-mobile);
+             @apply flex items-center justify-center text-center;
+        }
+         @media (min-width: 1024px) {
+             .fetch-error-message.header-error { min-height: var(--header-height-initial); }
+         }
+        .fetch-error-message.footer-error {
+             @apply bg-red-100 border-red-300 text-red-800 text-center;
+        }
+        html.dark .fetch-error-message {
+            @apply bg-red-900/50 border-red-700 text-red-200;
+        }
+
     </style>
 </head>
 <body class="antialiased">
-    <!-- Header -->
+
     <header id="header-placeholder">
         <div class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 animate-pulse" style="height: var(--header-height-mobile);">
-            Đang tải header...
+             Đang tải header...
         </div>
     </header>
 
-    <!-- Nội dung chính -->
     <div class="main-content-wrapper flex-grow">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="page-content-container">
@@ -152,11 +171,13 @@
 
                 <div class="settings">
                     <button onclick="toggleDarkMode()" aria-label="Chuyển chế độ Sáng/Tối">
-                        <i class="fas fa-adjust mr-1"></i> <span class="hidden sm:inline">Sáng/Tối</span>
+                        <i class="fas fa-adjust mr-1"></i>
+                        <span class="hidden sm:inline">Sáng/Tối</span>
                     </button>
                 </div>
 
                 <div class="novel-list">
+
                     <div class="novel-card group">
                         <a href="legnaxe_part1_vi.html" class="cover-link" aria-label="Đọc LEGNAXE Phần 1 Tiếng Việt">
                             <picture>
@@ -193,7 +214,8 @@
                                      <i class="fas fa-book-open"></i> Đọc (TV)
                                  </a>
                                  <a href="#" class="read-button" aria-disabled="true" >
-                                     <i class="fas fa-clock mr-1"></i> Read (EN - Soon) </a>
+                                     <i class="fas fa-clock mr-1"></i> Read (EN - Soon)
+                                 </a>
                              </div>
                          </div>
                     </div>
@@ -218,13 +240,7 @@
                          </div>
                      </div>
 
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer id="footer-placeholder">
+                </div> </div> </div> </div> <footer id="footer-placeholder">
         <div class="bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-center p-4 animate-pulse">
             Đang tải footer...
         </div>
@@ -238,34 +254,146 @@
             console.log(`Dark mode ${isDarkMode ? 'enabled' : 'disabled'}`);
         }
 
-        // Áp dụng dark mode khi tải trang
+        // Apply dark mode on initial load based on localStorage or system preference
         if (localStorage.getItem('darkMode') === 'enabled' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add("dark");
+            console.log("Dark mode applied on load.");
+        } else {
+             document.documentElement.classList.remove("dark");
+             console.log("Light mode applied on load.");
         }
 
-        // --- Fetch Header and Footer ---
-        document.addEventListener('DOMContentLoaded', function () {
-            const fetchContent = (placeholderId, filePath) => {
-                const placeholder = document.getElementById(placeholderId);
-                if (placeholder) {
-                    fetch(filePath)
-                        .then(response => {
-                            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                            return response.text();
-                        })
-                        .then(data => {
-                            placeholder.innerHTML = data;
-                        })
-                        .catch(error => {
-                            console.error(`Error fetching ${filePath}:`, error);
-                            placeholder.innerHTML = `<div class="bg-red-100 text-red-700 text-center p-4"><i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${placeholderId}. Vui lòng kiểm tra Console (F12).</div>`;
-                        });
-                }
-            };
+        // --- Fetch Header and Footer Logic ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            const footerPlaceholder = document.getElementById('footer-placeholder');
+            const headerPath = '_header.html'; // Đảm bảo file này cùng thư mục
+            const footerPath = '_footer.html'; // Đảm bảo file này cùng thư mục
 
-            fetchContent('header-placeholder', '_header.html');
-            fetchContent('footer-placeholder', '_footer.html');
+            // --- Helper function to handle fetch errors ---
+            function handleFetchError(error, placeholderElement, type) {
+                console.error(`Error fetching or processing ${type}:`, error);
+                let errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${type}.`;
+                let errorDetails = ` (${error.message})`; // Include error message from exception
+
+                // Check if the error is likely due to file:// protocol restriction
+                if (error instanceof TypeError && error.message.includes('Failed to parse URL') || error.message.includes('Failed to fetch')) {
+                     // Check if the current protocol is file:
+                     if(window.location.protocol === 'file:') {
+                         errorMessage = `<i class="fas fa-exclamation-circle mr-2"></i> <strong>Không thể tải ${type} trực tiếp từ file.</strong><br>Vui lòng chạy trang web này qua một máy chủ cục bộ (local server) để tính năng fetch hoạt động.`;
+                         errorDetails = ""; // Don't show technical details for this specific case
+                     } else {
+                         // Fetch failed for other reasons (e.g., network error on http/https)
+                          errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi mạng khi tải ${type}. Vui lòng kiểm tra kết nối và Console (F12).`;
+                     }
+
+                } else if (error.message.includes('HTTP error')) {
+                     // Handle specific HTTP errors (like 404 Not Found)
+                     errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${type}. Không tìm thấy file hoặc lỗi máy chủ. Vui lòng kiểm tra đường dẫn file và Console (F12).`;
+                } else {
+                     // Generic error message
+                     errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi không xác định khi tải ${type}. Vui lòng kiểm tra Console (F12).`;
+                }
+
+                placeholderElement.innerHTML = `<div class="fetch-error-message ${type}-error">${errorMessage}${errorDetails}</div>`;
+            }
+
+            // --- Fetch Header ---
+            if (headerPlaceholder) {
+                console.log(`Fetching header from: ${headerPath}`);
+                fetch(headerPath)
+                    .then(response => {
+                        if (!response.ok) {
+                            // Throw an error with status text for better debugging
+                            throw new Error(`HTTP error fetching header! Status: ${response.status} ${response.statusText}`);
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        headerPlaceholder.innerHTML = data;
+                        console.log("Header content loaded.");
+                        initializeHeaderScriptsIfNeeded();
+                    })
+                    .catch(error => {
+                        handleFetchError(error, headerPlaceholder, 'header');
+                    });
+            } else {
+                console.warn("Header placeholder element (#header-placeholder) not found.");
+            }
+
+            // --- Fetch Footer ---
+            if (footerPlaceholder) {
+                 console.log(`Fetching footer from: ${footerPath}`);
+                fetch(footerPath)
+                    .then(response => {
+                        if (!response.ok) {
+                             throw new Error(`HTTP error fetching footer! Status: ${response.status} ${response.statusText}`);
+                         }
+                        return response.text();
+                     })
+                    .then(data => {
+                        footerPlaceholder.innerHTML = data;
+                        console.log("Footer content loaded.");
+                        initializeFooterScriptsIfNeeded();
+                     })
+                    .catch(error => {
+                         handleFetchError(error, footerPlaceholder, 'footer');
+                     });
+            } else {
+                 console.warn("Footer placeholder element (#footer-placeholder) not found.");
+             }
+
         });
+
+        // --- Placeholder Functions for Script Initialization ---
+        // Bạn cần định nghĩa nội dung các hàm này nếu header/footer có JS cần chạy lại
+        function initializeHeaderScriptsIfNeeded() {
+            console.log("Running initializeHeaderScriptsIfNeeded...");
+            // Ví dụ: Tìm và gắn lại event listener cho nút mobile menu, dropdown ngôn ngữ...
+            // Nếu bạn dùng file JS riêng cho header, hãy gọi hàm init của nó ở đây.
+            // Ví dụ: if (typeof initHeader === 'function') { initHeader(); }
+
+             // Tạm thời thêm log để kiểm tra
+             try {
+                 const mobileMenuButton = document.getElementById('mobile-menu-button');
+                 if (mobileMenuButton) {
+                     console.log("Mobile menu button found in fetched header.");
+                     // Gắn lại event listener nếu cần (ví dụ)
+                     // mobileMenuButton.addEventListener('click', handleMobileMenuToggle);
+                 } else {
+                      // It's possible the header hasn't fully rendered yet, or the ID is wrong
+                      // console.warn("Mobile menu button not found immediately after header fetch.");
+                 }
+                 // Initialize other header scripts like dropdowns, search, etc.
+             } catch (e) {
+                  console.error("Error initializing header scripts:", e);
+             }
+        }
+
+        function initializeFooterScriptsIfNeeded() {
+            console.log("Running initializeFooterScriptsIfNeeded...");
+            // Ví dụ: Cập nhật năm copyright
+             try {
+                // Use querySelector within the loaded footer content for robustness
+                const footerElement = document.getElementById('footer-placeholder');
+                if (footerElement) {
+                    const currentYearSpan = footerElement.querySelector('#current-year');
+                    if (currentYearSpan) {
+                        currentYearSpan.textContent = new Date().getFullYear();
+                        console.log("Copyright year updated.");
+                    } else {
+                        console.warn("Current year span (#current-year) not found in fetched footer.");
+                    }
+                    // Initialize other footer scripts if needed
+                } else {
+                     console.warn("Footer placeholder element not found for script initialization.");
+                }
+             } catch (e) {
+                  console.error("Error initializing footer scripts:", e);
+             }
+        }
+
     </script>
+
 </body>
 </html>
