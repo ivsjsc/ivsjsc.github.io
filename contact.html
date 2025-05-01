@@ -5,20 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liên Hệ - IVS JSC</title>
     <meta name="description" content="Liên hệ với IVS JSC để được tư vấn và hỗ trợ về các dịch vụ giáo dục, hợp tác và đầu tư.">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'], // Ensure Inter font is defined
                     },
-                    colors: {
-                        primary: '#3b82f6',
-                        secondary: '#10b981',
-                        warning: '#f59e0b',
-                        neutral: {
+                    colors: { // Simplified color palette from user input
+                        'primary': '#3b82f6',
+                        'secondary': '#10b981',
+                        'warning': '#f59e0b',
+                        'neutral': { // Using nested structure as provided
                             50: '#f9fafb',
                             100: '#f3f4f6',
                             200: '#e5e7eb',
@@ -26,104 +29,296 @@
                             500: '#6b7280',
                             700: '#374151',
                         },
-                    },
-                },
+                        // Keep other necessary colors if needed, e.g., for links or dark mode
+                        'blue-600': '#2563eb', // For links
+                        'red-100': '#fee2e2', // For error messages
+                        'red-300': '#fca5a5',
+                        'red-700': '#b91c1c',
+                        'red-800': '#991b1b',
+                        'gray-50': '#f9fafb', // For body background
+                        'gray-200': '#e5e7eb', // For placeholders
+                        'gray-500': '#6b7280', // For placeholders
+                        'gray-700': '#374151', // For text
+                        // Dark mode colors (if dark mode is intended)
+                        'gray-800': '#1f2937',
+                        'gray-900': '#111827',
+                        'red-900': '#7f1d1d',
+                        'red-200': '#fecaca',
+                    }
+                }
             },
+            plugins: [], // Keep plugins empty as provided
         };
     </script>
+    <link rel="stylesheet" href="css/styles.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            padding-top: 60px;
+            padding-top: 60px; /* Default padding for mobile header */
         }
         @media (min-width: 1024px) {
             body {
-                padding-top: 80px;
+                padding-top: 80px; /* Padding for desktop header */
             }
         }
+        /* Updated Fetch Error Message Styles */
         .fetch-error-message {
             text-align: center;
             padding: 1rem;
-            border: 1px solid #e5e7eb;
+            border: 1px solid #e5e7eb; /* neutral-200 */
             border-radius: 0.5rem;
+            color: #b91c1c; /* red-700 */
+            background-color: #fee2e2; /* red-100 */
         }
+        .fetch-error-message.header-error {
+             position: fixed; /* Make it fixed */
+             top: 0;
+             left: 0;
+             right: 0;
+             z-index: 50;
+             min-height: 60px; /* Match mobile header height */
+             display: flex;
+             align-items: center;
+             justify-content: center;
+        }
+         @media (min-width: 1024px) {
+             .fetch-error-message.header-error { min-height: 80px; } /* Match desktop header height */
+         }
+        .fetch-error-message.footer-error {
+             /* Keep styles for footer error */
+             margin-top: 1rem; /* Add some margin if needed */
+        }
+         /* Dark mode error styles (Optional, add if dark mode is used) */
+        html.dark .fetch-error-message {
+            background-color: rgba(127, 29, 29, 0.5); /* red-900 with opacity */
+            border-color: #b91c1c; /* red-700 */
+            color: #fecaca; /* red-200 */
+        }
+        /* Map Container Styles */
         .map-container iframe {
             width: 100%;
-            height: 400px;
-            border: 0;
+            height: 400px; /* Consistent height */
+            border: 0; /* Remove default border */
+            display: block; /* Prevent extra space below */
+        }
+        /* Ensure icons align if Font Awesome is used */
+        .contact-info i {
+             width: 1.25em; /* Consistent icon width */
+             text-align: center;
+             margin-right: 0.75rem; /* Space after icon */
+             flex-shrink: 0; /* Prevent icon shrinking */
+        }
+        .contact-info p {
+            display: flex; /* Use flex for alignment */
+            align-items: flex-start; /* Align items to the top */
         }
     </style>
 </head>
-<body class="bg-gray-50 text-neutral-700 antialiased">
+<body class="bg-gray-50 text-neutral-700 font-sans antialiased">
 
-<header id="header-placeholder"></header>
-
-<main>
-    <section class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-16 text-center shadow-inner">
-        <div class="container mx-auto px-4">
-            <h1 class="text-4xl font-bold mb-3">Liên Hệ Với IVS JSC</h1>
-            <p class="text-lg opacity-90 max-w-3xl mx-auto">Chúng tôi luôn sẵn sàng lắng nghe, tư vấn và đồng hành cùng bạn trên con đường phát triển giáo dục.</p>
+    <header id="header-placeholder">
+        <div class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-gray-200 text-gray-500 animate-pulse" style="height: 60px;">
+             Đang tải header...
         </div>
-    </section>
+         @media (min-width: 1024px) {
+             <div class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-gray-200 text-gray-500 animate-pulse" style="height: 80px;">
+                  Đang tải header...
+             </div>
+         }
+    </header>
 
-    <section class="py-12 bg-gray-50">
-        <div class="container mx-auto px-4 max-w-6xl">
-            <div class="bg-white p-6 rounded-xl shadow-xl grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="contact-info">
-                    <h2 class="text-2xl font-semibold text-primary mb-6">Thông tin liên hệ</h2>
-                    <div class="space-y-5">
-                        <p><i class="fas fa-map-marker-alt text-secondary"></i> Số 1104, Tổ 6, Ấp Đất Mới, Xã Long Phước, Huyện Long Thành, Tỉnh Đồng Nai, Việt Nam.</p>
-                        <p><i class="fas fa-phone-alt text-secondary"></i> <a href="tel:+84795555789" class="text-blue-600 hover:underline">(+84) 795 555 789</a></p>
-                        <p><i class="fas fa-envelope text-secondary"></i> <a href="mailto:ivscorp.vn@gmail.com" class="text-blue-600 hover:underline">ivscorp.vn@gmail.com</a></p>
-                        <p><i class="fab fa-facebook-square text-secondary"></i> <a href="https://www.facebook.com/ivsmastery" target="_blank" class="text-blue-600 hover:underline">Fanpage IVS Mastery</a></p>
-                    </div>
-                    <div class="mt-8 map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.071892011844!2d107.00442167480706!3d10.88218578927349!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31751195e5561161%3A0x4433a583a180a671!2zQ8O0bmcgVHkgQ-G7lSBQaOG6p24gROG7i2NoIFbhu6UgVGjGsMahbmcgTeG6oWkgSW50ZWdyYXRlIFZpc2lvbiBTeW5lcmd5!5e0!3m2!1svi!2s!4v1714581066093!5m2!1svi!2s" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                </div>
+    <main>
+        <section class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-16 text-center shadow-inner">
+            <div class="container mx-auto px-4">
+                <h1 class="text-4xl font-bold mb-3">Liên Hệ Với IVS JSC</h1>
+                <p class="text-lg opacity-90 max-w-3xl mx-auto">Chúng tôi luôn sẵn sàng lắng nghe, tư vấn và đồng hành cùng bạn trên con đường phát triển giáo dục.</p>
+            </div>
+        </section>
 
-                <div class="contact-form">
-                    <h2 class="text-2xl font-semibold text-primary mb-6">Gửi yêu cầu cho chúng tôi</h2>
-                    <form action="https://formspree.io/f/YOUR_UNIQUE_CODE" method="POST" class="space-y-5">
-                        <div>
-                            <label for="contact-name" class="block text-sm font-medium">Họ và tên</label>
-                            <input type="text" id="contact-name" name="name" required class="w-full px-4 py-2 border rounded-md">
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-4 max-w-6xl">
+                <div class="bg-white p-6 rounded-xl shadow-xl grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="contact-info">
+                        <h2 class="text-2xl font-semibold text-primary mb-6">Thông tin liên hệ</h2>
+                        <div class="space-y-5">
+                            <p>
+                                <i class="fas fa-map-marker-alt text-secondary mt-1"></i>
+                                <span>Số 1104, Tổ 6, Ấp Đất Mới, Xã Long Phước, Huyện Long Thành, Tỉnh Đồng Nai, Việt Nam.</span>
+                            </p>
+                            <p>
+                                <i class="fas fa-phone-alt text-secondary"></i>
+                                <a href="tel:+84795555789" class="text-blue-600 hover:underline">(+84) 795 555 789</a>
+                            </p>
+                            <p>
+                                <i class="fas fa-envelope text-secondary"></i>
+                                <a href="mailto:ivscorp.vn@gmail.com" class="text-blue-600 hover:underline break-all">ivscorp.vn@gmail.com</a>
+                            </p>
+                            <p>
+                                <i class="fab fa-facebook-square text-secondary mt-1"></i>
+                                <a href="https://www.facebook.com/ivsmastery" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Fanpage IVS Mastery</a>
+                             </p>
+                             <p>
+                                <i class="fas fa-clock text-secondary mt-1"></i>
+                                <span>Giờ làm việc: Thứ 2 - Thứ 7, 8:00 - 17:30</span>
+                            </p>
                         </div>
-                        <div>
-                            <label for="contact-email" class="block text-sm font-medium">Email</label>
-                            <input type="email" id="contact-email" name="email" required class="w-full px-4 py-2 border rounded-md">
+                        <div class="mt-8 rounded-lg overflow-hidden border border-gray-200 shadow-sm map-container">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.071892011844!2d107.00442167480706!3d10.88218578927349!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31751195e5561161%3A0x4433a583a180a671!2zQ8O0bmcgVHkgQ-G7lSBQaOG6p24gROG7i2NoIFbhu6UgVGjGsMahbmcgTeG6oWkgSW50ZWdyYXRlIFZpc2lvbiBTeW5lcmd5!5e0!3m2!1svi!2s!4v1714581066093!5m2!1svi!2s"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="Bản đồ vị trí IVS JSC">
+                            </iframe>
                         </div>
-                        <div>
-                            <label for="contact-message" class="block text-sm font-medium">Nội dung</label>
-                            <textarea id="contact-message" name="message" rows="5" required class="w-full px-4 py-2 border rounded-md"></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-primary text-white py-3 rounded-md">Gửi liên hệ</button>
-                    </form>
+                    </div>
+
+                    <div class="contact-form">
+                        <h2 class="text-2xl font-semibold text-primary mb-6">Gửi yêu cầu cho chúng tôi</h2>
+                        <form action="https://formspree.io/f/YOUR_UNIQUE_CODE" method="POST" id="main-contact-form" class="space-y-5">
+                             <div>
+                                <label for="contact-name" class="block text-sm font-medium text-gray-700 mb-1">Họ và tên <span class="text-red-500">*</span></label>
+                                <input type="text" id="contact-name" name="name" required placeholder="Nguyễn Văn A" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm placeholder-gray-400">
+                            </div>
+                             <div>
+                                <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">Email <span class="text-red-500">*</span></label>
+                                <input type="email" id="contact-email" name="email" required placeholder="you@example.com" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm placeholder-gray-400">
+                            </div>
+                             <div>
+                                <label for="contact-phone" class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại <span class="text-red-500">*</span></label>
+                                <input type="tel" id="contact-phone" name="phone" required placeholder="09xxxxxxxx" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm placeholder-gray-400">
+                            </div>
+                            <div>
+                                <label for="contact-subject" class="block text-sm font-medium text-gray-700 mb-1">Chủ đề quan tâm</label>
+                                <select id="contact-subject" name="subject" class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm bg-white appearance-none">
+                                    <option value="">-- Chọn chủ đề --</option>
+                                    <option value="course_info">Tư vấn khóa học</option>
+                                    <option value="study_abroad">Tư vấn du học/học bổng</option>
+                                    <option value="summer_camp">Tư vấn trại hè</option>
+                                    <option value="kindergarten">Tư vấn Mầm non IVS</option>
+                                    <option value="partnership">Hợp tác</option>
+                                    <option value="investment">Đầu tư</option>
+                                    <option value="career">Tuyển dụng</option>
+                                    <option value="business_consulting">Tư vấn doanh nghiệp</option>
+                                    <option value="center_establishment">Thành lập trung tâm</option>
+                                    <option value="other">Khác</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="contact-message" class="block text-sm font-medium text-gray-700 mb-1">Nội dung <span class="text-red-500">*</span></label>
+                                <textarea id="contact-message" name="message" rows="5" required placeholder="Nội dung yêu cầu của bạn..." class="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary text-sm resize-vertical placeholder-gray-400"></textarea>
+                            </div>
+
+                            <input type="hidden" name="_next" value="https://ivs.id.vn/thank-you.html"> <input type="text" name="_gotcha" style="display:none"> <button type="submit" class="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-warning hover:from-orange-600 hover:to-amber-600 text-white font-semibold py-3 px-6 rounded-md shadow-lg hover:shadow-md transition duration-300 text-base">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Gửi liên hệ</span>
+                            </button>
+                        </form>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', () => {
+                                try {
+                                    const urlParams = new URLSearchParams(window.location.search);
+                                    const interest = urlParams.get('subject') || urlParams.get('interest') || urlParams.get('service') || urlParams.get('consultation') || urlParams.get('scholarship');
+                                    const subjectSelect = document.getElementById('contact-subject');
+
+                                    if (interest && subjectSelect) {
+                                        const option = subjectSelect.querySelector(`option[value="${interest}"]`);
+                                        if (option) {
+                                            subjectSelect.value = interest;
+                                        } else {
+                                            const lowerInterest = interest.toLowerCase();
+                                            if (lowerInterest.includes('invest')) subjectSelect.value = 'investment';
+                                            else if (lowerInterest.includes('partner')) subjectSelect.value = 'partnership';
+                                            else if (lowerInterest.includes('career')) subjectSelect.value = 'career';
+                                            else if (lowerInterest.includes('kindergarten')) subjectSelect.value = 'kindergarten';
+                                            else if (lowerInterest.includes('camp')) subjectSelect.value = 'summer_camp';
+                                            else if (lowerInterest.includes('abroad') || lowerInterest.includes('scholarship')) subjectSelect.value = 'study_abroad';
+                                            else if (lowerInterest.includes('course') || lowerInterest.includes('placement')) subjectSelect.value = 'course_info';
+                                            else if (lowerInterest.includes('business')) subjectSelect.value = 'business_consulting';
+                                            else if (lowerInterest.includes('center')) subjectSelect.value = 'center_establishment';
+                                            else subjectSelect.value = 'other';
+                                        }
+                                        console.log(`Subject pre-selected/matched to: ${subjectSelect.value}`);
+                                    }
+                                } catch (e) {
+                                    console.error("Error processing URL parameters for subject:", e);
+                                }
+                            });
+                        </script>
+                    </div>
                 </div>
             </div>
+        </section>
+    </main>
+
+    <footer id="footer-placeholder">
+        <div class="bg-gray-200 text-gray-500 text-center p-4 animate-pulse">
+            Đang tải footer...
         </div>
-    </section>
-</main>
+    </footer>
 
-<footer id="footer-placeholder"></footer>
-</footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            const footerPlaceholder = document.getElementById('footer-placeholder');
+            const headerPath = '_header.html';
+            const footerPath = '_footer.html';
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const headerPlaceholder = document.getElementById('header-placeholder');
-        const footerPlaceholder = document.getElementById('footer-placeholder');
+            function handleFetchError(error, placeholderElement, type) {
+                console.error(`Error fetching or processing ${type}:`, error);
+                let errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${type}.`;
+                let errorDetails = ` (${error.message})`;
 
-        fetch('_header.html')
-            .then(response => response.text())
-            .then(data => headerPlaceholder.innerHTML = data)
-            .catch(error => console.error('Error loading header:', error));
+                if (error instanceof TypeError && (error.message.includes('Failed to parse URL') || error.message.includes('Failed to fetch'))) {
+                     if(window.location.protocol === 'file:') {
+                         errorMessage = `<i class="fas fa-exclamation-circle mr-2"></i> <strong>Không thể tải ${type} trực tiếp từ file.</strong><br>Vui lòng chạy trang web này qua một máy chủ cục bộ (local server).`;
+                         errorDetails = "";
+                     } else {
+                          errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi mạng khi tải ${type}.`;
+                     }
+                } else if (error.message.includes('HTTP error')) {
+                     errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${type}. Không tìm thấy file (${type === 'header' ? headerPath : footerPath}) hoặc lỗi máy chủ.`;
+                } else {
+                     errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi không xác định khi tải ${type}.`;
+                }
+                placeholderElement.innerHTML = `<div class="fetch-error-message ${type}-error">${errorMessage}${errorDetails}</div>`;
+            }
 
-        fetch('_footer.html')
-            .then(response => response.text())
-            .then(data => footerPlaceholder.innerHTML = data)
-            .catch(error => console.error('Error loading footer:', error));
-    });
-</script>
+            if (headerPlaceholder) {
+                fetch(headerPath)
+                    .then(response => { if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`); return response.text(); })
+                    .then(data => { headerPlaceholder.innerHTML = data; initializeHeaderScriptsIfNeeded(); })
+                    .catch(error => handleFetchError(error, headerPlaceholder, 'header'));
+            }
 
-</body>
+            if (footerPlaceholder) {
+                fetch(footerPath)
+                    .then(response => { if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`); return response.text(); })
+                    .then(data => { footerPlaceholder.innerHTML = data; initializeFooterScriptsIfNeeded(); })
+                    .catch(error => handleFetchError(error, footerPlaceholder, 'footer'));
+            }
+        });
+
+        function initializeHeaderScriptsIfNeeded() {
+            console.log("Initializing header scripts (if any)...");
+            // Add logic to re-run header JS if needed
+             try {
+                 if (typeof initializeMobileMenu === 'function') initializeMobileMenu();
+                 if (typeof initializeLanguageSwitcher === 'function') initializeLanguageSwitcher();
+             } catch(e) { console.error("Error in initializeHeaderScriptsIfNeeded:", e); }
+        }
+
+        function initializeFooterScriptsIfNeeded() {
+            console.log("Initializing footer scripts (if any)...");
+            // Add logic to re-run footer JS if needed (e.g., update year)
+            try {
+                const footerElement = document.getElementById('footer-placeholder');
+                if (footerElement) {
+                    const currentYearSpan = footerElement.querySelector('#current-year');
+                    if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
+                }
+            } catch(e) { console.error("Error in initializeFooterScriptsIfNeeded:", e); }
+        }
+    </script>
+     </body>
 </html>
