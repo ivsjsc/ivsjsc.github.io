@@ -144,7 +144,7 @@ const translations = {
         small_button_lifeskills: "Kỹ năng sống", // Key đã thêm
         small_button_steam: "STEAM", // Key đã thêm
         small_button_international: "Hợp tác QT", // Key đã thêm
-        small_button_consulting: "Tư vấn GD", // Key đã thêm
+        small_button_consulting: "Hãy Nói - Tiếng Nói Tuổi Trẻ", // Key đã thêm
         index_vnexpress_title: "Tin tức Giáo dục mới nhất từ VnExpress", // Key đã thêm
 
         // --- About Page ---
