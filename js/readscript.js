@@ -1,3 +1,4 @@
+// readscript.js
 // Chapter Navigation Logic
 const chapters = document.querySelectorAll('.chapter');
 const chapterLinks = document.querySelectorAll('#chapter-modal ul li a');
@@ -11,6 +12,12 @@ function showChapter(index) {
 
     chapters.forEach((chapter, i) => {
         chapter.classList.toggle('active', i === index);
+    });
+
+    // Update active chapter link in modal
+    chapterLinks.forEach((link) => {
+        const chapterId = link.getAttribute('href').substring(1);
+        link.classList.toggle('active', chapters[index].id === chapterId);
     });
 
     const prevButton = document.getElementById('prev-chapter');
@@ -66,7 +73,7 @@ window.addEventListener('click', (event) => {
 chapterLinks.forEach((link) => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
-        const chapterId = link.getAttribute('href').substring(1); // Remove '#'
+        const chapterId = link.getAttribute('href').substring(1);
         const chapterElement = document.getElementById(chapterId);
         if (chapterElement) {
             const index = Array.from(chapters).indexOf(chapterElement);
@@ -86,24 +93,30 @@ if (chapters.length > 0) {
     if (prevButton) prevButton.disabled = true;
     if (nextButton) nextButton.disabled = true;
 }
-function showChapter(index) {
-    if (index < 0 || index >= chapters.length) return;
 
-    chapters.forEach((chapter, i) => {
-        chapter.classList.toggle('active', i === index);
+// Theme Toggle Logic
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+const moonIcon = '<i class="fas fa-moon"></i>';
+const sunIcon = '<i class="fas fa-sun"></i>';
+
+function applyTheme(isDark) {
+    body.classList.toggle('dark', isDark);
+    themeToggle.innerHTML = isDark ? sunIcon : moonIcon;
+    localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+    console.log(`Theme applied: ${isDark ? 'Dark' : 'Light'}`);
+}
+
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const savedTheme = localStorage.getItem('darkMode');
+let isDarkMode = savedTheme === 'enabled' || (savedTheme === null && prefersDark);
+applyTheme(isDarkMode);
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        isDarkMode = !body.classList.contains('dark');
+        applyTheme(isDarkMode);
     });
-
-    // Update active chapter link in modal
-    chapterLinks.forEach((link) => {
-        const chapterId = link.getAttribute('href').substring(1);
-        link.classList.toggle('active', chapters[index].id === chapterId);
-    });
-
-    const prevButton = document.getElementById('prev-chapter');
-    const nextButton = document.getElementById('next-chapter');
-    if (prevButton) prevButton.disabled = index === 0;
-    if (nextButton) nextButton.disabled = index === chapters.length - 1;
-
-    currentChapterIndex = index;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+} else {
+    console.warn("Theme toggle button not found.");
 }
