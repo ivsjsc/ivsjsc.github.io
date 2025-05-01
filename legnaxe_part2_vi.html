@@ -1086,17 +1086,16 @@
             <p><em>TO BE CONTINUED?</em></p>
         </div>
 
-        <!-- Navigation for Chapters -->
         <div class="navigation">
             <button id="prev-chapter" disabled>Chương Trước</button>
+            <button id="next-chapter">Chương Sau</button>
             <button id="chapter-list">Các Chương</button>
             <button id="next-chapter">Chương Sau</button>
         </div>
-        
-        <!-- Chapter List Modal -->
-        <div id="chapter-modal" class="modal" style="display: none;">
+    
+        <div id="chapter-modal" class="modal">
             <div class="modal-content">
-            <span id="close-modal" class="close">&times;</span>
+            <span id="close-modal" class="close" title="Đóng">&times;</span>
             <h3>Danh Sách Các Chương</h3>
             <ul>
                 <li><a href="#chapter-1">Chương 1</a></li>
@@ -1127,6 +1126,8 @@
                 <li><a href="#chapter-26">Chương 26</a></li>
                 <li><a href="#chapter-27">Chương 27</a></li>
                 <li><a href="#chapter-28">Chương 28</a></li>
+                <li><a href="#chapter-29">Chương 29</a></li>
+                <li><a href="#chapter-30">Chương 30</a></li>
                 <li><a href="#epilogue">Ngoại Truyện</a></li>
                 <li><a href="#after-credit">After Credit</a></li>
             </ul>
@@ -1206,6 +1207,149 @@
                 chapterModal.style.display = 'none';
             }
             });
+            document.addEventListener('DOMContentLoaded', () => {
+            // Get elements
+            const chapterListBtn = document.getElementById('chapter-list');
+            const modal = document.getElementById('chapter-modal');
+            const closeModalBtn = document.getElementById('close-modal');
+            const chapterLinks = modal.querySelectorAll('ul li a');
+            const prevChapterBtn = document.getElementById('prev-chapter');
+            const nextChapterBtn = document.getElementById('next-chapter');
+            const chapterSections = document.querySelectorAll('section[id^="chapter-"], section[id="epilogue"]'); // Get all chapter/epilogue sections
+
+            // Create an ordered list of chapter IDs from the sections
+            const chapterIds = Array.from(chapterSections).map(section => section.id);
+            let currentChapterIndex = 0; // Start at the first chapter
+
+            // Function to update button states based on current index
+            function updateNavButtons() {
+                prevChapterBtn.disabled = (currentChapterIndex <= 0);
+                nextChapterBtn.disabled = (currentChapterIndex >= chapterIds.length - 1);
+                 console.log(`Current Index: ${currentChapterIndex}, Total Chapters: ${chapterIds.length}, Prev Disabled: ${prevChapterBtn.disabled}, Next Disabled: ${nextChapterBtn.disabled}`); // Debugging
+            }
+
+            // Function to navigate smoothly to a chapter by index
+            function goToChapter(index) {
+                if (index >= 0 && index < chapterIds.length) {
+                    currentChapterIndex = index;
+                    const targetId = chapterIds[currentChapterIndex];
+                    const targetElement = document.getElementById(targetId);
+
+                    if (targetElement) {
+                        // Calculate target scroll position (element top + current scrollY - fixed header height if any)
+                        // For simplicity, using scrollIntoView directly. Adjust if header overlaps.
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                    updateNavButtons();
+                    closeModal(); // Close modal after selection
+                } else {
+                    console.error(`Invalid chapter index: ${index}`);
+                }
+            }
+
+            // Modal open/close functions
+            function openModal() {
+                modal.style.display = 'flex'; // Use flex to enable centering
+                document.body.style.overflow = 'hidden'; // Prevent background scroll
+            }
+            function closeModal() {
+                modal.style.display = 'none';
+                document.body.style.overflow = ''; // Restore background scroll
+            }
+
+            // --- Event Listeners ---
+
+            // Open modal
+            chapterListBtn.addEventListener('click', openModal);
+
+            // Close modal via button
+            closeModalBtn.addEventListener('click', closeModal);
+
+            // Close modal by clicking background overlay
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) { // Check if the click was directly on the modal background
+                    closeModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && modal.style.display === 'flex') {
+                    closeModal();
+                }
+            });
+
+            // Add listeners to chapter links in modal
+            chapterLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent default anchor jump
+                    const targetHref = link.getAttribute('href'); // e.g., "#chapter-5"
+                    const targetId = targetHref.substring(1); // e.g., "chapter-5"
+
+                    // Find the index of the clicked chapter in our ordered list
+                    const targetIndex = chapterIds.indexOf(targetId);
+
+                    if (targetIndex !== -1) {
+                        goToChapter(targetIndex);
+                    } else {
+                        console.error(`Chapter ID "${targetId}" not found in chapterIds array.`);
+                        closeModal(); // Close modal even if chapter not found
+                    }
+                });
+            });
+
+            // Prev/Next button listeners
+            prevChapterBtn.addEventListener('click', () => {
+                if (currentChapterIndex > 0) {
+                    goToChapter(currentChapterIndex - 1);
+                }
+            });
+            nextChapterBtn.addEventListener('click', () => {
+                 if (currentChapterIndex < chapterIds.length - 1) {
+                    goToChapter(currentChapterIndex + 1);
+                }
+            });
+
+            // --- Initial Setup ---
+
+            // Optional: Detect current chapter based on scroll position on load/scroll
+            function detectCurrentChapter() {
+                 let closestChapterIndex = 0;
+                 let minDistance = Infinity;
+                 const scrollY = window.scrollY;
+                 const viewportHeight = window.innerHeight;
+                 const centerViewport = scrollY + viewportHeight / 3; // Check upper third of viewport
+
+                 chapterSections.forEach((section, index) => {
+                      const sectionTop = section.offsetTop;
+                      // Consider a chapter active if its top is near the top/center of the viewport
+                      const distance = Math.abs(sectionTop - centerViewport);
+
+                      if (distance < minDistance) {
+                           minDistance = distance;
+                           closestChapterIndex = index;
+                      }
+                 });
+
+                 if (currentChapterIndex !== closestChapterIndex) {
+                      currentChapterIndex = closestChapterIndex;
+                      updateNavButtons();
+                 }
+            }
+
+            // Detect chapter on scroll (use throttling/debouncing for performance in real app)
+            let scrollTimeout;
+            window.addEventListener('scroll', () => {
+                 clearTimeout(scrollTimeout);
+                 scrollTimeout = setTimeout(detectCurrentChapter, 150); // Simple debounce
+            });
+
+
+            // Initial state setup
+            detectCurrentChapter(); // Detect initial chapter based on load position
+            updateNavButtons(); // Set initial button state based on detected chapter
+
+        });
         </script>
 </body>
 </html>
