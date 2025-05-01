@@ -11,36 +11,31 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {}, // Bạn có thể mở rộng màu sắc ở đây nếu cần
+                    colors: {}
                 }
             },
-            darkMode: 'class' // Bật chế độ dark mode dựa trên class 'dark' trên thẻ html
+            darkMode: 'class'
         }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
         :root {
-            --header-height-initial: 80px; /* Chiều cao header ban đầu (desktop) */
-            --header-height-scrolled: 60px; /* Chiều cao header khi cuộn (desktop) */
-            --header-height-mobile: 60px; /* Chiều cao header (mobile) */
+            --header-height-initial: 80px;
+            --header-height-scrolled: 60px;
+            --header-height-mobile: 60px;
         }
 
         body {
-            padding-top: var(--header-height-mobile); /* Đẩy nội dung xuống dưới header mobile */
-            font-family: 'Inter', sans-serif; /* Font chữ chính */
-            transition: background-color 0.3s, color 0.3s; /* Hiệu ứng chuyển màu nền */
-            @apply bg-gray-100 text-gray-800 flex flex-col min-h-screen; /* Layout cơ bản */
+            padding-top: var(--header-height-mobile);
+            font-family: 'Inter', sans-serif;
         }
 
-        /* Đẩy nội dung xuống dưới header desktop */
         @media (min-width: 1024px) {
             body { padding-top: var(--header-height-initial); }
         }
 
-        /* Dark Mode Styles */
         html.dark body { @apply bg-gray-900 text-gray-300; }
         html.dark .page-content-container { @apply bg-gray-800; }
         html.dark h1.page-title { @apply text-sky-400; }
@@ -50,78 +45,70 @@
         html.dark .novel-card a.read-button:not([aria-disabled='true']) {
             @apply bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700;
         }
-        /* Nút tiếng Anh trong dark mode */
         html.dark .novel-card a.read-button.english-button:not([aria-disabled='true']) {
              @apply !bg-gradient-to-r !from-emerald-600 !to-green-600 !hover:from-emerald-700 !to-green-700;
         }
         html.dark .settings button {
             @apply bg-gradient-to-r from-pink-600 to-red-600 hover:from-pink-700 hover:to-red-700;
         }
-        /* Nút bị vô hiệu hóa trong dark mode */
         html.dark .novel-card a.read-button[aria-disabled='true'] {
              @apply !bg-gradient-to-r !from-gray-600 !to-gray-700 !text-gray-400;
         }
 
-        /* Header Styles (Sẽ được tải từ _header.html) */
-        /* Giữ lại một vài style cơ bản để tránh CLS (Cumulative Layout Shift) */
         #header-placeholder {
-            min-height: var(--header-height-mobile); /* Chiều cao tối thiểu ban đầu */
+            min-height: var(--header-height-mobile);
         }
         @media (min-width: 1024px) {
              #header-placeholder { min-height: var(--header-height-initial); }
         }
 
-        /* Novel List Styles */
         .page-content-container {
-            @apply mt-6 mb-8 p-4 sm:p-6 lg:p-8 bg-white rounded-xl shadow-lg; /* Container nội dung chính */
+            @apply mt-6 mb-8 p-4 sm:p-6 lg:p-8 bg-white rounded-xl shadow-lg;
         }
 
         h1.page-title {
-            @apply text-center text-3xl sm:text-4xl font-bold text-gray-800 mt-4 mb-8 tracking-tight; /* Tiêu đề trang */
+            @apply text-center text-3xl sm:text-4xl font-bold text-gray-800 mt-4 mb-8 tracking-tight;
         }
 
         .novel-list {
-            @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 sm:gap-8; /* Lưới hiển thị truyện */
+            @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 sm:gap-8;
         }
 
         .novel-card {
-            @apply bg-white rounded-lg overflow-hidden shadow-md border border-gray-200 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1; /* Thẻ truyện */
+            @apply bg-white rounded-lg overflow-hidden shadow-md border border-gray-200 flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
         }
 
         .novel-card .cover-link {
-            @apply block overflow-hidden relative aspect-[2/3]; /* Link chứa ảnh bìa, giữ tỉ lệ 2:3 */
+            @apply block overflow-hidden relative aspect-[2/3];
         }
 
         .novel-card img.book-cover {
-            @apply w-full h-full object-cover transition-transform duration-300 group-hover:scale-105; /* Ảnh bìa */
+            @apply w-full h-full object-cover transition-transform duration-300 group-hover:scale-105;
         }
 
         .novel-card .card-content {
-            @apply p-4 sm:p-5 flex flex-col flex-grow bg-gray-50 dark:bg-gray-700; /* Nội dung text của thẻ */
+            @apply p-4 sm:p-5 flex flex-col flex-grow bg-gray-50 dark:bg-gray-700;
         }
 
         .novel-card h3 {
-            @apply text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2 leading-tight line-clamp-2 tracking-tight; /* Tiêu đề truyện */
+            @apply text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2 leading-tight line-clamp-2 tracking-tight;
         }
 
         .novel-card p {
-            @apply text-sm text-gray-600 dark:text-gray-300 mb-4 flex-grow line-clamp-3 leading-relaxed; /* Mô tả truyện */
+            @apply text-sm text-gray-600 dark:text-gray-300 mb-4 flex-grow line-clamp-3 leading-relaxed;
         }
 
         .novel-card a.read-button {
-            @apply block w-full text-center py-3 px-4 bg-gradient-to-r from-blue-600 to-sky-600 text-white rounded-lg text-sm sm:text-base font-semibold shadow-md hover:from-blue-700 hover:to-sky-700 hover:shadow-lg min-h-[48px] transition-all duration-300 touch-action-manipulation mt-auto flex items-center justify-center gap-2; /* Nút đọc */
+            @apply block w-full text-center py-3 px-4 bg-gradient-to-r from-blue-600 to-sky-600 text-white rounded-lg text-sm sm:text-base font-semibold shadow-md hover:from-blue-700 hover:to-sky-700 hover:shadow-lg min-h-[48px] transition-all duration-300 touch-action-manipulation mt-auto flex items-center justify-center gap-2;
         }
-        /* Nút đọc tiếng Anh */
         .novel-card a.read-button.english-button {
              @apply !bg-gradient-to-r !from-emerald-500 !to-green-500 !hover:from-emerald-600 !to-green-600;
         }
 
-        /* Nút đọc bị vô hiệu hóa */
         .novel-card a.read-button[aria-disabled='true'] {
             @apply !bg-gradient-to-r !from-gray-400 !to-gray-500 !text-gray-200 !cursor-not-allowed !hover:from-gray-400 !hover:to-gray-500 !shadow-none;
         }
 
-        /* Dark Mode Toggle Button */
         .settings {
             @apply fixed bottom-4 right-4 z-50;
         }
@@ -130,12 +117,9 @@
             @apply py-2 px-5 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full text-sm font-medium shadow hover:shadow-md transition-all duration-300 touch-action-manipulation;
         }
 
-        /* Footer Styles (Sẽ được tải từ _footer.html) */
         #footer-placeholder {
-             /* Có thể thêm min-height nếu cần */
         }
 
-        /* Style cho thông báo lỗi fetch */
         .fetch-error-message {
              @apply text-sm p-3 rounded-md border;
         }
@@ -247,83 +231,62 @@
     </footer>
 
     <script>
-        // --- Dark Mode Logic ---
         function toggleDarkMode() {
             const isDarkMode = document.documentElement.classList.toggle("dark");
             localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
-            console.log(`Dark mode ${isDarkMode ? 'enabled' : 'disabled'}`);
         }
 
-        // Apply dark mode on initial load based on localStorage or system preference
         if (localStorage.getItem('darkMode') === 'enabled' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add("dark");
-            console.log("Dark mode applied on load.");
         } else {
              document.documentElement.classList.remove("dark");
-             console.log("Light mode applied on load.");
         }
 
-        // --- Fetch Header and Footer Logic ---
         document.addEventListener('DOMContentLoaded', function() {
             const headerPlaceholder = document.getElementById('header-placeholder');
             const footerPlaceholder = document.getElementById('footer-placeholder');
-            const headerPath = '_header.html'; // Đảm bảo file này cùng thư mục
-            const footerPath = '_footer.html'; // Đảm bảo file này cùng thư mục
+            const headerPath = '_header.html';
+            const footerPath = '_footer.html';
 
-            // --- Helper function to handle fetch errors ---
             function handleFetchError(error, placeholderElement, type) {
-                console.error(`Error fetching or processing ${type}:`, error);
                 let errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${type}.`;
-                let errorDetails = ` (${error.message})`; // Include error message from exception
+                let errorDetails = ` (${error.message})`;
 
-                // Check if the error is likely due to file:// protocol restriction
                 if (error instanceof TypeError && error.message.includes('Failed to parse URL') || error.message.includes('Failed to fetch')) {
-                     // Check if the current protocol is file:
                      if(window.location.protocol === 'file:') {
                          errorMessage = `<i class="fas fa-exclamation-circle mr-2"></i> <strong>Không thể tải ${type} trực tiếp từ file.</strong><br>Vui lòng chạy trang web này qua một máy chủ cục bộ (local server) để tính năng fetch hoạt động.`;
-                         errorDetails = ""; // Don't show technical details for this specific case
+                         errorDetails = "";
                      } else {
-                         // Fetch failed for other reasons (e.g., network error on http/https)
                           errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi mạng khi tải ${type}. Vui lòng kiểm tra kết nối và Console (F12).`;
                      }
 
                 } else if (error.message.includes('HTTP error')) {
-                     // Handle specific HTTP errors (like 404 Not Found)
                      errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${type}. Không tìm thấy file hoặc lỗi máy chủ. Vui lòng kiểm tra đường dẫn file và Console (F12).`;
                 } else {
-                     // Generic error message
                      errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi không xác định khi tải ${type}. Vui lòng kiểm tra Console (F12).`;
                 }
 
                 placeholderElement.innerHTML = `<div class="fetch-error-message ${type}-error">${errorMessage}${errorDetails}</div>`;
             }
 
-            // --- Fetch Header ---
             if (headerPlaceholder) {
-                console.log(`Fetching header from: ${headerPath}`);
                 fetch(headerPath)
                     .then(response => {
                         if (!response.ok) {
-                            // Throw an error with status text for better debugging
                             throw new Error(`HTTP error fetching header! Status: ${response.status} ${response.statusText}`);
                         }
                         return response.text();
                     })
                     .then(data => {
                         headerPlaceholder.innerHTML = data;
-                        console.log("Header content loaded.");
                         initializeHeaderScriptsIfNeeded();
                     })
                     .catch(error => {
                         handleFetchError(error, headerPlaceholder, 'header');
                     });
-            } else {
-                console.warn("Header placeholder element (#header-placeholder) not found.");
             }
 
-            // --- Fetch Footer ---
             if (footerPlaceholder) {
-                 console.log(`Fetching footer from: ${footerPath}`);
                 fetch(footerPath)
                     .then(response => {
                         if (!response.ok) {
@@ -333,63 +296,34 @@
                      })
                     .then(data => {
                         footerPlaceholder.innerHTML = data;
-                        console.log("Footer content loaded.");
                         initializeFooterScriptsIfNeeded();
                      })
                     .catch(error => {
                          handleFetchError(error, footerPlaceholder, 'footer');
                      });
-            } else {
-                 console.warn("Footer placeholder element (#footer-placeholder) not found.");
-             }
+            }
 
         });
 
-        // --- Placeholder Functions for Script Initialization ---
-        // Bạn cần định nghĩa nội dung các hàm này nếu header/footer có JS cần chạy lại
         function initializeHeaderScriptsIfNeeded() {
-            console.log("Running initializeHeaderScriptsIfNeeded...");
-            // Ví dụ: Tìm và gắn lại event listener cho nút mobile menu, dropdown ngôn ngữ...
-            // Nếu bạn dùng file JS riêng cho header, hãy gọi hàm init của nó ở đây.
-            // Ví dụ: if (typeof initHeader === 'function') { initHeader(); }
-
-             // Tạm thời thêm log để kiểm tra
-             try {
+            try {
                  const mobileMenuButton = document.getElementById('mobile-menu-button');
                  if (mobileMenuButton) {
-                     console.log("Mobile menu button found in fetched header.");
-                     // Gắn lại event listener nếu cần (ví dụ)
-                     // mobileMenuButton.addEventListener('click', handleMobileMenuToggle);
-                 } else {
-                      // It's possible the header hasn't fully rendered yet, or the ID is wrong
-                      // console.warn("Mobile menu button not found immediately after header fetch.");
                  }
-                 // Initialize other header scripts like dropdowns, search, etc.
              } catch (e) {
-                  console.error("Error initializing header scripts:", e);
              }
         }
 
         function initializeFooterScriptsIfNeeded() {
-            console.log("Running initializeFooterScriptsIfNeeded...");
-            // Ví dụ: Cập nhật năm copyright
              try {
-                // Use querySelector within the loaded footer content for robustness
                 const footerElement = document.getElementById('footer-placeholder');
                 if (footerElement) {
                     const currentYearSpan = footerElement.querySelector('#current-year');
                     if (currentYearSpan) {
                         currentYearSpan.textContent = new Date().getFullYear();
-                        console.log("Copyright year updated.");
-                    } else {
-                        console.warn("Current year span (#current-year) not found in fetched footer.");
                     }
-                    // Initialize other footer scripts if needed
-                } else {
-                     console.warn("Footer placeholder element not found for script initialization.");
                 }
              } catch (e) {
-                  console.error("Error initializing footer scripts:", e);
              }
         }
 
