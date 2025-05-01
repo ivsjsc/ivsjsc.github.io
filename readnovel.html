@@ -8,13 +8,62 @@
     <link rel="icon" href="images/logo/logo.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --header-height-mobile: 64px;
+            --header-height-initial: 80px;
+        }
+
+        body {
+            @apply font-inter bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300;
+        }
+
+        header {
+            @apply fixed top-0 left-0 right-0 bg-white dark:bg-gray-800 shadow-md z-50 transition-all duration-300;
+        }
+
+        .novel-list {
+            @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+        }
+
+        .novel-card {
+            @apply bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-lg;
+        }
+
+        .book-cover {
+            @apply w-full h-64 object-cover;
+        }
+
+        .card-content {
+            @apply p-4 flex flex-col h-48;
+        }
+
+        .read-button {
+            @apply flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors;
+        }
+
+        .english-button {
+            @apply bg-gray-500 hover:bg-gray-600;
+        }
+
+        .search-bar {
+            @apply w-full max-w-md mx-auto mb-6 p-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700;
+        }
+
+        .back-to-top {
+            @apply fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-opacity opacity-0 invisible;
+        }
+
+        .back-to-top.visible {
+            @apply opacity-100 visible;
+        }
+    </style>
 </head>
 <body class="antialiased">
-
     <!-- Header -->
     <header id="header-placeholder" class="header-skeleton">
-        <div class="max-w-5xl mx-auto px-4 md:px-6 flex items-center justify-between h-[var(--header-height-mobile)] md:h-[var(--header-height-initial)]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-[var(--header-height-mobile)] md:h-[var(--header-height-initial)]">
             <div class="h-10 w-32 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
             <div class="hidden md:flex space-x-4">
                 <div class="h-6 w-20 bg-gray-300 dark:bg-gray-600 rounded animate-pulse"></div>
@@ -24,88 +73,97 @@
             <div class="h-8 w-8 bg-gray-300 dark:bg-gray-600 rounded-full animate-pulse"></div>
         </div>
     </header>
-    <main>
-        <div class="main-content-wrapper flex-grow">
-            <div class="page-content-container relative"> <h1 class="page-title" data-lang-key="readnovel_title">Chọn Truyện Để Đọc</h1>
-    
-                <div class="settings">
-                    <button onclick="toggleDarkMode()" aria-label="Chuyển chế độ Sáng/Tối" title="Chuyển chế độ Sáng/Tối">
-                        <i class="fas fa-adjust"></i>
-                        </button>
+
+    <main class="pt-[var(--header-height-mobile)] md:pt-[var(--header-height-initial)]">
+        <div class="main-content-wrapper flex-grow py-8">
+            <div class="page-content-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 class="page-title text-3xl font-bold mb-6" data-lang-key="readnovel_title">Chọn Truyện Để Đọc</h1>
+
+                <!-- Search Bar -->
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm truyện..." class="w-full p-2 bg-transparent focus:outline-none">
                 </div>
-    
+
+                <!-- Settings -->
+                <div class="settings flex justify-end mb-4">
+                    <button onclick="toggleDarkMode()" aria-label="Chuyển chế độ Sáng/Tối" title="Chuyển chế độ Sáng/Tối" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                        <i class="fas fa-adjust"></i>
+                    </button>
+                </div>
+
+                <!-- Novel List -->
                 <div class="novel-list">
-    
                     <div class="novel-card group">
                         <a href="legnaxe_part1_vi.html" class="cover-link" aria-label="Đọc LEGNAXE Phần 1 Tiếng Việt">
                             <picture>
                                 <source srcset="images/pages/novels/legnaxe1.webp" type="image/webp">
-                                <img src="images\pages\novels\legnaxe1.png" alt="Bìa truyện LEGNAXE Phần 1" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/EBF4FF/4A5568?text=LEGNAXE+P1'; this.alt='Lỗi tải ảnh bìa LEGNAXE Phần 1';">
+                                <img src="images/pages/novels/legnaxe1.png" alt="Bìa truyện LEGNAXE Phần 1" class="book-cover" loading="lazy" onerror="this.src='https://placehold.co/400x600/EBF4FF/4A5568?text=LEGNAXE+P1'; this.alt='Lỗi tải ảnh bìa LEGNAXE Phần 1';">
                             </picture>
                         </a>
                         <div class="card-content">
-                            <h3 class="!line-clamp-1" data-lang-key="readnovel_legnaxe1_title">LEGNAXE: Phần 1</h3>
-                            <p data-lang-key="readnovel_legnaxe1_desc">Bí mật cuộc đại chiến Thiên Đàng / Secrets of Heaven's Great War.</p>
+                            <h3 class="text-lg font-semibold !line-clamp-1" data-lang-key="readnovel_legnaxe1_title">LEGNAXE: Phần 1</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2" data-lang-key="readnovel_legnaxe1_desc">Bí mật cuộc đại chiến Thiên Đàng / Secrets of Heaven's Great War.</p>
                             <div class="flex flex-col sm:flex-row gap-3 mt-auto">
                                 <a href="legnaxe_part1_vi.html" class="read-button" data-lang-key="readnovel_read_vi">
-                                    <i class="fas fa-book-open"></i> Đọc (TV)
+                                    <i class="fas fa-book-open mr-2"></i> Đọc (TV)
                                 </a>
                                 <a href="legnaxe_part1_en.html" class="read-button english-button" data-lang-key="readnovel_read_en">
-                                    <i class="fas fa-book-open"></i> Read (EN)
+                                    <i class="fas fa-book-open mr-2"></i> Read (EN)
                                 </a>
                             </div>
                         </div>
                     </div>
-    
-                    <div class="novel-card group">
-                         <a href="legnaxe_part2_vi.html" class="cover-link" aria-label="Đọc LEGNAXE Phần 2 Tiếng Việt">
-                             <picture>
-                                 <source srcset="images/pages/novels/legnaxe2.webp" type="image/webp">
-                                 <img src="images\pages\novels\legnaxe2.png" alt="Bìa truyện LEGNAXE Phần 2" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/FFF5F5/7F1D1D?text=LEGNAXE+P2'; this.alt='Lỗi tải ảnh bìa LEGNAXE Phần 2';">
-                             </picture>
-                         </a>
-                         <div class="card-content">
-                             <h3 class="!line-clamp-1" data-lang-key="readnovel_legnaxe2_title">LEGNAXE: Phần 2</h3>
-                             <p data-lang-key="readnovel_legnaxe2_desc">Hành trình Trần Gian & Trái tim con người / Heavenly, Human’s Heart.</p>
-                             <div class="flex flex-col sm:flex-row gap-3 mt-auto">
-                                 <a href="legnaxe_part2_vi.html" class="read-button" data-lang-key="readnovel_read_vi">
-                                     <i class="fas fa-book-open"></i> Đọc (TV)
-                                 </a>
-                                 <a href="#" class="read-button english-button" aria-disabled="true" data-lang-key="readnovel_read_en_soon">
-                                     <i class="fas fa-clock"></i> Read (EN - Soon)
-                                 </a>
-                             </div>
-                         </div>
-                     </div>
-    
-                     <div class="novel-card group opacity-60"> <a href="#" class="cover-link cursor-default" aria-label="Truyện sắp ra mắt">
-                              <picture>
-                                  <source srcset="https://placehold.co/400x600/F3E8FF/6B46C1?text=Coming+Soon.webp" type="image/webp">
-                                  <img src="images\pages\novels\legnaxe2.png" alt="Bìa truyện sắp ra mắt" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/eee/aaa?text=Image+Error'; this.alt='Lỗi tải ảnh bìa truyện sắp ra mắt';">
-                              </picture>
-                          </a>
-                          <div class="card-content">
-                              <h3 class="!line-clamp-1" data-lang-key="readnovel_coming_soon_title">Truyện Mới</h3>
-                              <p data-lang-key="readnovel_coming_soon_desc">Một cuộc phiêu lưu kỳ thú khác sắp bắt đầu...</p>
-                              <div class="flex flex-col sm:flex-row gap-3 mt-auto">
-                                  <a href="#" class="read-button" aria-disabled="true" data-lang-key="readnovel_coming_soon_vi">
-                                      <i class="fas fa-clock"></i> Sắp ra mắt
-                                  </a>
-                                   <a href="#" class="read-button english-button" aria-disabled="true" data-lang-key="readnovel_coming_soon_en">
-                                      <i class="fas fa-clock"></i> Coming Soon
-                                  </a>
-                              </div>
-                          </div>
-                      </div>
-    
-                    </div> </div> </div>
 
+                    <div class="novel-card group">
+                        <a href="legnaxe_part2_vi.html" class="cover-link" aria-label="Đọc LEGNAXE Phần 2 Tiếng Việt">
+                            <picture>
+                                <source srcset="images/pages/novels/legnaxe2.webp" type="image/webp">
+                                <img src="images/pages/novels/legnaxe2.png" alt="Bìa truyện LEGNAXE Phần 2" class="book-cover" loading="lazy" onerror="this.src='https://placehold.co/400x600/FFF5F5/7F1D1D?text=LEGNAXE+P2'; this.alt='Lỗi tải ảnh bìa LEGNAXE Phần 2';">
+                            </picture>
+                        </a>
+                        <div class="card-content">
+                            <h3 class="text-lg font-semibold !line-clamp-1" data-lang-key="readnovel_legnaxe2_title">LEGNAXE: Phần 2</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2" data-lang-key="readnovel_legnaxe2_desc">Hành trình Trần Gian & Trái tim con người / Heavenly, Human’s Heart.</p>
+                            <div class="flex flex-col sm:flex-row gap-3 mt-auto">
+                                <a href="legnaxe_part2_vi.html" class="read-button" data-lang-key="readnovel_read_vi">
+                                    <i class="fas fa-book-open mr-2"></i> Đọc (TV)
+                                </a>
+                                <a href="#" class="read-button english-button" aria-disabled="true" data-lang-key="readnovel_read_en_soon">
+                                    <i class="fas fa-clock mr-2"></i> Read (EN - Soon)
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="novel-card group opacity-60">
+                        <a href="#" class="cover-link cursor-default" aria-label="Truyện sắp ra mắt">
+                            <picture>
+                                <source srcset="https://placehold.co/400x600/F3E8FF/6B46C1?text=Coming+Soon.webp" type="image/webp">
+                                <img src="images/pages/novels/legnaxe2.png" alt="Bìa truyện sắp ra mắt" class="book-cover" loading="lazy" onerror="this.src='https://placehold.co/400x600/eee/aaa?text=Image+Error'; this.alt='Lỗi tải ảnh bìa truyện sắp ra mắt';">
+                            </picture>
+                        </a>
+                        <div class="card-content">
+                            <h3 class="text-lg font-semibold !line-clamp-1" data-lang-key="readnovel_coming_soon_title">Truyện Mới</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2" data-lang-key="readnovel_coming_soon_desc">Một cuộc phiêu lưu kỳ thú khác sắp bắt đầu...</p>
+                            <div class="flex flex-col sm:flex-row gap-3 mt-auto">
+                                <a href="#" class="read-button" aria-disabled="true" data-lang-key="readnovel_coming_soon_vi">
+                                    <i class="fas fa-clock mr-2"></i> Sắp ra mắt
+                                </a>
+                                <a href="#" class="read-button english-button" aria-disabled="true" data-lang-key="readnovel_coming_soon_en">
+                                    <i class="fas fa-clock mr-2"></i> Coming Soon
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Footer -->
     <footer id="footer-placeholder">
         <div class="bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-center p-4 animate-pulse">
-            <div class="max-w-5xl mx-auto px-4 md:px-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="h-6 w-48 bg-gray-300 dark:bg-gray-600 rounded mx-auto mb-4"></div>
                 <div class="flex justify-center space-x-4">
                     <div class="h-4 w-20 bg-gray-300 dark:bg-gray-600 rounded"></div>
@@ -115,6 +173,11 @@
             </div>
         </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" onclick="scrollToTop()" aria-label="Quay lại đầu trang">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script>
         // Dark Mode Logic
@@ -126,11 +189,29 @@
         function applyInitialDarkMode() {
             if (localStorage.getItem('darkMode') === 'enabled' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 document.documentElement.classList.add("dark");
-            } else {
-                document.documentElement.classList.remove("dark");
             }
         }
         applyInitialDarkMode();
+
+        // Search Functionality
+        document.getElementById('searchInput')?.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('.novel-card').forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const desc = card.querySelector('p').textContent.toLowerCase();
+                card.style.display = (title.includes(searchTerm) || desc.includes(searchTerm)) ? '' : 'none';
+            });
+        });
+
+        // Back to Top Button
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('scroll', function() {
+            const backToTopButton = document.querySelector('.back-to-top');
+            backToTopButton.classList.toggle('visible', window.scrollY > 300);
+        });
 
         // Fetch Header and Footer
         document.addEventListener('DOMContentLoaded', function() {
@@ -144,7 +225,6 @@
                 placeholderElement.innerHTML = `<div class="fetch-error-message">${type} không thể tải. Vui lòng kiểm tra lại.</div>`;
             }
 
-            // Fetch Header
             if (headerPlaceholder) {
                 fetch(headerPath)
                     .then(response => {
@@ -158,7 +238,6 @@
                     .catch(error => handleFetchError(error, headerPlaceholder, 'header', headerPath));
             }
 
-            // Fetch Footer
             if (footerPlaceholder) {
                 fetch(footerPath)
                     .then(response => {
@@ -184,7 +263,5 @@
             });
         }
     </script>
-    <script src="js/script.js" defer></script>
-    <script src="js/language.js" defer></script>
 </body>
 </html>
