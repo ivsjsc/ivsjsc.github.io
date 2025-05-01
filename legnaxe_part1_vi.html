@@ -144,7 +144,162 @@
 
         /* Hide header/footer placeholders as they are not used */
         #header-placeholder, #footer-placeholder { display: none; }
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
 
+        /* Chapter Content Sections */
+        section {
+            padding: 40px 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            min-height: 300px; /* Example height */
+        }
+        section:last-of-type {
+            border-bottom: none;
+        }
+        h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        /* Navigation Buttons */
+        .navigation {
+            position: sticky; /* Make navigation sticky */
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            border-top: 1px solid #eee;
+            z-index: 100; /* Ensure it's above content */
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Space between buttons */
+        }
+        .navigation button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .navigation button:hover:not(:disabled) {
+            background-color: #e0e0e0;
+        }
+        .navigation button:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+            background-color: #f0f0f0;
+            color: #999;
+        }
+        #chapter-list {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        #chapter-list:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: hidden; /* Disable scroll on body when modal is open */
+            background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+            display: flex; /* Use flexbox for centering */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 25px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px; /* Max width */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            max-height: 80vh; /* Limit height */
+            display: flex;
+            flex-direction: column; /* Stack title, list, close button */
+        }
+        .modal-content h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #333;
+            flex-shrink: 0; /* Prevent shrinking */
+        }
+        .modal-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            overflow-y: auto; /* Enable scroll for list */
+            flex-grow: 1; /* Allow list to take available space */
+            scrollbar-width: thin;
+            scrollbar-color: #ccc #f1f1f1;
+        }
+         .modal-content ul::-webkit-scrollbar {
+             width: 8px;
+         }
+         .modal-content ul::-webkit-scrollbar-track {
+             background: #f1f1f1;
+             border-radius: 4px;
+         }
+         .modal-content ul::-webkit-scrollbar-thumb {
+             background: #ccc;
+             border-radius: 4px;
+         }
+         .modal-content ul::-webkit-scrollbar-thumb:hover {
+             background: #aaa;
+         }
+
+        .modal-content li {
+            margin-bottom: 5px;
+        }
+        .modal-content li a {
+            display: block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #007bff;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .modal-content li a:hover {
+            background-color: #f0f0f0;
+            color: #0056b3;
+        }
+        .close {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            line-height: 1;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class=""> <header id="navbar" class="bg-neutral-800">
