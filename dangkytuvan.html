@@ -7,48 +7,78 @@
     <meta name="description" content="Đăng ký nhận tư vấn miễn phí từ IVS JSC về các lĩnh vực giáo dục, công nghệ, hợp tác quốc tế và các dịch vụ khác." data-lang-key="meta_description_consultation">
     <meta property="og:title" content="Đăng ký Tư vấn - IVS JSC" data-lang-key="og_title_consultation">
     <meta property="og:description" content="Liên hệ với IVS JSC để được tư vấn chi tiết về nhu cầu của bạn." data-lang-key="og_description_consultation">
-    <meta property="og:image" content="https://placehold.co/1200x630/2563EB/ffffff?text=Đăng+Ký+Tư+Vấn+IVS"> <meta property="og:url" content="https://ivsjsc.github.io/dangkytuvan.html"> <meta property="og:type" content="website">
-
-    <link rel="icon" href="images/logo/logo.png" type="image/x-icon"> <link rel="preconnect" href="https://fonts.googleapis.com">
+    <meta property="og:image" content="https://ivs.id.vn/images/og/consultation-og-image.jpg"> <meta property="og:url" content="https://ivs.id.vn/dangkytuvan.html"> <meta property="og:type" content="website">
+    <meta property="og:site_name" content="IVS JSC">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon"> <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      // Optional: Basic Tailwind config (can be removed if not needed)
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['Inter', 'sans-serif'],
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: { // Match colors from styles.css variables if possible
+                        'primary': '#3b82f6', // blue-500
+                        'primary-dark': '#2563eb', // blue-600
+                        'secondary': '#10b981', // emerald-500
+                        'warning': '#f59e0b', // amber-500
+                        'header-orange': '#f97316', // orange-600 (assuming from styles.css)
+                        // Add other necessary colors
+                        'red-100': '#fee2e2', 'red-300': '#fca5a5', 'red-500': '#ef4444', 'red-700': '#b91c1c',
+                        'gray-100': '#f3f4f6', 'gray-200': '#e5e7eb', 'gray-300': '#d1d5db', 'gray-400': '#9ca3af', 'gray-500': '#6b7280', 'gray-600': '#4b5563', 'gray-700': '#374151', 'gray-800': '#1f2937',
+                        'amber-600': '#d97706', // For button hover
+                        'blue-500': '#3b82f6', // For primary
+                        'indigo-600': '#4f46e5' // Example for gradients
+                    }
+                }
             },
-             colors: { // Match colors from styles.css variables if possible
-               'primary': '#3b82f6', // blue-500
-               'primary-dark': '#2563eb', // blue-600
-               'secondary': '#10b981', // emerald-500
-               'warning': '#f59e0b', // amber-500
-               'header-orange': '#f97316', // orange-600
-             }
-          }
-        }
-      }
+            plugins: [],
+        };
     </script>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            padding-top: 60px; /* Default padding for mobile header */
+        }
+        @media (min-width: 1024px) {
+            body { padding-top: 80px; } /* Padding for desktop header */
+        }
+        /* Fetch Error Message Styles */
+        .fetch-error-message {
+            text-align: center; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; color: #b91c1c; background-color: #fee2e2;
+        }
+        .fetch-error-message.header-error {
+             position: fixed; top: 0; left: 0; right: 0; z-index: 50; min-height: 60px; display: flex; align-items: center; justify-content: center;
+        }
+         @media (min-width: 1024px) { .fetch-error-message.header-error { min-height: 80px; } }
+        .fetch-error-message.footer-error { margin-top: 1rem; }
+        html.dark .fetch-error-message { background-color: rgba(127, 29, 29, 0.5); border-color: #b91c1c; color: #fecaca; }
+        /* Add other specific styles if needed */
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-700 antialiased" id="page-consultation">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <link rel="stylesheet" href="css/styles.css"> </head>
-<body class="bg-gray-100" id="page-consultation">
-
-    <header id="header-placeholder"></header>
+    <header id="header-placeholder">
+        <div class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-gray-200 text-gray-500 animate-pulse" style="height: 60px;">Đang tải header...</div>
+         @media (min-width: 1024px) {
+             <div class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-gray-200 text-gray-500 animate-pulse" style="height: 80px;">Đang tải header...</div>
+         }
+    </header>
 
     <main class="py-16 md:py-24">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-2xl mx-auto bg-white p-6 md:p-8 rounded-lg shadow-lg border border-gray-200">
+            <div class="max-w-2xl mx-auto bg-white p-6 md:p-10 rounded-xl shadow-xl border border-gray-200">
 
-                <h1 class="text-3xl font-bold text-center text-gray-800 mb-2" data-lang-key="consultation_form_title">Đăng ký Tư vấn</h1>
-                <p class="text-center text-gray-600 mb-8" data-lang-key="consultation_form_subtitle">Vui lòng điền thông tin bên dưới, IVS JSC sẽ liên hệ lại với bạn sớm nhất.</p>
+                <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-3" data-lang-key="consultation_form_title">Đăng ký Tư vấn</h1>
+                <p class="text-center text-gray-600 mb-8 md:mb-10" data-lang-key="consultation_form_subtitle">Vui lòng điền thông tin bên dưới, IVS JSC sẽ liên hệ lại với bạn sớm nhất có thể.</p>
 
-                <form id="consultation-form" action="#" method="POST"> <div class="space-y-6">
+                <form id="consultation-form" action="https://formspree.io/f/YOUR_CONSULTATION_FORM_CODE" method="POST">
+                    <div class="space-y-6">
 
                         <div>
                             <label for="fullname" class="block text-sm font-medium text-gray-700 mb-1" data-lang-key="form_label_fullname">Họ và Tên <span class="text-red-500">*</span></label>
@@ -74,7 +104,7 @@
                         <div>
                             <label for="interest" class="block text-sm font-medium text-gray-700 mb-1" data-lang-key="form_label_interest">Lĩnh vực cần tư vấn <span class="text-red-500">*</span></label>
                             <select id="interest" name="interest" required
-                                    class="block w-full px-4 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                    class="block w-full px-4 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm appearance-none">
                                 <option value="" disabled selected data-lang-key="form_select_placeholder">-- Chọn lĩnh vực --</option>
                                 <option value="language_training" data-lang-key="interest_option_language">Đào tạo Ngoại ngữ</option>
                                 <option value="steam_lifeskills" data-lang-key="interest_option_steam">Đào tạo STEAM/Kỹ năng sống</option>
@@ -91,32 +121,131 @@
                         <div>
                             <label for="message" class="block text-sm font-medium text-gray-700 mb-1" data-lang-key="form_label_message">Nội dung yêu cầu</label>
                             <textarea id="message" name="message" rows="4"
-                                      class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                                      class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm resize-vertical"
                                       placeholder="Nêu rõ yêu cầu hoặc câu hỏi của bạn..." data-lang-key="form_placeholder_message"></textarea>
                         </div>
 
-                        <div>
+                        <input type="hidden" name="_next" value="https://ivs.id.vn/thank-you-consultation.html"> <input type="text" name="_gotcha" style="display:none"> <div>
                             <button type="submit"
-                                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-150 ease-in-out"
-                                    data-lang-key="form_button_submit">
-                                Gửi yêu cầu Tư vấn
+                                    class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-md shadow-lg text-base font-medium text-white bg-gradient-to-r from-primary to-blue-500 hover:from-primary-dark hover:to-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-300 ease-in-out transform hover:-translate-y-0.5">
+                                <i class="fas fa-paper-plane"></i>
+                                <span data-lang-key="form_button_submit">Gửi yêu cầu Tư vấn</span>
                             </button>
                         </div>
                     </div>
                 </form>
 
-                <div class="mt-8 text-center text-sm text-gray-500">
-                    <p data-lang-key="consultation_alt_contact_prefix">Hoặc liên hệ trực tiếp qua:</p>
-                    <p class="mt-1">Zalo<a href="https://zalo.me/nmt5555789" class="text-primary hover:underline">[Zalo Chat]</a> | Email: <a href="mailto:ivscorp.vn@gmail.com" class="text-primary hover:underline">ivscorp.vn@gmail.com</a></p>
+                <div class="mt-10 text-center text-sm text-gray-500 border-t pt-6">
+                    <p data-lang-key="consultation_alt_contact_prefix">Hoặc liên hệ trực tiếp với bộ phận tư vấn qua:</p>
+                    <p class="mt-2">
+                        <i class="fab fa-zalo text-blue-500"></i> Zalo: <a href="https://zalo.me/ivsjsc/" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-medium">[Chat Zalo OA]</a> |
+                        <i class="fas fa-envelope text-gray-500 ml-2"></i> Email: <a href="mailto:ivscorp.vn@gmail.com" class="text-primary hover:underline font-medium">ivscorp.vn@gmail.com</a> |
+                        <i class="fas fa-phone-alt text-gray-500 ml-2"></i> Hotline: <a href="tel:+84896920547" class="text-primary hover:underline font-medium">0896 920 547</a>
+                     </p>
                 </div>
 
             </div>
         </div>
     </main>
 
-    <footer id="footer-placeholder"></footer>
+    <footer id="footer-placeholder">
+        <div class="bg-gray-200 text-gray-500 text-center p-4 animate-pulse">Đang tải footer...</div>
+    </footer>
 
-    <script src="js/language.js" defer></script>
-    <script src="js/script.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            const footerPlaceholder = document.getElementById('footer-placeholder');
+            // !! QUAN TRỌNG: Đảm bảo tên file header/footer chính xác !!
+            const headerPath = 'header.html';
+            const footerPath = 'footer.html';
+
+            // --- Helper function to handle fetch errors ---
+            function handleFetchError(error, placeholderElement, type) {
+                console.error(`Error fetching or processing ${type}:`, error);
+                let errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${type}.`;
+                let errorDetails = ` (${error.message})`;
+
+                if (error instanceof TypeError && (error.message.includes('Failed to parse URL') || error.message.includes('Failed to fetch'))) {
+                     if(window.location.protocol === 'file:') {
+                         errorMessage = `<i class="fas fa-exclamation-circle mr-2"></i> <strong>Không thể tải ${type} trực tiếp từ file.</strong><br>Vui lòng chạy trang web này qua một máy chủ cục bộ (local server).`;
+                         errorDetails = "";
+                     } else {
+                          errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi mạng khi tải ${type}.`;
+                     }
+                } else if (error.message.includes('HTTP error')) {
+                     errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${type}. Không tìm thấy file (${type === 'header' ? headerPath : footerPath}) hoặc lỗi máy chủ.`;
+                } else {
+                     errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi không xác định khi tải ${type}.`;
+                }
+                placeholderElement.innerHTML = `<div class="fetch-error-message ${type}-error">${errorMessage}${errorDetails}</div>`;
+            }
+
+            // --- Fetch Header ---
+            if (headerPlaceholder) {
+                fetch(headerPath)
+                    .then(response => { if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`); return response.text(); })
+                    .then(data => { headerPlaceholder.innerHTML = data; initializeHeaderScriptsIfNeeded(); })
+                    .catch(error => handleFetchError(error, headerPlaceholder, 'header'));
+            } else {
+                 console.warn("Header placeholder not found.");
+            }
+
+            // --- Fetch Footer ---
+            if (footerPlaceholder) {
+                fetch(footerPath)
+                    .then(response => { if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`); return response.text(); })
+                    .then(data => { footerPlaceholder.innerHTML = data; initializeFooterScriptsIfNeeded(); })
+                    .catch(error => handleFetchError(error, footerPlaceholder, 'footer'));
+            } else {
+                 console.warn("Footer placeholder not found.");
+            }
+
+            // --- Pre-select interest based on URL parameter ---
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const interestParam = urlParams.get('interest') || urlParams.get('subject'); // Check for 'interest' or 'subject'
+                const interestSelect = document.getElementById('interest');
+
+                if (interestParam && interestSelect) {
+                    const option = interestSelect.querySelector(`option[value="${interestParam}"]`);
+                    if (option) {
+                        interestSelect.value = interestParam;
+                        console.log(`Interest pre-selected to: ${interestParam}`);
+                    } else {
+                         console.warn(`Interest parameter value "${interestParam}" not found in select options.`);
+                         // Optional: Add partial matching logic here if needed
+                    }
+                }
+            } catch (e) {
+                 console.error("Error processing URL parameters for interest:", e);
+            }
+
+        });
+
+        // --- Placeholder Functions for Script Initialization ---
+        function initializeHeaderScriptsIfNeeded() {
+            console.log("Initializing header scripts (if any)...");
+            try {
+                // Call header-specific JS initialization functions if they exist
+                if (typeof initializeMobileMenu === 'function') initializeMobileMenu();
+                if (typeof initializeLanguageSwitcher === 'function') initializeLanguageSwitcher();
+                // Add other header init calls here
+            } catch(e) { console.error("Error in initializeHeaderScriptsIfNeeded:", e); }
+        }
+
+        function initializeFooterScriptsIfNeeded() {
+            console.log("Initializing footer scripts (if any)...");
+            try {
+                // Update copyright year
+                const footerElement = document.getElementById('footer-placeholder');
+                if (footerElement) {
+                    const currentYearSpan = footerElement.querySelector('#current-year');
+                    if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
+                }
+                // Call other footer init calls here
+            } catch(e) { console.error("Error in initializeFooterScriptsIfNeeded:", e); }
+        }
+    </script>
     </body>
 </html>
