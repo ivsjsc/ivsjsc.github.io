@@ -818,35 +818,11 @@
     <footer id="footer-placeholder"></footer>
     <script src="your-scripts.js"></script>
     <script>
-        // Ví dụ JS đơn giản để xử lý accordion (cần hoàn thiện)
-        document.querySelectorAll('.accordion-placeholder h4').forEach(header => {
-            header.addEventListener('click', () => {
-                const content = header.nextElementSibling;
-                if (content && content.classList.contains('accordion-content')) {
-                    // Toggle display (cần logic phức tạp hơn để đóng cái khác khi mở cái này)
-                     content.style.display = content.style.display === 'none' || content.style.display === '' ? 'block' : 'none';
-                }
-            });
-        });
-
-         // Ví dụ JS đơn giản để xử lý "Tìm hiểu thêm" (cần hoàn thiện)
-         document.querySelectorAll('.learn-more-placeholder a').forEach(link => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault(); // Ngăn hành vi mặc định của thẻ a
-                const content = link.parentElement.nextElementSibling;
-                 if (content && content.classList.contains('learn-more-content')) {
-                     content.style.display = content.style.display === 'none' || content.style.display === '' ? 'block' : 'none';
-                     link.textContent = content.style.display === 'block' ? 'Ẩn bớt' : 'Tìm hiểu thêm';
-                 }
-            });
-         });
-
-        // Thêm mã fetch header/footer nếu bạn dùng JS client-side
-         document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const headerPlaceholder = document.getElementById('header-placeholder');
             const footerPlaceholder = document.getElementById('footer-placeholder');
 
-            // Ví dụ Fetch Header (điều chỉnh đường dẫn file)
+            // Fetch Header
             if (headerPlaceholder) {
                 fetch('_header.html')
                     .then(response => response.ok ? response.text() : Promise.reject('Header not found'))
@@ -854,48 +830,35 @@
                     .catch(error => console.error('Error fetching header:', error));
             }
 
-            // Ví dụ Fetch Footer (điều chỉnh đường dẫn file)
-            if (footerPlaceholder) {
-                 fetch('_footer.html')
-                    .then(response => response.ok ? response.text() : Promise.reject('Footer not found'))
-                    .then(data => footerPlaceholder.innerHTML = data)
-                    .catch(error => console.error('Error fetching footer:', error));
-            }
-         });
-         document.addEventListener('DOMContentLoaded', function() {
-            const headerPlaceholder = document.getElementById('header-placeholder');
-            const footerPlaceholder = document.getElementById('footer-placeholder');
-
-            // Fetch Header
-            if (headerPlaceholder) {
-                fetch('_header.html') // Đảm bảo file này cùng thư mục
-                    .then(response => response.ok ? response.text() : Promise.reject('Header not found'))
-                    .then(data => headerPlaceholder.innerHTML = data)
-                    .catch(error => console.error('Error fetching header:', error));
-            }
-
             // Fetch Footer
             if (footerPlaceholder) {
-                fetch('_footer.html') // Đảm bảo file này cùng thư mục
+                fetch('_footer.html')
                     .then(response => response.ok ? response.text() : Promise.reject('Footer not found'))
                     .then(data => footerPlaceholder.innerHTML = data)
                     .catch(error => console.error('Error fetching footer:', error));
             }
 
-            // --- GIỮ NGUYÊN CODE JS CHO ACCORDION VÀ LEARN MORE CỦA BẠN Ở ĐÂY ---
+            // Accordion logic
             document.querySelectorAll('.accordion-placeholder h4').forEach(header => {
                 header.addEventListener('click', () => {
-                    // ... code accordion ...
+                    const content = header.nextElementSibling;
+                    if (content && content.classList.contains('accordion-content')) {
+                        content.style.display = content.style.display === 'none' || content.style.display === '' ? 'block' : 'none';
+                    }
                 });
             });
 
+            // Learn more logic
             document.querySelectorAll('.learn-more-placeholder a').forEach(link => {
-                 link.addEventListener('click', (event) => {
-                    // ... code learn more ...
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const content = link.parentElement.nextElementSibling;
+                    if (content && content.classList.contains('learn-more-content')) {
+                        content.style.display = content.style.display === 'none' || content.style.display === '' ? 'block' : 'none';
+                        link.textContent = content.style.display === 'block' ? 'Ẩn bớt' : 'Tìm hiểu thêm';
+                    }
                 });
             });
-            // --- HẾT PHẦN CODE JS KHÁC ---
-
         });
     </script>
 
