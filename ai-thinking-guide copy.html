@@ -3,81 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-lang-key="lkai_page_title">Hướng dẫn Tư duy AI Tích cực - IVS Education</title>
+    <title data-lang-key="lkai_page_title">Hướng dẫn Tư duy AI Tích cực - Làm chủ AI trong Công việc & Cuộc sống - IVS Education</title>
     <meta name="description" content="Học cách sử dụng AI hiệu quả trong công việc và cuộc sống với tư duy tích cực, đơn giản. Hướng dẫn từ IVS Education." data-lang-key="lkai_meta_description">
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: { // Bảng màu cơ bản, có thể mở rộng
+                        'primary': '#3b82f6', // blue-500
+                        'primary-dark': '#2563eb', // blue-600
+                        'secondary': '#10b981', // emerald-500
+                        'warning': '#f59e0b', // amber-500
+                        'info': '#0ea5e9', // sky-500
+                        'danger': '#ef4444', // red-500
+                        'gray-100': '#f3f4f6',
+                        'gray-200': '#e5e7eb',
+                        'gray-300': '#d1d5db',
+                        'gray-500': '#6b7280',
+                        'gray-600': '#4b5563',
+                        'gray-700': '#374151',
+                        'gray-800': '#1f2937',
+                        'blue-50': '#eff6ff',
+                        'emerald-50': '#ecfdf5',
+                    }
+                }
+            },
+            plugins: [],
+        };
+    </script>
+    <link rel="stylesheet" href="css/styles.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            padding-top: 60px;
+            padding-top: 60px; /* Default padding for mobile header */
         }
         @media (min-width: 1024px) {
-            body {
-                padding-top: 80px;
-            }
+            body { padding-top: 80px; } /* Padding for desktop header */
         }
-        .banner {
-            position: relative;
-            text-align: center;
-            color: white;
-            background: linear-gradient(to right, #3b82f6, #2563eb);
-            padding: 60px 20px;
+        /* Fetch Error Message Styles */
+        .fetch-error-message {
+            text-align: center; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; color: #b91c1c; background-color: #fee2e2;
         }
-        .banner h1 {
-            font-size: 2.5rem;
-            font-weight: bold;
+        .fetch-error-message.header-error {
+             position: fixed; top: 0; left: 0; right: 0; z-index: 50; min-height: 60px; display: flex; align-items: center; justify-content: center;
         }
-        .banner p {
-            font-size: 1.25rem;
-            margin-top: 10px;
+         @media (min-width: 1024px) { .fetch-error-message.header-error { min-height: 80px; } }
+        .fetch-error-message.footer-error { margin-top: 1rem; }
+        html.dark .fetch-error-message { background-color: rgba(127, 29, 29, 0.5); border-color: #b91c1c; color: #fecaca; }
+
+        /* Custom list style for requirements */
+        .requirement-list li {
+            @apply mb-3 pl-6 relative;
         }
-        .table-container {
-            overflow-x: auto;
-            margin-top: 20px;
+        .requirement-list li::before {
+            content: "\f058"; /* Font Awesome check-circle icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            @apply absolute left-0 top-1 text-secondary; /* Màu xanh lá */
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        /* Custom style for cost sections */
+        .cost-section {
+            @apply border border-gray-200 rounded-lg p-5 mb-6 shadow-sm;
         }
-        th, td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: left;
+        .cost-section h3 {
+            @apply text-xl font-semibold text-primary mb-3;
         }
-        th {
-            background-color: #f3f4f6;
+        .cost-section p strong {
+             @apply font-semibold text-gray-700;
         }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-700 antialiased">
 
-<header id="header-placeholder">
-    <div class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-gray-200 text-gray-500 animate-pulse" style="height: 60px;">Đang tải header...</div>
-</header>
+    <header id="header-placeholder">
+        <div class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-gray-200 text-gray-500 animate-pulse" style="height: 60px;">Đang tải header...</div>
+         @media (min-width: 1024px) {
+             <div class="fixed top-0 left-0 right-0 z-50 flex items-center justify-center bg-gray-200 text-gray-500 animate-pulse" style="height: 80px;">Đang tải header...</div>
+         }
+    </header>
 
-<main class="container mx-auto px-4">
-    <!-- Banner -->
-    <section class="banner">
-        <h1 data-lang-key="lkai_hero_title">Hướng dẫn Tư duy AI Tích cực</h1>
-        <p data-lang-key="lkai_hero_subtitle">Làm chủ AI trong Công việc & Cuộc sống bằng cách suy nghĩ đơn giản và hiệu quả.</p>
-    </section>
-
-    <!-- Nội dung chính -->
-    <section class="py-12">
-        <h2 class="text-2xl font-bold mb-4">8 "Chìa khóa Tư duy" giúp bạn dùng AI tích cực và dễ dàng</h2>
-        <ul class="list-disc pl-6 space-y-4">
-            <li><strong>Rõ ràng Mục tiêu:</strong> Biết mình muốn gì và yêu cầu AI hỗ trợ cụ thể.</li>
-            <li><strong>Tư duy về Dữ liệu:</strong> Cung cấp thông tin chính xác và liên quan.</li>
-            <li><strong>Giao tiếp Hiệu quả:</strong> Diễn đạt rõ ràng và cụ thể khi yêu cầu AI.</li>
-            <li><strong>AI là Trợ lý:</strong> Xem AI như công cụ hỗ trợ, không phải người thay thế.</li>
-            <li><strong>Sáng tạo và Khám phá:</strong> Dùng AI để tìm ý tưởng mới và học hỏi.</li>
-            <li><strong>Bắt đầu Nhỏ:</strong> Thử nghiệm với các nhiệm vụ đơn giản.</li>
-            <li><strong>Đánh giá Phản biện:</strong> Luôn kiểm tra lại kết quả từ AI.</li>
-            <li><strong>Ham học hỏi:</strong> Luôn cập nhật và thích nghi với công nghệ mới.</li>
-        </ul>
-    </section>            
+    <main class="container">
         <section class="banner-kindergarten relative text-white py-20 md:py-28 text-center overflow-hidden" aria-labelledby="page-title-mamnon">
             <div class="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-600 opacity-90 z-0"></div>
             <img src="/images/logo/logo.png" alt="IVS AIAI background" data-lang-key="lkai_hero_banner_alt" class="absolute inset-0 w-full h-full object-cover opacity-30 z-0 mix-blend-multiply" loading="lazy">
@@ -839,61 +852,85 @@
             <p>Chúc bạn thành công trên hành trình khám phá và ứng dụng AI!</p>
             <p>Liên hệ IVS Education nếu bạn cần hỗ trợ xây dựng lộ trình AI cho cá nhân hoặc doanh nghiệp.</p>
             <a href="#contact-form-placeholder" class="contact-button">Liên hệ Tư vấn ngay</a> </section>
-    <!-- Bảng công cụ AI -->
-    <section class="py-12">
-        <h2 class="text-2xl font-bold mb-4">Công cụ AI phổ biến</h2>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Loại hình</th>
-                        <th>Ví dụ</th>
-                        <th>Nhà phát triển</th>
-                        <th>Mô tả</th>
-                        <th>Liên kết</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Tạo sinh Ngôn ngữ</td>
-                        <td>ChatGPT</td>
-                        <td>OpenAI</td>
-                        <td>Tạo văn bản, trả lời câu hỏi</td>
-                        <td><a href="https://chat.openai.com/" target="_blank" rel="noopener">Truy cập</a></td>
-                    </tr>
-                    <tr>
-                        <td>Tạo sinh Hình ảnh</td>
-                        <td>Midjourney</td>
-                        <td>Midjourney, Inc.</td>
-                        <td>Tạo hình ảnh từ mô tả văn bản</td>
-                        <td><a href="https://www.midjourney.com/" target="_blank" rel="noopener">Truy cập</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-</main>
+    </main>
 
-<footer id="footer-placeholder">
-    <div class="bg-gray-200 text-gray-500 text-center p-4 animate-pulse">Đang tải footer...</div>
-</footer>
+    <footer id="footer-placeholder">
+        <div class="bg-gray-200 text-gray-500 text-center p-4 animate-pulse">Đang tải footer...</div>
+    </footer>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const headerPlaceholder = document.getElementById('header-placeholder');
-        const footerPlaceholder = document.getElementById('footer-placeholder');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            const footerPlaceholder = document.getElementById('footer-placeholder');
+            // !! QUAN TRỌNG: Đảm bảo tên file header/footer chính xác !!
+            const headerPath = 'header.html';
+            const footerPath = 'footer.html';
 
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => headerPlaceholder.innerHTML = data)
-            .catch(error => console.error('Error loading header:', error));
+            // --- Helper function to handle fetch errors ---
+            function handleFetchError(error, placeholderElement, type) {
+                console.error(`Error fetching or processing ${type}:`, error);
+                let errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${type}.`;
+                let errorDetails = ` (${error.message})`;
 
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(data => footerPlaceholder.innerHTML = data)
-            .catch(error => console.error('Error loading footer:', error));
-    });
-</script>
+                if (error instanceof TypeError && (error.message.includes('Failed to parse URL') || error.message.includes('Failed to fetch'))) {
+                     if(window.location.protocol === 'file:') {
+                         errorMessage = `<i class="fas fa-exclamation-circle mr-2"></i> <strong>Không thể tải ${type} trực tiếp từ file.</strong><br>Vui lòng chạy trang web này qua một máy chủ cục bộ (local server).`;
+                         errorDetails = "";
+                     } else {
+                          errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi mạng khi tải ${type}.`;
+                     }
+                } else if (error.message.includes('HTTP error')) {
+                     errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi tải ${type}. Không tìm thấy file (${type === 'header' ? headerPath : footerPath}) hoặc lỗi máy chủ.`;
+                } else {
+                     errorMessage = `<i class="fas fa-exclamation-triangle mr-2"></i> Lỗi không xác định khi tải ${type}.`;
+                }
+                placeholderElement.innerHTML = `<div class="fetch-error-message ${type}-error">${errorMessage}${errorDetails}</div>`;
+            }
 
-</body>
+            // --- Fetch Header ---
+            if (headerPlaceholder) {
+                fetch(headerPath)
+                    .then(response => { if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`); return response.text(); })
+                    .then(data => { headerPlaceholder.innerHTML = data; initializeHeaderScriptsIfNeeded(); })
+                    .catch(error => handleFetchError(error, headerPlaceholder, 'header'));
+            } else {
+                 console.warn("Header placeholder not found.");
+            }
+
+            // --- Fetch Footer ---
+            if (footerPlaceholder) {
+                fetch(footerPath)
+                    .then(response => { if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`); return response.text(); })
+                    .then(data => { footerPlaceholder.innerHTML = data; initializeFooterScriptsIfNeeded(); })
+                    .catch(error => handleFetchError(error, footerPlaceholder, 'footer'));
+            } else {
+                 console.warn("Footer placeholder not found.");
+             }
+        });
+
+        // --- Placeholder Functions for Script Initialization ---
+        function initializeHeaderScriptsIfNeeded() {
+            console.log("Initializing header scripts (if any)...");
+            try {
+                // Call header-specific JS initialization functions if they exist
+                if (typeof initializeMobileMenu === 'function') initializeMobileMenu();
+                if (typeof initializeLanguageSwitcher === 'function') initializeLanguageSwitcher();
+                // Add other header init calls here
+            } catch(e) { console.error("Error in initializeHeaderScriptsIfNeeded:", e); }
+        }
+
+        function initializeFooterScriptsIfNeeded() {
+            console.log("Initializing footer scripts (if any)...");
+            try {
+                // Update copyright year
+                const footerElement = document.getElementById('footer-placeholder');
+                if (footerElement) {
+                    const currentYearSpan = footerElement.querySelector('#current-year');
+                    if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
+                }
+                // Call other footer init calls here
+            } catch(e) { console.error("Error in initializeFooterScriptsIfNeeded:", e); }
+        }
+    </script>
+    </body>
 </html>
