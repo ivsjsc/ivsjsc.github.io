@@ -447,3 +447,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log("[Script] Initial execution completed.");
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    const currentTheme = localStorage.getItem("theme") || "light";
+  
+    // Áp dụng theme hiện tại
+    document.body.classList.add(currentTheme + "-mode");
+    themeToggleBtn.textContent = currentTheme === "light" ? "Chế độ tối" : "Chế độ sáng";
+  
+    // Xử lý sự kiện khi nhấn nút
+    themeToggleBtn.addEventListener("click", function () {
+      const isLightMode = document.body.classList.contains("light-mode");
+  
+      // Chuyển đổi giữa light-mode và dark-mode
+      document.body.classList.toggle("light-mode", !isLightMode);
+      document.body.classList.toggle("dark-mode", isLightMode);
+  
+      // Cập nhật nút và lưu trạng thái vào localStorage
+      const newTheme = isLightMode ? "dark" : "light";
+      themeToggleBtn.textContent = newTheme === "light" ? "Chế độ tối" : "Chế độ sáng";
+      localStorage.setItem("theme", newTheme);
+    });
+  });
