@@ -1,140 +1,140 @@
 // /js/language.js
-// Phiên bản: Đầy đủ key, sửa lỗi xử lý bản quyền, thêm ghi chú
+// Phiên bản: Tải bản dịch từ tệp JSON riêng biệt
 
-// Đối tượng lưu trữ các bản dịch
-const translations = {
-    vi: {
-        // --- Meta Tags ---
-        about_page_title: "Về Chúng Tôi - IVS JSC",
-        about_meta_description: "Tìm hiểu về IVS JSC - Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy, sứ mệnh, tầm nhìn, giá trị cốt lõi, đội ngũ lãnh đạo và các lĩnh vực hoạt động.",
-        about_og_title: "Về Chúng Tôi - IVS JSC",
-        about_og_description: "Khám phá IVS JSC: Kết nối giáo dục Việt Nam với công nghệ tiên tiến và chuẩn quốc tế.",
-        page_title_index: "IVS JSC - Giáo dục, Công nghệ, Sức khỏe, Hợp tác Quốc tế",
-        meta_description_index: "IVS JSC - Tổ chức tiên phong tại Việt Nam trong lĩnh vực giáo dục (IVS Academy, IVS Kindergarten), EdTech (IVS Celestech), sức khỏe cộng đồng và hợp tác quốc tế.",
-        og_title_index: "IVS JSC - Giáo dục, Công nghệ, Sức khỏe, Hợp tác Quốc tế",
-        og_description_index: "Khám phá các giải pháp toàn diện về đào tạo ngoại ngữ, STEAM, kỹ năng sống, EdTech, chăm sóc sức khỏe và cơ hội hợp tác cùng IVS JSC.",
-        page_title_default: "IVS Education",
-        meta_description: "IVS Education - Tổ chức giáo dục, công nghệ giáo dục (EdTech), hợp tác đầu tư quốc tế.",
-        page_title_rnd: "Thiết kế Học liệu & Giải pháp EdTech - IVS Education",
-        meta_description_rnd_v2: "Dịch vụ R&D, thiết kế chương trình, học liệu, LMS và ứng dụng giáo dục theo yêu cầu chuyên biệt từ IVS Education & IVS Celestech.",
-        page_title_sponsorship: "Tài trợ Cộng đồng - IVS Education",
-        meta_description_sponsorship: "Tìm hiểu về các chương trình tài trợ cộng đồng của IVS Education và cách bạn có thể đồng hành cùng chúng tôi kiến tạo giá trị bền vững.",
-        page_title_celestech: "IVS Celestech - Giải pháp Công nghệ Giáo dục Toàn diện",
-        meta_description_celestech: "IVS Celestech cung cấp giải pháp EdTech từ tư vấn, thi công nội thất giáo dục, thiết bị thông minh (màn hình tương tác, VR, AI) đến hệ thống quản lý LMS.",
-        page_title_placement: "Kiểm tra Năng lực Tiếng Anh - IVS Education",
-        meta_description_placement: "Thực hiện bài kiểm tra năng lực tiếng Anh trực tuyến theo chuẩn Cambridge (6 bậc CEFR) để xác định trình độ và lựa chọn khóa học phù hợp tại IVS Education.",
-        og_title_placement: "Kiểm tra Năng lực Tiếng Anh - IVS Education",
-        og_description_placement: "Đánh giá chính xác trình độ tiếng Anh của bạn với bài test online miễn phí từ IVS Education.",
-        og_image_placement: "https://placehold.co/1200x630/3b82f6/ffffff?text=English+Placement+Test",
-        page_title_establishment: "Dịch vụ Thành lập Trung tâm Ngoại ngữ - Tin học - Kỹ năng sống | IVS Education",
-        meta_description_establishment: "IVS Education cung cấp dịch vụ tư vấn và hỗ trợ trọn gói thủ tục thành lập trung tâm ngoại ngữ, tin học, kỹ năng sống theo đúng quy định pháp luật.",
-        og_title_establishment: "Dịch vụ Thành lập Trung tâm Ngoại ngữ - Tin học - Kỹ năng sống | IVS Education",
-        og_description_establishment: "Hỗ trợ từ A-Z: Tư vấn điều kiện, chuẩn bị hồ sơ, soạn thảo đề án, làm việc với cơ quan chức năng.",
-        og_image_establishment: "https://placehold.co/1200x630/3b82f6/ffffff?text=Thành+Lập+Trung+Tâm+IVS",
-        page_title_webdesign: "Dịch vụ Thiết kế Website Chuyên nghiệp - IVS Tech Solutions",
-        meta_description_webdesign: "IVS JSC (IVS Tech Solutions) cung cấp dịch vụ thiết kế website chuyên nghiệp, chuẩn SEO, responsive, tối ưu cho doanh nghiệp và giáo dục.",
-        og_title_webdesign: "Dịch vụ Thiết kế Website Chuyên nghiệp - IVS Tech Solutions",
-        og_description_webdesign: "IVS JSC cung cấp dịch vụ thiết kế website chuyên nghiệp, chuẩn SEO, responsive, tối ưu cho doanh nghiệp và giáo dục.",
-        page_title_ai_guide: "Hướng dẫn Tư duy AI theo Ngành nghề - IVS Education",
-        meta_description_ai_guide: "Khám phá cách áp dụng tư duy AI hiệu quả trong các ngành Giáo dục, Y tế, Tài chính, Bán lẻ, Sản xuất, Nông nghiệp, Du lịch cùng IVS Education.",
-        og_title_ai_guide: "Hướng dẫn Tư duy AI theo Ngành nghề - IVS Education",
-        og_description_ai_guide: "Định hình tư duy nền tảng để ứng dụng AI thành công, bất kể công cụ bạn sử dụng.",
-        page_title_consultation: "Đăng ký Tư vấn - IVS JSC",
-        meta_description_consultation: "Đăng ký nhận tư vấn miễn phí từ IVS JSC về các lĩnh vực giáo dục, công nghệ, hợp tác quốc tế và các dịch vụ khác.",
-        og_title_consultation: "Đăng ký Tư vấn - IVS JSC",
-        og_description_consultation: "Liên hệ với IVS JSC để được tư vấn chi tiết về nhu cầu của bạn.",
+// Object để lưu trữ nội dung dịch đã tải
+let translations = {};
 
-        // --- Header ---
-        logo_alt: "Logo IVS JSC",
-        menu_home: "Trang chủ",
-        menu_about: "Giới thiệu",
-        menu_about_ivs: "Về IVS JSC",
-        menu_mission_vision: "Sứ mệnh & Tầm nhìn",
-        menu_ivs_meaning: "Ý nghĩa IVS",
-        menu_celestech: "IVS Celestech (EdTech)",
-        menu_team: "Đội ngũ",
-        menu_partners: "Đối tác",
-        menu_training: "Đào tạo",
-        menu_placement_test: "Kiểm tra trình độ",
-        menu_summer_camp: "Trại hè Quốc tế",
-        menu_scholarships: "Học bổng",
-        menu_hay_noi_club: "CLB Hãy Nói",
-        menu_cooperation: "Hợp tác",
-        menu_international_link: "Liên kết Quốc tế",
-        menu_iivsa_alliance: "Liên minh IIVSA",
-        menu_educational_link: "Liên kết giáo dục",
-        menu_link_preschool: "Mầm non",
-        menu_link_primary: "Tiểu học",
-        menu_link_secondary: "THCS & THPT",
-        menu_link_language_center: "Trung tâm Ngoại ngữ",
-        menu_investment_cooperation: "Hợp tác Đầu tư",
-        menu_center_establishment: "Thành lập Trung tâm",
-        menu_non_profit: "Tổ chức Phi lợi nhuận",
-        menu_sponsorship: "Tài trợ",
-        menu_services: "Dịch vụ",
-        menu_edu_consulting: "Tư vấn Giáo dục",
-        menu_web_design: "Thiết kế Web",
-        menu_design_edu: "Thiết kế Học liệu",
-        menu_healths: "Sức khỏe",
-        menu_health_yensao: "Yến sào Thanh Yến",
-        menu_health_luvyoga: "LuvYoga Lộc Hòa - Trảng Bom",
-        menu_recruitment: "Tuyển dụng",
-        menu_recruitment_vn: "Tuyển dụng nội địa",
-        menu_recruitment_intl: "Tuyển dụng quốc tế",
-        menu_contact: "Liên hệ",
-        open_main_menu: "Mở menu chính",
-        menu_training_center: "Tại trung tâm",
-        menu_training_language: "Đào tạo ngoại ngữ",
-        menu_training_lifeskills: "Đào tạo kỹ năng sống",
-        menu_training_teacher: "Đào tạo giáo viên",
-        menu_training_teacher_vn: "Giáo viên VN",
-        menu_training_teacher_foreign: "Giáo viên nước ngoài",
-        menu_training_teacher_cert: "Bổ sung chứng chỉ NVSP",
-        menu_library: "Thư viện",
-        menu_library_docs: "Tài liệu giáo dục",
-        menu_library_media: "IVSMedia",
-        search: "Tìm kiếm",
-        search_placeholder: "Tìm kiếm...",
-        search_button_label: "Mở tìm kiếm",
+// Ngôn ngữ mặc định
+const defaultLanguage = 'vi';
 
-        // --- Index Page ---
-        index_hero_title: "Chào mừng đến với IVS JSC",
-        index_hero_subtitle: "Kiến tạo tương lai giáo dục và sức khỏe Việt Nam",
-        learn_more: "Tìm hiểu thêm",
-        index_news_title: "Tin Tức & Sự Kiện",
-        loading_news: "Đang tải tin tức...",
-        no_news: "Chưa có tin tức nào.",
-        news_load_error: "Không thể tải tin tức.",
-        news_title_na: "Tiêu đề không có sẵn",
-        news_image_alt: "Hình ảnh tin tức",
-        read_more: "Đọc thêm →",
-        index_about_title: "Về Chúng Tôi",
-        index_about_p1: "IVS JSC là tổ chức tiên phong trong lĩnh vực giáo dục, công nghệ giáo dục (EdTech), sức khỏe cộng đồng, hợp tác quốc tế, và phát triển kinh doanh tại Việt Nam.",
-        index_about_p2: "Chúng tôi cung cấp giải pháp toàn diện từ giáo dục ngoại ngữ, kỹ năng sống, STEAM, đến các chương trình chăm sóc sức khỏe và ứng dụng công nghệ hiện đại.",
-        view_details: "Xem chi tiết →",
-        index_about_img_alt: "Hình ảnh giới thiệu IVS JSC",
-        index_activities_title: "Lĩnh Vực Hoạt Động Chính",
-        activity_academy_title: "IVS Academy",
-        activity_academy_desc: "Đào tạo ngoại ngữ (Anh, Trung, Nhật), STEAM, kỹ năng mềm. Chương trình cộng đồng \"Hãy Nói\".",
-        activity_kindergarten_title: "IVS Kindergarten",
-        activity_kindergarten_desc: "Mầm non tiên phong áp dụng mô hình STEAM+Intelligence. Cơ sở vật chất hiện đại.",
-        activity_celestech_title: "IVS Celestech (EdTech)",
-        activity_celestech_desc: "Phát triển giải pháp công nghệ giáo dục: E-learning, LMS, AI, VR/AR.",
-        activity_health_title: "IVS Health & Wellness",
-        activity_health_desc: "Hợp tác phát triển sản phẩm sức khỏe như yến sào Thanh Yến, giáo dục dinh dưỡng cộng đồng.",
-        activity_cooperation_title: "Hợp Tác Quốc Tế",
-        activity_cooperation_desc: "Kết nối giáo dục và sức khỏe Việt Nam với thế giới: Du học, trại hè, liên kết đào tạo.",
-        activity_investment_title: "Đầu Tư & Phát Triển",
-        activity_investment_desc: "Xây dựng hệ thống giáo dục liên cấp IVS Global School và dự án bền vững.",
-        details_link: "Chi tiết...",
-        index_video_title: "Video Giới Thiệu",
-        index_video_iframe_title: "Video giới thiệu IVS JSC",
-        index_section_title_trusted_edu: "IVS - Nền tảng giáo dục đáng tin cậy",
-        large_button_ai_guide: "Áp dụng AI với mọi ngành cùng IVS",
-        large_button_ai_subtext: "Đây không phải chương trình đào tạo",
-        large_button_about: "Read Magical Novels in the Library of Magic",
-        large_button_scholarship: "Học bổng & Trại hè",
-        large_button_scholarship_subtext: "Cơ hội vươn ra thế giới",
+// Khóa lưu ngôn ngữ trong localStorage
+const languageStorageKey = 'userLanguage';
+
+// Hàm tải nội dung dịch từ tệp JSON
+async function loadTranslations(lang) {
+    try {
+        // Xây dựng đường dẫn đến tệp JSON dựa trên ngôn ngữ
+        const response = await fetch(`/languages/${lang}.json`);
+
+        if (!response.ok) {
+            // Nếu không tải được tệp JSON của ngôn ngữ yêu cầu, thử tải ngôn ngữ mặc định
+             console.warn(`Could not load translations for ${lang}. Falling back to default language: ${defaultLanguage}`);
+             if (lang !== defaultLanguage) {
+                 // Tránh lặp vô hạn nếu cả ngôn ngữ mặc định cũng lỗi
+                 const defaultResponse = await fetch(`/languages/${defaultLanguage}.json`);
+                 if (!defaultResponse.ok) {
+                      throw new Error(`Could not load translations for default language ${defaultLanguage}`);
+                 }
+                 translations = await defaultResponse.json();
+                 applyTranslations();
+                 return; // Dừng hàm sau khi tải ngôn ngữ mặc định
+             } else {
+                 // Nếu ngôn ngữ mặc định cũng lỗi, báo lỗi và dừng
+                 throw new Error(`Could not load translations for default language ${defaultLanguage}`);
+             }
+        }
+
+        // Parse JSON và lưu vào biến translations
+        translations = await response.json();
+        // Áp dụng bản dịch sau khi tải xong
+        applyTranslations();
+        console.log(`Translations loaded and applied for ${lang}`);
+
+        // Cập nhật thuộc tính lang của thẻ html
+        document.documentElement.lang = lang;
+
+    } catch (error) {
+        console.error("Error loading or applying translations:", error);
+        // Có thể thêm logic hiển thị thông báo lỗi cho người dùng tại đây
+    }
+}
+
+// Hàm áp dụng nội dung dịch lên các phần tử HTML
+function applyTranslations() {
+    // Lặp qua tất cả các phần tử có thuộc tính data-lang-key
+    document.querySelectorAll('[data-lang-key]').forEach(element => {
+        const key = element.getAttribute('data-lang-key');
+        // Lấy ngôn ngữ hiện tại để truy cập đúng bản dịch
+        const currentLang = getCurrentLanguage();
+
+        // Kiểm tra xem key có tồn tại trong bản dịch của ngôn ngữ hiện tại không
+        if (translations[key] !== undefined) {
+            // Kiểm tra nếu giá trị là object (dùng cho các thuộc tính như alt, placeholder)
+            if (typeof translations[key] === 'object' && translations[key] !== null) {
+                 // Xử lý các thuộc tính đặc biệt dựa trên data-lang-key-*
+                 if (element.hasAttribute('data-lang-key-placeholder')) {
+                      element.placeholder = translations[key][currentLang] || '';
+                 } else if (element.hasAttribute('data-lang-key-alt')) {
+                      element.alt = translations[key][currentLang] || '';
+                 }
+                 // TODO: Thêm xử lý cho các thuộc tính khác nếu cần (ví dụ: data-lang-key-title, data-lang-key-value)
+            } else {
+                // Áp dụng nội dung văn bản cho các phần tử
+                element.innerHTML = translations[key];
+            }
+        } else {
+            // Cảnh báo nếu không tìm thấy key dịch
+            console.warn(`Translation key "${key}" not found for language "${currentLang}"`);
+             // Có thể để trống hoặc hiển thị key để dễ debug
+             // element.innerHTML = `[${key}]`;
+        }
+    });
+
+    // Cập nhật các thuộc tính đặc biệt sử dụng data-lang-key-*
+    // Lặp riêng để đảm bảo xử lý các trường hợp chỉ có data-lang-key-* mà không có data-lang-key
+     document.querySelectorAll('[data-lang-key-placeholder]').forEach(element => {
+         const key = element.getAttribute('data-lang-key-placeholder');
+         const currentLang = getCurrentLanguage();
+          if (translations[key] && typeof translations[key] === 'object' && translations[key][currentLang] !== undefined) {
+               element.placeholder = translations[key][currentLang];
+          } else {
+               console.warn(`Translation key for placeholder "${key}" not found for language "${currentLang}" or not an object.`);
+          }
+     });
+
+      document.querySelectorAll('[data-lang-key-alt]').forEach(element => {
+          const key = element.getAttribute('data-lang-key-alt');
+          const currentLang = getCurrentLanguage();
+           if (translations[key] && typeof translations[key] === 'object' && translations[key][currentLang] !== undefined) {
+                element.alt = translations[key][currentLang];
+           } else {
+                console.warn(`Translation key for alt "${key}" not found for language "${currentLang}" or not an object.`);
+           }
+      });
+
+    // Cập nhật năm hiện tại trong footer nếu có
+    const currentYearElement = document.getElementById('current-year');
+    if (currentYearElement) {
+        currentYearElement.textContent = new Date().getFullYear();
+    }
+
+    // TODO: Cập nhật các meta tag nếu cần (title, description, og:title, og:description)
+    // Điều này cần xử lý riêng vì chúng nằm trong <head>
+    // Ví dụ:
+    // document.title = translations['page_title_index'] || translations['page_title_default'];
+    // document.querySelector('meta[name="description"]').setAttribute('content', translations['meta_description_index'] || translations['meta_description']);
+    // ... tương tự cho các meta tag khác
+}
+
+
+// Hàm lấy ngôn ngữ hiện tại (từ localStorage hoặc ngôn ngữ trình duyệt, sau đó fallback về mặc định)
+function getCurrentLanguage() {
+    // Ưu tiên ngôn ngữ đã lưu trong localStorage
+    const storedLang = localStorage.getItem(languageStorageKey);
+    if (storedLang) {
+        return storedLang;
+    }
+
+    // Nếu chưa lưu, thử phát hiện ngôn ngữ từ trình duyệt
+    // Lưu ý: navigator.language có thể trả về "en-US", cần xử lý để lấy phần đầu "en"
+    const browserLang = navigator.language.split('-')[0];
+    // Kiểm tra xem ngôn ngữ trình duyệt có trong danh sách hỗ trợ không (cần định nghĩa danh sách này)
+    // Tạm thời chỉ hỗ trợ 'vi' và 'en' dựa trên các tệp JSON đã có
+    const supportedLanguages = ['vi', 'en']; // Cần cập nhật nếu có thêm ngôn ngữ
+
+    if (supportedLanguages.includes(browserLang)) {
+        return browserLang;
+    }
         large_button_placement: "English Placement Test",
         large_button_placement_subtext: "Kiểm tra trình độ tiếng Anh",
         small_button_preschool: "Mầm non",
@@ -825,3 +825,185 @@ const translations = {
         ai_guide_hosp_mindset3_revised: "Quản lý Danh tiếng Chủ động: Coi trọng mọi đánh giá và phản hồi trực tuyến; sử dụng AI để tự động theo dõi, phân tích cảm xúc, xác định các vấn đề cần ưu tiên và hỗ trợ phản hồi nhanh chóng, chuyên nghiệp.",
         ai_guide_hosp_mindset4_revised: "Tối ưu hóa Quy trình Dịch vụ: Tìm kiếm cơ hội ứng dụng AI để tự động hóa các quy trình lặp lại (check-in/out đơn giản, trả lời câu hỏi thường gặp qua chatbot, gợi ý dịch vụ) nhằm nâng cao hiệu quả và giải phóng nhân viên cho các tương tác cá nhân hóa hơn.",
         ai_guide_hosp_ops1_revised: "Hệ thống Gợi ý (Recommendation Engi
+
+        // /js/language.js
+// Phiên bản: Tải bản dịch từ tệp JSON riêng biệt
+
+// Object để lưu trữ nội dung dịch đã tải
+let translations = {};
+
+// Ngôn ngữ mặc định
+const defaultLanguage = 'vi';
+
+// Khóa lưu ngôn ngữ trong localStorage
+const languageStorageKey = 'userLanguage';
+
+// Hàm tải nội dung dịch từ tệp JSON
+async function loadTranslations(lang) {
+    try {
+        // Xây dựng đường dẫn đến tệp JSON dựa trên ngôn ngữ
+        const response = await fetch(`/languages/${lang}.json`);
+
+        if (!response.ok) {
+            // Nếu không tải được tệp JSON của ngôn ngữ yêu cầu, thử tải ngôn ngữ mặc định
+             console.warn(`Could not load translations for ${lang}. Falling back to default language: ${defaultLanguage}`);
+             if (lang !== defaultLanguage) {
+                 // Tránh lặp vô hạn nếu cả ngôn ngữ mặc định cũng lỗi
+                 const defaultResponse = await fetch(`/languages/${defaultLanguage}.json`);
+                 if (!defaultResponse.ok) {
+                      throw new Error(`Could not load translations for default language ${defaultLanguage}`);
+                 }
+                 translations = await defaultResponse.json();
+                 applyTranslations();
+                 return; // Dừng hàm sau khi tải ngôn ngữ mặc định
+             } else {
+                 // Nếu ngôn ngữ mặc định cũng lỗi, báo lỗi và dừng
+                 throw new Error(`Could not load translations for default language ${defaultLanguage}`);
+             }
+        }
+
+        // Parse JSON và lưu vào biến translations
+        translations = await response.json();
+        // Áp dụng bản dịch sau khi tải xong
+        applyTranslations();
+        console.log(`Translations loaded and applied for ${lang}`);
+
+        // Cập nhật thuộc tính lang của thẻ html
+        document.documentElement.lang = lang;
+
+    } catch (error) {
+        console.error("Error loading or applying translations:", error);
+        // Có thể thêm logic hiển thị thông báo lỗi cho người dùng tại đây
+    }
+}
+
+// Hàm áp dụng nội dung dịch lên các phần tử HTML
+function applyTranslations() {
+    // Lặp qua tất cả các phần tử có thuộc tính data-lang-key
+    document.querySelectorAll('[data-lang-key]').forEach(element => {
+        const key = element.getAttribute('data-lang-key');
+        // Lấy ngôn ngữ hiện tại để truy cập đúng bản dịch
+        const currentLang = getCurrentLanguage();
+
+        // Kiểm tra xem key có tồn tại trong bản dịch của ngôn ngữ hiện tại không
+        if (translations[key] !== undefined) {
+            // Kiểm tra nếu giá trị là object (dùng cho các thuộc tính như alt, placeholder)
+            if (typeof translations[key] === 'object' && translations[key] !== null) {
+                 // Xử lý các thuộc tính đặc biệt dựa trên data-lang-key-*
+                 if (element.hasAttribute('data-lang-key-placeholder')) {
+                      element.placeholder = translations[key][currentLang] || '';
+                 } else if (element.hasAttribute('data-lang-key-alt')) {
+                      element.alt = translations[key][currentLang] || '';
+                 }
+                 // TODO: Thêm xử lý cho các thuộc tính khác nếu cần (ví dụ: data-lang-key-title, data-lang-key-value)
+            } else {
+                // Áp dụng nội dung văn bản cho các phần tử
+                element.innerHTML = translations[key];
+            }
+        } else {
+            // Cảnh báo nếu không tìm thấy key dịch
+            console.warn(`Translation key "${key}" not found for language "${currentLang}"`);
+             // Có thể để trống hoặc hiển thị key để dễ debug
+             // element.innerHTML = `[${key}]`;
+        }
+    });
+
+    // Cập nhật các thuộc tính đặc biệt sử dụng data-lang-key-*
+    // Lặp riêng để đảm bảo xử lý các trường hợp chỉ có data-lang-key-* mà không có data-lang-key
+     document.querySelectorAll('[data-lang-key-placeholder]').forEach(element => {
+         const key = element.getAttribute('data-lang-key-placeholder');
+         const currentLang = getCurrentLanguage();
+          if (translations[key] && typeof translations[key] === 'object' && translations[key][currentLang] !== undefined) {
+               element.placeholder = translations[key][currentLang];
+          } else {
+               console.warn(`Translation key for placeholder "${key}" not found for language "${currentLang}" or not an object.`);
+          }
+     });
+
+      document.querySelectorAll('[data-lang-key-alt]').forEach(element => {
+          const key = element.getAttribute('data-lang-key-alt');
+          const currentLang = getCurrentLanguage();
+           if (translations[key] && typeof translations[key] === 'object' && translations[key][currentLang] !== undefined) {
+                element.alt = translations[key][currentLang];
+           } else {
+                console.warn(`Translation key for alt "${key}" not found for language "${currentLang}" or not an object.`);
+           }
+      });
+
+    // Cập nhật năm hiện tại trong footer nếu có
+    const currentYearElement = document.getElementById('current-year');
+    if (currentYearElement) {
+        currentYearElement.textContent = new Date().getFullYear();
+    }
+
+    // TODO: Cập nhật các meta tag nếu cần (title, description, og:title, og:description)
+    // Điều này cần xử lý riêng vì chúng nằm trong <head>
+    // Ví dụ:
+    // document.title = translations['page_title_index'] || translations['page_title_default'];
+    // document.querySelector('meta[name="description"]').setAttribute('content', translations['meta_description_index'] || translations['meta_description']);
+    // ... tương tự cho các meta tag khác
+}
+
+
+// Hàm lấy ngôn ngữ hiện tại (từ localStorage hoặc ngôn ngữ trình duyệt, sau đó fallback về mặc định)
+function getCurrentLanguage() {
+    // Ưu tiên ngôn ngữ đã lưu trong localStorage
+    const storedLang = localStorage.getItem(languageStorageKey);
+    if (storedLang) {
+        return storedLang;
+    }
+
+    // Nếu chưa lưu, thử phát hiện ngôn ngữ từ trình duyệt
+    // Lưu ý: navigator.language có thể trả về "en-US", cần xử lý để lấy phần đầu "en"
+    const browserLang = navigator.language.split('-')[0];
+    // Kiểm tra xem ngôn ngữ trình duyệt có trong danh sách hỗ trợ không (cần định nghĩa danh sách này)
+    // Tạm thời chỉ hỗ trợ 'vi' và 'en' dựa trên các tệp JSON đã có
+    const supportedLanguages = ['vi', 'en']; // Cần cập nhật nếu có thêm ngôn ngữ
+
+    if (supportedLanguages.includes(browserLang)) {
+        return browserLang;
+    }
+
+    // Nếu không có trong localStorage và trình duyệt không hỗ trợ, dùng mặc định
+    return defaultLanguage;
+}
+
+// Hàm thiết lập ngôn ngữ mới và lưu vào localStorage
+function setLanguage(lang) {
+    // Kiểm tra xem ngôn ngữ có được hỗ trợ không trước khi thiết lập
+    const supportedLanguages = ['vi', 'en']; // Cần cập nhật nếu có thêm ngôn ngữ
+    if (supportedLanguages.includes(lang)) {
+        localStorage.setItem(languageStorageKey, lang);
+        loadTranslations(lang);
+        // Tùy chọn: Cập nhật URL để phản ánh ngôn ngữ (ví dụ: /en/page.html hoặc ?lang=en)
+        // Điều này phức tạp hơn và cần xử lý server-side hoặc rewrite rule
+        // window.history.pushState({}, '', `?lang=${lang}`); // Ví dụ đơn giản
+    } else {
+        console.warn(`Language "${lang}" is not supported.`);
+    }
+}
+
+// Hàm khởi tạo: tải ngôn ngữ khi trang được tải hoàn toàn
+document.addEventListener('DOMContentLoaded', () => {
+    const userPreferredLanguage = getCurrentLanguage();
+    loadTranslations(userPreferredLanguage);
+
+    // Thêm event listener cho bộ chuyển đổi ngôn ngữ
+    // Tìm tất cả các phần tử có class 'lang-switcher' (ví dụ: các nút)
+    document.querySelectorAll('.lang-switcher').forEach(button => {
+        button.addEventListener('click', (event) => {
+            // Lấy ngôn ngữ từ thuộc tính data-lang của nút
+            const lang = event.target.getAttribute('data-lang');
+            if (lang) {
+                setLanguage(lang);
+            }
+        });
+    });
+});
+
+// Xuất hàm setLanguage để có thể gọi từ UI bên ngoài (nếu cần)
+window.setLanguage = setLanguage;
+
+// TODO: Thêm UI chuyển đổi ngôn ngữ vào Header hoặc Footer trong các tệp HTML
+// Ví dụ: <button class="lang-switcher" data-lang="vi">VI</button>
+// <button class="lang-switcher" data-lang="en">EN</button>
