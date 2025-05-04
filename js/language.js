@@ -824,7 +824,17 @@ function getCurrentLanguage() {
         ai_guide_hosp_mindset2_revised: "Linh hoạt trong Định giá & Vận hành: Sẵn sàng điều chỉnh giá cả, phân bổ nguồn lực (nhân sự, phòng ốc) một cách linh hoạt dựa trên các dự báo nhu cầu và công suất theo thời gian thực do AI cung cấp.",
         ai_guide_hosp_mindset3_revised: "Quản lý Danh tiếng Chủ động: Coi trọng mọi đánh giá và phản hồi trực tuyến; sử dụng AI để tự động theo dõi, phân tích cảm xúc, xác định các vấn đề cần ưu tiên và hỗ trợ phản hồi nhanh chóng, chuyên nghiệp.",
         ai_guide_hosp_mindset4_revised: "Tối ưu hóa Quy trình Dịch vụ: Tìm kiếm cơ hội ứng dụng AI để tự động hóa các quy trình lặp lại (check-in/out đơn giản, trả lời câu hỏi thường gặp qua chatbot, gợi ý dịch vụ) nhằm nâng cao hiệu quả và giải phóng nhân viên cho các tương tác cá nhân hóa hơn.",
-        ai_guide_hosp_ops1_revised: "Hệ thống Gợi ý (Recommendation Engi
+        ai_guide_hosp_ops1_revised": "Hệ thống Gợi ý (Recommendation Engines): Dựa trên dữ liệu về lịch sử đặt phòng, tìm kiếm, thông tin hồ sơ và hành vi của khách hàng tương tự, AI 'học' các mẫu sở thích và đề xuất các gói dịch vụ, nâng cấp phòng, hoạt động hoặc nhà hàng phù hợp nhất với từng cá nhân.",
+        ai_guide_hosp_ops2_revised": "Định giá Động (Dynamic Pricing): AI phân tích đồng thời nhiều yếu tố (dữ liệu đặt phòng lịch sử, công suất phòng hiện tại, sự kiện địa phương, giá của đối thủ cạnh tranh, ngày trong tuần, thời gian đặt trước,...) để dự báo nhu cầu và tự động điều chỉnh giá phòng/dịch vụ nhằm tối ưu hóa doanh thu và tỷ lệ lấp đầy.",
+        ai_guide_hosp_ops3_revised": "Phân tích Cảm xúc Khách hàng: Sử dụng NLP, AI 'đọc' và phân tích hàng loạt đánh giá, bình luận trên các nền tảng đặt phòng, mạng xã hội để xác định các chủ đề được thảo luận nhiều nhất (ví dụ: sạch sẽ, thái độ nhân viên, chất lượng bữa sáng) và đánh giá cảm xúc chung (tích cực/tiêu cực) đối với từng chủ đề đó.",
+        ai_guide_hosp_start1_revised": "Sử dụng Hệ thống Quản lý Doanh thu (RMS): Tận dụng các tính năng dự báo và đề xuất giá tự động có sẵn trong các hệ thống RMS hiện đại hoặc xem xét nâng cấp lên hệ thống có tích hợp AI.",
+        ai_guide_hosp_start2_revised": "Triển khai Chatbot Hỗ trợ Khách hàng: Cài đặt chatbot trên website hoặc ứng dụng nhắn tin để trả lời tự động các câu hỏi phổ biến 24/7 về tiện nghi, giờ hoạt động, chính sách hủy phòng, hướng dẫn đường đi.",
+        ai_guide_hosp_start3_revised": "Công cụ Quản lý Đánh giá Trực tuyến: Sử dụng các công cụ giúp tổng hợp đánh giá từ nhiều kênh (TripAdvisor, Google, Booking.com,...), có thể tích hợp AI để phân tích cảm xúc và tóm tắt các điểm chính cần chú ý.",
+        ai_guide_hosp_start4_revised": "Phân tích Dữ liệu Đặt phòng Cơ bản: Sử dụng các công cụ báo cáo trong hệ thống quản lý khách sạn (PMS) hoặc công cụ BI để xác định các xu hướng đặt phòng, nguồn khách hàng chính, và các dịch vụ được ưa chuộng nhất.",
+        ai_guide_emphasis_title": "Emphasis",
+        ai_guide_emphasis_subtitle": "Emphasis",
+        ai_guide_emphasis_p1_revised": "The key to harnessing AI's power lies not in becoming a programming expert, but in the ability to ask the right strategic questions, view business problems through the lens of data and automation opportunities, and possess a willingness to experiment and learn from new solutions. AI is a powerful tool that assists humans in making more informed decisions, optimizing workflows, and enhancing overall efficiency. Start with small, measurable applications, and always focus on the tangible value AI brings to your organization. This is entirely achievable for you and your team."
+
 
         // /js/language.js
 // Phiên bản: Tải bản dịch từ tệp JSON riêng biệt
