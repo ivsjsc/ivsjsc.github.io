@@ -700,3 +700,36 @@ body.dark-mode {
 .theme-toggle-btn:hover {
   background-color: #0056b3;
 }
+
+/* Định nghĩa animation fade-in */
+@keyframes fadeIn {
+    from {
+        opacity: 0; /* Bắt đầu với độ mờ hoàn toàn */
+    }
+    to {
+        opacity: 1; /* Kết thúc với độ hiển thị đầy đủ */
+    }
+}
+
+/* Áp dụng animation cho phần tử chứa nội dung chính */
+.fade-in-content {
+    animation: fadeIn 0.8s ease-in-out forwards; /* Tên animation, thời gian, kiểu tăng tốc, giữ trạng thái cuối */
+    opacity: 0; /* Đảm bảo phần tử ban đầu bị ẩn trước khi animation chạy */
+}
+
+/* Tùy chọn: Hiệu ứng trượt nhẹ từ dưới lên kết hợp với fade-in */
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* Bắt đầu từ dưới lên 20px */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Kết thúc ở vị trí ban đầu */
+    }
+}
+
+.fade-in-content.slide-up {
+    animation: fadeInSlideUp 0.8s ease-in-out forwards;
+    opacity: 0;
+}
