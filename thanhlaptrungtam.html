@@ -15,6 +15,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       // Tailwind config (giữ nguyên)
@@ -56,71 +58,103 @@
         header#navbar button[data-lang]:not(:disabled) { color: theme('colors.blue.200', '#bfdbfe') !important; opacity: 0.8 !important; }
         header#navbar button[data-lang]:not(:disabled):hover { color: white !important; opacity: 1 !important; }
 
-        /* CSS cho hiệu ứng lật thẻ */
-        .flip-card {
-            background-color: transparent;
-            width: 100%;
-            perspective: 1000px; /* Tạo hiệu ứng 3D */
-            cursor: pointer; /* Hiển thị con trỏ click */
+        /* Bỏ CSS cho hiệu ứng lật thẻ */
+        /*
+        .flip-card { ... }
+        .flip-card-inner { ... }
+        .flip-card.is-flipped .flip-card-inner { ... }
+        .flip-card-front, .flip-card-back { ... }
+        .flip-card-front { ... }
+        .flip-card-back { ... }
+        .flip-card-container { ... }
+        .flip-card-content { ... }
+        .process-list-item .flip-card-front,
+        .process-list-item .flip-card-back { ... }
+        */
+
+        /* Thêm CSS cho bố cục và animation nếu cần tùy chỉnh thêm */
+        .section-spacing {
+            margin-bottom: 3rem; /* Khoảng cách giữa các section */
         }
 
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            text-align: center;
-            transition: transform 0.6s; /* Thời gian chuyển động */
-            transform-style: preserve-3d; /* Giữ các phần tử con trong không gian 3D */
-        }
-
-        .flip-card.is-flipped .flip-card-inner {
-            transform: rotateY(180deg); /* Xoay 180 độ khi có class 'is-flipped' */
-        }
-
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            -webkit-backface-visibility: hidden; /* Ẩn mặt sau khi không xoay */
-            backface-visibility: hidden; /* Ẩn mặt sau khi không xoay */
-            top: 0;
-            left: 0;
-            /* Đảm bảo nội dung không bị tràn */
-            overflow: hidden;
-        }
-
-        .flip-card-front {
-            background-color: #fff; /* Nền trắng cho mặt trước */
-            color: #374151; /* Màu chữ cho mặt trước */
-            z-index: 2;
-            border-radius: 0.75rem; /* Bo góc */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
-             padding: 1.5rem; /* Padding */
-        }
-
-        .flip-card-back {
-            background-color: #eff6ff; /* Nền xanh nhạt cho mặt sau */
-            color: #1f2937; /* Màu chữ cho mặt sau */
-            transform: rotateY(180deg); /* Xoay 180 độ để ẩn ban đầu */
-            border-radius: 0.75rem; /* Bo góc */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
-            padding: 1.5rem; /* Padding */
-            display: flex; /* Dùng flexbox để căn giữa nội dung */
-            justify-content: center;
-            align-items: center;
-        }
-
-         /* Điều chỉnh chiều cao cho các thẻ lật */
-        .flip-card-container {
-            min-height: 200px; /* Chiều cao tối thiểu cho các thẻ */
-        }
-
-         /* Điều chỉnh padding và margin cho nội dung bên trong thẻ lật */
-        .flip-card-content {
+        .card {
+            background-color: #fff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             padding: 1.5rem;
+            height: 100%; /* Đảm bảo chiều cao đồng nhất */
+            display: flex;
+            flex-direction: column;
         }
-         .process-list-item .flip-card-front,
-         .process-list-item .flip-card-back {
-             padding: 1.25rem; /* Padding nhỏ hơn cho các bước quy trình */
+
+        .card h3 {
+            color: #3b82f6; /* Màu primary */
+            margin-bottom: 1rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+
+        .card ul li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+            text-align: left; /* Căn trái nội dung list item */
+        }
+
+        .card ul li::before {
+            content: '✓'; /* Icon check */
+            position: absolute;
+            left: 0;
+            color: #10b981; /* Màu secondary */
+            font-weight: bold;
+        }
+
+        .intro-block {
+            background-color: #eef2ff; /* Màu tím nhạt */
+            border-left: 4px solid #8b5cf6; /* Border màu purple-accent */
+            padding: 2rem;
+            border-radius: 0.5rem;
+            margin-bottom: 3rem;
+        }
+
+         /* Điều chỉnh lại style cho process-list */
+         .process-list {
+             list-style: none;
+             padding: 0;
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+             gap: 1.5rem; /* Khoảng cách giữa các item */
          }
+
+         .process-list-item {
+             position: relative;
+             padding: 1.5rem; /* Padding cho mỗi item */
+             margin: 0; /* Bỏ margin cũ */
+             background-color: #fff;
+             border-radius: 0.5rem;
+             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+             text-align: left; /* Căn trái nội dung */
+             height: 100%; /* Đảm bảo chiều cao đồng nhất */
+             display: flex; /* Sử dụng flexbox */
+             flex-direction: column; /* Sắp xếp theo cột */
+             justify-content: flex-start; /* Căn nội dung lên trên */
+             align-items: flex-start; /* Căn nội dung sang trái */
+         }
+
+
+         .process-list-item h4 {
+             color: #2563eb; /* Màu primary-dark */
+             margin-bottom: 0.5rem;
+         }
+
+         .process-list-item p {
+             text-align: left; /* Căn trái nội dung */
+         }
+
 
     </style>
 </head>
@@ -143,7 +177,7 @@
         <section class="py-12 md:py-16">
             <div class="container mx-auto px-4 space-y-12 md:space-y-16">
 
-                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg max-w-5xl mx-auto">
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg max-w-5xl mx-auto" data-aos="fade-up">
                     <h2 class="text-2xl md:text-3xl font-semibold text-primary mb-6 text-center" data-lang-key="establishment_intro_heading">
                         Biến ý tưởng thành Hiện thực - Mở Trung tâm của riêng bạn!
                     </h2>
@@ -153,10 +187,10 @@
                                 Bạn đam mê giáo dục và mong muốn thành lập một trung tâm ngoại ngữ, tin học hoặc kỹ năng sống uy tín, chất lượng? Tuy nhiên, quy trình thủ tục phức tạp, yêu cầu về hồ sơ, đề án, cơ sở vật chất... khiến bạn băn khoăn?
                             </p>
                             <p data-lang-key="establishment_intro_p2">
-                                Với kinh nghiệm thực tế từ việc xây dựng và vận hành thành công IVS Academy, cùng sự am hiểu sâu sắc về các quy định pháp luật, IVS Education cung cấp dịch vụ tư vấn và hỗ trợ trọn gói, giúp bạn hiện thực hóa ý tưởng một cách chuyên nghiệp, nhanh chóng và hiệu quả.
+                                Với kinh nghiệm thực tế từ việc xây dựng và vận hành thành công IVS Academy, cùng sự am hiểu sâu sâu sắc về các quy định pháp luật, IVS Education cung cấp dịch vụ tư vấn và hỗ trợ trọn gói, giúp bạn hiện thực hóa ý tưởng một cách chuyên nghiệp, nhanh chóng và hiệu quả.
                             </p>
                         </div>
-                        <div class="md:w-2/5">
+                        <div class="md:w-2/5" data-aos="fade-left">
                             <img src="images/pages/tltt.png"
                                  alt="Minh họa thành lập trung tâm giáo dục"
                                  class="rounded-lg shadow-md w-full h-auto object-cover"
@@ -167,203 +201,110 @@
                     </div>
                 </div>
 
-                <div class="bg-blue-50 p-6 md:p-8 rounded-xl shadow-lg max-w-5xl mx-auto border-l-4 border-primary flip-card-container">
-                    <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <h3 class="text-2xl md:text-3xl font-semibold text-primary mb-6 text-center" data-lang-key="establishment_reqs_heading">
-                                    Điều kiện Cơ bản để Thành lập Trung tâm
-                                </h3>
-                                <p class="text-neutral-600 mb-8 text-sm" data-lang-key="establishment_reqs_note">
-                                    Để được cấp phép hoạt động, trung tâm của bạn cần đáp ứng các điều kiện cơ bản theo quy định hiện hành (tham khảo Nghị định 46/2017/NĐ-CP, Nghị định 135/2018/NĐ-CP và các Thông tư hướng dẫn của Bộ GD&ĐT):
-                                </p>
-                                <div class="space-y-6">
-                                    <div class="flex items-start gap-4">
-                                        <div class="flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mt-1">
-                                            {/* Icon Địa điểm */}
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9"/><path d="M9 22V12h6v10"/><path d="M2 10.66V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4.66"/><path d="M10 2v4"/><path d="M14 2v4"/></svg>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-semibold text-neutral-700 text-lg mb-1" data-lang-key="establishment_reqs_item1_title">Địa điểm & Pháp lý</h4>
-                                            <p class="text-sm text-neutral-600" data-lang-key="establishment_reqs_item1_desc">Phải có quyền sử dụng đất hợp pháp hoặc hợp đồng thuê địa điểm ổn định (thường tối thiểu 1 năm, có công chứng), đảm bảo an ninh, trật tự.</p>
-                                        </div>
-                                    </div>
-                                     <div class="flex items-start gap-4">
-                                        <div class="flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mt-1">
-                                            {/* Icon Cơ sở vật chất */}
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 11H17a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2.6"/><path d="M10.7 11H8.3A4.3 4.3 0 0 0 4 15.3V17a2 2 0 0 0 2 2h4"/><path d="M18 18h-1a4 4 0 0 0-4-4V9a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a4 4 0 0 0-4 4Z"/><path d="M18 5V3"/><path d="M12 5V3"/><path d="M6 5V3"/></svg>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-semibold text-neutral-700 text-lg mb-1" data-lang-key="establishment_reqs_item2_title">Cơ sở vật chất & PCCC</h4>
-                                            <p class="text-sm text-neutral-600" data-lang-key="establishment_reqs_item2_desc">Diện tích đủ chuẩn (≥ 1.5m²/học viên), phòng học đủ ánh sáng, thoáng mát, bàn ghế phù hợp. Phải có giấy chứng nhận hoặc biên bản kiểm tra PCCC đạt yêu cầu.</p>
-                                        </div>
-                                    </div>
-                                     <div class="flex items-start gap-4">
-                                        <div class="flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mt-1">
-                                            {/* Icon Nhân sự */}
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-semibold text-neutral-700 text-lg mb-1" data-lang-key="establishment_reqs_item3_title">Nhân sự (Giám đốc & Giáo viên)</h4>
-                                            <ul class="list-disc pl-5 mt-1 text-sm text-neutral-600 space-y-1">
-                                                <li data-lang-key="establishment_reqs_item3_director">**Giám đốc:** Có bằng đại học, kinh nghiệm trong ngành giáo dục (thường 3 năm+), đủ sức khỏe, năng lực quản lý, lý lịch tốt.</li>
-                                                <li data-lang-key="establishment_reqs_item3_teachers">**Giáo viên:** Bằng cấp chuyên môn phù hợp lĩnh vực dạy + chứng chỉ nghiệp vụ sư phạm (nếu cần). Giáo viên nước ngoài cần giấy phép lao động, bằng cấp tương đương.</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                     <div class="flex items-start gap-4">
-                                        <div class="flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mt-1">
-                                            {/* Icon Đề án */}
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-semibold text-neutral-700 text-lg mb-1" data-lang-key="establishment_reqs_item4_title">Đề án & Chương trình</h4>
-                                            <p class="text-sm text-neutral-600" data-lang-key="establishment_reqs_item4_desc">Xây dựng Đề án hoạt động chi tiết (mục tiêu, chương trình dạy, nhân sự, cơ sở vật chất, tài chính...). Chương trình giảng dạy phải phù hợp quy định.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="mt-6 text-xs text-neutral-500 italic" data-lang-key="establishment_reqs_disclaimer">
-                                    *Lưu ý: Các quy định chi tiết có thể thay đổi theo thời gian và có sự khác biệt nhỏ giữa các địa phương. IVS Education sẽ tư vấn cụ thể dựa trên trường hợp của bạn.*
-                                </p>
-                                <p class="mt-4 text-center text-primary font-semibold">Click để lật!</p>
+                <div class="bg-blue-50 p-6 md:p-8 rounded-xl shadow-lg max-w-5xl mx-auto border-l-4 border-primary" data-aos="fade-up">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-primary mb-6" data-lang-key="establishment_reqs_heading">
+                        Điều kiện Cơ bản để Thành lập Trung tâm
+                    </h3>
+                    <p class="text-neutral-600 mb-8 text-sm" data-lang-key="establishment_reqs_note">
+                        Để được cấp phép hoạt động, trung tâm của bạn cần đáp ứng các điều kiện cơ bản theo quy định hiện hành (tham khảo Nghị định 46/2017/NĐ-CP, Nghị định 135/2018/NĐ-CP và các Thông tư hướng dẫn của Bộ GD&ĐT):
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4" data-aos="fade-right" data-aos-delay="100">
+                            <div class="flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mt-1">
+                                {/* Icon Địa điểm */}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9"/><path d="M9 22V12h6v10"/><path d="M2 10.66V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4.66"/><path d="M10 2v4"/><path d="M14 2v4"/></svg>
                             </div>
-                             <div class="flip-card-back">
-                                <p class="text-lg font-semibold">Mặt sau của thẻ Điều kiện Cơ bản</p>
-                                 </div>
+                            <div>
+                                <h4 class="font-semibold text-neutral-700 text-lg mb-1" data-lang-key="establishment_reqs_item1_title">Địa điểm & Pháp lý</h4>
+                                <p class="text-sm text-neutral-600" data-lang-key="establishment_reqs_item1_desc">Phải có quyền sử dụng đất hợp pháp hoặc hợp đồng thuê địa điểm ổn định (thường tối thiểu 1 năm, có công chứng), đảm bảo an ninh, trật tự.</p>
+                            </div>
+                        </div>
+                         <div class="flex items-start gap-4" data-aos="fade-right" data-aos-delay="200">
+                            <div class="flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mt-1">
+                                {/* Icon Cơ sở vật chất */}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.4 11H17a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2.6"/><path d="M10.7 11H8.3A4.3 4.3 0 0 0 4 15.3V17a2 2 0 0 0 2 2h4"/><path d="M18 18h-1a4 4 0 0 0-4-4V9a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4a4 4 0 0 0-4 4Z"/><path d="M18 5V3"/><path d="M12 5V3"/><path d="M6 5V3"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-neutral-700 text-lg mb-1" data-lang-key="establishment_reqs_item2_title">Cơ sở vật chất & PCCC</h4>
+                                <p class="text-sm text-neutral-600" data-lang-key="establishment_reqs_item2_desc">Diện tích đủ chuẩn (≥ 1.5m²/học viên), phòng học đủ ánh sáng, thoáng mát, bàn ghế phù hợp. Phải có giấy chứng nhận hoặc biên bản kiểm tra PCCC đạt yêu cầu.</p>
+                            </div>
+                        </div>
+                         <div class="flex items-start gap-4" data-aos="fade-right" data-aos-delay="300">
+                            <div class="flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mt-1">
+                                {/* Icon Nhân sự */}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-neutral-700 text-lg mb-1" data-lang-key="establishment_reqs_item3_title">Nhân sự (Giám đốc & Giáo viên)</h4>
+                                <ul class="list-disc pl-5 mt-1 text-sm text-neutral-600 space-y-1">
+                                    <li data-lang-key="establishment_reqs_item3_director">**Giám đốc:** Có bằng đại học, kinh nghiệm trong ngành giáo dục (thường 3 năm+), đủ sức khỏe, năng lực quản lý, lý lịch tốt.</li>
+                                    <li data-lang-key="establishment_reqs_item3_teachers">**Giáo viên:** Bằng cấp chuyên môn phù hợp lĩnh vực dạy + chứng chỉ nghiệp vụ sư phạm (nếu cần). Giáo viên nước ngoài cần giấy phép lao động, bằng cấp tương đương.</li>
+                                </ul>
+                            </div>
+                        </div>
+                         <div class="flex items-start gap-4" data-aos="fade-right" data-aos-delay="400">
+                            <div class="flex-shrink-0 w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center mt-1">
+                                {/* Icon Đề án */}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-neutral-700 text-lg mb-1" data-lang-key="establishment_reqs_item4_title">Đề án & Chương trình</h4>
+                                <p class="text-sm text-neutral-600" data-lang-key="establishment_reqs_item4_desc">Xây dựng Đề án hoạt động chi tiết (mục tiêu, chương trình dạy, nhân sự, cơ sở vật chất, tài chính...). Chương trình giảng dạy phải phù hợp quy định.</p>
+                            </div>
                         </div>
                     </div>
+                    <p class="mt-6 text-xs text-neutral-500 italic" data-lang-key="establishment_reqs_disclaimer">
+                        *Lưu ý: Các quy định chi tiết có thể thay đổi theo thời gian và có sự khác biệt nhỏ giữa các địa phương. IVS Education sẽ tư vấn cụ thể dựa trên trường hợp của bạn.*
+                    </p>
                 </div>
 
-                <div class="max-w-5xl mx-auto">
+                <div class="max-w-5xl mx-auto" data-aos="fade-up">
                     <h3 class="text-2xl md:text-3xl font-semibold text-primary mb-10 md:mb-12 text-center" data-lang-key="establishment_process_heading">
                         Quy trình Hỗ trợ Thành lập Trung tâm tại IVS
                     </h3>
                     <ol class="process-list space-y-8 md:space-y-10 relative">
-                        <li class="process-list-item relative">
-                            <div class="flip-card-container">
-                                <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
-                                    <div class="flip-card-inner">
-                                        <div class="flip-card-front bg-white p-5 md:p-6 rounded-lg shadow-md relative" data-lang-key="establishment_step1_desc">
-                                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step1_title">Tiếp nhận & Tư vấn sơ bộ</h4>
-                                            <p class="text-neutral-600 leading-relaxed text-sm">Lắng nghe ý tưởng, nhu cầu của bạn. Tư vấn về điều kiện, quy mô, loại hình trung tâm (Ngoại ngữ, Tin học, Kỹ năng sống) phù hợp. Giải đáp các thắc mắc ban đầu.</p>
-                                             <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
-                                        </div>
-                                        <div class="flip-card-back">
-                                             <p class="text-base font-semibold">Bước 1: Tiếp nhận & Tư vấn</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <li class="process-list-item bg-white p-5 md:p-6 rounded-lg shadow-md relative" data-lang-key="establishment_step1_desc" data-aos="fade-up" data-aos-delay="100">
+                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step1_title">Tiếp nhận & Tư vấn sơ bộ</h4>
+                            <p class="text-neutral-600 leading-relaxed text-sm">Lắng nghe ý tưởng, nhu cầu của bạn. Tư vấn về điều kiện, quy mô, loại hình trung tâm (Ngoại ngữ, Tin học, Kỹ năng sống) phù hợp. Giải đáp các thắc mắc ban đầu.</p>
                         </li>
-                        <li class="process-list-item relative">
-                            <div class="flip-card-container">
-                                <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
-                                    <div class="flip-card-inner">
-                                        <div class="flip-card-front bg-white p-5 md:p-6 rounded-lg shadow-md relative" data-lang-key="establishment_step2_desc">
-                                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step2_title">Khảo sát & Đánh giá</h4>
-                                            <p class="text-neutral-600 leading-relaxed text-sm">Khảo sát địa điểm dự kiến (nếu có). Đánh giá tính khả thi, phân tích thị trường và đối thủ cạnh tranh.</p>
-                                             <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
-                                        </div>
-                                        <div class="flip-card-back">
-                                            <p class="text-base font-semibold">Bước 2: Khảo sát & Đánh giá</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <li class="process-list-item bg-white p-5 md:p-6 rounded-lg shadow-md relative" data-lang-key="establishment_step2_desc" data-aos="fade-up" data-aos-delay="200">
+                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step2_title">Khảo sát & Đánh giá</h4>
+                            <p class="text-neutral-600 leading-relaxed text-sm">Khảo sát địa điểm dự kiến (nếu có). Đánh giá tính khả thi, phân tích thị trường và đối thủ cạnh tranh.</p>
                         </li>
-                        <li class="process-list-item relative">
-                            <div class="flip-card-container">
-                                <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
-                                    <div class="flip-card-inner">
-                                        <div class="flip-card-front bg-white p-5 md:p-6 rounded-lg shadow-md relative" data-lang-key="establishment_step3_desc">
-                                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step3_title">Tư vấn Pháp lý & Chuẩn bị Hồ sơ</h4>
-                                            <p class="text-neutral-600 leading-relaxed text-sm">Hướng dẫn chi tiết các quy định pháp luật hiện hành. Lập danh mục hồ sơ cần thiết. Tư vấn chuẩn bị các giấy tờ theo yêu cầu của Sở Giáo dục & Đào tạo.</p>
-                                             <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
-                                        </div>
-                                        <div class="flip-card-back">
-                                            <p class="text-base font-semibold">Bước 3: Tư vấn Pháp lý & Hồ sơ</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <li class="process-list-item bg-white p-5 md:p-6 rounded-lg shadow-md relative" data-lang-key="establishment_step3_desc" data-aos="fade-up" data-aos-delay="300">
+                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step3_title">Tư vấn Pháp lý & Chuẩn bị Hồ sơ</h4>
+                            <p class="text-neutral-600 leading-relaxed text-sm">Hướng dẫn chi tiết các quy định pháp luật hiện hành. Lập danh mục hồ sơ cần thiết. Tư vấn chuẩn bị các giấy tờ theo yêu cầu của Sở Giáo dục & Đào tạo.</p>
                         </li>
-                        <li class="process-list-item relative">
-                            <div class="flip-card-container">
-                                <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
-                                    <div class="flip-card-inner">
-                                        <div class="flip-card-front bg-white p-5 md:p-6 rounded-lg shadow-md relative" data-lang-key="establishment_step4_desc">
-                                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step4_title">Xây dựng Đề án Thành lập</h4>
-                                            <p class="text-neutral-600 leading-relaxed text-sm">Hỗ trợ soạn thảo Đề án hoạt động chi tiết, bao gồm mục tiêu, đối tượng, chương trình đào tạo, đội ngũ giáo viên, cán bộ quản lý, cơ sở vật chất, trang thiết bị, tài chính...</p>
-                                             <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
-                                        </div>
-                                        <div class="flip-card-back">
-                                            <p class="text-base font-semibold">Bước 4: Xây dựng Đề án</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <li class="process-list-item bg-white p-5 md:p-6 rounded-lg shadow-md relative" data-lang-key="establishment_step4_desc" data-aos="fade-up" data-aos-delay="400">
+                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step4_title">Xây dựng Đề án Thành lập</h4>
+                            <p class="text-neutral-600 leading-relaxed text-sm">Hỗ trợ soạn thảo Đề án hoạt động chi tiết, bao gồm mục tiêu, đối tượng, chương trình đào tạo, đội ngũ giáo viên, cán bộ quản lý, cơ sở vật chất, trang thiết bị, tài chính...</p>
                         </li>
-                        <li class="process-list-item relative">
-                            <div class="flip-card-container">
-                                <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
-                                    <div class="flip-card-inner">
-                                        <div class="flip-card-front bg-white p-5 md:p-6 rounded-lg shadow-md relative" data-lang-key="establishment_step5_desc">
-                                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step5_title">Nộp hồ sơ & Làm việc với Cơ quan chức năng</h4>
-                                            <p class="text-neutral-600 leading-relaxed text-sm">Đại diện hoặc hỗ trợ bạn nộp hồ sơ tại Sở Giáo dục & Đào tạo. Theo dõi tiến độ, giải trình và làm việc với cơ quan chức năng để hoàn thiện thủ tục cấp phép.</p>
-                                             <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
-                                        </div>
-                                        <div class="flip-card-back">
-                                            <p class="text-base font-semibold">Bước 5: Nộp hồ sơ & Làm việc</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <li class="process-list-item bg-white p-5 md:p-6 rounded-lg shadow-md relative" data-lang-key="establishment_step5_desc" data-aos="fade-up" data-aos-delay="500">
+                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step5_title">Nộp hồ sơ & Làm việc với Cơ quan chức năng</h4>
+                            <p class="text-neutral-600 leading-relaxed text-sm">Đại diện hoặc hỗ trợ bạn nộp hồ sơ tại Sở Giáo dục & Đào tạo. Theo dõi tiến độ, giải trình và làm việc với cơ quan chức năng để hoàn thiện thủ tục cấp phép.</p>
                         </li>
-                        <li class="process-list-item relative">
-                            <div class="flip-card-container">
-                                <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
-                                    <div class="flip-card-inner">
-                                        <div class="flip-card-front bg-white p-5 md:p-6 rounded-lg shadow-md relative" data-lang-key="establishment_step6_desc">
-                                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step6_title">Hỗ trợ Sau cấp phép</h4>
-                                            <p class="text-neutral-600 leading-relaxed text-sm">Tư vấn về tuyển dụng nhân sự, xây dựng chương trình chi tiết, chiến lược marketing, quản lý vận hành ban đầu để trung tâm nhanh chóng đi vào hoạt động ổn định và hiệu quả.</p>
-                                             <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
-                                        </div>
-                                        <div class="flip-card-back">
-                                            <p class="text-base font-semibold">Bước 6: Hỗ trợ Sau cấp phép</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <li class="process-list-item bg-white p-5 md:p-6 rounded-lg shadow-md relative" data-lang-key="establishment_step6_desc" data-aos="fade-up" data-aos-delay="600">
+                            <h4 class="text-lg md:text-xl font-semibold text-neutral-800 mb-2" data-lang-key="establishment_step6_title">Hỗ trợ Sau cấp phép</h4>
+                            <p class="text-neutral-600 leading-relaxed text-sm">Tư vấn về tuyển dụng nhân sự, xây dựng chương trình chi tiết, chiến lược marketing, quản lý vận hành ban đầu để trung tâm nhanh chóng đi vào hoạt động ổn định và hiệu quả.</p>
                         </li>
                     </ol>
                 </div>
 
-                <div class="bg-gradient-to-br from-neutral-50 to-neutral-200 p-6 md:p-10 rounded-xl shadow-lg max-w-5xl mx-auto border border-neutral-200 flip-card-container">
-                    <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <h3 class="text-2xl md:text-3xl font-semibold text-primary mb-8 text-center" data-lang-key="establishment_why_heading">
-                                    Tại sao nên chọn Dịch vụ của IVS Education?
-                                </h3>
-                                <ul class="space-y-5 check-list">
-                                    <li data-lang-key="establishment_why_item1"><strong class="font-semibold text-neutral-700">Kinh nghiệm thực tế:</strong> Chúng tôi đã trải qua quy trình thành lập và vận hành IVS Academy thành công, hiểu rõ những khó khăn và giải pháp.</li>
-                                    <li data-lang-key="establishment_why_item2"><strong class="font-semibold text-neutral-700">Am hiểu pháp lý:</strong> Luôn cập nhật các quy định, thông tư mới nhất về thành lập và hoạt động của trung tâm ngoại ngữ, tin học, kỹ năng sống.</li>
-                                    <li data-lang-key="establishment_why_item3"><strong class="font-semibold text-neutral-700">Hỗ trợ toàn diện:</strong> Đồng hành cùng bạn từ khâu lên ý tưởng, chuẩn bị hồ sơ, làm việc với cơ quan chức năng đến khi trung tâm chính thức hoạt động.</li>
-                                    <li data-lang-key="establishment_why_item4"><strong class="font-semibold text-neutral-700">Đội ngũ chuyên nghiệp:</strong> Các chuyên gia tư vấn tận tâm, giàu kinh nghiệm trong lĩnh vực giáo dục và pháp lý.</li>
-                                    <li data-lang-key="establishment_why_item5"><strong class="font-semibold text-neutral-700">Mạng lưới đối tác:</strong> Hỗ trợ kết nối với các đối tác cung cấp thiết bị dạy học, giáo trình, phần mềm quản lý, nhân sự chất lượng...</li>
-                                    <li data-lang-key="establishment_why_item6"><strong class="font-semibold text-neutral-700">Cam kết hiệu quả:</strong> Tối ưu hóa quy trình, tiết kiệm thời gian và chi phí cho khách hàng, đảm bảo tuân thủ đúng pháp luật.</li>
-                                </ul>
-                                <p class="mt-4 text-center text-primary font-semibold">Click để lật!</p>
-                            </div>
-                            <div class="flip-card-back">
-                                <p class="text-lg font-semibold">Mặt sau của thẻ Tại sao chọn IVS</p>
-                                </div>
-                        </div>
-                    </div>
+                <div class="bg-gradient-to-br from-neutral-50 to-neutral-200 p-6 md:p-10 rounded-xl shadow-lg max-w-5xl mx-auto border border-neutral-200" data-aos="fade-up">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-primary mb-8 text-center" data-lang-key="establishment_why_heading">
+                        Tại sao nên chọn Dịch vụ của IVS Education?
+                    </h3>
+                    <ul class="space-y-5 check-list">
+                        <li data-lang-key="establishment_why_item1" data-aos="fade-right" data-aos-delay="100"><strong class="font-semibold text-neutral-700">Kinh nghiệm thực tế:</strong> Chúng tôi đã trải qua quy trình thành lập và vận hành IVS Academy thành công, hiểu rõ những khó khăn và giải pháp.</li>
+                        <li data-lang-key="establishment_why_item2" data-aos="fade-right" data-aos-delay="200"><strong class="font-semibold text-neutral-700">Am hiểu pháp lý:</strong> Luôn cập nhật các quy định, thông tư mới nhất về thành lập và hoạt động của trung tâm ngoại ngữ, tin học, kỹ năng sống.</li>
+                        <li data-lang-key="establishment_why_item3" data-aos="fade-right" data-aos-delay="300"><strong class="font-semibold text-neutral-700">Hỗ trợ toàn diện:</strong> Đồng hành cùng bạn từ khâu lên ý tưởng, chuẩn bị hồ sơ, làm việc với cơ quan chức năng đến khi trung tâm chính thức hoạt động.</li>
+                        <li data-lang-key="establishment_why_item4" data-aos="fade-right" data-aos-delay="400"><strong class="font-semibold text-neutral-700">Đội ngũ chuyên nghiệp:</strong> Các chuyên gia tư vấn tận tâm, giàu kinh nghiệm trong lĩnh vực giáo dục và pháp lý.</li>
+                        <li data-lang-key="establishment_why_item5" data-aos="fade-right" data-aos-delay="500"><strong class="font-semibold text-neutral-700">Mạng lưới đối tác:</strong> Hỗ trợ kết nối với các đối tác cung cấp thiết bị dạy học, giáo trình, phần mềm quản lý, nhân sự chất lượng...</li>
+                        <li data-lang-key="establishment_why_item6" data-aos="fade-right" data-aos-delay="600"><strong class="font-semibold text-neutral-700">Cam kết hiệu quả:</strong> Tối ưu hóa quy trình, tiết kiệm thời gian và chi phí cho khách hàng, đảm bảo tuân thủ đúng pháp luật.</li>
+                    </ul>
                 </div>
 
-
-                <div class="max-w-5xl mx-auto text-center pt-10 mt-10 border-t border-neutral-200">
+                <div class="max-w-5xl mx-auto text-center pt-10 mt-10 border-t border-neutral-200" data-aos="fade-up">
                     <h3 class="text-2xl md:text-3xl font-semibold text-primary mb-4" data-lang-key="establishment_cta_heading">
                         Bắt đầu Hành trình Xây dựng Trung tâm của bạn!
                     </h3>
@@ -385,17 +326,9 @@
 
     <script src="js/script.js"></script>
     <script src="js/language.js"></script>
-     <script>
-        // JavaScript để thêm/bỏ class 'is-flipped' khi click vào flip-card
-        document.addEventListener('DOMContentLoaded', function() {
-            const flipCards = document.querySelectorAll('.flip-card');
-            flipCards.forEach(card => {
-                // Đã thêm onclick trực tiếp vào HTML để đơn giản
-                // card.addEventListener('click', function() {
-                //     card.classList.toggle('is-flipped');
-                // });
-            });
-        });
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
     </script>
 
 </body>
