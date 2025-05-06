@@ -68,16 +68,21 @@
                 <div class="sm:col-span-2 lg:col-span-1">
                     <h3 class="text-base font-semibold text-white mb-5 uppercase tracking-wider" data-lang-key="footer_newsletter_title">Đăng ký nhận bản tin</h3>
                     <p class="text-sm text-gray-400 mb-4" data-lang-key="footer_newsletter_desc">Nhập Email của bạn để nhận thông tin cập nhật mới nhất từ IVS JSC.</p>
-                    <form action="#" method="post" class="flex flex-col sm:flex-row gap-3">
-                        <input type="email" placeholder="Nhập Email của bạn" aria-label="Nhập Email của bạn"
+                    <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" id="newsletterEmail" name="email" placeholder="Nhập Email của bạn" aria-label="Nhập Email của bạn"
+                               required
                                class="flex-grow px-4 py-2 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors duration-200">
                         <button type="submit"
-                                class="px-6 py-2 bg-orange-600 text-white font-semibold rounded-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors duration-200">
+                                class="px-6 py-2 bg-orange-600 text-white font-semibold rounded-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors duration-200"
+                                data-lang-key="footer_newsletter_button">
                             Đăng ký
                         </button>
                     </form>
+                    <div id="newsletterMessage" class="text-sm mt-3"></div>
                 </div>
-            </div> <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 mb-12">
+            </div> 
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 mb-12">
                 <div class="lg:col-span-1">
                      <h3 class="text-base font-semibold text-white mb-5 uppercase tracking-wider" data-lang-key="footer_connect">Kết nối</h3>
                      <div class="flex space-x-5 mb-6">
@@ -91,7 +96,8 @@
                              <i class="fab fa-instagram fa-lg" aria-hidden="true"></i>
                          </a>
                          <a href="https://zalo.me/ivsjsc/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-orange-400 transition-colors duration-200" aria-label="Zalo IVS JSC (OA)" data-lang-key="footer_zalo_oa">
-                              <i class="fas fa-comment-dots fa-lg" aria-hidden="true"></i> </a>
+                              <i class="fas fa-comment-dots fa-lg" aria-hidden="true"></i> 
+                         </a>
                          <a href="https://www.facebook.com/ivs.jsc.vn" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-orange-400 transition-colors duration-200" aria-label="Facebook IVS JSC (Công ty)" data-lang-key="footer_facebook_company">
                               <i class="fab fa-facebook-f fa-lg" aria-hidden="true"></i>
                           </a>
@@ -130,7 +136,9 @@
                           </noscript>
                       </div>
                  </div>
-             </div> <div class="mt-12 pt-8 border-t border-gray-700 text-center">
+             </div> 
+             
+            <div class="mt-12 pt-8 border-t border-gray-700 text-center">
                 <p class="text-sm" data-lang-key="copyright_text">
                     © <span id="current-year"></span> IVS JSC. Đã đăng ký Bản quyền số: 6207/2024/QTG. Thiết kế bởi IVS Celestech.
                 </p>
@@ -140,15 +148,118 @@
 </div>
 
 <script>
-    function updateCopyrightYear() {
+    // Script này sẽ được thực thi khi footer được nhúng vào trang
+    // và đảm bảo #current-year được cập nhật.
+    // Nếu bạn fetch và chèn HTML, bạn có thể cần chạy script này sau khi chèn.
+    function updateCopyrightYearInFooter() { // Đổi tên hàm để tránh trùng lặp nếu có hàm tương tự ở trang chính
         const yearSpan = document.getElementById('current-year');
         if (yearSpan) {
             yearSpan.textContent = new Date().getFullYear();
         }
     }
+
+    // Xử lý form đăng ký nhận bản tin
+    function initializeNewsletterForm() {
+        const newsletterForm = document.getElementById('newsletterForm');
+        const newsletterEmailInput = document.getElementById('newsletterEmail');
+        const newsletterMessageDiv = document.getElementById('newsletterMessage');
+
+        if (newsletterForm && newsletterEmailInput && newsletterMessageDiv) {
+            newsletterForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Chặn hành vi gửi form mặc định
+
+                const email = newsletterEmailInput.value.trim();
+                
+                // Kiểm tra email đơn giản
+                if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    newsletterMessageDiv.textContent = 'Vui lòng nhập một địa chỉ email hợp lệ.';
+                    newsletterMessageDiv.className = 'text-sm mt-3 text-red-400'; // Màu đỏ cho lỗi
+                    return;
+                }
+
+                // Xóa thông báo cũ
+                newsletterMessageDiv.textContent = '';
+                newsletterMessageDiv.className = 'text-sm mt-3';
+
+
+                // Vô hiệu hóa nút submit để tránh gửi nhiều lần
+                const submitButton = newsletterForm.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton.textContent;
+                submitButton.disabled = true;
+                submitButton.textContent = 'Đang xử lý...'; // Hoặc dùng data-lang-key nếu có
+
+                // --- BẮT ĐẦU: Logic gửi email thực tế ---
+                // Đây là nơi bạn sẽ tích hợp với dịch vụ của mình.
+                // Ví dụ: sử dụng fetch() để gửi email đến một API
+                
+                // GIẢ LẬP GỬI EMAIL THÀNH CÔNG/THẤT BẠI
+                console.log('Đăng ký email:', email);
+                // Thay thế setTimeout bằng lời gọi API thực tế
+                setTimeout(() => {
+                    const isSuccess = Math.random() > 0.3; // Giả lập thành công hoặc thất bại
+
+                    if (isSuccess) {
+                        newsletterMessageDiv.textContent = 'Cảm ơn bạn đã đăng ký! Vui lòng kiểm tra email để xác nhận.';
+                        newsletterMessageDiv.className = 'text-sm mt-3 text-green-400'; // Màu xanh cho thành công
+                        newsletterEmailInput.value = ''; // Xóa email sau khi thành công
+                    } else {
+                        newsletterMessageDiv.textContent = 'Đã có lỗi xảy ra. Vui lòng thử lại sau.';
+                        newsletterMessageDiv.className = 'text-sm mt-3 text-red-400'; // Màu đỏ cho lỗi
+                    }
+
+                    // Khôi phục nút submit
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText; // Hoặc dùng data-lang-key
+
+                }, 1500); // Giả lập độ trễ mạng
+
+                // --- KẾT THÚC: Logic gửi email thực tế ---
+
+                /* // VÍ DỤ VỚI FETCH ĐẾN MỘT ENDPOINT (thay thế bằng URL của bạn)
+                fetch('YOUR_NEWSLETTER_API_ENDPOINT', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: email }),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        // Nếu server trả về lỗi (ví dụ: 4xx, 5xx)
+                        return response.json().then(err => { throw err; });
+                    }
+                    return response.json(); // Hoặc response.text() tùy theo API của bạn
+                })
+                .then(data => {
+                    newsletterMessageDiv.textContent = 'Cảm ơn bạn đã đăng ký!'; // Hoặc data.message từ server
+                    newsletterMessageDiv.className = 'text-sm mt-3 text-green-400';
+                    newsletterEmailInput.value = '';
+                })
+                .catch(error => {
+                    console.error('Error submitting newsletter:', error);
+                    newsletterMessageDiv.textContent = error.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau.';
+                    newsletterMessageDiv.className = 'text-sm mt-3 text-red-400';
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText; // Hoặc dùng data-lang-key
+                });
+                */
+            });
+        }
+    }
+
+    // Gọi các hàm khởi tạo khi DOM sẵn sàng
+    // Nếu footer này được fetch và chèn vào, các hàm này cần được gọi sau khi chèn.
+    // Nếu đây là một file HTML độc lập, DOMContentLoaded là phù hợp.
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', updateCopyrightYear);
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCopyrightYearInFooter();
+            initializeNewsletterForm();
+        });
     } else {
-        updateCopyrightYear();
+        // DOM đã sẵn sàng (trường hợp script được thêm vào cuối body hoặc sau khi DOM load)
+        updateCopyrightYearInFooter();
+        initializeNewsletterForm();
     }
 </script>
