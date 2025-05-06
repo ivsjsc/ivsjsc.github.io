@@ -55,6 +55,79 @@
         header#navbar button:disabled[data-lang] { color: white !important; opacity: 1 !important; }
         header#navbar button[data-lang]:not(:disabled) { color: theme('colors.blue.200', '#bfdbfe') !important; opacity: 0.8 !important; }
         header#navbar button[data-lang]:not(:disabled):hover { color: white !important; opacity: 1 !important; }
+
+         /* CSS cho hiệu ứng lật thẻ */
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 100%; /* Đảm bảo thẻ lật có chiều cao */
+            perspective: 1000px; /* Tạo hiệu ứng 3D */
+            cursor: pointer; /* Hiển thị con trỏ click */
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%; /* Đảm bảo inner có chiều cao */
+            text-align: center;
+            transition: transform 0.6s; /* Thời gian chuyển động */
+            transform-style: preserve-3d; /* Giữ các phần tử con trong không gian 3D */
+        }
+
+        .flip-card.is-flipped .flip-card-inner {
+            transform: rotateY(180deg); /* Xoay 180 độ khi có class 'is-flipped' */
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%; /* Đảm bảo mặt trước/sau có chiều cao */
+            -webkit-backface-visibility: hidden; /* Ẩn mặt sau khi không xoay */
+            backface-visibility: hidden; /* Ẩn mặt sau khi không xoay */
+            top: 0;
+            left: 0;
+            /* Đảm bảo nội dung không bị tràn */
+            overflow: hidden;
+             display: flex; /* Dùng flexbox để căn giữa nội dung */
+            flex-direction: column; /* Sắp xếp nội dung theo cột */
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem; /* Padding */
+        }
+
+        .flip-card-front {
+            background-color: #fff; /* Nền trắng cho mặt trước */
+            color: #374151; /* Màu chữ cho mặt trước */
+            z-index: 2;
+            border-radius: 0.5rem; /* Bo góc */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+        }
+
+        .flip-card-back {
+            background-color: #eef2ff; /* Nền tím nhạt cho mặt sau */
+            color: #1f2937; /* Màu chữ cho mặt sau */
+            transform: rotateY(180deg); /* Xoay 180 độ để ẩn ban đầu */
+            border-radius: 0.5rem; /* Bo góc */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+        }
+
+         /* Đảm bảo nội dung bên trong thẻ lật không bị ảnh hưởng bởi position absolute */
+        .flip-card-front > div,
+        .flip-card-back > div {
+            width: 100%;
+        }
+
+         /* Điều chỉnh khoảng cách và căn chỉnh cho danh sách dịch vụ */
+        .grid > div {
+            display: flex;
+            flex-direction: column;
+        }
+
+         .grid > div .flip-card-front {
+             padding: 1.5rem; /* Đảm bảo padding cho mặt trước */
+         }
+
+
     </style>
 </head>
 <body class="bg-gray-100 text-neutral-700 font-sans antialiased">
@@ -97,70 +170,125 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center text-neutral-800 mb-8 md:mb-12" data-lang-key="webdesign_services_heading">Các Gói Dịch Vụ Thiết Kế Website</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                        <div class="text-primary mb-4 text-4xl"><i class="fas fa-palette" aria-hidden="true"></i></div>
-                        <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service1_title">Thiết kế theo yêu cầu</h3>
-                        <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
-                            <li data-lang-key="webdesign_service1_li1">Phân tích nhu cầu, đối tượng mục tiêu.</li>
-                            <li data-lang-key="webdesign_service1_li2">Thiết kế giao diện độc đáo, sáng tạo, đúng nhận diện thương hiệu.</li>
-                            <li data-lang-key="webdesign_service1_li3">Đảm bảo trải nghiệm người dùng (UX/UI) tối ưu, dễ sử dụng.</li>
-                            <li data-lang-key="webdesign_service1_li4">Lập trình các tính năng riêng biệt theo yêu cầu đặc thù.</li>
-                        </ul>
-                        <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+
+                    <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                                <div class="text-primary mb-4 text-4xl"><i class="fas fa-palette" aria-hidden="true"></i></div>
+                                <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service1_title">Thiết kế theo yêu cầu</h3>
+                                <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
+                                    <li data-lang-key="webdesign_service1_li1">Phân tích nhu cầu, đối tượng mục tiêu.</li>
+                                    <li data-lang-key="webdesign_service1_li2">Thiết kế giao diện độc đáo, sáng tạo, đúng nhận diện thương hiệu.</li>
+                                    <li data-lang-key="webdesign_service1_li3">Đảm bảo trải nghiệm người dùng (UX/UI) tối ưu, dễ sử dụng.</li>
+                                    <li data-lang-key="webdesign_service1_li4">Lập trình các tính năng riêng biệt theo yêu cầu đặc thù.</li>
+                                </ul>
+                                <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+                                <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-lg font-semibold">Thiết kế theo yêu cầu</p>
+                                </div>
+                        </div>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                        <div class="text-secondary mb-4 text-4xl"><i class="fas fa-mobile-alt" aria-hidden="true"></i></div>
-                        <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service2_title">Thiết kế Responsive</h3>
-                        <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
-                            <li data-lang-key="webdesign_service2_li1">Hiển thị hoàn hảo, tự động co giãn trên mọi thiết bị (PC, tablet, mobile).</li>
-                            <li data-lang-key="webdesign_service2_li2">Tối ưu tốc độ tải trang trên tất cả các nền tảng.</li>
-                            <li data-lang-key="webdesign_service2_li3">Nâng cao trải nghiệm người dùng di động, tăng tương tác.</li>
-                            <li data-lang-key="webdesign_service2_li4">Đáp ứng tiêu chí ưu tiên của Google cho thiết bị di động.</li>
-                        </ul>
-                        <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+
+                    <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                                <div class="text-secondary mb-4 text-4xl"><i class="fas fa-mobile-alt" aria-hidden="true"></i></div>
+                                <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service2_title">Thiết kế Responsive</h3>
+                                <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
+                                    <li data-lang-key="webdesign_service2_li1">Hiển thị hoàn hảo, tự động co giãn trên mọi thiết bị (PC, tablet, mobile).</li>
+                                    <li data-lang-key="webdesign_service2_li2">Tối ưu tốc độ tải trang trên tất cả các nền tảng.</li>
+                                    <li data-lang-key="webdesign_service2_li3">Nâng cao trải nghiệm người dùng di động, tăng tương tác.</li>
+                                    <li data-lang-key="webdesign_service2_li4">Đáp ứng tiêu chí ưu tiên của Google cho thiết bị di động.</li>
+                                </ul>
+                                <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+                                <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-lg font-semibold">Thiết kế Responsive</p>
+                                </div>
+                        </div>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                        <div class="text-purple-DEFAULT mb-4 text-4xl"><i class="fas fa-shopping-cart" aria-hidden="true"></i></div> <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service3_title">Website Thương mại Điện tử</h3>
-                        <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
-                            <li data-lang-key="webdesign_service3_li1">Thiết kế gian hàng trực tuyến chuyên nghiệp, thu hút.</li>
-                            <li data-lang-key="webdesign_service3_li2">Tích hợp giỏ hàng thông minh, thanh toán online an toàn, đa dạng.</li>
-                            <li data-lang-key="webdesign_service3_li3">Hệ thống quản lý sản phẩm, đơn hàng, khách hàng trực quan, dễ dàng.</li>
-                            <li data-lang-key="webdesign_service3_li4">Tối ưu hóa SEO cho sản phẩm và danh mục.</li>
-                        </ul>
-                         <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+
+                    <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                                <div class="text-purple-DEFAULT mb-4 text-4xl"><i class="fas fa-shopping-cart" aria-hidden="true"></i></div> <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service3_title">Website Thương mại Điện tử</h3>
+                                <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
+                                    <li data-lang-key="webdesign_service3_li1">Thiết kế gian hàng trực tuyến chuyên nghiệp, thu hút.</li>
+                                    <li data-lang-key="webdesign_service3_li2">Tích hợp giỏ hàng thông minh, thanh toán online an toàn, đa dạng.</li>
+                                    <li data-lang-key="webdesign_service3_li3">Hệ thống quản lý sản phẩm, đơn hàng, khách hàng trực quan, dễ dàng.</li>
+                                    <li data-lang-key="webdesign_service3_li4">Tối ưu hóa SEO cho sản phẩm và danh mục.</li>
+                                </ul>
+                                 <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+                                 <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-lg font-semibold">Website Thương mại Điện tử</p>
+                                </div>
+                        </div>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                        <div class="text-info mb-4 text-4xl"><i class="fab fa-wordpress" aria-hidden="true"></i></div> <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service4_title">Website trên nền tảng CMS</h3>
-                        <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
-                            <li data-lang-key="webdesign_service4_li1">Triển khai trên các CMS phổ biến, mạnh mẽ (WordPress...).</li>
-                            <li data-lang-key="webdesign_service4_li2">Giao diện quản trị thân thiện, dễ dàng cập nhật nội dung, hình ảnh.</li>
-                            <li data-lang-key="webdesign_service4_li3">Kho giao diện và plugin phong phú, mở rộng tính năng linh hoạt.</li>
-                            <li data-lang-key="webdesign_service4_li4">Hỗ trợ đào tạo sử dụng và quản trị website hiệu quả.</li>
-                        </ul>
-                         <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+
+                    <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                                <div class="text-info mb-4 text-4xl"><i class="fab fa-wordpress" aria-hidden="true"></i></div> <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service4_title">Website trên nền tảng CMS</h3>
+                                <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
+                                    <li data-lang-key="webdesign_service4_li1">Triển khai trên các CMS phổ biến, mạnh mẽ (WordPress...).</li>
+                                    <li data-lang-key="webdesign_service4_li2">Giao diện quản trị thân thiện, dễ dàng cập nhật nội dung, hình ảnh.</li>
+                                    <li data-lang-key="webdesign_service4_li3">Kho giao diện và plugin phong phú, mở rộng tính năng linh hoạt.</li>
+                                    <li data-lang-key="webdesign_service4_li4">Hỗ trợ đào tạo sử dụng và quản trị website hiệu quả.</li>
+                                </ul>
+                                 <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+                                 <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-lg font-semibold">Website trên nền tảng CMS</p>
+                                </div>
+                        </div>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                        <div class="text-warning mb-4 text-4xl"><i class="fas fa-search" aria-hidden="true"></i></div>
-                        <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service5_title">Tối ưu hóa SEO</h3>
-                        <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
-                            <li data-lang-key="webdesign_service5_li1">Xây dựng cấu trúc website chuẩn SEO ngay từ nền tảng.</li>
-                            <li data-lang-key="webdesign_service5_li2">Tối ưu on-page: thẻ meta, tiêu đề, hình ảnh, nội dung, liên kết nội bộ.</li>
-                            <li data-lang-key="webdesign_service5_li3">Cài đặt và cấu hình công cụ theo dõi (Google Analytics, Search Console).</li>
-                            <li data-lang-key="webdesign_service5_li4">Tư vấn chiến lược từ khóa và xây dựng nội dung chuẩn SEO cơ bản.</li>
-                        </ul>
-                         <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+
+                    <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                                <div class="text-warning mb-4 text-4xl"><i class="fas fa-search" aria-hidden="true"></i></div>
+                                <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service5_title">Tối ưu hóa SEO</h3>
+                                <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
+                                    <li data-lang-key="webdesign_service5_li1">Xây dựng cấu trúc website chuẩn SEO ngay từ nền tảng.</li>
+                                    <li data-lang-key="webdesign_service5_li2">Tối ưu on-page: thẻ meta, tiêu đề, hình ảnh, nội dung, liên kết nội bộ.</li>
+                                    <li data-lang-key="webdesign_service5_li3">Cài đặt và cấu hình công cụ theo dõi (Google Analytics, Search Console).</li>
+                                    <li data-lang-key="webdesign_service5_li4">Tư vấn chiến lược từ khóa và xây dựng nội dung chuẩn SEO cơ bản.</li>
+                                </ul>
+                                 <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+                                 <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-lg font-semibold">Tối ưu hóa SEO</p>
+                                </div>
+                        </div>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                        <div class="text-danger mb-4 text-4xl"><i class="fas fa-tools" aria-hidden="true"></i></div>
-                        <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service6_title">Bảo trì & Nâng cấp</h3>
-                        <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
-                            <li data-lang-key="webdesign_service6_li1">Sao lưu dữ liệu định kỳ, đảm bảo an toàn thông tin website.</li>
-                            <li data-lang-key="webdesign_service6_li2">Cập nhật phiên bản mã nguồn, theme, plugin để vá lỗi bảo mật.</li>
-                            <li data-lang-key="webdesign_service6_li3">Hỗ trợ khắc phục sự cố kỹ thuật nhanh chóng, kịp thời.</li>
-                            <li data-lang-key="webdesign_service6_li4">Tư vấn và hỗ trợ nâng cấp, phát triển tính năng mới khi cần.</li>
-                        </ul>
-                         <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+
+                    <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                                <div class="text-danger mb-4 text-4xl"><i class="fas fa-tools" aria-hidden="true"></i></div>
+                                <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service6_title">Bảo trì & Nâng cấp</h3>
+                                <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
+                                    <li data-lang-key="webdesign_service6_li1">Sao lưu dữ liệu định kỳ, đảm bảo an toàn thông tin website.</li>
+                                    <li data-lang-key="webdesign_service6_li2">Cập nhật phiên bản mã nguồn, theme, plugin để vá lỗi bảo mật.</li>
+                                    <li data-lang-key="webdesign_service6_li3">Hỗ trợ khắc phục sự cố kỹ thuật nhanh chóng, kịp thời.</li>
+                                    <li data-lang-key="webdesign_service6_li4">Tư vấn và hỗ trợ nâng cấp, phát triển tính năng mới khi cần.</li>
+                                </ul>
+                                 <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+                                 <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-lg font-semibold">Bảo trì & Nâng cấp</p>
+                                </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -169,29 +297,101 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center text-neutral-800 mb-8 md:mb-12" data-lang-key="webdesign_process_heading">Quy trình làm việc chuyên nghiệp</h2>
                 <ol class="process-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
-                    <li class="process-list-item bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary ml-6 sm:ml-0">
-                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process1_title">Tiếp nhận & Tư vấn</h4>
-                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process1_desc">Lắng nghe yêu cầu, phân tích mục tiêu kinh doanh/giáo dục, tư vấn giải pháp website phù hợp.</p>
+                    <li class="process-list-item relative ml-6 sm:ml-0">
+                         <div class="flip-card-container">
+                            <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary">
+                                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process1_title">Tiếp nhận & Tư vấn</h4>
+                                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process1_desc">Lắng nghe yêu cầu, phân tích mục tiêu kinh doanh/giáo dục, tư vấn giải pháp website phù hợp.</p>
+                                         <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <p class="text-base font-semibold">Bước 1: Tiếp nhận & Tư vấn</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
-                     <li class="process-list-item bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary ml-6 sm:ml-0">
-                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process2_title">Lập kế hoạch & Báo giá</h4>
-                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process2_desc">Xây dựng kế hoạch chi tiết về cấu trúc, tính năng, tiến độ và báo giá minh bạch.</p>
+                     <li class="process-list-item relative ml-6 sm:ml-0">
+                         <div class="flip-card-container">
+                            <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary">
+                                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process2_title">Lập kế hoạch & Báo giá</h4>
+                                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process2_desc">Xây dựng kế hoạch chi tiết về cấu trúc, tính năng, tiến độ và báo giá minh bạch.</p>
+                                         <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <p class="text-base font-semibold">Bước 2: Lập kế hoạch & Báo giá</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
-                     <li class="process-list-item bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary ml-6 sm:ml-0">
-                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process3_title">Thiết kế Giao diện</h4>
-                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process3_desc">Phác thảo wireframe, thiết kế mockup UI/UX sáng tạo, chuyên nghiệp và duyệt mẫu với khách hàng.</p>
+                     <li class="process-list-item relative ml-6 sm:ml-0">
+                        <div class="flip-card-container">
+                            <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary">
+                                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process3_title">Thiết kế Giao diện</h4>
+                                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process3_desc">Phác thảo wireframe, thiết kế mockup UI/UX sáng tạo, chuyên nghiệp và duyệt mẫu với khách hàng.</p>
+                                         <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <p class="text-base font-semibold">Bước 3: Thiết kế Giao diện</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
-                     <li class="process-list-item bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary ml-6 sm:ml-0">
-                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process4_title">Lập trình & Phát triển</h4>
-                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process4_desc">Chuyển đổi thiết kế thành website sống động, lập trình các tính năng đã thống nhất.</p>
+                     <li class="process-list-item relative ml-6 sm:ml-0">
+                         <div class="flip-card-container">
+                            <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary">
+                                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process4_title">Lập trình & Phát triển</h4>
+                                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process4_desc">Chuyển đổi thiết kế thành website sống động, lập trình các tính năng đã thống nhất.</p>
+                                         <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <p class="text-base font-semibold">Bước 4: Lập trình & Phát triển</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
-                     <li class="process-list-item bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary ml-6 sm:ml-0">
-                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process5_title">Kiểm thử & Tối ưu</h4>
-                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process5_desc">Kiểm tra kỹ lưỡng các chức năng, hiển thị trên đa thiết bị, tối ưu tốc độ và bảo mật.</p>
+                     <li class="process-list-item relative ml-6 sm:ml-0">
+                         <div class="flip-card-container">
+                            <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary">
+                                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process5_title">Kiểm thử & Tối ưu</h4>
+                                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process5_desc">Kiểm tra kỹ lưỡng các chức năng, hiển thị trên đa thiết bị, tối ưu tốc độ và bảo mật.</p>
+                                         <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <p class="text-base font-semibold">Bước 5: Kiểm thử & Tối ưu</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
-                     <li class="process-list-item bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary ml-6 sm:ml-0">
-                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process6_title">Bàn giao & Hướng dẫn</h4>
-                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process6_desc">Triển khai website lên hosting, bàn giao tài khoản quản trị và hướng dẫn sử dụng chi tiết.</p>
+                     <li class="process-list-item relative ml-6 sm:ml-0">
+                         <div class="flip-card-container">
+                            <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary">
+                                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process6_title">Bàn giao & Hướng dẫn</h4>
+                                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process6_desc">Triển khai website lên hosting, bàn giao tài khoản quản trị và hướng dẫn sử dụng chi tiết.</p>
+                                         <p class="mt-2 text-center text-primary font-semibold text-xs">Click để lật!</p>
+                                    </div>
+                                    <div class="flip-card-back">
+                                        <p class="text-base font-semibold">Bước 6: Bàn giao & Hướng dẫn</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </li>
                 </ol>
             </div>
@@ -199,17 +399,30 @@
 
         <section class="bg-neutral-200 py-12 md:py-16">
             <div class="container mx-auto px-4 max-w-4xl">
-                <h2 class="text-3xl font-bold text-center text-neutral-800 mb-8 md:mb-12" data-lang-key="webdesign_why_heading">Tại sao chọn Dịch vụ Thiết kế Website của IVS?</h2>
-                <ul class="space-y-5 check-list">
-                    <li data-lang-key="webdesign_why_item1"><strong class="font-semibold text-neutral-700">Kinh nghiệm & Chuyên môn:</strong> Đội ngũ IVS Tech Solutions am hiểu cả về công nghệ lẫn nghiệp vụ giáo dục và kinh doanh.</li>
-                    <li data-lang-key="webdesign_why_item2"><strong class="font-semibold text-neutral-700">Thiết kế Sáng tạo & Hiện đại:</strong> Giao diện đẹp mắt, chuyên nghiệp, cập nhật xu hướng UI/UX mới nhất.</li>
-                    <li data-lang-key="webdesign_why_item3"><strong class="font-semibold text-neutral-700">Giải pháp Tùy chỉnh:</strong> Website được thiết kế "may đo" theo đúng nhu cầu và mục tiêu riêng của từng khách hàng.</li>
-                    <li data-lang-key="webdesign_why_item4"><strong class="font-semibold text-neutral-700">Tối ưu Hiệu suất & SEO:</strong> Website tốc độ nhanh, cấu trúc chuẩn SEO, thân thiện với công cụ tìm kiếm và người dùng.</li>
-                    <li data-lang-key="webdesign_why_item5"><strong class="font-semibold text-neutral-700">Bảo mật & Ổn định:</strong> Cam kết website hoạt động an toàn, bảo mật thông tin và ổn định trên mọi nền tảng.</li>
-                    <li data-lang-key="webdesign_why_item6"><strong class="font-semibold text-neutral-700">Hỗ trợ Tận tâm:</strong> Đồng hành cùng bạn trong suốt quá trình từ tư vấn, triển khai đến bảo trì, nâng cấp.</li>
-                </ul>
+                <div class="flip-card-container">
+                    <div class="flip-card" onclick="this.classList.toggle('is-flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h2 class="text-3xl font-bold text-center text-neutral-800 mb-8 md:mb-12" data-lang-key="webdesign_why_heading">Tại sao chọn Dịch vụ Thiết kế Website của IVS?</h2>
+                                <ul class="space-y-5 check-list">
+                                    <li data-lang-key="webdesign_why_item1"><strong class="font-semibold text-neutral-700">Kinh nghiệm & Chuyên môn:</strong> Đội ngũ IVS Tech Solutions am hiểu cả về công nghệ lẫn nghiệp vụ giáo dục và kinh doanh.</li>
+                                    <li data-lang-key="webdesign_why_item2"><strong class="font-semibold text-neutral-700">Thiết kế Sáng tạo & Hiện đại:</strong> Giao diện đẹp mắt, chuyên nghiệp, cập nhật xu hướng UI/UX mới nhất.</li>
+                                    <li data-lang-key="webdesign_why_item3"><strong class="font-semibold text-neutral-700">Giải pháp Tùy chỉnh:</strong> Website được thiết kế "may đo" theo đúng nhu cầu và mục tiêu riêng của từng khách hàng.</li>
+                                    <li data-lang-key="webdesign_why_item4"><strong class="font-semibold text-neutral-700">Tối ưu Hiệu suất & SEO:</strong> Website tốc độ nhanh, cấu trúc chuẩn SEO, thân thiện với công cụ tìm kiếm và người dùng.</li>
+                                    <li data-lang-key="webdesign_why_item5"><strong class="font-semibold text-neutral-700">Bảo mật & Ổn định:</strong> Cam kết website hoạt động an toàn, bảo mật thông tin và ổn định trên mọi nền tảng.</li>
+                                    <li data-lang-key="webdesign_why_item6"><strong class="font-semibold text-neutral-700">Hỗ trợ Tận tâm:</strong> Đồng hành cùng bạn trong suốt quá trình từ tư vấn, triển khai đến bảo trì, nâng cấp.</li>
+                                </ul>
+                                <p class="mt-4 text-center text-primary font-semibold">Click để lật!</p>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="text-lg font-semibold">Mặt sau của thẻ Tại sao chọn IVS</p>
+                                </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
+
 
         <section id="contact-cta" class="py-16 md:py-20 bg-gradient-to-r from-primary to-blue-700 text-white">
             <div class="container mx-auto px-4 text-center max-w-3xl">
@@ -237,7 +450,18 @@
 
     <script src="js/script.js"></script>
     <script src="js/language.js"></script>
+     <script>
+        // JavaScript để thêm/bỏ class 'is-flipped' khi click vào flip-card
+        document.addEventListener('DOMContentLoaded', function() {
+            const flipCards = document.querySelectorAll('.flip-card');
+            flipCards.forEach(card => {
+                 // Đã thêm onclick trực tiếp vào HTML để đơn giản
+                // card.addEventListener('click', function() {
+                //     card.classList.toggle('is-flipped');
+                // });
+            });
+        });
+    </script>
 
 </body>
 </html>
-```
