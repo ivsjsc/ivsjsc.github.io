@@ -15,7 +15,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -83,6 +83,12 @@
             height: 100%; /* Đảm bảo chiều cao đồng nhất */
             display: flex;
             flex-direction: column;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition for hover */
+        }
+
+        .card:hover {
+             transform: translateY(-5px); /* Lift effect on hover */
+             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
         }
 
         .card h3 {
@@ -133,7 +139,13 @@
              flex-direction: column; /* Sắp xếp theo cột */
              justify-content: flex-start; /* Căn nội dung lên trên */
              align-items: flex-start; /* Căn nội dung sang trái */
+             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition for hover */
          }
+
+        .process-list-item:hover {
+             transform: translateY(-5px); /* Lift effect on hover */
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
+        }
 
 
          .process-list-item h4 {
@@ -145,6 +157,51 @@
              text-align: left; /* Căn trái nội dung */
          }
 
+        /* CSS cho Hero Section với background */
+         .hero-webdesign {
+            background-image: url('https://placehold.co/1920x600/a855f7/faf5ff?text=Web+Design+Showcase'); /* Placeholder image */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden; /* Đảm bảo lớp phủ không tràn ra */
+        }
+
+        .hero-webdesign::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* Lớp phủ màu tối */
+            z-index: 1;
+        }
+
+        .hero-webdesign .container {
+            position: relative;
+            z-index: 2; /* Đảm bảo nội dung nằm trên lớp phủ */
+        }
+
+         /* CSS cho Testimonial Section (Nếu muốn thêm vào trang này) */
+        .testimonial-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            text-align: center;
+            font-style: italic;
+            color: #4b5563; /* neutral-600 */
+        }
+
+        .testimonial-card p {
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #1f2937; /* neutral-800 */
+            font-style: normal;
+        }
 
     </style>
 </head>
@@ -153,10 +210,10 @@
     <header id="header-placeholder"></header>
 
     <main>
-        <section class="bg-gradient-to-r from-purple-600 to-indigo-700 text-white py-16 md:py-20 text-center" aria-labelledby="page-title-webdesign">
+        <section class="hero-webdesign text-white py-16 md:py-24 text-center shadow-lg">
             <div class="container mx-auto px-4">
-                <h1 id="page-title-webdesign" class="text-4xl md:text-5xl font-bold mb-3" data-lang-key="webdesign_hero_title">Thiết Kế Website Chuyên Nghiệp</h1>
-                <p class="text-lg md:text-xl opacity-90" data-lang-key="webdesign_hero_subtitle">Giải pháp toàn diện từ IVS - Nâng tầm thương hiệu, tối ưu hiệu quả</p>
+                <h1 id="page-title-webdesign" class="text-4xl md:text-5xl font-bold mb-3 hero-text-shadow" data-lang-key="webdesign_hero_title" data-aos="fade-up">Thiết Kế Website Chuyên Nghiệp</h1>
+                <p class="text-lg md:text-xl opacity-90 hero-text-shadow" data-lang-key="webdesign_hero_subtitle" data-aos="fade-up" data-aos-delay="100">Giải pháp toàn diện từ IVS - Nâng tầm thương hiệu, tối ưu hiệu quả</p>
             </div>
         </section>
 
@@ -188,7 +245,7 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center text-neutral-800 mb-8 md:mb-12" data-lang-key="webdesign_services_heading" data-aos="fade-up">Các Gói Dịch Vụ Thiết Kế Website</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card" data-aos="fade-up" data-aos-delay="100">
                         <div class="text-primary mb-4 text-4xl"><i class="fas fa-palette" aria-hidden="true"></i></div>
                         <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service1_title">Thiết kế theo yêu cầu</h3>
                         <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
@@ -199,7 +256,7 @@
                         </ul>
                         <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card" data-aos="fade-up" data-aos-delay="200">
                         <div class="text-secondary mb-4 text-4xl"><i class="fas fa-mobile-alt" aria-hidden="true"></i></div>
                         <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service2_title">Thiết kế Responsive</h3>
                         <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
@@ -210,7 +267,7 @@
                         </ul>
                         <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card" data-aos="fade-up" data-aos-delay="300">
                         <div class="text-purple-DEFAULT mb-4 text-4xl"><i class="fas fa-shopping-cart" aria-hidden="true"></i></div> <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service3_title">Website Thương mại Điện tử</h3>
                         <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
                             <li data-lang-key="webdesign_service3_li1">Thiết kế gian hàng trực tuyến chuyên nghiệp, thu hút.</li>
@@ -220,7 +277,7 @@
                         </ul>
                          <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card" data-aos="fade-up" data-aos-delay="400">
                         <div class="text-info mb-4 text-4xl"><i class="fab fa-wordpress" aria-hidden="true"></i></div> <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service4_title">Website trên nền tảng CMS</h3>
                         <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
                             <li data-lang-key="webdesign_service4_li1">Triển khai trên các CMS phổ biến, mạnh mẽ (WordPress...).</li>
@@ -230,7 +287,7 @@
                         </ul>
                          <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col" data-aos="fade-up" data-aos-delay="500">
+                    <div class="card" data-aos="fade-up" data-aos-delay="500">
                         <div class="text-warning mb-4 text-4xl"><i class="fas fa-search" aria-hidden="true"></i></div>
                         <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service5_title">Tối ưu hóa SEO</h3>
                         <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
@@ -241,7 +298,7 @@
                         </ul>
                          <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
                     </div>
-                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col" data-aos="fade-up" data-aos-delay="600">
+                    <div class="card" data-aos="fade-up" data-aos-delay="600">
                         <div class="text-danger mb-4 text-4xl"><i class="fas fa-tools" aria-hidden="true"></i></div>
                         <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service6_title">Bảo trì & Nâng cấp</h3>
                         <ul class="list-disc list-inside text-sm text-neutral-600 space-y-1 flex-grow mb-4">
@@ -260,27 +317,27 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center text-neutral-800 mb-8 md:mb-12" data-lang-key="webdesign_process_heading" data-aos="fade-up">Quy trình làm việc chuyên nghiệp</h2>
                 <ol class="process-list grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
-                    <li class="process-list-item bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary" data-aos="fade-up" data-aos-delay="100">
+                    <li class="process-list-item" data-aos="fade-up" data-aos-delay="100">
                         <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process1_title">Tiếp nhận & Tư vấn</h4>
                         <p class="text-sm text-neutral-600" data-lang-key="webdesign_process1_desc">Lắng nghe yêu cầu, phân tích mục tiêu kinh doanh/giáo dục, tư vấn giải pháp website phù hợp.</p>
                     </li>
-                     <li class="process-list-item bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary" data-aos="fade-up" data-aos-delay="200">
+                     <li class="process-list-item" data-aos="fade-up" data-aos-delay="200">
                         <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process2_title">Lập kế hoạch & Báo giá</h4>
                         <p class="text-sm text-neutral-600" data-lang-key="webdesign_process2_desc">Xây dựng kế hoạch chi tiết về cấu trúc, tính năng, tiến độ và báo giá minh bạch.</p>
                     </li>
-                     <li class="process-list-item bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary" data-aos="fade-up" data-aos-delay="300">
+                     <li class="process-list-item" data-aos="fade-up" data-aos-delay="300">
                         <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process3_title">Thiết kế Giao diện</h4>
                         <p class="text-sm text-neutral-600" data-lang-key="webdesign_process3_desc">Phác thảo wireframe, thiết kế mockup UI/UX sáng tạo, chuyên nghiệp và duyệt mẫu với khách hàng.</p>
                     </li>
-                     <li class="process-list-item bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary" data-aos="fade-up" data-aos-delay="400">
+                     <li class="process-list-item" data-aos="fade-up" data-aos-delay="400">
                         <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process4_title">Lập trình & Phát triển</h4>
                         <p class="text-sm text-neutral-600" data-lang-key="webdesign_process4_desc">Chuyển đổi thiết kế thành website sống động, lập trình các tính năng đã thống nhất.</p>
                     </li>
-                     <li class="process-list-item bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary" data-aos="fade-up" data-aos-delay="500">
+                     <li class="process-list-item" data-aos="fade-up" data-aos-delay="500">
                         <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process5_title">Kiểm thử & Tối ưu</h4>
                         <p class="text-sm text-neutral-600" data-lang-key="webdesign_process5_desc">Kiểm tra kỹ lưỡng các chức năng, hiển thị trên đa thiết bị, tối ưu tốc độ và bảo mật.</p>
                     </li>
-                     <li class="process-list-item bg-white p-6 rounded-lg shadow-sm relative border-l-4 border-primary" data-aos="fade-up" data-aos-delay="600">
+                     <li class="process-list-item" data-aos="fade-up" data-aos-delay="600">
                         <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process6_title">Bàn giao & Hướng dẫn</h4>
                         <p class="text-sm text-neutral-600" data-lang-key="webdesign_process6_desc">Triển khai website lên hosting, bàn giao tài khoản quản trị và hướng dẫn sử dụng chi tiết.</p>
                     </li>
@@ -300,6 +357,16 @@
                     <li data-lang-key="webdesign_why_item6" data-aos="fade-right" data-aos-delay="600"><strong class="font-semibold text-neutral-700">Hỗ trợ Tận tâm:</strong> Đồng hành cùng bạn trong suốt quá trình từ tư vấn, triển khai đến bảo trì, nâng cấp.</li>
                 </ul>
             </div>
+        </section>
+
+         <section class="py-12 md:py-16 bg-neutral-100 section-spacing">
+            <div class="container mx-auto px-4 max-w-3xl">
+                <h2 class="text-2xl md:text-3xl font-semibold text-neutral-700 mb-8 text-center" data-aos="fade-up">Khách hàng nói gì</h2>
+                <div class="testimonial-card" data-aos="zoom-in">
+                    <p>"IVS Tech Solutions đã vượt mong đợi của chúng tôi với một website chuyên nghiệp, hiện đại và tối ưu SEO. Rất hài lòng với dịch vụ!"</p>
+                    <p class="testimonial-author">- Đại diện Công ty XYZ</p>
+                </div>
+                </div>
         </section>
 
 

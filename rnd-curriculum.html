@@ -58,7 +58,7 @@
         header#navbar button[data-lang]:not(:disabled) { color: theme('colors.blue.200', '#bfdbfe') !important; opacity: 0.8 !important; }
         header#navbar button[data-lang]:not(:disabled):hover { color: white !important; opacity: 1 !important; }
 
-         /* Bỏ CSS cho hiệu ứng lật thẻ */
+        /* Bỏ CSS cho hiệu ứng lật thẻ */
         /*
         .flip-card { ... }
         .flip-card-inner { ... }
@@ -153,6 +153,52 @@
              text-align: left; /* Căn trái nội dung */
          }
 
+        /* CSS cho Hero Section với background image */
+        .hero-rnd {
+            background-image: url('https://placehold.co/1920x600/a7f3d0/10b981?text=R%26D+EdTech'); /* Placeholder image */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden; /* Đảm bảo lớp phủ không tràn ra */
+        }
+
+        .hero-rnd::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Lớp phủ màu tối */
+            z-index: 1;
+        }
+
+        .hero-rnd .container {
+            position: relative;
+            z-index: 2; /* Đảm bảo nội dung nằm trên lớp phủ */
+        }
+
+        /* CSS cho Testimonial Section */
+        .testimonial-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            text-align: center;
+            font-style: italic;
+            color: #4b5563; /* neutral-600 */
+        }
+
+        .testimonial-card p {
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #1f2937; /* neutral-800 */
+            font-style: normal;
+        }
+
 
     </style>
 </head>
@@ -160,68 +206,90 @@
 
     <header id="header-placeholder"></header>
 
-    <main class="container mx-auto px-4 py-12 md:py-16">
-
-        <section class="mb-12 text-center">
-            <h1 class="text-3xl md:text-4xl font-bold text-neutral-700 mb-4" data-lang-key="rnd_heading_v2">
-                Thiết kế Học liệu & Giải pháp EdTech theo yêu cầu
-            </h1>
-            <p class="text-lg text-neutral-600 max-w-3xl mx-auto mb-8" data-lang-key="rnd_intro_p1_v2">
-                IVS Education, cùng với bộ phận công nghệ giáo dục IVS Celestech, cung cấp dịch vụ Nghiên cứu & Phát triển (R&D) toàn diện, từ việc xây dựng chương trình đào tạo, biên soạn học liệu đến thiết kế ứng dụng và Hệ thống quản lý học tập (LMS) chuyên biệt.
-            </p>
-             <div class="prose max-w-none lg:prose-lg mx-auto text-neutral-600 bg-white p-6 md:p-8 rounded-lg shadow-md text-left" data-aos="fade-up">
-                <p data-lang-key="rnd_intro_p2_v2">
-                    Với đội ngũ chuyên gia R&D Giáo trình do <strong class="font-semibold">Ms. Salma Mahzoum</strong> dẫn dắt và các kỹ sư công nghệ tại IVS Celestech, chúng tôi kết hợp phương pháp sư phạm tiên tiến và công nghệ hiện đại để tạo ra các giải pháp giáo dục tối ưu, đáp ứng chính xác mục tiêu và phù hợp với đặc thù của từng đối tác, từ trường học, trung tâm đào tạo đến doanh nghiệp.
+    <main>
+        <section class="hero-rnd text-white py-16 md:py-24 text-center shadow-lg">
+            <div class="container mx-auto px-4">
+                <h1 class="text-3xl md:text-5xl font-bold mb-4 hero-text-shadow" data-lang-key="rnd_heading_v2" data-aos="fade-up">
+                    Thiết kế Học liệu & Giải pháp EdTech theo yêu cầu
+                </h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto hero-text-shadow" data-lang-key="rnd_intro_p1_v2" data-aos="fade-up" data-aos-delay="100">
+                    IVS Education, cùng với bộ phận công nghệ giáo dục IVS Celestech, cung cấp dịch vụ Nghiên cứu & Phát triển (R&D) toàn diện, từ việc xây dựng chương trình đào tạo, biên soạn học liệu đến thiết kế ứng dụng và Hệ thống quản lý học tập (LMS) chuyên biệt.
                 </p>
             </div>
         </section>
 
-        <section class="section-spacing">
-            <h2 class="text-2xl md:text-3xl font-semibold text-neutral-700 mb-8 text-center" data-lang-key="rnd_specific_services_heading_v2" data-aos="fade-up">Các Dịch vụ Cụ thể</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                <div class="card" data-aos="fade-right" data-aos-delay="100">
-                    <h3 class="text-xl lg:text-2xl font-semibold mb-4" data-lang-key="rnd_curriculum_design_subheading">Thiết kế Học liệu & Chương trình Đào tạo</h3>
-                    <p class="mb-4 text-sm text-neutral-600 flex-grow" data-lang-key="rnd_cd_desc">Xây dựng lộ trình học tập và tài liệu giảng dạy chất lượng cao, bám sát mục tiêu và đối tượng người học.</p>
-                    <ul class="list-none space-y-2 text-sm text-neutral-600">
-                        <li data-lang-key="rnd_cd_item1">Phân tích chuyên sâu nhu cầu và mục tiêu đào tạo của đối tác.</li>
-                        <li data-lang-key="rnd_cd_item2">Thiết kế khung chương trình chi tiết, chuẩn đầu ra rõ ràng.</li>
-                        <li data-lang-key="rnd_cd_item3">Biên soạn nội dung giáo trình, bài giảng, kịch bản video/audio.</li>
-                        <li data-lang-key="rnd_cd_item4">Phát triển học liệu đa phương tiện: slide, infographic, video, bài tập tương tác.</li>
-                        <li data-lang-key="rnd_cd_item5">Xây dựng hệ thống kiểm tra, đánh giá năng lực người học đa dạng.</li>
-                    </ul>
+        <section class="py-12 md:py-16">
+            <div class="container mx-auto px-4">
+                 <div class="prose max-w-none lg:prose-lg mx-auto text-neutral-600 bg-white p-6 md:p-8 rounded-lg shadow-md text-left" data-aos="fade-up">
+                    <p data-lang-key="rnd_intro_p2_v2">
+                        Với đội ngũ chuyên gia R&D Giáo trình do <strong class="font-semibold">Ms. Salma Mahzoum</strong> dẫn dắt và các kỹ sư công nghệ tại IVS Celestech, chúng tôi kết hợp phương pháp sư phạm tiên tiến và công nghệ hiện đại để tạo ra các giải pháp giáo dục tối ưu, đáp ứng chính xác mục tiêu và phù hợp với đặc thù của từng đối tác, từ trường học, trung tâm đào tạo đến doanh nghiệp.
+                    </p>
                 </div>
+            </div>
+        </section>
 
-                <div class="card" data-aos="fade-left" data-aos-delay="100">
-                     <h3 class="text-xl lg:text-2xl font-semibold text-secondary mb-4" data-lang-key="rnd_edtech_dev_subheading">Phát triển Giải pháp Công nghệ Giáo dục (EdTech)</h3>
-                     <p class="mb-4 text-sm text-neutral-600 flex-grow" data-lang-key="rnd_ed_desc">Cung cấp các nền tảng và ứng dụng công nghệ hỗ trợ hiệu quả cho việc dạy và học, quản lý đào tạo.</p>
-                     <ul class="list-none space-y-2 text-sm text-neutral-600">
-                         <li data-lang-key="rnd_ed_item1">Thiết kế và phát triển Hệ thống Quản lý Học tập (LMS) tùy chỉnh.</li>
-                         <li data-lang-key="rnd_ed_item2">Xây dựng ứng dụng học tập di động (Mobile Learning Apps) đa nền tảng.</li>
-                         <li data-lang-key="rnd_ed_item3">Số hóa học liệu và tích hợp nội dung lên các nền tảng E-learning, LMS.</li>
-                         <li data-lang-key="rnd_ed_item4">Tư vấn và triển khai ứng dụng AI, VR/AR trong giáo dục (thông qua IVS Celestech).</li>
-                         <li data-lang-key="rnd_ed_item5">Giải pháp website chuyên biệt cho cơ sở giáo dục (trường học, trung tâm).</li>
-                     </ul>
+
+        <section class="section-spacing">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-semibold text-neutral-700 mb-8 text-center" data-lang-key="rnd_specific_services_heading_v2" data-aos="fade-up">Các Dịch vụ Cụ thể</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    <div class="card" data-aos="fade-right" data-aos-delay="100">
+                        <h3 class="text-xl lg:text-2xl font-semibold mb-4" data-lang-key="rnd_curriculum_design_subheading">Thiết kế Học liệu & Chương trình Đào tạo</h3>
+                        <p class="mb-4 text-sm text-neutral-600 flex-grow" data-lang-key="rnd_cd_desc">Xây dựng lộ trình học tập và tài liệu giảng dạy chất lượng cao, bám sát mục tiêu và đối tượng người học.</p>
+                        <ul class="list-none space-y-2 text-sm text-neutral-600">
+                            <li data-lang-key="rnd_cd_item1">Phân tích chuyên sâu nhu cầu và mục tiêu đào tạo của đối tác.</li>
+                            <li data-lang-key="rnd_cd_item2">Thiết kế khung chương trình chi tiết, chuẩn đầu ra rõ ràng.</li>
+                            <li data-lang-key="rnd_cd_item3">Biên soạn nội dung giáo trình, bài giảng, kịch bản video/audio.</li>
+                            <li data-lang-key="rnd_cd_item4">Phát triển học liệu đa phương tiện: slide, infographic, video, bài tập tương tác.</li>
+                            <li data-lang-key="rnd_cd_item5">Xây dựng hệ thống kiểm tra, đánh giá năng lực người học đa dạng.</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" data-aos="fade-left" data-aos-delay="100">
+                         <h3 class="text-xl lg:text-2xl font-semibold text-secondary mb-4" data-lang-key="rnd_edtech_dev_subheading">Phát triển Giải pháp Công nghệ Giáo dục (EdTech)</h3>
+                         <p class="mb-4 text-sm text-neutral-600 flex-grow" data-lang-key="rnd_ed_desc">Cung cấp các nền tảng và ứng dụng công nghệ hỗ trợ hiệu quả cho việc dạy và học, quản lý đào tạo.</p>
+                         <ul class="list-none space-y-2 text-sm text-neutral-600">
+                             <li data-lang-key="rnd_ed_item1">Thiết kế và phát triển Hệ thống Quản lý Học tập (LMS) tùy chỉnh.</li>
+                             <li data-lang-key="rnd_ed_item2">Xây dựng ứng dụng học tập di động (Mobile Learning Apps) đa nền tảng.</li>
+                             <li data-lang-key="rnd_ed_item3">Số hóa học liệu và tích hợp nội dung lên các nền tảng E-learning, LMS.</li>
+                             <li data-lang-key="rnd_ed_item4">Tư vấn và triển khai ứng dụng AI, VR/AR trong giáo dục (thông qua IVS Celestech).</li>
+                             <li data-lang-key="rnd_ed_item5">Giải pháp website chuyên biệt cho cơ sở giáo dục (trường học, trung tâm).</li>
+                         </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
          <section class="grid grid-cols-1 md:grid-cols-2 gap-8 section-spacing">
-             <div class="card bg-blue-50 border border-blue-200" data-aos="fade-up" data-aos-delay="100">
-                 <h3 class="text-xl font-semibold text-primary-dark mb-3" data-lang-key="rnd_process_heading">Quy trình Hợp tác Chuyên nghiệp</h3>
-                 <p class="text-sm text-neutral-600" data-lang-key="rnd_process_p1">Chúng tôi làm việc chặt chẽ với đối tác qua các bước: Khảo sát & Phân tích -> Đề xuất Giải pháp -> Thiết kế & Phát triển -> Thử nghiệm & Phản hồi -> Triển khai & Đào tạo -> Bảo trì & Nâng cấp, đảm bảo sản phẩm cuối cùng đáp ứng đúng kỳ vọng.</p>
-             </div>
-             <div class="card bg-emerald-50 border border-emerald-200" data-aos="fade-up" data-aos-delay="200">
-                 <h3 class="text-xl font-semibold text-secondary-dark mb-3" data-lang-key="rnd_benefits_heading">Lợi ích cho Đối tác</h3>
-                 <ul class="list-none space-y-1 text-sm text-neutral-600">
-                     <li data-lang-key="rnd_benefit_item1">Sản phẩm được "may đo" theo đúng nhu cầu đặc thù.</li>
-                     <li data-lang-key="rnd_benefit_item2">Chất lượng chuyên môn cao, cập nhật xu hướng mới nhất.</li>
-                     <li data-lang-key="rnd_benefit_item3">Tích hợp công nghệ hiện đại, nâng cao trải nghiệm học tập.</li>
-                     <li data-lang-key="rnd_benefit_item4">Tiết kiệm thời gian và nguồn lực tự phát triển.</li>
-                     <li data-lang-key="rnd_benefit_item5">Hỗ trợ kỹ thuật và đào tạo sử dụng hiệu quả.</li>
-                 </ul>
+             <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+                 <div class="card bg-blue-50 border border-blue-200" data-aos="fade-up" data-aos-delay="100">
+                     <h3 class="text-xl font-semibold text-primary-dark mb-3" data-lang-key="rnd_process_heading">Quy trình Hợp tác Chuyên nghiệp</h3>
+                     <p class="text-sm text-neutral-600" data-lang-key="rnd_process_p1">Chúng tôi làm việc chặt chẽ với đối tác qua các bước: Khảo sát & Phân tích -> Đề xuất Giải pháp -> Thiết kế & Phát triển -> Thử nghiệm & Phản hồi -> Triển khai & Đào tạo -> Bảo trì & Nâng cấp, đảm bảo sản phẩm cuối cùng đáp ứng đúng kỳ vọng.</p>
+                 </div>
+                 <div class="card bg-emerald-50 border border-emerald-200" data-aos="fade-up" data-aos-delay="200">
+                     <h3 class="text-xl font-semibold text-secondary-dark mb-3" data-lang-key="rnd_benefits_heading">Lợi ích cho Đối tác</h3>
+                     <ul class="list-none space-y-1 text-sm text-neutral-600">
+                         <li data-lang-key="rnd_benefit_item1">Sản phẩm được "may đo" theo đúng nhu cầu đặc thù.</li>
+                         <li data-lang-key="rnd_benefit_item2">Chất lượng chuyên môn cao, cập nhật xu hướng mới nhất.</li>
+                         <li data-lang-key="rnd_benefit_item3">Tích hợp công nghệ hiện đại, nâng cao trải nghiệm học tập.</li>
+                         <li data-lang-key="rnd_benefit_item4">Tiết kiệm thời gian và nguồn lực tự phát triển.</li>
+                         <li data-lang-key="rnd_benefit_item5">Hỗ trợ kỹ thuật và đào tạo sử dụng hiệu quả.</li>
+                     </ul>
+                 </div>
              </div>
          </section>
+
+        <section class="py-12 md:py-16 bg-neutral-100 section-spacing">
+            <div class="container mx-auto px-4 max-w-3xl">
+                <h2 class="text-2xl md:text-3xl font-semibold text-neutral-700 mb-8 text-center" data-aos="fade-up">Đối tác nói gì về chúng tôi</h2>
+                <div class="testimonial-card" data-aos="zoom-in">
+                    <p>"IVS Education đã giúp chúng tôi xây dựng chương trình STEAM độc đáo và hiệu quả, thu hút đông đảo học viên. Đội ngũ chuyên nghiệp và tận tâm!"</p>
+                    <p class="testimonial-author">- Đại diện Trường Mầm non ABC</p>
+                </div>
+                </div>
+        </section>
+
 
         <section class="text-center mt-16" data-aos="fade-up">
             <h2 class="text-2xl font-semibold text-neutral-700 mb-4" data-lang-key="rnd_cta_heading_v2">Sẵn sàng Nâng tầm Chương trình Đào tạo của Bạn?</h2>
