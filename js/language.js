@@ -1,211 +1,228 @@
-// /js/language.js
-// Phiên bản: Tải bản dịch từ tệp JSON riêng biệt (có thêm log debug)
+// ...existing code...
 
-// Object để lưu trữ nội dung dịch đã tải
-let translations = {};
-
-// Ngôn ngữ mặc định
+// Language System Initialization
+window.translations = {};
 const defaultLanguage = 'vi';
-
-// Khóa lưu ngôn ngữ trong localStorage
-const languageStorageKey = 'userLanguage';
-
-const isDebugMode = true; // Đặt thành false trong môi trường production
+const languageStorageKey = 'userPreferredLanguage';
+const isDebugMode = false;
 
 function logDebug(message) {
     if (isDebugMode) {
-        console.log(message);
+        console.log(`[LangJS] ${message}`);
     }
 }
 
 function logWarning(message) {
     if (isDebugMode) {
-        console.warn(message);
+        console.warn(`[LangJS] ${message}`);
     }
 }
 
-function logError(message) {
-    console.error(message);
-}
-
-// Hàm tải nội dung dịch từ tệp JSON
-async function loadTranslations(lang) {
-    logDebug(`[Language] Attempting to load translations for language: ${lang}`);
+async function fetchTranslations(lang) {
+    logDebug(`Attempting to load translations for: ${lang}`);
     try {
         const response = await fetch(`/languages/${lang}.json`);
-
         if (!response.ok) {
-            logWarning(`[Language] Could not load translations for ${lang}. Status: ${response.status}. Falling back to default language: ${defaultLanguage}`);
+            logWarning(`Could not load translations for ${lang}. Status: ${response.status}.`);
             if (lang !== defaultLanguage) {
-                const defaultResponse = await fetch(`/languages/${defaultLanguage}.json`);
-                if (!defaultResponse.ok) {
-                    throw new Error(`[Language] Could not load translations for default language ${defaultLanguage}. Status: ${defaultResponse.status}`);
-                }
-                translations = await defaultResponse.json();
-                logDebug(`[Language] Successfully loaded default translations for: ${defaultLanguage}`);
-                applyTranslations();
-                return;
-            } else {
-                throw new Error(`[Language] Could not load translations for default language ${defaultLanguage}`);
+                logWarning(`Falling back to default language: ${defaultLanguage}`);
+                return fetchTranslations(defaultLanguage);
             }
+            throw new Error(`Failed to load default language file: ${defaultLanguage}.json`);
         }
-
-        translations = await response.json();
-        logDebug(`[Language] Successfully loaded translations for: ${lang}`);
-        applyTranslations();
-        logDebug(`[Language] Translations applied for: ${lang}`);
-
-        // Cập nhật thuộc tính lang của thẻ html để hỗ trợ SEO và accessibility
-        document.documentElement.lang = lang;
-        logDebug(`[Language] HTML lang attribute set to: ${lang}`);
-
+        window.translations[lang] = await response.json();
+        logDebug(`Successfully loaded translations for: ${lang}`);
     } catch (error) {
-        console.error("[Language] Error loading or applying translations:", error);
-        alert("Không thể tải bản dịch. Vui lòng thử lại sau.");
-        // Có thể thêm logic hiển thị thông báo lỗi cho người dùng tại đây
+        console.error(`Error fetching translations for ${lang}:`, error);
+        if (!window.translations[defaultLanguage] && lang !== defaultLanguage) {
+            await fetchTranslations(defaultLanguage);
+        } else if (!window.translations[lang]) {
+            window.translations[lang] = {};
+        }
     }
 }
 
-// Hàm áp dụng nội dung dịch lên các phần tử HTML
-function applyTranslations() {
-    logDebug("[Language] Applying translations...");
-    const currentLang = getCurrentLanguage();
+window.applyTranslations = function(lang) {
+    logDebug(`Applying translations for language: ${lang}`);
+    if (!window.translations || !window.translations[lang]) {
+        logWarning(`No translations loaded for "${lang}". Make sure fetchTranslations was called and successful.`);
+        if (lang !== defaultLanguage && (!window.translations || !window.translations[defaultLanguage])) {
+            console.warn(`[LangJS] Translations for ${lang} not found, and default not loaded. Attempting to load default.`);
+            fetchTranslations(defaultLanguage).then(() => {
+                if (window.translations[defaultLanguage]) {
+                    applyTranslations(defaultLanguage);
+                }
+            });
+            return;
+        } else if (lang !== defaultLanguage && window.translations && window.translations[defaultLanguage]) {
+            logWarning(`[LangJS] Using default translations as fallback for ${lang}.`);
+            lang = defaultLanguage;
+        } else if (lang === defaultLanguage && (!window.translations || !window.translations[defaultLanguage])) {
+            console.error(`[LangJS] CRITICAL: Default translations for ${defaultLanguage} are not loaded. Cannot translate.`);
+            return;
+        }
+    }
+
+    const currentTranslations = window.translations[lang] || window.translations[defaultLanguage] || {};
     let elementsTranslated = 0;
-    let attributesTranslated = 0;
 
     document.querySelectorAll('[data-lang-key]').forEach(element => {
         const key = element.getAttribute('data-lang-key');
-        if (translations[key] !== undefined) {
-            if (typeof translations[key] === 'object' && translations[key] !== null) {
-                // Xử lý các thuộc tính đặc biệt dựa trên data-lang-key-*
-                // elementsTranslated++; // Count as translated if base key exists, attributes handled separately
+        if (currentTranslations[key] !== undefined) {
+            if (element.tagName === 'TITLE') {
+                element.textContent = currentTranslations[key];
             } else {
-                element.innerHTML = translations[key];
-                elementsTranslated++;
+                element.innerHTML = currentTranslations[key];
             }
+            elementsTranslated++;
         } else {
-            logWarning(`[Language] Translation key "${key}" not found for language "${currentLang}"`);
-            // element.innerHTML = `[${key}]`; // Tùy chọn: hiển thị key để dễ debug
+            logWarning(`Translation key "${key}" not found for language "${lang}". Element content: "${element.textContent.trim().substring(0,30)}..."`);
         }
     });
 
-    // Cập nhật các thuộc tính đặc biệt sử dụng data-lang-key-*
-    document.querySelectorAll('[data-lang-key-placeholder]').forEach(element => {
-        const key = element.getAttribute('data-lang-key-placeholder');
-        if (translations[key] && typeof translations[key] === 'object' && translations[key][currentLang] !== undefined) {
-            element.placeholder = translations[key][currentLang];
-            attributesTranslated++;
-        } else {
-            logWarning(`[Language] Translation key for placeholder "${key}" not found for language "${currentLang}" or not an object.`);
-        }
-    });
-
-    document.querySelectorAll('[data-lang-key-alt]').forEach(element => {
-        const key = element.getAttribute('data-lang-key-alt');
-        if (translations[key] && typeof translations[key] === 'object' && translations[key][currentLang] !== undefined) {
-            element.alt = translations[key][currentLang];
-            attributesTranslated++;
-        } else {
-            logWarning(`[Language] Translation key for alt "${key}" not found for language "${currentLang}" or not an object.`);
-        }
-    });
-
-    // Xử lý các thuộc tính khác như title, value
-    document.querySelectorAll('[data-lang-key-title]').forEach(element => {
-        const key = element.getAttribute('data-lang-key-title');
-        if (translations[key] && typeof translations[key] === 'object' && translations[key][currentLang] !== undefined) {
-            element.title = translations[key][currentLang];
-        } else {
-            logWarning(`[Language] Translation key for title "${key}" not found for language "${currentLang}" or not an object.`);
-        }
-    });
-
-    document.querySelectorAll('[data-lang-key-value]').forEach(element => {
-        const key = element.getAttribute('data-lang-key-value');
-        if (translations[key] && typeof translations[key] === 'object' && translations[key][currentLang] !== undefined) {
-            element.value = translations[key][currentLang];
-        } else {
-            logWarning(`[Language] Translation key for value "${key}" not found for language "${currentLang}" or not an object.`);
-        }
-    });
-
-    // Cập nhật meta tags
-    const pageTitleKey = document.body.getAttribute('data-page-title-key') || 'page_title_default';
-    document.title = translations[pageTitleKey] || translations['page_title_default'];
-
-    const metaDescriptionElement = document.querySelector('meta[name="description"]');
-    if (metaDescriptionElement) {
-        const metaDescKey = document.body.getAttribute('data-meta-description-key') || 'meta_description';
-        metaDescriptionElement.setAttribute('content', translations[metaDescKey] || translations['meta_description']);
-    }
-
-    // Cập nhật Open Graph tags
-    const ogTitleElement = document.querySelector('meta[property="og:title"]');
-    if (ogTitleElement) {
-        const ogTitleKey = document.body.getAttribute('data-og-title-key') || 'og_title_default';
-        ogTitleElement.setAttribute('content', translations[ogTitleKey] || translations['og_title_default']);
-    }
-
-    const ogDescriptionElement = document.querySelector('meta[property="og:description"]');
-    if (ogDescriptionElement) {
-        const ogDescKey = document.body.getAttribute('data-og-description-key') || 'og_description';
-        ogDescriptionElement.setAttribute('content', translations[ogDescKey] || translations['og_description']);
-    }
-
-    logDebug(`[Language] Finished applying translations. Elements updated: ${elementsTranslated}, Attributes updated: ${attributesTranslated}`);
-}
-
-// Hàm lấy ngôn ngữ hiện tại (từ localStorage hoặc ngôn ngữ trình duyệt, sau đó fallback về mặc định)
-function getCurrentLanguage() {
-    const storedLang = localStorage.getItem(languageStorageKey);
-    if (storedLang) {
-        logDebug(`[Language] Found language in localStorage: ${storedLang}`);
-        return storedLang;
-    }
-    const browserLang = navigator.language.split('-')[0];
-    const supportedLanguages = ['vi', 'en']; // Cần cập nhật nếu có thêm ngôn ngữ
-    if (supportedLanguages.includes(browserLang)) {
-        logDebug(`[Language] Detected supported browser language: ${browserLang}`);
-        return browserLang;
-    }
-    logDebug(`[Language] No stored or supported browser language found. Using default: ${defaultLanguage}`);
-    return defaultLanguage;
-}
-
-// Hàm thiết lập ngôn ngữ mới và lưu vào localStorage
-function setLanguage(lang) {
-    console.log(`[Language] Attempting to set language to: ${lang}`);
-    const supportedLanguages = ['vi', 'en']; // Cần cập nhật nếu có thêm ngôn ngữ
-    if (supportedLanguages.includes(lang)) {
-        localStorage.setItem(languageStorageKey, lang);
-        console.log(`[Language] Language "${lang}" saved to localStorage.`);
-        loadTranslations(lang);
-    } else {
-        console.warn(`[Language] Language "${lang}" is not supported. Falling back to default language.`);
-        setLanguage(defaultLanguage);
-    }
-}
-
-// Hàm khởi tạo: tải ngôn ngữ khi trang được tải hoàn toàn
-document.addEventListener('DOMContentLoaded', () => {
-    logDebug("[Language] DOMContentLoaded event fired. Initializing language...");
-    const userPreferredLanguage = getCurrentLanguage();
-    loadTranslations(userPreferredLanguage);
-
-    // Thêm event listener cho bộ chuyển đổi ngôn ngữ gọi từ UI bên ngoài (nếu cần)
-    const switchers = document.querySelectorAll('.lang-switcher');
-    logDebug(`[Language] Found ${switchers.length} language switcher elements.`);
-    switchers.forEach(button => {
-        button.addEventListener('click', (event) => {
-            const lang = event.target.getAttribute('data-lang');
-            if (lang) {
-                logDebug(`[Language] Language switcher clicked. data-lang attribute: ${lang}`);
-                setLanguage(lang);
+    const attributesToTranslate = ['placeholder', 'alt', 'title', 'aria-label'];
+    attributesToTranslate.forEach(attr => {
+        document.querySelectorAll(`[data-lang-key-${attr}]`).forEach(element => {
+            const key = element.getAttribute(`data-lang-key-${attr}`);
+            if (currentTranslations[key] !== undefined) {
+                element.setAttribute(attr, currentTranslations[key]);
             } else {
-                logWarning("[Language] Language switcher clicked but no 'data-lang' attribute found.");
+                logWarning(`Translation key for attribute ${attr}="${key}" not found for lang "${lang}".`);
             }
         });
     });
-});
 
-window.setLanguage = setLanguage; // Xuất hàm setLanguage để có thể gọi từ UI bên ngoài (nếu cần)
+    const metaDescriptionTag = document.querySelector('meta[name="description"]');
+    if (metaDescriptionTag) {
+        const key = metaDescriptionTag.getAttribute('data-lang-key') || 'meta_description_default';
+        if (currentTranslations[key]) metaDescriptionTag.setAttribute('content', currentTranslations[key]);
+    }
+    const ogTitleTag = document.querySelector('meta[property="og:title"]');
+    if (ogTitleTag) {
+        const key = ogTitleTag.getAttribute('data-lang-key') || 'og_title_default';
+        if (currentTranslations[key]) ogTitleTag.setAttribute('content', currentTranslations[key]);
+    }
+    const ogDescriptionTag = document.querySelector('meta[property="og:description"]');
+    if (ogDescriptionTag) {
+        const key = ogDescriptionTag.getAttribute('data-lang-key') || 'og_description_default';
+        if (currentTranslations[key]) ogDescriptionTag.setAttribute('content', currentTranslations[key]);
+    }
+
+    document.documentElement.lang = lang;
+    logDebug(`Translations applied. Elements updated: ${elementsTranslated}. HTML lang set to: ${lang}`);
+
+    if (typeof window.updateLanguageSwitcherUI === 'function') {
+        window.updateLanguageSwitcherUI(lang);
+    }
+
+    if (document.getElementById('news-container') && typeof window.loadInternalNews === 'function') {
+        logDebug("News container found, reloading internal news.");
+        window.loadInternalNews();
+    }
+}
+
+window.getCurrentLanguage = function() {
+    const storedLang = localStorage.getItem(languageStorageKey);
+    const supportedLanguages = ['vi', 'en'];
+
+    if (storedLang && supportedLanguages.includes(storedLang)) {
+        return storedLang;
+    }
+    const browserLang = navigator.language.split('-')[0];
+    if (supportedLanguages.includes(browserLang)) {
+        return browserLang;
+    }
+    return defaultLanguage;
+}
+
+window.setLanguage = async function(lang) {
+    logDebug(`Setting language to: ${lang}`);
+    const supportedLanguages = ['vi', 'en'];
+    if (!supportedLanguages.includes(lang)) {
+        logWarning(`Unsupported language "${lang}". Defaulting to "${defaultLanguage}".`);
+        lang = defaultLanguage;
+    }
+
+    localStorage.setItem(languageStorageKey, lang);
+    logDebug(`Language "${lang}" saved to localStorage.`);
+
+    if (!window.translations || !window.translations[lang]) {
+        await fetchTranslations(lang);
+    }
+
+    window.applyTranslations(lang);
+}
+
+window.updateLanguageSwitcherUI = function(currentLang) {
+    logDebug(`Updating language switcher UI for lang: ${currentLang}`);
+    const flagPath = `/images/flags/${currentLang}.svg`;
+
+    const desktopFlag = document.getElementById('desktop-current-lang-flag');
+    const desktopText = document.getElementById('desktop-current-lang-text');
+    if (desktopFlag) desktopFlag.src = flagPath;
+    if (desktopText) desktopText.textContent = currentLang.toUpperCase();
+
+    document.querySelectorAll('#desktop-lang-options .lang-button').forEach(btn => {
+        btn.classList.toggle('bg-gray-200', btn.getAttribute('data-lang') === currentLang);
+        btn.classList.toggle('font-semibold', btn.getAttribute('data-lang') === currentLang);
+    });
+
+    const mobileFlag = document.getElementById('mobile-current-lang-flag');
+    const mobileText = document.getElementById('mobile-current-lang-text');
+    if (mobileFlag) mobileFlag.src = flagPath;
+    if (mobileText) mobileText.textContent = currentLang.toUpperCase();
+
+    document.querySelectorAll('#mobile-lang-options .lang-button').forEach(btn => {
+        btn.classList.toggle('bg-gray-200', btn.getAttribute('data-lang') === currentLang);
+        btn.classList.toggle('font-semibold', btn.getAttribute('data-lang') === currentLang);
+    });
+}
+
+window.attachLanguageSwitcherEvents = function() {
+    logDebug("Attempting to attach language switcher event listeners...");
+    const langButtons = document.querySelectorAll('.lang-button');
+
+    if (langButtons.length === 0) {
+        logWarning("No language buttons found to attach events to. Ensure header is loaded and buttons have 'lang-button' class.");
+        return;
+    }
+
+    langButtons.forEach(button => {
+        button.removeEventListener('click', handleLangButtonClick);
+        button.addEventListener('click', handleLangButtonClick);
+    });
+    logDebug(`Attached click listeners to ${langButtons.length} language buttons.`);
+}
+
+function handleLangButtonClick(event) {
+    const lang = event.currentTarget.getAttribute('data-lang');
+    if (lang) {
+        logDebug(`Language button clicked. Selected lang: ${lang}`);
+        window.setLanguage(lang);
+        const desktopDropdown = document.getElementById('desktop-language-dropdown');
+        if (desktopDropdown && desktopDropdown.classList.contains('open')) {
+            desktopDropdown.querySelector('#desktop-lang-toggle')?.click();
+        }
+        const mobileDropdown = document.getElementById('mobile-language-dropdown');
+        if (mobileDropdown && mobileDropdown.classList.contains('open')) {
+            mobileDropdown.querySelector('#mobile-lang-toggle')?.click();
+        }
+    } else {
+        logWarning("Language button clicked, but 'data-lang' attribute is missing.");
+    }
+}
+
+async function initializeLanguageSystem() {
+    logDebug("Initializing language system...");
+    const currentLang = window.getCurrentLanguage();
+    await fetchTranslations(currentLang);
+    window.applyTranslations(currentLang);
+    window.languageInitialized = true;
+    logDebug(`Language system initialized with language: ${currentLang}`);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.languageInitialized) {
+        initializeLanguageSystem();
+    }
+});
