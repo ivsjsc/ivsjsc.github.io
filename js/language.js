@@ -1,228 +1,281 @@
-// ...existing code...
+// /js/language.js
+// Phiên bản: Tải bản dịch từ tệp JSON riêng biệt (có thêm log debug)
 
-// Language System Initialization
-window.translations = {};
+// Object để lưu trữ nội dung dịch đã tải
+let translations = {};
+
+// Ngôn ngữ mặc định
 const defaultLanguage = 'vi';
-const languageStorageKey = 'userPreferredLanguage';
-const isDebugMode = false;
+
+// Khóa lưu ngôn ngữ trong localStorage
+const languageStorageKey = 'userLanguage';
+
+const isDebugMode = true; // Đặt thành false trong môi trường production
 
 function logDebug(message) {
     if (isDebugMode) {
-        console.log(`[LangJS] ${message}`);
+        console.log(message);
     }
 }
 
 function logWarning(message) {
     if (isDebugMode) {
-        console.warn(`[LangJS] ${message}`);
+        console.warn(message);
     }
 }
 
-async function fetchTranslations(lang) {
-    logDebug(`Attempting to load translations for: ${lang}`);
+function logError(message) {
+    console.error(message);
+}
+
+// Hàm tải nội dung dịch từ tệp JSON
+async function loadTranslations(lang) {
+    logDebug(`[Language] Attempting to load translations for language: ${lang}`);
     try {
         const response = await fetch(`/languages/${lang}.json`);
+
         if (!response.ok) {
-            logWarning(`Could not load translations for ${lang}. Status: ${response.status}.`);
+            logWarning(`[Language] Could not load translations for ${lang}. Status: ${response.status}. Falling back to default language: ${defaultLanguage}`);
             if (lang !== defaultLanguage) {
-                logWarning(`Falling back to default language: ${defaultLanguage}`);
-                return fetchTranslations(defaultLanguage);
+                const defaultResponse = await fetch(`/languages/${defaultLanguage}.json`);
+                if (!defaultResponse.ok) {
+                    throw new Error(`[Language] Could not load translations for default language ${defaultLanguage}. Status: ${defaultResponse.status}`);
+                }
+                translations = await defaultResponse.json(); // Gán vào biến toàn cục translations
+                logDebug(`[Language] Successfully loaded default translations for: ${defaultLanguage}`);
+                // Không gọi applyTranslations() ở đây nữa, để hàm gọi loadTranslations xử lý
+                return; // Trả về để báo hiệu đã tải xong (hoặc fallback)
+            } else {
+                throw new Error(`[Language] Could not load translations for default language ${defaultLanguage}`);
             }
-            throw new Error(`Failed to load default language file: ${defaultLanguage}.json`);
         }
-        window.translations[lang] = await response.json();
-        logDebug(`Successfully loaded translations for: ${lang}`);
+
+        translations = await response.json(); // Gán vào biến toàn cục translations
+        logDebug(`[Language] Successfully loaded translations for: ${lang}`);
+        // Không gọi applyTranslations() ở đây nữa
+        // Cập nhật thuộc tính lang của thẻ html để hỗ trợ SEO và accessibility
+        document.documentElement.lang = lang;
+        logDebug(`[Language] HTML lang attribute set to: ${lang}`);
+
     } catch (error) {
-        console.error(`Error fetching translations for ${lang}:`, error);
-        if (!window.translations[defaultLanguage] && lang !== defaultLanguage) {
-            await fetchTranslations(defaultLanguage);
-        } else if (!window.translations[lang]) {
-            window.translations[lang] = {};
-        }
+        console.error("[Language] Error loading translations:", error);
+        // Không alert ở đây để tránh làm gián đoạn luồng nếu script khác đang xử lý
+        // Có thể thêm logic hiển thị thông báo lỗi cho người dùng tại đây một cách tinh tế hơn
     }
 }
 
-window.applyTranslations = function(lang) {
-    logDebug(`Applying translations for language: ${lang}`);
-    if (!window.translations || !window.translations[lang]) {
-        logWarning(`No translations loaded for "${lang}". Make sure fetchTranslations was called and successful.`);
-        if (lang !== defaultLanguage && (!window.translations || !window.translations[defaultLanguage])) {
-            console.warn(`[LangJS] Translations for ${lang} not found, and default not loaded. Attempting to load default.`);
-            fetchTranslations(defaultLanguage).then(() => {
-                if (window.translations[defaultLanguage]) {
-                    applyTranslations(defaultLanguage);
-                }
-            });
-            return;
-        } else if (lang !== defaultLanguage && window.translations && window.translations[defaultLanguage]) {
-            logWarning(`[LangJS] Using default translations as fallback for ${lang}.`);
-            lang = defaultLanguage;
-        } else if (lang === defaultLanguage && (!window.translations || !window.translations[defaultLanguage])) {
-            console.error(`[LangJS] CRITICAL: Default translations for ${defaultLanguage} are not loaded. Cannot translate.`);
-            return;
-        }
+// Hàm áp dụng nội dung dịch lên các phần tử HTML
+// Đảm bảo hàm này được export ra window để script.js có thể gọi
+window.applyTranslations = function() {
+    const currentLang = getCurrentLanguage(); // Lấy ngôn ngữ hiện tại bên trong hàm
+    logDebug(`[Language] Applying translations for: ${currentLang}`);
+
+    if (!translations || Object.keys(translations).length === 0) {
+        logWarning("[Language] Translations object is empty or not loaded. Cannot apply translations.");
+        return;
     }
 
-    const currentTranslations = window.translations[lang] || window.translations[defaultLanguage] || {};
     let elementsTranslated = 0;
+    let attributesTranslated = 0;
 
     document.querySelectorAll('[data-lang-key]').forEach(element => {
         const key = element.getAttribute('data-lang-key');
-        if (currentTranslations[key] !== undefined) {
+        if (translations[key] !== undefined) {
+            // Kiểm tra nếu là thẻ title thì dùng textContent
             if (element.tagName === 'TITLE') {
-                element.textContent = currentTranslations[key];
+                element.textContent = translations[key];
             } else {
-                element.innerHTML = currentTranslations[key];
+                element.innerHTML = translations[key]; // Cho phép HTML trong bản dịch
             }
             elementsTranslated++;
         } else {
-            logWarning(`Translation key "${key}" not found for language "${lang}". Element content: "${element.textContent.trim().substring(0,30)}..."`);
+            logWarning(`[Language] Translation key "${key}" not found for language "${currentLang}". Element content: "${element.textContent.trim().substring(0,30)}..."`);
         }
     });
 
-    const attributesToTranslate = ['placeholder', 'alt', 'title', 'aria-label'];
-    attributesToTranslate.forEach(attr => {
-        document.querySelectorAll(`[data-lang-key-${attr}]`).forEach(element => {
-            const key = element.getAttribute(`data-lang-key-${attr}`);
-            if (currentTranslations[key] !== undefined) {
-                element.setAttribute(attr, currentTranslations[key]);
+    // Cập nhật các thuộc tính đặc biệt sử dụng data-lang-key-*
+    const attributeMappings = {
+        'placeholder': 'placeholder',
+        'alt': 'alt',
+        'title': 'title',
+        'aria-label': 'aria-label', // Thêm aria-label
+        'value': 'value' // Thêm value
+    };
+
+    for (const attrKey in attributeMappings) {
+        const htmlAttr = attributeMappings[attrKey];
+        document.querySelectorAll(`[data-lang-key-${attrKey}]`).forEach(element => {
+            const key = element.getAttribute(`data-lang-key-${attrKey}`);
+            if (translations[key] !== undefined) {
+                // Nếu giá trị dịch là một object (cho các thuộc tính đa ngôn ngữ), lấy giá trị theo currentLang
+                if (typeof translations[key] === 'object' && translations[key] !== null && translations[key][currentLang] !== undefined) {
+                    element.setAttribute(htmlAttr, translations[key][currentLang]);
+                } else if (typeof translations[key] === 'string') { // Nếu là string, dùng trực tiếp
+                    element.setAttribute(htmlAttr, translations[key]);
+                } else {
+                     logWarning(`[Language] Translation for attribute ${attrKey} key "${key}" is not a string or object with currentLang for language "${currentLang}".`);
+                }
+                attributesTranslated++;
             } else {
-                logWarning(`Translation key for attribute ${attr}="${key}" not found for lang "${lang}".`);
+                logWarning(`[Language] Translation key for ${attrKey} "${key}" not found for language "${currentLang}".`);
             }
         });
-    });
-
-    const metaDescriptionTag = document.querySelector('meta[name="description"]');
-    if (metaDescriptionTag) {
-        const key = metaDescriptionTag.getAttribute('data-lang-key') || 'meta_description_default';
-        if (currentTranslations[key]) metaDescriptionTag.setAttribute('content', currentTranslations[key]);
     }
-    const ogTitleTag = document.querySelector('meta[property="og:title"]');
-    if (ogTitleTag) {
-        const key = ogTitleTag.getAttribute('data-lang-key') || 'og_title_default';
-        if (currentTranslations[key]) ogTitleTag.setAttribute('content', currentTranslations[key]);
-    }
-    const ogDescriptionTag = document.querySelector('meta[property="og:description"]');
-    if (ogDescriptionTag) {
-        const key = ogDescriptionTag.getAttribute('data-lang-key') || 'og_description_default';
-        if (currentTranslations[key]) ogDescriptionTag.setAttribute('content', currentTranslations[key]);
+    
+    // Cập nhật meta tags
+    const pageTitleKey = document.body.getAttribute('data-page-title-key') || 'page_title_default';
+    if (translations[pageTitleKey]) {
+        document.title = translations[pageTitleKey];
     }
 
-    document.documentElement.lang = lang;
-    logDebug(`Translations applied. Elements updated: ${elementsTranslated}. HTML lang set to: ${lang}`);
+    const metaDescriptionElement = document.querySelector('meta[name="description"]');
+    if (metaDescriptionElement) {
+        const metaDescKey = metaDescriptionElement.getAttribute('data-lang-key') || document.body.getAttribute('data-meta-description-key') || 'meta_description_default';
+        if (translations[metaDescKey]) {
+            metaDescriptionElement.setAttribute('content', translations[metaDescKey]);
+        }
+    }
 
+    const ogTitleElement = document.querySelector('meta[property="og:title"]');
+    if (ogTitleElement) {
+        const ogTitleKey = ogTitleElement.getAttribute('data-lang-key') || document.body.getAttribute('data-og-title-key') || 'og_title_default';
+        if (translations[ogTitleKey]) {
+            ogTitleElement.setAttribute('content', translations[ogTitleKey]);
+        }
+    }
+
+    const ogDescriptionElement = document.querySelector('meta[property="og:description"]');
+    if (ogDescriptionElement) {
+        const ogDescKey = ogDescriptionElement.getAttribute('data-lang-key') || document.body.getAttribute('data-og-description-key') || 'og_description_default';
+        if (translations[ogDescKey]) {
+            ogDescriptionElement.setAttribute('content', translations[ogDescKey]);
+        }
+    }
+
+    logDebug(`[Language] Finished applying translations. Elements updated: ${elementsTranslated}, Attributes updated: ${attributesTranslated}`);
+    
+    // Cập nhật UI của language switcher sau khi áp dụng bản dịch
     if (typeof window.updateLanguageSwitcherUI === 'function') {
-        window.updateLanguageSwitcherUI(lang);
-    }
-
-    if (document.getElementById('news-container') && typeof window.loadInternalNews === 'function') {
-        logDebug("News container found, reloading internal news.");
-        window.loadInternalNews();
+        window.updateLanguageSwitcherUI(currentLang);
     }
 }
 
-window.getCurrentLanguage = function() {
+// Hàm lấy ngôn ngữ hiện tại
+window.getCurrentLanguage = function() { // Export ra window
     const storedLang = localStorage.getItem(languageStorageKey);
-    const supportedLanguages = ['vi', 'en'];
-
-    if (storedLang && supportedLanguages.includes(storedLang)) {
+    if (storedLang) {
+        logDebug(`[Language] Found language in localStorage: ${storedLang}`);
         return storedLang;
     }
     const browserLang = navigator.language.split('-')[0];
+    const supportedLanguages = ['vi', 'en'];
     if (supportedLanguages.includes(browserLang)) {
+        logDebug(`[Language] Detected supported browser language: ${browserLang}`);
         return browserLang;
     }
+    logDebug(`[Language] No stored or supported browser language found. Using default: ${defaultLanguage}`);
     return defaultLanguage;
 }
 
-window.setLanguage = async function(lang) {
-    logDebug(`Setting language to: ${lang}`);
+// Hàm thiết lập ngôn ngữ mới
+window.setLanguage = async function(lang) { // Export ra window và làm async
+    console.log(`[Language] Attempting to set language to: ${lang}`);
     const supportedLanguages = ['vi', 'en'];
-    if (!supportedLanguages.includes(lang)) {
-        logWarning(`Unsupported language "${lang}". Defaulting to "${defaultLanguage}".`);
-        lang = defaultLanguage;
+    if (supportedLanguages.includes(lang)) {
+        localStorage.setItem(languageStorageKey, lang);
+        console.log(`[Language] Language "${lang}" saved to localStorage.`);
+        await loadTranslations(lang); // Chờ load xong
+        applyTranslations(); // Sau đó mới áp dụng
+        document.documentElement.lang = lang; // Đảm bảo cập nhật lang cho HTML tag
+    } else {
+        console.warn(`[Language] Language "${lang}" is not supported. Falling back to default language.`);
+        await setLanguage(defaultLanguage); // Gọi lại chính nó với ngôn ngữ mặc định
     }
-
-    localStorage.setItem(languageStorageKey, lang);
-    logDebug(`Language "${lang}" saved to localStorage.`);
-
-    if (!window.translations || !window.translations[lang]) {
-        await fetchTranslations(lang);
-    }
-
-    window.applyTranslations(lang);
 }
 
-window.updateLanguageSwitcherUI = function(currentLang) {
-    logDebug(`Updating language switcher UI for lang: ${currentLang}`);
-    const flagPath = `/images/flags/${currentLang}.svg`;
+// Hàm cập nhật UI cho bộ chọn ngôn ngữ (cờ, text)
+window.updateLanguageSwitcherUI = function(currentLang) { // Export ra window
+    logDebug(`[Language] Updating language switcher UI for lang: ${currentLang}`);
+    const flagBaseUrl = '/images/flags/'; // Đường dẫn tới thư mục cờ từ gốc
 
+    // Desktop switcher
     const desktopFlag = document.getElementById('desktop-current-lang-flag');
     const desktopText = document.getElementById('desktop-current-lang-text');
-    if (desktopFlag) desktopFlag.src = flagPath;
+    if (desktopFlag) desktopFlag.src = `${flagBaseUrl}${currentLang}.svg`; // Giả sử file cờ là svg
     if (desktopText) desktopText.textContent = currentLang.toUpperCase();
-
     document.querySelectorAll('#desktop-lang-options .lang-button').forEach(btn => {
         btn.classList.toggle('bg-gray-200', btn.getAttribute('data-lang') === currentLang);
         btn.classList.toggle('font-semibold', btn.getAttribute('data-lang') === currentLang);
     });
 
+    // Mobile switcher
     const mobileFlag = document.getElementById('mobile-current-lang-flag');
     const mobileText = document.getElementById('mobile-current-lang-text');
-    if (mobileFlag) mobileFlag.src = flagPath;
+    if (mobileFlag) mobileFlag.src = `${flagBaseUrl}${currentLang}.svg`;
     if (mobileText) mobileText.textContent = currentLang.toUpperCase();
-
     document.querySelectorAll('#mobile-lang-options .lang-button').forEach(btn => {
         btn.classList.toggle('bg-gray-200', btn.getAttribute('data-lang') === currentLang);
         btn.classList.toggle('font-semibold', btn.getAttribute('data-lang') === currentLang);
     });
 }
 
-window.attachLanguageSwitcherEvents = function() {
-    logDebug("Attempting to attach language switcher event listeners...");
-    const langButtons = document.querySelectorAll('.lang-button');
 
-    if (langButtons.length === 0) {
-        logWarning("No language buttons found to attach events to. Ensure header is loaded and buttons have 'lang-button' class.");
-        return;
-    }
+// Hàm gắn sự kiện cho các nút chuyển ngôn ngữ
+// Hàm này cần được gọi từ script.js sau khi header được tải và chèn vào DOM
+window.attachLanguageSwitcherEvents = function() { // Export ra window
+    logDebug("[Language] Attaching language switcher event listeners...");
+    const langButtons = document.querySelectorAll('.lang-button'); // Class chung cho các nút ngôn ngữ
 
     langButtons.forEach(button => {
-        button.removeEventListener('click', handleLangButtonClick);
-        button.addEventListener('click', handleLangButtonClick);
+        // Gỡ bỏ listener cũ để tránh gắn nhiều lần nếu hàm này được gọi lại
+        button.removeEventListener('click', handleLanguageButtonClick);
+        button.addEventListener('click', handleLanguageButtonClick);
     });
-    logDebug(`Attached click listeners to ${langButtons.length} language buttons.`);
+    logDebug(`[Language] Attached/Re-attached listeners to ${langButtons.length} language buttons.`);
 }
 
-function handleLangButtonClick(event) {
+function handleLanguageButtonClick(event) {
     const lang = event.currentTarget.getAttribute('data-lang');
     if (lang) {
-        logDebug(`Language button clicked. Selected lang: ${lang}`);
-        window.setLanguage(lang);
+        logDebug(`[Language] Language button clicked. Setting language to: ${lang}`);
+        window.setLanguage(lang); // Gọi hàm setLanguage đã được export
+
+        // Đóng dropdown sau khi chọn (logic này có thể cần điều chỉnh tùy theo cách bạn làm dropdown)
         const desktopDropdown = document.getElementById('desktop-language-dropdown');
-        if (desktopDropdown && desktopDropdown.classList.contains('open')) {
-            desktopDropdown.querySelector('#desktop-lang-toggle')?.click();
+        if (desktopDropdown && desktopDropdown.classList.contains('open')) { // Giả sử có class 'open'
+            desktopDropdown.querySelector('#desktop-lang-toggle')?.click(); // Simulate click để đóng
         }
         const mobileDropdown = document.getElementById('mobile-language-dropdown');
         if (mobileDropdown && mobileDropdown.classList.contains('open')) {
-            mobileDropdown.querySelector('#mobile-lang-toggle')?.click();
+             mobileDropdown.querySelector('#mobile-lang-toggle')?.click();
         }
-    } else {
-        logWarning("Language button clicked, but 'data-lang' attribute is missing.");
     }
 }
 
-async function initializeLanguageSystem() {
-    logDebug("Initializing language system...");
-    const currentLang = window.getCurrentLanguage();
-    await fetchTranslations(currentLang);
-    window.applyTranslations(currentLang);
-    window.languageInitialized = true;
-    logDebug(`Language system initialized with language: ${currentLang}`);
+// Hàm khởi tạo chính của hệ thống ngôn ngữ
+async function initializeLanguage() {
+    logDebug("[Language] Initializing language system...");
+    window.languageInitialized = true; // Đặt cờ báo đã khởi tạo
+    const userPreferredLanguage = getCurrentLanguage();
+    await loadTranslations(userPreferredLanguage); // Tải bản dịch
+    applyTranslations(); // Áp dụng bản dịch ban đầu
+
+    // Gắn sự kiện cho các nút chuyển ngôn ngữ tĩnh (nếu có trên trang ban đầu)
+    // Tuy nhiên, việc này nên được xử lý bởi script.js sau khi header load xong là tốt nhất
+    // window.attachLanguageSwitcherEvents(); // Gọi ở đây nếu có nút tĩnh, nhưng ưu tiên gọi từ script.js sau khi header load
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+
+// Khởi tạo ngôn ngữ khi DOM đã sẵn sàng
+// Đảm bảo nó chỉ chạy một lần
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!window.languageInitialized) {
+            initializeLanguage();
+        }
+    });
+} else {
     if (!window.languageInitialized) {
-        initializeLanguageSystem();
+        initializeLanguage();
     }
-});
+}
