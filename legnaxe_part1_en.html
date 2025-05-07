@@ -7,7 +7,9 @@
     <meta name="description" content="LEGNAXE Part 1 The Secret of Great Heaven War - ENGLISH">
     <meta property="og:title" content="LEGNAXE: The Secret of Great Heaven War - ENGLISH (Part 1)">
     <meta property="og:description" content="Read LEGNAXE Part 1 The Secret of Great Heaven War - ENGLISH">
-    <meta property="og:image" content="images/logo/logo.png"> <meta property="og:url" content="https://ivs.id.vn/legnaxe_part1_vi.html"> <meta property="og:type" content="article">
+    <meta property="og:image" content="images/logo/logo.png">
+    <meta property="og:url" content="https://ivs.id.vn/legnaxe_part1_vi.html">
+    <meta property="og:type" content="article">
     <meta property="article:section" content="Truyện Dài">
     <meta property="article:author" content="Nguyen Minh Triet">
 
@@ -18,71 +20,142 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom CSS for chapter transitions and other effects */
+        .chapter {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            opacity: 0;
+            transform: translateY(15px); /* Subtle upward movement */
+            display: none; /* Ensure non-active chapters are not taking space */
+        }
+        .chapter.active {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Style for the modal (if it were to be used and activated via JS) */
+        #chapter-modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #chapter-modal .modal-content {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        #chapter-modal.modal-active { /* Add this class via JS to show modal */
+            opacity: 1 !important; /* Important to override inline style if used */
+            pointer-events: auto;
+        }
+        #chapter-modal.modal-active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Custom scrollbar for dark mode */
+        .dark body::-webkit-scrollbar {
+            width: 10px;
+        }
+        .dark body::-webkit-scrollbar-track {
+            background: #1a202c; /* Tailwind gray-900 */
+        }
+        .dark body::-webkit-scrollbar-thumb {
+            background-color: #4a5568; /* Tailwind gray-600 */
+            border-radius: 20px;
+            border: 2px solid #1a202c;
+        }
+        .dark body::-webkit-scrollbar-thumb:hover {
+            background-color: #718096; /* Tailwind gray-500 */
+        }
+
+        .dark #chapter-modal .modal-content ul::-webkit-scrollbar {
+            width: 8px;
+        }
+        .dark #chapter-modal .modal-content ul::-webkit-scrollbar-track {
+            background: #2d3748; /* gray-800 */
+        }
+        .dark #chapter-modal .modal-content ul::-webkit-scrollbar-thumb {
+            background: #4a5568; /* gray-600 */
+            border-radius: 4px;
+        }
+        .dark #chapter-modal .modal-content ul::-webkit-scrollbar-thumb:hover {
+            background: #718096; /* gray-500 */
+        }
+    </style>
 </head>
-<body class=""> <header id="navbar" class="bg-neutral-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16"> <div class="logo">
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 ease-in-out font-[Inter,sans-serif]">
+    <header id="navbar" class="bg-gray-50 dark:bg-gray-800 shadow-lg sticky top-0 z-50 transition-colors duration-300 ease-in-out">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
+            <div class="logo">
                 <a href="index.html">
-                    <img src="images/logo/logo.png" alt="LEGNAXE Logo" onerror="this.src='https://placehold.co/120x40/1f2937/bfdbfe?text=Logo'">
+                    <img src="images/logo/logo.png" alt="LEGNAXE Logo" class="h-10 sm:h-12 w-auto transition-all duration-300 ease-in-out hover:opacity-80" onerror="this.style.display='none'; const newText = document.createElement('span'); newText.className='text-xl font-bold text-blue-600 dark:text-blue-400'; newText.textContent='LEGNAXE'; this.parentNode.appendChild(newText);">
                 </a>
             </div>
-            <nav class="flex items-center space-x-4 md:space-x-6">
-                <a href="index.html" class="hover:text-white">Trang Chủ</a>
-                <a href="readnovel.html" class="hover:text-white">Danh sách truyện</a>
-                <button id="theme-toggle" aria-label="Chuyển đổi chế độ sáng tối">
-                    <i class="fas fa-moon"></i> </button>
+            <nav class="flex items-center space-x-2 sm:space-x-4 md:space-x-6">
+                <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm sm:text-base font-medium transition-colors">Trang Chủ</a>
+                <a href="readnovel.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm sm:text-base font-medium transition-colors">Danh sách truyện</a>
+                <button id="theme-toggle" aria-label="Chuyển đổi chế độ sáng tối" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out">
+                    <i class="fas fa-moon text-xl"></i>
+                </button>
             </nav>
         </div>
     </header>
 
-    <main class="container">
-        <h1>LEGNAXE</h1>
-        <h2>Phần 1: Bí Mật Cuộc Đại Chiến Thiên Đàng</h2>
+    <main class="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-12">
+        <h1 class="text-4xl sm:text-5xl font-bold text-center mb-4 text-gray-900 dark:text-white">LEGNAXE</h1>
+        <h2 class="text-2xl sm:text-3xl font-semibold text-center mb-10 text-blue-600 dark:text-blue-400">Phần 1: Bí Mật Cuộc Đại Chiến Thiên Đàng</h2>
 
-        <div class="story-content">
-            <img src="images\pages\novels\legnaxe1.png" alt="LEGNAXE Phần 1 Banner" class="mb-8">
+        <div class="story-content bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl shadow-xl transition-colors duration-300 ease-in-out">
+            <img src="images\pages\novels\legnaxe1.png" alt="LEGNAXE Phần 1 Banner" class="mb-8 rounded-lg shadow-md w-full max-h-[400px] object-cover">
 
             <div class="chapter active" id="chapter-1">
-                <h3>Chapter 1: The Eternal Harmony</h3>
-                <p>Heaven, before the dawn of humankind, was a breathtakingly perfect picture.</p>
-                <p>Imagine rivers of gleaming gold, shimmering like soft silk ribbons, winding through valleys of transparent crystal. The murmuring sound of flowing water resembled a gentle symphony, capable of soothing even the most troubled souls. But within this endless beauty, a sense of repetitive boredom crept in – an unchanging perfection, without the slightest alteration, as if it had imprisoned itself in a gilded cage. High above, towers of pure light stretched straight into the infinite azure sky. The light emanating from them shifted subtly, blending with the immortal celestial symphony. Vibrant patterns swirled and changed on the towers' surfaces, creating a hypnotic dance, beautiful yet monotonous in its eternity. Sometimes, at the farthest edges of Heaven, where the light seemed thinner, a few guardian angels whispered about strange ripples in the fabric of reality, "silent intervals" where the eternal melody seemed to skip a beat, but no one dared discuss it openly.</p>
-                <p>There was no day or night here, for time was merely a fleeting concept. Heaven was not measured in hours, but by the eternal heartbeat of creation. Angels moved gently, gracefully as light itself, radiant and ethereal. They knew no fear, pain, or doubt. Duty and devotion were deeply ingrained in their beings, as natural as breathing is to mortals.</p>
-                <p>But amidst this seemingly perfect chorus, there was a solitary figure.</p>
-                <p><strong>Lucifer's Contemplation</strong></p>
-                <p>Lucifer stood on a marble balcony, his deep eyes gazing at the shimmering gold of the river below. Outwardly calm, a storm raged silently within him. He tried to feel joy in the familiar symphony, but instead, there was only a vast emptiness, a silence no melody could fill. He watched the other angels move in perfect unison, and a question pierced him: Is this free will, or just flawless programming?</p>
-                <p>"If everything is perfect," he whispered to himself, his voice lost in the celestial symphony that now sounded more like chains than a song, "why do I feel so empty?"</p>
-                <p>Below him, countless angels moved in absolute harmony, their songs of praise echoing harmoniously. Lucifer's vast, golden wings shimmered with an ethereal radiance, seeming to absorb all the light of Heaven. But they shifted slightly, betraying a vague unease. His gaze remained fixed on the distant horizon, where a faint, fragile spark of a new entity hung suspended against the starry tapestry. Earth. A world of imperfection, of change. A fleeting thought crossed his mind: Is imperfection the price of meaning?</p>
-                <p>Lucifer's mind was a fierce storm hidden behind a calm exterior. There was a time when he found joy in Heaven's endless songs. But as time passed relentlessly, century after century, the melody gradually became hollow, its meaning fading like an echo in a desolate hall. He wondered, was it truly joy, or merely obedience cloaked in the guise of harmony?</p>
-                <p><strong>Michael's Warning</strong></p>
-                <p>"Lucifer," a deep, steady voice rang out, shattering his train of thought.</p>
-                <p>Lucifer slowly turned, his golden wings folding behind him. He recognized the familiar voice – it was Michael. Clad in gleaming silver armor under the eternal light, Michael approached. His face was resolute, unwavering, yet held a hint of warmth for his brother.</p>
-                <p>"You have stood here too long," Michael said. "Why not join the song with the other brethren?"</p>
-                <p>Lucifer's voice, when he finally spoke, was soft yet sharp as a razor. "Have you never wondered, Michael? Why must we sing? What is the purpose?"</p>
-                <p>Michael paused for a moment, a flicker of unease crossing his face before being replaced by his usual determination. "The purpose is to serve the Creator, Lucifer. It is the highest honor."</p>
-                <p>"Honor," Lucifer repeated, a faint smile touching his lips. "Or just habit?"</p>
-                <p><em>(To be continued...)</em></p>
+                <h3 class="text-2xl sm:text-3xl font-semibold mb-6 mt-4 text-gray-800 dark:text-gray-100 border-b pb-3 border-gray-200 dark:border-gray-700">Chapter 1: The Eternal Harmony</h3>
+                <div class="prose prose-lg dark:prose-invert max-w-none text-justify"> <p>Heaven, before the dawn of humankind, was a breathtakingly perfect picture.</p>
+                    <p>Imagine rivers of gleaming gold, shimmering like soft silk ribbons, winding through valleys of transparent crystal. The murmuring sound of flowing water resembled a gentle symphony, capable of soothing even the most troubled souls. But within this endless beauty, a sense of repetitive boredom crept in – an unchanging perfection, without the slightest alteration, as if it had imprisoned itself in a gilded cage. High above, towers of pure light stretched straight into the infinite azure sky. The light emanating from them shifted subtly, blending with the immortal celestial symphony. Vibrant patterns swirled and changed on the towers' surfaces, creating a hypnotic dance, beautiful yet monotonous in its eternity. Sometimes, at the farthest edges of Heaven, where the light seemed thinner, a few guardian angels whispered about strange ripples in the fabric of reality, "silent intervals" where the eternal melody seemed to skip a beat, but no one dared discuss it openly.</p>
+                    <p>There was no day or night here, for time was merely a fleeting concept. Heaven was not measured in hours, but by the eternal heartbeat of creation. Angels moved gently, gracefully as light itself, radiant and ethereal. They knew no fear, pain, or doubt. Duty and devotion were deeply ingrained in their beings, as natural as breathing is to mortals.</p>
+                    <p>But amidst this seemingly perfect chorus, there was a solitary figure.</p>
+                    <p><strong>Lucifer's Contemplation</strong></p>
+                    <p>Lucifer stood on a marble balcony, his deep eyes gazing at the shimmering gold of the river below. Outwardly calm, a storm raged silently within him. He tried to feel joy in the familiar symphony, but instead, there was only a vast emptiness, a silence no melody could fill. He watched the other angels move in perfect unison, and a question pierced him: Is this free will, or just flawless programming?</p>
+                    <p>"If everything is perfect," he whispered to himself, his voice lost in the celestial symphony that now sounded more like chains than a song, "why do I feel so empty?"</p>
+                    <p>Below him, countless angels moved in absolute harmony, their songs of praise echoing harmoniously. Lucifer's vast, golden wings shimmered with an ethereal radiance, seeming to absorb all the light of Heaven. But they shifted slightly, betraying a vague unease. His gaze remained fixed on the distant horizon, where a faint, fragile spark of a new entity hung suspended against the starry tapestry. Earth. A world of imperfection, of change. A fleeting thought crossed his mind: Is imperfection the price of meaning?</p>
+                    <p>Lucifer's mind was a fierce storm hidden behind a calm exterior. There was a time when he found joy in Heaven's endless songs. But as time passed relentlessly, century after century, the melody gradually became hollow, its meaning fading like an echo in a desolate hall. He wondered, was it truly joy, or merely obedience cloaked in the guise of harmony?</p>
+                    <p><strong>Michael's Warning</strong></p>
+                    <p>"Lucifer," a deep, steady voice rang out, shattering his train of thought.</p>
+                    <p>Lucifer slowly turned, his golden wings folding behind him. He recognized the familiar voice – it was Michael. Clad in gleaming silver armor under the eternal light, Michael approached. His face was resolute, unwavering, yet held a hint of warmth for his brother.</p>
+                    <p>"You have stood here too long," Michael said. "Why not join the song with the other brethren?"</p>
+                    <p>Lucifer's voice, when he finally spoke, was soft yet sharp as a razor. "Have you never wondered, Michael? Why must we sing? What is the purpose?"</p>
+                    <p>Michael paused for a moment, a flicker of unease crossing his face before being replaced by his usual determination. "The purpose is to serve the Creator, Lucifer. It is the highest honor."</p>
+                    <p>"Honor," Lucifer repeated, a faint smile touching his lips. "Or just habit?"</p>
+                    <p><em>(To be continued...)</em></p>
+                </div>
             </div>
 
             <div class="chapter" id="chapter-2">
-                 <h3>Chapter 2: The Decree from Heaven</h3>
-                 <p>The light of Heaven shone brighter than ever. Angels gathered in the Throne Room – a vast space beyond mortal comprehension, infinite, timeless, endless. The walls shimmered like a calm sea, gently rippling as if responding to the very heartbeat of the Creator. The floor was not solid stone but a mirror-like surface, reflecting the radiant glory of the angels and the eternal symphony echoing throughout the celestial realm.</p>
-                 <p>At the center of the room was the Throne, an infinite mass of light, formless, boundless. Merely gazing upon it was overwhelming, like trying to grasp infinity. The angels did not see the Creator with physical eyes, for no eyes could withstand such dazzling light. Instead, they felt Him. His presence permeated every cell, warm like sunlight on a cold winter day.</p>
-                 <p><strong>The Creator's Declaration</strong></p>
-                 <p>The Creator's voice did not emanate from the Throne but echoed from everywhere, as if the very fabric of Heaven spoke.</p>
-                 <p>"I have created something new."</p>
-                 <p>Gabriel, with his shimmering silver wings, discreetly observed Lucifer as the decree was announced. A flicker of doubt crossed his amber eyes, though his face remained composed. He sensed the underlying tension in the air, a shift in the familiar harmony.</p>
-                 <p>Later, when only the two remained, Gabriel whispered to Michael, his voice filled with concern: "Michael, don't you see? The command to serve humanity... it is sowing discord among us. Even in the hearts of the most loyal, I see confusion."</p>
-                 <p>Michael tightened his grip on the hilt of the sword at his side, though he did not draw it. He looked directly into Gabriel's eyes, his voice firm but heavier than usual: "The Creator's will is indisputable, Gabriel. Confusion is a test of our loyalty. If Lucifer falters, that is a burden he must bear alone." But a small part of him also wondered, why those fragile creatures of dust? He quickly dismissed the thought.</p>
-                 <p>An invisible wave of energy swept through the room. The angels, though perfect in form and purpose, were not immune to curiosity. They leaned forward slightly, their radiant wings trembling with anticipation.</p>
-                 <p><strong>The Creator's Will Revealed</strong></p>
-                 <p>"On Earth, I have created Humankind." The Creator's voice held no hesitation or doubt. "I have made them in My image, and within them, I have placed a spark of My own light. They are to be cherished and protected."</p>
-                 <p><strong>Lucifer's Seeds of Rebellion</strong></p>
-                 <p>Lucifer's wings twitched slightly. He, who had always stood closest to the Throne, the most radiant and respected angel. But now, his golden eyes held not just confusion, but a fiercer flame – the fire of wounded pride.</p>
-                 <p>"Serve them ?" he whispered, his voice low but sharp enough for Michael beside him to hear. "We, the first creations, beings of pure light, must kneel before creatures made of dust?"</p>
-                 <p>Michael, the epitome of a loyal soldier, did not flinch, at least outwardly. His silver armor reflected the gentle light as he replied, his voice striving for calm: "It is His will. We are not permitted to question, Lucifer."</p>
-                 <p>Lucifer stepped closer, his wings flaring slightly, their golden brilliance almost overwhelming everything around. "You kneel too easily, Michael. Perhaps you are content as a servant. But I was not born to kneel before anyone, except the One who created me."</p>
-                 <p><em>(To be continued...)</em></p>
+                <h3 class="text-2xl sm:text-3xl font-semibold mb-6 mt-4 text-gray-800 dark:text-gray-100 border-b pb-3 border-gray-200 dark:border-gray-700">Chapter 2: The Decree from Heaven</h3>
+                <div class="prose prose-lg dark:prose-invert max-w-none text-justify">
+                    <p>The light of Heaven shone brighter than ever. Angels gathered in the Throne Room – a vast space beyond mortal comprehension, infinite, timeless, endless. The walls shimmered like a calm sea, gently rippling as if responding to the very heartbeat of the Creator. The floor was not solid stone but a mirror-like surface, reflecting the radiant glory of the angels and the eternal symphony echoing throughout the celestial realm.</p>
+                    <p>At the center of the room was the Throne, an infinite mass of light, formless, boundless. Merely gazing upon it was overwhelming, like trying to grasp infinity. The angels did not see the Creator with physical eyes, for no eyes could withstand such dazzling light. Instead, they felt Him. His presence permeated every cell, warm like sunlight on a cold winter day.</p>
+                    <p><strong>The Creator's Declaration</strong></p>
+                    <p>The Creator's voice did not emanate from the Throne but echoed from everywhere, as if the very fabric of Heaven spoke.</p>
+                    <p>"I have created something new."</p>
+                    <p>Gabriel, with his shimmering silver wings, discreetly observed Lucifer as the decree was announced. A flicker of doubt crossed his amber eyes, though his face remained composed. He sensed the underlying tension in the air, a shift in the familiar harmony.</p>
+                    <p>Later, when only the two remained, Gabriel whispered to Michael, his voice filled with concern: "Michael, don't you see? The command to serve humanity... it is sowing discord among us. Even in the hearts of the most loyal, I see confusion."</p>
+                    <p>Michael tightened his grip on the hilt of the sword at his side, though he did not draw it. He looked directly into Gabriel's eyes, his voice firm but heavier than usual: "The Creator's will is indisputable, Gabriel. Confusion is a test of our loyalty. If Lucifer falters, that is a burden he must bear alone." But a small part of him also wondered, why those fragile creatures of dust? He quickly dismissed the thought.</p>
+                    <p>An invisible wave of energy swept through the room. The angels, though perfect in form and purpose, were not immune to curiosity. They leaned forward slightly, their radiant wings trembling with anticipation.</p>
+                    <p><strong>The Creator's Will Revealed</strong></p>
+                    <p>"On Earth, I have created Humankind." The Creator's voice held no hesitation or doubt. "I have made them in My image, and within them, I have placed a spark of My own light. They are to be cherished and protected."</p>
+                    <p><strong>Lucifer's Seeds of Rebellion</strong></p>
+                    <p>Lucifer's wings twitched slightly. He, who had always stood closest to the Throne, the most radiant and respected angel. But now, his golden eyes held not just confusion, but a fiercer flame – the fire of wounded pride.</p>
+                    <p>"Serve them ?" he whispered, his voice low but sharp enough for Michael beside him to hear. "We, the first creations, beings of pure light, must kneel before creatures made of dust?"</p>
+                    <p>Michael, the epitome of a loyal soldier, did not flinch, at least outwardly. His silver armor reflected the gentle light as he replied, his voice striving for calm: "It is His will. We are not permitted to question, Lucifer."</p>
+                    <p>Lucifer stepped closer, his wings flaring slightly, their golden brilliance almost overwhelming everything around. "You kneel too easily, Michael. Perhaps you are content as a servant. But I was not born to kneel before anyone, except the One who created me."</p>
+                    <p><em>(To be continued...)</em></p>
+                </div>
             </div>
-
+            </div>
             <div class="chapter" id="chapter-3">
                 <h3>Chapter 3: Sparks of Rebellion</h3>
                  <p>Heaven, though still filled with light and harmonious melody, was now shrouded in a vague, growing sense of unease.</p>
@@ -755,160 +828,208 @@
                  <p><strong>End of Part 1</strong></p>
             </div>
 
-        </div> <div class="navigation">
-            <button id="prev-chapter" disabled>Previous Chapter</button>
-            <button id="next-chapter">Next Chapter</button>
+        <div class="navigation flex flex-col sm:flex-row justify-between items-center mt-10 mb-6 space-y-4 sm:space-y-0">
+            <button id="prev-chapter" class="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:text-gray-600 dark:disabled:text-gray-400 disabled:cursor-not-allowed disabled:transform-none disabled:opacity-70 flex items-center justify-center">
+                <i class="fas fa-arrow-left mr-2"></i>Previous Chapter
+            </button>
+            <button id="next-chapter" class="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:text-gray-600 dark:disabled:text-gray-400 disabled:cursor-not-allowed disabled:transform-none disabled:opacity-70 flex items-center justify-center">
+                Next Chapter<i class="fas fa-arrow-right ml-2"></i>
+            </button>
         </div>
+    </main>
 
-    </main> 
-    <div id="chapter-modal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span id="close-modal" class="close">×</span>
-            <h3>List of Chapters</h3>
-            <ul>
-                <li><a href="#chapter-1" data-chapter="1">Chapter 1: The Eternal Symphony</a></li>
-                <li><a href="#chapter-2" data-chapter="2">Chapter 2: The Decree from Heaven</a></li>
-                <li><a href="#chapter-3" data-chapter="3">Chapter 3: Sparks of Rebellion</a></li>
-                <li><a href="#chapter-4" data-chapter="4">Chapter 4: The First Creations</a></li>
-                <li><a href="#chapter-5" data-chapter="5">Chapter 5: Light and Darkness</a></li>
-                <li><a href="#chapter-6" data-chapter="6">Chapter 6: The Whisper of the Serpent</a></li>
-                <li><a href="#chapter-7" data-chapter="7">Chapter 7: The Fracture</a></li>
-                <li><a href="#chapter-8" data-chapter="8">Chapter 8: The Birth of Eve</a></li>
-                <li><a href="#chapter-9" data-chapter="9">Chapter 9: Whispers of Shadows</a></li>
-                <li><a href="#chapter-10" data-chapter="10">Chapter 10: The Seed of Destruction</a></li>
-                <li><a href="#chapter-11" data-chapter="11">Chapter 11: The Fall</a></li>
-                <li><a href="#chapter-12" data-chapter="12">Chapter 12: The First Birth</a></li>
-                <li><a href="#chapter-13" data-chapter="13">Chapter 13: The First Crack</a></li>
-                <li><a href="#chapter-14" data-chapter="14">Chapter 14: The Mark of Cain</a></li>
-                <li><a href="#chapter-15" data-chapter="15">Chapter 15: The Legacy of Cain</a></li>
-                <li><a href="#chapter-16" data-chapter="16">Chapter 16: The First Judgment</a></li>
-                <li><a href="#chapter-17" data-chapter="17">Chapter 17: The Floodgates Open</a></li>
-                <li><a href="#chapter-18" data-chapter="18">Chapter 18: The Eternal Light War</a></li>
-                <li><a href="#chapter-19" data-chapter="19">Chapter 19: Seeds of Rebellion</a></li>
-                <li><a href="#chapter-20" data-chapter="20">Chapter 20: Echoes of Choices</a></li>
-                <li><a href="#chapter-21" data-chapter="21">Chapter 21: The Shattering of the Veil</a></li>
-                <li><a href="#chapter-22" data-chapter="22">Chapter 22: Beyond the Veil</a></li>
-                <li><a href="#chapter-23" data-chapter="23">Chapter 23: The Truth Beyond the Veil</a></li>
-                <li><a href="#chapter-24" data-chapter="24">Chapter 24: The Cost of Light</a></li>
-                <li><a href="#chapter-25" data-chapter="25">Chapter 25: Judgment and Eternal Division</a></li>
-                <li><a href="#chapter-26" data-chapter="26">Chapter 26: The Final Dawn</a></li>
-                <li><a href="#chapter-27" data-chapter="27">Chapter 27: The Eternal Boundary</a></li>
-                <li><a href="#chapter-28" data-chapter="28">Chapter 28: The Eternal Crossroads</a></li>
-                <li><a href="#epilogue" data-chapter="epilogue">Epilogue: The Meteor Shower of Souls</a></li>
+    <div id="chapter-modal" class="modal fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-75 flex items-center justify-center p-4 transition-opacity duration-300 ease-in-out opacity-0 pointer-events-none" style="/* display: none; controlled by JS adding modal-active */">
+        <div class="modal-content bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-lg shadow-2xl w-full max-w-md relative transform transition-all duration-300 ease-in-out scale-95 opacity-0">
+            <span id="close-modal" class="close absolute top-3 right-4 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 text-3xl cursor-pointer transition-colors leading-none">&times;</span>
+            <h3 class="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">List of Chapters</h3>
+            <ul class="space-y-1 max-h-80 sm:max-h-96 overflow-y-auto pr-2">
+                <li><a href="#chapter-1" data-chapter="1" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 1: The Eternal Harmony</a></li>
+                <li><a href="#chapter-2" data-chapter="2" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 2: The Decree from Heaven</a></li>
+                <li><a href="#chapter-3" data-chapter="3" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 3: Sparks of Rebellion</a></li>
+                <li><a href="#chapter-4" data-chapter="4" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 4: The First Creations</a></li>
+                <li><a href="#chapter-5" data-chapter="5" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 5: Light and Darkness</a></li>
+                <li><a href="#chapter-6" data-chapter="6" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 6: The Whisper of the Serpent</a></li>
+                <li><a href="#chapter-7" data-chapter="7" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 7: The Fracture</a></li>
+                <li><a href="#chapter-8" data-chapter="8" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 8: The Birth of Eve</a></li>
+                <li><a href="#chapter-9" data-chapter="9" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 9: Whispers of Shadows</a></li>
+                <li><a href="#chapter-10" data-chapter="10" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 10: The Seed of Destruction</a></li>
+                <li><a href="#chapter-11" data-chapter="11" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 11: The Fall</a></li>
+                <li><a href="#chapter-12" data-chapter="12" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 12: The First Birth</a></li>
+                <li><a href="#chapter-13" data-chapter="13" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 13: The First Crack</a></li>
+                <li><a href="#chapter-14" data-chapter="14" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 14: The Mark of Cain</a></li>
+                <li><a href="#chapter-15" data-chapter="15" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 15: The Legacy of Cain</a></li>
+                <li><a href="#chapter-16" data-chapter="16" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 16: The First Judgment</a></li>
+                <li><a href="#chapter-17" data-chapter="17" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 17: The Floodgates Open</a></li>
+                <li><a href="#chapter-18" data-chapter="18" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 18: The Eternal Light War</a></li>
+                <li><a href="#chapter-19" data-chapter="19" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 19: Seeds of Rebellion</a></li>
+                <li><a href="#chapter-20" data-chapter="20" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 20: Echoes of Choices</a></li>
+                <li><a href="#chapter-21" data-chapter="21" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 21: The Shattering of the Veil</a></li>
+                <li><a href="#chapter-22" data-chapter="22" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 22: Beyond the Veil</a></li>
+                <li><a href="#chapter-23" data-chapter="23" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 23: The Truth Beyond the Veil</a></li>
+                <li><a href="#chapter-24" data-chapter="24" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 24: The Cost of Light</a></li>
+                <li><a href="#chapter-25" data-chapter="25" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 25: Judgment and Eternal Division</a></li>
+                <li><a href="#chapter-26" data-chapter="26" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 26: The Final Dawn</a></li>
+                <li><a href="#chapter-27" data-chapter="27" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 27: The Eternal Boundary</a></li>
+                <li><a href="#chapter-28" data-chapter="28" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 28: The Eternal Crossroads</a></li>
+                <li><a href="#epilogue" data-chapter="epilogue" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Epilogue: The Meteor Shower of Souls</a></li>
             </ul>
         </div>
     </div>
-    <footer id="footer" class="bg-neutral-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div class="footer-links mb-4">
-                <a href="readnovel.html">Back to List</a>
-                <a href="#navbar">Top</a>
-                <a href="legnaxe_part1_vi.html">Tiếng Việt</a> <a href="author-about.html">About Author</a>
+
+    <footer id="footer" class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 transition-colors duration-300 ease-in-out">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <div class="footer-links mb-6 space-x-2 sm:space-x-4">
+                <a href="readnovel.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Back to List</a>
+                <a href="#navbar" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Top</a>
+                <a href="legnaxe_part1_vi.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Tiếng Việt</a>
+                <a href="author-about.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">About Author</a>
             </div>
-            <p class="mt-4">© 2025 LEGNAXE. All rights reserved. Author # Nguyen Minh Triet</p>
+            <p class="text-sm text-gray-500 dark:text-gray-400">© 2025 LEGNAXE. All rights reserved. Author: Nguyen Minh Triet</p>
+             <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">Website: <a href="https://ivs.id.vn" target="_blank" rel="noopener noreferrer" class="hover:underline">ivs.id.vn</a></p>
         </div>
     </footer>
 
     <script>
-        // Chapter Navigation Logic (Keep the same JS logic)
         const chapters = document.querySelectorAll('.chapter');
-        let currentChapterIndex = 0; // Use index for clarity
+        let currentChapterIndex = 0;
 
-        function showChapter(index) {
-            if (index < 0 || index >= chapters.length) return; // Boundary check
+        function showChapter(index, isInitialLoad = false) {
+            if (index < 0 || index >= chapters.length) return;
 
             chapters.forEach((chapter, i) => {
+                // Toggle 'active' class for visibility and transitions
                 chapter.classList.toggle('active', i === index);
             });
 
-            // Update button states
             const prevButton = document.getElementById('prev-chapter');
             const nextButton = document.getElementById('next-chapter');
             if (prevButton) prevButton.disabled = index === 0;
             if (nextButton) nextButton.disabled = index === chapters.length - 1;
 
-            currentChapterIndex = index; // Update current index
-            window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top on chapter change
+            currentChapterIndex = index;
+            if (!isInitialLoad) {
+                // Scroll to the top of the story content for better UX on chapter change
+                const storyContentElement = document.querySelector('.story-content');
+                if (storyContentElement) {
+                     storyContentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
         }
 
-        // Event listeners for navigation buttons
         const prevButton = document.getElementById('prev-chapter');
         const nextButton = document.getElementById('next-chapter');
 
         if (prevButton) {
             prevButton.addEventListener('click', () => {
-                // Find the index of the currently active chapter
-                let activeIndex = -1;
-                chapters.forEach((chap, idx) => {
-                    if (chap.classList.contains('active')) {
-                        activeIndex = idx;
-                    }
-                });
-                if (activeIndex > 0) {
-                    showChapter(activeIndex - 1);
+                if (currentChapterIndex > 0) {
+                    showChapter(currentChapterIndex - 1);
                 }
             });
         }
 
         if (nextButton) {
             nextButton.addEventListener('click', () => {
-                 // Find the index of the currently active chapter
-                let activeIndex = -1;
+                if (currentChapterIndex < chapters.length - 1) {
+                    showChapter(currentChapterIndex + 1);
+                }
+            });
+        }
+        
+        // Handle chapter navigation from modal links
+        const modalChapterLinks = document.querySelectorAll('.modal-chapter-link');
+        const chapterModal = document.getElementById('chapter-modal');
+        const closeModalButton = document.getElementById('close-modal');
+
+        modalChapterLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const chapterId = link.getAttribute('href').substring(1); // e.g., "#chapter-1" -> "chapter-1"
+                let targetIndex = -1;
                 chapters.forEach((chap, idx) => {
-                    if (chap.classList.contains('active')) {
-                        activeIndex = idx;
+                    if (chap.id === chapterId) {
+                        targetIndex = idx;
                     }
                 });
-                if (activeIndex !== -1 && activeIndex < chapters.length - 1) {
-                    showChapter(activeIndex + 1);
+
+                if (targetIndex !== -1) {
+                    showChapter(targetIndex);
+                }
+                if (chapterModal) { // Close modal after selection
+                    chapterModal.classList.remove('modal-active');
+                    chapterModal.style.display = 'none'; // Fallback if transition doesn't hide
+                }
+            });
+        });
+
+        if (closeModalButton && chapterModal) {
+            closeModalButton.addEventListener('click', () => {
+                chapterModal.classList.remove('modal-active');
+                 // Give time for fade out animation before setting display to none
+                setTimeout(() => {
+                    if (!chapterModal.classList.contains('modal-active')) { // check if it wasn't re-opened
+                         chapterModal.style.display = 'none';
+                    }
+                }, 300); // Match transition duration
+            });
+            // Optional: Close modal if clicking outside of modal-content
+            chapterModal.addEventListener('click', (event) => {
+                if (event.target === chapterModal) { // Clicked on backdrop
+                    closeModalButton.click();
                 }
             });
         }
 
-        // Show the first chapter initially (Chapter 1 has index 0)
+
+        // Show the first chapter initially
         if (chapters.length > 0) {
-             showChapter(0);
+            showChapter(0, true); // Pass true for initial load
         } else {
-             console.warn("No chapters found to display.");
-             // Disable navigation buttons if no chapters
-             if (prevButton) prevButton.disabled = true;
-             if (nextButton) nextButton.disabled = true;
+            if (prevButton) prevButton.disabled = true;
+            if (nextButton) nextButton.disabled = true;
         }
 
-
-        // Theme Toggle Logic (Keep the same JS logic)
+        // Theme Toggle Logic
         const themeToggle = document.getElementById('theme-toggle');
         const body = document.body;
-        const moonIcon = '<i class="fas fa-moon"></i>';
-        const sunIcon = '<i class="fas fa-sun"></i>';
+        const themeIcon = themeToggle ? themeToggle.querySelector('i') : null;
 
-        // Function to apply theme based on preference
         function applyTheme(isDark) {
-             body.classList.toggle('dark', isDark);
-             if (themeToggle) { // Check if button exists
-                 themeToggle.innerHTML = isDark ? sunIcon : moonIcon;
-             }
-             localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
-             console.log(`Theme applied: ${isDark ? 'Dark' : 'Light'}`);
+            body.classList.toggle('dark', isDark);
+            if (themeIcon) {
+                if (isDark) {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            }
+            localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
         }
 
-        // Check local storage or system preference on load
-         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-         const savedTheme = localStorage.getItem('darkMode');
-         let isDarkMode = savedTheme === 'enabled' || (savedTheme === null && prefersDark);
-         applyTheme(isDarkMode);
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('darkMode');
+        let isDarkMode = savedTheme === 'enabled' || (savedTheme === null && prefersDark);
+        
+        applyTheme(isDarkMode); // Apply initial theme
 
-
-        // Toggle theme on button click
         if (themeToggle) {
             themeToggle.addEventListener('click', () => {
                 isDarkMode = !body.classList.contains('dark');
                 applyTheme(isDarkMode);
             });
-        } else {
-             console.warn("Theme toggle button not found.");
         }
 
+        // Tailwind prose plugin requires content to be wrapped, ensure paragraphs and headings inside .prose are styled
+        // This script is more for if content was dynamically loaded. With static HTML, Tailwind handles it.
+        // For demonstration, if you were to add Tailwind Typography CDN:
+        // <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+        // And add `prose dark:prose-invert` to your story content containers.
+        // I have added `prose prose-lg dark:prose-invert max-w-none` to the chapter content divs.
+        // `prose-lg` for larger text, `max-w-none` to prevent prose from limiting width within its container.
+        // `text-justify` added for justified text in story paragraphs.
     </script>
 </body>
 </html>
