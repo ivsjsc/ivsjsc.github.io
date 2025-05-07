@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAME of Novel </title>
+    <meta name="description" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="images/logo/logo.png">
+    <meta property="og:url" content="https://ivs.id.vn/">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Truyện Dài">
+    <meta property="article:author" content="Nguyen Minh Triet">
+
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom CSS for chapter transitions and other effects */
+        .chapter {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            opacity: 0;
+            transform: translateY(15px); /* Subtle upward movement */
+            display: none; /* Ensure non-active chapters are not taking space */
+        }
+        .chapter.active {
+            opacity: 1;
+            transform: translateY(0);
+            display: block;
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Style for the modal (if it were to be used and activated via JS) */
+        #chapter-modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+        #chapter-modal .modal-content {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+        #chapter-modal.modal-active { /* Add this class via JS to show modal */
+            opacity: 1 !important; /* Important to override inline style if used */
+            pointer-events: auto;
+        }
+        #chapter-modal.modal-active .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Custom scrollbar for dark mode */
+        .dark body::-webkit-scrollbar {
+            width: 10px;
+        }
+        .dark body::-webkit-scrollbar-track {
+            background: #1a202c; /* Tailwind gray-900 */
+        }
+        .dark body::-webkit-scrollbar-thumb {
+            background-color: #4a5568; /* Tailwind gray-600 */
+            border-radius: 20px;
+            border: 2px solid #1a202c;
+        }
+        .dark body::-webkit-scrollbar-thumb:hover {
+            background-color: #718096; /* Tailwind gray-500 */
+        }
+
+        .dark #chapter-modal .modal-content ul::-webkit-scrollbar {
+            width: 8px;
+        }
+        .dark #chapter-modal .modal-content ul::-webkit-scrollbar-track {
+            background: #2d3748; /* gray-800 */
+        }
+        .dark #chapter-modal .modal-content ul::-webkit-scrollbar-thumb {
+            background: #4a5568; /* gray-600 */
+            border-radius: 4px;
+        }
+        .dark #chapter-modal .modal-content ul::-webkit-scrollbar-thumb:hover {
+            background: #718096; /* gray-500 */
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 ease-in-out font-[Inter,sans-serif]">
+    <header id="navbar" class="bg-gray-50 dark:bg-gray-800 shadow-lg sticky top-0 z-50 transition-colors duration-300 ease-in-out">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo/logo.png" alt="LEGNAXE Logo" class="h-10 sm:h-12 w-auto transition-all duration-300 ease-in-out hover:opacity-80" onerror="this.style.display='none'; const newText = document.createElement('span'); newText.className='text-xl font-bold text-blue-600 dark:text-blue-400'; newText.textContent='LEGNAXE'; this.parentNode.appendChild(newText);">
+                </a>
+            </div>
+            <nav class="flex items-center space-x-2 sm:space-x-4 md:space-x-6">
+                <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm sm:text-base font-medium transition-colors">Trang Chủ</a>
+                <a href="readnovel.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm sm:text-base font-medium transition-colors">Danh sách truyện</a>
+                <button id="theme-toggle" aria-label="Chuyển đổi chế độ sáng tối" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out">
+                    <i class="fas fa-moon text-xl"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-12">
+        <h1 class="text-4xl sm:text-5xl font-bold text-center mb-4 text-gray-900 dark:text-white">NAME of Novel</h1>
+        <h2 class="text-2xl sm:text-3xl font-semibold text-center mb-10 text-blue-600 dark:text-blue-400">Chapter 11: Tiltle of ChapterChapter</h2>
+
+        <div class="story-content bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl shadow-xl transition-colors duration-300 ease-in-out">
+            <img src="images\" alt="LEGNAXE Phần 1 Banner" class="mb-8 rounded-lg shadow-md w-full max-h-[400px] object-cover">
+
+            <div class="chapter active" id="chapter-1">
+                <h3 class="text-2xl sm:text-3xl font-semibold mb-6 mt-4 text-gray-800 dark:text-gray-100 border-b pb-3 border-gray-200 dark:border-gray-700">Chapter 1: The Eternal Harmony</h3>
+                <div class="prose prose-lg dark:prose-invert max-w-none text-justify"> <p>Heaven, before the dawn of humankind, was a breathtakingly perfect picture.</p>
+                    <p>..content of chapter..</p>
+                </div>
+            </div>
+
+        <div class="navigation flex flex-col sm:flex-row justify-between items-center mt-10 mb-6 space-y-4 sm:space-y-0">
+            <button id="list-chapter" class="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:text-gray-600 dark:disabled:text-gray-400 disabled:cursor-not-allowed disabled:transform-none disabled:opacity-70 flex items-center justify-center">
+                <i class="fas fa-listlist mr-2"></i>List of Chapters
+            </button>
+            <button id="prev-chapter" class="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:text-gray-600 dark:disabled:text-gray-400 disabled:cursor-not-allowed disabled:transform-none disabled:opacity-70 flex items-center justify-center">
+                <i class="fas fa-arrow-left mr-2"></i>Previous Chapter
+            </button>
+            <button id="next-chapter" class="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105 disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:text-gray-600 dark:disabled:text-gray-400 disabled:cursor-not-allowed disabled:transform-none disabled:opacity-70 flex items-center justify-center">
+                Next Chapter<i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </main>
+
+    <div id="chapter-modal" class="modal fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-75 flex items-center justify-center p-4 transition-opacity duration-300 ease-in-out opacity-0 pointer-events-none" style="/* display: none; controlled by JS adding modal-active */">
+        <div class="modal-content bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-lg shadow-2xl w-full max-w-md relative transform transition-all duration-300 ease-in-out scale-95 opacity-0">
+            <span id="close-modal" class="close absolute top-3 right-4 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 text-3xl cursor-pointer transition-colors leading-none">&times;</span>
+            <h3 class="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">List of Chapters</h3>
+            <ul class="space-y-1 max-h-80 sm:max-h-96 overflow-y-auto pr-2">
+                <li><a href="#chapter-1" data-chapter="1" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 1: The Eternal Harmony</a></li>
+                <li><a href="#chapter-2" data-chapter="2" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 2: The Decree from Heaven</a></li>
+                <li><a href="#chapter-3" data-chapter="3" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 3: Sparks of Rebellion</a></li>
+                <li><a href="#chapter-4" data-chapter="4" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 4: The First Creations</a></li>
+                <li><a href="#chapter-5" data-chapter="5" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 5: Light and Darkness</a></li>
+                <li><a href="#chapter-6" data-chapter="6" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 6: The Whisper of the Serpent</a></li>
+                <li><a href="#chapter-7" data-chapter="7" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 7: The Fracture</a></li>
+                <li><a href="#chapter-8" data-chapter="8" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 8: The Birth of Eve</a></li>
+                <li><a href="#chapter-9" data-chapter="9" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 9: Whispers of Shadows</a></li>
+                <li><a href="#chapter-10" data-chapter="10" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 10: The Seed of Destruction</a></li>
+                <li><a href="#chapter-11" data-chapter="11" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 11: The Fall</a></li>
+                <li><a href="#chapter-12" data-chapter="12" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 12: The First Birth</a></li>
+                <li><a href="#chapter-13" data-chapter="13" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 13: The First Crack</a></li>
+                <li><a href="#chapter-14" data-chapter="14" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 14: The Mark of Cain</a></li>
+                <li><a href="#chapter-15" data-chapter="15" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 15: The Legacy of Cain</a></li>
+                <li><a href="#chapter-16" data-chapter="16" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 16: The First Judgment</a></li>
+                <li><a href="#chapter-17" data-chapter="17" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 17: The Floodgates Open</a></li>
+                <li><a href="#chapter-18" data-chapter="18" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 18: The Eternal Light War</a></li>
+                <li><a href="#chapter-19" data-chapter="19" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 19: Seeds of Rebellion</a></li>
+                <li><a href="#chapter-20" data-chapter="20" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 20: Echoes of Choices</a></li>
+                <li><a href="#chapter-21" data-chapter="21" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 21: The Shattering of the Veil</a></li>
+                <li><a href="#chapter-22" data-chapter="22" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 22: Beyond the Veil</a></li>
+                <li><a href="#chapter-23" data-chapter="23" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 23: The Truth Beyond the Veil</a></li>
+                <li><a href="#chapter-24" data-chapter="24" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 24: The Cost of Light</a></li>
+                <li><a href="#chapter-25" data-chapter="25" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 25: Judgment and Eternal Division</a></li>
+                <li><a href="#chapter-26" data-chapter="26" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 26: The Final Dawn</a></li>
+                <li><a href="#chapter-27" data-chapter="27" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 27: The Eternal Boundary</a></li>
+                <li><a href="#chapter-28" data-chapter="28" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 28: The Eternal Crossroads</a></li>
+                <li><a href="#epilogue" data-chapter="epilogue" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Epilogue: The Meteor Shower of Souls</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <footer id="footer" class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 transition-colors duration-300 ease-in-out">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <div class="footer-links mb-6 space-x-2 sm:space-x-4">
+                <a href="readnovel.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Back to List</a>
+                <a href="#navbar" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Top</a>
+                <a href="legnaxe_part1_vi.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Tiếng Việt</a>
+                <a href="author-about.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">About Author</a>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400">© 2025 LEGNAXE. All rights reserved. Author: Nguyen Minh Triet</p>
+             <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">Website: <a href="https://ivs.id.vn" target="_blank" rel="noopener noreferrer" class="hover:underline">ivs.id.vn</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const chapters = document.querySelectorAll('.chapter');
+        let currentChapterIndex = 0;
+
+        function showChapter(index, isInitialLoad = false) {
+            if (index < 0 || index >= chapters.length) return;
+
+            chapters.forEach((chapter, i) => {
+                // Toggle 'active' class for visibility and transitions
+                chapter.classList.toggle('active', i === index);
+            });
+
+            const prevButton = document.getElementById('prev-chapter');
+            const nextButton = document.getElementById('next-chapter');
+            if (prevButton) prevButton.disabled = index === 0;
+            if (nextButton) nextButton.disabled = index === chapters.length - 1;
+
+            currentChapterIndex = index;
+            if (!isInitialLoad) {
+                // Scroll to the top of the story content for better UX on chapter change
+                const storyContentElement = document.querySelector('.story-content');
+                if (storyContentElement) {
+                     storyContentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        }
+
+        const prevButton = document.getElementById('prev-chapter');
+        const nextButton = document.getElementById('next-chapter');
+
+        if (prevButton) {
+            prevButton.addEventListener('click', () => {
+                if (currentChapterIndex > 0) {
+                    showChapter(currentChapterIndex - 1);
+                }
+            });
+        }
+
+        if (nextButton) {
+            nextButton.addEventListener('click', () => {
+                if (currentChapterIndex < chapters.length - 1) {
+                    showChapter(currentChapterIndex + 1);
+                }
+            });
+        }
+        
+        // Handle chapter navigation from modal links
+        const modalChapterLinks = document.querySelectorAll('.modal-chapter-link');
+        const chapterModal = document.getElementById('chapter-modal');
+        const closeModalButton = document.getElementById('close-modal');
+
+        modalChapterLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const chapterId = link.getAttribute('href').substring(1); // e.g., "#chapter-1" -> "chapter-1"
+                let targetIndex = -1;
+                chapters.forEach((chap, idx) => {
+                    if (chap.id === chapterId) {
+                        targetIndex = idx;
+                    }
+                });
+
+                if (targetIndex !== -1) {
+                    showChapter(targetIndex);
+                }
+                if (chapterModal) { // Close modal after selection
+                    chapterModal.classList.remove('modal-active');
+                    chapterModal.style.display = 'none'; // Fallback if transition doesn't hide
+                }
+            });
+        });
+
+        if (closeModalButton && chapterModal) {
+            closeModalButton.addEventListener('click', () => {
+                chapterModal.classList.remove('modal-active');
+                 // Give time for fade out animation before setting display to none
+                setTimeout(() => {
+                    if (!chapterModal.classList.contains('modal-active')) { // check if it wasn't re-opened
+                         chapterModal.style.display = 'none';
+                    }
+                }, 300); // Match transition duration
+            });
+            // Optional: Close modal if clicking outside of modal-content
+            chapterModal.addEventListener('click', (event) => {
+                if (event.target === chapterModal) { // Clicked on backdrop
+                    closeModalButton.click();
+                }
+            });
+        }
+
+
+        // Show the first chapter initially
+        if (chapters.length > 0) {
+            showChapter(0, true); // Pass true for initial load
+        } else {
+            if (prevButton) prevButton.disabled = true;
+            if (nextButton) nextButton.disabled = true;
+        }
+
+        // Theme Toggle Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+        const themeIcon = themeToggle ? themeToggle.querySelector('i') : null;
+
+        function applyTheme(isDark) {
+            body.classList.toggle('dark', isDark);
+            if (themeIcon) {
+                if (isDark) {
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            }
+            localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+        }
+
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('darkMode');
+        let isDarkMode = savedTheme === 'enabled' || (savedTheme === null && prefersDark);
+        
+        applyTheme(isDarkMode); // Apply initial theme
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                isDarkMode = !body.classList.contains('dark');
+                applyTheme(isDarkMode);
+            });
+        }
+
+        // Tailwind prose plugin requires content to be wrapped, ensure paragraphs and headings inside .prose are styled
+        // This script is more for if content was dynamically loaded. With static HTML, Tailwind handles it.
+        // For demonstration, if you were to add Tailwind Typography CDN:
+        // <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+
+    </script>
+</body>
+</html>
