@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEGNAXE: Bí Mật Cuộc Đại Chiến Thiên Đàng (Phần 1 - Tiếng Việt)</title>
-    <meta name="description" content="LEGNAXE Phần 1: Bí Mật Cuộc Đại Chiến Thiên Đàng - Khám phá nguồn gốc xung đột giữa các thiên thần, sự ra đời của loài người và những lựa chọn định mệnh.">
-    <meta property="og:title" content="LEGNAXE: Bí Mật Cuộc Đại Chiến Thiên Đàng (Phần 1)">
-    <meta property="og:description" content="Đọc truyện LEGNAXE Phần 1, tìm hiểu về sự kiện dẫn đến cuộc chiến vĩ đại trên Thiên Đàng.">
-    <meta property="og:image" content="https://placehold.co/1200x630/8B5CF6/FFFFFF?text=LEGNAXE">
-    <meta property="og:url" content="https://ivs.id.vn/legnaxe_part1_vi.html"> <meta property="og:type" content="article">
-    <meta property="article:section" content="Truyện Dài">
-    <meta property="article:author" content="Nguyen Minh Triet">
+    <title>LEGNAXE: The Secret of Great Heaven War - ENGLISH</title>
+    <meta name="description" content="LEGNAXE Part 1: The Secret of Great Heaven War - ENGLISH. Explore the origins of the conflict between angels, the creation of humankind, and fateful choices.">
+    <meta property="og:title" content="LEGNAXE: The Secret of Great Heaven War - ENGLISH (Part 1)">
+    <meta property="og:description" content="Read LEGNAXE Part 1, and discover the events leading to the great war in Heaven.">
+    <meta property="og:image" content="images/pages/novels/legnaxe1.png"> <meta property="og:url" content="https://ivs.id.vn/legnaxe_part1_en.html"> <meta property="og:type" content="article">
+    <meta property="article:section" content="Long Story"> <meta property="article:author" content="Nguyen Minh Triet">
 
-    <link rel="icon" href="https://placehold.co/32x32/8B5CF6/FFFFFF?text=L" type="image/x-icon">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -26,12 +24,12 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                     },
-                    colors: { // Giữ lại các màu đã định nghĩa, Tailwind sẽ ưu tiên class trực tiếp
+                    colors: {
                         'primary': '#3b82f6',      // blue-500
                         'primary-dark': '#2563eb', // blue-600
-                        'blue-400': '#60a5fa',     // Dùng cho text/link ở dark mode
-                        'blue-600': '#2563eb',     // Dùng cho button ở light mode
-                        'blue-700': '#1d4ed8',     // Dùng cho button hover ở dark mode
+                        'blue-400': '#60a5fa',     // For text/link in dark mode
+                        'blue-600': '#2563eb',     // For button in light mode
+                        'blue-700': '#1d4ed8',     // For button hover in dark mode
                         'gray-50': '#f9fafb',      // Header light bg
                         'gray-100': '#f3f4f6',     // Modal link hover light bg
                         'gray-200': '#e5e7eb',     // Chapter h3 border light
@@ -44,12 +42,10 @@
                         'gray-900': '#111827',     // Body dark bg, scrollbar track dark
                         'red-400': '#f87171',      // Close modal hover dark
                         'red-600': '#dc2626',      // Close modal hover light
-                        // Các màu neutral có thể được thay thế bằng gray tương ứng từ template mới
-                        'neutral-800': '#1f2937', // Ví dụ: chapter dark bg
-                        'neutral-900': '#111827', // Ví dụ: body text light
+                        'neutral-800': '#1f2937',
+                        'neutral-900': '#111827',
                         'white': '#ffffff',
                         'black': '#000000',
-                         // Các màu cũ không còn dùng trực tiếp trong template này có thể lược bỏ nếu muốn
                     },
                     animation: {
                         'slide-up': 'slideUp 0.5s ease-out',
@@ -61,7 +57,7 @@
             },
             darkMode: 'class',
              plugins: [
-                // require('@tailwindcss/typography'), // Bỏ comment nếu cài đặt qua npm
+                // require('@tailwindcss/typography'), // Uncomment if installed via npm
             ],
         }
     </script>
@@ -84,14 +80,14 @@
         }
 
         /* Modal styles from new template */
-        #chapter-modal { /* ID này khớp với modal */
+        #chapter-modal { /* This ID matches the modal */
             transition: opacity 0.3s ease-in-out;
         }
-        #chapter-modal .modal-content { /* Class này khớp với nội dung modal */
+        #chapter-modal .modal-content { /* This class matches the modal content */
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
-        #chapter-modal.modal-active { /* Class này được JS thêm để hiển thị modal */
-            opacity: 1 !important; /* Quan trọng để ghi đè style inline nếu có */
+        #chapter-modal.modal-active { /* This class is added by JS to show the modal */
+            opacity: 1 !important; /* Important to override inline style if any */
             pointer-events: auto;
         }
         #chapter-modal.modal-active .modal-content {
@@ -112,19 +108,18 @@
 
         /* Basic prose styling if @tailwindcss/typography is not used */
         .prose { @apply max-w-none; }
-        .prose p { @apply mb-4 leading-relaxed text-justify; } /* Thêm text-justify */
+        .prose p { @apply mb-4 leading-relaxed text-justify; } /* Added text-justify */
         .prose strong { @apply font-semibold; }
-        .prose h4 { @apply text-lg font-semibold mt-5 mb-2 text-gray-700 dark:text-gray-300; } /* Style cho h4 nếu có */
+        .prose h4 { @apply text-lg font-semibold mt-5 mb-2 text-gray-700 dark:text-gray-300; } /* Style for h4 if present */
         .dark .dark\:prose-invert p { @apply text-gray-300; }
         .dark .dark\:prose-invert strong { @apply text-white; }
         .dark .dark\:prose-invert h4 { @apply text-gray-300; }
 
-
         /* Chapter title styling from new template */
-        .chapter > h3 { /* Áp dụng cho h3 trực tiếp trong .chapter */
-             @apply text-2xl sm:text-3xl font-semibold mb-6 mt-4 text-gray-800 dark:text-gray-100 border-b pb-3 border-gray-200 dark:border-gray-700;
+        .chapter > h3 { /* Applied to h3 directly within .chapter */
+            @apply text-2xl sm:text-3xl font-semibold mb-6 mt-4 text-gray-800 dark:text-gray-100 border-b pb-3 border-gray-200 dark:border-gray-700;
         }
-         /* General h1, h2 styling (main novel title) */
+        /* General h1, h2 styling (main novel title) */
         main > h1 { @apply text-4xl sm:text-5xl font-bold text-center mb-2 text-gray-900 dark:text-white animate-slide-up; }
         main > h2 { @apply text-2xl sm:text-3xl font-semibold text-center mb-10 text-blue-600 dark:text-blue-400 animate-slide-up; }
 
@@ -134,26 +129,27 @@
     <header id="navbar" class="bg-gray-50 dark:bg-gray-800 shadow-lg sticky top-0 z-50 transition-colors duration-300 ease-in-out">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
             <div class="logo">
-                <a href="index.html" aria-label="Trang chủ LEGNAXE">
-                    <img src="https://placehold.co/140x50/1f2937/f3f4f6?text=LEGNAXE" alt="LEGNAXE Logo" class="h-10 sm:h-12 w-auto transition-all duration-300 ease-in-out hover:opacity-80"
-                         onerror="this.style.display='none'; const newText = document.createElement('span'); newText.className='text-xl font-bold text-blue-600 dark:text-blue-400'; newText.textContent='LEGNAXE'; this.parentNode.appendChild(newText);">
+                <a href="index.html" aria-label="LEGNAXE Homepage">
+                     <img src="images/logo/logo.png" alt="LEGNAXE Logo" class="h-10 sm:h-12 w-auto transition-all duration-300 ease-in-out hover:opacity-80"
+                           onerror="this.style.display='none'; const newText = document.createElement('span'); newText.className='text-xl font-bold text-blue-600 dark:text-blue-400'; newText.textContent='LEGNAXE'; this.parentNode.appendChild(newText);">
                 </a>
             </div>
             <nav class="flex items-center space-x-2 sm:space-x-4 md:space-x-6">
-                <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm sm:text-base font-medium transition-colors">Trang Chủ</a>
-                <a href="readnovel.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm sm:text-base font-medium transition-colors">Danh sách truyện</a>
-                <button id="theme-toggle" aria-label="Chuyển đổi chế độ sáng tối" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out">
-                    <i class="fas fa-moon text-xl"></i> </button>
+                <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm sm:text-base font-medium transition-colors">Home</a>
+                <a href="readnovel.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm sm:text-base font-medium transition-colors">Novel List</a>
+                <button id="theme-toggle" aria-label="Toggle light/dark mode" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out">
+                    <i class="fas fa-moon text-xl"></i>
+                </button>
             </nav>
         </div>
     </header>
 
     <main class="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-12">
         <h1>LEGNAXE</h1>
-        <h2>Phần 1: Bí Mật Cuộc Đại Chiến Thiên Đàng</h2>
+        <h2>Part 1: The Secret of Great Heaven War</h2>
 
         <div class="story-content-wrapper bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-xl shadow-xl transition-colors duration-300 ease-in-out">
-            <img src="images\pages\novels\legnaxe1.png" alt="LEGNAXE Banner" class="mb-8 rounded-lg shadow-md w-full max-h-[300px] sm:max-h-[400px] object-cover">
+            <img src="images/pages/novels/legnaxe1.png" alt="LEGNAXE Part 1 Banner" class="mb-8 rounded-lg shadow-md w-full max-h-[300px] sm:max-h-[400px] object-cover">
 
             <div class="chapter active" id="chapter-1">
                 <h3>Chương 1: Bản Hòa Âm Vĩnh Cửu</h3>
@@ -177,29 +173,7 @@
                     <p>(Còn tiếp...)</p>
                 </div>
             </div>
-
-            <div class="chapter" id="chapter-2">
-                <h3>Chương 2: Lời Phán Từ Trời</h3>
-                <div class="prose prose-lg dark:prose-invert max-w-none">
-                    <p>Ánh sáng Thiên Đàng rực rỡ hơn bao giờ hết. Các thiên thần tụ họp đông đủ trong Phòng Ngai Vàng – một không gian bao la vượt mọi tưởng tượng của người phàm, vô hạn, vô thời, bất tận. Những bức tường lung linh như mặt biển lặng, khẽ gợn sóng như thể đang đáp lại nhịp đập trái tim của chính Đấng Sáng Tạo. Nền phòng không phải đá cứng mà là một mặt phẳng tựa gương, phản chiếu ánh hào quang rực rỡ của các thiên thần và bản giao hưởng vĩnh cửu đang vang vọng khắp thiên giới.</p>
-                    <p>Trung tâm căn phòng là Ngai Vàng, một khối ánh sáng vô biên, không hình dạng, không giới hạn. Chỉ nhìn vào đó thôi cũng đủ khiến người ta choáng ngợp, như thể đang cố gắng nắm bắt sự vô tận. Các thiên thần không nhìn thấy Đấng Sáng Tạo bằng đôi mắt trần tục, bởi không đôi mắt nào chịu đựng nổi thứ ánh sáng chói lòa ấy. Thay vào đó, họ cảm nhận Người. Sự hiện diện của Người lan tỏa qua từng tế bào, ấm áp như ánh nắng mặt trời sưởi ấm ngày đông giá.</p>
-                    <h4>Tuyên Ngôn Của Đấng Sáng Tạo</h4>
-                    <p>Giọng nói của Đấng Sáng Tạo không phát ra từ Ngai Vàng, mà vang vọng từ khắp mọi nơi, như thể chính kết cấu của Thiên Đàng đang cất lời.</p>
-                    <p>"Ta đã tạo nên một thứ gì đó mới mẻ."</p>
-                    <p>Gabriel, với đôi cánh bạc lấp lánh, kín đáo quan sát Lucifer khi lời phán được công bố. Một tia nghi ngờ thoáng qua đôi mắt màu hổ phách của y, dù gương mặt vẫn giữ vẻ điềm tĩnh thường ngày. Y cảm nhận được sự căng thẳng ngầm trong không khí, một sự thay đổi trong bản hòa ca quen thuộc.</p>
-                    <p>Sau đó, khi chỉ còn lại hai người, Gabriel thì thầm với Michael, giọng đầy lo lắng: "Michael, ngươi không thấy sao? Lệnh phục tùng nhân loại... nó đang gieo mầm chia rẽ giữa chúng ta. Ngay cả trong trái tim những người trung thành nhất, ta cũng thấy sự bối rối."</p>
-                    <p>Michael siết chặt tay nắm thanh kiếm đeo bên hông, dù không rút ra. Y nhìn thẳng vào mắt Gabriel, giọng dứt khoát nhưng có phần nặng nề hơn thường lệ: "Ý nguyện của Đấng Sáng Tạo là không thể bàn cãi, Gabriel. Sự bối rối là thử thách lòng trung thành của chúng ta. Nếu Lucifer dao động, đó là gánh nặng mà y phải tự mình gánh chịu." Nhưng một phần nhỏ trong y cũng tự hỏi, tại sao lại là những tạo vật bụi đất mong manh đó? Y nhanh chóng gạt bỏ ý nghĩ ấy.</p>
-                    <p>Một làn sóng năng lượng vô hình quét qua căn phòng. Các thiên thần, dù hoàn hảo về hình dáng và mục đích, vẫn không tránh khỏi sự tò mò. Họ khẽ nghiêng người về phía trước, đôi cánh rực rỡ khẽ run lên vì chờ đợi.</p>
-                    <h4>Ý Nguyện Của Đấng Sáng Tạo Được Tiết Lộ</h4>
-                    <p>"Trên Trái Đất, Ta đã tạo dựng Nhân Loại." Giọng nói của Đấng Sáng Tạo không hề có chút do dự hay nghi ngờ. "Ta đã tạo ra họ theo hình ảnh của Ta, và trong họ, Ta đã đặt một tia sáng từ chính ánh sáng của Ta. Họ phải được trân trọng và bảo vệ."</p>
-                    <h4>Mầm Mống Phản Loạn Của Lucifer</h4>
-                    <p>Đôi cánh của Lucifer khẽ giật nhẹ. Y, người luôn đứng gần Ngai Vàng nhất, là thiên thần rực rỡ và được kính trọng nhất. Nhưng giờ đây, đôi mắt vàng của y không chỉ ánh lên sự bối rối, mà còn là một ngọn lửa dữ dội hơn – ngọn lửa của sự kiêu hãnh bị tổn thương.</p>
-                    <p>"Phục tùng họ?" y thì thầm, giọng nói trầm nhưng sắc lạnh, đủ để Michael đứng cạnh nghe thấy. "Chúng ta, những tạo vật đầu tiên, những thực thể của ánh sáng thuần khiết, lại phải quỳ gối trước những sinh vật được tạo ra từ cát bụi?"</p>
-                    <p>Michael, người lính trung thành mẫu mực, không hề nao núng, ít nhất là bề ngoài. Bộ giáp bạc của y phản chiếu ánh sáng dịu nhẹ khi y đáp lời, giọng cố giữ vẻ bình tĩnh: "Đó là ý nguyện của Ngài. Chúng ta không được phép chất vấn, Lucifer."</p>
-                    <p>Lucifer tiến lại gần hơn, đôi cánh y khẽ xòe rộng, ánh sáng vàng chói lòa gần như áp đảo mọi thứ xung quanh. "Ngươi quỳ gối quá dễ dàng, Michael. Có lẽ ngươi hài lòng với thân phận kẻ hầu. Nhưng ta không sinh ra để quỳ gối trước bất cứ ai, ngoại trừ Đấng đã tạo ra ta."</p>
-                    <p>(Còn tiếp...)</p>
-                </div>
-            </div>
+            
             <div class="chapter" id="chapter-2">
                 <h3>Chương 2: Lời Phán Từ Trời</h3>
                  <p>Ánh sáng Thiên Đàng rực rỡ hơn bao giờ hết. Các thiên thần tụ họp đông đủ trong Phòng Ngai Vàng – một không gian bao la vượt mọi tưởng tượng của người phàm, vô hạn, vô thời, bất tận. Những bức tường lung linh như mặt biển lặng, khẽ gợn sóng như thể đang đáp lại nhịp đập trái tim của chính Đấng Sáng Tạo. Nền phòng không phải đá cứng mà là một mặt phẳng tựa gương, phản chiếu ánh hào quang rực rỡ của các thiên thần và bản giao hưởng vĩnh cửu đang vang vọng khắp thiên giới.</p>
@@ -899,54 +873,55 @@
                 <p>Từ vết nứt khổng lồ, những tia năng lượng hỗn tạp này – những mảnh vỡ linh hồn đã bị tẩy trắng – bắn ra ngoài không gian như một cơn mưa sao băng kỳ lạ, đẹp đẽ nhưng đầy bi thương. Chúng không rơi vào hư không, mà bị lực hút của Trái Đất kéo về.</p>
                 <p>Cơn Mưa Sao Băng Linh Hồn, mang theo Healiangel và những thiên thần vô danh khác, bắt đầu trút xuống hành tinh xanh, nơi loài người không hề hay biết rằng họ sắp đón nhận những vị khách bất đắc dĩ, những hạt mầm của một kỷ nguyên mới, nơi những thiên thần mất trí nhớ sẽ phải bắt đầu lại bài học làm người trong "trường học trần gian".</p>
             </div>
+        </div>
 
-            </div> <div class="navigation flex flex-col sm:flex-row justify-between items-center mt-10 mb-6 space-y-4 sm:space-y-0">
+        <div class="navigation flex flex-col sm:flex-row justify-between items-center mt-10 mb-6 space-y-4 sm:space-y-0">
             <button id="list-chapter-btn" class="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center">
-                <i class="fas fa-list-ul mr-2"></i>Danh sách Chương
+                <i class="fas fa-list-ul mr-2"></i>List of Chapters
             </button>
             <button id="prev-chapter-btn" class="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center" disabled>
-                <i class="fas fa-arrow-left mr-2"></i>Chương Trước
+                <i class="fas fa-arrow-left mr-2"></i>Previous Chapter
             </button>
             <button id="next-chapter-btn" class="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center">
-                Chương Tiếp<i class="fas fa-arrow-right ml-2"></i>
+                Next Chapter<i class="fas fa-arrow-right ml-2"></i>
             </button>
         </div>
     </main>
 
-    <div id="chapter-modal" class="modal fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-75 flex items-center justify-center p-4 transition-opacity duration-300 ease-in-out opacity-0 pointer-events-none" style="/* display: none; được JS quản lý bằng class modal-active */">
+    <div id="chapter-modal" class="modal fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-75 flex items-center justify-center p-4 transition-opacity duration-300 ease-in-out opacity-0 pointer-events-none" style="/* display: none; controlled by JS adding modal-active */">
         <div class="modal-content bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-lg shadow-2xl w-full max-w-md relative transform transition-all duration-300 ease-in-out scale-95 opacity-0">
             <span id="close-modal-btn" class="close absolute top-3 right-4 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 text-3xl cursor-pointer transition-colors leading-none">&times;</span>
-            <h3 class="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">Danh Sách Các Chương</h3>
+            <h3 class="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">List of Chapters</h3>
             <ul id="modal-chapter-list" class="space-y-1 max-h-80 sm:max-h-96 overflow-y-auto pr-2">
-                <li><a href="#chapter-1" data-chapter-id="chapter-1" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 1: Bản Hòa Âm Vĩnh Cửu</a></li>
-                <li><a href="#chapter-2" data-chapter-id="chapter-2" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 2: Lời Phán Từ Trời</a></li>
-                <li><a href="#chapter-3" data-chapter-id="chapter-3" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 3: Những Tia Lửa Nổi Loạn</a></li>
-                <li><a href="#chapter-4" data-chapter-id="chapter-4" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 4: Những Tạo Vật Đầu Tiên</a></li>
-                <li><a href="#chapter-5" data-chapter-id="chapter-5" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 5: Ánh Sáng Và Bóng Tối</a></li>
-                <li><a href="#chapter-6" data-chapter-id="chapter-6" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 6: Lời Thì Thầm Của Con Rắn</a></li>
-                <li><a href="#chapter-7" data-chapter-id="chapter-7" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 7: Sự Rạn Nứt</a></li>
-                <li><a href="#chapter-8" data-chapter-id="chapter-8" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 8: Sự Ra Đời Của Eve</a></li>
-                <li><a href="#chapter-9" data-chapter-id="chapter-9" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 9: Những Bóng Tối Thì Thầm</a></li>
-                <li><a href="#chapter-10" data-chapter-id="chapter-10" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 10: Hạt Giống Của Sự Phá Hủy</a></li>
-                <li><a href="#chapter-11" data-chapter-id="chapter-11" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 11: Sự Sa Ngã</a></li>
-                <li><a href="#chapter-12" data-chapter-id="chapter-12" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 12: Sự Ra Đời Đầu Tiên</a></li>
-                <li><a href="#chapter-13" data-chapter-id="chapter-13" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 13: Vết Nứt Đầu Tiên</a></li>
-                <li><a href="#chapter-14" data-chapter-id="chapter-14" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 14: Dấu Ấn Của Cain</a></li>
-                <li><a href="#chapter-15" data-chapter-id="chapter-15" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 15: Di Sản Của Cain</a></li>
-                <li><a href="#chapter-16" data-chapter-id="chapter-16" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 16: Sự Phán Xét Đầu Tiên</a></li>
-                <li><a href="#chapter-17" data-chapter-id="chapter-17" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 17: Cửa Lũ Mở Toang</a></li>
-                <li><a href="#chapter-18" data-chapter-id="chapter-18" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 18: Cuộc Chiến Ánh Sáng Vĩnh Cửu</a></li>
-                <li><a href="#chapter-19" data-chapter-id="chapter-19" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 19: Những Hạt Giống Của Sự Nổi Loạn</a></li>
-                <li><a href="#chapter-20" data-chapter-id="chapter-20" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 20: Dư Âm của Những Lựa Chọn</a></li>
-                <li><a href="#chapter-21" data-chapter-id="chapter-21" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 21: Sự Vỡ Nát của Tấm Màn</a></li>
-                <li><a href="#chapter-22" data-chapter-id="chapter-22" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 22: Bên Kia Tấm Màn</a></li>
-                <li><a href="#chapter-23" data-chapter-id="chapter-23" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 23: Sự Thật Bên Kia Tấm Màn</a></li>
-                <li><a href="#chapter-24" data-chapter-id="chapter-24" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 24: Cái Giá của Ánh Sáng</a></li>
-                <li><a href="#chapter-25" data-chapter-id="chapter-25" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 25: Phán Quyết và Sự Chia Cắt Vĩnh Viễn</a></li>
-                <li><a href="#chapter-26" data-chapter-id="chapter-26" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 26: Bình Minh Cuối Cùng</a></li>
-                <li><a href="#chapter-27" data-chapter-id="chapter-27" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 27: Ranh Giới Vĩnh Hằng</a></li>
-                <li><a href="#chapter-28" data-chapter-id="chapter-28" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chương 28: Ngã Tư Đường Vĩnh Cửu</a></li>
-                <li><a href="#epilogue" data-chapter-id="epilogue" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Khúc Vĩ Thanh: Mưa Sao Băng Linh Hồn</a></li>
+                <li><a href="#chapter-1" data-chapter-id="chapter-1" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 1: The Eternal Harmony</a></li>
+                <li><a href="#chapter-2" data-chapter-id="chapter-2" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 2: The Decree from Heaven</a></li>
+                <li><a href="#chapter-3" data-chapter-id="chapter-3" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 3: Sparks of Rebellion</a></li>
+                <li><a href="#chapter-4" data-chapter-id="chapter-4" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 4: The First Creations</a></li>
+                <li><a href="#chapter-5" data-chapter-id="chapter-5" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 5: Light and Darkness</a></li>
+                <li><a href="#chapter-6" data-chapter-id="chapter-6" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 6: The Whisper of the Serpent</a></li>
+                <li><a href="#chapter-7" data-chapter-id="chapter-7" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 7: The Fracture</a></li>
+                <li><a href="#chapter-8" data-chapter-id="chapter-8" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 8: The Birth of Eve</a></li>
+                <li><a href="#chapter-9" data-chapter-id="chapter-9" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 9: Whispers of Shadows</a></li>
+                <li><a href="#chapter-10" data-chapter-id="chapter-10" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 10: The Seed of Destruction</a></li>
+                <li><a href="#chapter-11" data-chapter-id="chapter-11" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 11: The Fall</a></li>
+                <li><a href="#chapter-12" data-chapter-id="chapter-12" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 12: The First Birth</a></li>
+                <li><a href="#chapter-13" data-chapter-id="chapter-13" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 13: The First Crack</a></li>
+                <li><a href="#chapter-14" data-chapter-id="chapter-14" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 14: The Mark of Cain</a></li>
+                <li><a href="#chapter-15" data-chapter-id="chapter-15" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 15: The Legacy of Cain</a></li>
+                <li><a href="#chapter-16" data-chapter-id="chapter-16" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 16: The First Judgment</a></li>
+                <li><a href="#chapter-17" data-chapter-id="chapter-17" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 17: The Floodgates Open</a></li>
+                <li><a href="#chapter-18" data-chapter-id="chapter-18" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 18: The Eternal Light War</a></li>
+                <li><a href="#chapter-19" data-chapter-id="chapter-19" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 19: Seeds of Rebellion</a></li>
+                <li><a href="#chapter-20" data-chapter-id="chapter-20" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 20: Echoes of Choices</a></li>
+                <li><a href="#chapter-21" data-chapter-id="chapter-21" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 21: The Shattering of the Veil</a></li>
+                <li><a href="#chapter-22" data-chapter-id="chapter-22" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 22: Beyond the Veil</a></li>
+                <li><a href="#chapter-23" data-chapter-id="chapter-23" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 23: The Truth Beyond the Veil</a></li>
+                <li><a href="#chapter-24" data-chapter-id="chapter-24" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 24: The Cost of Light</a></li>
+                <li><a href="#chapter-25" data-chapter-id="chapter-25" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 25: Judgment and Eternal Division</a></li>
+                <li><a href="#chapter-26" data-chapter-id="chapter-26" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 26: The Final Dawn</a></li>
+                <li><a href="#chapter-27" data-chapter-id="chapter-27" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 27: The Eternal Boundary</a></li>
+                <li><a href="#chapter-28" data-chapter-id="chapter-28" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 28: The Eternal Crossroads</a></li>
+                <li><a href="#epilogue" data-chapter-id="epilogue" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Epilogue: The Meteor Shower of Souls</a></li>
             </ul>
         </div>
     </div>
@@ -954,41 +929,38 @@
     <footer id="footer" class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 transition-colors duration-300 ease-in-out">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
             <div class="footer-links mb-6 space-x-2 sm:space-x-4">
-                <a href="readnovel.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Về Danh Sách</a>
-                <a href="#navbar" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Lên Đầu Trang</a>
-                <a href="legnaxe_part1_en.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">English Version</a>
-                <a href="author-about.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Về Tác Giả</a>
+                <a href="readnovel.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Back to List</a>
+                <a href="#navbar" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Top</a>
+                <a href="legnaxe_part1_vi.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Tiếng Việt</a>
+                <a href="author-about.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">About Author</a>
             </div>
             <p class="text-sm text-gray-500 dark:text-gray-400">© <span id="current-year">2025</span> LEGNAXE. All rights reserved. Author: Nguyen Minh Triet</p>
-            <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">Một sản phẩm của IVS JSC. Website: <a href="https://ivs.id.vn" target="_blank" rel="noopener noreferrer" class="hover:underline">ivs.id.vn</a></p>
+            <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">A product of IVS JSC. Website: <a href="https://ivs.id.vn" target="_blank" rel="noopener noreferrer" class="hover:underline">ivs.id.vn</a></p>
         </div>
     </footer>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Sử dụng Array.from để đảm bảo chapters là một mảng thực sự
         const chapters = Array.from(document.querySelectorAll('.chapter'));
         let currentChapterIndex = 0;
 
-        // Lấy các nút điều khiển từ DOM, sử dụng ID từ template mới
         const prevButton = document.getElementById('prev-chapter-btn');
         const nextButton = document.getElementById('next-chapter-btn');
-        const listChapterButton = document.getElementById('list-chapter-btn'); // ID nút mở modal
+        const listChapterButton = document.getElementById('list-chapter-btn');
 
         const chapterModal = document.getElementById('chapter-modal');
-        const closeModalButton = document.getElementById('close-modal-btn'); // ID nút đóng modal
-        // Sử dụng class chung cho các link chương trong modal
+        const closeModalButton = document.getElementById('close-modal-btn');
         const modalChapterLinks = document.querySelectorAll('.modal-chapter-link');
 
         const themeToggle = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement; // Áp dụng class 'dark' cho thẻ <html>
-        const bodyElement = document.body; // Để kiểm soát overflow khi modal mở
+        const htmlElement = document.documentElement;
+        const bodyElement = document.body;
         const themeIcon = themeToggle ? themeToggle.querySelector('i') : null;
         const currentYearSpan = document.getElementById('current-year');
 
         function showChapter(index, isInitialLoad = false) {
             if (index < 0 || index >= chapters.length) {
-                console.warn("Chỉ số chương không hợp lệ:", index);
+                console.warn("Invalid chapter index:", index);
                 return;
             }
 
@@ -1005,7 +977,6 @@
                 const storyContentWrapper = document.querySelector('.story-content-wrapper');
                 if (storyContentWrapper) {
                     const navbarHeight = document.getElementById('navbar')?.offsetHeight || 0;
-                    // Cuộn đến đầu của .story-content-wrapper, trừ đi chiều cao navbar và một chút offset
                     window.scrollTo({
                         top: storyContentWrapper.offsetTop - navbarHeight - 20,
                         behavior: 'smooth'
@@ -1015,30 +986,28 @@
                 }
             }
 
-            // Cập nhật hash trên URL, chỉ khi không phải tải lần đầu để tránh nhảy trang không cần thiết
             if (chapters[currentChapterIndex] && !isInitialLoad) {
                 window.location.hash = chapters[currentChapterIndex].id;
             }
         }
         
         function showChapterFromHash(isInitialLoad = false) {
-            const hash = window.location.hash.substring(1); // Bỏ dấu '#'
+            const hash = window.location.hash.substring(1);
             if (hash) {
                 const targetIndex = chapters.findIndex(chap => chap.id === hash);
                 if (targetIndex !== -1) {
                     showChapter(targetIndex, isInitialLoad);
-                    // Nếu tải lần đầu và có hash, cuộn tới chương đó sau khi hiển thị
                     if (isInitialLoad) {
-                        setTimeout(() => { // Đảm bảo chapter đã active và DOM cập nhật
-                             const targetElement = document.getElementById(hash);
-                             if(targetElement) {
+                        setTimeout(() => { 
+                            const targetElement = document.getElementById(hash);
+                            if(targetElement) {
                                 const navbarHeight = document.getElementById('navbar')?.offsetHeight || 0;
                                 window.scrollTo({
-                                    top: targetElement.offsetTop - navbarHeight - 20, // Điều chỉnh offset nếu cần
-                                    behavior: 'auto' // 'auto' cho lần tải đầu để không bị hiệu ứng cuộn chồng chéo
+                                    top: targetElement.offsetTop - navbarHeight - 20, 
+                                    behavior: 'auto' 
                                 });
-                             }
-                        }, 100); // Delay nhỏ
+                            }
+                        }, 100); 
                     }
                     return true; 
                 }
@@ -1046,7 +1015,6 @@
             return false; 
         }
 
-        // Gán sự kiện cho các nút chuyển chương
         if (prevButton) {
             prevButton.addEventListener('click', () => {
                 if (currentChapterIndex > 0) {
@@ -1063,14 +1031,13 @@
             });
         }
 
-        // Logic cho Modal danh sách chương
         if (listChapterButton && chapterModal) {
             listChapterButton.addEventListener('click', () => {
                 chapterModal.style.display = 'flex';
                 setTimeout(() => { 
                     chapterModal.classList.add('modal-active');
                 }, 10); 
-                bodyElement.style.overflow = 'hidden'; // Ngăn cuộn nền
+                bodyElement.style.overflow = 'hidden';
             });
         }
 
@@ -1081,8 +1048,8 @@
                     if (!chapterModal.classList.contains('modal-active')) {
                          chapterModal.style.display = 'none';
                     }
-                }, 300); // Khớp với thời gian transition CSS
-                 bodyElement.style.overflow = ''; // Khôi phục cuộn nền
+                }, 300); 
+                bodyElement.style.overflow = '';
             }
         }
 
@@ -1090,7 +1057,7 @@
             closeModalButton.addEventListener('click', closeModal);
         }
 
-        if (chapterModal) { // Đóng modal khi click vào vùng nền (backdrop)
+        if (chapterModal) { 
             chapterModal.addEventListener('click', (event) => {
                 if (event.target === chapterModal) {
                     closeModal();
@@ -1101,7 +1068,6 @@
         modalChapterLinks.forEach(link => {
             link.addEventListener('click', (event) => {
                 event.preventDefault();
-                // Lấy ID chương từ href hoặc data-attribute
                 const chapterId = link.getAttribute('href')?.substring(1) || link.dataset.chapterId;
                 if (!chapterId) return;
 
@@ -1113,7 +1079,6 @@
             });
         });
 
-        // Logic chuyển đổi Theme (Sáng/Tối)
         function applyTheme(isDark) {
             htmlElement.classList.toggle('dark', isDark);
             if (themeIcon) {
@@ -1127,7 +1092,7 @@
         const savedTheme = localStorage.getItem('theme');
         let currentIsDarkMode = savedTheme === 'dark' || (savedTheme === null && prefersDarkScheme);
         
-        applyTheme(currentIsDarkMode); // Áp dụng theme ban đầu
+        applyTheme(currentIsDarkMode);
 
         if (themeToggle) {
             themeToggle.addEventListener('click', () => {
@@ -1136,23 +1101,20 @@
             });
         }
 
-        // Tải chương ban đầu (ưu tiên hash, sau đó là chương đầu tiên)
         if (chapters.length > 0) {
             if (!showChapterFromHash(true)) { 
                 showChapter(0, true); 
             }
-        } else { // Không có chương nào
+        } else { 
             if (prevButton) prevButton.disabled = true;
             if (nextButton) nextButton.disabled = true;
             if (listChapterButton) listChapterButton.disabled = true;
         }
         
-        // Cập nhật năm ở footer
         if (currentYearSpan) {
             currentYearSpan.textContent = new Date().getFullYear();
         }
 
-        // Xử lý thay đổi hash (ví dụ: nút back/forward của trình duyệt)
         window.addEventListener('hashchange', () => showChapterFromHash(false));
 
     });
