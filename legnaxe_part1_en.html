@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html lang="en"> <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LEGNAXE: The Secret of Great Heaven War - ENGLISH</title>
     <meta name="description" content="LEGNAXE Part 1: The Secret of Great Heaven War - ENGLISH. Explore the origins of the conflict between angels, the creation of humankind, and fateful choices.">
     <meta property="og:title" content="LEGNAXE: The Secret of Great Heaven War - ENGLISH (Part 1)">
     <meta property="og:description" content="Read LEGNAXE Part 1, and discover the events leading to the great war in Heaven.">
-    <meta property="og:image" content="images/pages/novels/legnaxe1.png"> <meta property="og:url" content="https://ivs.id.vn/legnaxe_part1_en.html"> <meta property="og:type" content="article">
-    <meta property="article:section" content="Long Story"> <meta property="article:author" content="Nguyen Minh Triet">
+    <meta property="og:image" content="images/pages/novels/legnaxe1.png">
+    <meta property="og:url" content="https://ivs.id.vn/legnaxe_part1_en.html">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Long Story">
+    <meta property="article:author" content="Nguyen Minh Triet">
 
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,6 +21,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        // Tailwind config - kept consistent with VI version
         tailwind.config = {
             theme: {
                 extend: {
@@ -32,6 +37,7 @@
                         'gray-900': '#111827', 'red-400': '#f87171', 'red-600': '#dc2626',
                         'neutral-800': '#1f2937', 'neutral-900': '#111827',
                         'white': '#ffffff', 'black': '#000000',
+                        'purple-accent': '#8b5cf6',
                     },
                     animation: { 'slide-up': 'slideUp 0.5s ease-out', },
                     keyframes: { slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } }, },
@@ -42,12 +48,13 @@
         }
     </script>
     <style>
+        /* Styles consistent with previous versions */
         .chapter { transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; opacity: 0; transform: translateY(15px); display: none; }
         .chapter.active { opacity: 1; transform: translateY(0); display: block; }
         html { scroll-behavior: smooth; }
-        #chapter-modal { transition: opacity 0.3s ease-in-out; display: none; }
+        #chapter-modal { transition: opacity 0.3s ease-in-out; display: none; /* Hidden by default, shown by JS */ }
         #chapter-modal .modal-content { transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; transform: scale(0.95); opacity: 0; }
-        #chapter-modal.modal-active { opacity: 1 !important; pointer-events: auto; display: flex; }
+        #chapter-modal.modal-active { opacity: 1 !important; pointer-events: auto; display: flex; /* Flex to center */ }
         #chapter-modal.modal-active .modal-content { transform: scale(1); opacity: 1; }
         .dark body::-webkit-scrollbar { width: 10px; }
         .dark body::-webkit-scrollbar-track { background: #111827; }
@@ -57,30 +64,28 @@
         .dark #chapter-modal .modal-content ul::-webkit-scrollbar-track { background: #1f2937; }
         .dark #chapter-modal .modal-content ul::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
         .dark #chapter-modal .modal-content ul::-webkit-scrollbar-thumb:hover { background: #6b7280; }
-        .prose { max-width: none; }
-        .prose p { margin-bottom: 1rem; line-height: 1.75; text-align: justify; }
-        .prose strong { font-weight: 600; }
-        .prose h4 { font-size: 1.125rem; font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.5rem; color: #374151; }
-        .dark .dark\:prose-invert p { color: #d1d5db; }
-        .dark .dark\:prose-invert strong { color: #fff; }
-        .dark .dark\:prose-invert h4 { color: #d1d5db; }
-        .chapter > h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            margin-top: 1rem;
-            color: #1f2937;
-            border-bottom: 1px solid #e5e7eb;
-            padding-bottom: 0.75rem;
+        .prose { @apply max-w-none; }
+        .prose p { @apply mb-4 leading-relaxed text-justify; }
+        .prose strong { @apply font-semibold; }
+        .prose h4 { @apply text-lg font-semibold mt-5 mb-2 text-gray-700 dark:text-gray-300; }
+        .dark .dark\:prose-invert p { @apply text-gray-300; }
+        .dark .dark\:prose-invert strong { @apply text-white; }
+        .dark .dark\:prose-invert h4 { @apply text-gray-300; }
+        .chapter > h3 { @apply text-2xl sm:text-3xl font-semibold mb-6 mt-4 text-gray-800 dark:text-gray-100 border-b pb-3 border-gray-200 dark:border-gray-700; }
+        /* Style for Scroll-to-Top Button */
+        #scroll-to-top-btn {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            pointer-events: auto; /* Ensure button is clickable by default */
         }
-        @media (min-width: 640px) {
-            .chapter > h3 { font-size: 1.875rem; }
+        #scroll-to-top-btn.hidden {
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none; /* Disable clicks ONLY when hidden */
         }
-        .dark .chapter > h3 { color: #f3f4f6; border-bottom: 1px solid #374151; }
-        .prose h4.dark\:text-gray-300, .dark .prose h4 { color: #d1d5db; }
+        body { @apply bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 ease-in-out font-sans antialiased; }
     </style>
 </head>
-<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 ease-in-out font-sans antialiased">
+<body>
     <header id="navbar" class="bg-gray-50 dark:bg-gray-800 shadow-lg sticky top-0 z-50 transition-colors duration-300 ease-in-out">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
             <div class="logo">
@@ -881,27 +886,31 @@
                      <p>The Soul Meteor Shower, carrying Healiangel and other nameless angels, began to rain down upon the blue planet, where humanity, unaware, was about to receive unexpected guests – seeds of a new era, where amnesiac angels would have to relearn the lesson of being human in the "earthly school."</p>
                      <p><strong>End of Part 1</strong></p>
                  </div>
-            </div>
+            </div>     
         </div>
 
         <div class="navigation flex flex-col sm:flex-row justify-between items-center mt-10 mb-6 space-y-4 sm:space-y-0">
-            <button id="list-chapter-btn" class="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center">
-               <i class="fas fa-list-ul mr-2"></i>List of Chapters
-           </button>
-           <button id="prev-chapter-btn" class="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center" disabled>
-               <i class="fas fa-arrow-left mr-2"></i>Previous Chapter
-           </button>
-           <button id="next-chapter-btn" class="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center">
-               Next Chapter<i class="fas fa-arrow-right ml-2"></i>
-           </button>
-       </div>
-   </main>
+             <button id="list-chapter-btn" class="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center">
+                <i class="fas fa-list-ul mr-2"></i>List of Chapters
+            </button>
+            <button id="prev-chapter-btn" class="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center" disabled>
+                <i class="fas fa-arrow-left mr-2"></i>Previous Chapter
+            </button>
+            <button id="next-chapter-btn" class="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center">
+                Next Chapter<i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+    </main>
 
-<div id="chapter-modal" class="modal fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-75 flex items-center justify-center p-4 transition-opacity duration-300 ease-in-out opacity-0 pointer-events-none">
-     <div class="modal-content bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-lg shadow-2xl w-full max-w-md relative transform transition-all duration-300 ease-in-out scale-95 opacity-0">
-          <span id="close-modal-btn" class="close absolute top-3 right-4 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 text-3xl cursor-pointer transition-colors leading-none">&times;</span>
-          <h3 class="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">List of Chapters</h3>
-          <ul id="modal-chapter-list" class="space-y-1 max-h-80 sm:max-h-96 overflow-y-auto pr-2">
+    <button id="scroll-to-top-btn" title="Go to top" class="hidden fixed bottom-5 right-5 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 z-50 transition-opacity duration-300 ease-in-out">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <div id="chapter-modal" class="modal fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-75 flex items-center justify-center p-4 transition-opacity duration-300 ease-in-out opacity-0 pointer-events-none">
+        <div class="modal-content bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-lg shadow-2xl w-full max-w-md relative transform transition-all duration-300 ease-in-out scale-95 opacity-0">
+            <span id="close-modal-btn" class="close absolute top-3 right-4 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 text-3xl cursor-pointer transition-colors leading-none">&times;</span>
+            <h3 class="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">List of Chapters</h3>
+            <ul id="modal-chapter-list" class="space-y-1 max-h-80 sm:max-h-96 overflow-y-auto pr-2">
                 <li><a href="#chapter-1" data-chapter-id="chapter-1" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 1: The Eternal Harmony</a></li>
                 <li><a href="#chapter-2" data-chapter-id="chapter-2" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 2: The Decree from Heaven</a></li>
                 <li><a href="#chapter-3" data-chapter-id="chapter-3" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 3: Sparks of Rebellion</a></li>
@@ -933,246 +942,236 @@
                 <li><a href="#chapter-29" data-chapter-id="chapter-29" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 29: Whispers of Withdrawal</a></li>
                 <li><a href="#chapter-30" data-chapter-id="chapter-30" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chapter 30: The Unspoken Question</a></li>
                 <li><a href="#epilogue" data-chapter-id="epilogue" class="modal-chapter-link block p-3 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Epilogue: The Soul Meteor Shower</a></li>
-          </ul>
-     </div>
-</div>
+            </ul>
+        </div>
+    </div>
 
-   <footer id="footer" class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 transition-colors duration-300 ease-in-out">
-       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
-           <div class="footer-links mb-6 space-x-2 sm:space-x-4">          
-               <a href="legnaxe_part1_vi.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Tiếng Việt</a>
-               <a href="author-about.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">About Author</a>
-           </div>
-           <p class="text-sm text-gray-500 dark:text-gray-400">© <span id="current-year">2025</span> LEGNAXE. All rights reserved. Author: Nguyen Minh Triet</p>
-            <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">A product of IVS JSC. Website: <a href="https://ivs.id.vn" target="_blank" rel="noopener noreferrer" class="hover:underline">ivs.id.vn</a></p>
-       </div>
-   </footer>
+    <footer id="footer" class="bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 transition-colors duration-300 ease-in-out">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+            <div class="footer-links mb-6 space-x-2 sm:space-x-4">
+                 <a href="readnovel.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Back to List</a>
+                <a href="#navbar" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Top</a>
+                <a href="legnaxe_part1_vi.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">Tiếng Việt</a>
+                <a href="author-about.html" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm sm:text-base transition-colors">About Author</a>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-gray-400">© <span id="current-year">2025</span> LEGNAXE. All rights reserved. Author: Nguyen Minh Triet</p>
+             <p class="text-xs text-gray-400 dark:text-gray-500 mt-2">A product of IVS JSC. Website: <a href="https://ivs.id.vn" target="_blank" rel="noopener noreferrer" class="hover:underline">ivs.id.vn</a></p>
+        </div>
+    </footer>
 
-<div class="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-3">
- <a href="https://zalo.me/ivsjsc" target="_blank" rel="noopener noreferrer"
-     class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500 text-white shadow-lg hover:bg-blue-600 transition-colors duration-200"
-     aria-label="Chat on Zalo OA">
-      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50" fill="currentColor"></svg>
-             <path d="M 9 4 C 6.2504839 4 4 6.2504839 4 9 L 4 41 C 4 43.749516 6.2504839 46 9 46 L 41 46 C 43.749516 46 46 43.749516 46 41 L 46 9 C 46 6.2504839 43.749516 4 41 4 L 9 4 z M 9 6 L 15.580078 6 C 12.00899 9.7156859 10 14.518083 10 19.5 C 10 24.66 12.110156 29.599844 15.910156 33.339844 C 16.030156 33.549844 16.129922 34.579531 15.669922 35.769531 C 15.379922 36.519531 14.799687 37.499141 13.679688 37.869141 C 13.249688 38.009141 12.97 38.430859 13 38.880859 C 13.03 39.330859 13.360781 39.710781 13.800781 39.800781 C 16.670781 40.370781 18.529297 39.510078 20.029297 38.830078 C 21.379297 38.210078 22.270625 37.789609 23.640625 38.349609 C 26.440625 39.439609 29.42 40 32.5 40 C 36.593685 40 40.531459 39.000731 44 37.113281 L 44 41 C 44 42.668484 42.668484 44 41 44 L 9 44 C 7.3315161 44 6 42.668484 6 41 L 6 9 C 6 7.3315161 7.3315161 6 9 6 z M 33 15 C 33.55 15 34 15.45 34 16 L 34 25 C 34 25.55 33.55 26 33 26 C 32.45 26 32 25.55 32 25 L 32 16 C 32 15.45 32.45 15 33 15 z M 18 16 L 23 16 C 23.36 16 23.700859 16.199531 23.880859 16.519531 C 24.050859 16.829531 24.039609 17.219297 23.849609 17.529297 L 19.800781 24 L 23 24 C 23.55 24 24 24.45 24 25 C 24 25.55 23.55 26 23 26 L 18 26 C 17.64 26 17.299141 25.800469 17.119141 25.480469 C 16.949141 25.170469 16.960391 24.780703 17.150391 24.470703 L 21.199219 18 L 18 18 C 17.45 18 17 17.55 17 17 C 17 16.45 17.45 16 18 16 z M 27.5 19 C 28.11 19 28.679453 19.169219 29.189453 19.449219 C 29.369453 19.189219 29.65 19 30 19 C 30.55 19 31 19.45 31 20 L 31 25 C 31 25.55 30.55 26 30 26 C 29.65 26 29.369453 25.810781 29.189453 25.550781 C 28.679453 25.830781 28.11 26 27.5 26 C 25.57 26 24 24.43 24 22.5 C 24 20.57 25.57 19 27.5 19 z M 38.5 19 C 40.43 19 42 20.57 42 22.5 C 42 24.43 40.43 26 38.5 26 C 36.57 26 35 24.43 35 22.5 C 35 20.57 36.57 19 38.5 19 z M 27.5 21 C 27.39625 21 27.29502 21.011309 27.197266 21.03125 C 27.001758 21.071133 26.819727 21.148164 26.660156 21.255859 C 26.500586 21.363555 26.363555 21.500586 26.255859 21.660156 C 26.148164 21.819727 26.071133 22.001758 26.03125 22.197266 C 26.011309 22.29502 26 22.39625 26 22.5 C 26 22.60375 26.011309 22.70498 26.03125 22.802734 C 26.051191 22.900488 26.079297 22.994219 26.117188 23.083984 C 26.155078 23.17375 26.202012 23.260059 26.255859 23.339844 C 26.309707 23.419629 26.371641 23.492734 26.439453 23.560547 C 26.507266 23.628359 26.580371 23.690293 26.660156 23.744141 C 26.819727 23.851836 27.001758 23.928867 27.197266 23.96875 C 27.29502 23.988691 27.39625 24 27.5 24 C 27.60375 24 27.70498 23.988691 27.802734 23.96875 C 28.487012 23.82916 29 23.22625 29 22.5 C 29 21.67 28.33 21 27.5 21 z M 38.5 21 C 38.39625 21 38.29502 21.011309 38.197266 21.03125 C 38.099512 21.051191 38.005781 21.079297 37.916016 21.117188 C 37.82625 21.155078 37.739941 21.202012 37.660156 21.255859 C 37.580371 21.309707 37.507266 21.371641 37.439453 21.439453 C 37.303828 21.575078 37.192969 21.736484 37.117188 21.916016 C 37.079297 22.005781 37.051191 22.099512 37.03125 22.197266 C 37.011309 22.29502 37 22.39625 37 22.5 C 37 22.60375 37.011309 22.70498 37.03125 22.802734 C 37.051191 22.900488 37.079297 22.994219 37.117188 23.083984 C 37.155078 23.17375 37.202012 23.260059 37.255859 23.339844 C 37.309707 23.419629 37.371641 23.492734 37.439453 23.560547 C 37.507266 23.628359 37.580371 23.690293 37.660156 23.744141 C 37.739941 23.797988 37.82625 23.844922 37.916016 23.882812 C 38.005781 23.920703 38.099512 23.948809 38.197266 23.96875 C 38.29502 23.988691 38.39625 24 38.5 24 C 38.60375 24 38.70498 23.988691 38.802734 23.96875 C 39.487012 23.82916 40 23.22625 40 22.5 C 40 21.67 39.33 21 38.5 21 z"></path>
-      </svg>
- </a>     
- <button id="scrollToTopBtn"
-            class="flex items-center justify-center w-12 h-12 rounded-full bg-gray-700 text-white shadow-lg hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900"
-            aria-label="Scroll to top">
-      <i class="fas fa-arrow-up text-xl" aria-hidden="true"></i>
- </button>
-</div>
+    <button id="scroll-to-top-btn" title="Go to top" class="hidden fixed bottom-5 right-5 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 z-50 transition-opacity duration-300 ease-in-out">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
-   <script>
-   // Corrected and standardized JavaScript logic
-   document.addEventListener('DOMContentLoaded', () => {
-       const chapters = Array.from(document.querySelectorAll('.chapter'));
-       let currentChapterIndex = 0; // Will be updated based on active class
+    <script>
+    // Corrected and standardized JavaScript logic
+    document.addEventListener('DOMContentLoaded', function() {
+        const chapters = Array.from(document.querySelectorAll('.chapter'));
+        let currentChapterIndex = 0;
 
-       const prevButton = document.getElementById('prev-chapter-btn');
-       const nextButton = document.getElementById('next-chapter-btn');
-       const listChapterButton = document.getElementById('list-chapter-btn');
+        const prevButton = document.getElementById('prev-chapter-btn');
+        const nextButton = document.getElementById('next-chapter-btn');
+        const listChapterButton = document.getElementById('list-chapter-btn');
+        const scrollToTopBtn = document.getElementById('scroll-to-top-btn');
 
-       const chapterModal = document.getElementById('chapter-modal');
-       const closeModalButton = document.getElementById('close-modal-btn');
-       const modalChapterLinks = document.querySelectorAll('.modal-chapter-link');
+        const chapterModal = document.getElementById('chapter-modal');
+        const closeModalButton = document.getElementById('close-modal-btn');
+        const modalChapterLinks = document.querySelectorAll('.modal-chapter-link');
 
-       const themeToggle = document.getElementById('theme-toggle');
-       const htmlElement = document.documentElement;
-       const bodyElement = document.body;
-       const themeIcon = themeToggle ? themeToggle.querySelector('i') : null;
-       const currentYearSpan = document.getElementById('current-year');
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const bodyElement = document.body;
+        const themeIcon = themeToggle ? themeToggle.querySelector('i') : null;
+        const currentYearSpan = document.getElementById('current-year');
 
-       function showChapter(index, isInitialLoad = false) {
-           // Validate index
-           if (index < 0 || index >= chapters.length) {
-               console.warn("Invalid chapter index:", index);
-                // If invalid index on load, try showing the first available chapter
-                if (isInitialLoad && chapters.length > 0) {
-                   index = 0;
+        function showChapter(index, isInitialLoad = false) {
+            if (index < 0 || index >= chapters.length) {
+                console.warn("Invalid chapter index:", index);
+                 if (isInitialLoad && chapters.length > 0) { index = 0; }
+                 else { return; }
+            }
+
+            chapters.forEach((chapter, i) => {
+                chapter.classList.toggle('active', i === index);
+            });
+
+            if (prevButton) prevButton.disabled = index === 0;
+            if (nextButton) nextButton.disabled = index === chapters.length - 1;
+
+            currentChapterIndex = index;
+
+            if (!isInitialLoad) {
+                const storyContentWrapper = document.querySelector('.story-content-wrapper');
+                if (storyContentWrapper) {
+                    const navbarHeight = document.getElementById('navbar')?.offsetHeight || 0;
+                    window.scrollTo({
+                        top: storyContentWrapper.offsetTop - navbarHeight - 20,
+                        behavior: 'smooth'
+                    });
                 } else {
-                    return; // Do nothing if invalid index during navigation
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
-           }
+            }
 
-           chapters.forEach((chapter, i) => {
-               // Set active class only for the target index
-               chapter.classList.toggle('active', i === index);
-           });
+            if (chapters[currentChapterIndex] && !isInitialLoad) {
+                 if (window.location.hash !== `#${chapters[currentChapterIndex].id}`) {
+                     history.pushState(null, null, `#${chapters[currentChapterIndex].id}`);
+                 }
+            }
+        }
 
-           // Update button states based on the new index
-           if (prevButton) prevButton.disabled = index === 0;
-           if (nextButton) nextButton.disabled = index === chapters.length - 1;
-
-           // Update the current index tracker
-           currentChapterIndex = index;
-
-           // Scroll to the top of the chapter content, only if not the initial load
-           if (!isInitialLoad) {
-               const storyContentWrapper = document.querySelector('.story-content-wrapper');
-               if (storyContentWrapper) {
-                   const navbarHeight = document.getElementById('navbar')?.offsetHeight || 0;
-                   window.scrollTo({
-                       top: storyContentWrapper.offsetTop - navbarHeight - 20,
-                       behavior: 'smooth'
-                   });
-               } else {
-                   window.scrollTo({ top: 0, behavior: 'smooth' });
-               }
-           }
-
-           // Update URL hash using pushState for better navigation history
-           if (chapters[currentChapterIndex] && !isInitialLoad) {
-                if (window.location.hash !== `#${chapters[currentChapterIndex].id}`) {
-                    history.pushState(null, null, `#${chapters[currentChapterIndex].id}`);
+        function showChapterFromHash(isInitialLoad = false) {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                const targetIndex = chapters.findIndex(chap => chap.id === hash);
+                if (targetIndex !== -1) {
+                    showChapter(targetIndex, isInitialLoad);
+                     if (isInitialLoad) {
+                        setTimeout(() => {
+                            const targetElement = document.getElementById(hash);
+                            if(targetElement) {
+                                const navbarHeight = document.getElementById('navbar')?.offsetHeight || 0;
+                                const elementTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                                window.scrollTo({
+                                    top: elementTop - navbarHeight - 20,
+                                    behavior: 'auto'
+                                });
+                            }
+                        }, 50);
+                    }
+                    return true;
                 }
-           }
-       }
+            }
+             if (isInitialLoad && chapters.length > 0) {
+                showChapter(0, true); // Default to the first chapter in the HTML
+                window.scrollTo({ top: 0, behavior: 'auto' });
+             }
+            return false;
+        }
 
-       // Function to find and show chapter based on URL hash
-       function showChapterFromHash(isInitialLoad = false) {
-           const hash = window.location.hash.substring(1);
-           if (hash) {
-               const targetIndex = chapters.findIndex(chap => chap.id === hash);
-               // If a valid chapter index is found from hash
-               if (targetIndex !== -1) {
-                   showChapter(targetIndex, isInitialLoad);
-                    // Scroll to the element after a short delay on initial load
-                    if (isInitialLoad) {
-                       setTimeout(() => {
-                           const targetElement = document.getElementById(hash);
-                           if(targetElement) {
-                               const navbarHeight = document.getElementById('navbar')?.offsetHeight || 0;
-                               const elementTop = targetElement.getBoundingClientRect().top + window.pageYOffset;
-                               window.scrollTo({
-                                   top: elementTop - navbarHeight - 20,
-                                   behavior: 'auto' // Use 'auto' for immediate jump
-                               });
-                           }
-                       }, 50); // Delay allows layout to settle
-                   }
-                   return true; // Indicate success
-               }
-           }
-           return false; // Indicate no chapter found from hash
-       }
-
-       // --- Initialize ---
-       // Find the initially active chapter based on class (if any) or default to first
-       let initialIndex = chapters.findIndex(chap => chap.classList.contains('active'));
-       if (initialIndex === -1 && chapters.length > 0) {
-           initialIndex = 0; // Default to the first chapter if none are active
-       }
-
-       // Try loading from hash first, if it fails, load the initialIndex
-       if (!showChapterFromHash(true)) {
-           if (initialIndex !== -1) {
-                showChapter(initialIndex, true); // Show the determined initial chapter
-           } else {
-                // Handle case where there are no chapters at all
-                if (prevButton) prevButton.disabled = true;
-                if (nextButton) nextButton.disabled = true;
-                if (listChapterButton) listChapterButton.disabled = true;
-           }
-       }
+        let initialActiveChapterIndex = chapters.findIndex(chap => chap.classList.contains('active'));
+        if (initialActiveChapterIndex === -1 && chapters.length > 0) {
+            chapters[0].classList.add('active'); // Make the first chapter div active by default
+            initialActiveChapterIndex = 0;
+        }
+        
+        if (!showChapterFromHash(true) && initialActiveChapterIndex !== -1) {
+            showChapter(initialActiveChapterIndex, true);
+        } else if (chapters.length === 0) {
+            if (prevButton) prevButton.disabled = true;
+            if (nextButton) nextButton.disabled = true;
+            if (listChapterButton) listChapterButton.disabled = true;
+        }
 
 
-       // --- Event Listeners ---
-       if (prevButton) {
-           prevButton.addEventListener('click', () => {
-               if (currentChapterIndex > 0) {
-                   showChapter(currentChapterIndex - 1);
-               }
-           });
-       }
+        if (prevButton) {
+            prevButton.addEventListener('click', () => {
+                if (currentChapterIndex > 0) {
+                    showChapter(currentChapterIndex - 1);
+                }
+            });
+        }
 
-       if (nextButton) {
-           nextButton.addEventListener('click', () => {
-               if (currentChapterIndex < chapters.length - 1) {
-                   showChapter(currentChapterIndex + 1);
-               }
-           });
-       }
+        if (nextButton) {
+            nextButton.addEventListener('click', () => {
+                if (currentChapterIndex < chapters.length - 1) {
+                    showChapter(currentChapterIndex + 1);
+                }
+            });
+        }
 
-       if (listChapterButton && chapterModal) {
-           listChapterButton.addEventListener('click', () => {
-               chapterModal.style.display = 'flex';
-               setTimeout(() => {
-                   chapterModal.classList.add('modal-active');
-               }, 10);
-               bodyElement.style.overflow = 'hidden';
-           });
-       }
+        if (listChapterButton && chapterModal) {
+            listChapterButton.addEventListener('click', () => {
+                chapterModal.style.display = 'flex';
+                setTimeout(() => {
+                    chapterModal.classList.add('modal-active');
+                }, 10);
+                bodyElement.style.overflow = 'hidden';
+            });
+        }
 
-       function closeModal() {
-           if (chapterModal) {
-               chapterModal.classList.remove('modal-active');
-               setTimeout(() => {
-                   if (!chapterModal.classList.contains('modal-active')) {
-                        chapterModal.style.display = 'none';
-                   }
-               }, 300);
-               bodyElement.style.overflow = '';
-           }
-       }
+        function closeModal() {
+            if (chapterModal) {
+                chapterModal.classList.remove('modal-active');
+                setTimeout(() => {
+                    if (!chapterModal.classList.contains('modal-active')) {
+                         chapterModal.style.display = 'none';
+                    }
+                }, 300);
+                bodyElement.style.overflow = '';
+            }
+        }
 
-       if (closeModalButton) {
-           closeModalButton.addEventListener('click', closeModal);
-       }
+        if (closeModalButton) {
+            closeModalButton.addEventListener('click', closeModal);
+        }
 
-       if (chapterModal) {
-           chapterModal.addEventListener('click', (event) => {
-               if (event.target === chapterModal) {
-                   closeModal();
-               }
-           });
-       }
+        if (chapterModal) {
+            chapterModal.addEventListener('click', (event) => {
+                if (event.target === chapterModal) {
+                    closeModal();
+                }
+            });
+        }
 
-       modalChapterLinks.forEach(link => {
-           link.addEventListener('click', (event) => {
-               event.preventDefault();
-               const chapterId = link.getAttribute('href')?.substring(1) || link.dataset.chapterId;
-               if (!chapterId) return;
+        modalChapterLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const chapterId = link.getAttribute('href')?.substring(1) || link.dataset.chapterId;
+                if (!chapterId) return;
 
-               const targetIndex = chapters.findIndex(chap => chap.id === chapterId);
-               if (targetIndex !== -1) {
-                   showChapter(targetIndex);
-               }
-               closeModal();
-           });
-       });
+                const targetIndex = chapters.findIndex(chap => chap.id === chapterId);
+                if (targetIndex !== -1) {
+                    showChapter(targetIndex);
+                }
+                closeModal();
+            });
+        });
 
-       function applyTheme(isDark) {
-           htmlElement.classList.toggle('dark', isDark);
-           if (themeIcon) {
-               themeIcon.classList.toggle('fa-moon', !isDark);
-               themeIcon.classList.toggle('fa-sun', isDark);
-           }
-           localStorage.setItem('theme', isDark ? 'dark' : 'light');
-       }
+        function applyTheme(isDark) {
+            htmlElement.classList.toggle('dark', isDark);
+            if (themeIcon) {
+                themeIcon.classList.toggle('fa-moon', !isDark);
+                themeIcon.classList.toggle('fa-sun', isDark);
+            }
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
 
-       const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
-       const savedTheme = localStorage.getItem('theme');
-       let currentIsDarkMode = savedTheme === 'dark' || (savedTheme === null && prefersDarkScheme);
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('theme');
+        let currentIsDarkMode = savedTheme === 'dark' || (savedTheme === null && prefersDarkScheme);
 
-       applyTheme(currentIsDarkMode);
+        applyTheme(currentIsDarkMode);
 
-       if (themeToggle) {
-           themeToggle.addEventListener('click', () => {
-               currentIsDarkMode = !htmlElement.classList.contains('dark');
-               applyTheme(currentIsDarkMode);
-           });
-       }
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                currentIsDarkMode = !htmlElement.classList.contains('dark');
+                applyTheme(currentIsDarkMode);
+            });
+        }
 
-       // Update footer year
-       if (currentYearSpan) {
-           currentYearSpan.textContent = new Date().getFullYear();
-       }
+        if (scrollToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.remove('hidden');
+                } else {
+                    scrollToTopBtn.classList.add('hidden');
+                }
+            });
 
-       // Handle browser back/forward navigation for chapters
-       window.addEventListener('hashchange', () => showChapterFromHash(false));
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
 
-   });
-   </script>
+
+        if (currentYearSpan) {
+            currentYearSpan.textContent = new Date().getFullYear();
+        }
+
+        window.addEventListener('hashchange', () => showChapterFromHash(false));
+
+    });
+    </script>
 </body>
 </html>
