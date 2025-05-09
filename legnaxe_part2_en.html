@@ -1155,10 +1155,6 @@
         </div>
     </footer>
 
-    <button id="scroll-to-top-btn" title="Go to top" class="hidden fixed bottom-5 right-5 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 z-50 transition-opacity duration-300 ease-in-out">
-        <i class="fas fa-arrow-up"></i>
-    </button>
-
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const chapters = Array.from(document.querySelectorAll('.chapter'));
@@ -1331,40 +1327,6 @@
         // Handle hash changes (e.g. browser back/forward buttons)
         window.addEventListener('hashchange', () => showChapterFromHash(false));
 
-
-
-        }
-
-        // --- Scroll-to-Top Button Logic ---
-        // Create scroll-to-top button dynamically
-        let scrollToTopBtn = document.getElementById('scroll-to-top-btn');
-        if (!scrollToTopBtn) {
-            scrollToTopBtn = document.createElement('button');
-            scrollToTopBtn.id = 'scroll-to-top-btn';
-            scrollToTopBtn.type = 'button';
-            scrollToTopBtn.setAttribute('aria-label', 'Lên đầu trang');
-            scrollToTopBtn.className = 'fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center text-2xl hidden';
-            scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-            document.body.appendChild(scrollToTopBtn);
-        }
-
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-            scrollToTopBtn.classList.remove('hidden');
-            } else {
-            scrollToTopBtn.classList.add('hidden');
-            }
-        });
-
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        if (currentYearSpan) {
-            currentYearSpan.textContent = new Date().getFullYear();
-        }
-
-        window.addEventListener('hashchange', () => showChapterFromHash(false));
     });
     </script>
 </body>
