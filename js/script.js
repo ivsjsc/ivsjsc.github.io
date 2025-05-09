@@ -1,4 +1,4 @@
-    /* ========================== */
+/* ========================== */
     /* Optimized JavaScript Logic */
     /* Version: Fixed script load order for translations */
     /* ========================== */
@@ -409,23 +409,27 @@
                         initializeLanguage(); // This will call setLanguage, which calls applyTranslations and loadInternalNews
                         window.attachLanguageButtonListeners?.(); // Attach listeners after init
                     } else {
-                        // If already initialized (e.g., SPA navigation), just re-apply and attach listeners
                         console.log("[Script] Language already initialized, re-applying translations/listeners...");
                         const currentLang = localStorage.getItem('preferredLanguage') || 'vi';
-                        if(typeof applyTranslations === 'function') applyTranslations(currentLang);
-                        // Re-load news explicitly if needed on re-init, though setLanguage should handle it
+                        if (typeof applyTranslations === 'function') applyTranslations(currentLang);
                         if (document.getElementById(NEWS_CONTAINER_ID)) loadInternalNews();
                         window.attachLanguageButtonListeners?.();
                     }
                 } else {
                     console.error("[Script] initializeLanguage function not found. Language features disabled.");
-                    // If language fails, maybe try loading news with default language?
                     if (document.getElementById(NEWS_CONTAINER_ID)) {
                         console.warn("[Script] Language system failed, attempting to load news with default language.");
-                        // Temporarily define minimal translations for loadInternalNews fallbacks
                         window.translations = { vi: { read_more: 'Đọc thêm →', news_title_na: 'Tiêu đề không có sẵn', news_image_alt: 'Hình ảnh tin tức', no_news: 'Chưa có tin tức nào.', news_load_error: 'Không thể tải tin tức.', loading_news: 'Đang tải tin tức...' } };
                         loadInternalNews();
                     }
+                }
+
+                // Add the new logic here
+                if (typeof window.attachLanguageSwitcherEvents === 'function') {
+                    console.log("[Script] Attaching language switcher events from language.js...");
+                    window.attachLanguageSwitcherEvents();
+                } else {
+                    console.error("[Script] window.attachLanguageSwitcherEvents function not found from language.js.");
                 }
             }, 100); // Increased delay slightly
         });
