@@ -147,6 +147,89 @@
             transform: translateY(10px);
             pointer-events: none;
         }
+
+        /* ... các style hiện có ... */
+
+        /* Định nghĩa biến CSS cho cỡ chữ trên body */
+        body {
+            --font-size-multiplier: 1.0; /* Mặc định là 1.0 */
+        }
+
+        /* Áp dụng biến vào các phần tử văn bản chính */
+        /* Cần ghi đè style từ prose plugin */
+        .story-content-wrapper .prose p {
+            /* Sử dụng calc để nhân cỡ chữ mặc định với multiplier */
+            /* Điều chỉnh base font size (ví dụ 1.125rem) nếu cần match prose-lg */
+            font-size: calc(1.125rem * var(--font-size-multiplier)) !important;
+        }
+
+        .story-content-wrapper .prose h4 {
+             /* Điều chỉnh base font size nếu cần match prose-lg */
+            font-size: calc(1.25rem * var(--font-size-multiplier)) !important;
+        }
+
+         .story-content-wrapper .chapter h3 { /* Nằm ngoài prose, cần áp dụng riêng */
+            /* Điều chỉnh base font size nếu cần match cỡ h3 mặc định của bạn */
+            font-size: calc(1.875rem * var(--font-size-multiplier)) !important;
+        }
+
+         /* Tùy chỉnh scrollbar cho modal list chương khi dùng dark mode */
+        .dark body::-webkit-scrollbar {
+            width: 10px;
+        }
+        .dark body::-webkit-scrollbar-track {
+            background: #111827;
+        }
+        .dark body::-webkit-scrollbar-thumb {
+            background-color: #4b5563;
+            border-radius: 20px;
+            border: 2px solid #111827;
+        }
+        .dark body::-webkit-scrollbar-thumb:hover {
+            background-color: #6b7280;
+        }
+        .dark #chapter-modal .modal-content ul::-webkit-scrollbar {
+            width: 8px;
+        }
+        .dark #chapter-modal .modal-content ul::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        .dark #chapter-modal .modal-content ul::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 4px;
+        }
+        .dark #chapter-modal .modal-content ul::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+        /* Sửa .prose để đảm bảo màu chữ đúng và sử dụng biến cỡ chữ */
+        .prose {
+            @apply max-w-none font-serif text-black dark:text-white;
+        }
+        .prose p {
+            /* Sử dụng biến cho font-size và đảm bảo màu */
+            @apply mb-4 leading-relaxed text-justify text-black dark:text-white;
+        }
+         .prose strong {
+            @apply font-semibold text-black dark:text-white;
+        }
+        .prose h4 {
+             /* Sử dụng biến cho font-size và đảm bảo màu */
+            @apply font-semibold mt-5 mb-2 text-black dark:text-white;
+        }
+         .chapter h3 {
+             /* Sử dụng biến cho font-size và đảm bảo màu */
+            @apply font-semibold mb-6 mt-4 text-black dark:text-white border-b pb-3 border-gray-200 dark:border-gray-700;
+        }
+        /* CSS cho nút cuộn lên */
+        #scroll-to-top-btn {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            pointer-events: auto;
+        }
+        #scroll-to-top-btn.hidden {
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+        }    
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 ease-in-out font-sans antialiased">
@@ -1182,7 +1265,56 @@
     document.addEventListener('DOMContentLoaded', () => {
         const chapters = Array.from(document.querySelectorAll('.chapter'));
         let currentChapterIndex = 0;
+const decreaseFontBtn = document.getElementById('decrease-font-btn');
+        const resetFontBtn = document.getElementById('reset-font-btn');
+        const increaseFontBtn = document.getElementById('increase-font-btn');
+        const bodyElement = document.body;
 
+        // Define font size levels (multipliers)
+        const fontSizeMultipliers = [0.8, 1.0, 1.2, 1.4]; // Ví dụ: Nhỏ, Mặc định, Lớn, Rất lớn
+        let currentFontSizeIndex = 1; // Bắt đầu với cỡ mặc định (index 1)
+
+        // Load font size from localStorage
+        const savedFontSizeIndex = localStorage.getItem('fontSizeIndex');
+        if (savedFontSizeIndex !== null) {
+            currentFontSizeIndex = parseInt(savedFontSizeIndex);
+            // Ensure index is within bounds
+            if (currentFontSizeIndex < 0 || currentFontSizeIndex >= fontSizeMultipliers.length) {
+                currentFontSizeIndex = 1; // Reset to default if saved index is invalid
+            }
+        }
+
+        // Function to apply the current font size
+        function applyFontSize() {
+            bodyElement.style.setProperty('--font-size-multiplier', fontSizeMultipliers[currentFontSizeIndex]);
+            localStorage.setItem('fontSizeIndex', currentFontSizeIndex);
+            // Disable/enable buttons based on current index
+            decreaseFontBtn.disabled = currentFontSizeIndex === 0;
+            increaseFontBtn.disabled = currentFontSizeIndex === fontSizeMultipliers.length - 1;
+        }
+
+        // Initial application of font size
+        applyFontSize();
+
+        // Event listeners for font size buttons
+        decreaseFontBtn?.addEventListener('click', () => {
+            if (currentFontSizeIndex > 0) {
+                currentFontSizeIndex--;
+                applyFontSize();
+            }
+        });
+
+        resetFontBtn?.addEventListener('click', () => {
+            currentFontSizeIndex = 1; // Index for multiplier 1.0
+            applyFontSize();
+        });
+
+        increaseFontBtn?.addEventListener('click', () => {
+            if (currentFontSizeIndex < fontSizeMultipliers.length - 1) {
+                currentFontSizeIndex++;
+                applyFontSize();
+            }
+        });
         const prevButton = document.getElementById('prev-chapter-btn');
         const nextButton = document.getElementById('next-chapter-btn');
         const listChapterButton = document.getElementById('list-chapter-btn');
