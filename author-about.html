@@ -100,6 +100,12 @@
             transform: translateY(10px);
             pointer-events: none;
         }
+        .lang-content {
+            display: none;
+        }
+        .lang-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 ease-in-out font-sans antialiased">
@@ -115,6 +121,10 @@
             <nav class="flex items-center space-x-2 sm:space-x-4 md:space-x-6">
                 <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm sm:text-base font-medium transition-colors">IVS JSC Website</a>
                 <a href="readnovel.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm sm:text-base font-medium transition-colors">Novel List</a>
+                <select id="language-toggle" class="text-gray-700 dark:text-gray-300 bg-transparent border-none focus:outline-none text-sm sm:text-base font-medium">
+                    <option value="en">English</option>
+                    <option value="vi">Tiếng Việt</option>
+                </select>
                 <button id="theme-toggle" aria-label="Toggle light/dark mode" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 ease-in-out">
                     <i class="fas fa-moon text-xl"></i>
                 </button>
@@ -123,13 +133,13 @@
     </header>
 
     <main id="main-content" class="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-12">
-        <h1 class="text-4xl sm:text-5xl font-bold text-center mb-2 text-gray-900 dark:text-white animate-slide-up">About the Author</h1>
-        <h2 class="text-2xl sm:text-3xl font-semibold text-center mb-10 text-blue-600 dark:text-blue-400 animate-slide-up">NMT - The Storyteller of Cosmic Balances</h2>
+        <div id="content-en" class="lang-content prose prose-lg dark:prose-invert max-w-none active">
+            <h1 class="text-4xl sm:text-5xl font-bold text-center mb-2 text-gray-900 dark:text-white animate-slide-up">About the Author</h1>
+            <h2 class="text-2xl sm:text-3xl font-semibold text-center mb-10 text-blue-600 dark:text-blue-400 animate-slide-up">NMT - The Storyteller of Cosmic Balances</h2>
 
-        <div class="prose prose-lg dark:prose-invert max-w-none">
             <img src="images/pages/author/nmt_profile.png" alt="Author NMT" class="mb-8 rounded-lg shadow-md w-full max-h-[400px] object-cover" onerror="this.style.display='none';">
 
-            <p>NMT is the creative force behind the epic saga <em>LEGNAXE</em>, a tale that weaves together the celestial struggles of angels, the complexities of human emotions, and the eternal quest for balance in a universe teetering on the edge of chaos. Based in Vietnam, NMT draws inspiration from a rich tapestry of mythology, philosophy, and personal experiences to craft stories that resonate with readers across cultures.</p>
+            <p>NMT, a pen name, is the creative force behind the epic saga <em>LEGNAXE</em>, a tale that weaves together the celestial struggles of angels, the complexities of human emotions, and the eternal quest for balance in a universe teetering on the edge of chaos. Based in Vietnam, NMT draws inspiration from a rich tapestry of mythology, philosophy, and personal experiences to craft stories that resonate with readers across cultures.</p>
 
             <p>With a deep passion for exploring the duality of existence—light and darkness, divinity and humanity—NMT's writing delves into the profound questions of free will, sacrifice, and redemption. Their work is characterized by intricate world-building, emotionally compelling characters, and a narrative style that balances poetic introspection with gripping action.</p>
 
@@ -139,7 +149,7 @@
             <p>NMT spent years researching theological texts, philosophical treatises, and cultural folklore to ensure that <em>LEGNAXE</em> feels both timeless and deeply rooted in the human experience. The result is a story that is as much a meditation on the nature of existence as it is an adventure through fantastical realms.</p>
 
             <h2>Beyond the Pages</h2>
-            <p>When not writing, NMT is an avid reader, a lover of nature, and a keen observer of human behavior. They find inspiration in the quiet moments of life—whether it's the rustle of leaves in a rural Vietnamese village or the vibrant chaos of a city street. NMT also enjoys engaging with readers, believing that stories are a shared journey between writer and audience.</p>
+            <p>When not writing, NMT is an avid reader, a lover of nature, and a keen observer of human behavior. They find inspiration in the quiet moments of life—whether it’s the rustle of leaves in a rural Vietnamese village or the vibrant chaos of a city street. NMT also enjoys engaging with readers, believing that stories are a shared journey between writer and audience.</p>
 
             <p>NMT is currently working on future installments of the <em>LEGNAXE</em> series, as well as other projects that continue to explore themes of identity, morality, and the interconnectedness of all things. They hope to inspire readers to reflect on their own choices and the delicate balance that defines their lives.</p>
 
@@ -147,6 +157,32 @@
             <p>Follow NMT's journey and stay updated on new releases through the official <em>LEGNAXE</em> website at <a href="https://ivs.id.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">ivs.id.vn</a>. While NMT prefers to let their stories speak for themselves, they occasionally share insights and behind-the-scenes thoughts through the website's blog or social media channels linked there.</p>
 
             <p>Thank you for joining NMT on this cosmic adventure. As Healiangel would say, "Balance is not the absence of conflict, but the courage to embrace both light and shadow."</p>
+        </div>
+
+        <div id="content-vi" class="lang-content prose prose-lg dark:prose-invert max-w-none">
+            <h1 class="text-4xl sm:text-5xl font-bold text-center mb-2 text-gray-900 dark:text-white animate-slide-up">Về Tác Giả</h1>
+            <h2 class="text-2xl sm:text-3xl font-semibold text-center mb-10 text-blue-600 dark:text-blue-400 animate-slide-up">NMT - Người Kể Chuyện về Cân Bằng Vũ Trụ</h2>
+
+            <img src="images/pages/author/nmt_profile.png" alt="Tác giả NMT" class="mb-8 rounded-lg shadow-md w-full max-h-[400px] object-cover" onerror="this.style.display='none';">
+
+            <p>NMT, một bút danh, là bộ óc sáng tạo đứng sau sử thi hùng tráng <em>LEGNAXE</em>, một câu chuyện đan xen những cuộc chiến thiên giới của các thiên thần, sự phức tạp của cảm xúc con người, và hành trình vĩnh cửu tìm kiếm sự cân bằng trong một vũ trụ đang chênh vênh bên bờ hỗn loạn. Sống tại Việt Nam, NMT lấy cảm hứng từ một tấm thảm phong phú của thần thoại, triết học và trải nghiệm cá nhân để tạo nên những câu chuyện gây tiếng vang với độc giả khắp các nền văn hóa.</p>
+
+            <p>Với niềm đam mê sâu sắc trong việc khám phá tính hai mặt của sự tồn tại—ánh sáng và bóng tối, thần thánh và con người—tác phẩm của NMT đào sâu vào những câu hỏi sâu sắc về ý chí tự do, sự hy sinh và sự cứu chuộc. Văn phong của họ nổi bật với việc xây dựng thế giới phức tạp, các nhân vật giàu cảm xúc và lối kể chuyện cân bằng giữa sự chiêm nghiệm thơ mộng và những pha hành động kịch tính.</p>
+
+            <h2>Hành Trình Đến Với LEGNAXE</h2>
+            <p>Việc sáng tạo <em>LEGNAXE</em> bắt đầu như một hành trình cá nhân khám phá các thần thoại và truyền thuyết đã định hình cách con người hiểu về thần thánh. NMT đặc biệt bị cuốn hút bởi ý tưởng rằng thiên thần không phải là những thực thể hoàn hảo, mà là những sinh thể có khả năng nghi ngờ, nổi loạn và trưởng thành. Sự mê hoặc này, kết hợp với tình yêu dành cho việc kể chuyện, đã dẫn đến sự ra đời của Healiangel, Lucifer, và câu chuyện vũ trụ rộng lớn trải dài từ Thiên Đàng, Trái Đất đến những cõi xa xôi.</p>
+
+            <p>NMT đã dành nhiều năm nghiên cứu các văn bản thần học, luận văn triết học và văn hóa dân gian để đảm bảo rằng <em>LEGNAXE</em> vừa mang cảm giác vượt thời gian vừa gắn bó sâu sắc với trải nghiệm con người. Kết quả là một câu chuyện không chỉ là một cuộc phiêu lưu qua những cõi kỳ ảo mà còn là một sự suy ngẫm về bản chất của sự tồn tại.</p>
+
+            <h2>Ngoài Những Trang Sách</h2>
+            <p>Khi không viết lách, NMT là một người đọc sách say mê, yêu thiên nhiên và là một nhà quan sát tinh tế về hành vi con người. Họ tìm thấy cảm hứng trong những khoảnh khắc tĩnh lặng của cuộc sống—dù là tiếng lá xào xạc ở một ngôi làng nông thôn Việt Nam hay sự náo nhiệt của đường phố thành thị. NMT cũng thích giao lưu với độc giả, tin rằng câu chuyện là một hành trình được chia sẻ giữa nhà văn và khán giả.</p>
+
+            <p>Hiện tại, NMT đang tiếp tục viết các phần tiếp theo của series <em>LEGNAXE</em>, đồng thời thực hiện các dự án khác tiếp tục khám phá các chủ đề về bản sắc, đạo đức và sự kết nối của vạn vật. Họ hy vọng sẽ truyền cảm hứng cho độc giả suy ngẫm về những lựa chọn của chính mình và sự cân bằng mong manh định hình cuộc sống của họ.</p>
+
+            <h2>Kết Nối Với NMT</h2>
+            <p>Hãy theo dõi hành trình của NMT và cập nhật các ấn phẩm mới qua trang web chính thức của <em>LEGNAXE</em> tại <a href="https://ivs.id.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">ivs.id.vn</a>. Dù NMT thích để các câu chuyện tự nói lên tiếng lòng, họ thỉnh thoảng chia sẻ những suy nghĩ và câu chuyện hậu trường qua blog hoặc các kênh mạng xã hội được liên kết trên trang web.</p>
+
+            <p>Cảm ơn bạn đã đồng hành cùng NMT trong cuộc phiêu lưu vũ trụ này. Như Healiangel từng nói, "Cân bằng không phải là sự vắng bóng của xung đột, mà là lòng dũng cảm để ôm lấy cả ánh sáng và bóng tối."</p>
         </div>
     </main>
 
@@ -169,12 +205,15 @@
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const themeToggle = document.getElementById('theme-toggle');
+        const languageToggle = document.getElementById('language-toggle');
         const htmlElement = document.documentElement;
-        const body = document.body;
         const themeIcon = themeToggle?.querySelector('i');
         const currentYearSpan = document.getElementById('current-year');
         const scrollToTopBtn = document.getElementById('scroll-to-top-btn');
+        const contentEn = document.getElementById('content-en');
+        const contentVi = document.getElementById('content-vi');
 
+        // Theme toggle functionality
         function applyTheme(isDark) {
             htmlElement.classList.toggle('dark', isDark);
             if (themeIcon) {
@@ -187,7 +226,6 @@
         const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const savedTheme = localStorage.getItem('theme');
         let currentIsDarkMode = savedTheme === 'dark' || (savedTheme === null && prefersDarkScheme);
-
         applyTheme(currentIsDarkMode);
 
         themeToggle?.addEventListener('click', () => {
@@ -195,6 +233,22 @@
             applyTheme(currentIsDarkMode);
         });
 
+        // Language toggle functionality
+        function applyLanguage(lang) {
+            contentEn.classList.toggle('active', lang === 'en');
+            contentVi.classList.toggle('active', lang === 'vi');
+            localStorage.setItem('language', lang);
+        }
+
+        const savedLanguage = localStorage.getItem('language') || 'en';
+        applyLanguage(savedLanguage);
+        languageToggle.value = savedLanguage;
+
+        languageToggle.addEventListener('change', (e) => {
+            applyLanguage(e.target.value);
+        });
+
+        // Scroll to top functionality
         scrollToTopBtn?.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
@@ -207,6 +261,7 @@
             }
         });
 
+        // Update current year
         if (currentYearSpan) {
             currentYearSpan.textContent = new Date().getFullYear();
         }
