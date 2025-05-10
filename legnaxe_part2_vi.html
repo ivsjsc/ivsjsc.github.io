@@ -230,6 +230,29 @@
             transform: translateY(10px);
             pointer-events: none;
         }    
+                /* Định nghĩa biến CSS cho cỡ chữ trên body */
+        body {
+            --font-size-multiplier: 1.0; /* Mặc định là 1.0 */
+        }
+
+        /* Áp dụng biến vào các phần tử văn bản chính */
+        /* Cần ghi đè style từ prose plugin */
+        .story-content-wrapper .prose p {
+            /* Sử dụng calc để nhân cỡ chữ mặc định với multiplier */
+            /* Điều chỉnh base font size (ví dụ 1.125rem) nếu cần match prose-lg */
+            font-size: calc(1.125rem * var(--font-size-multiplier)) !important;
+        }
+
+        .story-content-wrapper .prose h4 {
+             /* Điều chỉnh base font size nếu cần match prose-lg */
+            font-size: calc(1.25rem * var(--font-size-multiplier)) !important;
+        }
+
+         .story-content-wrapper .chapter h3 { /* Nằm ngoài prose, cần áp dụng riêng */
+            /* Điều chỉnh base font size nếu cần match cỡ h3 mặc định của bạn */
+            font-size: calc(1.875rem * var(--font-size-multiplier)) !important;
+        }
+
     </style>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 transition-colors duration-300 ease-in-out font-sans antialiased">
