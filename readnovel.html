@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lỉbrary - IVS NovelsNovels</title>
-    <meta name="description" content="Chọn và đọc các truyện song ngữ Anh-Việt do IVS Novels phát triển.">
+    <title data-lang-key="readnovel_page_title">Chọn Truyện - IVS STEAM</title>
+    <meta name="description" content="Chọn và đọc các truyện song ngữ Anh-Việt LEGNAXE do IVS STEAM phát triển." data-lang-key="readnovel_meta_description">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,212 +34,185 @@
             plugins: [],
         };
     </script>
-    <link rel="stylesheet" href="css/styles.css"> <style>
-        /* Áp dụng padding cho body để tránh nội dung bị che bởi header cố định */
+    <link rel="stylesheet" href="css/styles.css"> 
+    <style>
+        /* Basic body and main content styling */
         body {
             font-family: 'Inter', sans-serif;
-            padding-top: 60px; /* Chiều cao header mobile */
-            display: flex; /* Giúp footer dính xuống dưới nếu nội dung ngắn */
-            flex-direction: column; /* Sắp xếp header, main, footer theo chiều dọc */
-            min-height: 100vh; /* Đảm bảo body chiếm ít nhất toàn bộ chiều cao màn hình */
+            padding-top: 60px; /* Default header height for mobile */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         @media (min-width: 1024px) {
             body {
-                padding-top: 80px; /* Chiều cao header desktop */
+                padding-top: 80px; /* Header height for desktop */
             }
         }
-
-        /* Đảm bảo main chiếm không gian còn lại */
         main {
             flex-grow: 1;
         }
 
-        /* ---- CSS cho Header/Footer Placeholders và Fallback ---- */
+        /* Header/Footer Placeholder Styles */
         #header-placeholder, #footer-placeholder {
-            /* Đặt chiều cao tối thiểu để giữ chỗ, giảm layout shift */
-            min-height: 60px; /* Chiều cao tối thiểu (mobile) */
+            min-height: 60px; /* Fallback min-height for mobile */
         }
         @media (min-width: 1024px) {
             #header-placeholder {
-                min-height: 80px; /* Chiều cao tối thiểu header desktop */
+                min-height: 80px; /* Fallback min-height for desktop header */
             }
-            /* Footer không cần min-height khác cho desktop trừ khi thiết kế yêu cầu */
         }
-
-        /* Style cho thông báo lỗi fetch (nếu cần) */
         .fetch-error-message {
             text-align: center; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; color: #b91c1c; background-color: #fee2e2;
         }
         .fetch-error-message.header-error {
-            /* Header lỗi vẫn giữ vị trí fixed */
-             position: fixed; top: 0; left: 0; right: 0; z-index: 50; min-height: 60px; display: flex; align-items: center; justify-content: center;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 40; min-height: 60px; display: flex; align-items: center; justify-content: center;
         }
-         @media (min-width: 1024px) { .fetch-error-message.header-error { min-height: 80px; } }
-        .fetch-error-message.footer-error { margin-top: 1rem; }
+        @media (min-width: 1024px) { .fetch-error-message.header-error { min-height: 80px; } }
         html.dark .fetch-error-message { background-color: rgba(127, 29, 29, 0.5); border-color: #b91c1c; color: #fecaca; }
 
-        /* ---- CSS cho các thành phần khác (giữ nguyên từ code gốc nếu cần) ---- */
-        .map-container iframe { width: 100%; height: 400px; border: 0; display: block; }
-        .contact-info i { width: 1.25em; text-align: center; margin-right: 0.75rem; flex-shrink: 0; }
-        .contact-info p { display: flex; align-items: flex-start; }
-        .google-form-container {
-            position: relative; width: 100%; min-height: 1000px; height: 80vh; max-height: 1350px;
-            border: 1px solid #d1d5db; border-radius: 0.5rem; overflow: auto; -webkit-overflow-scrolling: touch;
-        }
-        .google-form-container iframe { width: 100%; height: 100%; border: 0; }
-
-        /* ---- CSS cho trang readnovel (từ file styles.css hoặc thêm vào đây) ---- */
-        /* (Ví dụ: Định dạng novel-list, novel-card, search-bar...) */
+        /* Search Bar Styles */
         .search-bar {
-            margin-bottom: 1rem; /* Hoặc theo thiết kế */
-            border: 1px solid #d1d5db; /* neutral-300 */
-            border-radius: 0.375rem; /* rounded-md */
-            overflow: hidden; /* Để bo góc input bên trong */
-             background-color: white; /* Nền trắng cho search bar */
+            margin-bottom: 1rem; border: 1px solid #d1d5db; border-radius: 0.375rem; overflow: hidden; background-color: white;
         }
-         html.dark .search-bar {
-             border-color: #4b5563; /* gray-600 */
-             background-color: #374151; /* gray-700 */
-         }
-        .search-bar input {
-            width: 100%;
-            padding: 0.5rem 0.75rem; /* py-2 px-3 */
-            background-color: transparent;
-             color: inherit; /* Kế thừa màu chữ từ body */
-        }
-        .search-bar input:focus {
-             outline: 2px solid transparent;
-             outline-offset: 2px;
-             /* Có thể thêm hiệu ứng focus ring của Tailwind nếu muốn */
-             /* ring-2 ring-primary/50 */
-        }
-         html.dark .search-bar input::placeholder {
-             color: #9ca3af; /* gray-400 */
-         }
+        html.dark .search-bar { border-color: #4b5563; background-color: #374151; }
+        .search-bar input { width: 100%; padding: 0.5rem 0.75rem; background-color: transparent; color: inherit; }
+        .search-bar input:focus { outline: 2px solid transparent; outline-offset: 2px; }
+        html.dark .search-bar input::placeholder { color: #9ca3af; }
 
-        .novel-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive grid */
-            gap: 1.5rem; /* Khoảng cách giữa các card */
-        }
+        /* Novel List and Card Styles */
+        .novel-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
         .novel-card {
-             background-color: #ffffff; /* white */
-             border-radius: 0.5rem; /* rounded-lg */
-             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* shadow-md */
-             overflow: hidden;
-             display: flex;
-             flex-direction: column;
-             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            background-color: #ffffff; border-radius: 0.5rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            overflow: hidden; display: flex; flex-direction: column;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
-         html.dark .novel-card {
-             background-color: #1f2937; /* gray-800 */
-             box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.05), 0 2px 4px -2px rgba(255, 255, 255, 0.05);
-         }
-         .novel-card:hover {
-             transform: translateY(-4px); /* Hiệu ứng nhấc lên khi hover */
-             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); /* shadow-lg */
-         }
-         html.dark .novel-card:hover {
-             box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.07), 0 4px 6px -4px rgba(255, 255, 255, 0.07);
-         }
-
+        html.dark .novel-card { background-color: #1f2937; box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.05), 0 2px 4px -2px rgba(255, 255, 255, 0.05); }
+        .novel-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); }
+        html.dark .novel-card:hover { box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.07), 0 4px 6px -4px rgba(255, 255, 255, 0.07); }
         .cover-link { display: block; }
-        .book-cover {
-             width: 100%;
-             aspect-ratio: 2 / 3; /* Tỷ lệ phổ biến cho bìa sách */
-             object-fit: cover; /* Đảm bảo ảnh che phủ mà không bị méo */
-             background-color: #e5e7eb; /* Màu nền placeholder nếu ảnh lỗi */
-        }
-         html.dark .book-cover {
-             background-color: #374151;
-         }
-
-        .card-content {
-            padding: 1rem;
-             flex-grow: 1; /* Đẩy nút xuống dưới cùng */
-             display: flex;
-             flex-direction: column;
-        }
+        .book-cover { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; background-color: #e5e7eb; }
+        html.dark .book-cover { background-color: #374151; }
+        .card-content { padding: 1rem; flex-grow: 1; display: flex; flex-direction: column; }
         .read-button {
-            display: inline-flex; /* Hoặc flex */
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 0.5rem 1rem; border-radius: 0.375rem; font-weight: 500; text-align: center;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            background-color: #3b82f6; color: #ffffff; border: 1px solid transparent;
+        }
+        .read-button:hover { background-color: #2563eb; }
+        .english-button { background-color: #10b981; color: #ffffff; }
+        .english-button:hover { background-color: #059669; }
+
+        /* Floating Action Button (FAB) Container Styles */
+        .fab-container {
+            position: fixed;
+            bottom: 1.5rem; /* Corresponds to Tailwind's bottom-6 */
+            right: 1.5rem;  /* Corresponds to Tailwind's right-6 */
+            z-index: 50;    /* Ensure it's above most content */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; /* Aligns buttons to the right if container was wider */
+        }
+
+        /* Individual FAB Styles */
+        .fab-container > * { /* Targets direct children: a, button */
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0.5rem 1rem; /* py-2 px-4 */
-            border-radius: 0.375rem; /* rounded-md */
-            font-weight: 500; /* font-medium */
-            text-align: center;
-            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-             background-color: #3b82f6; /* primary */
-             color: #ffffff; /* white */
-             border: 1px solid transparent;
+            width: 3rem;    /* w-12 */
+            height: 3rem;   /* h-12 */
+            border-radius: 9999px; /* rounded-full */
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            transition-property: background-color, transform, box-shadow;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 200ms;
+            text-decoration: none; /* Remove underline from links */
         }
-        .read-button:hover {
-             background-color: #2563eb; /* blue-600 */
-        }
-         html.dark .read-button {
-             /* Giữ màu nút giống nhau ở cả 2 chế độ cho dễ thấy */
-         }
-        .english-button {
-             background-color: #10b981; /* secondary */
-             color: #ffffff; /* white */
-        }
-        .english-button:hover {
-            background-color: #059669; /* emerald-600 */
+        .fab-container > *:hover {
+            transform: scale(1.1); /* Slight zoom on hover */
         }
 
-        /* Back to top button */
-        .back-to-top {
-            position: fixed; bottom: 20px; right: 20px;
-            background-color: #3b82f6; /* primary */
-            color: white;
-            border: none; border-radius: 50%;
-            width: 40px; height: 40px;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            cursor: pointer; opacity: 0; visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s, background-color 0.3s;
-            z-index: 1000;
+        /* Spacing between FABs */
+        .fab-container > *:not(:last-child) {
+            margin-bottom: 0.75rem; /* space-y-3 equivalent */
         }
-        .back-to-top.visible { opacity: 1; visibility: visible; }
-        .back-to-top:hover { background-color: #2563eb; /* blue-600 */ }
-         html.dark .back-to-top {
-             background-color: #2563eb; /* blue-600 */
-         }
-         html.dark .back-to-top:hover {
-             background-color: #1d4ed8; /* blue-700 */
-         }
+
+        /* Specific FAB Colors (Examples, adjust to your Tailwind classes or exact hex codes) */
+        .fab-messenger { background-color: #006AFF; /* Tailwind: bg-blue-600 (approx) */ }
+        .fab-messenger:hover { background-color: #0052CC; /* Tailwind: hover:bg-blue-700 (approx) */ }
+        
+        .fab-phone { background-color: #10B981; /* Tailwind: bg-green-500 or bg-emerald-500 */ }
+        .fab-phone:hover { background-color: #059669; /* Tailwind: hover:bg-green-600 or hover:bg-emerald-600 */ }
+        
+        .fab-zalo { background-color: #0068FF; /* Tailwind: bg-blue-500 (approx) */ }
+        .fab-zalo:hover { background-color: #0058E6; /* Tailwind: hover:bg-blue-600 (approx) */ }
+        
+        .fab-email { background-color: #4B5563; /* Tailwind: bg-gray-600 */ }
+        .fab-email:hover { background-color: #374151; /* Tailwind: hover:bg-gray-700 */ }
+        
+        #scroll-to-top-btn { /* ID for specific scroll button styling if needed, or use a class */
+            background-color: #374151; /* Tailwind: bg-gray-700 */
+        }
+        #scroll-to-top-btn:hover {
+            background-color: #1f2937; /* Tailwind: bg-gray-800 */
+        }
+        #scroll-to-top-btn.hidden { /* Ensure hidden class works */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+        }
+         #scroll-to-top-btn.visible { /* For smooth appearance */
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
     </style>
 </head>
 <body class="bg-gray-50 text-neutral-700 dark:bg-gray-900 dark:text-neutral-300 font-sans antialiased">
 
-    <header id="header-placeholder"></header>
+    <header id="header-placeholder" class="fixed top-0 left-0 right-0 z-40">
+        <div class="w-full h-[60px] lg:h-[80px] bg-gray-200 dark:bg-gray-700 animate-pulse flex items-center justify-center text-gray-500 dark:text-gray-400">
+            Đang tải menu...
+        </div>
+        <div class="fetch-error-fallback hidden">
+            <div class="fetch-error-message header-error">
+                Lỗi tải menu. Vui lòng thử lại sau.
+                <a href="/" class="ml-4 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm">Về Trang Chủ</a>
+            </div>
+        </div>
+    </header>
 
     <main class="w-full">
-        <div class="main-content-wrapper py-8"> <div class="page-content-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="main-content-wrapper py-8">
+            <div class="page-content-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h1 class="page-title text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-lang-key="readnovel_title">Chọn Truyện Để Đọc</h1>
 
                 <div class="search-bar mb-6">
-                    <input type="text" id="searchInput" placeholder="Tìm kiếm truyện theo tên hoặc mô tả..." class="w-full p-2 bg-transparent focus:outline-none placeholder-gray-500 dark:placeholder-gray-400">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm truyện theo tên hoặc mô tả..." data-lang-key="readnovel_search_placeholder" class="w-full p-2 bg-transparent focus:outline-none placeholder-gray-500 dark:placeholder-gray-400">
                 </div>
 
                 <div class="settings flex justify-end mb-4">
-                     <button onclick="toggleDarkMode()" aria-label="Chuyển chế độ Sáng/Tối" title="Chuyển chế độ Sáng/Tối" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700">
-                         <i class="fas fa-adjust text-xl"></i>
-                     </button>
-                 </div>
+                    <button onclick="toggleDarkMode()" aria-label="Chuyển chế độ Sáng/Tối" title="Chuyển chế độ Sáng/Tối" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700">
+                        <i class="fas fa-adjust text-xl"></i>
+                    </button>
+                </div>
 
                 <div class="novel-list">
                     <div class="novel-card group">
                         <a href="legnaxe_part1_vi.html" class="cover-link" aria-label="Đọc LEGNAXE Phần 1 Tiếng Việt">
                             <picture>
-                                <source srcset="images\pages\novels\legnaxe1vertical.png" type="image/webp">
-                                <img src="images\pages\novels\legnaxe1vertical.png" alt="Bìa truyện LEGNAXE Phần 1" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/EBF4FF/4A5568?text=LEGNAXE+P1'; this.alt='Lỗi tải ảnh bìa LEGNAXE Phần 1';">
+                                <source srcset="images/pages/novels/legnaxe1vertical.webp" type="image/webp"> <img src="images/pages/novels/legnaxe1vertical.png" alt="Bìa truyện LEGNAXE Phần 1" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/EBF4FF/4A5568?text=LEGNAXE+P1'; this.alt='Lỗi tải ảnh bìa LEGNAXE Phần 1';">
                             </picture>
                         </a>
                         <div class="card-content">
                             <h3 class="text-lg font-semibold !line-clamp-1 mb-1 text-gray-900 dark:text-white" data-lang-key="readnovel_legnaxe1_title">LEGNAXE: Phần 1</h3>
                             <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-4" data-lang-key="readnovel_legnaxe1_desc">Bí mật cuộc đại chiến Thiên Đàng / <strong>Secrets of Heaven's Great War.</strong></p>
-                            <div class="flex flex-col sm:flex-row gap-3 mt-auto"> <a href="legnaxe_part1_vi.html" class="read-button" data-lang-key="readnovel_read_vi">
+                            <div class="flex flex-col sm:flex-row gap-3 mt-auto">
+                                <a href="legnaxe_part1_vi.html" class="read-button" data-lang-key="readnovel_read_vi">
                                     <i class="fas fa-book-open mr-2"></i> Đọc (TV)
                                 </a>
                                 <a href="legnaxe_part1_en.html" class="read-button english-button" data-lang-key="readnovel_read_en">
@@ -252,8 +225,7 @@
                     <div class="novel-card group">
                         <a href="legnaxe_part2_vi.html" class="cover-link" aria-label="Đọc LEGNAXE Phần 2 Tiếng Việt">
                             <picture>
-                                <source srcset="images\pages\novels\legnaxe2vertical.png" type="image/webp">
-                                <img src="images\pages\novels\legnaxe2vertical.png" alt="Bìa truyện LEGNAXE Phần 2" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/FFF5F5/7F1D1D?text=LEGNAXE+P2'; this.alt='Lỗi tải ảnh bìa LEGNAXE Phần 2';">
+                                <source srcset="images/pages/novels/legnaxe2vertical.webp" type="image/webp"> <img src="images/pages/novels/legnaxe2vertical.png" alt="Bìa truyện LEGNAXE Phần 2" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/FFF5F5/7F1D1D?text=LEGNAXE+P2'; this.alt='Lỗi tải ảnh bìa LEGNAXE Phần 2';">
                             </picture>
                         </a>
                         <div class="card-content">
@@ -269,12 +241,34 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    </div>
             </div>
         </div>
     </main>
 
-    <footer id="footer-placeholder"> </footer>
+    <footer id="footer-placeholder">
+        <div class="w-full min-h-[60px] bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 dark:text-gray-400 animate-pulse">
+            Đang tải footer...
+        </div>
+        <div class="fetch-error-fallback hidden">
+            <div class="bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-center p-4">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="mb-4">
+                        <a href="/" class="text-lg font-semibold text-gray-700 dark:text-gray-300">IVS STEAM (Lỗi tải)</a>
+                    </div>
+                    <div class="flex justify-center space-x-4 mb-4">
+                        <a href="index.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Trang Chủ</a>
+                        <a href="steambyivs.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">STEAM</a>
+                        <a href="readnovel.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chọn Truyện</a>
+                        <a href="contact.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Liên Hệ</a>
+                    </div>
+                    <div class="text-sm">
+                        <p>© <span id="current-year-fallback">2024</span> IVS STEAM. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <div class="fab-container">
         <a href="https://www.facebook.com/sharer/sharer.php?u=https://ivs.id.vn/readnovel.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" class="fab-messenger" title="Share on Facebook">
@@ -287,27 +281,27 @@
         </a>
         <a href="mailto:?subject=Novels%20from%20IVS%20STEAM&body=Check%20out%20this%20page%3A%20https%3A%2F%2Fivs.id.vn%2Freadnovel.html" target="_blank" rel="noopener noreferrer" aria-label="Share via Email" class="fab-email" title="Share via Email">
             <i class="fas fa-envelope text-xl"></i>
-        <a href="https://zalo.me/ivsjsc" target="_blank" rel="noopener noreferrer"
-        class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500 text-white shadow-lg hover:bg-blue-600 transition-colors duration-200"
-        aria-label="Chat on Zalo OA">
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 50 50" fill="currentColor">
-                <path d="M 9 4 C 6.2504839 4 4 6.2504839 4 9 L 4 41 C 4 43.749516 6.2504839 46 9 46 L 41 46 C 43.749516 46 46 43.749516 46 41 L 46 9 C 46 6.2504839 43.749516 4 41 4 L 9 4 z M 9 6 L 15.580078 6 C 12.00899 9.7156859 10 14.518083 10 19.5 C 10 24.66 12.110156 29.599844 15.910156 33.339844 C 16.030156 33.549844 16.129922 34.579531 15.669922 35.769531 C 15.379922 36.519531 14.799687 37.499141 13.679688 37.869141 C 13.249688 38.009141 12.97 38.430859 13 38.880859 C 13.03 39.330859 13.360781 39.710781 13.800781 39.800781 C 16.670781 40.370781 18.529297 39.510078 20.029297 38.830078 C 21.379297 38.210078 22.270625 37.789609 23.640625 38.349609 C 26.440625 39.439609 29.42 40 32.5 40 C 36.593685 40 40.531459 39.000731 44 37.113281 L 44 41 C 44 42.668484 42.668484 44 41 44 L 9 44 C 7.3315161 44 6 42.668484 6 41 L 6 9 C 6 7.3315161 7.3315161 6 9 6 z M 33 15 C 33.55 15 34 15.45 34 16 L 34 25 C 34 25.55 33.55 26 33 26 C 32.45 26 32 25.55 32 25 L 32 16 C 32 15.45 32.45 15 33 15 z M 18 16 L 23 16 C 23.36 16 23.700859 16.199531 23.880859 16.519531 C 24.050859 16.829531 24.039609 17.219297 23.849609 17.529297 L 19.800781 24 L 23 24 C 23.55 24 24 24.45 24 25 C 24 25.55 23.55 26 23 26 L 18 26 C 17.64 26 17.299141 25.800469 17.119141 25.480469 C 16.949141 25.170469 16.960391 24.780703 17.150391 24.470703 L 21.199219 18 L 18 18 C 17.45 18 17 17.55 17 17 C 17 16.45 17.45 16 18 16 z M 27.5 19 C 28.11 19 28.679453 19.169219 29.189453 19.449219 C 29.369453 19.189219 29.65 19 30 19 C 30.55 19 31 19.45 31 20 L 31 25 C 31 25.55 30.55 26 30 26 C 29.65 26 29.369453 25.810781 29.189453 25.550781 C 28.679453 25.830781 28.11 26 27.5 26 C 25.57 26 24 24.43 24 22.5 C 24 20.57 25.57 19 27.5 19 z M 38.5 19 C 40.43 19 42 20.57 42 22.5 C 42 24.43 40.43 26 38.5 26 C 36.57 26 35 24.43 35 22.5 C 35 20.57 36.57 19 38.5 19 z M 27.5 21 C 27.39625 21 27.29502 21.011309 27.197266 21.03125 C 27.001758 21.071133 26.819727 21.148164 26.660156 21.255859 C 26.500586 21.363555 26.363555 21.500586 26.255859 21.660156 C 26.148164 21.819727 26.071133 22.001758 26.03125 22.197266 C 26.011309 22.29502 26 22.39625 26 22.5 C 26 22.60375 26.011309 22.70498 26.03125 22.802734 C 26.051191 22.900488 26.079297 22.994219 26.117188 23.083984 C 26.155078 23.17375 26.202012 23.260059 26.255859 23.339844 C 26.309707 23.419629 26.371641 23.492734 26.439453 23.560547 C 26.507266 23.628359 26.580371 23.690293 26.660156 23.744141 C 26.819727 23.851836 27.001758 23.928867 27.197266 23.96875 C 27.29502 23.988691 27.39625 24 27.5 24 C 27.60375 24 27.70498 23.988691 27.802734 23.96875 C 28.487012 23.82916 29 23.22625 29 22.5 C 29 21.67 28.33 21 27.5 21 z M 38.5 21 C 38.39625 21 38.29502 21.011309 38.197266 21.03125 C 38.099512 21.051191 38.005781 21.079297 37.916016 21.117188 C 37.82625 21.155078 37.739941 21.202012 37.660156 21.255859 C 37.580371 21.309707 37.507266 21.371641 37.439453 21.439453 C 37.303828 21.575078 37.192969 21.736484 37.117188 21.916016 C 37.079297 22.005781 37.051191 22.099512 37.03125 22.197266 C 37.011309 22.29502 37 22.39625 37 22.5 C 37 22.60375 37.011309 22.70498 37.03125 22.802734 C 37.051191 22.900488 37.079297 22.994219 37.117188 23.083984 C 37.155078 23.17375 37.202012 23.260059 37.255859 23.339844 C 37.309707 23.419629 37.371641 23.492734 37.439453 23.560547 C 37.507266 23.628359 37.580371 23.690293 37.660156 23.744141 C 37.739941 23.797988 37.82625 23.844922 37.916016 23.882812 C 38.005781 23.920703 38.099512 23.948809 38.197266 23.96875 C 38.29502 23.988691 38.39625 24 38.5 24 C 38.60375 24 38.70498 23.988691 38.802734 23.96875 C 39.487012 23.82916 40 23.22625 40 22.5 C 40 21.67 39.33 21 38.5 21 z"></path>
-            </svg>
-        </a>
         </a>
         <button id="scroll-to-top-btn" title="Cuộn lên đầu trang" class="hidden"> <i class="fas fa-arrow-up text-xl"></i>
         </button>
     </div>
-
-
-    <script>
+    
+    <script src="js/language.js" defer></script> <script>
         // --- Dark Mode Logic ---
         const htmlElement = document.documentElement;
-        const darkModeToggle = document.querySelector('button[onclick="toggleDarkMode()"]'); // Chọn nút cụ thể hơn
+        // Assuming dark mode toggle button might be in the fetched header,
+        // this event listener will be attached to the document.
+        document.addEventListener('click', function(event) {
+            if (event.target.closest('button[onclick="toggleDarkMode()"]')) {
+                toggleDarkMode();
+            }
+        });
+
 
         function applyInitialDarkMode() {
             const darkModePreference = localStorage.getItem('darkMode');
-            if (darkModePreference === 'enabled' || (!darkModePreference && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            if (darkModePreference === 'enabled' || 
+               (!darkModePreference && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
                 htmlElement.classList.add('dark');
             } else {
                 htmlElement.classList.remove('dark');
@@ -318,9 +312,7 @@
             const isDarkMode = htmlElement.classList.toggle('dark');
             localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
         }
-
-        // Apply dark mode on initial load
-        applyInitialDarkMode();
+        applyInitialDarkMode(); // Apply on initial load
 
         // --- Search Functionality ---
         const searchInput = document.getElementById('searchInput');
@@ -338,134 +330,149 @@
             });
         });
 
-        // --- Back to Top Button ---
-        const backToTopButton = document.querySelector('.back-to-top');
+        // --- Scroll to Top Button ---
+        const scrollToTopButton = document.getElementById('scroll-to-top-btn');
 
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (scrollToTopButton) {
+            scrollToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    scrollToTopButton.classList.remove('hidden');
+                    scrollToTopButton.classList.add('visible');
+                } else {
+                    scrollToTopButton.classList.remove('visible');
+                    // Add hidden class after transition for smoother disappearance
+                    setTimeout(() => {
+                         if (window.scrollY <=300) scrollToTopButton.classList.add('hidden');
+                    }, 300); // Match transition duration
+                }
+            });
         }
-
-        window.addEventListener('scroll', function() {
-            if (backToTopButton) {
-                 backToTopButton.classList.toggle('visible', window.scrollY > 300);
-            }
-        });
-
+        
         // --- Fetch Header and Footer ---
-        // Nên thay thế bằng Server-Side Includes hoặc Build Process nếu có thể
         document.addEventListener('DOMContentLoaded', function() {
             const headerPlaceholder = document.getElementById('header-placeholder');
             const footerPlaceholder = document.getElementById('footer-placeholder');
-            const headerPath = 'header.html';
-            const footerPath = 'footer.html';
+            const headerPath = 'header.html'; // Ensure this path is correct
+            const footerPath = 'footer.html'; // Ensure this path is correct
 
             function handleFetchError(error, placeholderElement, type, filePath) {
                 console.error(`Error fetching ${type} from ${filePath}:`, error);
                 const fallbackElement = placeholderElement.querySelector('.fetch-error-fallback');
-                const pulseElement = placeholderElement.querySelector('.animate-pulse'); // Phần tử có hiệu ứng pulse
+                const pulseElement = placeholderElement.querySelector('.animate-pulse');
 
-                if (pulseElement) {
-                     pulseElement.style.display = 'none'; // Ẩn placeholder pulse
-                }
+                if (pulseElement) pulseElement.style.display = 'none';
                 if (fallbackElement) {
-                    fallbackElement.classList.remove('hidden'); // Hiển thị nội dung fallback
-                     // Nếu là lỗi header, đảm bảo nó vẫn fixed
+                    fallbackElement.classList.remove('hidden');
                     if(type === 'header') {
-                         const errorMsgDiv = fallbackElement.querySelector('.fetch-error-message');
-                         if (errorMsgDiv) errorMsgDiv.classList.add('header-error');
+                        const errorMsgDiv = fallbackElement.querySelector('.fetch-error-message');
+                        if (errorMsgDiv) errorMsgDiv.classList.add('header-error');
                     }
                 } else {
-                    // Nếu không có fallback cụ thể, hiển thị lỗi đơn giản
                     placeholderElement.innerHTML = `<div class="fetch-error-message ${type}-error">Lỗi khi tải ${type}. Vui lòng tải lại trang.</div>`;
-                     if (type === 'header') {
-                         const errorMsgDiv = placeholderElement.querySelector('.fetch-error-message');
-                         if (errorMsgDiv) errorMsgDiv.classList.add('header-error');
-                     }
+                    if (type === 'header') {
+                        const errorMsgDiv = placeholderElement.querySelector('.fetch-error-message');
+                        if (errorMsgDiv) errorMsgDiv.classList.add('header-error');
+                    }
                 }
-                 // Nếu là lỗi header, gọi setActiveNavLink để xử lý menu fallback nếu có
-                if(type === 'header') {
-                     setActiveNavLink('readnovel.html');
+                if(type === 'header') setActiveNavLink('readnovel.html'); // Try to set active for fallback
+                if(type === 'footer' && document.getElementById('current-year-fallback')) {
+                    document.getElementById('current-year-fallback').textContent = new Date().getFullYear();
                 }
             }
 
-            // Fetch Header
-            if (headerPlaceholder) {
-                fetch(headerPath)
+            function fetchComponent(placeholder, path, type) {
+                if (!placeholder) {
+                    console.error(`${type} placeholder element not found.`);
+                    return Promise.reject(`${type} placeholder not found`);
+                }
+                return fetch(path)
                     .then(response => {
-                        if (!response.ok) throw new Error(`HTTP error fetching header! Status: ${response.status}`);
+                        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                         return response.text();
                     })
                     .then(data => {
-                        headerPlaceholder.innerHTML = data;
-                        // Gọi lại setActiveNavLink sau khi header đã được chèn vào DOM
-                        setActiveNavLink('readnovel.html');
-                        // Áp dụng lại dark mode nếu header mới có các phần tử cần cập nhật
-                        applyInitialDarkMode();
-                         // Khởi tạo lại các script của header nếu cần (ví dụ: mobile menu toggle)
-                         // Cần đảm bảo script trong header.html được thiết kế để chạy đúng khi được fetch kiểu này
-                         // Hoặc di chuyển các script đó ra file riêng và gọi lại ở đây.
-                         // Ví dụ: if (typeof initHeaderScripts === 'function') { initHeaderScripts(); }
+                        placeholder.innerHTML = data;
+                        if (type === 'header') {
+                            setActiveNavLink('readnovel.html');
+                            // Re-initialize dark mode toggle if it's in the header
+                            applyInitialDarkMode(); 
+                            // Initialize language specific things for header if language.js is loaded
+                            if (typeof window.initializeLanguage === 'function' && !window.languageInitialized) {
+                                // This might be too early if language.js is also deferred and not yet run.
+                                // Better to let language.js handle its own init and then call applyTranslations.
+                            } else if (typeof window.applyTranslations === 'function') {
+                                window.applyTranslations(); // Re-apply for fetched header
+                            }
+                             if (typeof window.attachLanguageSwitcherEvents === 'function') {
+                                window.attachLanguageSwitcherEvents(); // Attach events to new lang switchers
+                            }
+                            // If your header.html has its own scripts (e.g., for mobile menu),
+                            // they might need re-initialization. Consider using event delegation or a dedicated init function.
+                            // For example: if (typeof window.initHeaderScripts === 'function') window.initHeaderScripts();
+                        }
+                        if (type === 'footer' && document.getElementById('current-year')) {
+                             document.getElementById('current-year').textContent = new Date().getFullYear();
+                        }
+                         // Apply translations to the newly loaded content
+                        if (typeof window.applyTranslations === 'function') {
+                            window.applyTranslations();
+                        }
                     })
-                    .catch(error => handleFetchError(error, headerPlaceholder, 'header', headerPath));
-            } else {
-                console.error("Header placeholder element not found.");
+                    .catch(error => handleFetchError(error, placeholder, type, path));
             }
 
-            // Fetch Footer
-            if (footerPlaceholder) {
-                fetch(footerPath)
-                    .then(response => {
-                        if (!response.ok) throw new Error(`HTTP error fetching footer! Status: ${response.status}`);
-                        return response.text();
-                    })
-                    .then(data => {
-                        footerPlaceholder.innerHTML = data;
-                         // Áp dụng lại dark mode nếu footer mới có các phần tử cần cập nhật
-                        applyInitialDarkMode();
-                    })
-                    .catch(error => handleFetchError(error, footerPlaceholder, 'footer', footerPath));
-            } else {
-                 console.error("Footer placeholder element not found.");
+            fetchComponent(headerPlaceholder, headerPath, 'header');
+            fetchComponent(footerPlaceholder, footerPath, 'footer');
+            
+            // Initial application of translations to static content on this page
+            // language.js should also call applyTranslations on its own init
+            if (typeof window.applyTranslations === 'function') {
+                 // Delay slightly to ensure language.js might have loaded its translations
+                setTimeout(() => { window.applyTranslations(); }, 100);
             }
         });
 
         // --- Set Active Navigation Link ---
-        // Function này cần được gọi SAU KHI header đã được fetch và chèn vào DOM
-        function setActiveNavLink(currentPageHref) {
-            // Chờ một chút để đảm bảo header đã render (có thể không cần thiết nếu DOMContentLoaded đủ)
-            // setTimeout(() => {
-                // Tìm link trong cả header được fetch và header fallback (nếu có)
-                const navLinks = document.querySelectorAll('#header-placeholder a, #header-placeholder .fetch-error-fallback a');
-                if (navLinks.length === 0) {
-                     // console.warn("setActiveNavLink: No navigation links found in header placeholder yet.");
-                     return;
+        function setActiveNavLink(currentPageName) {
+            // This function will be more robust if header.js (or script.js loaded by header) handles this
+            // after its own DOM manipulations are complete.
+            // For now, this is a basic attempt.
+            // Ensure this is called *after* the header content is actually in the DOM.
+            const navLinks = document.querySelectorAll('#header-placeholder a.nav-link, #header-placeholder .submenu a, #header-placeholder .mobile-submenu a');
+            if (navLinks.length === 0) return;
+
+            navLinks.forEach(link => {
+                link.classList.remove('active-menu-item', 'active-parent-item'); // Reset all
+                // More specific active classes might be needed based on your header's CSS
+                link.classList.remove('text-primary', 'dark:text-blue-400', 'bg-orange-500', 'dark:bg-orange-400');
+                link.removeAttribute('aria-current');
+
+                let linkHref = link.getAttribute('href');
+                if (linkHref) {
+                    // Normalize by removing leading/trailing slashes and .html
+                    let normalizedLinkHref = linkHref.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+                    let normalizedCurrentPageName = currentPageName.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+                    
+                    if (normalizedLinkHref === normalizedCurrentPageName || (normalizedLinkHref === 'index' && normalizedCurrentPageName === '')) {
+                        link.classList.add('active-menu-item'); 
+                        link.classList.add('bg-orange-500', 'dark:bg-orange-400', 'text-white'); // Example active style
+                        link.setAttribute('aria-current', 'page');
+
+                        // Add active-parent-item to parent menu items if it's a submenu link
+                        let parent = link.closest('.main-menu-item, .mobile-menu-item');
+                        while(parent){
+                            const parentButton = parent.querySelector(':scope > button.nav-link, :scope > button.mobile-submenu-toggle');
+                            if(parentButton) parentButton.classList.add('active-parent-item');
+                            parent = parent.parentElement.closest('.main-menu-item, .mobile-menu-item');
+                        }
+                    }
                 }
-                navLinks.forEach(link => {
-                    // So sánh phần path của href để xử lý trường hợp có dấu # hoặc query string
-                     try {
-                         const linkPath = new URL(link.href, window.location.origin).pathname;
-                         const currentPagePath = new URL(currentPageHref, window.location.origin).pathname;
-
-                         // Hoặc đơn giản hơn nếu chỉ quan tâm tên file:
-                         const linkFilename = link.getAttribute('href').split('/').pop();
-                         const currentFilename = currentPageHref.split('/').pop();
-
-                         // Đánh dấu active nếu tên file khớp
-                         if (linkFilename === currentFilename) {
-                            link.classList.add('active', 'text-primary', 'dark:text-blue-400'); // Thêm class active (ví dụ)
-                            link.setAttribute('aria-current', 'page');
-                         } else {
-                             link.classList.remove('active', 'text-primary', 'dark:text-blue-400');
-                             link.removeAttribute('aria-current');
-                         }
-                     } catch (e) {
-                         // Bỏ qua các link không hợp lệ (ví dụ href="#")
-                         // console.log("Skipping invalid link for active state:", link.getAttribute('href'));
-                     }
-                });
-             //}, 100); // Độ trễ nhỏ (ms), điều chỉnh nếu cần
+            });
         }
     </script>
-
 </body>
 </html>
