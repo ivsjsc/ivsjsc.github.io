@@ -750,3 +750,73 @@ body.dark-mode {
   width: auto; 
   max-width: 100%;
 }
+/* Thêm vào cuối tệp css/styles.css */
+
+/* Định kiểu cho container chứa các nút bấm nhanh (FAB - Floating Action Buttons) */
+.fab-container {
+  position: fixed;
+  bottom: 1.5rem; /* bottom-6 */
+  right: 1.5rem;  /* right-6 */
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* items-end */
+}
+
+/* Định kiểu cho từng nút bấm nhanh bên trong container */
+.fab-container > * {
+  /* Các class Tailwind gốc: flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-colors duration-200 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem; /* w-12 */
+  height: 3rem; /* h-12 */
+  border-radius: 9999px; /* rounded-full */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+  transition-property: background-color, color, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Thêm khoảng cách giữa các nút, trừ nút cuối cùng */
+.fab-container > *:not(:last-child) {
+  margin-bottom: 0.75rem; /* tương đương space-y-3 của Tailwind, bạn có thể tăng lên 1rem nếu cần */
+                          /* ví dụ: margin-bottom: 1rem; */
+}
+
+/* Giữ lại các style màu nền và hover cụ thể cho từng nút nếu bạn đã định nghĩa bằng class Tailwind */
+/* Ví dụ cho nút Messenger */
+.fab-container a[href*="m.me"] {
+  background-color: #006AFF; /* Màu của Messenger, hoặc dùng class bg-blue-600 */
+  color: white;
+}
+.fab-container a[href*="m.me"]:hover {
+  background-color: #0052CC; /* Màu hover, hoặc dùng class hover:bg-blue-700 */
+}
+
+/* Ví dụ cho nút Điện thoại */
+.fab-container a[href^="tel:"] {
+  background-color: #10B981; /* Màu xanh lá, hoặc dùng class bg-green-600 */
+  color: white;
+}
+.fab-container a[href^="tel:"]:hover {
+  background-color: #059669; /* Màu hover, hoặc dùng class hover:bg-green-700 */
+}
+
+/* Ví dụ cho các nút Zalo */
+.fab-container a[href*="zalo.me"] {
+  background-color: #0068FF; /* Màu của Zalo, hoặc dùng class bg-blue-500 */
+  color: white;
+}
+.fab-container a[href*="zalo.me"]:hover {
+  background-color: #0058E6; /* Màu hover, hoặc dùng class hover:bg-blue-600 */
+}
+
+/* Ví dụ cho nút Scroll to Top */
+.fab-container button#scrollToTopBtn {
+  background-color: #374151; /* Màu xám, hoặc dùng class bg-gray-700 */
+  color: white;
+}
+.fab-container button#scrollToTopBtn:hover {
+  background-color: #4B5563; /* Màu hover, hoặc dùng class hover:bg-gray-600 */
+}
