@@ -159,9 +159,7 @@
       document.addEventListener('DOMContentLoaded', function () {
         const tabs = document.querySelectorAll('.tab-button');
         const tabContents = document.querySelectorAll('.tab-content');
-        // Giả sử bạn có biến currentLanguage được định nghĩa từ language.js
-        // Nếu không, bạn cần một cách để xác định ngôn ngữ hiện tại, ví dụ:
-        // const currentLanguage = localStorage.getItem('language') || 'vi'; 
+        const lang = typeof currentLanguage !== 'undefined' ? currentLanguage : (localStorage.getItem('language') || 'vi');
 
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
@@ -181,7 +179,7 @@
 
         const CORS_PROXY = "https://api.allorigins.win/get?url=";
 
-        async function fetchAndDisplayRSS(feedUrl, containerId, sourceName, maxItems = 6) {
+        async function fetchAndDisplayRSS(feedUrl, containerId, sourceName, maxItems = 4) { // Mặc định là 4 tin
             const container = document.getElementById(containerId);
             if (!container) {
                 console.error(`Container with id ${containerId} not found.`);
@@ -215,7 +213,7 @@
                     newsHtml = `<p class="text-gray-500 col-span-full text-center">Không có tin tức nào từ ${sourceName} vào lúc này.</p>`;
                 } else {
                     items.forEach((item, index) => {
-                        if (index >= maxItems) return;
+                        if (index >= maxItems) return; // Giới hạn số lượng tin tức hiển thị
 
                         const title = item.querySelector("title")?.textContent || "Không có tiêu đề";
                         const link = item.querySelector("link")?.textContent || "#";
@@ -270,23 +268,18 @@
         async function loadIvsNews() {
             const container = document.getElementById('ivs-news-container');
             if (!container) return;
-            // Lấy ngôn ngữ hiện tại từ localStorage hoặc mặc định là 'vi'
-            // Điều này giả định rằng language.js của bạn lưu ngôn ngữ vào localStorage
             const lang = typeof currentLanguage !== 'undefined' ? currentLanguage : (localStorage.getItem('language') || 'vi');
 
             try {
-                // Sử dụng đường dẫn tương đối, giả định posts.json cùng cấp với news-archive.html
                 const response = await fetch('./posts.json'); 
                 if (!response.ok) throw new Error('Không thể tải posts.json. Status: ' + response.status);
                 const posts = await response.json();
 
                 if (posts && posts.length > 0) {
                     let newsHtml = "";
-                    // Sắp xếp bài viết theo ngày mới nhất lên trước (nếu có trường date hợp lệ)
                     posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-                    posts.slice(0, 6).forEach(post => {
-                        // Lấy tiêu đề và mô tả theo ngôn ngữ hiện tại
+                    posts.slice(0, 6).forEach(post => { // Hiển thị tối đa 6 tin của IVS
                         const title = post.title && post.title[lang] ? post.title[lang] : (post.title && post.title['vi'] ? post.title['vi'] : "Không có tiêu đề");
                         const excerpt = post.excerpt && post.excerpt[lang] ? post.excerpt[lang] : (post.excerpt && post.excerpt['vi'] ? post.excerpt['vi'] : "Không có mô tả.");
                         
@@ -351,7 +344,8 @@
                 if (rssContainer && !rssContainer.dataset.loaded) {
                     const feedCategory = tabName.split('-')[0]; 
                     if (rssFeeds[feedCategory]) {
-                        rssFeeds[feedCategory].forEach(feed => fetchAndDisplayRSS(feed.url, containerId, feed.name, 2));
+                        // THAY ĐỔI SỐ LƯỢNG TIN TỨC TẠI ĐÂY
+                        rssFeeds[feedCategory].forEach(feed => fetchAndDisplayRSS(feed.url, containerId, feed.name, 4)); // Hiển thị 4 tin cho mỗi nguồn RSS
                         rssContainer.dataset.loaded = "true";
                     }
                 }
