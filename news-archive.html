@@ -159,15 +159,16 @@
       document.addEventListener('DOMContentLoaded', function () {
         const tabs = document.querySelectorAll('.tab-button');
         const tabContents = document.querySelectorAll('.tab-content');
+        // Giả sử bạn có biến currentLanguage được định nghĩa từ language.js
+        // Nếu không, bạn cần một cách để xác định ngôn ngữ hiện tại, ví dụ:
+        // const currentLanguage = localStorage.getItem('language') || 'vi'; 
 
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // Remove active class from all tabs and hide all content
                 tabs.forEach(t => t.classList.remove('active'));
                 tabContents.forEach(c => c.classList.add('hidden'));
-                tabContents.forEach(c => c.classList.remove('active')); // Ensure active is also removed for display logic
+                tabContents.forEach(c => c.classList.remove('active'));
 
-                // Add active class to clicked tab and show its content
                 tab.classList.add('active');
                 const targetContentId = tab.dataset.tab;
                 const targetContent = document.getElementById(targetContentId);
@@ -178,7 +179,6 @@
             });
         });
 
-        // --- RSS Feed Loader ---
         const CORS_PROXY = "https://api.allorigins.win/get?url=";
 
         async function fetchAndDisplayRSS(feedUrl, containerId, sourceName, maxItems = 6) {
@@ -187,13 +187,10 @@
                 console.error(`Container with id ${containerId} not found.`);
                 return;
             }
-            // Clear skeleton loaders or previous content
             container.innerHTML = `<p class="text-gray-500 col-span-full text-center" data-lang-key="loading_rss_feed">Đang tải tin từ ${sourceName}...</p>`;
-            // Translate loading message if language.js is used
-            if (typeof translatePage === 'function' && typeof currentLanguage !== 'undefined' && translations[currentLanguage] && translations[currentLanguage]['loading_rss_feed']) {
+            if (typeof translations !== 'undefined' && typeof currentLanguage !== 'undefined' && translations[currentLanguage] && translations[currentLanguage]['loading_rss_feed']) {
                  container.querySelector('p').textContent = translations[currentLanguage]['loading_rss_feed'].replace('${sourceName}', sourceName);
             }
-
 
             try {
                 const response = await fetch(`${CORS_PROXY}${encodeURIComponent(feedUrl)}`);
@@ -204,7 +201,6 @@
                 const parser = new DOMParser();
                 const xmlDoc = parser.parseFromString(data.contents, "application/xml");
                 
-                // Check for parsing errors
                 const parseError = xmlDoc.querySelector("parsererror");
                 if (parseError) {
                     console.error("Error parsing XML for " + feedUrl + ":", parseError.textContent);
@@ -232,25 +228,19 @@
                                     day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
                                 });
                             } catch (e) {
-                                console.warn("Could not parse date: ", pubDateStr);
-                                formattedDate = pubDateStr; // Show original if parsing fails
+                                formattedDate = pubDateStr;
                             }
                         }
                         
-                        // Clean and shorten description
                         const tempDiv = document.createElement('div');
                         tempDiv.innerHTML = description;
-                        description = tempDiv.textContent || tempDiv.innerText || "";
-                        description = description.length > 150 ? description.substring(0, 150) + "..." : description;
+                        description = (tempDiv.textContent || tempDiv.innerText || "").substring(0, 150) + "...";
                         
-                        // Attempt to get an image (might need specific selectors for different RSS structures)
                         let imageUrl = item.querySelector("enclosure[url]")?.getAttribute("url");
                         if (!imageUrl) {
-                            // Try to find image in description (common but not standard)
                             const imgTag = tempDiv.querySelector('img');
                             if (imgTag) imageUrl = imgTag.src;
                         }
-
 
                         newsHtml += `
                             <div class="news-card bg-white p-4 rounded-lg shadow-md flex flex-col">
@@ -277,29 +267,37 @@
             }
         }
 
-        // --- IVS News Loader (from posts.json) ---
         async function loadIvsNews() {
             const container = document.getElementById('ivs-news-container');
             if (!container) return;
+            // Lấy ngôn ngữ hiện tại từ localStorage hoặc mặc định là 'vi'
+            // Điều này giả định rằng language.js của bạn lưu ngôn ngữ vào localStorage
+            const lang = typeof currentLanguage !== 'undefined' ? currentLanguage : (localStorage.getItem('language') || 'vi');
+
             try {
-                // FIX: Use relative path from current directory for posts.json
+                // Sử dụng đường dẫn tương đối, giả định posts.json cùng cấp với news-archive.html
                 const response = await fetch('./posts.json'); 
                 if (!response.ok) throw new Error('Không thể tải posts.json. Status: ' + response.status);
                 const posts = await response.json();
 
                 if (posts && posts.length > 0) {
                     let newsHtml = "";
-                    posts.slice(0, 6).forEach(post => { // Display up to 6 posts
-                        const title = post.title || "Không có tiêu đề";
+                    // Sắp xếp bài viết theo ngày mới nhất lên trước (nếu có trường date hợp lệ)
+                    posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                    posts.slice(0, 6).forEach(post => {
+                        // Lấy tiêu đề và mô tả theo ngôn ngữ hiện tại
+                        const title = post.title && post.title[lang] ? post.title[lang] : (post.title && post.title['vi'] ? post.title['vi'] : "Không có tiêu đề");
+                        const excerpt = post.excerpt && post.excerpt[lang] ? post.excerpt[lang] : (post.excerpt && post.excerpt['vi'] ? post.excerpt['vi'] : "Không có mô tả.");
+                        
                         const link = post.link || "#"; 
-                        const description = (post.description || "Không có mô tả.").substring(0, 150) + "...";
+                        const description = excerpt.substring(0, 150) + (excerpt.length > 150 ? "..." : "");
                         const date = post.date ? new Date(post.date).toLocaleDateString('vi-VN') : "Không có ngày";
                         const image = post.image || 'https://placehold.co/600x400/F97316/FFFFFF?text=IVS+News';
 
-
                         newsHtml += `
                             <div class="news-card bg-white p-4 rounded-lg shadow-md flex flex-col">
-                                <img src="${image}" alt="${title.substring(0,50)}" class="w-full h-40 object-cover rounded-t-md mb-3" onerror="this.src='https://placehold.co/600x400/CCCCCC/FFFFFF?text=Image+Error';">
+                                <img src="${image}" alt="${title.substring(0,50)}" class="w-full h-40 object-cover rounded-t-md mb-3" onerror="this.style.display='none'; this.parentElement.insertAdjacentHTML('afterbegin', '<div class=\\'w-full h-40 bg-gray-200 flex items-center justify-center rounded-t-md mb-3 text-gray-400\\'><i class=\\'fas fa-image fa-2x\\'></i></div>');">
                                 <div class="news-card-content">
                                     <h3 class="text-lg font-semibold text-gray-800 mb-2">
                                         <a href="${link}" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">${title}</a>
@@ -323,10 +321,8 @@
             }
         }
         
-        // Load IVS news on initial page load
         loadIvsNews();
 
-        // RSS Feed URLs
         const rssFeeds = {
             education: [
                 { name: "VnExpress Giáo dục", url: "https://vnexpress.net/rss/giao-duc.rss" },
@@ -349,11 +345,11 @@
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 const tabName = tab.dataset.tab;
-                const containerId = `${tabName.replace('-news', '')}-rss-container`; // e.g., education-rss-container
+                const containerId = `${tabName.replace('-news', '')}-rss-container`; 
                 const rssContainer = document.getElementById(containerId);
 
                 if (rssContainer && !rssContainer.dataset.loaded) {
-                    const feedCategory = tabName.split('-')[0]; // 'education', 'economy', etc.
+                    const feedCategory = tabName.split('-')[0]; 
                     if (rssFeeds[feedCategory]) {
                         rssFeeds[feedCategory].forEach(feed => fetchAndDisplayRSS(feed.url, containerId, feed.name, 2));
                         rssContainer.dataset.loaded = "true";
