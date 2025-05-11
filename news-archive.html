@@ -52,7 +52,7 @@
         }
         .news-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-height: 200px; /* Đảm bảo card có chiều cao tối thiểu */
+            min-height: 200px; 
             display: flex;
             flex-direction: column;
         }
@@ -64,12 +64,18 @@
             flex-grow: 1;
         }
         .news-card-footer {
-            margin-top: auto; /* Đẩy footer xuống cuối card */
+            margin-top: auto; 
         }
         .skeleton-loader div {
             background-color: #e0e0e0;
             border-radius: 4px;
             margin-bottom: 8px;
+        }
+        .tab-content {
+            background-color: white;
+            padding: 1.5rem; 
+            border-radius: 0.5rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
         }
     </style>
 </head>
@@ -179,7 +185,7 @@
 
         const CORS_PROXY = "https://api.allorigins.win/get?url=";
 
-        async function fetchAndDisplayRSS(feedUrl, containerId, sourceName, maxItems = 4) { // Mặc định là 4 tin
+        async function fetchAndDisplayRSS(feedUrl, containerId, sourceName, maxItems = 6) { // Đổi maxItems mặc định thành 6
             const container = document.getElementById(containerId);
             if (!container) {
                 console.error(`Container with id ${containerId} not found.`);
@@ -213,7 +219,7 @@
                     newsHtml = `<p class="text-gray-500 col-span-full text-center">Không có tin tức nào từ ${sourceName} vào lúc này.</p>`;
                 } else {
                     items.forEach((item, index) => {
-                        if (index >= maxItems) return; // Giới hạn số lượng tin tức hiển thị
+                        if (index >= maxItems) return; 
 
                         const title = item.querySelector("title")?.textContent || "Không có tiêu đề";
                         const link = item.querySelector("link")?.textContent || "#";
@@ -279,7 +285,7 @@
                     let newsHtml = "";
                     posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-                    posts.slice(0, 6).forEach(post => { // Hiển thị tối đa 6 tin của IVS
+                    posts.slice(0, 6).forEach(post => { 
                         const title = post.title && post.title[lang] ? post.title[lang] : (post.title && post.title['vi'] ? post.title['vi'] : "Không có tiêu đề");
                         const excerpt = post.excerpt && post.excerpt[lang] ? post.excerpt[lang] : (post.excerpt && post.excerpt['vi'] ? post.excerpt['vi'] : "Không có mô tả.");
                         
@@ -345,7 +351,7 @@
                     const feedCategory = tabName.split('-')[0]; 
                     if (rssFeeds[feedCategory]) {
                         // THAY ĐỔI SỐ LƯỢNG TIN TỨC TẠI ĐÂY
-                        rssFeeds[feedCategory].forEach(feed => fetchAndDisplayRSS(feed.url, containerId, feed.name, 4)); // Hiển thị 4 tin cho mỗi nguồn RSS
+                        rssFeeds[feedCategory].forEach(feed => fetchAndDisplayRSS(feed.url, containerId, feed.name, 6)); // Hiển thị 6 tin cho mỗi nguồn RSS
                         rssContainer.dataset.loaded = "true";
                     }
                 }
