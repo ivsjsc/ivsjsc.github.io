@@ -282,8 +282,8 @@
             const container = document.getElementById('ivs-news-container');
             if (!container) return;
             try {
-                // FIX: Use absolute path for posts.json
-                const response = await fetch('/posts.json'); 
+                // FIX: Use relative path from current directory for posts.json
+                const response = await fetch('./posts.json'); 
                 if (!response.ok) throw new Error('Không thể tải posts.json. Status: ' + response.status);
                 const posts = await response.json();
 
@@ -319,7 +319,7 @@
                 }
             } catch (error) {
                 console.error("Error loading IVS News:", error);
-                container.innerHTML = `<p class="text-red-500 col-span-full">Không thể tải tin tức của IVS. Vui lòng kiểm tra xem file /posts.json có tồn tại và đúng định dạng không.</p>`;
+                container.innerHTML = `<p class="text-red-500 col-span-full">Không thể tải tin tức của IVS. Vui lòng kiểm tra xem file posts.json có tồn tại trong cùng thư mục với news-archive.html và đúng định dạng không.</p>`;
             }
         }
         
