@@ -38,11 +38,11 @@
                 // Bao gồm các màu gray cần thiết
                 'gray-50': '#f9fafb', '100': '#f3f4f6', '200': '#e5e7eb', '300': '#d1d5db', '400': '#9ca3af', '500': '#6b7280', '600': '#4b5563', '700': '#374151', '800': '#1f2937', '900': '#111827',
                 // Thêm các màu bạn có thể cần từ các button
-                'red': { '500': '#ef4444', '600': '#dc2626' }, // Ví dụ cho nút màu đỏ
-                'indigo': { '500': '#6366f1', '600': '#4f46e5' }, // Ví dụ cho nút màu indigo
-                'teal': { '500': '#14b8a6', '600': '#0d9488' }, // Ví dụ cho nút màu teal
-                'pink': { '500': '#ec4899', '600': '#db2777' }, // Ví dụ cho nút màu pink
-                'yellow': { '500': '#eab308', '600': '#ca8a04' } // Ví dụ cho nút màu vàng
+                'red': { '500': '#ef4444', '600': '#dc2626' },
+                'indigo': { '500': '#6366f1', '600': '#4f46e5' },
+                'teal': { '500': '#14b8a6', '600': '#0d9488' },
+                'pink': { '500': '#ec4899', '600': '#db2777' },
+                'yellow': { '500': '#eab308', '600': '#ca8a04' }
               }
             }
           }
@@ -54,15 +54,87 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* CSS cho video nền và lớp phủ */
+        .hero-section .video-background-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0; /* Đảm bảo video nằm dưới cùng */
+        }
 
+        .hero-section .video-background-container video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover; /* Đảm bảo video che phủ toàn bộ container */
+        }
+
+        .hero-section .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3); /* Điều chỉnh độ mờ ở đây */
+            z-index: 1; /* Nằm trên video nhưng dưới nội dung chữ */
+        }
+
+        .hero-section .hero-content {
+            position: relative; /* Để đảm bảo nội dung nổi lên trên video và lớp phủ */
+            z-index: 2; /* Nằm trên cùng */
+            padding: 4rem 1rem; /* Thêm padding để nội dung không bị sát mép */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px; /* Đặt chiều cao tối thiểu cho hero section */
+        }
+         /* Fallback cho banner ảnh nếu video không tải được hoặc trên thiết bị không hỗ trợ tốt */
+        .hero-section.no-video-fallback {
+            background-image: url('images/logo/webbanner.png'); /* Thay bằng đường dẫn ảnh banner của bạn */
+            background-size: cover;
+            background-position: center;
+        }
+        @media (max-width: 767px) {
+            .hero-section.no-video-fallback {
+                background-image: url('images/logo/webbannermo.png'); /* Banner cho mobile */
+            }
+            .hero-section .hero-content {
+                 min-height: 300px; /* Chiều cao tối thiểu cho mobile */
+            }
+        }
+    </style>
 </head>
 <body class="bg-gray-100 antialiased" id="page-index">
     <header id="header-placeholder"></header>
 
     <main>
-        <section class="hero-section relative text-center mb-12 overflow-hidden rounded-b-lg shadow-xl bg-gray-200" data-aos="fade-in" data-aos-duration="1000">
-            <img src="images/logo/webbanner.png" alt="IVS JSC Banner" class="hidden md:block w-full h-auto object-cover z-0 mx-auto" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
-            <img src="images/logo/webbannermo.png" alt="IVS JSC Banner Mobile" class="block md:hidden w-full h-auto object-cover z-0 mx-auto" onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#3b82f6';">
+        <section class="hero-section relative text-center mb-12 overflow-hidden rounded-b-lg shadow-xl bg-gray-800" data-aos="fade-in" data-aos-duration="1000">
+            <div class="video-background-container">
+                <video autoplay muted loop playsinline poster="images/logo/webbanner.png">
+                    <source src="path/to/your/video.mp4" type="video/mp4">
+                    Trình duyệt của bạn không hỗ trợ thẻ video. Vui lòng sử dụng ảnh banner thay thế.
+                </video>
+            </div>
+
+            <div class="video-overlay"></div>
+
+            <div class="hero-content text-white">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 hero-text-shadow" data-lang-key="hero_title_index">IVS JSC</h1>
+                <p class="text-lg md:text-xl lg:text-2xl mb-8 hero-text-shadow" data-lang-key="hero_subtitle_index">Nâng tầm Tri thức - Kiến tạo Tương lai</p>
+                <div>
+                    <a href="about.html" class="bg-header-orange hover:bg-orange-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105" data-lang-key="hero_button_about_us">Tìm hiểu thêm</a>
+                </div>
+            </div>
         </section>
 
         <section class="py-16 md:py-20 lg:py-24 bg-gray-50">
@@ -206,37 +278,55 @@
     <script>
       // Khởi tạo AOS
       AOS.init({
-        // Các tùy chọn chung (có thể tùy chỉnh):
-        // disable: 'mobile', // Tắt hiệu ứng trên điện thoại nếu muốn
-        offset: 100, // Khoảng cách (px) để kích hoạt hiệu ứng, giảm một chút để hiệu ứng sớm hơn
-        duration: 700, // Thời gian hiệu ứng (ms), giảm một chút cho nhanh hơn
-        easing: 'ease-out-quad', // Kiểu chuyển động mượt mà hơn
-        once: true, // Chỉ chạy hiệu ứng một lần (khuyến khích)
-        mirror: false, // Hiệu ứng có lặp lại khi cuộn lên không
-        anchorPlacement: 'top-bottom', // Vị trí của phần tử so với cửa sổ để kích hoạt
+        offset: 100, 
+        duration: 700, 
+        easing: 'ease-out-quad', 
+        once: true, 
+        mirror: false, 
+        anchorPlacement: 'top-bottom', 
       });
 
-      // Xử lý nút Scroll to Top (giữ nguyên logic của bạn)
+      // Xử lý nút Scroll to Top
       const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-      scrollToTopBtn.addEventListener('click', () => {
-          window.scrollTo({
-              top: 0,
-              behavior: 'smooth'
+      if (scrollToTopBtn) {
+          scrollToTopBtn.addEventListener('click', () => {
+              window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+              });
           });
+      }
+      
+      // Fallback cho hero section nếu video không tải được
+      document.addEventListener('DOMContentLoaded', function() {
+        const videoElement = document.querySelector('.hero-section .video-background-container video');
+        const heroSectionElement = document.querySelector('.hero-section');
+
+        if (videoElement && heroSectionElement) {
+            // Kiểm tra xem video có thể phát không
+            videoElement.addEventListener('error', function() {
+                // Nếu có lỗi, thêm class để hiển thị ảnh fallback
+                heroSectionElement.classList.add('no-video-fallback');
+                // Ẩn container video để ảnh nền CSS được hiển thị
+                if(videoElement.parentElement) {
+                    videoElement.parentElement.style.display = 'none';
+                }
+            });
+
+            // Một số trình duyệt có thể không kích hoạt sự kiện 'error'
+            // cho các vấn đề như không hỗ trợ định dạng.
+            // Kiểm tra xem video có thực sự tải được metadata không.
+            // Tuy nhiên, việc này có thể phức tạp và không luôn đáng tin cậy.
+            // Thuộc tính 'poster' trên thẻ video sẽ hiển thị ảnh nếu video đang tải hoặc không thể phát.
+        } else if (heroSectionElement) {
+            // Nếu không tìm thấy video element, mặc định dùng fallback
+             heroSectionElement.classList.add('no-video-fallback');
+        }
       });
 
-      // Tải Header và Footer (giữ nguyên logic tải header/footer của bạn từ script.js)
-      // Quan trọng: Nếu header/footer được tải động và chứa các phần tử bạn muốn có hiệu ứng AOS,
-      // bạn có thể cần gọi AOS.refresh() sau khi chúng được chèn vào DOM.
-      // Ví dụ, trong tệp script.js của bạn, sau khi header/footer được innerHTML:
-      // if (typeof AOS !== 'undefined') {
-      //    AOS.refresh();
-      // }
-      // Điều này đảm bảo AOS "thấy" các phần tử mới được thêm vào.
     </script>
     <script src="js/language.js" defer></script>
-    <script src="js/script.js" defer></script>
-    <script src="js/rss-loader.js" defer></script>
+    <script src="js/script.js" defer></script> <script src="js/rss-loader.js" defer></script>
    
 </body>
 </html>
