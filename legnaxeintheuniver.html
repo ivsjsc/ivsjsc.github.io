@@ -417,6 +417,233 @@
         </div>
 
     </div>
+    <footer id="footer-placeholder">
+        <div class="w-full min-h-[60px] bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 dark:text-gray-400 animate-pulse">
+            Đang tải footer...
+        </div>
+        <div class="fetch-error-fallback hidden">
+            <div class="bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-center p-4">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="mb-4">
+                        <a href="/" class="text-lg font-semibold text-gray-700 dark:text-gray-300">IVS STEAM (Lỗi tải)</a>
+                    </div>
+                    <div class="flex justify-center space-x-4 mb-4">
+                        <a href="index.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Trang Chủ</a>
+                        <a href="steambyivs.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">STEAM</a>
+                        <a href="readnovel.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chọn Truyện</a>
+                        <a href="contact.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Liên Hệ</a>
+                    </div>
+                    <div class="text-sm">
+                        <p>© <span id="current-year-fallback">2024</span> IVS STEAM. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
+    <div class="fab-container">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://ivs.id.vn/readnovel.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" class="fab-messenger" title="Share on Facebook">
+            <i class="fab fa-facebook-f text-xl"></i>
+        </a>
+        <a href="https://twitter.com/intent/tweet?url=https://ivs.id.vn/readnovel.html&text=Check%20out%20these%20novels%20from%20IVS%20STEAM!" target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter" class="bg-sky-500 hover:bg-sky-600" title="Share on Twitter (X)">
+            <i class="fab fa-twitter text-xl"></i>
+        </a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ivs.id.vn/readnovel.html&title=Novels%20from%20IVS%20STEAM" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn" class="bg-blue-700 hover:bg-blue-800" title="Share on LinkedIn">
+            <i class="fab fa-linkedin-in text-xl"></i>
+        </a>
+        <a href="mailto:?subject=Novels%20from%20IVS%20STEAM&body=Check%20out%20this%20page%3A%20https%3A%2F%2Fivs.id.vn%2Freadnovel.html" target="_blank" rel="noopener noreferrer" aria-label="Share via Email" class="fab-email" title="Share via Email">
+            <i class="fas fa-envelope text-xl"></i>
+        </a>
+        <button id="scroll-to-top-btn" title="Cuộn lên đầu trang" class="hidden">
+            <i class="fas fa-arrow-up text-xl"></i>
+        </button>
+    </div>
+    
+    <script src="js/language.js" defer></script>
+    <script>
+        // --- Dark Mode Logic ---
+        const htmlElement = document.documentElement;
+        const darkModeToggleButtonPage = document.getElementById('darkModeToggleButtonPage'); 
+
+        function applyInitialDarkMode() {
+            const darkModePreference = localStorage.getItem('darkMode');
+            if (darkModePreference === 'enabled' || 
+               (!darkModePreference && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                htmlElement.classList.add('dark');
+            } else {
+                htmlElement.classList.remove('dark');
+            }
+        }
+
+        function toggleDarkMode() {
+            const isDarkMode = htmlElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+        }
+
+        if (darkModeToggleButtonPage) {
+            darkModeToggleButtonPage.addEventListener('click', toggleDarkMode);
+        }
+        
+        applyInitialDarkMode(); 
+
+        // --- Search Functionality ---
+        const searchInput = document.getElementById('searchInput');
+        const novelCards = document.querySelectorAll('.novel-card');
+
+        searchInput?.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            novelCards.forEach(card => {
+                const titleElement = card.querySelector('h3');
+                const descElement = card.querySelector('p');
+                const title = titleElement ? titleElement.textContent.toLowerCase() : '';
+                const desc = descElement ? descElement.textContent.toLowerCase() : '';
+                const isVisible = title.includes(searchTerm) || desc.includes(searchTerm);
+                card.style.display = isVisible ? '' : 'none';
+            });
+        });
+
+        // --- Scroll to Top Button ---
+        const scrollToTopButton = document.getElementById('scroll-to-top-btn');
+
+        if (scrollToTopButton) {
+            scrollToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    scrollToTopButton.classList.remove('hidden');
+                    scrollToTopButton.classList.add('visible');
+                } else {
+                    scrollToTopButton.classList.remove('visible');
+                    // Add hidden class after transition for smoother disappearance
+                    setTimeout(() => {
+                         if (window.scrollY <=300) scrollToTopButton.classList.add('hidden');
+                    }, 300); 
+                }
+            });
+        }
+        
+        // --- Fetch Header and Footer ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            const footerPlaceholder = document.getElementById('footer-placeholder');
+            const headerPath = 'header.html'; 
+            const footerPath = 'footer.html'; 
+
+            function handleFetchError(error, placeholderElement, type, filePath) {
+                console.error(`Error fetching ${type} from ${filePath}:`, error);
+                const fallbackElement = placeholderElement.querySelector('.fetch-error-fallback');
+                const pulseElement = placeholderElement.querySelector('.animate-pulse');
+
+                if (pulseElement) pulseElement.style.display = 'none';
+                if (fallbackElement) {
+                    fallbackElement.classList.remove('hidden');
+                    if(type === 'header') {
+                        const errorMsgDiv = fallbackElement.querySelector('.fetch-error-message');
+                        if (errorMsgDiv) errorMsgDiv.classList.add('header-error');
+                    }
+                } else {
+                    placeholderElement.innerHTML = `<div class="fetch-error-message ${type}-error">Lỗi khi tải ${type}. Vui lòng tải lại trang.</div>`;
+                    if (type === 'header') {
+                        const errorMsgDiv = placeholderElement.querySelector('.fetch-error-message');
+                        if (errorMsgDiv) errorMsgDiv.classList.add('header-error');
+                    }
+                }
+                if(type === 'header') setActiveNavLink('readnovel.html'); 
+                if(type === 'footer' && document.getElementById('current-year-fallback')) {
+                    document.getElementById('current-year-fallback').textContent = new Date().getFullYear();
+                }
+            }
+
+            function fetchComponent(placeholder, path, type) {
+                if (!placeholder) {
+                    console.error(`${type} placeholder element not found.`);
+                    return Promise.reject(`${type} placeholder not found`);
+                }
+                return fetch(path)
+                    .then(response => {
+                        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                        return response.text();
+                    })
+                    .then(data => {
+                        placeholder.innerHTML = data;
+                        if (type === 'header') {
+                            setActiveNavLink('readnovel.html');
+                            applyInitialDarkMode(); 
+                                                        
+                            const headerDarkModeButton = document.getElementById('darkModeToggleButtonHeader'); // ID for header's dark mode button
+                            if (headerDarkModeButton) {
+                                headerDarkModeButton.addEventListener('click', toggleDarkMode);
+                            }
+
+                            if (typeof window.applyTranslations === 'function') {
+                                window.applyTranslations(); 
+                            }
+                             if (typeof window.attachLanguageSwitcherEvents === 'function') {
+                                window.attachLanguageSwitcherEvents(); 
+                            }
+                            // Example: if (typeof window.initHeaderScripts === 'function') window.initHeaderScripts();
+                        }
+                        if (type === 'footer' && document.getElementById('current-year')) {
+                             document.getElementById('current-year').textContent = new Date().getFullYear();
+                        }
+                        if (typeof window.applyTranslations === 'function') {
+                            window.applyTranslations();
+                        }
+                    })
+                    .catch(error => handleFetchError(error, placeholder, type, path));
+            }
+
+            fetchComponent(headerPlaceholder, headerPath, 'header');
+            fetchComponent(footerPlaceholder, footerPath, 'footer');
+            
+            if (typeof window.applyTranslations === 'function') {
+                setTimeout(() => { window.applyTranslations(); }, 100);
+            }
+        });
+
+        function setActiveNavLink(currentPageName) {
+            const navLinks = document.querySelectorAll('#header-placeholder a.nav-link, #header-placeholder .submenu a, #header-placeholder .mobile-submenu a, #header-placeholder .fetch-error-fallback a');
+            if (navLinks.length === 0) {
+                // console.warn("setActiveNavLink: No navigation links found.");
+                return;
+            }
+
+            navLinks.forEach(link => {
+                link.classList.remove('active-menu-item', 'active-parent-item', 'text-primary', 'dark:text-blue-400', 'bg-orange-500', 'dark:bg-orange-400', 'text-white');
+                link.removeAttribute('aria-current');
+
+                let linkHref = link.getAttribute('href');
+                if (linkHref) {
+                    // Normalize by removing leading/trailing slashes and .html
+                    let normalizedLinkHref = linkHref.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+                    if (normalizedLinkHref === "" || normalizedLinkHref === "index") normalizedLinkHref = "index"; // Treat empty or "index" as "index"
+
+                    let normalizedCurrentPageName = currentPageName.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+                     if (normalizedCurrentPageName === "") normalizedCurrentPageName = "index"; // Treat empty current page as "index"
+
+
+                    if (normalizedLinkHref === normalizedCurrentPageName) {
+                        link.classList.add('active-menu-item'); 
+                        // Example active style (you might need to adjust based on your header's CSS)
+                        link.classList.add('bg-orange-600', 'text-white'); 
+                        link.setAttribute('aria-current', 'page');
+
+                        let parent = link.closest('.main-menu-item, .mobile-menu-item');
+                        while(parent){
+                            const parentButton = parent.querySelector(':scope > button.nav-link, :scope > button.mobile-submenu-toggle');
+                            if(parentButton) {
+                                parentButton.classList.add('active-parent-item');
+                                // Example parent active style
+                                parentButton.classList.add('bg-orange-600', 'text-white');
+                            }
+                            parent = parent.parentElement.closest('.main-menu-item, .mobile-menu-item');
+                        }
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 </html>
