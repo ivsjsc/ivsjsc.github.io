@@ -45,38 +45,99 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <style>
+
+        body {
+        background-color: #f3f4f6; /* gray-100 */
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        }
+
+        /*
+        Custom Tailwind colors (as defined in the script)
+        These are typically used within the HTML classes, but defined here for context
+        */
+        /*
+        --primary: #3b82f6;
+        --primary-dark: #2563eb;
+        --secondary: #10b981;
+        --warning: #f59e0b;
+        --header-orange: #f97316;
+        --blue-500: #3b82f6;
+        --blue-600: #2563eb;
+        --blue-700: #1d4ed8;
+        --green-500: #22c55e;
+        --green-600: #16a34a;
+        --green-700: #15803d;
+        --amber-500: #f59e0b;
+        --amber-600: #d97706;
+        --amber-700: #b45309;
+        --purple-500: #8b5cf6;
+        --purple-600: #7c3aed;
+        --purple-700: #6d28d9;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-400: #9ca3af;
+        --gray-500: #6b7280;
+        --gray-600: #4b5563;
+        --gray-700: #374151;
+        --gray-800: #1f2937;
+        --gray-900: #111827;
+        */
+
+        /*
+        Tab button styling
+        */
         .tab-button.active {
-            border-color: var(--header-orange);
-            color: var(--header-orange);
-            background-color: #fff7ed; /* orange-50 */
+        border-color: var(--header-orange); /* Uses custom property for orange */
+        color: var(--header-orange); /* Uses custom property for orange */
+        background-color: #fff7ed; /* Tailwind orange-50 */
         }
+
+        /*
+        News card styling
+        */
         .news-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            min-height: 200px; 
-            display: flex;
-            flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        min-height: 200px;
+        display: flex;
+        flex-direction: column;
         }
+
         .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
         }
+
         .news-card-content {
-            flex-grow: 1;
+        flex-grow: 1; /* Allows the content area to expand and push the footer down */
         }
+
         .news-card-footer {
-            margin-top: auto; 
+        margin-top: auto; /* Pushes the footer to the bottom */
         }
+
+        /*
+        Skeleton loader styling for initial loading state
+        */
         .skeleton-loader div {
-            background-color: #e0e0e0;
-            border-radius: 4px;
-            margin-bottom: 8px;
+        background-color: #e0e0e0; /* A light gray for the loader */
+        border-radius: 4px;
+        margin-bottom: 8px;
         }
+
+        /*
+        Styling for the tab content areas
+        */
         .tab-content {
-            background-color: white;
-            padding: 1.5rem; 
-            border-radius: 0.5rem; 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
+        background-color: white;
+        padding: 1.5rem; /* Equivalent to Tailwind p-6 */
+        border-radius: 0.5rem; /* Equivalent to Tailwind rounded-lg */
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Equivalent to Tailwind shadow */
         }
+
     </style>
 </head>
 <body class="bg-gray-100 antialiased" id="page-news-archive">
