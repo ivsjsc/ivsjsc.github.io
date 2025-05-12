@@ -1,617 +1,730 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-lang-key="readnovel_page_title">Chọn Truyện - IVS STEAM</title>
-    <meta name="description" content="Chọn và đọc các truyện song ngữ Anh-Việt LEGNAXE do IVS STEAM phát triển." data-lang-key="readnovel_meta_description">
-    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        'primary': '#3b82f6',
-                        'secondary': '#10b981',
-                        'warning': '#f59e0b',
-                        'neutral': {
-                            50: '#f9fafb', 100: '#f3f4f6', 200: '#e5e7eb', 300: '#d1d5db', 500: '#6b7280', 700: '#374151',
-                        },
-                        'blue-600': '#2563eb', 'red-100': '#fee2e2', 'red-300': '#fca5a5', 'red-700': '#b91c1c', 'red-800': '#991b1b',
-                        'gray-50': '#f9fafb', 'gray-200': '#e5e7eb', 'gray-500': '#6b7280', 'gray-700': '#374151',
-                        'gray-800': '#1f2937', 'gray-900': '#111827', 'red-900': '#7f1d1d', 'red-200': '#fecaca',
-                        'orange-600': '#f97316', 'orange-500': '#f97316' // Added orange for active state example
-                    }
-                }
-            },
-            plugins: [],
-        };
-    </script>
-    <link rel="stylesheet" href="css/styles.css">
-    <style>
-        /* Basic body and main content styling */
-        body {
-            font-family: 'Inter', sans-serif;
-            padding-top: 60px; /* Default header height for mobile */
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        @media (min-width: 1024px) {
-            body {
-                padding-top: 80px; /* Header height for desktop */
-            }
-        }
-        main {
-            flex-grow: 1;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-key="readnovel_page_title">Chọn Truyện - IVS STEAM</title>
+    <meta name="description" content="Chọn và đọc các truyện song ngữ Anh-Việt LEGNAXE do IVS STEAM phát triển." data-lang-key="readnovel_meta_description">
+    
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind configuration including custom colors and font
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        // Keeping existing custom colors and extending defaults
+                        'primary': '#3b82f6',
+                        'secondary': '#10b981',
+                        'warning': '#f59e0b',
+                         'neutral': { // Defined to match existing usage
+                            50: '#f9fafb', 100: '#f3f4f6', 200: '#e5e7eb', 300: '#d1d5db', 500: '#6b7280', 700: '#374151',
+                        },
+                        // Explicitly listing colors used with dark mode or specific components for clarity
+                        'blue-600': '#2563eb', 'red-100': '#fee2e2', 'red-300': '#fca5a5', 'red-700': '#b91c1c', 'red-800': '#991b1b',
+                        'gray-50': '#f9fafb', 'gray-200': '#e5e7eb', 'gray-500': '#6b7280', 'gray-700': '#374151',
+                        'gray-800': '#1f2937', 'gray-900': '#111827', 'red-900': '#7f1d1d', 'red-200': '#fecaca',
+                        'orange-600': '#f97316', 'orange-500': '#f97316', // Used for active state example
+                         'sky-500': '#0ea5e9', 'sky-600': '#0284c7', // Used for Twitter FAB
+                         'blue-700': '#1d4ed8', 'blue-800': '#1e40af', // Used for LinkedIn FAB
+                         'green-700': '#047857' // Used for character button hover
+                    }
+                }
+            },
+            plugins: [],
+        };
+    </script>
+    
+    <style>
+        /* Basic body and main content styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            padding-top: 60px; /* Default header height for mobile */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Tailwind classes for background and text color are applied directly in body tag */
+            /* bg-gray-50 text-neutral-700 dark:bg-gray-900 dark:text-neutral-300 font-sans antialiased */
+        }
+        @media (min-width: 1024px) {
+            body {
+                padding-top: 80px; /* Header height for desktop */
+            }
+        }
+        main {
+            flex-grow: 1; /* Ensures main content takes up available space */
+        }
 
-        /* Header/Footer Placeholder Styles */
-        /* Added .fetch-error-fallback styles here for clarity, though they could remain inline */
-        #header-placeholder, #footer-placeholder {
-            min-height: 60px; /* Fallback min-height for mobile */
-            display: flex; /* Use flex to center content */
-            align-items: center;
-            justify-content: center;
-        }
-        @media (min-width: 1024px) {
-            #header-placeholder {
-                min-height: 80px; /* Fallback min-height for desktop header */
-            }
-        }
-        .fetch-error-message {
-            text-align: center; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; color: #b91c1c; background-color: #fee2e2; width: 100%;
-        }
-        .fetch-error-message.header-error {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 40; min-height: 60px; display: flex; align-items: center; justify-content: center;
-        }
-        @media (min-width: 1024px) { .fetch-error-message.header-error { min-height: 80px; } }
-        html.dark .fetch-error-message { background-color: rgba(127, 29, 29, 0.5); border-color: #b91c1c; color: #fecaca; }
+        /* Placeholder Styles for Header/Footer Fetching */
+        #header-placeholder, #footer-placeholder {
+            min-height: 60px; /* Fallback min-height for mobile */
+            display: flex; /* Use flex to center content */
+            align-items: center;
+            justify-content: center;
+            /* Placeholder background color handled by Tailwind classes */
+            /* bg-gray-200 dark:bg-gray-700 or bg-gray-100 dark:bg-gray-800 */
+        }
+        @media (min-width: 1024px) {
+            #header-placeholder {
+                min-height: 80px; /* Fallback min-height for desktop header */
+            }
+        }
 
-        /* Search Bar Styles */
-        .search-bar {
-            margin-bottom: 1rem; border: 1px solid #d1d5db; border-radius: 0.375rem; overflow: hidden; background-color: white;
-        }
-        html.dark .search-bar { border-color: #4b5563; background-color: #374151; }
-        .search-bar input { width: 100%; padding: 0.5rem 0.75rem; background-color: transparent; color: inherit; }
-        .search-bar input:focus { outline: 2px solid transparent; outline-offset: 2px; }
-        html.dark .search-bar input::placeholder { color: #9ca3af; }
+        /* Error Message Styles for Fetching Failure */
+        .fetch-error-message {
+            text-align: center; padding: 1rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; color: #b91c1c; background-color: #fee2e2; width: 100%;
+            /* Added flex properties for centering fallback header message */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+         /* Specific style for header error message to make it fixed */
+        .fetch-error-message.header-error {
+             position: fixed; top: 0; left: 0; right: 0; z-index: 40; /* Ensures it stays on top */
+             min-height: 60px; /* Match header placeholder height */
+        }
+         @media (min-width: 1024px) { .fetch-error-message.header-error { min-height: 80px; } }
 
-        /* Novel List and Card Styles */
-        .novel-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-        .novel-card {
-            background-color: #ffffff; border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-            overflow: hidden; display: flex; flex-direction: column;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-        html.dark .novel-card { background-color: #1f2937; box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.05), 0 2px 4px -2px rgba(255, 255, 255, 0.05); }
-        .novel-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); }
-        html.dark .novel-card:hover { box-shadow: 0 10px 15px -3px rgba(255, 255, 255, 0.07), 0 4px 6px -4px rgba(255, 255, 255, 0.07); }
-        .cover-link { display: block; }
-        .book-cover { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; background-color: #e5e7eb; }
-        html.dark .book-cover { background-color: #374151; }
-        .card-content { padding: 1rem; flex-grow: 1; display: flex; flex-direction: column; }
-        .read-button {
-            display: inline-flex; align-items: center; justify-content: center;
-            padding: 0.5rem 1rem; border-radius: 0.375rem; font-weight: 500; text-align: center;
-            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-            background-color: #3b82f6; color: #ffffff; border: 1px solid transparent;
-        }
-        .read-button:hover { background-color: #2563eb; }
-        .english-button { background-color: #10b981; color: #ffffff; }
-        .english-button:hover { background-color: #059669; }
+        /* Dark mode styles for error message */
+        html.dark .fetch-error-message { background-color: rgba(127, 29, 29, 0.5); border-color: #b91c1c; color: #fecaca; }
 
-        /* Added styles for summary toggle */
-        .summary-container {
-            margin-top: 1rem;
-            font-size: 0.875rem; /* text-sm */
-            color: #6b7280; /* gray-500 */
-            line-height: 1.5;
-        }
-        html.dark .summary-container {
-            color: #9ca3af; /* gray-400 */
-        }
-        .summary-full {
-            display: none; /* Hidden by default */
-            margin-top: 0.5rem;
-        }
-        .read-more-link {
-            color: #3b82f6; /* primary */
-            cursor: pointer;
-            text-decoration: underline;
-            font-weight: 500;
-        }
-         html.dark .read-more-link {
-            color: #60a5fa; /* blue-400 */
-        }
-        .read-more-link:hover {
-            text-decoration: none;
-        }
-        .summary-container .summary-short {
-            /* Ensures short summary is always displayed unless toggled */
-            display: block;
-        }
+        /* Search Bar Styles */
+        /* Using Tailwind classes for styling, adding some custom hover/focus if needed */
+        .search-bar input:focus {
+             outline: 2px solid #3b82f6; /* primary color */
+             outline-offset: 2px;
+        }
+         html.dark .search-bar input:focus {
+             outline-color: #60a5fa; /* blue-400 for dark mode */
+         }
 
 
-        /* Floating Action Button (FAB) Container Styles */
-        .fab-container {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            z-index: 50;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
+        /* Novel List (Grid) Styles */
+        .novel-list {
+            display: grid;
+            /* Responsive grid: minmax(280px, 1fr) means items will be at least 280px wide */
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem; /* Tailwind gap-6 */
+        }
 
-        .fab-container > * {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 3rem;
-            height: 3rem;
-            border-radius: 9999px;
-            color: white;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            transition-property: background-color, transform, box-shadow;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            transition-duration: 200ms;
-            text-decoration: none;
-        }
-        .fab-container > *:hover {
-            transform: scale(1.1);
-        }
+        /* Novel Card Styles */
+        .novel-card {
+            /* Tailwind classes handle background, border-radius, shadow, overflow */
+            /* bg-white rounded-lg shadow-md overflow-hidden */
+            display: flex;
+            flex-direction: column; /* Arrange content vertically */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .novel-card:hover {
+            transform: translateY(-4px); /* Slight lift on hover */
+            /* Tailwind classes handle hover shadow */
+            /* group-hover:shadow-lg group-hover:shadow-opacity-20 */
+        }
 
-        .fab-container > *:not(:last-child) {
-            margin-bottom: 0.75rem;
-        }
+        .book-cover {
+             width: 100%;
+             aspect-ratio: 2 / 3; /* Standard book cover ratio */
+             object-fit: cover; /* Ensure image covers the area without distorting */
+             /* Tailwind classes handle background color for loading/error */
+             /* bg-gray-200 dark:bg-gray-700 */
+        }
 
-        .fab-messenger { background-color: #006AFF; }
-        .fab-messenger:hover { background-color: #0052CC; }
+        .card-content {
+            padding: 1rem; /* Tailwind p-4 */
+            flex-grow: 1; /* Allows content to take up remaining space, useful for consistent button alignment */
+            display: flex;
+            flex-direction: column;
+        }
 
-        .fab-phone { background-color: #10B981; }
-        .fab-phone:hover { background-color: #059669; }
+        /* Read Button Styles */
+        .read-button {
+            /* Tailwind classes handle display, flex alignment, padding, border-radius, font-weight, text-align, colors */
+            /* inline-flex items-center justify-center px-4 py-2 rounded-md font-medium text-center */
+             transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            /* bg-primary text-white or bg-secondary text-white */
+             border: 1px solid transparent; /* Consistent border */
+        }
+         /* Tailwind classes handle hover states */
+         /* hover:bg-blue-700 or hover:bg-green-700 */
 
-        .fab-zalo { background-color: #0068FF; }
-        .fab-zalo:hover { background-color: #0058E6; }
 
-        .fab-email { background-color: #4B5563; }
-        .fab-email:hover { background-color: #374151; }
+        /* Summary Toggle Styles */
+        .summary-container {
+             margin-top: 1rem; /* Tailwind mt-4 */
+             font-size: 0.875rem; /* text-sm */
+             color: #6b7280; /* gray-500 */
+             line-height: 1.5; /* leading-relaxed */
+             /* dark:text-gray-400 */
+        }
+        .summary-full {
+            display: none; /* Hidden by default */
+            margin-top: 0.5rem; /* Tailwind mt-2 */
+        }
+        .read-more-link {
+            color: #3b82f6; /* primary */
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: 500; /* font-medium */
+            /* dark:text-blue-400 */
+        }
+        .read-more-link:hover {
+            text-decoration: none;
+        }
+         /* Ensure short summary is always visible by default */
+        .summary-container .summary-short {
+             display: block;
+         }
+         /* When full summary is shown, hide short summary */
+         .summary-container .summary-full:not([style*="display: none"]) + .summary-short {
+             display: none;
+         }
 
-        #scroll-to-top-btn {
-            background-color: #374151;
-            opacity: 0; /* Hidden by default */
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
-            transform: translateY(20px); /* Starts slightly below */
-        }
-        #scroll-to-top-btn:hover {
-            background-color: #1f2937;
-        }
-        #scroll-to-top-btn.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-    </style>
-</head>
+
+        /* Floating Action Button (FAB) Container Styles */
+        .fab-container {
+            position: fixed;
+            bottom: 1.5rem; /* Tailwind bottom-6 */
+            right: 1.5rem; /* Tailwind right-6 */
+            z-index: 50; /* Higher z-index to be above other content */
+            display: flex;
+            flex-direction: column; /* Stack buttons vertically */
+            align-items: flex-end; /* Align items to the right */
+        }
+
+        .fab-container > * {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; /* Tailwind w-12 */
+            height: 3rem; /* Tailwind h-12 */
+            border-radius: 9999px; /* Tailwind rounded-full */
+            color: white; /* Tailwind text-white */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Tailwind shadow-lg */
+            transition-property: background-color, transform, box-shadow;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 200ms; /* Tailwind transition ease-in-out duration-200 */
+            text-decoration: none; /* Remove underline from links */
+        }
+        .fab-container > *:hover {
+             transform: scale(1.1); /* Slight scale up on hover */
+        }
+
+        .fab-container > *:not(:last-child) {
+            margin-bottom: 0.75rem; /* Tailwind mb-3 for spacing between buttons */
+        }
+
+        /* Specific FAB Colors */
+        .fab-messenger { background-color: #006AFF; } /* Facebook Messenger blue */
+        .fab-messenger:hover { background-color: #0052CC; }
+
+        /* Note: Twitter FAB uses Tailwind bg-sky-500/hover:bg-sky-600 */
+        /* Note: LinkedIn FAB uses Tailwind bg-blue-700/hover:bg-blue-800 */
+
+        .fab-email { background-color: #4B5563; } /* Tailwind gray-600 */
+        .fab-email:hover { background-color: #374151; } /* Tailwind gray-700 */
+
+        /* Scroll to Top Button Specific Styles */
+        #scroll-to-top-btn {
+            background-color: #374151; /* Tailwind gray-700 */
+            opacity: 0; /* Hidden by default */
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform: translateY(20px); /* Starts slightly below */
+            cursor: pointer; /* Indicate it's clickable */
+             border: none; /* Remove default button border */
+        }
+        #scroll-to-top-btn:hover {
+            background-color: #1f2937; /* Tailwind gray-800 */
+        }
+        #scroll-to-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0); /* Slides up into view */
+        }
+         /* Ensure hidden class from JS doesn't interfere with visible class transitions */
+        #scroll-to-top-btn.hidden {
+             opacity: 0 !important;
+             visibility: hidden !important;
+             transform: translateY(20px) !important;
+         }
+
+
+         /* Active Navigation Link Styling (Assuming handled by JS after fetch) */
+         /* These styles match the orange-600 color used in the JS for active links */
+         .active-menu-item, .active-parent-item {
+             background-color: #f97316; /* orange-600 */
+             color: #ffffff; /* white */
+         }
+         /* Ensure hover styles work on active items too */
+         .active-menu-item:hover, .active-parent-item:hover {
+              background-color: #ea580c; /* A slightly darker orange for hover */
+         }
+
+
+    </style>
+    
+    </head>
 <body class="bg-gray-50 text-neutral-700 dark:bg-gray-900 dark:text-neutral-300 font-sans antialiased">
 
-    <header id="header-placeholder" class="fixed top-0 left-0 right-0 z-40">
-        <div class="w-full h-[60px] lg:h-[80px] bg-gray-200 dark:bg-gray-700 animate-pulse flex items-center justify-center text-gray-500 dark:text-gray-400">
-            Đang tải menu...
-        </div>
-        <div class="fetch-error-fallback hidden">
-            <div class="fetch-error-message header-error">
-                Lỗi tải menu. Vui lòng thử lại sau.
-                <a href="/" class="ml-4 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm">Về Trang Chủ</a>
-            </div>
-        </div>
-    </header>
+    <header id="header-placeholder" class="fixed top-0 left-0 right-0 z-40">
+        <div class="w-full h-[60px] lg:h-[80px] bg-gray-200 dark:bg-gray-700 animate-pulse flex items-center justify-center text-gray-500 dark:text-gray-400">
+            Đang tải menu...
+        </div>
+        <div class="fetch-error-fallback hidden">
+            <div class="fetch-error-message header-error">
+                Lỗi tải menu. Vui lòng thử lại sau.
+                <a href="/" class="ml-4 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm">Về Trang Chủ</a>
+            </div>
+        </div>
+    </header>
 
-    <main class="w-full">
-        <div class="main-content-wrapper py-8">
-            <div class="page-content-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 class="page-title text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-lang-key="readnovel_title">Chọn Truyện Để Đọc</h1>
+    <main class="w-full">
+        <div class="main-content-wrapper py-8">
+            <div class="page-content-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                <div class="search-bar mb-6">
-                    <input type="text" id="searchInput" placeholder="Tìm kiếm truyện theo tên hoặc mô tả..." data-lang-key="readnovel_search_placeholder" class="w-full p-2 bg-transparent focus:outline-none placeholder-gray-500 dark:placeholder-gray-400">
-                </div>
+                <h1 class="page-title text-3xl font-bold mb-6 text-gray-900 dark:text-white" data-lang-key="readnovel_title">Chọn Truyện Để Đọc</h1>
 
-                <div class="settings flex justify-end mb-4">
-                                        <button id="darkModeToggleButtonPage" aria-label="Chuyển chế độ Sáng/Tối" title="Chuyển chế độ Sáng/Tối" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700">
-                        <i class="fas fa-adjust text-xl"></i>
-                    </button>
-                </div>
+                <div class="search-bar mb-6 border border-gray-300 dark:border-gray-600 rounded-md overflow-hidden bg-white dark:bg-gray-800">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm truyện theo tên hoặc mô tả..." data-lang-key="readnovel_search_placeholder" class="w-full p-2 bg-transparent focus:outline-none placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white">
+                </div>
 
-                <div class="novel-list">
-                    <div class="novel-card group">
-                        <a href="read-legnaxe_part1_vi.html" class="cover-link" aria-label="Đọc LEGNAXE Phần 1 Tiếng Việt">
-                            <picture>
-                                <source srcset="images/pages/novels/legnaxe1vertical.png" type="image/webp">
-                                <img src="images/pages/novels/legnaxe1vertical.png" alt="Bìa truyện LEGNAXE Phần 1" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/EBF4FF/4A5568?text=LEGNAXE+P1'; this.alt='Lỗi tải ảnh bìa LEGNAXE Phần 1';">
-                            </picture>
-                        </a>
-                        <div class="card-content">
-                            <h3 class="text-lg font-semibold !line-clamp-1 mb-1 text-gray-900 dark:text-white" data-lang-key="readnovel_legnaxe1_title">LEGNAXE: Phần 1</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-4" data-lang-key="readnovel_legnaxe1_desc">Bí mật cuộc đại chiến Thiên Đàng / <strong>Secrets of Heaven's Great War.</strong></p>
+                <div class="settings flex justify-end mb-4">
+                    <button id="darkModeToggleButtonPage" aria-label="Chuyển chế độ Sáng/Tối" title="Chuyển chế độ Sáng/Tối" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-adjust text-xl"></i>
+                    </button>
+                </div>
 
-                            <div class="story-item-content">
-                                <div class="summary-container">
-                                    <p class="summary-short">
-                                        Câu chuyện bắt đầu tại Thiên Đàng, nơi Lucifer, một Tổng lãnh Thiên thần, cảm thấy bất mãn với sự hoàn hảo đơn điệu và đặt nghi vấn về ý nghĩa tồn tại. Sự bất mãn leo thang khi Đấng Sáng Tạo quyết định tạo ra Nhân Loại trên Trái Đất và yêu cầu các thiên thần phục tùng họ...
-                                    </p>
-                                    <div class="summary-full">
-                                        <p>Câu chuyện bắt đầu tại Thiên Đàng, nơi Lucifer, một Tổng lãnh Thiên thần, cảm thấy bất mãn với sự hoàn hảo đơn điệu và đặt nghi vấn về ý nghĩa tồn tại. Sự bất mãn leo thang khi Đấng Sáng Tạo quyết định tạo ra Nhân Loại trên Trái Đất và yêu cầu các thiên thần phục tùng họ. Lucifer kịch liệt phản đối, dẫn đến sự chia rẽ trong hàng ngũ thiên thần.</p>
-                                        <p>Trên Trái Đất, Adam và Lilith được tạo ra. Lilith, không chấp nhận vai trò phụ thuộc vào Adam, nhận được tri thức từ Lucifer và rời khỏi Eden. Sau đó, Đấng Sáng Tạo tạo ra Eve từ xương sườn của Adam. Lucifer, dưới hình dạng rắn, cám dỗ Eve ăn trái cấm từ Cây Tri Thức, khiến cả Adam và Eve bị trục xuất khỏi Eden.</p>
-                                        <p>Tại Thiên Đàng, Lucifer tập hợp các thiên thần nổi loạn, phát động cuộc chiến chống lại Đấng Sáng Tạo. Cuộc chiến này gây ra sự rạn nứt Tấm Màn ngăn cách các cõi, đe dọa giải phóng bóng tối. Healiangel hy sinh để ổn định Tấm Màn, nhưng cuộc chiến vẫn tiếp diễn. Cuối cùng, Lucifer và một phần ba thiên binh bị trục xuất xuống Địa Ngục.</p>
-                                        <p>Trên Trần Gian, sự ra đời của Jesus ở Bê-lem mang đến hy vọng. Michael, Gabriel và Healiangel bảo vệ đứa trẻ khỏi Lucifer. Tuy nhiên, Đấng Sáng Tạo rút lui, trao quyền tự quyết cho tạo vật, gây mất cân bằng. Thiên Đàng tan rã, cuốn Healiangel và nhiều thiên thần khác vào một cơn bão năng lượng, khiến họ mất đi ký ức và rơi xuống Trái Đất, bắt đầu cuộc sống như con người. Trong khi đó, Thiên Đàng và Địa Ngục chuẩn bị cho những diễn biến tiếp theo của cuộc chiến vĩnh cửu.</p>
-                                        <p><strong>Chú thích:</strong> Bản tóm tắt này cô đọng các sự kiện chính và mạch truyện. Phần đầy đủ của tác phẩm sẽ bao gồm trọn vẹn mọi diễn biến chi tiết, suy nghĩ nội tâm của nhân vật, các tình tiết phụ và yếu tố khác làm nên chiều sâu của câu chuyện.</p>
-                                    </div>
-                                    <a href="read-legnaxe_part1_vi.html" class="read-more-link">Đọc thêm</a>
-                                </div>
-                            </div>
+                <div class="novel-list">
 
-                            <div class="flex flex-col sm:flex-row gap-3 mt-auto">
-                                <a href="read-legnaxe_part1_vi.html" class="read-button" data-lang-key="readnovel_read_vi">
-                                    <i class="fas fa-book-open mr-2"></i> Đọc (TV)
-                                </a>
-                                <a href="read-legnaxe_part1_en.html" class="read-button english-button" data-lang-key="readnovel_read_en">
-                                    <i class="fas fa-book-open mr-2"></i> Read (EN)
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="novel-card group bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow duration-200">
+                        <a href="read-legnaxe_part1_vi.html" class="cover-link" aria-label="Đọc LEGNAXE Phần 1 Tiếng Việt">
+                            <picture>
+                                <source srcset="images/pages/novels/legnaxe1vertical.png" type="image/webp">
+                                <img src="images/pages/novels/legnaxe1vertical.png" alt="Bìa truyện LEGNAXE Phần 1" class="book-cover bg-gray-200 dark:bg-gray-700" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/EBF4FF/4A5568?text=LEGNAXE+P1'; this.alt='Lỗi tải ảnh bìa LEGNAXE Phần 1';">
+                            </picture>
+                        </a>
+                        <div class="card-content">
+                            <h3 class="text-lg font-semibold line-clamp-1 mb-1 text-gray-900 dark:text-white" data-lang-key="readnovel_legnaxe1_title">LEGNAXE: Phần 1</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-4" data-lang-key="readnovel_legnaxe1_desc">Bí mật cuộc đại chiến Thiên Đàng / <strong>Secrets of Heaven's Great War.</strong></p>
 
-                    <div class="novel-card group">
-                        <a href="read-legnaxe_part2_vi.html" class="cover-link" aria-label="Đọc LEGNAXE Phần 2 Tiếng Việt">
-                            <picture>
-                                <source srcset="images/pages/novels/legnaxe2vertical.png" type="image/webp">
-                                <img src="images/pages/novels/legnaxe2vertical.png" alt="Bìa truyện LEGNAXE Phần 2" class="book-cover" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/FFF5F5/7F1D1D?text=LEGNAXE+P2'; this.alt='Lỗi tải ảnh bìa LEGNAXE Phần 2';">
-                            </picture>
-                        </a>
-                        <div class="card-content">
-                            <h3 class="text-lg font-semibold !line-clamp-1 mb-1 text-gray-900 dark:text-white" data-lang-key="readnovel_legnaxe2_title">LEGNAXE: Phần 2 - Heavenly, Human's Heart</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-4" data-lang-key="readnovel_legnaxe2_desc_short">Hành trình khám phá Trần Gian và trái tim con người...</p>
+                            <div class="story-item-content">
+                                <div class="summary-container text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                                     <p class="summary-short">
+                                        Câu chuyện bắt đầu tại Thiên Đàng, nơi Lucifer, một Tổng lãnh Thiên thần, cảm thấy bất mãn với sự hoàn hảo đơn điệu và đặt nghi vấn về ý nghĩa tồn tại. Sự bất mãn leo thang khi Đấng Sáng Tạo quyết định tạo ra Nhân Loại trên Trái Đất và yêu cầu các thiên thần phục tùng họ...
+                                    </p>
+                                    <div class="summary-full">
+                                        <p>Câu chuyện bắt đầu tại Thiên Đàng, nơi Lucifer, một Tổng lãnh Thiên thần, cảm thấy bất mãn với sự hoàn hảo đơn điệu và đặt nghi vấn về ý nghĩa tồn tại. Sự bất mãn leo thang khi Đấng Sáng Tạo quyết định tạo ra Nhân Loại trên Trái Đất và yêu cầu các thiên thần phục tùng họ. Lucifer kịch liệt phản đối, dẫn đến sự chia rẽ trong hàng ngũ thiên thần.</p>
+                                        <p class="mt-2">Trên Trái Đất, Adam và Lilith được tạo ra. Lilith, không chấp nhận vai trò phụ thuộc vào Adam, nhận được tri thức từ Lucifer và rời khỏi Eden. Sau đó, Đấng Sáng Tạo tạo ra Eve từ xương sườn của Adam. Lucifer, dưới hình dạng rắn, cám dỗ Eve ăn trái cấm từ Cây Tri Thức, khiến cả Adam và Eve bị trục xuất khỏi Eden.</p>
+                                        <p class="mt-2">Tại Thiên Đàng, Lucifer tập hợp các thiên thần nổi loạn, phát động cuộc chiến chống lại Đấng Sáng Tạo. Cuộc chiến này gây ra sự rạn nứt Tấm Màn ngăn cách các cõi, đe dọa giải phóng bóng tối. Healiangel hy sinh để ổn định Tấm Màn, nhưng cuộc chiến vẫn tiếp diễn. Cuối cùng, Lucifer và một phần ba thiên binh bị trục xuất xuống Địa Ngục.</p>
+                                        <p class="mt-2">Trên Trần Gian, sự ra đời của Jesus ở Bê-lem mang đến hy vọng. Michael, Gabriel và Healiangel bảo vệ đứa trẻ khỏi Lucifer. Tuy nhiên, Đấng Sáng Tạo rút lui, trao quyền tự quyết cho tạo vật, gây mất cân bằng. Thiên Đàng tan rã, cuốn Healiangel và nhiều thiên thần khác vào một cơn bão năng lượng, khiến họ mất đi ký ức và rơi xuống Trái Đất, bắt đầu cuộc sống như con người. Trong khi đó, Thiên Đàng và Địa Ngục chuẩn bị cho những diễn biến tiếp theo của cuộc chiến vĩnh cửu.</p>
+                                        <p class="mt-4 text-xs italic text-gray-500 dark:text-gray-500"><strong>Chú thích:</strong> Bản tóm tắt này cô đọng các sự kiện chính và mạch truyện. Phần đầy đủ của tác phẩm sẽ bao gồm trọn vẹn mọi diễn biến chi tiết, suy nghĩ nội tâm của nhân vật, các tình tiết phụ và yếu tố khác làm nên chiều sâu của câu chuyện.</p>
+                                    </div>
+                                     <a href="#" class="read-more-link text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 mt-2 inline-block">Đọc thêm</a>
+                                </div>
+                            </div>
 
-                            <div class="story-item-content">
-                                <div class="summary-container">
-                                    <p class="summary-short" data-lang-key="readnovel_legnaxe2_summary_short">
-                                        Hành trình khám phá Trần Gian và trái tim con người, nơi các thiên thần và con người đối mặt với những thử thách về niềm tin, tình yêu và sự hy sinh...
-                                    </p>
-                                    <div class="summary-full" data-lang-key="readnovel_legnaxe2_summary_full">
-                                        <p>Hành trình khám phá Trần Gian và trái tim con người, nơi các thiên thần và con người đối mặt với những thử thách về niềm tin, tình yêu và sự hy sinh. Câu chuyện tiếp tục với sự xuất hiện của những nhân vật mới, những mối quan hệ phức tạp và những bí mật được hé lộ.</p>
-                                        <p>Trên Trần Gian, các thiên thần rơi xuống phải học cách sống như con người, đối mặt với những cảm xúc và thử thách mà họ chưa từng trải qua. Trong đó, Lucifer âm thầm xây dựng lực lượng, chuẩn bị cho một cuộc chiến mới nhằm giành quyền kiểm soát cả Thiên Đàng và Địa Ngục.</p>
-                                        <p>Những nhân vật chính phải đối mặt với những lựa chọn khó khăn, khi tình yêu và lòng trung thành bị thử thách. Họ phải tìm ra ý nghĩa thực sự của sự tồn tại và vai trò của mình trong cuộc chiến vĩnh cửu giữa ánh sáng và bóng tối.</p>
-                                        <p>Cuộc hành trình này không chỉ là về sự sống còn, mà còn là về việc khám phá bản chất con người, sự tha thứ và hy vọng. Những sự kiện trong phần này sẽ định hình tương lai của cả Thiên Đàng, Địa Ngục và Trần Gian.</p>
-                                        <p><strong>Chú thích:</strong> Bản tóm tắt này cô đọng các sự kiện chính và mạch truyện. Phần đầy đủ của tác phẩm sẽ bao gồm trọn vẹn mọi diễn biến chi tiết, suy nghĩ nội tâm của nhân vật, các tình tiết phụ và yếu tố khác làm nên chiều sâu của câu chuyện.</p>
-                                    </div>
-                                    <a href="read-legnaxe_part2_vi.html" class="read-more-link">Đọc thêm</a>
-                                </div>
-                            </div>
+                             <div class="flex flex-col sm:flex-row gap-3 mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <a href="read-legnaxe_part1_vi.html" class="read-button bg-primary hover:bg-blue-700 text-white flex-1 py-2" data-lang-key="readnovel_read_vi">
+                                    <i class="fas fa-book-open mr-2"></i> Đọc (TV)
+                                </a>
+                                <a href="read-legnaxe_part1_en.html" class="read-button english-button bg-secondary hover:bg-green-700 text-white flex-1 py-2" data-lang-key="readnovel_read_en">
+                                    <i class="fas fa-book-open mr-2"></i> Read (EN)
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
-                                                        <p class="text-sm text-gray-700 dark:text-gray-300 mt-4 mb-2" data-lang-key="readnovel_choose_version">Chọn phiên bản để đọc:</p>
+                    <div class="novel-card group bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow duration-200">
+                        <a href="read-legnaxe_part2_vi.html" class="cover-link" aria-label="Đọc LEGNAXE Phần 2 Tiếng Việt">
+                            <picture>
+                                <source srcset="images/pages/novels/legnaxe2vertical.png" type="image/webp">
+                                <img src="images/pages/novels/legnaxe2vertical.png" alt="Bìa truyện LEGNAXE Phần 2" class="book-cover bg-red-100 dark:bg-red-900" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x600/FFF5F5/7F1D1D?text=LEGNAXE+P2'; this.alt='Lỗi tải ảnh bìa LEGNAXE Phần 2';">
+                            </picture>
+                        </a>
+                        <div class="card-content">
+                            <h3 class="text-lg font-semibold line-clamp-1 mb-1 text-gray-900 dark:text-white" data-lang-key="readnovel_legnaxe2_title">LEGNAXE: Phần 2 - Heavenly, Human's Heart</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-4" data-lang-key="readnovel_legnaxe2_desc_short">Hành trình khám phá Trần Gian và trái tim con người...</p>
 
-                            <div class="flex flex-col sm:flex-row gap-3">
-                                <a href="read-legnaxe_part2_vi.html" class="read-button flex-1" data-lang-key="readnovel_read_vi_full">
-                                    <i class="fas fa-book-open mr-2"></i> Đọc (Tiếng Việt)
-                                </a>
-                                <a href="read-legnaxe_part2_en.html" class="read-button english-button flex-1" data-lang-key="readnovel_read_en_full">
-                                    <i class="fas fa-book-open mr-2"></i> Read (English)
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            <div class="story-item-content">
+                                <div class="summary-container text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                                    <p class="summary-short" data-lang-key="readnovel_legnaxe2_summary_short">
+                                        Hành trình khám phá Trần Gian và trái tim con người, nơi các thiên thần và con người đối mặt với những thử thách về niềm tin, tình yêu và sự hy sinh...
+                                    </p>
+                                    <div class="summary-full" data-lang-key="readnovel_legnaxe2_summary_full">
+                                        <p>Hành trình khám phá Trần Gian và trái tim con người, nơi các thiên thần và con người đối mặt với những thử thách về niềm tin, tình yêu và sự hy sinh. Câu chuyện tiếp tục với sự xuất hiện của những nhân vật mới, những mối quan hệ phức tạp và những bí mật được hé lộ.</p>
+                                        <p class="mt-2">Trên Trần Gian, các thiên thần rơi xuống phải học cách sống như con người, đối mặt với những cảm xúc và thử thách mà họ chưa từng trải qua. Trong đó, Lucifer âm thầm xây dựng lực lượng, chuẩn bị cho một cuộc chiến mới nhằm giành quyền kiểm soát cả Thiên Đàng và Địa Ngục.</p>
+                                        <p class="mt-2">Những nhân vật chính phải đối mặt với những lựa chọn khó khăn, khi tình yêu và lòng trung thành bị thử thách. Họ phải tìm ra ý nghĩa thực sự của sự tồn tại và vai trò của mình trong cuộc chiến vĩnh cửu giữa ánh sáng và bóng tối.</p>
+                                        <p class="mt-2">Cuộc hành trình này không chỉ là về sự sống còn, mà còn là về việc khám phá bản chất con người, sự tha thứ và hy vọng. Những sự kiện trong phần này sẽ định hình tương lai của cả Thiên Đàng, Địa Ngục và Trần Gian.</p>
+                                        <p class="mt-4 text-xs italic text-gray-500 dark:text-gray-500"><strong>Chú thích:</strong> Bản tóm tắt này cô đọng các sự kiện chính và mạch truyện. Phần đầy đủ của tác phẩm sẽ bao gồm trọn vẹn mọi diễn biến chi tiết, suy nghĩ nội tâm của nhân vật, các tình tiết phụ và yếu tố khác làm nên chiều sâu của câu chuyện.</p>
+                                    </div>
+                                     <a href="#" class="read-more-link text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 mt-2 inline-block">Đọc thêm</a>
+                                </div>
+                            </div>
 
-                <div class="character-section mt-8">
-                    <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Khám phá các nhân vật trong LEGNAXE</h2>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="legnaxeintheuniver.html" class="read-button bg-secondary hover:bg-green-700 text-white px-4 py-2 rounded-md text-center">
-                            <i class="fas fa-users mr-2"></i> Xem Nhân Vật
-                        </a>
-                    </div>
-                </div>
+                             <p class="text-sm text-gray-700 dark:text-gray-300 mt-4 mb-2" data-lang-key="readnovel_choose_version">Chọn phiên bản để đọc:</p>
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <a href="read-legnaxe_part2_vi.html" class="read-button bg-primary hover:bg-blue-700 text-white flex-1 py-2" data-lang-key="readnovel_read_vi_full">
+                                    <i class="fas fa-book-open mr-2"></i> Đọc (Tiếng Việt)
+                                </a>
+                                <a href="read-legnaxe_part2_en.html" class="read-button english-button bg-secondary hover:bg-green-700 text-white flex-1 py-2" data-lang-key="readnovel_read_en_full">
+                                    <i class="fas fa-book-open mr-2"></i> Read (English)
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    </div> <div class="character-section mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                    <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Khám phá các nhân vật trong LEGNAXE</h2>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="legnaxeintheuniver.html" class="read-button bg-secondary hover:bg-green-700 text-white px-4 py-2 rounded-md text-center transition-colors">
+                            <i class="fas fa-users mr-2"></i> Xem Nhân Vật
+                        </a>
+                    </div>
+                </div>
 
-            </div>
-        </div>
-    </main>
+            </div> </div> </main>
 
-    <footer id="footer-placeholder">
-        <div class="w-full min-h-[60px] bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 dark:text-gray-400 animate-pulse">
-            Đang tải footer...
-        </div>
-        <div class="fetch-error-fallback hidden">
-            <div class="bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-center p-4">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="mb-4">
-                        <a href="/" class="text-lg font-semibold text-gray-700 dark:text-gray-300">IVS STEAM (Lỗi tải)</a>
-                    </div>
-                    <div class="flex justify-center space-x-4 mb-4">
-                        <a href="index.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Trang Chủ</a>
-                        <a href="steambyivs.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">STEAM</a>
-                        <a href="readnovel.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chọn Truyện</a>
-                        <a href="contact.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Liên Hệ</a>
-                    </div>
-                    <div class="text-sm">
-                        <p>© <span id="current-year-fallback">2024</span> IVS STEAM. All rights reserved.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <footer id="footer-placeholder">
+        <div class="w-full min-h-[60px] bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-500 dark:text-gray-400 animate-pulse">
+            Đang tải footer...
+        </div>
+        <div class="fetch-error-fallback hidden">
+            <div class="bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-center p-4">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="mb-4">
+                        <a href="/" class="text-lg font-semibold text-gray-700 dark:text-gray-300">IVS STEAM (Lỗi tải)</a>
+                    </div>
+                    <div class="flex justify-center space-x-4 mb-4 text-sm">
+                        <a href="index.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Trang Chủ</a>
+                        <a href="steambyivs.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">STEAM</a>
+                        <a href="readnovel.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Chọn Truyện</a>
+                        <a href="contact.html" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Liên Hệ</a>
+                    </div>
+                    <div class="text-sm">
+                        <p>© <span id="current-year-fallback">2024</span> IVS STEAM. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    <div class="fab-container">
-        <a href="https://www.facebook.com/sharer/sharer.php?u=https://ivs.id.vn/readnovel.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" class="fab-messenger" title="Share on Facebook">
-            <i class="fab fa-facebook-f text-xl"></i>
-        </a>
-        <a href="https://twitter.com/intent/tweet?url=https://ivs.id.vn/readnovel.html&text=Check%20out%20these%20novels%20from%20IVS%20STEAM!" target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter" class="bg-sky-500 hover:bg-sky-600" title="Share on Twitter (X)">
-            <i class="fab fa-twitter text-xl"></i>
-        </a>
-        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ivs.id.vn/readnovel.html&title=Novels%20from%20IVS%20STEAM" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn" class="bg-blue-700 hover:bg-blue-800" title="Share on LinkedIn">
-            <i class="fab fa-linkedin-in text-xl"></i>
-        </a>
-        <a href="mailto:?subject=Novels%20from%20IVS%20STEAM&body=Check%20out%20this%20page%3A%20https%3A%2F%2Fivs.id.vn%2Freadnovel.html" target="_blank" rel="noopener noreferrer" aria-label="Share via Email" class="fab-email" title="Share via Email">
-            <i class="fas fa-envelope text-xl"></i>
-        </a>
-                <button id="scroll-to-top-btn" title="Cuộn lên đầu trang">
-            <i class="fas fa-arrow-up text-xl"></i>
-        </button>
-    </div>
+    <div class="fab-container">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=https://ivs.id.vn/readnovel.html" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" class="fab-messenger" title="Share on Facebook">
+            <i class="fab fa-facebook-f text-xl"></i>
+        </a>
+        <a href="https://twitter.com/intent/tweet?url=https://ivs.id.vn/readnovel.html&text=Check%20out%20these%20novels%20from%20IVS%20STEAM!" target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter" class="bg-sky-500 hover:bg-sky-600" title="Share on Twitter (X)">
+            <i class="fab fa-twitter text-xl"></i>
+        </a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ivs.id.vn/readnovel.html&title=Novels%20from%20IVS%20STEAM" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn" class="bg-blue-700 hover:bg-blue-800" title="Share on LinkedIn">
+            <i class="fab fa-linkedin-in text-xl"></i>
+        </a>
+        <a href="mailto:?subject=Novels%20from%20IVS%20STEAM&body=Check%20out%20this%20page%3A%20https%3A%2F%2Fivs.id.vn%2Freadnovel.html" target="_blank" rel="noopener noreferrer" aria-label="Share via Email" class="fab-email" title="Share via Email">
+            <i class="fas fa-envelope text-xl"></i>
+        </a>
+        <button id="scroll-to-top-btn" title="Cuộn lên đầu trang">
+            <i class="fas fa-arrow-up text-xl"></i>
+        </button>
+    </div>
 
-    <script src="js/language.js" defer></script>
-    <script>
-        // --- Dark Mode Logic ---
-        const htmlElement = document.documentElement;
-        const darkModeToggleButtonPage = document.getElementById('darkModeToggleButtonPage');
+    <script src="js/language.js" defer></script>
+    <script>
+        // --- Dark Mode Logic ---
+        const htmlElement = document.documentElement;
+        const darkModeToggleButtonPage = document.getElementById('darkModeToggleButtonPage');
 
-        function applyInitialDarkMode() {
-            const darkModePreference = localStorage.getItem('darkMode');
-            if (darkModePreference === 'enabled' ||
-               (!darkModePreference && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                htmlElement.classList.add('dark');
-            } else {
-                htmlElement.classList.remove('dark');
-            }
-        }
+        function applyInitialDarkMode() {
+            const darkModePreference = localStorage.getItem('darkMode');
+            if (darkModePreference === 'enabled' ||
+               (!darkModePreference && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                htmlElement.classList.add('dark');
+            } else {
+                htmlElement.classList.remove('dark');
+            }
+        }
 
-        function toggleDarkMode() {
-            const isDarkMode = htmlElement.classList.toggle('dark');
-            localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
-            // Trigger a custom event after toggling to inform other components (like the header)
-            const event = new CustomEvent('darkModeToggled', { detail: { isDarkMode } });
-            window.dispatchEvent(event);
-        }
+        function toggleDarkMode() {
+            const isDarkMode = htmlElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+            // Trigger a custom event after toggling to inform other components (like the header)
+            const event = new CustomEvent('darkModeToggled', { detail: { isDarkMode } });
+            window.dispatchEvent(event);
+            console.log('Dark mode toggled:', isDarkMode); // Log toggle action
+        }
 
-        // Attach listener to the page-specific button
-        if (darkModeToggleButtonPage) {
-            darkModeToggleButtonPage.addEventListener('click', toggleDarkMode);
-        }
+        // Attach listener to the page-specific button if it exists
+        if (darkModeToggleButtonPage) {
+            darkModeToggleButtonPage.addEventListener('click', toggleDarkMode);
+        }
 
-        applyInitialDarkMode();
+        // Apply dark mode on initial load
+        applyInitialDarkMode();
 
-        // --- Search Functionality ---
-        const searchInput = document.getElementById('searchInput');
-        const novelCards = document.querySelectorAll('.novel-card');
+        // --- Search Functionality ---
+        const searchInput = document.getElementById('searchInput');
+        const novelCards = document.querySelectorAll('.novel-card');
 
-        searchInput?.addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase().trim();
-            novelCards.forEach(card => {
-                const titleElement = card.querySelector('h3');
-                const descElement = card.querySelector('p'); // Targets the short description initially
-                const fullSummaryElement = card.querySelector('.summary-full'); // Also search in full summary
-                const title = titleElement ? titleElement.textContent.toLowerCase() : '';
-                const desc = descElement ? descElement.textContent.toLowerCase() : '';
-                const fullSummary = fullSummaryElement ? fullSummaryElement.textContent.toLowerCase() : '';
+        searchInput?.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            novelCards.forEach(card => {
+                const titleElement = card.querySelector('h3');
+                // Target both short and full summary for search
+                const shortDescElement = card.querySelector('.summary-short');
+                const fullSummaryElement = card.querySelector('.summary-full');
 
-                const isVisible = title.includes(searchTerm) || desc.includes(searchTerm) || fullSummary.includes(searchTerm);
-                card.style.display = isVisible ? '' : 'none';
-            });
-        });
+                const title = titleElement ? titleElement.textContent.toLowerCase() : '';
+                const shortDesc = shortDescElement ? shortDescElement.textContent.toLowerCase() : '';
+                const fullSummary = fullSummaryElement ? fullSummaryElement.textContent.toLowerCase() : '';
 
-        // --- Read More Toggle Functionality ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const readMoreLinks = document.querySelectorAll('.read-more-link');
+                // Check if term is in title, short desc, or full summary
+                const isVisible = title.includes(searchTerm) || shortDesc.includes(searchTerm) || fullSummary.includes(searchTerm);
+                card.style.display = isVisible ? '' : 'none'; // Use '' to revert to default display (grid item)
+            });
+        });
 
-            readMoreLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault(); // Prevent default anchor link behavior
-                    const summaryContainer = this.closest('.summary-container');
-                    if (summaryContainer) {
-                        const shortSummary = summaryContainer.querySelector('.summary-short');
-                        const fullSummary = summaryContainer.querySelector('.summary-full');
-                        const isFullVisible = fullSummary.style.display !== 'none';
+        // --- Read More Toggle Functionality ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const readMoreLinks = document.querySelectorAll('.read-more-link');
 
-                        if (isFullVisible) {
-                            fullSummary.style.display = 'none';
-                            shortSummary.style.display = 'block'; // Ensure short is visible
-                            this.textContent = 'Đọc thêm';
-                        } else {
-                            shortSummary.style.display = 'none';
-                            fullSummary.style.display = 'block';
-                            this.textContent = 'Thu gọn';
-                        }
-                    }
-                });
-            });
-        });
+            readMoreLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default anchor link behavior
+                    const summaryContainer = this.closest('.summary-container');
+                    if (summaryContainer) {
+                        const shortSummary = summaryContainer.querySelector('.summary-short');
+                        const fullSummary = summaryContainer.querySelector('.summary-full');
+                        const isFullVisible = fullSummary.style.display !== 'none';
 
-
-        // --- Scroll to Top Button ---
-        const scrollToTopButton = document.getElementById('scroll-to-top-btn');
-        const scrollThreshold = 300; // Pixels to scroll before showing the button
-
-        if (scrollToTopButton) {
-            scrollToTopButton.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-
-            // Function to check scroll position and toggle button visibility
-            const toggleScrollButtonVisibility = () => {
-                if (window.scrollY > scrollThreshold) {
-                    scrollToTopButton.classList.add('visible');
-                    scrollToTopButton.classList.remove('hidden');
-                } else {
-                    scrollToTopButton.classList.remove('visible');
-                    scrollToTopButton.classList.add('hidden');
-                }
-            };
-
-            // Initial check on page load
-            toggleScrollButtonVisibility();
-
-            // Listen for scroll events
-            window.addEventListener('scroll', toggleScrollButtonVisibility);
-        }
-
-        // --- Fetch Header and Footer ---
-        document.addEventListener('DOMContentLoaded', function() {
-            const headerPlaceholder = document.getElementById('header-placeholder');
-            const footerPlaceholder = document.getElementById('footer-placeholder');
-            const headerPath = 'header.html';
-            const footerPath = 'footer.html';
-
-            function handleFetchError(error, placeholderElement, type, filePath) {
-                console.error(`Error fetching ${type} from ${filePath}:`, error);
-                const pulseElement = placeholderElement.querySelector('.animate-pulse');
-                const fallbackElement = placeholderElement.querySelector('.fetch-error-fallback'); // Ensure fallback is found
-
-                if (pulseElement) pulseElement.style.display = 'none';
-
-                if (fallbackElement) {
-                    fallbackElement.classList.remove('hidden');
-                    if(type === 'header') {
-                        const errorMsgDiv = fallbackElement.querySelector('.fetch-error-message');
-                        if (errorMsgDiv) errorMsgDiv.classList.add('header-error'); // Apply header error styles if it's the header
-                    }
-                } else {
-                    // Fallback if the fallback HTML structure is missing
-                    const errorHtml = `<div class="fetch-error-message ${type}-error">Lỗi khi tải ${type}. Vui lòng tải lại trang.${type === 'header' ? ' <a href="/" class="ml-4 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm">Về Trang Chủ</a>' : ''}</div>`;
-                    placeholderElement.innerHTML = errorHtml;
-                    // Ensure header error styles are applied if necessary
-                    if (type === 'header') {
-                        const errorMsgDiv = placeholderElement.querySelector('.fetch-error-message');
-                        if (errorMsgDiv) errorMsgDiv.classList.add('header-error');
-                    }
-                }
-
-                // Ensure fallback year is set on footer error
-                if(type === 'footer') {
-                    const fallbackYearElement = placeholderElement.querySelector('#current-year-fallback');
-                    if(fallbackYearElement) {
-                        fallbackYearElement.textContent = new Date().getFullYear();
-                    }
-                }
-                 // Call setActiveNavLink even on header error to style the fallback link if possible
-                 if(type === 'header') setActiveNavLink('readnovel.html');
-            }
-
-            function fetchComponent(placeholder, path, type) {
-                if (!placeholder) {
-                    console.error(`${type} placeholder element not found.`);
-                    return Promise.reject(`${type} placeholder not found`);
-                }
-                return fetch(path)
-                    .then(response => {
-                        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-                        return response.text();
-                    })
-                    .then(data => {
-                        placeholder.innerHTML = data;
-                        if (type === 'header') {
-                            setActiveNavLink('readnovel.html');
-                            applyInitialDarkMode(); // Re-apply dark mode to newly loaded header
-
-                            const headerDarkModeButton = document.getElementById('darkModeToggleButtonHeader');
-                            if (headerDarkModeButton) {
-                                // Remove any existing listener first to prevent duplicates if fetching happens multiple times
-                                // headerDarkModeButton.removeEventListener('click', toggleDarkMode); // Requires a reference to the specific function instance if anonymous
-                                headerDarkModeButton.addEventListener('click', toggleDarkMode);
-                            }
-
-                            if (typeof window.applyTranslations === 'function') {
-                                window.applyTranslations();
-                            }
-                            if (typeof window.attachLanguageSwitcherEvents === 'function') {
-                                window.attachLanguageSwitcherEvents();
-                            }
-                        }
-                        if (type === 'footer') {
-                            const currentYearElement = document.getElementById('current-year');
-                            if (currentYearElement) {
-                                currentYearElement.textContent = new Date().getFullYear();
-                            }
-                             // Ensure translations are applied to footer after load
-                            if (typeof window.applyTranslations === 'function') {
-                                window.applyTranslations();
-                            }
-                        }
-
-                    })
-                    .catch(error => handleFetchError(error, placeholder, type, path));
-            }
-
-            // Call fetchComponent after DOM is ready
-            fetchComponent(headerPlaceholder, headerPath, 'header');
-            fetchComponent(footerPlaceholder, footerPath, 'footer');
-
-            // Initial language application (might be redundant if header/footer scripts also call it)
-            if (typeof window.applyTranslations === 'function') {
-                setTimeout(() => { window.applyTranslations(); }, 100); // Small delay
-            }
-        });
-
-        function setActiveNavLink(currentPageName) {
-            // This function should ideally only run after the header is loaded.
-            // It selects links within the header placeholder.
-            const navLinks = document.querySelectorAll('#header-placeholder a.nav-link, #header-placeholder .submenu a, #header-placeholder .mobile-submenu a'); // Exclude fallback link here
-
-            if (navLinks.length === 0) {
-                console.warn("setActiveNavLink: No navigation links found in header placeholder after loading.");
-                return;
-            }
-
-            navLinks.forEach(link => {
-                // Remove previously applied active classes
-                link.classList.remove('active-menu-item', 'active-parent-item', 'bg-orange-600', 'text-white');
-                link.removeAttribute('aria-current');
-
-                let linkHref = link.getAttribute('href');
-                if (linkHref) {
-                    // Normalize by removing leading/trailing slashes and .html
-                    let normalizedLinkHref = linkHref.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
-                    if (normalizedLinkHref === "" || normalizedLinkHref === "index") normalizedLinkHref = "index";
-
-                    let normalizedCurrentPageName = currentPageName.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
-                    if (normalizedCurrentPageName === "") normalizedCurrentPageName = "index";
+                        if (isFullVisible) {
+                            fullSummary.style.display = 'none';
+                            shortSummary.style.display = 'block'; // Ensure short is visible
+                            this.textContent = 'Đọc thêm';
+                        } else {
+                            shortSummary.style.display = 'none';
+                            fullSummary.style.display = 'block';
+                            this.textContent = 'Thu gọn';
+                        }
+                    }
+                });
+            });
+        });
 
 
-                    if (normalizedLinkHref === normalizedCurrentPageName) {
-                        link.classList.add('active-menu-item', 'bg-orange-600', 'text-white');
-                        link.setAttribute('aria-current', 'page');
+        // --- Scroll to Top Button ---
+        const scrollToTopButton = document.getElementById('scroll-to-top-btn');
+        const scrollThreshold = 300; // Pixels to scroll before showing the button
 
-                        // Find parent menu items and mark them active
-                        let parent = link.closest('.main-menu-item, .mobile-menu-item');
-                        while(parent){
-                            const parentButton = parent.querySelector(':scope > button.nav-link, :scope > button.mobile-submenu-toggle');
-                            if(parentButton) {
-                                parentButton.classList.add('active-parent-item', 'bg-orange-600', 'text-white');
-                            }
-                            parent = parent.parentElement.closest('.main-menu-item, .mobile-menu-item');
-                        }
-                    }
-                }
-            });
-        }
-    </script>
+        if (scrollToTopButton) {
+            scrollToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Function to check scroll position and toggle button visibility
+            const toggleScrollButtonVisibility = () => {
+                if (window.scrollY > scrollThreshold) {
+                    scrollToTopButton.classList.add('visible');
+                    scrollToTopButton.classList.remove('hidden'); // Ensure 'hidden' class is removed if previously added
+                } else {
+                    scrollToTopButton.classList.remove('visible');
+                    scrollToTopButton.classList.add('hidden'); // Add 'hidden' class for transitions
+                }
+            };
+
+            // Initial check on page load
+            toggleScrollButtonVisibility();
+
+            // Listen for scroll events
+            window.addEventListener('scroll', toggleScrollButtonVisibility);
+        }
+
+        // --- Fetch Header and Footer ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            const footerPlaceholder = document.getElementById('footer-placeholder');
+            const headerPath = 'header.html'; // Path to your header file
+            const footerPath = 'footer.html'; // Path to your footer file
+
+             // Handle fetch errors and display fallback content
+            function handleFetchError(error, placeholderElement, type, filePath) {
+                console.error(`Error fetching ${type} from ${filePath}:`, error);
+                const pulseElement = placeholderElement.querySelector('.animate-pulse');
+                const fallbackElement = placeholderElement.querySelector('.fetch-error-fallback');
+
+                if (pulseElement) pulseElement.style.display = 'none'; // Hide loading pulse
+
+                if (fallbackElement) {
+                    fallbackElement.classList.remove('hidden'); // Show fallback content
+                    // Apply header-specific error class if necessary (already handled in HTML structure)
+                } else {
+                    // Basic fallback if the structured fallback HTML is missing
+                    const errorHtml = `<div class="fetch-error-message ${type}-error">Lỗi khi tải ${type}. Vui lòng tải lại trang.${type === 'header' ? ' <a href="/" class="ml-4 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm">Về Trang Chủ</a>' : ''}</div>`;
+                    placeholderElement.innerHTML = errorHtml;
+                     // Ensure header error styles are applied if created dynamically
+                    if (type === 'header') {
+                        const errorMsgDiv = placeholderElement.querySelector('.fetch-error-message');
+                        if (errorMsgDiv) errorMsgDiv.classList.add('header-error');
+                    }
+                }
+
+                // Ensure fallback year is set on footer error if that element exists
+                if(type === 'footer') {
+                    const fallbackYearElement = placeholderElement.querySelector('#current-year-fallback');
+                    if(fallbackYearElement) {
+                        fallbackYearElement.textContent = new Date().getFullYear();
+                    }
+                }
+                 // Attempt to set active link on fallback header too
+                 if(type === 'header') setActiveNavLink('readnovel.html');
+            }
+
+             // Fetch and inject HTML component
+            function fetchComponent(placeholder, path, type) {
+                if (!placeholder) {
+                    console.error(`${type} placeholder element not found.`);
+                    // Still try to handle error display even if placeholder is null/undefined
+                     if (document.getElementById(`${type}-placeholder`)) {
+                         handleFetchError(new Error(`${type} placeholder element not found in DOM after script load`), document.getElementById(`${type}-placeholder`), type, path);
+                     }
+                    return Promise.reject(`${type} placeholder not found`);
+                }
+                return fetch(path)
+                    .then(response => {
+                        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                        return response.text();
+                    })
+                    .then(data => {
+                        placeholder.innerHTML = data;
+                        // Post-fetch tasks
+                        if (type === 'header') {
+                             // Set active navigation link after header content is loaded
+                            setActiveNavLink('readnovel.html');
+                             // Re-apply dark mode class to html element if needed (handled by applyInitialDarkMode on page load)
+                             // Ensure dark mode toggle button in the loaded header works
+                            const headerDarkModeButton = document.getElementById('darkModeToggleButtonHeader');
+                            if (headerDarkModeButton) {
+                                // Ensure no duplicate listeners - best practice is to use a named function reference or a different approach if re-fetching
+                                // For simplicity here, assume fetch happens once or relies on the event listener from the main page script
+                                 headerDarkModeButton.addEventListener('click', toggleDarkMode);
+                                 console.log('Dark mode listener attached to loaded header button.');
+                            }
+
+                            // Apply translations if the function exists (from language.js)
+                            if (typeof window.applyTranslations === 'function') {
+                                window.applyTranslations();
+                            }
+                            // Attach language switcher events if function exists (from language.js)
+                            if (typeof window.attachLanguageSwitcherEvents === 'function') {
+                                window.attachLanguageSwitcherEvents();
+                            }
+                        }
+                        if (type === 'footer') {
+                            // Set current year in the footer
+                            const currentYearElement = document.getElementById('current-year');
+                            if (currentYearElement) {
+                                currentYearElement.textContent = new Date().getFullYear();
+                            }
+                             // Apply translations to footer
+                            if (typeof window.applyTranslations === 'function') {
+                                window.applyTranslations();
+                            }
+                        }
+                    })
+                    .catch(error => handleFetchError(error, placeholder, type, path));
+            }
+
+            // Call fetchComponent after DOM is ready
+            fetchComponent(headerPlaceholder, headerPath, 'header');
+            fetchComponent(footerPlaceholder, footerPath, 'footer');
+
+            // Initial language application (might be redundant if header/footer scripts also call it)
+            // Keeping a slight delay in case header/footer scripts are still parsing/executing
+            if (typeof window.applyTranslations === 'function') {
+                setTimeout(() => {
+                     console.log("Attempting initial translation application after slight delay.");
+                     window.applyTranslations();
+                     // Also trigger update for any potential elements not in header/footer
+                     const event = new CustomEvent('languageChanged', { detail: { lang: localStorage.getItem('preferredLanguage') || 'vi' } });
+                     window.dispatchEvent(event);
+                }, 100);
+            }
+        });
+
+         // Function to set active class on navigation links
+        function setActiveNavLink(currentPageName) {
+            // This function should ideally only run after the header is loaded.
+            // It selects links within the header placeholder or the loaded header content.
+            // We now target elements within the #header-placeholder *after* content is loaded.
+            const headerContent = document.getElementById('header-placeholder');
+            if (!headerContent) {
+                 console.error("setActiveNavLink: Header placeholder not found.");
+                 return;
+            }
+            // Selects main nav links and submenu links within the loaded header
+            const navLinks = headerContent.querySelectorAll('a.nav-link, .submenu a, .mobile-submenu a');
+
+            if (navLinks.length === 0) {
+                 console.warn("setActiveNavLink: No navigation links found in loaded header content.");
+                 // Attempt to style fallback link if it exists
+                 const fallbackHomeLink = headerContent.querySelector('.fetch-error-message a[href="/"]');
+                 if (fallbackHomeLink && currentPageName === 'index.html') { // Simple check for home page
+                     fallbackHomeLink.classList.add('active-menu-item', 'bg-orange-600', 'text-white');
+                     fallbackHomeLink.setAttribute('aria-current', 'page');
+                 }
+                 return;
+            }
+
+            navLinks.forEach(link => {
+                // Remove previously applied active classes
+                link.classList.remove('active-menu-item', 'active-parent-item', 'bg-orange-600', 'text-white', 'hover:bg-blue-600', 'dark:hover:bg-blue-400', 'transition-colors');
+                link.removeAttribute('aria-current');
+
+                let linkHref = link.getAttribute('href');
+                if (linkHref) {
+                    // Normalize by removing leading/trailing slashes and .html
+                    let normalizedLinkHref = linkHref.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+                    if (normalizedLinkHref === "" || normalizedLinkHref === "index") normalizedLinkHref = "index";
+
+                    let normalizedCurrentPageName = currentPageName.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+                    if (normalizedCurrentPageName === "") normalizedCurrentPageName = "index";
+
+                    if (normalizedLinkHref === normalizedCurrentPageName) {
+                        link.classList.add('active-menu-item', 'bg-orange-600', 'text-white');
+                        link.setAttribute('aria-current', 'page');
+
+                        // Re-add hover styles for active item to provide feedback
+                        link.classList.add('hover:bg-orange-700', 'dark:hover:bg-orange-700');
+
+
+                        // Find parent menu items and mark them active (for dropdowns/mobile menus)
+                        // Look for the closest ancestor with main-menu-item or mobile-menu-item class
+                        let parentItem = link.closest('.main-menu-item, .mobile-menu-item');
+                        while(parentItem){
+                             // Find the button or link that acts as the parent trigger
+                            const parentTrigger = parentItem.querySelector(':scope > button.nav-link, :scope > button.mobile-submenu-toggle, :scope > a.nav-link');
+                            if(parentTrigger) {
+                                parentTrigger.classList.add('active-parent-item', 'bg-orange-600', 'text-white');
+                                parentTrigger.classList.add('hover:bg-orange-700', 'dark:hover:bg-orange-700'); // Add hover for active parent
+                            }
+                            // Move up to the next potential parent item
+                            parentItem = parentItem.parentElement.closest('.main-menu-item, .mobile-menu-item');
+                        }
+                    } else {
+                         // Ensure non-active links have default hover styles
+                         link.classList.add('hover:text-blue-600', 'dark:hover:text-blue-400', 'transition-colors');
+                    }
+                }
+            });
+        }
+    </script>
 </body>
 </html>
