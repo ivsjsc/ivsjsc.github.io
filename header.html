@@ -24,11 +24,21 @@
 
         .main-menu-item.open > .submenu,
         .sub-submenu-container.open > .sub-submenu {
+            /* Khi có class 'open', ghi đè các thuộc tính ẩn */
             display: block; /* Hoặc dùng flex/grid nếu cần */
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
         }
+
+        /* Đảm bảo menu bị ẩn hoàn toàn khi có lớp 'hidden' */
+        .submenu.hidden, .sub-submenu.hidden {
+             display: none !important;
+             opacity: 0;
+             visibility: hidden;
+             transform: translateY(10px);
+        }
+
 
         .submenu a, .sub-submenu a,
         .submenu .sub-submenu-container > button {
@@ -38,6 +48,11 @@
             display: block;
             font-size: 0.875rem; /* text-sm */
             white-space: nowrap;
+            background: none; /* Reset button default style */
+            border: none; /* Reset button default style */
+            cursor: pointer;
+            width: 100%; /* Ensure buttons take full width */
+            text-align: left; /* Align button text to left */
         }
         .submenu a:hover, .sub-submenu a:hover,
         .submenu .sub-submenu-container > button:hover {
@@ -76,6 +91,13 @@
         .mobile-submenu {
             transition: max-height 0.3s ease-out;
         }
+         /* Style cho mũi tên trong submenu desktop */
+        .submenu .desktop-submenu-toggle svg {
+             transition: transform 0.2s ease-in-out;
+        }
+        .sub-submenu-container.open > .desktop-submenu-toggle svg {
+             transform: rotate(0deg); /* Mũi tên quay về vị trí ban đầu khi submenu con mở */
+        }
     </style>
 </head>
 <body class="bg-gray-200">
@@ -87,7 +109,7 @@
             <div class="flex-shrink-0">
                 <a href="/index.html" class="flex items-center" aria-label="Trang chủ IVS JSC">
                     <img class="h-10 w-auto rounded-md logo-img"
-                         src="/images/logo/logo1.png" 
+                         src="/images/logo/logo1.png"
                          alt="IVS JSC Logo"
                          data-lang-key="logo_alt"
                          onerror="this.onerror=null; this.src='https://placehold.co/130x40/ffffff/F97316?text=IVS+Logo';">
@@ -151,7 +173,7 @@
                                          <a href="/bosungchungchi.html" data-lang-key="menu_training_teacher_cert">Bổ sung chứng chỉ NVSP</a>
                                      </div>
                                  </div>
-                                <hr class="my-1 border-gray-700"> 
+                                <hr class="my-1 border-gray-700">
                                 <a href="/english-placement.html" data-lang-key="menu_placement_test">English Placement Test</a>
                             </div>
                         </li>
@@ -185,7 +207,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="relative main-menu-item">
+                         <li class="relative main-menu-item">
                              <button type="button" aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center desktop-menu-toggle">
                                  <span data-lang-key="menu_community">Cộng đồng</span>
                                  <svg class="ml-1 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
@@ -209,7 +231,7 @@
                          <li class="relative main-menu-item">
                              <button type="button" aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center desktop-menu-toggle">
                                  <span data-lang-key="menu_library">Thư viện</span>
-                                 <svg class="ml-1 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                 <svg class="ml-1 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
                              </button>
                              <div class="submenu hidden">
                                  <a href="/tailieugd.html" data-lang-key="menu_library_docs">Tài liệu giáo dục</a>
@@ -220,7 +242,7 @@
                          <li class="relative main-menu-item">
                              <button type="button" aria-haspopup="true" aria-expanded="false" class="nav-link inline-flex items-center desktop-menu-toggle">
                                  <span data-lang-key="menu_recruitment">Tuyển dụng</span>
-                                 <svg class="ml-1 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>
+                                 <svg class="ml-1 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
                              </button>
                              <div class="submenu hidden">
                                  <a href="/careervn.html" data-lang-key="menu_recruitment_vn">Tuyển dụng nội địa (VN)</a>
@@ -237,7 +259,7 @@
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             <span class="sr-only" data-lang-key="search_sr_only_desktop">Tìm kiếm</span>
                         </button>
-                        
+
                         <div id="desktop-search-container" class="hidden items-center bg-gray-800 rounded-full transition-all duration-300 ease-in-out">
                             <form id="desktop-search-form" action="/search-results.html" method="GET" class="flex items-center w-full">
                                 <input type="search" id="desktop-search-input" name="query"
@@ -323,7 +345,7 @@
                     <svg class="ml-1 h-4 w-4 transform submenu-arrow text-gray-400 group-hover:text-gray-500 transition-transform duration-150" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
                 </button>
                 <div id="mobile-submenu-about" class="mobile-submenu space-y-1 pl-3 mt-1" style="max-height: 0px; overflow: hidden;">
-                    <a href="/about.html" class="nav-link block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md py-1.5 px-3" data-lang-key="menu_about_ivs">Về chúng tôi</a>             
+                    <a href="/about.html" class="nav-link block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md py-1.5 px-3" data-lang-key="menu_about_ivs">Về chúng tôi</a>
                 </div>
             </div>
             <div class="mobile-menu-item">
@@ -368,7 +390,7 @@
                              <a href="/bosungchungchi.html" class="nav-link block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md py-1.5 px-3" data-lang-key="menu_training_teacher_cert">Bổ sung chứng chỉ NVSP</a>
                          </div>
                     </div>
-                     <a href="/english-placement.html" class="nav-link block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md py-1.5 px-3" data-lang-key="menu_placement_test">English Placement Test</a> 
+                     <a href="/english-placement.html" class="nav-link block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md py-1.5 px-3" data-lang-key="menu_placement_test">English Placement Test</a>
                  </div>
             </div>
             <div class="mobile-menu-item">
@@ -430,7 +452,7 @@
                  <div id="mobile-submenu-library" class="mobile-submenu space-y-1 pl-3 mt-1" style="max-height: 0px; overflow: hidden;">
                      <a href="/tailieugd.html" class="nav-link block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md py-1.5 px-3" data-lang-key="menu_library_docs">Tài liệu giáo dục</a>
                      <a href="/ivsmedia.html" class="nav-link block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md py-1.5 px-3" data-lang-key="menu_library_media">IVSMedia</a>
-                     <a href="/readnovel.html" class="nav-link block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md py-1.5 px-3" data-lang-key="menu_novels_docs">Kho truyện</a>
+                     <a href="/readnovel.html" class="nav-link block text-sm text-gray-600 hover:bg-gray-100 hover:text-gray-900 rounded-md py-1.5 px-3" data-lang-key="menu_novels_docs">Kho Truyện</a>
                  </div>
             </div>
              <div class="mobile-menu-item">
@@ -453,7 +475,7 @@
                         <img id="mobile-current-lang-flag" src="/images/flags/vn.png" alt="VI" class="w-5 h-auto rounded-sm mr-2">
                         <span id="mobile-current-lang-text">VI</span>
                     </div>
-                    <svg class="ml-1 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"></path></svg>
+                    <svg class="ml-1 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 01.02-1.06L11.19 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
                 </button>
                 <div id="mobile-lang-options" class="language-dropdown-content hidden absolute bottom-full left-0 right-0 mb-1 w-full bg-white shadow-lg rounded-md border border-gray-200 overflow-hidden z-10">
                     <button type="button" class="lang-button w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center" data-lang="vi">
@@ -478,14 +500,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const desktopLanguageDropdown = document.getElementById('desktop-language-dropdown');
     const desktopMenuItems = document.querySelectorAll('#menu-items > .main-menu-item');
 
+    // --- Desktop Search Toggle ---
     if (desktopSearchButton && desktopSearchContainer && desktopSearchInput && desktopSearchClose) {
         desktopSearchButton.addEventListener('click', (e) => {
             e.stopPropagation();
             desktopSearchContainer.classList.remove('hidden');
-            desktopSearchContainer.classList.add('flex'); 
+            desktopSearchContainer.classList.add('flex');
             desktopSearchButton.classList.add('hidden');
-            if(consultationButton) consultationButton.classList.add('hidden'); 
-            if(desktopLanguageDropdown) desktopLanguageDropdown.classList.add('hidden'); 
+            if(consultationButton) consultationButton.classList.add('hidden');
+            if(desktopLanguageDropdown) desktopLanguageDropdown.classList.add('hidden');
             desktopSearchInput.focus();
             closeAllDesktopMenus(); // Close menus when search opens
         });
@@ -495,8 +518,8 @@ document.addEventListener('DOMContentLoaded', function () {
             desktopSearchContainer.classList.add('hidden');
             desktopSearchContainer.classList.remove('flex');
             desktopSearchButton.classList.remove('hidden');
-            if(consultationButton) consultationButton.classList.remove('hidden'); 
-            if(desktopLanguageDropdown) desktopLanguageDropdown.classList.remove('hidden'); 
+            if(consultationButton) consultationButton.classList.remove('hidden');
+            if(desktopLanguageDropdown) desktopLanguageDropdown.classList.remove('hidden');
             desktopSearchInput.value = '';
         });
 
@@ -507,25 +530,26 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // --- Close all desktop menus ---
     function closeAllDesktopMenus(exceptThisMenu) {
         desktopMenuItems.forEach(item => {
             const toggleButton = item.querySelector('.desktop-menu-toggle');
             const submenu = item.querySelector('.submenu');
             if (submenu && submenu !== exceptThisMenu) {
-                submenu.classList.add('hidden');
-                submenu.classList.remove('open'); // CSS transition class
+                submenu.classList.add('hidden'); // Ensure hidden is added
+                submenu.classList.remove('open'); // Ensure open is removed
                 if (toggleButton) {
                     toggleButton.setAttribute('aria-expanded', 'false');
                     toggleButton.classList.remove('active');
                 }
-                // Close sub-submenus
+                // Close sub-submenus within this menu
                 const subSubmenuContainers = submenu.querySelectorAll('.sub-submenu-container');
                 subSubmenuContainers.forEach(container => {
                     const subSubmenu = container.querySelector('.sub-submenu');
                     const subToggleButton = container.querySelector('.desktop-submenu-toggle');
                     if (subSubmenu) {
-                        subSubmenu.classList.add('hidden');
-                        subSubmenu.classList.remove('open');
+                        subSubmenu.classList.add('hidden'); // Ensure hidden is added
+                        subSubmenu.classList.remove('open'); // Ensure open is removed
                     }
                     if (subToggleButton) {
                         subToggleButton.setAttribute('aria-expanded', 'false');
@@ -535,15 +559,16 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-    
+
+    // --- Close all desktop sub-submenus within a parent submenu ---
     function closeAllDesktopSubSubmenus(parentSubmenu, exceptThisSubSubmenu) {
         const subSubmenuContainers = parentSubmenu.querySelectorAll('.sub-submenu-container');
         subSubmenuContainers.forEach(container => {
             const subSubmenu = container.querySelector('.sub-submenu');
             const toggleButton = container.querySelector('.desktop-submenu-toggle');
             if (subSubmenu && subSubmenu !== exceptThisSubSubmenu) {
-                subSubmenu.classList.add('hidden');
-                subSubmenu.classList.remove('open');
+                subSubmenu.classList.add('hidden'); // Ensure hidden is added
+                subSubmenu.classList.remove('open'); // Ensure open is removed
                 if (toggleButton) {
                     toggleButton.setAttribute('aria-expanded', 'false');
                     toggleButton.classList.remove('active');
@@ -552,23 +577,41 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-
+    // --- Desktop Main Menu and Submenu Toggling ---
     desktopMenuItems.forEach(item => {
         const toggleButton = item.querySelector('.desktop-menu-toggle');
         const submenu = item.querySelector('.submenu');
 
         if (toggleButton && submenu) {
+            console.log("Found desktop main menu item with toggle and submenu:", item); // Log found items
             toggleButton.addEventListener('click', function (event) {
-                event.stopPropagation();
+                event.stopPropagation(); // Prevent click from closing other menus immediately
+                console.log("Desktop main menu toggle clicked:", this); // Log click event
                 const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                
+
                 // Close other main menus before opening this one
                 if (!isExpanded) {
                     closeAllDesktopMenus(submenu);
                 }
 
-                submenu.classList.toggle('hidden');
-                submenu.classList.toggle('open'); // For CSS transition
+                // Toggle the current submenu
+                if (submenu.classList.contains('hidden')) {
+                     submenu.classList.remove('hidden');
+                     // Use requestAnimationFrame to ensure the display change is processed before transition
+                     requestAnimationFrame(() => {
+                         submenu.classList.add('open'); // Trigger CSS transition
+                     });
+                } else {
+                     submenu.classList.remove('open'); // Trigger CSS transition to close
+                     // Wait for transition to finish before hiding completely
+                     submenu.addEventListener('transitionend', function onTransitionEnd() {
+                         if (!submenu.classList.contains('open')) { // Check if it's actually closed
+                              submenu.classList.add('hidden');
+                         }
+                         submenu.removeEventListener('transitionend', onTransitionEnd);
+                     }, { once: true });
+                }
+
                 this.setAttribute('aria-expanded', !isExpanded);
                 this.classList.toggle('active', !isExpanded);
 
@@ -578,42 +621,64 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
+            // --- Desktop Sub-Submenu Toggling ---
             const subSubmenuContainers = submenu.querySelectorAll('.sub-submenu-container');
             subSubmenuContainers.forEach(container => {
                 const subToggleButton = container.querySelector('.desktop-submenu-toggle');
                 const subSubmenu = container.querySelector('.sub-submenu');
 
                 if (subToggleButton && subSubmenu) {
+                     console.log("Found desktop sub-submenu container with toggle and sub-submenu:", container); // Log found items
                     subToggleButton.addEventListener('click', function(event) {
-                        event.stopPropagation();
+                        event.stopPropagation(); // Prevent click from closing parent menus
+                         console.log("Desktop sub-submenu toggle clicked:", this); // Log click event
                         const isSubExpanded = this.getAttribute('aria-expanded') === 'true';
 
                         // Close other sub-submenus in the same parent submenu
                         if (!isSubExpanded) {
                             closeAllDesktopSubSubmenus(submenu, subSubmenu);
                         }
-                        
-                        subSubmenu.classList.toggle('hidden');
-                        subSubmenu.classList.toggle('open');
+
+                        // Toggle the current sub-submenu
+                        if (subSubmenu.classList.contains('hidden')) {
+                             subSubmenu.classList.remove('hidden');
+                             requestAnimationFrame(() => {
+                                 subSubmenu.classList.add('open'); // Trigger CSS transition
+                             });
+                        } else {
+                             subSubmenu.classList.remove('open'); // Trigger CSS transition to close
+                             subSubmenu.addEventListener('transitionend', function onTransitionEnd() {
+                                 if (!subSubmenu.classList.contains('open')) { // Check if it's actually closed
+                                      subSubmenu.classList.add('hidden');
+                                 }
+                                 subSubmenu.removeEventListener('transitionend', onTransitionEnd);
+                             }, { once: true });
+                        }
+
                         this.setAttribute('aria-expanded', !isSubExpanded);
                         this.classList.toggle('active', !isSubExpanded);
                     });
+                } else if (container.querySelector('.desktop-submenu-toggle')) {
+                     console.warn("Desktop sub-submenu container has toggle but no sub-submenu found:", container); // Warn if toggle exists but no sub-submenu
                 }
             });
+        } else if (item.querySelector('.desktop-menu-toggle')) {
+             console.warn("Desktop main menu item has toggle but no submenu found:", item); // Warn if toggle exists but no submenu
         }
     });
 
-
+    // --- Desktop Language Dropdown ---
     const desktopLangToggle = document.getElementById('desktop-lang-toggle');
     const desktopLangOptions = document.getElementById('desktop-lang-options');
 
     if (desktopLangToggle && desktopLangOptions) {
         desktopLangToggle.addEventListener('click', (event) => {
-            event.stopPropagation(); 
+            event.stopPropagation();
+            console.log("Desktop language toggle clicked."); // Log click
             closeAllDesktopMenus(null); // Close other menus
             const isExpanded = desktopLangToggle.getAttribute('aria-expanded') === 'true';
-            desktopLangOptions.classList.toggle('hidden');
-            desktopLangOptions.classList.toggle('show'); 
+            desktopLangOptions.classList.toggle('hidden', isExpanded); // Toggle hidden based on expanded state
+            desktopLangOptions.classList.toggle('show', !isExpanded); // Toggle show for CSS transition
             desktopLangToggle.setAttribute('aria-expanded', !isExpanded);
             desktopLangToggle.classList.toggle('active', !isExpanded);
         });
@@ -622,54 +687,73 @@ document.addEventListener('DOMContentLoaded', function () {
             button.addEventListener('click', function() {
                 const lang = this.dataset.lang;
                 const flagSrc = this.querySelector('img').getAttribute('src');
-                const langText = this.textContent.trim().split(" ")[1] || this.textContent.trim(); 
+                // Extract text content, handle potential extra whitespace or line breaks
+                const langText = this.textContent.trim().split('\n')[0].trim();
 
                 document.getElementById('desktop-current-lang-flag').setAttribute('src', flagSrc);
                 document.getElementById('desktop-current-lang-text').textContent = langText;
-                
+
                 console.log("Desktop language selected:", lang);
 
+                // Close the language dropdown after selection
                 desktopLangOptions.classList.add('hidden');
                 desktopLangOptions.classList.remove('show');
                 desktopLangToggle.setAttribute('aria-expanded', 'false');
                 desktopLangToggle.classList.remove('active');
+
+                // Trigger language change logic (assuming handleLanguageChange is global or available)
+                if (typeof handleLanguageChange === 'function') {
+                     handleLanguageChange({ target: this }); // Pass a dummy event target
+                } else {
+                     console.warn("handleLanguageChange function not found. Language content will not update.");
+                }
             });
         });
+    } else {
+         console.warn("Desktop language dropdown elements not found.");
     }
 
+    // --- Mobile Menu Toggle ---
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenuPanel = document.getElementById('mobile-menu-panel');
     const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
     const mobileCloseButton = document.getElementById('mobile-close-button');
     const iconMenu = document.getElementById('icon-menu');
     const iconClose = document.getElementById('icon-close');
+    const mobileSubmenuToggles = document.querySelectorAll('#mobile-menu-panel .mobile-submenu-toggle'); // Corrected selector scope
+    const mobileLangToggle = document.getElementById('mobile-lang-toggle'); // Defined again for clarity within this block
+    const mobileLangOptions = document.getElementById('mobile-lang-options'); // Defined again
 
     function toggleMobileMenu(show) {
-        if (show) {
+        if (!mobileMenuPanel || !mobileMenuOverlay || !iconMenu || !iconClose || !mobileMenuButton) {
+            console.error("Mobile menu elements not found.");
+            return;
+        }
+        const shouldBeOpen = typeof show === 'boolean' ? show : mobileMenuButton.getAttribute('aria-expanded') === 'false';
+        mobileMenuButton.setAttribute('aria-expanded', shouldBeOpen.toString());
+        iconMenu.classList.toggle('hidden', shouldBeOpen);
+        iconClose.classList.toggle('hidden', !shouldBeOpen);
+
+        if (shouldBeOpen) {
+            mobileMenuOverlay.classList.remove('hidden');
             mobileMenuPanel.classList.remove('hidden');
             requestAnimationFrame(() => { // Ensure display:block is applied before transition
-                mobileMenuPanel.classList.remove('-translate-x-full'); 
-                mobileMenuPanel.classList.add('translate-x-0');
+                mobileMenuOverlay.classList.add('active');
+                mobileMenuPanel.classList.add('active'); // This class should trigger the transform
             });
-            mobileMenuOverlay.classList.remove('hidden');
-            mobileMenuButton.setAttribute('aria-expanded', 'true');
-            if (iconMenu) iconMenu.classList.add('hidden');
-            if (iconClose) iconClose.classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; 
+            document.body.classList.add('overflow-hidden');
         } else {
-            mobileMenuPanel.classList.add('-translate-x-full');
-            mobileMenuPanel.classList.remove('translate-x-0');
-            mobileMenuPanel.addEventListener('transitionend', function onTransitionEnd() {
-                if (mobileMenuPanel.classList.contains('-translate-x-full')) { 
-                    mobileMenuPanel.classList.add('hidden');
-                }
-                mobileMenuPanel.removeEventListener('transitionend', onTransitionEnd);
-            }, { once: true });
-            mobileMenuOverlay.classList.add('hidden');
-            mobileMenuButton.setAttribute('aria-expanded', 'false');
-            if (iconMenu) iconMenu.classList.remove('hidden');
-            if (iconClose) iconClose.classList.add('hidden');
-            document.body.style.overflow = ''; 
+            mobileMenuOverlay.classList.remove('active');
+            mobileMenuPanel.classList.remove('active'); // This class should trigger the transform back
+             // Add hidden class after transition completes
+             mobileMenuPanel.addEventListener('transitionend', function onTransitionEnd() {
+                 if (!mobileMenuPanel.classList.contains('active')) { // Check if it's actually closed
+                     mobileMenuPanel.classList.add('hidden');
+                     mobileMenuOverlay.classList.add('hidden');
+                 }
+                 mobileMenuPanel.removeEventListener('transitionend', onTransitionEnd);
+             }, { once: true });
+            document.body.classList.remove('overflow-hidden');
         }
     }
 
@@ -680,73 +764,179 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         mobileCloseButton.addEventListener('click', () => toggleMobileMenu(false));
         mobileMenuOverlay.addEventListener('click', () => toggleMobileMenu(false));
+
+         // Close mobile menu when a link is clicked (unless it's a submenu toggle)
+         mobileMenuPanel.querySelectorAll('a[href]').forEach(link => {
+             if (!link.classList.contains('mobile-submenu-toggle')) { // Ensure it's not a toggle button
+                 link.addEventListener('click', () => {
+                     // Add a small delay to allow navigation before closing
+                     setTimeout(() => toggleMobileMenu(false), 100);
+                 });
+             }
+         });
+
+    } else {
+        console.warn("Mobile menu elements not fully found. Mobile menu may not work.");
     }
-    
-    document.querySelectorAll('.mobile-submenu-toggle').forEach(button => {
-        button.addEventListener('click', () => {
+
+    // --- Mobile Submenu Accordion ---
+    if (mobileSubmenuToggles.length > 0) {
+         console.log(`Found ${mobileSubmenuToggles.length} mobile submenu toggles.`);
+        mobileSubmenuToggles.forEach(button => {
             const submenuId = button.getAttribute('aria-controls');
             const submenu = document.getElementById(submenuId);
-            const arrow = button.querySelector('.submenu-arrow');
-            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            const arrow = button.querySelector('.submenu-arrow'); // Assuming arrow is inside the button
+            const parentItem = button.closest('.mobile-menu-item'); // Get the parent li/div
 
-            if (isExpanded) {
-                submenu.style.maxHeight = '0px';
-                button.setAttribute('aria-expanded', 'false');
-                if(arrow) arrow.classList.remove('rotate-90');
-            } else {
-                submenu.style.maxHeight = submenu.scrollHeight + "px";
-                button.setAttribute('aria-expanded', 'true');
-                if(arrow) arrow.classList.add('rotate-90');
+            if (!submenu || !parentItem) {
+                console.warn(`Mobile submenu or parent not found for toggle with aria-controls="${submenuId}"`);
+                return; // Skip if elements not found
             }
+
+            // Initial state
+            submenu.style.maxHeight = '0';
+            submenu.style.overflow = 'hidden';
+            parentItem.classList.remove('open'); // Ensure parent starts closed
+            button.setAttribute('aria-expanded', 'false');
+            if(arrow) arrow.classList.remove('rotate-90'); // Ensure arrow starts in default state
+
+            button.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent event from bubbling up and closing main menu
+
+                const isOpen = parentItem.classList.toggle('open'); // Toggle state on parent
+                button.setAttribute('aria-expanded', String(isOpen)); // Update aria state
+
+                if(arrow) arrow.classList.toggle('rotate-90', isOpen); // Rotate arrow
+
+                if(isOpen) {
+                    // Open the current submenu
+                    submenu.style.maxHeight = submenu.scrollHeight + "px";
+                    submenu.style.overflow = 'hidden'; // Keep overflow hidden during transition
+
+                    // Close sibling submenus at the same level
+                    const siblings = Array.from(parentItem.parentNode.children)
+                                        .filter(child => child !== parentItem && child.classList.contains('mobile-menu-item') && child.classList.contains('open'));
+                    siblings.forEach(sibling => {
+                        sibling.classList.remove('open');
+                        const siblingSubmenu = sibling.querySelector(':scope > .mobile-submenu');
+                        const siblingButton = sibling.querySelector(':scope > button.mobile-submenu-toggle');
+                        const siblingArrow = sibling.querySelector(':scope > button.mobile-submenu-toggle .submenu-arrow');
+                        if(siblingSubmenu) {
+                            siblingSubmenu.style.maxHeight = '0';
+                             // Add a small delay before hiding overflow, or remove this line if CSS handles it
+                             // setTimeout(() => siblingSubmenu.style.overflow = 'hidden', 300);
+                        }
+                        if(siblingButton) siblingButton.setAttribute('aria-expanded', 'false');
+                        if(siblingArrow) siblingArrow.classList.remove('rotate-90');
+                    });
+
+                } else {
+                    // Collapse the current submenu
+                    submenu.style.maxHeight = '0';
+                    // Add a small delay before hiding overflow, or remove this line if CSS handles it
+                    // setTimeout(() => submenu.style.overflow = 'hidden', 300);
+
+                    // Also collapse any nested submenus within this one
+                    parentItem.querySelectorAll('.mobile-menu-item.open').forEach(nestedOpenItem => {
+                         nestedOpenItem.classList.remove('open');
+                         const nestedSubmenu = nestedOpenItem.querySelector(':scope > .mobile-submenu');
+                         const nestedButton = nestedOpenItem.querySelector(':scope > button.mobile-submenu-toggle');
+                         const nestedArrow = nestedOpenItem.querySelector(':scope > button.mobile-submenu-toggle .submenu-arrow');
+                         if(nestedSubmenu) {
+                             nestedSubmenu.style.maxHeight = '0';
+                             // setTimeout(() => nestedSubmenu.style.overflow = 'hidden', 300);
+                         }
+                         if(nestedButton) nestedButton.setAttribute('aria-expanded', 'false');
+                         if(nestedArrow) nestedArrow.classList.remove('rotate-90');
+                    });
+                }
+                 console.log(`Mobile submenu toggled for ${submenuId}. Parent open: ${parentItem.classList.contains('open')}, Submenu max-height: ${submenu.style.maxHeight}`);
+            });
+
+             // Optional: Allow clicking anywhere on the mobile menu item to toggle
+             // item.addEventListener('click', (e) => {
+             //     // Only toggle if the click wasn't directly on a link or another button
+             //     if (e.target === item || item.contains(e.target) && e.target.tagName !== 'A' && e.target.tagName !== 'BUTTON') {
+             //          button.click(); // Programmatically click the toggle button
+             //     }
+             // });
         });
-    });
+    } else {
+        console.warn("No mobile submenu toggles found. Mobile submenus may not work.");
+    }
 
-    const mobileLangToggle = document.getElementById('mobile-lang-toggle');
-    const mobileLangOptions = document.getElementById('mobile-lang-options');
 
+    // --- Mobile Language Dropdown ---
+    // mobileLangToggle and mobileLangOptions are defined above
     if (mobileLangToggle && mobileLangOptions) {
         mobileLangToggle.addEventListener('click', (event) => {
             event.stopPropagation();
+            console.log("Mobile language toggle clicked."); // Log click
             const isExpanded = mobileLangToggle.getAttribute('aria-expanded') === 'true';
-            mobileLangOptions.classList.toggle('hidden');
-            mobileLangOptions.classList.toggle('show');
+            mobileLangOptions.classList.toggle('hidden', isExpanded); // Toggle hidden based on expanded state
+            mobileLangOptions.classList.toggle('show', !isExpanded); // Toggle show for CSS transition
             mobileLangToggle.setAttribute('aria-expanded', !isExpanded);
         });
-        
+
         document.querySelectorAll('#mobile-lang-options .lang-button').forEach(button => {
             button.addEventListener('click', function() {
                 const lang = this.dataset.lang;
                 const flagSrc = this.querySelector('img').getAttribute('src');
-                const langText = this.textContent.trim().split(" ")[1] || this.textContent.trim();
+                // Extract text content, handle potential extra whitespace or line breaks
+                const langText = this.textContent.trim().split('\n')[0].trim();
 
                 document.getElementById('mobile-current-lang-flag').setAttribute('src', flagSrc);
                 document.getElementById('mobile-current-lang-text').textContent = langText;
-                
+
                 console.log("Mobile language selected:", lang);
 
+                // Close the language dropdown after selection
                 mobileLangOptions.classList.add('hidden');
                 mobileLangOptions.classList.remove('show');
                 mobileLangToggle.setAttribute('aria-expanded', 'false');
+
+                // Trigger language change logic (assuming handleLanguageChange is global or available)
+                 if (typeof handleLanguageChange === 'function') {
+                      handleLanguageChange({ target: this }); // Pass a dummy event target
+                 } else {
+                      console.warn("handleLanguageChange function not found. Language content will not update.");
+                 }
             });
         });
+    } else {
+         console.warn("Mobile language dropdown elements not found.");
     }
-    
+
+
+    // --- Global Click Listener to Close Menus ---
     document.addEventListener('click', function(event) {
-        if (desktopSearchContainer && !desktopSearchContainer.classList.contains('hidden') && !desktopSearchContainer.contains(event.target) && !desktopSearchButton.contains(event.target) ) {
-             desktopSearchClose.click();
+        // Close Desktop Search if open and click is outside
+        if (desktopSearchContainer && !desktopSearchContainer.classList.contains('hidden') && !desktopSearchContainer.contains(event.target) && event.target !== desktopSearchButton) {
+             console.log("Clicked outside desktop search, closing.");
+             desktopSearchButton.click(); // Simulate click on search button to close
         }
+
+        // Close Desktop Language Dropdown if open and click is outside
         if (desktopLangToggle && desktopLangOptions && !desktopLangOptions.classList.contains('hidden') && !desktopLangToggle.contains(event.target) && !desktopLangOptions.contains(event.target)) {
+            console.log("Clicked outside desktop language dropdown, closing.");
             desktopLangOptions.classList.add('hidden');
             desktopLangOptions.classList.remove('show');
             desktopLangToggle.setAttribute('aria-expanded', 'false');
             desktopLangToggle.classList.remove('active');
         }
-        if (mobileLangToggle && mobileLangOptions && !mobileLangOptions.classList.contains('hidden') && !mobileLangToggle.contains(event.target) && !mobileLangOptions.contains(event.target)) {
-            mobileLangOptions.classList.add('hidden');
-            mobileLangOptions.classList.remove('show');
-            mobileLangToggle.setAttribute('aria-expanded', 'false');
+
+        // Close Mobile Language Dropdown if open and click is outside mobile panel
+        if (mobileLangToggle && mobileLangOptions && !mobileLangOptions.classList.contains('hidden')) {
+             const mobilePanel = document.getElementById('mobile-menu-panel');
+             if (mobilePanel && !mobilePanel.contains(event.target) && event.target !== mobileLangToggle) {
+                console.log("Clicked outside mobile language dropdown (and panel), closing.");
+                mobileLangOptions.classList.add('hidden');
+                mobileLangOptions.classList.remove('show');
+                mobileLangToggle.setAttribute('aria-expanded', 'false');
+             }
         }
-        // Close all desktop menus if click is outside any main menu item
+
+        // Close all desktop menus if click is outside any main menu item or its submenu
         let clickedInsideDesktopMenu = false;
         desktopMenuItems.forEach(item => {
             if (item.contains(event.target)) {
@@ -754,23 +944,64 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
         if (!clickedInsideDesktopMenu) {
+             console.log("Clicked outside desktop menu, closing all.");
             closeAllDesktopMenus(null);
         }
-
     });
 
-    const navbar = document.getElementById('navbar');
+    // --- Sticky Navbar (if not handled by external script) ---
+    const navbar = document.getElementById('navbar'); // Defined again for clarity here
     if (navbar) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-gray-900/90', 'backdrop-blur-sm'); 
-                navbar.classList.remove('bg-gray-900'); 
-            } else {
-                navbar.classList.remove('bg-gray-900/90', 'backdrop-blur-sm');
-                navbar.classList.add('bg-gray-900');
-            }
-        });
+        console.log("Initializing sticky navbar behavior.");
+        const shrinkThreshold = 50; // Pixels scrolled before shrinking
+        let lastScrollTop = 0; // To detect scroll direction
+
+        const handleScroll = () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Shrink/expand navbar based on scroll position
+            navbar.classList.toggle('shrink', scrollTop > shrinkThreshold);
+
+            // Hide/show navbar on scroll down/up (optional, can be removed)
+            // if (scrollTop > lastScrollTop && scrollTop > navbar.offsetHeight) {
+            //     // Scrolling down
+            //     navbar.style.top = `-${navbar.offsetHeight}px`;
+            // } else {
+            //     // Scrolling up or at the top
+            //     navbar.style.top = '0';
+            // }
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll(); // Run on page load to set initial state
+    } else {
+        console.warn("Navbar element (#navbar) not found. Sticky behavior disabled.");
     }
+
+    // --- Ensure Language JS is loaded and initialized ---
+    // This part assumes language.js is loaded separately and defines initializeLanguage and handleLanguageChange
+    // If language.js is not used or loaded differently, this needs adjustment.
+    // The loadComponent logic in script.js is designed to handle this.
+    // If this script is embedded directly without script.js loading the header,
+    // you might need to ensure language.js is loaded BEFORE this script.
+    // Or, add a check and wait mechanism here.
+
+     // Example: Check if language functions are available after a short delay
+     setTimeout(() => {
+         if (typeof initializeLanguage !== 'function' || typeof handleLanguageChange !== 'function') {
+             console.error("Language initialization functions (initializeLanguage, handleLanguageChange) not found. Language switching may not work.");
+         } else {
+              console.log("Language functions found. Language switching should work.");
+              // Re-attach language button listeners if needed, although script.js should handle this
+              // document.querySelectorAll('#desktop-lang-options .lang-button, #mobile-lang-options .lang-button').forEach(button => {
+              //      button.removeEventListener('click', handleLanguageChange); // Prevent double listeners
+              //      button.addEventListener('click', handleLanguageChange);
+              // });
+         }
+     }, 500); // Give language.js some time to load/execute
+
 });
 </script>
 
