@@ -238,31 +238,17 @@
         });
     </script>
      
-    <button id="scroll-to-top-btn" title="Go to top"
-        class="hidden fixed bottom-5 right-5 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 z-50 transition-opacity duration-300 ease-in-out">
+    <button id="scroll-to-top-btn" title="Go to top" class="hidden fixed bottom-5 right-5 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 z-50 transition-opacity duration-300 ease-in-out">
         <i class="fas fa-arrow-up"></i>
     </button>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // JavaScript for Scroll-to-Top Button
         const scrollToTopBtn = document.getElementById('scroll-to-top-btn');
-
-        window.onscroll = function () {
-            // Show button if page is scrolled more than 20px
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                scrollToTopBtn.classList.remove('hidden');
-                scrollToTopBtn.classList.add('opacity-100');
-            } else {
-                scrollToTopBtn.classList.add('hidden');
-                scrollToTopBtn.classList.remove('opacity-100');
-            }
-        };
-
-        scrollToTopBtn.onclick = function () {
-            // Scroll smoothly to the top
+        window.addEventListener('scroll', () => {
+            scrollToTopBtn.classList.toggle('hidden', document.documentElement.scrollTop <= 20);
+        });
+        scrollToTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
+        });
     </script>
 
     <script>
