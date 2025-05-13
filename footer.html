@@ -276,19 +276,17 @@
         }
     });
 
-        if (window.scrollY > 20) {
-    window.addEventListener('scroll', () => {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            scrollToTopBtn.classList.remove('hidden');
-                scrollToTopBtn.classList.add('hidden');
-                scrollToTopBtn.style.display = 'none';
-            } else {
+            if (window.scrollY > 20) {
+        window.addEventListener('scroll', () => {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 scrollToTopBtn.classList.remove('hidden');
                 scrollToTopBtn.style.display = 'flex';
-            scrollToTopBtn.classList.add('hidden');
-            scrollToTopBtn.classList.remove('flex');
-        }
-    });
+            } else {
+                scrollToTopBtn.classList.add('hidden');
+                scrollToTopBtn.style.display = 'none';
+            }
+        });
+    }
 
     // Xử lý sự kiện nhấp nút "Lên đầu trang"
     scrollToTopBtn.addEventListener('click', () => {
@@ -297,47 +295,6 @@
 </script>
 
     <script>
-        // JavaScript for toggling visibility of contact and share buttons (Optional)
-        // This is a basic example. You might want more sophisticated show/hide logic.
-        const contactToggleBtn = document.getElementById('contact-toggle-btn');
-        const contactButtons = Array.from(contactToggleBtn.parentElement.children).filter(el => el.tagName === 'A');
-
-        const shareToggleBtn = document.getElementById('share-toggle-btn');
-        const shareButtonsContainer = document.getElementById('social-share-buttons');
-        const actualShareButtons = Array.from(shareButtonsContainer.children).filter(el => el.tagName === 'A');
-
-        // Initially hide the actual contact and share links
-        contactButtons.forEach(btn => btn.classList.add('hidden'));
-        actualShareButtons.forEach(btn => btn.classList.add('hidden'));
-
-        contactToggleBtn.addEventListener('click', () => {
-            contactButtons.forEach(btn => {
-                btn.classList.toggle('hidden');
-                // Optional: Add animation classes
-                if (!btn.classList.contains('hidden')) {
-                    btn.classList.add('transition-all', 'duration-300', 'ease-in-out', 'transform', 'scale-100', 'opacity-100');
-                    btn.classList.remove('scale-0', 'opacity-0');
-                } else {
-                    btn.classList.add('scale-0', 'opacity-0');
-                    btn.classList.remove('scale-100', 'opacity-100');
-                }
-            });
-        });
-
-        shareToggleBtn.addEventListener('click', () => {
-            actualShareButtons.forEach(btn => {
-                btn.classList.toggle('hidden');
-                 // Optional: Add animation classes
-                if (!btn.classList.contains('hidden')) {
-                    btn.classList.add('transition-all', 'duration-300', 'ease-in-out', 'transform', 'scale-100', 'opacity-100');
-                    btn.classList.remove('scale-0', 'opacity-0');
-                } else {
-                    btn.classList.add('scale-0', 'opacity-0');
-                    btn.classList.remove('scale-100', 'opacity-100');
-                }
-            });
-        });
-  
         function updateCopyrightYearInFooter() {
             const yearSpan = document.getElementById('current-year');
             if (yearSpan) {
@@ -352,29 +309,18 @@
 
             if (newsletterForm && newsletterEmailInput && newsletterMessageDiv) {
                 newsletterForm.addEventListener('submit', async function(event) {
-                    event.preventDefault(); 
+                    event.preventDefault();
 
                     const email = newsletterEmailInput.value.trim();
                     const submitButton = newsletterForm.querySelector('button[type="submit"]');
-                    const originalButtonTextKey = submitButton.getAttribute('data-lang-key') || 'footer_newsletter_button'; // Lấy key ngôn ngữ
-                    // Lấy text gốc từ translations nếu có, nếu không thì từ textContent
-                    const originalButtonText = (window.translations && window.translations[originalButtonTextKey]) ? window.translations[originalButtonTextKey] : submitButton.textContent;
-                    
-                    const processingTextKey = 'footer_newsletter_processing'; // Key cho "Đang xử lý..."
-                    const processingText = (window.translations && window.translations[processingTextKey]) ? window.translations[processingTextKey] : 'Đang xử lý...';
-                    
-                    const successMessageKey = 'footer_newsletter_success';
-                    const successMessageText = (window.translations && window.translations[successMessageKey]) ? window.translations[successMessageKey] : 'Cảm ơn bạn đã đăng ký! Vui lòng kiểm tra email để xác nhận.';
-                    
-                    const errorMessageKey = 'footer_newsletter_error';
-                    const errorMessageText = (window.translations && window.translations[errorMessageKey]) ? window.translations[errorMessageKey] : 'Đã có lỗi xảy ra. Vui lòng thử lại sau.';
-
-                    const invalidEmailMessageKey = 'footer_newsletter_invalid_email';
-                    const invalidEmailMessageText = (window.translations && window.translations[invalidEmailMessageKey]) ? window.translations[invalidEmailMessageKey] : 'Vui lòng nhập một địa chỉ email hợp lệ.';
-
+                    const originalButtonText = submitButton.textContent;
+                    const processingText = 'Đang xử lý...';
+                    const successMessage = 'Cảm ơn bạn đã đăng ký! Vui lòng kiểm tra email để xác nhận.';
+                    const errorMessage = 'Đã có lỗi xảy ra. Vui lòng thử lại sau.';
+                    const invalidEmailMessage = 'Vui lòng nhập một địa chỉ email hợp lệ.';
 
                     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                        newsletterMessageDiv.textContent = invalidEmailMessageText;
+                        newsletterMessageDiv.textContent = invalidEmailMessage;
                         newsletterMessageDiv.className = 'text-sm mt-3 text-red-400';
                         return;
                     }
@@ -385,32 +331,23 @@
                     submitButton.textContent = processingText;
 
                     try {
-                        const response = await fetch(newsletterForm.action, { // action đã được set là URL của Formspree
+                        const response = await fetch(newsletterForm.action, {
                             method: 'POST',
-                            body: new FormData(newsletterForm), // Formspree xử lý FormData tốt
-                            headers: {
-                                'Accept': 'application/json' // Yêu cầu Formspree trả về JSON
-                            }
+                            body: new FormData(newsletterForm),
+                            headers: { 'Accept': 'application/json' }
                         });
 
                         if (response.ok) {
-                            // const data = await response.json(); // Formspree trả về JSON nếu Accept header được set
-                            newsletterMessageDiv.textContent = successMessageText;
+                            newsletterMessageDiv.textContent = successMessage;
                             newsletterMessageDiv.className = 'text-sm mt-3 text-green-400';
-                            newsletterEmailInput.value = ''; 
+                            newsletterEmailInput.value = '';
                         } else {
-                            // Xử lý lỗi từ Formspree (ví dụ: cấu hình sai, spam, etc.)
-                            // const errorData = await response.json();
-                            // let specificError = errorMessageText;
-                            // if (errorData && errorData.errors && errorData.errors.length > 0) {
-                            //    specificError = errorData.errors.map(err => err.message).join(', ');
-                            // }
-                            newsletterMessageDiv.textContent = errorMessageText; // Hoặc specificError
+                            newsletterMessageDiv.textContent = errorMessage;
                             newsletterMessageDiv.className = 'text-sm mt-3 text-red-400';
                         }
                     } catch (error) {
-                        console.error('Error submitting newsletter via Formspree:', error);
-                        newsletterMessageDiv.textContent = errorMessageText;
+                        console.error('Error submitting newsletter:', error);
+                        newsletterMessageDiv.textContent = errorMessage;
                         newsletterMessageDiv.className = 'text-sm mt-3 text-red-400';
                     } finally {
                         submitButton.disabled = false;
