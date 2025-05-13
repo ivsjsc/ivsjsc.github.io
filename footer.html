@@ -159,7 +159,7 @@
 
 <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end space-y-2">
 
-    <div id="contact-options" class="hidden flex flex-col items-end space-y-2 mb-1">
+    <div id="contact-options" class="hidden flex flex-col items-end space-y-2 mb-1" style="display: none;">
         <a href="https://m.me/hr.ivsacademy" target="_blank" rel="noopener noreferrer"
             class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-colors duration-200"
             aria-label="Chat on Messenger" title="Chat on Messenger">
@@ -192,7 +192,7 @@
         <i class="fas fa-headset text-2xl"></i>
     </button>
 
-    <div id="share-options" class="hidden flex flex-col items-end space-y-2 mb-1">
+    <div id="share-options" class="hidden flex flex-col items-end space-y-2 mb-1" style="display: none;">
         <a href="https://www.facebook.com/sharer/sharer.php?u=https://ivs.id.vn/"
             target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" title="Chia sẻ lên Facebook"
             class="flex items-center justify-center w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-all duration-300 ease-in-out">
@@ -247,8 +247,10 @@
         // Sau đó, bật/tắt menu con được nhấp
         if (isCurrentlyHidden) {
             submenuToToggle.classList.remove('hidden');
+            submenuToToggle.style.display = 'flex'; // Hiển thị menu con
         } else {
-            submenuToToggle.classList.add('hidden'); // Nếu đã mở, nhấp lại để đóng
+            submenuToToggle.classList.add('hidden');
+            submenuToToggle.style.display = 'none'; // Ẩn menu con
         }
     }
 
@@ -274,12 +276,15 @@
         }
     });
 
-    // Hiển thị/ẩn nút "Lên đầu trang" khi cuộn
+        if (window.scrollY > 20) {
     window.addEventListener('scroll', () => {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
             scrollToTopBtn.classList.remove('hidden');
-            scrollToTopBtn.classList.add('flex'); // Đảm bảo icon được căn giữa
-        } else {
+                scrollToTopBtn.classList.add('hidden');
+                scrollToTopBtn.style.display = 'none';
+            } else {
+                scrollToTopBtn.classList.remove('hidden');
+                scrollToTopBtn.style.display = 'flex';
             scrollToTopBtn.classList.add('hidden');
             scrollToTopBtn.classList.remove('flex');
         }
