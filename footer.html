@@ -16,14 +16,10 @@
         }
         #contact-options,
         #share-options {
-            /* z-index: 1000; */ /* These popups will appear above elements with lower z-index. */
-                               /* If header z-index is >=1000, header will be on top. */
-                               /* Consider if 1000 is needed or if it can be lower, relative to other page modals/popups. */
-                               /* For now, kept at 1000 as per original. Header z-index is now 1001. */
-             z-index: 1000;
+             z-index: 1000; /* Header nên có z-index > 1000 để nổi lên trên các popup này */
         }
         footer {
-            font-family: 'Inter', Arial, sans-serif; /* Consistent font stack */
+            font-family: 'Inter', Arial, sans-serif; /* Đồng nhất font chữ */
         }
     </style>
 </head>
@@ -34,7 +30,7 @@
                 <img src="/images/pages/footer.png" alt="Footer Background Pattern" class="w-full h-full object-cover" onerror="this.style.display='none'; this.src='https://placehold.co/1920x400/1f2937/9CA3AF?text=Footer+Background';">
             </div>
 
-            <div class="relative z-[1] container mx-auto px-4 sm:px-6 lg:px-8"> 
+            <div class="relative z-[1] container mx-auto px-4 sm:px-6 lg:px-8"> {/* z-index cục bộ cho nội dung footer */}
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 mb-12">
                     <div class="sm:col-span-2 lg:col-span-1 space-y-6">
                         <a href="/index.html" class="inline-block mb-2">
@@ -75,7 +71,7 @@
                             <li><a href="/terms.html" class="hover:text-orange-400 transition-colors duration-200" data-lang-key="footer_terms">Điều khoản dịch vụ</a></li>
                             <li><a href="/privacy.html" class="hover:text-orange-400 transition-colors duration-200" data-lang-key="footer_privacy">Chính sách bảo mật</a></li>
                             <li><a href="/readnovel.html" class="hover:text-orange-400 transition-colors duration-200" data-lang-key="footer_read_novel">Đọc truyện</a></li>
-                            <li><a href="/news-archive.html" class="hover:text-orange-400 transition-colors duration-200" data-lang-key="blog">Tin tức</a></li> 
+                            <li><a href="/news-archive.html" class="hover:text-orange-400 transition-colors duration-200" data-lang-key="blog">Tin tức</a></li>
                         </ul>
                     </div>
 
@@ -98,7 +94,12 @@
                         <p class="text-sm text-gray-400 mb-4" data-lang-key="footer_newsletter_desc">Nhập Email của bạn để nhận thông tin cập nhật mới nhất từ IVS JSC.</p>
                         <form id="newsletterForm" action="https://formspree.io/f/mqaqqrkz" method="POST" class="flex flex-col sm:flex-row gap-3">
                             <input type="email" id="newsletterEmail" name="email" placeholder="Nhập Email của bạn" aria-label="Nhập Email của bạn" required class="flex-grow px-4 py-2 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-colors duration-200">
-                            <button type="submit" class="px-6 py-2 bg-orange-600 text-white font-semibold rounded-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors duration-200" data-lang-key="footer_newsletter_button">Đăng ký</button>
+                            <button type="submit" class="px-6 py-2 bg-orange-600 text-white font-semibold rounded-md hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors duration-200" 
+                                    data-lang-key="footer_newsletter_button"
+                                    data-processing-text-key="newsletter_processing"
+                                    data-success-text-key="newsletter_success"
+                                    data-error-text-key="newsletter_error"
+                                    data-invalid-email-text-key="newsletter_invalid_email">Đăng ký</button>
                         </form>
                         <div id="newsletterMessage" class="text-sm mt-3"></div>
                     </div>
@@ -164,7 +165,7 @@
                 <i class="fas fa-phone-alt text-xl" aria-hidden="true"></i>
             </a>
             <a href="https://zalo.me/nmt5555789" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500 text-white shadow-lg hover:bg-blue-600 transition-colors duration-200" aria-label="Chat on Zalo (Mr. Triet)" title="Chat on Zalo (Mr. Triet)">
-                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="26" height="26" viewBox="0 0 50 50" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 50 50" fill="currentColor"> {/* Adjusted size */}
                     <path d="M39.103,10.938h-5.223c-0.341,0-0.673,0.109-0.953,0.313c-0.281,0.204-0.498,0.49-0.623,0.824l-2.475,6.984l-0.572-0.015 c-0.071-0.002-0.143-0.002-0.214-0.002c-2.668,0-5.28,0.715-7.604,2.051c-0.002,0.001-0.003,0.002-0.005,0.003 c-1.056,0.609-1.988,1.377-2.76,2.28L18.51,23.4l-3.849-3.849c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414L17.096,24.81 l-4.145,4.145c-0.391,0.391-0.391,1.023,0,1.414c0.195,0.195,0.451,0.293,0.707,0.293s0.512-0.098,0.707-0.293l4.145-4.145 l0.117,0.117c0.778,0.788,1.678,1.457,2.67,1.982c0.001,0-0.001,0.001,0,0.001c2.248,1.199,4.761,1.801,7.336,1.801 c0.04,0,0.079-0.001,0.119-0.001l0.318-0.008l2.407,6.359c0.14,0.37,0.4,0.673,0.732,0.852c0.332,0.179,0.718,0.201,1.068,0.061 l5.222-2.116c0.358-0.145,0.635-0.423,0.779-0.781s0.128-0.753-0.057-1.086l-3.105-5.655c0.509-0.612,0.951-1.291,1.312-2.021 c0.001-0.002,0.002-0.003,0.003-0.005c1.196-2.328,1.801-4.896,1.801-7.504c0-0.096-0.002-0.192-0.005-0.288l-0.026-0.811 l3.093-5.634c0.186-0.334,0.204-0.729,0.058-1.086C39.738,11.361,39.46,11.083,39.103,10.938z M34.321,32.311l2.237,4.074 l-3.693,1.498l-1.735-4.584L34.321,32.311z M28.955,33.199c-2.202,0-4.359-0.545-6.273-1.576 c-0.898-0.48-1.702-1.096-2.383-1.822l10.391-10.391c0.689,0.772,1.251,1.641,1.664,2.586c0.873,1.998,1.323,4.176,1.323,6.394 C33.677,30.677,31.616,32.739,28.955,33.199z M32.48,21.591l-10.39,10.39c-0.616-0.667-1.123-1.418-1.499-2.239 c-0.863-1.923-1.303-4.017-1.303-6.184c0-2.632,0.773-5.143,2.168-7.286l0.158-0.247l10.708-0.277L32.48,21.591z M29.167,18.917 c0.299-0.239,0.589-0.486,0.87-0.739l-0.165,0.041L29.167,18.917z M31.729,17.897c-0.292,0.252-0.591,0.496-0.896,0.731 l0.144-0.032L31.729,17.897z M32.367,16.165l-0.713,0.018c-0.263-0.217-0.53-0.428-0.802-0.633l0.008-0.005 c-0.271-0.204-0.547-0.401-0.827-0.591l0.462-0.012c0.062,0,0.123,0,0.185,0C30.867,14.936,31.66,15.431,32.367,16.165z M36.882,12.938l-2.23,4.061l-0.713,0.018c-0.009-0.008-0.019-0.015-0.028-0.023c-0.866-0.729-1.846-1.244-2.903-1.503l-0.462,0.012 l-0.013-0.001c-0.183-0.034-0.367-0.064-0.552-0.091L29.52,15.4c0.233,0.162,0.462,0.33,0.685,0.505l0.008,0.005 c0.248,0.187,0.491,0.378,0.728,0.574l0.713-0.018l0.001,0.005c0.21,0.186,0.416,0.377,0.617,0.571l0.049,0.047 l0.895-0.022L30.47,19.97c-0.242-0.211-0.49-0.414-0.743-0.609l-0.895,0.022l-0.001-0.005 c-0.195-0.173-0.395-0.341-0.599-0.503l-0.019-0.014l-0.685-0.505l0.461-0.012c0.18,0.026,0.358,0.055,0.538,0.087 l0.013,0.001l0.001,0c1.021,0.251,1.962,0.742,2.795,1.44l0.028,0.023l0.713-0.018l2.229-4.059h3.693L36.882,12.938z"/>
                 </svg>
             </a>
@@ -237,11 +238,11 @@
             });
 
             document.addEventListener('click', (event) => {
-                if (!contactMainBtn.contains(event.target) && !contactOptions.contains(event.target) && !contactOptions.classList.contains('hidden')) {
+                if (contactOptions && !contactOptions.classList.contains('hidden') && !contactMainBtn.contains(event.target) && !contactOptions.contains(event.target)) {
                     contactOptions.classList.add('hidden');
                     contactMainBtn.setAttribute('aria-expanded', 'false');
                 }
-                if (!shareMainBtn.contains(event.target) && !shareOptions.contains(event.target) && !shareOptions.classList.contains('hidden')) {
+                if (shareOptions && !shareOptions.classList.contains('hidden') && !shareMainBtn.contains(event.target) && !shareOptions.contains(event.target)) {
                     shareOptions.classList.add('hidden');
                     shareMainBtn.setAttribute('aria-expanded', 'false');
                 }
@@ -274,14 +275,15 @@
                     const messageDiv = document.getElementById('newsletterMessage');
                     const submitButton = newsletterForm.querySelector('button[type="submit"]');
                     const originalButtonText = submitButton.textContent;
-                    const processingText = submitButton.dataset.processingText || 'Đang xử lý...';
-                    const successText = submitButton.dataset.successText || 'Cảm ơn bạn đã đăng ký! Vui lòng kiểm tra email để xác nhận.';
-                    const errorText = submitButton.dataset.errorText || 'Đã có lỗi xảy ra. Vui lòng thử lại sau.';
-                    const invalidEmailText = submitButton.dataset.invalidEmailText || 'Vui lòng nhập một địa chỉ email hợp lệ.';
-
+                    
+                    // Get text from data-attributes or use defaults
+                    const processingText = submitButton.dataset.processingTextKey && typeof window.getTranslation === 'function' ? window.getTranslation(submitButton.dataset.processingTextKey, 'Đang xử lý...') : 'Đang xử lý...';
+                    const successText = submitButton.dataset.successTextKey && typeof window.getTranslation === 'function' ? window.getTranslation(submitButton.dataset.successTextKey, 'Cảm ơn bạn đã đăng ký! Vui lòng kiểm tra email để xác nhận.') : 'Cảm ơn bạn đã đăng ký! Vui lòng kiểm tra email để xác nhận.';
+                    const errorText = submitButton.dataset.errorTextKey && typeof window.getTranslation === 'function' ? window.getTranslation(submitButton.dataset.errorTextKey, 'Đã có lỗi xảy ra. Vui lòng thử lại sau.') : 'Đã có lỗi xảy ra. Vui lòng thử lại sau.';
+                    const invalidEmailText = submitButton.dataset.invalidEmailTextKey && typeof window.getTranslation === 'function' ? window.getTranslation(submitButton.dataset.invalidEmailTextKey, 'Vui lòng nhập một địa chỉ email hợp lệ.') : 'Vui lòng nhập một địa chỉ email hợp lệ.';
 
                     messageDiv.textContent = '';
-                    messageDiv.className = 'text-sm mt-3';
+                    messageDiv.className = 'text-sm mt-3'; 
 
                     if (!emailInput.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
                         messageDiv.textContent = invalidEmailText;
@@ -303,7 +305,7 @@
                             messageDiv.className = 'text-sm mt-3 text-green-400';
                             emailInput.value = '';
                         } else {
-                            const data = await response.json().catch(() => ({})); // Gracefully handle non-JSON error responses
+                            const data = await response.json().catch(() => ({})); 
                             messageDiv.textContent = data.error || errorText;
                             messageDiv.className = 'text-sm mt-3 text-red-400';
                         }
