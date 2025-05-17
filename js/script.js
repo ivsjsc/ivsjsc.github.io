@@ -1,9 +1,3 @@
-/* ========================== */
-/* Optimized JavaScript Logic */
-/* Version: Refactored 2.0    */
-/* ========================== */
-
-// --- Constants ---
 const HEADER_COMPONENT_URL = '../header.html';
 const FOOTER_COMPONENT_URL = '../footer.html';
 const POSTS_JSON_URL = 'posts.json';
@@ -13,33 +7,22 @@ const FOOTER_PLACEHOLDER_ID = 'footer-placeholder';
 const NEWS_CONTAINER_ID = 'news-container';
 const FOOTER_YEAR_ID = 'current-year';
 const SEARCH_HIGHLIGHT_CLASS = 'search-highlight';
-const THEME_TOGGLE_ID = 'theme-toggle'; // Main theme toggle (e.g., in index.html)
-// IDs for theme toggles inside header are assumed to be 'theme-toggle' (desktop)
-// and 'theme-toggle-mobile' as per previous header.html fixes.
+const THEME_TOGGLE_ID = 'theme-toggle';
+const THEME_TOGGLE_MOBILE_ID = 'theme-toggle-mobile';
 
-// --- State ---
 let isMenuInitialized = false;
 let isLanguageSystemReady = false;
-let isPerformingSearch = false; // Flag to prevent search recursion
+let isPerformingSearch = false;
 
-// --- DOM Cache (for static elements on the main page) ---
 const domCache = {};
 
 function cacheStaticElements() {
     domCache.headerPlaceholder = document.getElementById(HEADER_PLACEHOLDER_ID);
     domCache.footerPlaceholder = document.getElementById(FOOTER_PLACEHOLDER_ID);
     domCache.newsContainer = document.getElementById(NEWS_CONTAINER_ID);
-    domCache.mainThemeToggleButton = document.getElementById(THEME_TOGGLE_ID); // If a global one exists
+    domCache.mainThemeToggleButton = document.getElementById(THEME_TOGGLE_ID);
 }
 
-// --- Utility Functions ---
-
-/**
- * Debounce function.
- * @param {Function} func - Function to debounce.
- * @param {number} delay - Delay in milliseconds.
- * @returns {Function} Debounced function.
- */
 function debounce(func, delay) {
     let debounceTimer;
     return function(...args) {
@@ -49,12 +32,6 @@ function debounce(func, delay) {
     };
 }
 
-/**
- * Loads HTML component into a placeholder.
- * @param {string} placeholderId - ID of the placeholder element.
- * @param {string} componentUrl - URL of the component HTML file.
- * @returns {Promise<HTMLElement | null>} The loaded placeholder element or null.
- */
 async function loadComponent(placeholderId, componentUrl) {
     console.log(`[Script] Loading component: ${componentUrl} into #${placeholderId}`);
     const placeholder = document.getElementById(placeholderId);
@@ -75,7 +52,7 @@ async function loadComponent(placeholderId, componentUrl) {
             throw new Error(`HTTP error ${response.status}`);
         }
         const html = await response.text();
-        const currentPlaceholder = document.getElementById(placeholderId); // Re-fetch in case it was removed
+        const currentPlaceholder = document.getElementById(placeholderId);
         if (!currentPlaceholder) {
             console.error(`[Script] Placeholder "#${placeholderId}" disappeared after fetch.`);
             return null;
@@ -92,8 +69,6 @@ async function loadComponent(placeholderId, componentUrl) {
         return null;
     }
 }
-
-// --- Initialization Functions for Loaded Components ---
 
 function setupMobileMenu(headerElement) {
     const mobileMenuButton = headerElement.querySelector('#mobile-menu-button');
@@ -135,10 +110,10 @@ function setupMobileMenu(headerElement) {
                 mobileMenuPanel.removeEventListener('transitionend', transitionEndHandler);
             };
             mobileMenuPanel.addEventListener('transitionend', transitionEndHandler);
-            setTimeout(() => { // Fallback
+            setTimeout(() => {
                 if (!mobileMenuPanel.classList.contains('active')) {
-                    mobileMenuPanel.classList.add('hidden');
-                    mobileMenuOverlay.classList.add('hidden');
+                     mobileMenuPanel.classList.add('hidden');
+                     mobileMenuOverlay.classList.add('hidden');
                 }
             }, 350);
             document.body.classList.remove('overflow-hidden');
@@ -150,67 +125,69 @@ function setupMobileMenu(headerElement) {
     mobileMenuOverlay.addEventListener('click', () => toggleMobileMenu(false));
 
     mobileMenuPanel.querySelectorAll('a[href]:not(.mobile-submenu-toggle)').forEach(link => {
-        link.addEventListener('click', () => setTimeout(() => toggleMobileMenu(false), 100));
+        if (!link.closest('.mobile-submenu-toggle')) {
+             link.addEventListener('click', () => setTimeout(() => toggleMobileMenu(false), 150));
+        }
     });
 
-    // Mobile Submenu Accordion
-    headerElement.querySelectorAll('#mobile-menu-panel .mobile-menu-item').forEach(item => {
+    const mobileSubmenuItems = mobileMenuPanel.querySelectorAll('.mobile-menu-item');
+    mobileSubmenuItems.forEach(item => {
         const button = item.querySelector(':scope > button.mobile-submenu-toggle');
         const submenu = item.querySelector(':scope > .mobile-submenu');
         const arrow = button?.querySelector('.submenu-arrow');
 
         if (!button || !submenu) return;
 
-        submenu.style.maxHeight = '0';
+        submenu.style.maxHeight = '0px';
         submenu.style.overflow = 'hidden';
         item.classList.remove('open');
         button.setAttribute('aria-expanded', 'false');
         if(arrow) arrow.classList.remove('rotate-90');
 
-        button.addEventListener('click', function(e) {
+        button.addEventListener('click', function (e) {
             e.stopPropagation();
             const parentItem = this.closest('.mobile-menu-item');
             if (!parentItem) return;
 
             const isOpen = parentItem.classList.toggle('open');
             this.setAttribute('aria-expanded', String(isOpen));
-            if(arrow) arrow.classList.toggle('rotate-90', isOpen);
+            if (arrow) arrow.classList.toggle('rotate-90', isOpen);
 
-            submenu.style.maxHeight = isOpen ? `${submenu.scrollHeight}px` : '0';
-            // Handle overflow after transition for opening
-            if(isOpen) {
-                submenu.addEventListener('transitionend', function onOpenTransitionEnd() {
-                    if (submenu.style.maxHeight !== '0px') submenu.style.overflow = 'visible';
-                    submenu.removeEventListener('transitionend', onOpenTransitionEnd);
-                }, { once: true });
+            if (isOpen) {
+                submenu.style.maxHeight = submenu.scrollHeight + "px";
+                if(isOpen) {
+                    submenu.addEventListener('transitionend', function onOpenTransitionEnd() {
+                        if (submenu.style.maxHeight !== '0px') submenu.style.overflow = 'visible';
+                        submenu.removeEventListener('transitionend', onOpenTransitionEnd);
+                    }, { once: true });
+                }
+
+                const siblings = Array.from(parentItem.parentNode.children)
+                    .filter(child => child !== parentItem && child.classList.contains('mobile-menu-item') && child.classList.contains('open'));
+
+                siblings.forEach(sibling => {
+                    sibling.classList.remove('open');
+                    const siblingSubmenu = sibling.querySelector(':scope > .mobile-submenu');
+                    const siblingButton = sibling.querySelector(':scope > button.mobile-submenu-toggle');
+                    const siblingArrow = siblingButton?.querySelector('.submenu-arrow');
+
+                    if (siblingSubmenu) {
+                        siblingSubmenu.style.maxHeight = '0px';
+                        siblingSubmenu.style.overflow = 'hidden';
+                    }
+                    if (siblingButton) siblingButton.setAttribute('aria-expanded', 'false');
+                    if (siblingArrow) siblingArrow.classList.remove('rotate-90');
+                });
             } else {
-                 submenu.style.overflow = 'hidden'; // Hide overflow immediately on close start
-            }
-
-
-            if (isOpen) { // Close siblings
-                Array.from(parentItem.parentNode.children)
-                    .filter(child => child !== parentItem && child.classList.contains('mobile-menu-item') && child.classList.contains('open'))
-                    .forEach(sibling => {
-                        sibling.classList.remove('open');
-                        const siblingSubmenu = sibling.querySelector(':scope > .mobile-submenu');
-                        const siblingButton = sibling.querySelector(':scope > button.mobile-submenu-toggle');
-                        const siblingArrow = siblingButton?.querySelector('.submenu-arrow');
-                        if (siblingSubmenu) {
-                            siblingSubmenu.style.maxHeight = '0';
-                            siblingSubmenu.style.overflow = 'hidden';
-                        }
-                        if (siblingButton) siblingButton.setAttribute('aria-expanded', 'false');
-                        if (siblingArrow) siblingArrow.classList.remove('rotate-90');
-                    });
-            } else { // Collapse nested open submenus
-                 parentItem.querySelectorAll('.mobile-menu-item.open').forEach(nestedOpenItem => {
+                submenu.style.maxHeight = '0px';
+                submenu.style.overflow = 'hidden';
+                parentItem.querySelectorAll('.mobile-menu-item.open').forEach(nestedOpenItem => {
                      nestedOpenItem.classList.remove('open');
                      const nestedSubmenu = nestedOpenItem.querySelector(':scope > .mobile-submenu');
                      const nestedButton = nestedOpenItem.querySelector(':scope > button.mobile-submenu-toggle');
                      const nestedArrow = nestedButton?.querySelector('.submenu-arrow');
                      if(nestedSubmenu) {
-                         nestedSubmenu.style.maxHeight = '0';
+                         nestedSubmenu.style.maxHeight = '0px';
                          nestedSubmenu.style.overflow = 'hidden';
                      }
                      if(nestedButton) nestedButton.setAttribute('aria-expanded', 'false');
@@ -225,7 +202,6 @@ function setupMobileMenu(headerElement) {
 function setupDesktopMenus(headerElement) {
     const desktopMenuItems = headerElement.querySelectorAll('#menu-items > .main-menu-item');
     if (desktopMenuItems.length === 0) {
-        // console.warn("[Script] No desktop menu items found.");
         return;
     }
 
@@ -235,12 +211,11 @@ function setupDesktopMenus(headerElement) {
             const submenu = item.querySelector('.submenu');
             if (submenu && submenu !== exceptThisMenu && submenu.classList.contains('open')) {
                 submenu.classList.remove('open');
-                submenu.classList.add('hidden'); // Ensure hidden for display:none
+                submenu.classList.add('hidden');
                 if (toggleButton) {
                     toggleButton.setAttribute('aria-expanded', 'false');
                     toggleButton.classList.remove('active');
                 }
-                // Close sub-submenus
                 submenu.querySelectorAll('.sub-submenu-container.open').forEach(container => {
                     container.classList.remove('open');
                     container.querySelector('.sub-submenu')?.classList.add('hidden');
@@ -258,14 +233,14 @@ function setupDesktopMenus(headerElement) {
             toggleButton.addEventListener('click', function (event) {
                 event.stopPropagation();
                 const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                if (!isExpanded) closeAllDesktopMenus(submenu); // Close others before opening
+                if (!isExpanded) closeAllDesktopMenus(submenu);
 
                 submenu.classList.toggle('hidden', isExpanded);
                 requestAnimationFrame(() => submenu.classList.toggle('open', !isExpanded));
                 this.setAttribute('aria-expanded', String(!isExpanded));
                 this.classList.toggle('active', !isExpanded);
 
-                if (isExpanded) { // If closing this menu, close its sub-submenus
+                if (isExpanded) {
                     submenu.querySelectorAll('.sub-submenu-container.open').forEach(container => {
                         container.classList.remove('open');
                         container.querySelector('.sub-submenu')?.classList.add('hidden');
@@ -281,7 +256,6 @@ function setupDesktopMenus(headerElement) {
                     subToggleButton.addEventListener('click', function(event) {
                         event.stopPropagation();
                         const isSubExpanded = this.getAttribute('aria-expanded') === 'true';
-                        // Close other sub-submenus in the same parent
                         if (!isSubExpanded) {
                             submenu.querySelectorAll('.sub-submenu-container.open').forEach(openContainer => {
                                 if (openContainer !== container) {
@@ -298,15 +272,38 @@ function setupDesktopMenus(headerElement) {
                     });
                 }
             });
-        }
+        } else if (item.classList.contains('group')) {
+                 item.addEventListener('focusin', () => {
+                    item.querySelector('.submenu')?.classList.remove('hidden');
+                    item.querySelector('.submenu')?.classList.add('open');
+                 });
+                 item.addEventListener('focusout', (e) => {
+                    if (!item.contains(e.relatedTarget)) {
+                        item.querySelector('.submenu')?.classList.add('hidden');
+                        item.querySelector('.submenu')?.classList.remove('open');
+                    }
+                 });
+
+                 submenu?.querySelectorAll('.sub-submenu-container.group\\/sub').forEach(subContainer => {
+                    subContainer.addEventListener('focusin', () => {
+                        subContainer.querySelector('.sub-submenu')?.classList.remove('hidden');
+                        subContainer.querySelector('.sub-submenu')?.classList.add('open');
+                    });
+                    subContainer.addEventListener('focusout', (e) => {
+                        if (!subContainer.contains(e.relatedTarget)) {
+                             subContainer.querySelector('.sub-submenu')?.classList.add('hidden');
+                             subContainer.querySelector('.sub-submenu')?.classList.remove('open');
+                        }
+                    });
+                 });
+            }
     });
-    // Global click to close desktop menus
     document.addEventListener('click', (event) => {
-        let clickedInsideMenu = false;
+        let clickedInsideADesktopMenu = false;
         desktopMenuItems.forEach(item => {
-            if (item.contains(event.target)) clickedInsideMenu = true;
+            if (item.contains(event.target)) clickedInsideADesktopMenu = true;
         });
-        if (!clickedInsideMenu) closeAllDesktopMenus(null);
+        if (!clickedInsideADesktopMenu) closeAllDesktopMenus(null);
     });
     console.log("[Script] Desktop menu logic initialized.");
 }
@@ -316,12 +313,11 @@ function setupDesktopSearch(headerElement) {
     const searchContainer = headerElement.querySelector('#desktop-search-container');
     const searchInput = headerElement.querySelector('#desktop-search-input');
     const searchClose = headerElement.querySelector('#desktop-search-close');
-    const consultationButton = headerElement.querySelector('.cta-button'); // cta-button might be generic
+    const consultationButton = headerElement.querySelector('.cta-button');
     const langDropdown = headerElement.querySelector('#desktop-language-dropdown');
-    const themeToggle = headerElement.querySelector(`#${THEME_TOGGLE_ID}`); // Desktop theme toggle within header
+    const themeToggle = headerElement.querySelector(`#${THEME_TOGGLE_ID}`);
 
     if (!searchButton || !searchContainer || !searchInput || !searchClose) {
-        // console.warn("[Script] Desktop search elements not all found.");
         return;
     }
 
@@ -330,33 +326,26 @@ function setupDesktopSearch(headerElement) {
         else console.warn("[Script] performSearch function not found.");
     }, 300);
 
-    const toggleSearch = (show) => {
-        const isActive = searchContainer.classList.contains('active');
-        const shouldShow = typeof show === 'boolean' ? show : !isActive;
+    const toggleSearchVisibility = (show) => {
+        desktopSearchContainer.classList.toggle('hidden', !show);
+        desktopSearchContainer.classList.toggle('flex', show);
+        searchButton.classList.toggle('hidden', show);
+        [consultationButton, langDropdown, themeToggle].filter(el => el).forEach(el => el.classList.toggle('hidden', show));
 
-        searchButton.classList.toggle('hidden', shouldShow);
-        if(consultationButton) consultationButton.classList.toggle('hidden', shouldShow);
-        if(langDropdown) langDropdown.classList.toggle('hidden', shouldShow);
-        if(themeToggle) themeToggle.classList.toggle('hidden', shouldShow);
-
-
-        if (shouldShow) {
-            searchContainer.classList.remove('hidden');
-            searchContainer.classList.add('flex'); // Use flex for layout
-            requestAnimationFrame(() => searchContainer.classList.add('active')); // For transition
+        if (show) {
+            requestAnimationFrame(() => searchContainer.classList.add('active'));
             searchInput.focus();
         } else {
             searchContainer.classList.remove('active');
             searchInput.value = '';
             if (typeof clearSearchHighlights === 'function') clearSearchHighlights();
-            // Hide after transition
             searchContainer.addEventListener('transitionend', () => {
                 if(!searchContainer.classList.contains('active')) {
                     searchContainer.classList.add('hidden');
                     searchContainer.classList.remove('flex');
                 }
             }, {once: true});
-             setTimeout(() => { // Fallback
+             setTimeout(() => {
                 if(!searchContainer.classList.contains('active')) {
                     searchContainer.classList.add('hidden');
                     searchContainer.classList.remove('flex');
@@ -365,9 +354,9 @@ function setupDesktopSearch(headerElement) {
         }
     };
 
-    searchButton.addEventListener('click', (e) => { e.stopPropagation(); toggleSearch(true); });
-    searchClose.addEventListener('click', (e) => { e.stopPropagation(); toggleSearch(false); });
-    searchContainer.addEventListener('click', (e) => e.stopPropagation()); // Prevent closing when clicking inside
+    searchButton.addEventListener('click', (e) => { e.stopPropagation(); toggleSearchVisibility(true); });
+    searchClose.addEventListener('click', (e) => { e.stopPropagation(); toggleSearchVisibility(false); });
+    searchContainer.addEventListener('click', (e) => e.stopPropagation());
     searchInput.addEventListener('input', () => {
         if (searchInput.value.trim().length >= 2) debouncedSearch(searchInput.value);
         else if (typeof clearSearchHighlights === 'function') clearSearchHighlights();
@@ -376,14 +365,12 @@ function setupDesktopSearch(headerElement) {
         e.preventDefault();
         if (typeof performSearch === 'function') performSearch(searchInput.value);
     });
-    // Close on escape key
     searchInput.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') toggleSearch(false);
+        if (event.key === 'Escape') toggleSearchVisibility(false);
     });
-     // Global click to close search
     document.addEventListener('click', (event) => {
         if (searchContainer.classList.contains('active') && !searchContainer.contains(event.target) && event.target !== searchButton) {
-            toggleSearch(false);
+            toggleSearchVisibility(false);
         }
     });
     console.log("[Script] Desktop search logic initialized.");
@@ -415,7 +402,6 @@ function setupLanguageDropdowns(headerElement) {
         const toggle = headerElement.querySelector(`#${toggleId}`);
         const options = headerElement.querySelector(`#${optionsId}`);
         if (!toggle || !options) {
-            // console.warn(`[Script] Language dropdown elements for ${toggleId}/${optionsId} not found.`);
             return;
         }
 
@@ -423,21 +409,14 @@ function setupLanguageDropdowns(headerElement) {
             e.stopPropagation();
             const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
             options.classList.toggle('hidden', isExpanded);
-            options.classList.toggle('show', !isExpanded); // For CSS transitions
+            options.classList.toggle('show', !isExpanded);
             toggle.setAttribute('aria-expanded', String(!isExpanded));
             toggle.classList.toggle('active', !isExpanded);
-            // Close desktop menus when lang dropdown opens
-            if (toggleId === 'desktop-lang-toggle' && !isExpanded && typeof closeAllDesktopMenus === 'function') {
-                 // closeAllDesktopMenus is not defined here, it's inside setupDesktopMenus.
-                 // This suggests a need for better structure or passing functions around.
-                 // For now, this specific call might not work as intended unless closeAllDesktopMenus is global.
-            }
         });
 
         options.querySelectorAll('.lang-button').forEach(button => {
-            button.addEventListener('click', handleLanguageChangeWrapper); // Defined globally
+            button.addEventListener('click', handleLanguageChangeWrapper);
         });
-         // Close on outside click for this specific dropdown
         document.addEventListener('click', (event) => {
             if (!options.classList.contains('hidden') && !toggle.contains(event.target) && !options.contains(event.target)) {
                 options.classList.add('hidden');
@@ -453,11 +432,6 @@ function setupLanguageDropdowns(headerElement) {
     console.log("[Script] Language dropdowns logic initialized.");
 }
 
-
-/**
- * Initializes header specific logic after it's loaded.
- * @param {HTMLElement} headerEl - The loaded header DOM element.
- */
 function initializeLoadedHeader(headerEl) {
     if (!headerEl || isMenuInitialized) {
         if(isMenuInitialized) console.warn("[Script] Header logic already initialized.");
@@ -468,15 +442,13 @@ function initializeLoadedHeader(headerEl) {
     setupMobileMenu(headerEl);
     setupDesktopMenus(headerEl);
     setupDesktopSearch(headerEl);
-    setupMobileSearch(headerEl); // For mobile search input handling
-    setupLanguageDropdowns(headerEl); // Sets up language dropdowns within the header
+    setupMobileSearch(headerEl);
+    setupLanguageDropdowns(headerEl);
 
-    // Theme toggles within header
     if (typeof setupThemeToggle === 'function') {
-        setupThemeToggle(THEME_TOGGLE_ID, headerEl); // For desktop header's #theme-toggle
-        setupThemeToggle(THEME_TOGGLE_MOBILE_ID, headerEl); // For mobile header's #theme-toggle-mobile
+        setupThemeToggle(THEME_TOGGLE_ID, headerEl);
+        setupThemeToggle(THEME_TOGGLE_MOBILE_ID, headerEl);
     }
-
 
     if (typeof initializeStickyNavbar === 'function') {
         const navbar = headerEl.querySelector('#navbar');
@@ -486,9 +458,6 @@ function initializeLoadedHeader(headerEl) {
         initializeActiveMenuHighlighting(headerEl);
     }
 
-    // Attach language button listeners if language system is ready
-    // This might be slightly redundant if setupLanguageDropdowns also calls handleLanguageChangeWrapper
-    // which in turn calls window.setLanguage. The key is that setLanguage is the endpoint.
     if (isLanguageSystemReady && typeof window.attachLanguageSwitcherEvents === 'function') {
         window.attachLanguageSwitcherEvents(headerEl);
     }
@@ -497,32 +466,36 @@ function initializeLoadedHeader(headerEl) {
     console.log("[Script] Loaded header initialization complete.");
 }
 
-/**
- * Initializes footer specific logic after it's loaded.
- * @param {HTMLElement} footerEl - The loaded footer DOM element.
- */
 function initializeLoadedFooter(footerEl) {
     if (!footerEl) return;
     console.log("[Script] Initializing specific logic for loaded footer.");
     if (typeof updateFooterYear === 'function') {
         updateFooterYear(footerEl);
     }
-    // Any other footer-specific JS that footer.html's own script doesn't handle
 }
 
-// --- Feature Implementations (can be moved to separate files if they grow) ---
+function handleLanguageChangeWrapper(event) {
+    const button = event.target.closest('.lang-button');
+    if (!button) return;
 
-function updateFooterYear(scope = document) {
-    const yearElement = scope.querySelector(`#${FOOTER_YEAR_ID}`);
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
-    } else {
-        // console.warn(`[Script] Footer year element (#${FOOTER_YEAR_ID}) not found in scope.`);
+    const lang = button.dataset.lang;
+    if (lang) {
+        console.log(`[Script] Language change requested to: ${lang}`);
+        if (typeof window.setLanguage === 'function') {
+            window.setLanguage(lang);
+        } else {
+            console.warn("[Script] window.setLanguage function not found. Language change might not fully apply.");
+            localStorage.setItem('userPreferredLanguage', lang);
+            if (typeof window.applyTranslations === 'function') window.applyTranslations(lang);
+        }
     }
 }
 
 async function loadInternalNews() {
-    if (!domCache.newsContainer) return;
+    if (!domCache.newsContainer) {
+        console.log("[Script] News container not found, skipping news load.");
+        return;
+    }
 
     const defaultTexts = {
         loading: "Đang tải tin tức...",
@@ -534,7 +507,7 @@ async function loadInternalNews() {
     };
 
     const getText = (key) => (isLanguageSystemReady && typeof window.getTranslation === 'function')
-        ? window.getTranslation(key, defaultTexts[key.replace(/_([a-z])/g, (g) => g[1].toUpperCase())]) // Convert snake_case to camelCase for lookup if needed
+        ? window.getTranslation(key, defaultTexts[key])
         : defaultTexts[key];
 
     domCache.newsContainer.innerHTML = `<p class="text-gray-500 col-span-full text-center">${getText('loading')}</p>`;
@@ -551,14 +524,18 @@ async function loadInternalNews() {
         }
 
         const currentLang = (isLanguageSystemReady && typeof window.getCurrentLanguage === 'function') ? window.getCurrentLanguage() : 'vi';
+        const readMoreText = getText('readMore');
+        const newsTitleNaText = getText('titleNA');
+        const newsImageAltText = getText('imageAlt');
+
 
         posts.slice(0, 6).forEach(post => {
             const card = document.createElement('div');
             card.className = 'news-card bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-1 flex flex-col';
 
-            const title = post.title?.[currentLang] || post.title?.vi || getText('titleNA');
+            const title = post.title?.[currentLang] || post.title?.vi || newsTitleNaText;
             const excerpt = post.excerpt?.[currentLang] || post.excerpt?.vi || '';
-            const imageAlt = post.image_alt?.[currentLang] || post.image_alt?.vi || title || getText('imageAlt');
+            const imageAlt = post.image_alt?.[currentLang] || post.image_alt?.vi || title || newsImageAltText;
             const link = post.link || '#';
             const imageSrc = post.image || `https://placehold.co/300x200/e2e8f0/cbd5e1?text=${encodeURIComponent(title.substring(0,10))}`;
             const hotBadge = post.hot ? `<span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full z-10">HOT</span>` : '';
@@ -566,7 +543,7 @@ async function loadInternalNews() {
             if (post.date) {
                 try {
                     dateDisplay = new Date(post.date.split(' ')[0]).toLocaleDateString(currentLang === 'vi' ? 'vi-VN' : 'en-US', { day: '2-digit', month: '2-digit', year: 'numeric' });
-                } catch (e) { /* ignore date parsing error */ }
+                } catch (e) { }
             }
 
             card.innerHTML = `
@@ -580,7 +557,7 @@ async function loadInternalNews() {
                         <p class="text-sm text-gray-600 mb-3 line-clamp-3 flex-grow">${excerpt}</p>
                         <div class="flex justify-between items-center text-xs text-gray-500 mt-auto pt-2 border-t border-gray-100">
                             <span>${dateDisplay}</span>
-                            <span class="text-blue-500 font-medium group-hover:underline">${getText('readMore')}</span>
+                            <span class="text-blue-500 font-medium group-hover:underline">${readMoreText}</span>
                         </div>
                     </div>
                 </a>`;
@@ -592,6 +569,60 @@ async function loadInternalNews() {
     }
 }
 
+function updateFooterYear(scope = document) {
+    const yearElement = scope.querySelector(`#${FOOTER_YEAR_ID}`);
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+}
+
+function setupThemeToggle(buttonId, scope = document) {
+    const themeToggleButton = scope.querySelector(`#${buttonId}`);
+    if (!themeToggleButton) {
+        return;
+    }
+
+    const iconElement = themeToggleButton.querySelector('i');
+    const textElement = buttonId === THEME_TOGGLE_MOBILE_ID ? themeToggleButton.querySelector('span:not(.sr-only)') : null;
+
+    function updateButtonAppearance(theme) {
+        const isDark = theme === 'dark';
+        if (iconElement) {
+            iconElement.classList.toggle('fa-sun', isDark);
+            iconElement.classList.toggle('fa-moon', !isDark);
+        }
+        if (textElement) {
+            const key = isDark ? "theme_toggle_light" : "theme_toggle_dark";
+            let buttonText = isDark ? "Chế độ sáng" : "Chế độ tối";
+            if (isLanguageSystemReady && typeof window.getTranslation === 'function') {
+                buttonText = window.getTranslation(key, buttonText);
+            }
+            textElement.textContent = buttonText;
+        }
+        themeToggleButton.setAttribute('aria-label', isDark ? (window.getTranslation?.('aria_switch_light', 'Chuyển sang chế độ sáng') || 'Chuyển sang chế độ sáng')
+                                                                 : (window.getTranslation?.('aria_switch_dark', 'Chuyển sang chế độ tối') || 'Chuyển sang chế độ tối'));
+    }
+
+    let currentTheme = localStorage.getItem('theme');
+    if (!currentTheme) {
+        currentTheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    document.documentElement.classList.remove('light', 'dark');
+    document.documentElement.classList.add(currentTheme);
+    updateButtonAppearance(currentTheme);
+
+    themeToggleButton.addEventListener('click', () => {
+        let newTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        document.documentElement.classList.remove('light', 'dark');
+        document.documentElement.classList.add(newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateButtonAppearance(newTheme);
+        console.log(`[Script] Theme switched to ${newTheme} by #${buttonId}`);
+    });
+    console.log(`[Script] Theme toggle for #${buttonId} initialized with theme: ${currentTheme}.`);
+}
+
 function initializeStickyNavbar(navbarElement) {
     if (!navbarElement) return;
     const shrinkThreshold = 50;
@@ -599,21 +630,28 @@ function initializeStickyNavbar(navbarElement) {
         navbarElement.classList.toggle('shrinked', window.scrollY > shrinkThreshold);
     };
     window.addEventListener('scroll', debounce(handleScroll, 10), { passive: true });
-    handleScroll(); // Initial check
+    handleScroll();
     console.log("[Script] Sticky navbar initialized.");
 }
 
 function initializeActiveMenuHighlighting(scope = document) {
+    if (!scope) return;
+    console.log("[Script] Initializing active menu highlighting.");
+
     const currentFullHref = window.location.href.split('#')[0].split('?')[0];
-    const currentPathname = window.location.pathname.replace(/\/$/, "") || "/"; // /page.html or /folder/ or /
-    const isIndexPage = currentPathname === "/" || currentPathname.endsWith("/index");
+    const currentPathname = (window.location.pathname.replace(/\/$/, '') || "/").replace(/\/index\.html$/, '') || "/";
+
 
     const links = scope.querySelectorAll('a[href]');
     let bestMatch = null;
+    let bestMatchSpecificity = -1;
+
 
     links.forEach(link => {
         link.classList.remove('active-menu-item');
-        link.closest('.main-menu-item, .mobile-menu-item')?.classList.remove('active-parent-item');
+        const parentMenuItem = link.closest('.main-menu-item, .mobile-menu-item');
+        parentMenuItem?.classList.remove('active-parent-item');
+
 
         const linkHref = link.getAttribute('href');
         if (!linkHref || linkHref.startsWith('#') || linkHref.startsWith('javascript:')) return;
@@ -621,20 +659,32 @@ function initializeActiveMenuHighlighting(scope = document) {
         try {
             const linkUrl = new URL(linkHref, document.baseURI);
             const linkFullHref = linkUrl.href.split('#')[0].split('?')[0];
-            const linkPathname = linkUrl.pathname.replace(/\/$/, "") || "/";
+            let linkPathname = (linkUrl.pathname.replace(/\/$/, '') || "/").replace(/\/index\.html$/, '') || "/";
 
-            if (linkFullHref === currentFullHref) { // Exact full URL match is best
-                bestMatch = link;
-                return; // Found exact match, no need to check others for this link
-            }
-            // More robust path matching for relative links on index page
-            if (isIndexPage && (linkPathname === currentPathname || (linkPathname === "/index" && currentPathname === "/"))) {
-                 if (!bestMatch) bestMatch = link; // Prefer exact match if already found
+            let currentSpecificity = -1;
+
+            if (linkFullHref === currentFullHref) {
+                currentSpecificity = 3; // Exact full URL match
             } else if (linkPathname === currentPathname) {
-                 if (!bestMatch || (bestMatch.getAttribute('href').length < linkHref.length)) {
-                    bestMatch = link; // Prefer more specific paths
+                 currentSpecificity = 2; // Pathname match
+                 if (currentPathname === "/" && linkPathname === "/") { // Boost for explicit root link
+                     currentSpecificity = 2.5;
                  }
+            } else if (currentPathname.startsWith(linkPathname) && linkPathname !== "/") {
+                 currentSpecificity = 1; // Parent path match
             }
+
+
+            if (currentSpecificity > bestMatchSpecificity) {
+                bestMatchSpecificity = currentSpecificity;
+                bestMatch = link;
+            } else if (currentSpecificity === bestMatchSpecificity && currentSpecificity > -1) {
+                // If specificity is the same, prefer longer (more specific) hrefs
+                if (linkHref.length > bestMatch.getAttribute('href').length) {
+                    bestMatch = link;
+                }
+            }
+
         } catch (e) { /* Ignore invalid URLs */ }
     });
 
@@ -643,7 +693,10 @@ function initializeActiveMenuHighlighting(scope = document) {
         let parentItem = bestMatch.closest('.main-menu-item, .mobile-menu-item');
         while(parentItem) {
             parentItem.classList.add('active-parent-item');
-            // If mobile, ensure parent submenus are open
+            const parentToggle = parentItem.querySelector(':scope > .desktop-menu-toggle, :scope > .mobile-submenu-toggle');
+            if (parentToggle) parentToggle.classList.add('active');
+
+
             if (parentItem.classList.contains('mobile-menu-item') && !parentItem.classList.contains('open')) {
                 const toggle = parentItem.querySelector(':scope > button.mobile-submenu-toggle');
                 const submenu = parentItem.querySelector(':scope > .mobile-submenu');
@@ -658,10 +711,9 @@ function initializeActiveMenuHighlighting(scope = document) {
             }
             parentItem = parentItem.parentElement?.closest('.main-menu-item, .mobile-menu-item');
         }
-        console.log("[Script] Active menu item highlighted:", bestMatch);
+        console.log("[Script] Active menu item highlighted:", bestMatch.href);
     }
 }
-
 
 function clearSearchHighlights() {
     if (isPerformingSearch) return;
@@ -670,13 +722,13 @@ function clearSearchHighlights() {
         const parent = mark.parentNode;
         if (parent) {
             parent.replaceChild(document.createTextNode(mark.textContent), mark);
-            parent.normalize(); // Merges adjacent text nodes
+            parent.normalize();
         }
     });
 }
 
 function performSearch(query) {
-    if (isPerformingSearch) return; // Prevent recursion
+    if (isPerformingSearch) return;
     isPerformingSearch = true;
 
     clearSearchHighlights();
@@ -687,13 +739,22 @@ function performSearch(query) {
     }
 
     const queryLower = query.trim().toLowerCase();
-    const walker = document.createTreeWalker(mainContent, NodeFilter.SHOW_TEXT, null);
+    const walker = document.createTreeWalker(mainContent, NodeFilter.SHOW_TEXT, {
+        acceptNode: function(node) {
+            if (node.parentElement && ['SCRIPT', 'STYLE', 'NOSCRIPT', 'MARK'].includes(node.parentElement.tagName.toUpperCase())) {
+                return NodeFilter.FILTER_REJECT;
+            }
+            if (node.nodeValue.trim() === '') { // Skip empty or whitespace-only text nodes
+                return NodeFilter.FILTER_REJECT;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+        }
+    });
+
     let node;
     const nodesToProcess = [];
     while (node = walker.nextNode()) {
-        if (node.parentElement && !['SCRIPT', 'STYLE', 'MARK'].includes(node.parentElement.tagName)) {
-            nodesToProcess.push(node);
-        }
+        nodesToProcess.push(node);
     }
 
     let firstMatchElement = null;
@@ -701,22 +762,22 @@ function performSearch(query) {
         const textContent = textNode.nodeValue;
         const textLower = textContent.toLowerCase();
         let matchIndex = textLower.indexOf(queryLower);
-        let lastNode = textNode;
+        let currentNode = textNode;
 
         while (matchIndex !== -1) {
-            const matchText = textContent.substring(matchIndex, matchIndex + query.length);
+            const matchText = currentNode.nodeValue.substring(matchIndex, matchIndex + query.length);
             const mark = document.createElement('mark');
             mark.className = SEARCH_HIGHLIGHT_CLASS;
             mark.textContent = matchText;
 
-            const textAfterMatch = lastNode.splitText(matchIndex);
-            textAfterMatch.nodeValue = textAfterMatch.nodeValue.substring(query.length);
-            lastNode.parentNode.insertBefore(mark, textAfterMatch);
+            const afterNode = currentNode.splitText(matchIndex);
+            afterNode.nodeValue = afterNode.nodeValue.substring(query.length);
+            currentNode.parentNode.insertBefore(mark, afterNode);
 
             if (!firstMatchElement) firstMatchElement = mark;
-
-            lastNode = textAfterMatch; // Continue searching in the remaining part of the text node
-            matchIndex = lastNode.nodeValue.toLowerCase().indexOf(queryLower);
+            
+            currentNode = afterNode; // Continue with the remaining part of the text node
+            matchIndex = currentNode.nodeValue.toLowerCase().indexOf(queryLower); // Search again in the new current node
         }
     });
 
@@ -728,48 +789,44 @@ function performSearch(query) {
 
 function setupGlobalThemeToggle() {
     if (domCache.mainThemeToggleButton && typeof setupThemeToggle === 'function') {
-        setupThemeToggle(THEME_TOGGLE_ID); // For a global button
+        setupThemeToggle(THEME_TOGGLE_ID);
         console.log("[Script] Global theme toggle initialized.");
     }
 }
 
-/**
- * Main function to initialize the application.
- */
 async function initializeApp() {
     console.log("[Script] Initializing application...");
-    cacheStaticElements(); // Cache static DOM elements from index.html
-
-    // Setup theme toggle for any button directly in index.html
-    // Theme toggles inside header/footer will be handled after those components load
+    cacheStaticElements();
     setupGlobalThemeToggle();
 
-    // Load header and footer components
     const [headerLoadedElement, footerLoadedElement] = await Promise.all([
         loadComponent(HEADER_PLACEHOLDER_ID, HEADER_COMPONENT_URL),
         loadComponent(FOOTER_PLACEHOLDER_ID, FOOTER_COMPONENT_URL)
     ]);
 
-    // Initialize logic specific to loaded header and footer
     if (headerLoadedElement) initializeLoadedHeader(headerLoadedElement);
     if (footerLoadedElement) initializeLoadedFooter(footerLoadedElement);
 
-
-    // Initialize language system (from language.js)
     if (typeof window.initializeLanguageSystem === 'function') {
         try {
-            await window.initializeLanguageSystem(); // Should set window.translations & apply initial lang
+            await window.initializeLanguageSystem();
             isLanguageSystemReady = true;
             console.log("[Script] Language system reported ready by language.js.");
 
-            // Re-apply translations if needed, especially after components are loaded
             if (typeof window.applyTranslations === 'function') {
-                window.applyTranslations(); // Apply to whole page
+                window.applyTranslations();
             }
-            // Re-attach language switcher events if they are in dynamically loaded components
             if (headerLoadedElement && typeof window.attachLanguageSwitcherEvents === 'function') {
                 window.attachLanguageSwitcherEvents(headerLoadedElement);
             }
+             if (footerLoadedElement && typeof window.attachLanguageSwitcherEvents === 'function') { // If footer has lang switchers
+                window.attachLanguageSwitcherEvents(footerLoadedElement);
+            }
+             // Re-apply active menu highlighting after translations might have changed menu text affecting layout
+             if (headerLoadedElement && typeof initializeActiveMenuHighlighting === 'function') {
+                initializeActiveMenuHighlighting(headerLoadedElement);
+            }
+
 
         } catch (error) {
             console.error("[Script] Error during language system initialization:", error);
@@ -778,21 +835,21 @@ async function initializeApp() {
         console.warn("[Script] window.initializeLanguageSystem function not found.");
     }
 
-    // Load news (can now use translations if language system is ready)
     if (domCache.newsContainer) {
-        await loadInternalNews(); // Make it await if it becomes async
+        await loadInternalNews();
     }
+    // Ensure active menu highlighting is called once more if not called after lang init
+    if (headerLoadedElement && typeof initializeActiveMenuHighlighting === 'function' && !isLanguageSystemReady) {
+        initializeActiveMenuHighlighting(headerLoadedElement);
+    }
+
 
     console.log("[Script] Application initialization complete.");
 }
 
-// --- Global Event Listeners & Initial Call ---
 document.addEventListener('DOMContentLoaded', initializeApp);
 
-// Example of a more generic global click listener for closing dropdowns (if needed)
-// Specific dropdown closing logic is often better handled within the component's script.
 document.addEventListener('click', (event) => {
-    // Example: Close active desktop language dropdown if click is outside
     const activeDesktopLangDropdown = document.querySelector('#desktop-language-dropdown.open');
     if (activeDesktopLangDropdown && !activeDesktopLangDropdown.contains(event.target)) {
         const toggle = activeDesktopLangDropdown.querySelector('#desktop-lang-toggle');
