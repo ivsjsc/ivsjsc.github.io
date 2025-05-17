@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header IVS JSC</title>
     <style>
-        /* Basic styles for dropdowns, enhance with Tailwind if needed */
         .submenu, .sub-submenu {
             position: absolute;
-            background-color: #1f2937; /* bg-gray-800 */
+            background-color: #1f2937; 
             min-width: 230px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1001; /* Local z-index within header, main header has higher */
-            border-radius: 0.375rem; /* rounded-md */
+            z-index: 1001; 
+            border-radius: 0.375rem; 
             padding-top: 0.25rem;
             padding-bottom: 0.25rem;
             opacity: 0;
@@ -21,20 +20,20 @@
             transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s ease-in-out;
         }
 
-        .main-menu-item.open > .submenu, /* For JS-controlled click toggle */
-        .main-menu-item.group:hover > .submenu, /* For CSS hover basic toggle */
-        .main-menu-item.group:focus-within > .submenu, /* For CSS focus-within basic toggle */
-        .sub-submenu-container.open > .sub-submenu, /* For JS-controlled click toggle */
-        .sub-submenu-container.group\\/sub:hover > .sub-submenu, /* For CSS hover */
-        .sub-submenu-container.group\\/sub:focus-within > .sub-submenu /* For CSS focus-within */
+        .main-menu-item.open > .submenu,
+        .main-menu-item.group:hover > .submenu,
+        .main-menu-item.group:focus-within > .submenu,
+        .sub-submenu-container.open > .sub-submenu,
+        .sub-submenu-container.group\/sub:hover > .sub-submenu,
+        .sub-submenu-container.group\/sub:focus-within > .sub-submenu
         {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
-            display: block; /* Ensure it's visible */
+            display: block; 
         }
         
-        .submenu.hidden, .sub-submenu.hidden { /* JS uses this to explicitly hide */
+        .submenu.hidden, .sub-submenu.hidden { 
              display: none !important;
              opacity: 0;
              visibility: hidden;
@@ -47,22 +46,27 @@
             padding: 0.5rem 1rem;
             text-decoration: none;
             display: block;
-            font-size: 0.875rem; /* text-sm */
+            font-size: 0.875rem; 
             white-space: nowrap;
             background: none; border: none; cursor: pointer; width: 100%; text-align: left;
         }
         .submenu a:hover, .sub-submenu a:hover,
         .submenu .sub-submenu-container > button:hover {
-            background-color: #374151; /* bg-gray-700 */
+            background-color: #374151; 
         }
         .sub-submenu-container { position: relative; }
         .sub-submenu { top: -0.25rem; left: 100%; margin-left: 1px; }
 
         .nav-link { padding: 0.5rem 0.75rem; border-radius: 0.375rem; transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; }
-        .nav-link:hover, .nav-link:focus, .nav-link.active,
+        .nav-link:hover, .nav-link:focus, .nav-link.active-menu-item,
         .desktop-menu-toggle.active {
-            background-color: #374151; /* bg-gray-700 */
-            color: #f97316; /* text-orange-500 */
+            background-color: #374151; 
+            color: #f97316; 
+        }
+        .active-parent-item > .nav-link, 
+        .active-parent-item > .desktop-menu-toggle {
+             background-color: #374151; 
+             color: #f97316;
         }
 
         .language-dropdown-content {
@@ -73,14 +77,30 @@
 
         .mobile-submenu { transition: max-height 0.3s ease-out; }
         .submenu .desktop-submenu-toggle svg { transition: transform 0.2s ease-in-out; }
+        
+        #navbar { height: 4rem; }
+        #navbar.shrinked { height: 3.5rem; }
+        #navbar.shrinked .logo-img { height: 2rem; }
+        .logo-img { transition: height 0.3s ease-in-out; }
 
-        /* Ensure fixed header has explicit height for layout calculations if needed elsewhere */
-        #navbar { height: 4rem; /* h-16 */ }
+        #mobile-menu-panel {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        #mobile-menu-panel.active { 
+            transform: translateX(0);
+        }
+        #mobile-menu-overlay {
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #mobile-menu-overlay.active { 
+            opacity: 1;
+        }
+
     </style>
 </head>
 <body>
 
-<header id="navbar" class="text-white shadow-md fixed top-0 left-0 right-0 z-[1050] transition-all duration-300 bg-gray-900 h-16">
+<header id="navbar" class="text-white shadow-md fixed top-0 left-0 right-0 z-[1050] transition-all duration-300 bg-gray-900 dark:bg-slate-800 h-16">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div class="flex items-center justify-between h-full">
 
@@ -482,7 +502,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const headerElement = document.getElementById('navbar');
     if (!headerElement) {
-        console.error("[HeaderScript] Navbar element not found. Header script aborted.");
         return;
     }
 
@@ -498,12 +517,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const desktopSearchInput = headerElement.querySelector('#desktop-search-input');
     const desktopSearchClose = headerElement.querySelector('#desktop-search-close');
     const desktopThemeToggle = headerElement.querySelector('#theme-toggle');
-    const mobileThemeToggle = mobileMenuPanel.querySelector('#theme-toggle-mobile'); // Scoped to mobile panel
+    const mobileThemeToggle = mobileMenuPanel.querySelector('#theme-toggle-mobile');
     const consultationButton = headerElement.querySelector('.cta-button');
     const desktopLangToggle = headerElement.querySelector('#desktop-lang-toggle');
     const desktopLangOptions = headerElement.querySelector('#desktop-lang-options');
-    const mobileLangToggle = mobileMenuPanel.querySelector('#mobile-lang-toggle'); // Scoped to mobile panel
-    const mobileLangOptions = mobileMenuPanel.querySelector('#mobile-lang-options'); // Scoped to mobile panel
+    const mobileLangToggle = mobileMenuPanel.querySelector('#mobile-lang-toggle');
+    const mobileLangOptions = mobileMenuPanel.querySelector('#mobile-lang-options');
 
     function debounce(func, delay) {
         let debounceTimer;
@@ -539,19 +558,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 mobileMenuOverlay.classList.add('opacity-0');
                 mobileMenuPanel.classList.add('translate-x-full');
                 const transitionEndHandler = () => {
-                    if (mobileMenuPanel.classList.contains('translate-x-full')) {
+                    if (mobileMenuPanel.classList.contains('translate-x-full')) { 
                         mobileMenuPanel.classList.add('hidden');
                         mobileMenuOverlay.classList.add('hidden');
                     }
                     mobileMenuPanel.removeEventListener('transitionend', transitionEndHandler);
                 };
                 mobileMenuPanel.addEventListener('transitionend', transitionEndHandler);
-                setTimeout(() => {
+                setTimeout(() => { 
                      if (mobileMenuPanel.classList.contains('translate-x-full')) {
                         mobileMenuPanel.classList.add('hidden');
                         mobileMenuOverlay.classList.add('hidden');
                      }
-                }, 350);
+                }, 350); 
                 document.body.classList.remove('overflow-hidden');
             }
         };
@@ -561,7 +580,7 @@ document.addEventListener('DOMContentLoaded', function () {
         mobileMenuOverlay.addEventListener('click', () => toggleMobileMenu(false));
 
         mobileMenuPanel.querySelectorAll('a[href]:not(.mobile-submenu-toggle)').forEach(link => {
-            if (!link.closest('.mobile-submenu-toggle')) {
+            if (!link.closest('.mobile-submenu-toggle')) { 
                  link.addEventListener('click', () => setTimeout(() => toggleMobileMenu(false), 150));
             }
         });
@@ -580,12 +599,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 button.addEventListener('click', function (e) {
                     e.stopPropagation();
-                    const parentItem = this.closest('.mobile-menu-item');
+                    const parentItem = this.closest('.mobile-menu-item'); 
                     const currentlyOpen = parentItem.classList.contains('open');
-
-                    // Close all sibling .mobile-menu-item elements first
-                    // This ensures only one parent accordion can be open at a time
-                    if (!currentlyOpen) { // Only close siblings if we are about to open this one
+                    
+                    if (!currentlyOpen) { 
                         const siblings = Array.from(parentItem.parentNode.children)
                             .filter(child => child !== parentItem && child.classList.contains('mobile-menu-item') && child.classList.contains('open'));
                         siblings.forEach(sibling => {
@@ -602,22 +619,20 @@ document.addEventListener('DOMContentLoaded', function () {
                         });
                     }
                     
-                    // Now toggle the current item
                     parentItem.classList.toggle('open', !currentlyOpen);
                     this.setAttribute('aria-expanded', String(!currentlyOpen));
                     if (arrow) arrow.classList.toggle('rotate-90', !currentlyOpen);
 
-                    if (!currentlyOpen) { // If it was closed, now open it
+                    if (!currentlyOpen) { 
                         submenu.style.maxHeight = submenu.scrollHeight + "px";
-                        submenu.style.overflow = 'visible'; // Allow content to be seen
+                        submenu.style.overflow = 'visible'; 
                         submenu.addEventListener('transitionend', function onOpen() {
                             if (parentItem.classList.contains('open')) submenu.style.overflow = 'visible';
                             submenu.removeEventListener('transitionend', onOpen);
                         }, {once: true});
-                    } else { // If it was open, now close it
+                    } else { 
                         submenu.style.maxHeight = '0px';
-                        submenu.style.overflow = 'hidden';
-                         // Also collapse any nested submenus within this one
+                        submenu.style.overflow = 'hidden'; 
                         parentItem.querySelectorAll('.mobile-menu-item.open').forEach(nestedOpenItem => {
                              nestedOpenItem.classList.remove('open');
                              const nestedSubmenu = nestedOpenItem.querySelector(':scope > .mobile-submenu');
@@ -675,7 +690,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 }
                             });
                             subSubmenu.classList.toggle('hidden', isSubExpanded);
-                            requestAnimationFrame(() => subSubmenu.classList.toggle('open', !isSubExpanded));
+                             requestAnimationFrame(() => subSubmenu.classList.toggle('open', !isSubExpanded));
                             this.setAttribute('aria-expanded', String(!isSubExpanded));
                         });
                     }
@@ -720,8 +735,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         desktopSearchContainer.classList.remove('flex');
                     }
                 }, {once: true});
-                setTimeout(() => {
-                     if(!desktopSearchContainer.classList.contains('active')) {
+                setTimeout(() => { 
+                    if(!desktopSearchContainer.classList.contains('active')) {
                         desktopSearchContainer.classList.add('hidden');
                         desktopSearchContainer.classList.remove('flex');
                     }
@@ -766,7 +781,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (desktopLangToggle && desktopLangOptions) setupLanguageDropdown(desktopLangToggle, desktopLangOptions);
     if (mobileLangToggle && mobileLangOptions) setupLanguageDropdown(mobileLangToggle, mobileLangOptions);
     
-    document.addEventListener('click', () => { // Close language dropdowns on outside click
+    document.addEventListener('click', () => { 
         [desktopLangOptions, mobileLangOptions].forEach(options => {
             if (options && !options.classList.contains('hidden')) {
                 options.classList.add('hidden');
@@ -827,7 +842,6 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', debounce(handleScroll, 10), { passive: true });
     handleScroll();
 
-    console.log("[HeaderScript] Header internal script initialized.");
 });
 </script>
 </body>
