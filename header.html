@@ -5,102 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header IVS JSC</title>
     <style>
-        /* Cơ bản cho submenu, có thể được Tailwind quản lý hoặc JS */
+        /* Basic styles for dropdowns, enhance with Tailwind if needed */
         .submenu, .sub-submenu {
-            /* display: none; */ /* Sẽ được JS quản lý bằng class 'hidden' */
             position: absolute;
             background-color: #1f2937; /* bg-gray-800 */
-            min-width: 220px; /* Tăng độ rộng một chút */
+            min-width: 230px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1050; /* Đảm bảo menu nổi lên trên */
+            z-index: 50; /* Local z-index within header, main header has higher */
             border-radius: 0.375rem; /* rounded-md */
-            padding-top: 0.25rem; /* py-1 */
-            padding-bottom: 0.25rem; /* py-1 */
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
             opacity: 0;
             visibility: hidden;
             transform: translateY(10px);
             transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s ease-in-out;
         }
 
-        .main-menu-item.open > .submenu,
-        .sub-submenu-container.open > .sub-submenu {
-            /* Khi có class 'open', ghi đè các thuộc tính ẩn */
-            display: block; /* Hoặc dùng flex/grid nếu cần */
+        .main-menu-item.open > .submenu, /* For JS-controlled click toggle */
+        .main-menu-item.group:hover > .submenu, /* For CSS hover basic toggle */
+        .main-menu-item.group:focus-within > .submenu, /* For CSS focus-within basic toggle */
+        .sub-submenu-container.open > .sub-submenu, /* For JS-controlled click toggle */
+        .sub-submenu-container.group\\/sub:hover > .sub-submenu, /* For CSS hover */
+        .sub-submenu-container.group\\/sub:focus-within > .sub-submenu /* For CSS focus-within */
+        {
             opacity: 1;
             visibility: visible;
             transform: translateY(0);
+            display: block; /* Ensure it's visible */
         }
-
-        /* Đảm bảo menu bị ẩn hoàn toàn khi có lớp 'hidden' */
-        .submenu.hidden, .sub-submenu.hidden {
+        
+        .submenu.hidden, .sub-submenu.hidden { /* JS uses this to explicitly hide */
              display: none !important;
              opacity: 0;
              visibility: hidden;
              transform: translateY(10px);
         }
 
-
         .submenu a, .sub-submenu a,
         .submenu .sub-submenu-container > button {
             color: white;
-            padding: 0.5rem 1rem; /* px-4 py-2 */
+            padding: 0.5rem 1rem;
             text-decoration: none;
             display: block;
             font-size: 0.875rem; /* text-sm */
             white-space: nowrap;
-            background: none; /* Reset button default style */
-            border: none; /* Reset button default style */
-            cursor: pointer;
-            width: 100%; /* Ensure buttons take full width */
-            text-align: left; /* Align button text to left */
+            background: none; border: none; cursor: pointer; width: 100%; text-align: left;
         }
         .submenu a:hover, .sub-submenu a:hover,
         .submenu .sub-submenu-container > button:hover {
             background-color: #374151; /* bg-gray-700 */
         }
-        .sub-submenu-container {
-            position: relative;
-        }
-        .sub-submenu {
-            top: -0.25rem; /* Điều chỉnh vị trí để khớp với padding của parent */
-            left: 100%;
-            margin-left: 1px;
-        }
-        .nav-link {
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.375rem; /* rounded-md */
-            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-        }
-        .nav-link:hover, .nav-link:focus, .nav-link.active { /* Thêm class active cho trạng thái mở */
+        .sub-submenu-container { position: relative; }
+        .sub-submenu { top: -0.25rem; left: 100%; margin-left: 1px; }
+
+        .nav-link { padding: 0.5rem 0.75rem; border-radius: 0.375rem; transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; }
+        .nav-link:hover, .nav-link:focus, .nav-link.active,
+        .desktop-menu-toggle.active {
             background-color: #374151; /* bg-gray-700 */
-            color: #f97316; /* text-orange-500 or your brand color */
+            color: #f97316; /* text-orange-500 */
         }
+
         .language-dropdown-content {
-           /* display: none; */ /* JS sẽ quản lý bằng class 'hidden' */
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
+            opacity: 0; visibility: hidden; transform: translateY(10px);
             transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s ease-in-out;
         }
-        .language-dropdown-content.show {
-            display: block;
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        .mobile-submenu {
-            transition: max-height 0.3s ease-out;
-        }
-         /* Style cho mũi tên trong submenu desktop */
-        .submenu .desktop-submenu-toggle svg {
-             transition: transform 0.2s ease-in-out;
-        }
-        .sub-submenu-container.open > .desktop-submenu-toggle svg {
-             transform: rotate(0deg); /* Mũi tên quay về vị trí ban đầu khi submenu con mở */
-        }
+        .language-dropdown-content.show { display: block; opacity: 1; visibility: visible; transform: translateY(0); }
+
+        .mobile-submenu { transition: max-height 0.3s ease-out; }
+        .submenu .desktop-submenu-toggle svg { transition: transform 0.2s ease-in-out; }
+
+        /* Ensure fixed header has explicit height for layout calculations if needed elsewhere */
+        #navbar { height: 4rem; /* h-16 */ }
     </style>
 </head>
-<body class="bg-gray-200">
+<body>
 
 <header id="navbar" class="text-white shadow-md fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-gray-900">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
