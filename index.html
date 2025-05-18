@@ -5,17 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-lang-key="page_title_index">IVS JSC - Giáo dục, Công nghệ, Sức khỏe, Hợp tác Quốc tế</title>
     <meta name="description" content="IVS JSC - Tổ chức tiên phong tại Việt Nam trong lĩnh vực giáo dục (IVS Academy, IVS Kindergarten), EdTech (IVS Celestech), sức khỏe cộng đồng và hợp tác quốc tế." data-lang-key="meta_description_index">
-    <meta name="keywords" content="IVS JSC, giáo dục, công nghệ giáo dục, EdTech, STEAM, sức khỏe, hợp tác quốc tế, Đồng Nai, IVS Academy, IVS Celestech">
+    <meta name="keywords" content="IVS JSC, giáo dục, công nghệ giáo dục, EdTech, STEAM, sức khỏe, hợp tác quốc tế, Đồng Nai, IVS Academy, IVS Celestech, đào tạo ngoại ngữ, kỹ năng sống">
     <meta property="og:title" content="IVS JSC - Giáo dục, Công nghệ, Sức khỏe, Hợp tác Quốc tế" data-lang-key="og_title_index">
     <meta property="og:description" content="Khám phá các giải pháp toàn diện về đào tạo ngoại ngữ, STEAM, kỹ năng sống, EdTech, chăm sóc sức khỏe và cơ hội hợp tác cùng IVS JSC." data-lang-key="og_description_index">
     <meta property="og:image" content="https://ivs.id.vn/images/og/og-index.png">
     <meta property="og:url" content="https://ivs.id.vn/index.html">
     <meta property="og:type" content="website">
+    <meta name="author" content="IVS JSC">
 
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/images/logo/logo-192.png"> {/* Example for Apple touch icon */}
+    <link rel="manifest" href="/manifest.json"> {/* Example for PWA manifest */}
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 
     <link rel="stylesheet" href="/css/styles.css"> 
 
@@ -95,11 +100,28 @@
             background-color: #1f2937; 
             border: 1px solid #374151; 
         }
+        #header-placeholder:empty::before, #footer-placeholder:empty::before {
+            content: attr(data-loading-text);
+            min-height: 64px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width:100%;
+            background-color: #e5e7eb; 
+            color: #6b7280; 
+        }
+        html.dark #header-placeholder:empty::before, html.dark #footer-placeholder:empty::before {
+            background-color: #374151; 
+            color: #9ca3af; 
+        }
+        .hero-text-shadow {
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-index">
     
-    <header id="header-placeholder"></header>
+    <header id="header-placeholder" data-loading-text="Đang tải menu..."></header>
 
     <main>
         <section 
@@ -108,12 +130,14 @@
             data-aos="fade-in" 
             data-aos-duration="1000">
             <script>
-                if (window.innerWidth < 768) {
-                    const parentSection = document.currentScript.parentElement;
-                    if (parentSection) {
-                        parentSection.style.backgroundImage = "url('/images/logo/webbannermo.png')";
+                (function() {
+                    if (window.innerWidth < 768) {
+                        const section = document.currentScript.parentElement;
+                        if (section) {
+                            section.style.backgroundImage = "url('/images/logo/webbannermo.png')";
+                        }
                     }
-                }
+                })();
             </script>
             <div class="hero-content text-white">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 hero-text-shadow" data-lang-key="hero_title_index_main">IVS JSC</h1>
@@ -310,7 +334,7 @@
         </section>
     </main>
 
-    <footer id="footer-placeholder"></footer>
+    <footer id="footer-placeholder" data-loading-text="Đang tải chân trang..."></footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
