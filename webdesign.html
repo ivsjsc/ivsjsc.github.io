@@ -109,21 +109,25 @@
         .check-list li { padding-left: 2rem; position: relative; margin-bottom: 0.75rem; }
         .check-list li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: 0; color: theme('colors.secondary', '#10b981'); font-size: 1em; top: 0.1em; }
 
+        /* Styles for dynamically loaded header and footer */
+        /* Ensure these selectors target elements within the placeholders if IDs change after loading */
         #header-placeholder button.active-lang {
             background-color: theme('colors.primary');
             color: white;
         }
          #header-placeholder button:not(.active-lang) {
-            color: theme('colors.neutral.700');
+            color: theme('colors.neutral.700'); /* Default color for non-active lang buttons */
         }
          #header-placeholder button:not(.active-lang):hover {
             color: theme('colors.primary');
         }
 
-        #footer-placeholder a:hover {
+        /* Styles for footer content loaded into #footer-placeholder */
+        /* The specific styles for footer elements are in footer_ivs.html or applied via Tailwind */
+        #footer-placeholder a:hover { /* Example: general link hover style in footer */
             color: theme('colors.secondary');
         }
-        #footer-placeholder .footer-logo {
+        #footer-placeholder .footer-logo { /* Example: specific class in footer */
             font-size: 1.875rem;
             font-weight: 800;
             color: theme('colors.white');
@@ -133,6 +137,57 @@
         }
         #footer-placeholder .footer-logo .ivs-text-secondary {
             color: theme('colors.secondary');
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 2.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            max-width: 800px;
+            width: 95%;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -203,91 +258,156 @@
                         <img src="images/pages/webs/webdesign1.jpg" alt="Thiết kế Website 1" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 mb-2">Dự án Giáo dục X</h3>
-                            <p class="text-sm text-neutral-600">Thiết kế website cho trung tâm giáo dục, tập trung vào trải nghiệm người dùng thân thiện và tích hợp hệ thống quản lý khóa học.</p>
+                            <p class="text-sm text-neutral-600 mb-4">Thiết kế website cho trung tâm giáo dục, tập trung vào trải nghiệm người dùng thân thiện và tích hợp hệ thống quản lý khóa học.</p>
+                            <button class="generate-concept-btn bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full"
+                                    data-title="Dự án Giáo dục X"
+                                    data-description="Thiết kế website cho trung tâm giáo dục, tập trung vào trải nghiệm người dùng thân thiện và tích hợp hệ thống quản lý khóa học.">
+                                Tạo Ý Tưởng Thiết Kế ✨
+                            </button>
                         </div>
                     </div>
                     <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="200">
                         <img src="images/pages/webs/webdesign2.jpg" alt="Thiết kế Website 2" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 mb-2">Nền tảng E-commerce Y</h3>
-                            <p class="text-sm text-neutral-600">Phát triển trang thương mại điện tử với giao diện hiện đại, tính năng giỏ hàng thông minh và tối ưu hóa chuyển đổi.</p>
+                            <p class="text-sm text-neutral-600 mb-4">Phát triển trang thương mại điện tử với giao diện hiện đại, tính năng giỏ hàng thông minh và tối ưu hóa chuyển đổi.</p>
+                            <button class="generate-concept-btn bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full"
+                                    data-title="Nền tảng E-commerce Y"
+                                    data-description="Phát triển trang thương mại điện tử với giao diện hiện đại, tính năng giỏ hàng thông minh và tối ưu hóa chuyển đổi.">
+                                Tạo Ý Tưởng Thiết Kế ✨
+                            </button>
                         </div>
                     </div>
                     <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="300">
                         <img src="images/pages/webs/webdesign3.jpg" alt="Thiết kế Website 3" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 mb-2">Trang thông tin Doanh nghiệp Z</h3>
-                            <p class="text-sm text-neutral-600">Xây dựng website giới thiệu công ty với bố cục rõ ràng, hình ảnh sắc nét và nội dung chuẩn SEO, tăng cường nhận diện thương hiệu.</p>
+                            <p class="text-sm text-neutral-600 mb-4">Xây dựng website giới thiệu công ty với bố cục rõ ràng, hình ảnh sắc nét và nội dung chuẩn SEO, tăng cường nhận diện thương hiệu.</p>
+                            <button class="generate-concept-btn bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full"
+                                    data-title="Trang thông tin Doanh nghiệp Z"
+                                    data-description="Xây dựng website giới thiệu công ty với bố cục rõ ràng, hình ảnh sắc nét và nội dung chuẩn SEO, tăng cường nhận diện thương hiệu.">
+                                Tạo Ý Tưởng Thiết Kế ✨
+                            </button>
                         </div>
                     </div>
                     <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="400">
                         <img src="images/pages/webs/webdesign4.jpg" alt="Thiết kế Website 4" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 mb-2">Cổng thông tin Du lịch A</h3>
-                            <p class="text-sm text-neutral-600">Thiết kế cổng thông tin du lịch với khả năng tìm kiếm, đặt tour trực tuyến và thư viện ảnh phong phú.</p>
+                            <p class="text-sm text-neutral-600 mb-4">Thiết kế cổng thông tin du lịch với khả năng tìm kiếm, đặt tour trực tuyến và thư viện ảnh phong phú.</p>
+                            <button class="generate-concept-btn bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full"
+                                    data-title="Cổng thông tin Du lịch A"
+                                    data-description="Thiết kế cổng thông tin du lịch với khả năng tìm kiếm, đặt tour trực tuyến và thư viện ảnh phong phú.">
+                                Tạo Ý Tưởng Thiết Kế ✨
+                            </button>
                         </div>
                     </div>
                     <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="500">
                         <img src="images/pages/webs/webdesign5.jpg" alt="Thiết kế Website 5" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 mb-2">Website Cá nhân B</h3>
-                            <p class="text-sm text-neutral-600">Thiết kế portfolio cá nhân chuyên nghiệp, nổi bật các dự án và kỹ năng, thu hút nhà tuyển dụng và đối tác.</p>
+                            <p class="text-sm text-neutral-600 mb-4">Thiết kế portfolio cá nhân chuyên nghiệp, nổi bật các dự án và kỹ năng, thu hút nhà tuyển dụng và đối tác.</p>
+                            <button class="generate-concept-btn bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full"
+                                    data-title="Website Cá nhân B"
+                                    data-description="Thiết kế portfolio cá nhân chuyên nghiệp, nổi bật các dự án và kỹ năng, thu hút nhà tuyển dụng và đối tác.">
+                                Tạo Ý Tưởng Thiết Kế ✨
+                            </button>
                         </div>
                     </div>
                      <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="600">
                         <img src="images/pages/webs/webdesign6.jpg" alt="Thiết kế Website 6" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 mb-2">Dịch vụ Tư vấn C</h3>
-                            <p class="text-sm text-neutral-600">Website cho công ty tư vấn, tập trung vào việc trình bày dịch vụ, đội ngũ chuyên gia và các case study thành công.</p>
+                            <p class="text-sm text-neutral-600 mb-4">Website cho công ty tư vấn, tập trung vào việc trình bày dịch vụ, đội ngũ chuyên gia và các case study thành công.</p>
+                            <button class="generate-concept-btn bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full"
+                                    data-title="Dịch vụ Tư vấn C"
+                                    data-description="Website cho công ty tư vấn, tập trung vào việc trình bày dịch vụ, đội ngũ chuyên gia và các case study thành công.">
+                                Tạo Ý Tưởng Thiết Kế ✨
+                            </button>
                         </div>
                     </div>
                      <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="700">
                         <img src="images/pages/webs/webdesign7.jpg" alt="Thiết kế Website 7" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 mb-2">Trang Blog D</h3>
-                            <p class="text-sm text-neutral-600">Thiết kế nền tảng blog với giao diện đọc thân thiện, tối ưu hóa cho nội dung và chia sẻ xã hội.</p>
+                            <p class="text-sm text-neutral-600 mb-4">Thiết kế nền tảng blog với giao diện đọc thân thiện, tối ưu hóa cho nội dung và chia sẻ xã hội.</p>
+                            <button class="generate-concept-btn bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full"
+                                    data-title="Trang Blog D"
+                                    data-description="Thiết kế nền tảng blog với giao diện đọc thân thiện, tối ưu hóa cho nội dung và chia sẻ xã hội.">
+                                Tạo Ý Tưởng Thiết Kế ✨
+                            </button>
                         </div>
                     </div>
                      <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="800">
                         <img src="images/pages/webs/webdesign8.jpg" alt="Thiết kế Website 8" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 mb-2">Giải pháp Công nghệ E</h3>
-                            <p class="text-sm text-neutral-600">Website giới thiệu sản phẩm công nghệ, với các demo tương tác và thông tin chi tiết về tính năng.</p>
+                            <p class="text-sm text-neutral-600 mb-4">Website giới thiệu sản phẩm công nghệ, với các demo tương tác và thông tin chi tiết về tính năng.</p>
+                            <button class="generate-concept-btn bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full"
+                                    data-title="Giải pháp Công nghệ E"
+                                    data-description="Website giới thiệu sản phẩm công nghệ, với các demo tương tác và thông tin chi tiết về tính năng.">
+                                Tạo Ý Tưởng Thiết Kế ✨
+                            </button>
                         </div>
                     </div>
                      <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="900">
                         <img src="images/pages/webs/webdesign9.jpg" alt="Thiết kế Website 9" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 mb-2">Website Y tế F</h3>
-                            <p class="text-sm text-neutral-600">Thiết kế website cho phòng khám/bệnh viện, đảm bảo tính bảo mật, thông tin rõ ràng và chức năng đặt lịch hẹn.</p>
+                            <p class="text-sm text-neutral-600 mb-4">Thiết kế website cho phòng khám/bệnh viện, đảm bảo tính bảo mật, thông tin rõ ràng và chức năng đặt lịch hẹn.</p>
+                            <button class="generate-concept-btn bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full"
+                                    data-title="Website Y tế F"
+                                    data-description="Thiết kế website cho phòng khám/bệnh viện, đảm bảo tính bảo mật, thông tin rõ ràng và chức năng đặt lịch hẹn.">
+                                Tạo Ý Tưởng Thiết Kế ✨
+                            </button>
                         </div>
                     </div>
                      <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="1000">
                         <img src="images/pages/webs/webdesign10.jpg" alt="Thiết kế Website 10" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 mb-2">Trang sự kiện G</h3>
-                            <p class="text-sm text-neutral-600">Website quảng bá sự kiện với lịch trình, thông tin diễn giả và khả năng đăng ký trực tuyến.</p>
+                            <p class="text-sm text-neutral-600 mb-4">Website quảng bá sự kiện với lịch trình, thông tin diễn giả và khả năng đăng ký trực tuyến.</p>
+                            <button class="generate-concept-btn bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full"
+                                    data-title="Trang sự kiện G"
+                                    data-description="Website quảng bá sự kiện với lịch trình, thông tin diễn giả và khả năng đăng ký trực tuyến.">
+                                Tạo Ý Tưởng Thiết Kế ✨
+                            </button>
                         </div>
                     </div>
                      <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="1100">
                         <img src="images/pages/webs/webdesign11.jpg" alt="Thiết kế Website 11" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 mb-2">Website Bất động sản H</h3>
-                            <p class="text-sm text-neutral-600">Thiết kế website hiển thị các dự án bất động sản, tích hợp bản đồ, bộ lọc tìm kiếm và thông tin chi tiết từng căn hộ/đất nền.</p>
+                            <p class="text-sm text-neutral-600 mb-4">Thiết kế website hiển thị các dự án bất động sản, tích hợp bản đồ, bộ lọc tìm kiếm và thông tin chi tiết từng căn hộ/đất nền.</p>
+                            <button class="generate-concept-btn bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full"
+                                    data-title="Website Bất động sản H"
+                                    data-description="Thiết kế website hiển thị các dự án bất động sản, tích hợp bản đồ, bộ lọc tìm kiếm và thông tin chi tiết từng căn hộ/đất nền.">
+                                Tạo Ý Tưởng Thiết Kế ✨
+                            </button>
                         </div>
                     </div>
                      <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="1200">
                         <img src="images/pages/webs/webdesign12.jpg" alt="Thiết kế Website 12" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 mb-2">Cửa hàng Nghệ thuật I</h3>
-                            <p class="text-sm text-neutral-600">Thiết kế website trưng bày các tác phẩm nghệ thuật, với gallery ảnh chất lượng cao và thông tin chi tiết về nghệ sĩ.</p>
+                            <p class="text-sm text-neutral-600 mb-4">Thiết kế website trưng bày các tác phẩm nghệ thuật, với gallery ảnh chất lượng cao và thông tin chi tiết về nghệ sĩ.</p>
+                            <button class="generate-concept-btn bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full"
+                                    data-title="Cửa hàng Nghệ thuật I"
+                                    data-description="Thiết kế website trưng bày các tác phẩm nghệ thuật, với gallery ảnh chất lượng cao và thông tin chi tiết về nghệ sĩ.">
+                                Tạo Ý Tưởng Thiết Kế ✨
+                            </button>
                         </div>
                     </div>
                      <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="1300">
                         <img src="images/pages/webs/webdesign13.jpg" alt="Thiết kế Website 13" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 mb-2">Nền tảng Cộng đồng J</h3>
-                            <p class="text-sm text-neutral-600">Xây dựng website cộng đồng với các tính năng diễn đàn, hồ sơ thành viên và hệ thống thông báo.</p>
+                            <p class="text-sm text-neutral-600 mb-4">Xây dựng website cộng đồng với các tính năng diễn đàn, hồ sơ thành viên và hệ thống thông báo.</p>
+                            <button class="generate-concept-btn bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full"
+                                    data-title="Nền tảng Cộng đồng J"
+                                    data-description="Xây dựng website cộng đồng với các tính năng diễn đàn, hồ sơ thành viên và hệ thống thông báo.">
+                                Tạo Ý Tưởng Thiết Kế ✨
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -450,6 +570,16 @@
         </section>
     </main>
 
+    <div id="designConceptModal" class="modal fixed inset-0 flex items-center justify-center p-4">
+        <div class="modal-content relative bg-white rounded-lg shadow-xl p-8 max-w-2xl w-full">
+            <span class="close-button absolute top-4 right-6 text-gray-500 hover:text-gray-800 text-3xl cursor-pointer">&times;</span>
+            <h3 class="text-2xl font-bold text-neutral-800 mb-4" id="modalTitle">Ý Tưởng Thiết Kế Website</h3>
+            <div id="modalContent" class="text-neutral-700 prose prose-lg max-w-none overflow-y-auto max-h-[70vh]">
+                <p>Đang tải ý tưởng...</p>
+            </div>
+        </div>
+    </div>
+
     <div id="footer-placeholder"></div>
 
     <script src="js/script.js"></script>
@@ -538,6 +668,7 @@
           setTimeout(() => {
             initializeHeaderScripts();
             initializeFooterScripts();
+            setupGeminiFeatures(); // Call the new function to set up Gemini features
           }, 500);
       });
 
@@ -551,6 +682,85 @@
                 icon.classList.toggle('fa-chevron-up');
             }
           }
+      }
+
+      // Gemini API Integration
+      async function generateDesignConcept(title, description, buttonElement) {
+          const modal = document.getElementById('designConceptModal');
+          const modalTitle = document.getElementById('modalTitle');
+          const modalContent = document.getElementById('modalContent');
+
+          // Show modal and loading state
+          modal.style.display = 'flex';
+          modalTitle.textContent = `Ý Tưởng Thiết Kế cho: ${title}`;
+          modalContent.innerHTML = '<p class="text-center py-8"><i class="fas fa-spinner fa-spin text-primary text-3xl"></i><br>Đang tạo ý tưởng, vui lòng chờ...</p>';
+
+          // Disable button and change text
+          buttonElement.disabled = true;
+          buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang tạo...';
+
+          try {
+              const prompt = `Hãy tạo một ý tưởng thiết kế website sáng tạo và chi tiết cho một trang web có tiêu đề '${title}' và mô tả '${description}'. Ý tưởng nên bao gồm các tính năng độc đáo, đối tượng mục tiêu, và các yếu tố thiết kế nổi bật. Trả lời bằng tiếng Việt.`;
+              let chatHistory = [];
+              chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+              const payload = { contents: chatHistory };
+              const apiKey = ""; // Leave this as-is; Canvas will provide the key at runtime.
+              const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+              const response = await fetch(apiUrl, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(payload)
+              });
+
+              if (!response.ok) {
+                  const errorData = await response.json();
+                  throw new Error(`API error: ${response.status} - ${errorData.error.message}`);
+              }
+
+              const result = await response.json();
+              if (result.candidates && result.candidates.length > 0 &&
+                  result.candidates[0].content && result.candidates[0].content.parts &&
+                  result.candidates[0].content.parts.length > 0) {
+                const text = result.candidates[0].content.parts[0].text;
+                modalContent.innerHTML = `<p>${text.replace(/\n/g, '<br>')}</p>`; // Display generated text, convert newlines to <br>
+              } else {
+                modalContent.innerHTML = '<p class="text-red-500">Không thể tạo ý tưởng thiết kế. Vui lòng thử lại.</p>';
+              }
+          } catch (error) {
+              console.error("Lỗi khi gọi Gemini API:", error);
+              modalContent.innerHTML = `<p class="text-red-500">Đã xảy ra lỗi: ${error.message}. Vui lòng thử lại sau.</p>`;
+          } finally {
+              // Re-enable button and restore text
+              buttonElement.disabled = false;
+              buttonElement.innerHTML = 'Tạo Ý Tưởng Thiết Kế ✨';
+          }
+      }
+
+      function setupGeminiFeatures() {
+          const generateButtons = document.querySelectorAll('.generate-concept-btn');
+          generateButtons.forEach(button => {
+              button.addEventListener('click', () => {
+                  const title = button.dataset.title;
+                  const description = button.dataset.description;
+                  generateDesignConcept(title, description, button);
+              });
+          });
+
+          // Close modal functionality
+          const modal = document.getElementById('designConceptModal');
+          const closeButton = modal.querySelector('.close-button');
+
+          closeButton.addEventListener('click', () => {
+              modal.style.display = 'none';
+          });
+
+          // Close modal when clicking outside of it
+          window.addEventListener('click', (event) => {
+              if (event.target == modal) {
+                  modal.style.display = 'none';
+              }
+          });
       }
     </script>
     <button id="scrollToTopBtn"
