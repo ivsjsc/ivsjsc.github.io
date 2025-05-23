@@ -3,48 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infographic Song Ngữ: Xu Hướng Ngành & Nghiên Cứu Thị Trường - Góc nhìn từ Kimball Allen Thomson / Bilingual Infographic: Industry Trends & Market Research - Kimball Allen Thomson's Perspective</title>
+    <title>Bài đăng IVS Academy: Infographic Xu Hướng Ngành & Nghiên Cứu Thị Trường - Góc nhìn từ Kimball Allen Thomson (Tích hợp Gemini AI) / IVS Academy Post: Industry Trends & Market Research Infographic - Kimball Allen Thomson's Perspective (Gemini AI Integrated)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- 
-        Kế hoạch Phát triển Infographic (Song ngữ):
-        1.  Chủ đề chính: "Kimball Allen Thomson: Dẫn Dắt Tăng Trưởng Ngành và Truyền Cảm Hứng Đổi Mới / Kimball Allen Thomson: Driving Industry Growth and Inspiring Innovation".
-            Infographic sẽ tập trung vào vai trò của ông Thomson, nay được trình bày song ngữ.
-        2.  Cấu trúc các phần: Giữ nguyên, bổ sung bản dịch tiếng Anh.
-            -   Giới thiệu chung / General Introduction
-            -   Hành trình sự nghiệp và nền tảng học vấn / Career Journey and Educational Background
-            -   Dấu ấn tại BIOUTAH / Impact at BIOUTAH
-            -   Bộ kỹ năng chiến lược nổi bật / Prominent Strategic Skillset
-            -   Sự chuyển dịch và tầm nhìn với "The Power to Inspire" / Transition and Vision with "The Power to Inspire"
-            -   Đóng góp tri thức qua các tác phẩm đã xuất bản / Knowledge Contribution Through Published Works
-            -   Kết luận về tầm ảnh hưởng / Conclusion on Impact
-        3.  Lựa chọn Palette Màu: "Sôi Động và Tươi Vui" (Energetic & Playful) - Giữ nguyên.
-            -   Màu chính 1 (San hô / Coral): #FF6B6B
-            -   Màu chính 2 (Ngọc lam vừa / Medium Turquoise): #4ECDC4
-            -   Màu nhấn 1 (Xanh biển Pacific / Pacific Blue): #45B7D1
-            -   Màu nhấn 2 (Vàng nhạt/Gold / Pale Yellow/Gold): #FED766
-            -   Màu nền chính / Main Background: #F0F8FF (AliceBlue)
-            -   Màu chữ chính / Main Text Color: #333333 (Dark Gray)
-        4.  Xác nhận: KHÔNG sử dụng SVG. KHÔNG sử dụng Mermaid JS. Tất cả biểu đồ sẽ dùng Chart.js (Canvas) hoặc HTML/CSS.
-
-        Lựa chọn trực quan hóa dữ liệu (Song ngữ):
-        -   Dữ liệu: "Gần 30 năm kinh nghiệm / ~30 Years of Experience"
-            -   Trực quan hóa: Số liệu lớn (HTML/CSS).
-        -   Dữ liệu: Hành trình sự nghiệp (Các vai trò chính) / Career Journey (Key Roles)
-            -   Trực quan hóa: Dòng thời gian (HTML/CSS).
-        -   Dữ liệu: BIOUTAH - Hơn 80 tổ chức hỗ trợ trong năm đầu / BIOUTAH - Over 80 supporting organizations in the first year
-            -   Trực quan hóa: Biểu đồ cột đơn giản (Chart.js). Nhãn song ngữ.
-        -   Dữ liệu: Bộ kỹ năng của Kimball Thomson / Kimball Thomson's Skillset
-            -   Trực quan hóa: Biểu đồ Radar (Chart.js). Nhãn song ngữ.
-        -   Dữ liệu: Các tác phẩm đã xuất bản / Published Works
-            -   Trực quan hóa: Danh sách định dạng (HTML/CSS).
-    -->
+    
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F0F8FF; /* AliceBlue - Nền chính */
-            color: #333333; /* Xám đậm - Chữ chính */
+            background-color: #F0F8FF; 
+            color: #333333; 
         }
         .chart-container {
             position: relative;
@@ -103,9 +71,76 @@
         }
         .lang-en {
             font-style: italic;
-            color: #555555; /* Slightly lighter color for English text */
-            display: block; /* Ensure English text is on a new line or clearly separated */
-            margin-top: 0.25rem; /* Add some space above English text */
+            color: #555555; 
+            display: block; 
+            margin-top: 0.25rem; 
+        }
+        .gemini-button {
+            background-color: #4ECDC4; 
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem; 
+            font-weight: 600; 
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            border: none;
+            margin-top: 1rem;
+        }
+        .gemini-button:hover {
+            background-color: #45B7D1; 
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .modal-close-button {
+            background-color: #FF6B6B; 
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            margin-top: 1rem;
+            float: right;
+        }
+         .loading-spinner {
+            border: 4px solid #f3f3f3; 
+            border-top: 4px solid #4ECDC4; 
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -135,6 +170,10 @@
                             Hồ sơ chuyên môn của ông cho thấy một quá trình phát triển từ việc lãnh đạo các tổ chức chuyên ngành, tập trung vào tăng trưởng kinh tế và đại diện ngành, đến việc khám phá những khái niệm rộng lớn hơn về nghệ thuật và khoa học của nguồn cảm hứng. Xuyên suốt hành trình đó, kỹ năng lãnh đạo, hoạch định chiến lược và giao tiếp hiệu quả luôn là những yếu tố cốt lõi.
                             <span class="lang-en">His professional profile reveals a development trajectory from leading specialized organizations focused on economic growth and industry representation to exploring broader concepts of the art and science of inspiration. Throughout this journey, leadership skills, strategic planning, and effective communication have always been core elements.</span>
                         </p>
+                        <button id="summarizeImpactButton" class="gemini-button">
+                            ✨ Tóm tắt Tầm ảnh hưởng 
+                            <span class="lang-en">Summarize Impact</span>
+                        </button>
                     </div>
                     <div class="text-center">
                         <div class="stat-number">~30</div>
@@ -339,6 +378,10 @@
                     Sự chuyển dịch này cho thấy một sự phát triển trong mối quan tâm nghề nghiệp của ông, mong muốn áp dụng kinh nghiệm phong phú của mình vào một chủ đề phổ quát hơn, chạm đến động lực cốt lõi của con người và tổ chức. Dù trọng tâm thay đổi, mục tiêu cơ bản về việc thúc đẩy sự thay đổi và phát triển tích cực vẫn nhất quán.
                     <span class="lang-en">This transition indicates a development in his professional interests, a desire to apply his rich experience to a more universal theme, touching upon the core motivations of people and organizations. Although the focus has shifted, the fundamental goal of promoting positive change and development remains consistent.</span>
                 </p>
+                <button id="generateQuoteButton" class="gemini-button">
+                    ✨ Tạo Trích dẫn Truyền cảm hứng
+                    <span class="lang-en">Generate Inspirational Quote</span>
+                </button>
             </div>
         </section>
 
@@ -398,6 +441,10 @@
                     Những ấn phẩm này không chỉ là những bài viết cá nhân mà còn đóng góp vào diễn đàn công cộng và kinh doanh, củng cố vai trò của ông như một người ghi chép và quảng bá cho câu chuyện kinh tế và tiềm năng phát triển của Utah.
                     <span class="lang-en">These publications are not just personal writings but also contribute to public and business discourse, reinforcing his role as a chronicler and promoter of Utah's economic story and development potential.</span>
                 </p>
+                 <button id="generateBookTopicsButton" class="gemini-button">
+                    ✨ Gợi ý Chủ đề Thảo luận từ Sách
+                    <span class="lang-en">Suggest Book Discussion Topics</span>
+                </button>
             </div>
         </section>
 
@@ -417,70 +464,62 @@
                 </p>
             </div>
             <p class="text-sm text-gray-500 mt-8">
-                &copy; 2025 Infographic được tạo dựa trên Hồ sơ chuyên sâu về Kimball Allen Thomson.
-                <span class="lang-en">&copy; 2025 Infographic created based on the in-depth profile of Kimball Allen Thomson.</span>
+                &copy; 2025 Infographic được tạo dựa trên Hồ sơ chuyên sâu về Kimball Allen Thomson. Phát triển bởi IVS Academy.
+                <span class="lang-en">&copy; 2025 Infographic created based on the in-depth profile of Kimball Allen Thomson. Developed by IVS Academy.</span>
             </p>
         </footer>
     </div>
 
+    
+    <div id="geminiModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle" class="text-xl font-semibold mb-4 section-title">Nội dung từ Gemini AI / Content from Gemini AI</h3>
+            <div id="modalBody" class="text-gray-700 leading-relaxed">
+                
+                 <div class="loading-spinner hidden"></div>
+            </div>
+            <button id="modalCloseButton" class="modal-close-button">
+                Đóng / Close
+            </button>
+        </div>
+    </div>
+
     <script>
+        
         function wrapLabels(label, maxWidth, lang) {
             if (typeof label !== 'string') return label;
-            
             let primaryText = label;
-            let secondaryText = '';
-
             if (label.includes('/')) {
-                const parts = label.split('/');
-                primaryText = parts[0].trim();
-                secondaryText = parts[1] ? parts[1].trim() : '';
+                primaryText = label.split('/')[0].trim();
             }
-
-            function wrapSingleLang(text, isPrimary) {
-                if (!text) return isPrimary ? '' : [];
-                const words = text.split(' ');
-                let lines = [];
-                let currentLine = words[0] || '';
-
-                for (let i = 1; i < words.length; i++) {
-                    if (currentLine.length + words[i].length + 1 <= maxWidth) {
-                        currentLine += ' ' + words[i];
-                    } else {
-                        lines.push(currentLine);
-                        currentLine = words[i];
-                    }
+            const words = primaryText.split(' ');
+            let lines = [];
+            let currentLine = words[0] || '';
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + words[i].length + 1 <= maxWidth) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
                 }
-                if (currentLine) lines.push(currentLine);
-                return lines.length > 0 ? lines : [text]; // Ensure it always returns an array for Chart.js
             }
-
-            const wrappedPrimary = wrapSingleLang(primaryText, true);
-            const wrappedSecondary = wrapSingleLang(secondaryText, false);
-            
-            // For Chart.js, labels are often expected as an array of strings for multiline.
-            // We'll return an array where each element is a line of the primary language,
-            // followed by lines of the secondary language if present.
-            // Or, if the chart can handle it, just the primary wrapped, and tooltip handles bilingual.
-            // For simplicity here, we'll focus on wrapping the primary for display on axes.
-            // Tooltips will need a custom handler for full bilingual display.
-            return wrappedPrimary; // Prioritize primary language for axis display
+            if (currentLine) lines.push(currentLine);
+            return lines.length > 0 ? lines : [primaryText];
         }
         
         const tooltipTitleCallback = (tooltipItems) => {
             const item = tooltipItems[0];
             if (!item) return '';
             let label = item.chart.data.originalLabels[item.dataIndex] || item.chart.data.labels[item.dataIndex];
-            
             if (typeof label === 'string' && label.includes('/')) {
                  const parts = label.split('/');
                  return `${parts[0].trim()} / ${parts[1].trim()}`;
             }
-            if (Array.isArray(label)) { // If original label was already an array (multiline)
+            if (Array.isArray(label)) {
                 return label.map(line => typeof line === 'string' ? line.replace(' / ', '\n') : line).join('\n');
             }
             return label;
         };
-
 
         const bioutahGrowthCtx = document.getElementById('bioutahGrowthChart').getContext('2d');
         const bioutahOriginalLabel = 'Số tổ chức hỗ trợ trong năm đầu / Supporting organizations in the first year';
@@ -488,7 +527,7 @@
             type: 'bar',
             data: {
                 labels: [wrapLabels(bioutahOriginalLabel, 16)],
-                originalLabels: [bioutahOriginalLabel], // Store original for tooltip
+                originalLabels: [bioutahOriginalLabel],
                 datasets: [{
                     label: 'Số lượng tổ chức / Number of Organizations',
                     data: [80], 
@@ -498,130 +537,136 @@
                 }]
             },
             options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: { color: '#333333' },
-                        grid: { color: '#e0e0e0' }
-                    },
-                    x: {
-                        ticks: { color: '#333333', maxRotation: 0, minRotation: 0 },
-                        grid: { display: false }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: true, // Display legend for bilingual dataset label
-                         labels: { color: '#333333' }
-                    },
-                    tooltip: {
-                        backgroundColor: '#333333',
-                        titleColor: '#FFFFFF',
-                        bodyColor: '#FFFFFF',
-                        callbacks: {
-                            title: tooltipTitleCallback,
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                if (context.parsed.y !== null) {
-                                    label += context.parsed.y;
-                                }
-                                return label;
-                            }
-                        }
-                    }
-                }
+                responsive: true, maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, ticks: { color: '#333333' }, grid: { color: '#e0e0e0' } }, x: { ticks: { color: '#333333', maxRotation: 0, minRotation: 0 }, grid: { display: false }}},
+                plugins: { legend: { display: true, labels: { color: '#333333' } }, tooltip: { backgroundColor: '#333333', titleColor: '#FFFFFF', bodyColor: '#FFFFFF', callbacks: { title: tooltipTitleCallback, label: function(context) { let label = context.dataset.label || ''; if (label) { label += ': '; } if (context.parsed.y !== null) { label += context.parsed.y; } return label; }}}}
             }
         });
 
         const skillsRadarCtx = document.getElementById('skillsRadarChart').getContext('2d');
         const originalSkillLabels = [
-            'Lãnh đạo & Quản lý Điều hành / Leadership & Executive Management',
-            'Chiến lược & Hoạch định Kinh doanh / Strategy & Business Planning',
-            'Quan hệ Công chúng & Truyền thông / Public Relations & Communication',
-            'Khởi nghiệp & Phát triển Kinh doanh / Entrepreneurship & Business Development',
-            'Quan hệ Đối tác & Huy động Vốn / Strategic Partnerships & Venture Capital',
-            'Tư vấn Quản lý & Tiếp thị / Management Consulting & Marketing'
+            'Lãnh đạo & Quản lý Điều hành / Leadership & Executive Management', 'Chiến lược & Hoạch định Kinh doanh / Strategy & Business Planning', 'Quan hệ Công chúng & Truyền thông / Public Relations & Communication',
+            'Khởi nghiệp & Phát triển Kinh doanh / Entrepreneurship & Business Development', 'Quan hệ Đối tác & Huy động Vốn / Strategic Partnerships & Venture Capital', 'Tư vấn Quản lý & Tiếp thị / Management Consulting & Marketing'
         ];
-        // For radar pointLabels, Chart.js expects an array of strings for each point if multiline.
-        // We'll pass the primary language wrapped. Tooltip will show full bilingual.
         const wrappedSkillLabelsForDisplay = originalSkillLabels.map(label => wrapLabels(label.split('/')[0].trim(), 16));
-
         new Chart(skillsRadarCtx, {
             type: 'radar',
-            data: {
-                labels: wrappedSkillLabelsForDisplay, // Use wrapped Vietnamese for display
-                originalLabels: originalSkillLabels, // Store full bilingual for tooltips
-                datasets: [{
-                    label: 'Mức độ nổi bật (Minh họa) / Prominence (Illustrative)',
-                    data: [9, 8, 8, 9, 7, 7], 
-                    fill: true,
-                    backgroundColor: 'rgba(255, 107, 107, 0.2)', 
-                    borderColor: '#FF6B6B', 
-                    pointBackgroundColor: '#FF6B6B',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: '#FF6B6B'
-                }]
+            data: { labels: wrappedSkillLabelsForDisplay, originalLabels: originalSkillLabels,
+                datasets: [{ label: 'Mức độ nổi bật (Minh họa) / Prominence (Illustrative)', data: [9, 8, 8, 9, 7, 7], fill: true, backgroundColor: 'rgba(255, 107, 107, 0.2)', borderColor: '#FF6B6B', pointBackgroundColor: '#FF6B6B', pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: '#FF6B6B' }]
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    r: {
-                        angleLines: { color: '#cccccc' },
-                        grid: { color: '#dddddd' },
-                        pointLabels: { 
-                            font: { size: 10 }, 
-                            color: '#333333',
-                            callback: function(labelArray, index) {
-                                // labelArray here is the result of wrapLabels (Vietnamese part)
-                                return labelArray; // Already an array of strings
-                            }
-                        },
-                        ticks: {
-                            backdropColor: 'transparent',
-                            color: '#333333',
-                            stepSize: 2,
-                            font: {size: 9}
-                        },
-                        suggestedMin: 0,
-                        suggestedMax: 10
-                    }
-                },
-                plugins: {
-                    legend: {
-                        labels: { color: '#333333' }
-                    },
-                    tooltip: {
-                        backgroundColor: '#333333',
-                        titleColor: '#FFFFFF',
-                        bodyColor: '#FFFFFF',
-                        callbacks: {
-                           title: (tooltipItems) => { 
-                                const item = tooltipItems[0];
-                                if (!item) return '';
-                                let fullLabel = item.chart.data.originalLabels[item.dataIndex];
-                                if (fullLabel && fullLabel.includes('/')) {
-                                    const parts = fullLabel.split('/');
-                                    return [`${parts[0].trim()}`, `${parts[1].trim()}`]; // Return as array for multiline tooltip
-                                }
-                                return Array.isArray(fullLabel) ? fullLabel.join(' ') : fullLabel;
-                            }
-                        }
-                    }
-                },
-                elements: {
-                    line: {
-                        borderWidth: 2
-                    }
-                }
+            options: { responsive: true, maintainAspectRatio: false,
+                scales: { r: { angleLines: { color: '#cccccc' }, grid: { color: '#dddddd' }, pointLabels: { font: { size: 10 }, color: '#333333', callback: function(labelArray, index) { return labelArray; }}, ticks: { backdropColor: 'transparent', color: '#333333', stepSize: 2, font: {size: 9}}, suggestedMin: 0, suggestedMax: 10 }},
+                plugins: { legend: { labels: { color: '#333333' } }, tooltip: { backgroundColor: '#333333', titleColor: '#FFFFFF', bodyColor: '#FFFFFF', callbacks: { title: (tooltipItems) => { const item = tooltipItems[0]; if (!item) return ''; let fullLabel = item.chart.data.originalLabels[item.dataIndex]; if (fullLabel && fullLabel.includes('/')) { const parts = fullLabel.split('/'); return [`${parts[0].trim()}`, `${parts[1].trim()}`]; } return Array.isArray(fullLabel) ? fullLabel.join(' ') : fullLabel; }}}},
+                elements: { line: { borderWidth: 2 }}
             }
         });
+
+        
+        const geminiModal = document.getElementById('geminiModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const modalCloseButton = document.getElementById('modalCloseButton');
+        const loadingSpinner = modalBody.querySelector('.loading-spinner');
+
+        function showModal(titleVi, titleEn) {
+            modalTitle.innerHTML = `${titleVi} <span class="lang-en">${titleEn}</span>`;
+            modalBody.innerHTML = '<div class="loading-spinner"></div>'; 
+            geminiModal.classList.add('active');
+        }
+
+        function hideModal() {
+            geminiModal.classList.remove('active');
+            modalBody.innerHTML = ''; 
+        }
+
+        modalCloseButton.addEventListener('click', hideModal);
+        geminiModal.addEventListener('click', function(event) {
+            if (event.target === geminiModal) {
+                hideModal();
+            }
+        });
+
+        async function callGeminiApi(prompt) {
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            
+            let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+            const payload = { contents: chatHistory };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error("Gemini API Error:", errorData);
+                    return `Lỗi API: ${response.statusText} / API Error: ${response.statusText}. Chi tiết: ${JSON.stringify(errorData.error?.message || 'Không có thông tin lỗi chi tiết.')}`;
+                }
+                const result = await response.json();
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    console.error("Unexpected API response structure:", result);
+                    return "Không nhận được nội dung hợp lệ từ AI. / No valid content received from AI.";
+                }
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                return `Đã xảy ra lỗi khi gọi AI: ${error.message} / Error calling AI: ${error.message}`;
+            }
+        }
+
+        function displayGeminiResponse(responseText) {
+            
+            const parts = responseText.split('---');
+            const vietnameseText = parts[0] ? parts[0].trim().replace(/\n/g, '<br>') : "Không có nội dung tiếng Việt. / No Vietnamese content.";
+            const englishText = parts[1] ? parts[1].trim().replace(/\n/g, '<br>') : "Không có nội dung tiếng Anh. / No English content.";
+            
+            modalBody.innerHTML = `<p>${vietnameseText}</p><p class="lang-en">${englishText}</p>`;
+        }
+        
+        document.getElementById('summarizeImpactButton').addEventListener('click', async () => {
+            showModal("Tóm tắt Tầm ảnh hưởng của Kimball", "Kimball's Impact Summary");
+            const prompt = "Kimball Allen Thomson là một nhà lãnh đạo với khoảng 30 năm kinh nghiệm. Ông thành lập BIOUTAH, có tác động đáng kể đến lĩnh vực khoa học đời sống của Utah bằng cách thu hút vốn và nhân tài. Công việc của ông cũng bao gồm 'The Power to Inspire', tập trung vào sự thay đổi mang tính chuyển đổi thông qua nguồn cảm hứng, và ông đã chấp bút các ấn phẩm phát triển kinh tế quan trọng như 'Utah, Life Elevated'. Dựa trên điều này, hãy cung cấp một bản tóm tắt ngắn gọn gồm 2-3 câu về tác động và di sản chính của ông. Trả lời bằng cả tiếng Việt và tiếng Anh, tiếng Việt trước, sau đó là '---', rồi đến tiếng Anh.";
+            const response = await callGeminiApi(prompt);
+            displayGeminiResponse(response);
+        });
+
+        document.getElementById('generateQuoteButton').addEventListener('click', async () => {
+            showModal("Trích dẫn Truyền cảm hứng", "Inspirational Quote");
+            const prompt = "Tạo một câu trích dẫn truyền cảm hứng ngắn gọn, độc đáo về sức mạnh của nguồn cảm hứng để thúc đẩy sự thay đổi mang tính chuyển đổi trong các cá nhân và tổ chức. Câu trích dẫn nên phản ánh một triết lý lãnh đạo coi trọng cả hành động chiến lược và yếu tố con người của nguồn cảm hứng. Cung cấp câu trích dẫn bằng cả tiếng Việt và tiếng Anh, tiếng Việt trước, sau đó là '---', rồi đến tiếng Anh.";
+            const response = await callGeminiApi(prompt);
+            displayGeminiResponse(response);
+        });
+
+        document.getElementById('generateBookTopicsButton').addEventListener('click', async () => {
+            showModal("Chủ đề Thảo luận từ Sách", "Book Discussion Topics");
+            const prompt = "Biết rằng 'Utah, Life Elevated' là một cuốn sách phát triển kinh tế chính thức của tiểu bang Utah, hãy gợi ý 3 chủ đề hoặc câu hỏi thảo luận sâu sắc có thể phát sinh từ việc phân tích một cuốn sách như vậy. Tập trung vào các chủ đề như chiến lược kinh tế, xây dựng thương hiệu tiểu bang và quan hệ đối tác công-tư. Trình bày mỗi chủ đề song ngữ (Tiếng Việt / Tiếng Anh). Định dạng dưới dạng danh sách. Tiếng Việt và tiếng Anh cho mỗi điểm nên được phân tách bằng '---'. Ví dụ: 1. Chủ đề tiếng Việt --- English topic.";
+            const response = await callGeminiApi(prompt);
+            
+            const parts = response.split('---');
+            let formattedResponse = "";
+            if (parts.length >= 2) {
+                 
+                const items = response.split(/\d\.\s*/).filter(item => item.trim() !== ""); 
+                formattedResponse = "<ul class='list-disc list-inside'>";
+                items.forEach(item => {
+                    const langParts = item.split('---');
+                    const viItem = langParts[0] ? langParts[0].trim().replace(/\n/g, '<br>') : "";
+                    const enItem = langParts[1] ? langParts[1].trim().replace(/\n/g, '<br>') : "";
+                    if (viItem) formattedResponse += `<li>${viItem}${enItem ? `<span class='lang-en'>${enItem}</span>` : ""}</li>`;
+                });
+                formattedResponse += "</ul>";
+
+            } else { 
+                 formattedResponse = `<p>${parts[0] ? parts[0].trim().replace(/\n/g, '<br>') : "Không có nội dung tiếng Việt."}</p>${parts[1] ? `<p class="lang-en">${parts[1].trim().replace(/\n/g, '<br>')}</p>` : "<p class='lang-en'>Không có nội dung tiếng Anh.</p>"}`;
+            }
+            modalBody.innerHTML = formattedResponse || "Không thể định dạng phản hồi. / Could not format response.";
+        });
+
     </script>
 </body>
 </html>
