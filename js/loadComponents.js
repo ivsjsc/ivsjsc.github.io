@@ -32,8 +32,8 @@ async function loadComponentsAndInitialize() {
     const HEADER_COMPONENT_URL = '/components/header.html';
     const FOOTER_COMPONENT_URL = '/components/footer.html';
 
-    await loadComponent('header-placeholder', HEADER_COMPONENT_URL);
-    await loadComponent('footer-placeholder', FOOTER_COMPONENT_URL);
+    await loadComponent('header-placeholder', "/components/header.html");
+    await loadComponent('footer-placeholder', "/components/footer.html");
 }
 
 if (typeof window !== 'undefined') {
