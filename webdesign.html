@@ -180,6 +180,34 @@
             cursor: pointer;
         }
 
+        .ai-output-box {
+            background-color: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #374151;
+            white-space: pre-wrap; /* Preserve whitespace and line breaks */
+            word-wrap: break-word; /* Break long words */
+        }
+
+        .ai-loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 1rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -572,6 +600,19 @@
             <div id="modalContent" class="text-neutral-700 prose prose-lg max-w-none overflow-y-auto max-h-[70vh]">
                 <p>Đang tải ý tưởng...</p>
             </div>
+            <div id="gemini-extra-features" class="mt-6 pt-4 border-t border-neutral-200 hidden">
+                <h4 class="text-xl font-semibold text-neutral-800 mb-4">Các tính năng AI bổ sung:</h4>
+                <div class="flex flex-col sm:flex-row gap-4 mb-4">
+                    <button id="generate-seo-keywords-btn" class="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full flex-grow flex items-center justify-center">
+                        <i class="fas fa-tags mr-2"></i> Gợi ý Từ khóa SEO ✨
+                    </button>
+                    <button id="generate-content-outline-btn" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-2 px-4 rounded-full text-sm transition duration-300 w-full flex-grow flex items-center justify-center">
+                        <i class="fas fa-sitemap mr-2"></i> Tạo Dàn ý Nội dung ✨
+                    </button>
+                </div>
+                <div id="seo-keywords-output" class="ai-output-box hidden"></div>
+                <div id="content-outline-output" class="ai-output-box hidden"></div>
+            </div>
         </div>
     </div>
 
@@ -679,14 +720,69 @@
           }
       }
 
+      async function callGeminiApi(prompt, outputElement, buttonElement, loadingText, originalButtonText) {
+          outputElement.innerHTML = `<div class="ai-loading-spinner"></div><p class="text-center text-neutral-600 mt-2">${loadingText}</p>`;
+          outputElement.classList.remove('hidden');
+          buttonElement.disabled = true;
+          buttonElement.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> ${loadingText.split('...')[0]}...`;
+
+          try {
+              let chatHistory = [];
+              chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+              const payload = { contents: chatHistory };
+              const apiKey = "";
+              const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+              const response = await fetch(apiUrl, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(payload)
+              });
+
+              if (!response.ok) {
+                  const errorData = await response.json();
+                  throw new Error(`Lỗi API: ${response.status} - ${errorData.error.message}`);
+              }
+
+              const result = await response.json();
+              if (result.candidates && result.candidates.length > 0 &&
+                  result.candidates[0].content && result.candidates[0].content.parts &&
+                  result.candidates[0].content.parts.length > 0) {
+                const text = result.candidates[0].content.parts[0].text;
+                outputElement.innerHTML = text.replace(/\n/g, '<br>');
+              } else {
+                outputElement.innerHTML = '<p class="text-red-500">Không thể tạo nội dung. Vui lòng thử lại.</p>';
+              }
+          } catch (error) {
+              console.error("Lỗi khi gọi Gemini API:", error);
+              outputElement.innerHTML = `<p class="text-red-500">Đã xảy ra lỗi: ${error.message}. Vui lòng thử lại sau.</p>`;
+          } finally {
+              buttonElement.disabled = false;
+              buttonElement.innerHTML = originalButtonText;
+          }
+      }
+
+      let currentDesignConcept = "";
+
       async function generateDesignConcept(title, description, buttonElement) {
           const modal = document.getElementById('designConceptModal');
           const modalTitle = document.getElementById('modalTitle');
           const modalContent = document.getElementById('modalContent');
+          const extraFeaturesSection = document.getElementById('gemini-extra-features');
+          const seoOutput = document.getElementById('seo-keywords-output');
+          const contentOutlineOutput = document.getElementById('content-outline-output');
+
+          // Reset previous outputs and hide extra features
+          seoOutput.classList.add('hidden');
+          contentOutlineOutput.classList.add('hidden');
+          extraFeaturesSection.classList.add('hidden');
+          seoOutput.innerHTML = '';
+          contentOutlineOutput.innerHTML = '';
+
 
           modal.style.display = 'flex';
           modalTitle.textContent = `Ý Tưởng Thiết Kế cho: ${title}`;
-          modalContent.innerHTML = '<p class="text-center py-8"><i class="fas fa-spinner fa-spin text-primary text-3xl"></i><br>Đang tạo ý tưởng, vui lòng chờ...</p>';
+          modalContent.innerHTML = '<p class="text-center py-8"><div class="ai-loading-spinner"></div><br>Đang tạo ý tưởng, vui lòng chờ...</p>';
 
           buttonElement.disabled = true;
           buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang tạo...';
@@ -707,7 +803,7 @@
 
               if (!response.ok) {
                   const errorData = await response.json();
-                  throw new Error(`API error: ${response.status} - ${errorData.error.message}`);
+                  throw new Error(`Lỗi API: ${response.status} - ${errorData.error.message}`);
               }
 
               const result = await response.json();
@@ -716,6 +812,8 @@
                   result.candidates[0].content.parts.length > 0) {
                 const text = result.candidates[0].content.parts[0].text;
                 modalContent.innerHTML = `<p>${text.replace(/\n/g, '<br>')}</p>`;
+                currentDesignConcept = text; // Store the generated concept for other features
+                extraFeaturesSection.classList.remove('hidden'); // Show extra features
               } else {
                 modalContent.innerHTML = '<p class="text-red-500">Không thể tạo ý tưởng thiết kế. Vui lòng thử lại.</p>';
               }
@@ -730,6 +828,13 @@
 
       function setupGeminiFeatures() {
           const generateButtons = document.querySelectorAll('.generate-concept-btn');
+          const seoKeywordsBtn = document.getElementById('generate-seo-keywords-btn');
+          const contentOutlineBtn = document.getElementById('generate-content-outline-btn');
+          const seoKeywordsOutput = document.getElementById('seo-keywords-output');
+          const contentOutlineOutput = document.getElementById('content-outline-output');
+          const modal = document.getElementById('designConceptModal');
+          const closeButton = modal.querySelector('.close-button');
+
           generateButtons.forEach(button => {
               button.addEventListener('click', () => {
                   const title = button.dataset.title;
@@ -738,16 +843,47 @@
               });
           });
 
-          const modal = document.getElementById('designConceptModal');
-          const closeButton = modal.querySelector('.close-button');
+          seoKeywordsBtn.addEventListener('click', () => {
+              if (currentDesignConcept) {
+                  const prompt = `Dựa trên ý tưởng thiết kế website sau: "${currentDesignConcept}". Hãy gợi ý 5-7 từ khóa SEO tiềm năng (tiếng Việt) mà website này có thể nhắm mục tiêu để cải thiện khả năng hiển thị trên công cụ tìm kiếm. Trình bày dưới dạng danh sách gạch đầu dòng.`;
+                  callGeminiApi(prompt, seoKeywordsOutput, seoKeywordsBtn, 'Đang tạo từ khóa SEO...', '<i class="fas fa-tags mr-2"></i> Gợi ý Từ khóa SEO ✨');
+              } else {
+                  seoKeywordsOutput.innerHTML = '<p class="text-red-500">Vui lòng tạo ý tưởng thiết kế trước.</p>';
+                  seoKeywordsOutput.classList.remove('hidden');
+              }
+          });
+
+          contentOutlineBtn.addEventListener('click', () => {
+              if (currentDesignConcept) {
+                  const prompt = `Dựa trên ý tưởng thiết kế website sau: "${currentDesignConcept}". Hãy tạo một dàn ý nội dung cơ bản (tiếng Việt) cho trang chủ của website này, bao gồm các phần chính như Giới thiệu, Dịch vụ/Sản phẩm, Liên hệ, v.v. Trình bày dưới dạng danh sách có cấu trúc.`;
+                  callGeminiApi(prompt, contentOutlineOutput, contentOutlineBtn, 'Đang tạo dàn ý nội dung...', '<i class="fas fa-sitemap mr-2"></i> Tạo Dàn ý Nội dung ✨');
+              } else {
+                  contentOutlineOutput.innerHTML = '<p class="text-red-500">Vui lòng tạo ý tưởng thiết kế trước.</p>';
+                  contentOutlineOutput.classList.remove('hidden');
+              }
+          });
 
           closeButton.addEventListener('click', () => {
               modal.style.display = 'none';
+              // Reset extra features when modal closes
+              document.getElementById('gemini-extra-features').classList.add('hidden');
+              seoKeywordsOutput.classList.add('hidden');
+              contentOutlineOutput.classList.add('hidden');
+              seoKeywordsOutput.innerHTML = '';
+              contentOutlineOutput.innerHTML = '';
+              currentDesignConcept = ""; // Clear the stored concept
           });
 
           window.addEventListener('click', (event) => {
               if (event.target == modal) {
                   modal.style.display = 'none';
+                  // Reset extra features when modal closes by clicking outside
+                  document.getElementById('gemini-extra-features').classList.add('hidden');
+                  seoKeywordsOutput.classList.add('hidden');
+                  contentOutlineOutput.classList.add('hidden');
+                  seoKeywordsOutput.innerHTML = '';
+                  contentOutlineOutput.innerHTML = '';
+                  currentDesignConcept = "";
               }
           });
       }
