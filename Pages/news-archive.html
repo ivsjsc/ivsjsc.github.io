@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="vi" class="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-lang-key="page_title_news_archive">IVS News - Tin tức tổng hợp</title>
+    <meta name="description" content="Tổng hợp tin tức, sự kiện mới nhất từ IVS JSC và các nguồn tin uy tín về Giáo dục, Kinh tế, Công nghệ." data-lang-key="meta_description_news_archive">
+    <meta property="og:title" content="Kho Tin Tức & Cập Nhật - IVS JSC" data-lang-key="og_title_news_archive">
+    <meta property="og:description" content="Theo dõi các cập nhật quan trọng từ IVS JSC và các lĩnh vực liên quan." data-lang-key="og_description_news_archive">
+    <meta property="og:image" content="https://placehold.co/1200x630/1D4ED8/FFFFFF?text=IVS+News"> <meta property="og:url" content="https://ivs.id.vn/news-archive.html"> <meta property="og:type" content="website">
+    <meta name="author" content="IVS JSC">
+
+    <link rel="icon" href="/images/logo/logo.png" type="image/png"> <link rel="apple-touch-icon" href="/images/logo/logo-192.png">
+    <link rel="manifest" href="/manifest.json">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio,line-clamp"></script>
+    <script>
+        // Tailwind CSS Configuration
+        tailwind.config = {
+            darkMode: 'class', // Enable dark mode based on class
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: { 
+                        'primary': '#004080', // Updated to use root variable equivalent
+                        'primary-dark': '#003366', // Updated
+                        'secondary': '#ffc107', // Updated
+                        'warning': '#f59e0b', 
+                        'header-orange': '#f97316', 
+                        'blue': { '500': '#3b82f6', '600': '#2563eb', '700': '#1d4ed8', '400':'#60A5FA' }, // Added 400 for dark mode text
+                        'green': { '500': '#22c55e', '600': '#16a34a', '700': '#15803d', '400':'#4ADE80' },
+                        'amber': { '500': '#f59e0b', '600': '#d97706', '700': '#b45309' },
+                        'purple': { '500': '#8b5cf6', '600': '#7c3aed', '700': '#6d28d9', 'accent': '#8b5cf6' },
+                        'gray-50': '#f9fafb', '100': '#f3f4f6', '200': '#e5e7eb', '300': '#d1d5db', 
+                        '400': '#9ca3af', '500': '#6b7280', '600': '#4b5563', '700': '#374151', 
+                        '800': '#1f2937', '900': '#111827',
+                        'orange': { '100': '#fff7ed', '500': '#f97316', '600': '#ea580c' } // For active tab bg
+                    }
+                }
+            }
+        };
+
+        // RSS Feeds Configuration (Moved outside tailwind.config)
+        const rssFeeds = {
+            education: [
+                { name: "VnExpress Giáo dục", url: "https://vnexpress.net/rss/giao-duc.rss" },
+                { name: "Tuổi Trẻ Giáo dục", url: "https://tuoitre.vn/rss/giao-duc.rss" },
+            ],
+            economy: [
+                { name: "VnExpress Kinh doanh", url: "https://vnexpress.net/rss/kinh-doanh.rss" },
+                { name: "Tuổi Trẻ Kinh tế", url: "https://tuoitre.vn/rss/kinh-te.rss" },
+            ],
+            technology: [
+                { name: "VnExpress Số hóa", url: "https://vnexpress.net/rss/so-hoa.rss" },
+                { name: "Tuổi Trẻ Nhịp sống số", url: "https://tuoitre.vn/rss/nhip-song-so.rss" },
+            ],
+            other: [
+                { name: "VnExpress Thế giới", url: "https://vnexpress.net/rss/the-gioi.rss" },
+                { name: "Tuổi Trẻ Thế giới", url: "https://tuoitre.vn/rss/the-gioi.rss" },
+            ],
+            public_services: [ // Renamed for consistency
+                { name: "Cổng Dịch vụ công Quốc gia", url: "https://dichvucong.gov.vn/p/home/dvc-rss.html" },
+            ]
+        };
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css"> <style>
+        :root { /* Define CSS variables for easier management and consistency with Tailwind config */
+            --ivs-primary: #004080; 
+            --ivs-primary-dark: #003366;
+            --ivs-secondary: #ffc107; 
+            --ivs-warning: #f59e0b;
+            --ivs-header-orange: #f97316;
+            --ivs-orange-100: #fff7ed; /* For active tab background */
+            --ivs-neutral-100: #f3f4f6; /* gray-100 */
+            --ivs-neutral-700: #374151; /* gray-700 */
+            --ivs-neutral-800: #1f2937; /* gray-800 */
+            --ivs-neutral-900: #111827; /* gray-900 */
+        }
+        body {
+            background-color: var(--ivs-neutral-100); /* gray-100 */
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        html.dark body {
+            background-color: var(--ivs-neutral-900); /* gray-900 */
+        }
+        .tab-button.active {
+            border-color: var(--ivs-header-orange) !important; /* Using important to ensure override if needed */
+            color: var(--ivs-header-orange) !important;
+            background-color: var(--ivs-orange-100) !important; /* Light orange background */
+        }
+        html.dark .tab-button.active {
+            background-color: rgba(249, 115, 22, 0.15) !important; /* Darker, transparent orange for dark mode */
+            color: var(--ivs-header-orange) !important;
+        }
+        .news-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 220px; /* Ensure consistent card height */
+            display: flex;
+            flex-direction: column;
+        }
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+        html.dark .news-card {
+            background-color: var(--ivs-neutral-800);
+            border: 1px solid var(--ivs-neutral-700);
+        }
+        html.dark .news-card:hover {
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.05);
+        }
+        .news-card-content { flex-grow: 1; }
+        .news-card-footer { margin-top: auto; }
+        .skeleton-loader div { background-color: #e0e0e0; border-radius: 4px; margin-bottom: 8px; }
+        html.dark .skeleton-loader div { background-color: #4b5563; } /* Darker skeleton for dark mode */
+        .tab-content {
+            background-color: white; padding: 1.5rem; border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        html.dark .tab-content {
+            background-color: var(--ivs-neutral-800);
+        }
+        #header-placeholder:empty::before, 
+        #footer-placeholder:empty::before {
+            content: attr(data-loading-text); min-height: 64px; display: flex;
+            align-items: center; justify-content: center; width:100%;
+            background-color: #e5e7eb; color: #6b7280;
+        }
+        html.dark #header-placeholder:empty::before, 
+        html.dark #footer-placeholder:empty::before {
+            background-color: var(--ivs-neutral-700); color: #9ca3af;
+        }
+         /* Style for active language button in header (from solutions.html) */
+        #header-placeholder button.active-lang {
+            background-color: var(--ivs-primary) !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-news-archive">
+    <header id="header-placeholder" data-loading-text="Đang tải menu..."></header>
+
+    <main class="container mx-auto px-4 py-8 md:py-12">
+        <h1 class="text-3xl md:text-4xl font-bold text-primary dark:text-blue-400 mb-8 text-center" data-lang-key="news_archive_main_title">IVS News - Tin tức tổng hợp</h1>
+
+        <div class="mb-8 flex flex-wrap justify-center gap-2 md:gap-4 border-b border-gray-300 dark:border-gray-700 pb-4">
+            <button class="tab-button active font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 hover:text-header-orange dark:hover:text-orange-500" data-tab="ivs-news" data-lang-key="tab_ivs_news">
+                <i class="fas fa-newspaper mr-2"></i>Tin IVS
+            </button>
+            <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-gray-400 hover:text-header-orange dark:hover:text-orange-500" data-tab="public-services-news" data-lang-key="tab_public_services_news">
+                <i class="fas fa-building mr-2"></i>Dịch vụ công
+            </button>
+            <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-gray-400 hover:text-header-orange dark:hover:text-orange-500" data-tab="education-news" data-lang-key="tab_education_news">
+                <i class="fas fa-graduation-cap mr-2"></i>Giáo dục
+            </button>
+            <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-gray-400 hover:text-header-orange dark:hover:text-orange-500" data-tab="economy-news" data-lang-key="tab_economy_news">
+                <i class="fas fa-chart-line mr-2"></i>Kinh tế
+            </button>
+            <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-gray-400 hover:text-header-orange dark:hover:text-orange-500" data-tab="technology-news" data-lang-key="tab_technology_news">
+                <i class="fas fa-microchip mr-2"></i>Công nghệ
+            </button>
+            <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-gray-400 hover:text-header-orange dark:hover:text-orange-500" data-tab="other-news" data-lang-key="tab_other_news">
+                <i class="fas fa-globe-asia mr-2"></i>Thế Giới
+            </button>
+        </div>
+
+        <div id="news-content-area">
+            <div id="ivs-news" class="tab-content active">
+                <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="ivs_news_section_title">Tin tức từ IVS JSC</h2>
+                <div id="ivs-news-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="loading_ivs_news">Đang tải tin tức IVS...</p>
+                </div>
+            </div>
+            <div id="public-services-news" class="tab-content hidden">
+                <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="public_services_news_section_title">Dịch vụ công Quốc gia</h2>
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4" data-lang-key="public_services_links_title">Liên kết Dịch vụ công</h3>
+                    <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                        <li><a href="https://dichvucong.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Cổng Dịch vụ công Quốc gia</a></li>
+                        <li><a href="https://bhxh.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Bảo hiểm Xã hội Việt Nam</a></li>
+                        <li><a href="https://csdl.dichvucong.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">CSDL Dịch vụ công</a></li>
+                        <li><a href="https://dangkykinhdoanh.gov.vn/vn/Pages/Trangchu.aspx" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Đăng ký Doanh nghiệp</a></li>
+                        <li><a href="https://thuedientu.gdt.gov.vn/etaxnnt/Request" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Thuế điện tử</a></li>
+                        <li><a href="https://dichvucong.bocongan.gov.vn/bocongan/bothutuc/tthc?matt=26683" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">DVC Bộ Công an</a></li>
+                    </ul>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4" data-lang-key="public_services_feed_title">Tin tức từ Cổng Dịch vụ công</h3>
+                <div id="public-services-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow hidden md:flex md:flex-col"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow hidden lg:flex lg:flex-col"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                </div>
+            </div>
+            <div id="education-news" class="tab-content hidden">
+                <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="education_news_section_title">Tin tức Giáo dục</h2>
+                <div id="education-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow hidden md:flex md:flex-col"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow hidden lg:flex lg:flex-col"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                </div>
+            </div>
+            <div id="economy-news" class="tab-content hidden">
+                <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="economy_news_section_title">Tin tức Kinh tế</h2>
+                <div id="economy-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow hidden md:flex md:flex-col"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow hidden lg:flex lg:flex-col"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                </div>
+            </div>
+            <div id="technology-news" class="tab-content hidden">
+                <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="technology_news_section_title">Tin tức Công nghệ & Khoa học</h2>
+                <div id="technology-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow hidden md:flex md:flex-col"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow hidden lg:flex lg:flex-col"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                </div>
+            </div>
+            <div id="other-news" class="tab-content hidden">
+                <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="other_news_section_title">Tin Thế Giới</h2>
+                <div id="other-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow hidden md:flex md:flex-col"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                    <div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow hidden lg:flex lg:flex-col"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="footer-placeholder" data-loading-text="Đang tải chân trang..."></footer>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/loadComponents.js" defer></script> 
+    <script>
+    // Initialize AOS
+    AOS.init({
+        offset: 100, duration: 700, easing: 'ease-out-quad', 
+        once: true, mirror: false, anchorPlacement: 'top-bottom', 
+    });
+
+    function initializeHeaderScripts() {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuButton && mobileMenu) {
+            const mobileMenuIcon = mobileMenuButton.querySelector('i');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                if (mobileMenuIcon) {
+                    if (mobileMenu.classList.contains('hidden')) {
+                        mobileMenuIcon.classList.remove('fa-times'); mobileMenuIcon.classList.add('fa-bars');
+                        const openSubmenu = mobileMenu.querySelector('.mobile-submenu:not(.hidden)');
+                        if(openSubmenu) openSubmenu.classList.add('hidden');
+                        const openSubmenuIcon = mobileMenu.querySelector('.fa-chevron-up');
+                        if(openSubmenuIcon) { openSubmenuIcon.classList.remove('fa-chevron-up'); openSubmenuIcon.classList.add('fa-chevron-down');}
+                    } else {
+                        mobileMenuIcon.classList.remove('fa-bars'); mobileMenuIcon.classList.add('fa-times');
+                    }
+                }
+            });
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (!e.target.closest('button[onclick*="toggleMobileSubmenu"]')) {
+                         if (!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                            if(mobileMenuIcon){ mobileMenuIcon.classList.remove('fa-times'); mobileMenuIcon.classList.add('fa-bars');}
+                         }
+                    }
+                });
+            });
+        }
+
+        const langViButton = document.getElementById('lang-vi');
+        const langEnButton = document.getElementById('lang-en');
+        function setActiveLangButton(lang) {
+            if (!langViButton || !langEnButton) return;
+            langViButton.classList.remove('active-lang', 'bg-primary', 'text-white');
+            langEnButton.classList.remove('active-lang', 'bg-primary', 'text-white');
+            langViButton.classList.add('text-neutral-700', 'dark:text-gray-300');
+            langEnButton.classList.add('text-neutral-700', 'dark:text-gray-300');
+            if (lang === 'vi') langViButton.classList.add('active-lang');
+            else langEnButton.classList.add('active-lang');
+        }
+        let currentLanguage = localStorage.getItem('language') || document.documentElement.lang || 'vi';
+        setActiveLangButton(currentLanguage);
+        if(langViButton) langViButton.addEventListener('click', () => { localStorage.setItem('language', 'vi'); setActiveLangButton('vi'); if (typeof updateLanguage === 'function') updateLanguage('vi'); else location.reload(); });
+        if(langEnButton) langEnButton.addEventListener('click', () => { localStorage.setItem('language', 'en'); setActiveLangButton('en'); if (typeof updateLanguage === 'function') updateLanguage('en'); else location.reload(); });
+        
+        const headerDarkModeToggle = document.getElementById('dark-mode-toggle');
+        const mobileHeaderDarkModeToggle = document.getElementById('mobile-dark-mode-toggle');
+        function updateToggleIcon(button, isDark) {
+            if (button && button.querySelector('i')) {
+                button.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            }
+            if (button && button.id === 'mobile-dark-mode-toggle' && button.querySelector('span.ml-2')) {
+                 button.querySelector('span.ml-2').textContent = isDark ? 'Chế độ Sáng' : 'Chế độ Tối';
+            }
+        }
+        function setupThemeToggleListener(button) {
+            if (button) {
+                button.addEventListener('click', () => {
+                    const isDarkMode = document.documentElement.classList.toggle('dark');
+                    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+                    updateToggleIcon(headerDarkModeToggle, isDarkMode);
+                    updateToggleIcon(mobileHeaderDarkModeToggle, isDarkMode);
+                });
+            }
+        }
+        setupThemeToggleListener(headerDarkModeToggle);
+        setupThemeToggleListener(mobileHeaderDarkModeToggle);
+        const isCurrentlyDark = document.documentElement.classList.contains('dark');
+        updateToggleIcon(headerDarkModeToggle, isCurrentlyDark);
+        updateToggleIcon(mobileHeaderDarkModeToggle, isCurrentlyDark);
+    }
+
+    function initializeFooterScripts() {
+        const currentYearSpan = document.getElementById('currentYearFooter');
+        if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
+    }
+
+    function initializeNewsPageScripts() {
+        const tabs = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        // const lang = typeof currentLanguage !== 'undefined' ? currentLanguage : (localStorage.getItem('language') || 'vi');
+        // The 'lang' variable was defined but not used. If needed for translations in this specific script, it can be reinstated.
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active', 'text-header-orange', 'border-header-orange', 'bg-orange-100', 'dark:bg-orange-500/20'));
+                tabs.forEach(t => t.classList.add('text-gray-600', 'dark:text-gray-400', 'border-transparent')); // Reset non-active tabs
+                
+                tabContents.forEach(c => c.classList.add('hidden'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                tab.classList.add('active', 'text-header-orange', 'border-header-orange', 'bg-orange-100', 'dark:bg-orange-500/20');
+                tab.classList.remove('text-gray-600', 'dark:text-gray-400', 'border-transparent');
+
+                const targetContentId = tab.dataset.tab;
+                const targetContent = document.getElementById(targetContentId);
+                if (targetContent) {
+                    targetContent.classList.remove('hidden');
+                    targetContent.classList.add('active');
+                }
+
+                // Load RSS for the clicked tab if not already loaded
+                const tabName = tab.dataset.tab;
+                const containerId = `${tabName.replace('-news', '')}-rss-container`; 
+                const rssContainer = document.getElementById(containerId);
+
+                if (rssContainer && !rssContainer.dataset.loaded) {
+                    let feedCategoryKey = tabName.replace('-news', '').replace('-', '_'); // e.g. public_services
+                    if (rssFeeds[feedCategoryKey]) {
+                        rssContainer.innerHTML = ''; // Clear skeleton before loading
+                        rssFeeds[feedCategoryKey].forEach(feed => fetchAndDisplayRSS(feed.url, containerId, feed.name, 6));
+                        rssContainer.dataset.loaded = "true";
+                    }
+                }
+            });
+        });
+
+        const CORS_PROXY = "https://api.allorigins.win/get?url=";
+
+        async function fetchAndDisplayRSS(feedUrl, containerId, sourceName, maxItems = 6) {
+            const container = document.getElementById(containerId);
+            if (!container) {
+                console.error(`Container with id ${containerId} not found.`);
+                return;
+            }
+            // Show skeleton or loading message before fetch
+            let initialLoadingHTML = '';
+            for(let i=0; i < Math.min(maxItems, 3) ; i++) { // Show up to 3 skeletons
+                initialLoadingHTML += `<div class="skeleton-loader news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow ${i > 0 ? 'hidden md:flex md:flex-col' : 'flex flex-col'} ${i > 1 ? 'lg:flex lg:flex-col' : ''}"> <div class="h-6 w-3/4"></div> <div class="h-4 w-full mt-2"></div> <div class="h-4 w-5/6"></div> <div class="h-4 w-1/2 mt-4"></div> </div>`;
+            }
+            if (container.innerHTML.trim() === '' || container.querySelector('.skeleton-loader')) { // Only set if empty or already skeleton
+                 container.innerHTML = initialLoadingHTML || `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="loading_rss_feed">Đang tải tin từ ${sourceName}...</p>`;
+            }
+
+
+            try {
+                const response = await fetch(`${CORS_PROXY}${encodeURIComponent(feedUrl)}`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status} for ${feedUrl}`);
+                const data = await response.json();
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(data.contents, "application/xml");
+                
+                const parseError = xmlDoc.querySelector("parsererror");
+                if (parseError) {
+                    console.error("Error parsing XML for " + feedUrl + ":", parseError.textContent);
+                    container.innerHTML = `<p class="text-red-500 col-span-full text-center">Lỗi khi phân tích dữ liệu RSS từ ${sourceName}.</p>`;
+                    return;
+                }
+
+                const items = xmlDoc.querySelectorAll("item");
+                let newsHtml = "";
+
+                if (items.length === 0) {
+                    newsHtml = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center">Không có tin tức nào từ ${sourceName} vào lúc này.</p>`;
+                } else {
+                    items.forEach((item, index) => {
+                        if (index >= maxItems) return; 
+
+                        const title = item.querySelector("title")?.textContent || "Không có tiêu đề";
+                        const link = item.querySelector("link")?.textContent || "#";
+                        let description = item.querySelector("description")?.textContent || "Không có mô tả.";
+                        const pubDateStr = item.querySelector("pubDate")?.textContent;
+                        let formattedDate = "";
+                        if (pubDateStr) {
+                            try {
+                                formattedDate = new Date(pubDateStr).toLocaleDateString('vi-VN', {
+                                    day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+                                });
+                            } catch (e) { formattedDate = pubDateStr; }
+                        }
+                        
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = description;
+                        description = (tempDiv.textContent || tempDiv.innerText || "").substring(0, 120) + "..."; // Shorter description
+                        
+                        let imageUrl = item.querySelector("enclosure[url]")?.getAttribute("url");
+                        if (!imageUrl) {
+                            const imgTag = tempDiv.querySelector('img');
+                            if (imgTag) imageUrl = imgTag.src;
+                        }
+                        // Fallback image if none found
+                        const placeholderImg = `https://placehold.co/600x400/CBD5E1/4B5563?text=${encodeURIComponent(sourceName.substring(0,10))}`;
+
+
+                        newsHtml += `
+                            <div class="news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow-md flex flex-col" data-aos="fade-up">
+                                <img src="${imageUrl || placeholderImg}" alt="${title.substring(0,50)}" class="w-full h-40 object-cover rounded-t-md mb-3" onerror="this.onerror=null;this.src='${placeholderImg}';">
+                                <div class="news-card-content">
+                                    <h3 class="text-md font-semibold text-gray-800 dark:text-gray-100 mb-2 leading-tight">
+                                        <a href="${link}" target="_blank" rel="noopener noreferrer" class="hover:text-primary dark:hover:text-blue-400 transition-colors">${title}</a>
+                                    </h3>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">${description}</p>
+                                </div>
+                                <div class="news-card-footer text-xs text-gray-500 dark:text-gray-400 pt-2 mt-2 border-t border-gray-200 dark:border-gray-600">
+                                    <span class="font-medium">${sourceName}</span> - 
+                                    <time datetime="${pubDateStr || ''}">${formattedDate || 'Không có ngày'}</time>
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+                container.innerHTML = newsHtml;
+                if (typeof AOS !== 'undefined') AOS.refresh(); // Refresh AOS after new content is added
+
+            } catch (error) {
+                console.error("Error fetching RSS feed " + feedUrl + ":", error);
+                container.innerHTML = `<p class="text-red-500 col-span-full text-center">Không thể tải tin tức từ ${sourceName}. Vui lòng thử lại sau.</p>`;
+            }
+        }
+
+        async function loadIvsNews() {
+            const container = document.getElementById('ivs-news-container');
+            if (!container) return;
+            const lang = typeof currentLanguage !== 'undefined' ? currentLanguage : (localStorage.getItem('language') || 'vi');
+
+            try {
+                const response = await fetch('./posts.json'); 
+                if (!response.ok) throw new Error('Không thể tải posts.json. Status: ' + response.status);
+                const posts = await response.json();
+
+                if (posts && posts.length > 0) {
+                    let newsHtml = "";
+                    posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                    posts.slice(0, 6).forEach(post => { 
+                        const title = post.title && post.title[lang] ? post.title[lang] : (post.title && post.title['vi'] ? post.title['vi'] : "Không có tiêu đề");
+                        const excerpt = post.excerpt && post.excerpt[lang] ? post.excerpt[lang] : (post.excerpt && post.excerpt['vi'] ? post.excerpt['vi'] : "Không có mô tả.");
+                        
+                        const link = post.link || "#"; 
+                        const description = excerpt.substring(0, 120) + (excerpt.length > 120 ? "..." : "");
+                        const date = post.date ? new Date(post.date).toLocaleDateString('vi-VN', {day: '2-digit', month: '2-digit', year: 'numeric'}) : "Không có ngày";
+                        const image = post.image || `https://placehold.co/600x400/004080/FFFFFF?text=IVS+JSC`;
+
+                        newsHtml += `
+                            <div class="news-card bg-white dark:bg-neutral-700 p-4 rounded-lg shadow-md flex flex-col" data-aos="fade-up">
+                                <img src="${image}" alt="${title.substring(0,50)}" class="w-full h-40 object-cover rounded-t-md mb-3" onerror="this.onerror=null;this.src='https://placehold.co/600x400/004080/FFFFFF?text=IVS+JSC';">
+                                <div class="news-card-content">
+                                    <h3 class="text-md font-semibold text-gray-800 dark:text-gray-100 mb-2 leading-tight">
+                                        <a href="${link}" target="_blank" rel="noopener noreferrer" class="hover:text-primary dark:hover:text-blue-400 transition-colors">${title}</a>
+                                    </h3>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">${description}</p>
+                                </div>
+                                <div class="news-card-footer text-xs text-gray-500 dark:text-gray-400 pt-2 mt-2 border-t border-gray-200 dark:border-gray-600">
+                                    <span class="font-medium">IVS JSC</span> - 
+                                    <time datetime="${post.date || ''}">${date}</time>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    container.innerHTML = newsHtml;
+                } else {
+                    container.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center">Chưa có tin tức nào từ IVS JSC.</p>`;
+                }
+                 if (typeof AOS !== 'undefined') AOS.refresh();
+            } catch (error) {
+                console.error("Error loading IVS News:", error);
+                container.innerHTML = `<p class="text-red-500 col-span-full text-center">Không thể tải tin tức của IVS. Vui lòng kiểm tra đường dẫn file posts.json.</p>`;
+            }
+        }
+        
+        loadIvsNews(); // Load IVS news by default
+
+        // Auto-load content for the initially active tab (if not IVS News)
+        const initialActiveTab = document.querySelector('.tab-button.active');
+        if (initialActiveTab && initialActiveTab.dataset.tab !== 'ivs-news') {
+            const initialTabName = initialActiveTab.dataset.tab;
+            const initialContainerId = `${initialTabName.replace('-news', '')}-rss-container`;
+            const initialRssContainer = document.getElementById(initialContainerId);
+            if (initialRssContainer && !initialRssContainer.dataset.loaded) {
+                let initialFeedCategoryKey = initialTabName.replace('-news', '').replace('-', '_');
+                if (rssFeeds[initialFeedCategoryKey]) {
+                    initialRssContainer.innerHTML = ''; // Clear skeleton
+                    rssFeeds[initialFeedCategoryKey].forEach(feed => fetchAndDisplayRSS(feed.url, initialContainerId, feed.name, 6));
+                    initialRssContainer.dataset.loaded = "true";
+                }
+            }
+        } else if (initialActiveTab && initialActiveTab.dataset.tab === 'ivs-news') {
+            // IVS news is already loaded by loadIvsNews()
+        }
+         // Default to "Tin IVS" tab if no tab is active or if "ivs-news" is the one
+        if (!initialActiveTab || initialActiveTab.dataset.tab === "ivs-news") {
+            document.querySelector('.tab-button[data-tab="ivs-news"]').classList.add('active', 'text-header-orange', 'border-header-orange', 'bg-orange-100', 'dark:bg-orange-500/20');
+            document.querySelector('.tab-button[data-tab="ivs-news"]').classList.remove('text-gray-600', 'dark:text-gray-400', 'border-transparent');
+            document.getElementById('ivs-news').classList.remove('hidden');
+            document.getElementById('ivs-news').classList.add('active');
+        }
+
+
+    } // End of initializeNewsPageScripts
+
+    function onComponentsLoaded() {
+        initializeHeaderScripts();
+        initializeFooterScripts();
+        initializeNewsPageScripts(); // Initialize news page specific scripts
+        if (typeof AOS !== 'undefined') AOS.refresh();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Call AOS init immediately
+        AOS.init({
+            offset: 100, duration: 700, easing: 'ease-out-quad', 
+            once: true, mirror: false, anchorPlacement: 'top-bottom', 
+        });
+        
+        const scrollToTopBtnExisting = document.getElementById('scrollToTopBtn');
+        if (scrollToTopBtnExisting) {
+            scrollToTopBtnExisting.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            window.addEventListener('scroll', () => {
+                scrollToTopBtnExisting.style.display = (window.pageYOffset > 100) ? 'flex' : 'none';
+            }, { passive: true });
+        }
+        
+        if (typeof loadComponentsAndInitialize === 'function') {
+            loadComponentsAndInitialize(onComponentsLoaded);
+        } else {
+            setTimeout(onComponentsLoaded, 500); 
+        }
+    });
+    
+    function toggleMobileSubmenu(button) {
+        const submenu = button.nextElementSibling;
+        if (submenu && submenu.classList.contains('mobile-submenu')) {
+          submenu.classList.toggle('hidden');
+          const icon = button.querySelector('i');
+          if (icon) { icon.classList.toggle('fa-chevron-down'); icon.classList.toggle('fa-chevron-up'); }
+        }
+    }
+    </script>
+    <script src="js/language.js" defer></script>
+    <script src="js/script.js" defer></script> 
+    <button id="scrollToTopBtn" style="display: none;" class="fixed bottom-5 right-5 z-50 flex items-center justify-center w-12 h-12 rounded-full bg-primary text-white shadow-lg hover:bg-primary-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</body>
+</html>
+cc
