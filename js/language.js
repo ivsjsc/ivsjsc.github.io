@@ -1,9 +1,9 @@
-window.translations = {}; 
+window.translations = {};
 
 const defaultLanguage = 'vi';
-const languageStorageKey = 'userPreferredLanguage'; 
+const languageStorageKey = 'userPreferredLanguage';
 
-const isDebugMode = false; 
+const isDebugMode = false;
 
 function logDebug(message) {
     if (isDebugMode) {
@@ -95,7 +95,7 @@ const handleLanguageButtonClick = async (event) => {
 
 window.initializeLanguageButtons = () => {
     logDebug("Initializing language buttons...");
-    const langButtons = document.querySelectorAll('.lang-button'); 
+    const langButtons = document.querySelectorAll('.lang-button');
 
     if (langButtons.length === 0) {
         logWarning("No language buttons (.lang-button) found.");
@@ -114,12 +114,12 @@ async function initializeLanguageSystem() {
         return;
     }
     logDebug("Initializing language system...");
-    window.languageInitialized = true; 
-    
+    window.languageInitialized = true;
+
     const userPreferredLanguage = window.getCurrentLanguage();
     await fetchTranslations(userPreferredLanguage);
     window.applyTranslations();
-    
+
     logDebug(`Language system initialized with language: ${userPreferredLanguage}.`);
 }
 
