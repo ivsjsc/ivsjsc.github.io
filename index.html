@@ -151,6 +151,10 @@
         .group:hover .group-hover\\:visible {
             visibility: visible !important;
         }
+        /* Added for mobile submenu transition */
+        .mobile-submenu-content {
+            transition: max-height 0.3s ease-out;
+        }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-index">
@@ -430,120 +434,12 @@
         anchorPlacement: 'top-bottom', 
     });
         
-    function initializeHeaderScripts() {
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuIcon = mobileMenuButton ? mobileMenuButton.querySelector('i') : null;
-        
-        if (mobileMenuButton && mobileMenu && mobileMenuIcon) {
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-                if (mobileMenu.classList.contains('hidden')) {
-                    mobileMenuIcon.classList.remove('fa-times');
-                    mobileMenuIcon.classList.add('fa-bars');
-                    const openSubmenu = mobileMenu.querySelector('.mobile-submenu:not(.hidden)');
-                    if(openSubmenu) openSubmenu.classList.add('hidden');
-                    const openSubmenuIcon = mobileMenu.querySelector('.fa-chevron-up');
-                    if(openSubmenuIcon) {
-                        openSubmenuIcon.classList.remove('fa-chevron-up');
-                        openSubmenuIcon.classList.add('fa-chevron-down');
-                    }
-                } else {
-                    mobileMenuIcon.classList.remove('fa-bars');
-                    mobileMenuIcon.classList.add('fa-times');
-                }
-            });
-
-            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-            mobileMenuLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    if (!e.target.closest('button[onclick*="toggleMobileSubmenu"]')) {
-                         if (!mobileMenu.classList.contains('hidden')) {
-                            mobileMenu.classList.add('hidden');
-                            mobileMenuIcon.classList.remove('fa-times');
-                            mobileMenuIcon.classList.add('fa-bars');
-                         }
-                    }
-                });
-            });
-        }
-
-        const langViButton = document.getElementById('lang-vi');
-        const langEnButton = document.getElementById('lang-en');
-
-        function setActiveLangButton(lang) {
-            if (!langViButton || !langEnButton) return;
-            langViButton.classList.remove('active-lang', 'bg-primary', 'text-white');
-            langEnButton.classList.remove('active-lang', 'bg-primary', 'text-white');
-            langViButton.classList.add('text-neutral-700', 'dark:text-gray-300'); 
-            langEnButton.classList.add('text-neutral-700', 'dark:text-gray-300'); 
-
-
-            if (lang === 'vi') {
-                langViButton.classList.add('active-lang');
-            } else {
-                langEnButton.classList.add('active-lang');
-            }
-        }
-
-        let currentLanguage = localStorage.getItem('language') || document.documentElement.lang || 'vi';
-        setActiveLangButton(currentLanguage);
-
-        if(langViButton) {
-            langViButton.addEventListener('click', () => {
-                localStorage.setItem('language', 'vi');
-                setActiveLangButton('vi');
-                if (typeof updateLanguage === 'function') updateLanguage('vi');
-                else location.reload();
-            });
-        }
-
-        if(langEnButton) {
-            langEnButton.addEventListener('click', () => {
-                localStorage.setItem('language', 'en');
-                setActiveLangButton('en');
-                 if (typeof updateLanguage === 'function') updateLanguage('en');
-                else location.reload();
-            });
-        }
-
-        const headerDarkModeToggle = document.getElementById('dark-mode-toggle'); 
-        const mobileHeaderDarkModeToggle = document.getElementById('mobile-dark-mode-toggle'); 
-
-        function updateToggleIcon(button, isDark) {
-            if (button && button.querySelector('i')) {
-                button.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-            }
-            if (button && button.id === 'mobile-dark-mode-toggle' && button.querySelector('span.ml-2')) {
-                 button.querySelector('span.ml-2').textContent = isDark ? 'Chế độ Sáng' : 'Chế độ Tối';
-            }
-        }
-        
-        function setupThemeToggleListener(button) {
-            if (button) {
-                button.addEventListener('click', () => {
-                    const isDarkMode = document.documentElement.classList.toggle('dark');
-                    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-                    updateToggleIcon(headerDarkModeToggle, isDarkMode);
-                    updateToggleIcon(mobileHeaderDarkModeToggle, isDarkMode);
-                });
-            }
-        }
-        setupThemeToggleListener(headerDarkModeToggle);
-        setupThemeToggleListener(mobileHeaderDarkModeToggle);
-        
-        const isCurrentlyDark = document.documentElement.classList.contains('dark');
-        updateToggleIcon(headerDarkModeToggle, isCurrentlyDark);
-        updateToggleIcon(mobileHeaderDarkModeToggle, isCurrentlyDark);
-
-    } 
+    // Consolidated header initialization is now fully handled by initializeHeader() in loadComponents.js
+    // Removed initializeHeaderScripts() from here
 
     function initializeFooterScripts() {
-        const currentYearSpan = document.getElementById('current-year'); 
-        if (currentYearSpan) {
-          currentYearSpan.textContent = new Date().getFullYear();
-        }
-
+        // This function is now only for footer-specific scripts not handled by initializeFooter in loadComponents.js
+        // The currentYearSpan logic is moved to initializeFooter in loadComponents.js
         const newsletterForm = document.getElementById('newsletterForm');
         const newsletterEmail = document.getElementById('newsletterEmail');
         const newsletterMessage = document.getElementById('newsletterMessage');
@@ -603,12 +499,12 @@
                 }
             });
         }
-    } 
+    }
 
     function onComponentsLoaded() {
         console.log("Attempting to initialize header and footer scripts...");
-        initializeHeaderScripts();
-        initializeFooterScripts();
+        // initializeHeaderScripts(); // Removed as logic is now in loadComponents.js
+        initializeFooterScripts(); // Keep this for newsletter form if not moved
         initializeFabButtons(); 
         initializeLanguageSystem(); 
         initializeTheme(); 
@@ -628,22 +524,15 @@
         if (typeof loadComponentsAndInitialize === 'function') {
             loadComponentsAndInitialize(onComponentsLoaded);
         } else {
+            // Fallback if loadComponentsAndInitialize is not defined, though it should be.
+            // This might happen if loadComponents.js fails to load or defers too much.
             setTimeout(onComponentsLoaded, 500); 
         }
     });
 
-    function toggleMobileSubmenu(button) {
-        const submenu = button.nextElementSibling;
-        if (submenu && submenu.classList.contains('mobile-submenu')) {
-          submenu.classList.toggle('hidden');
-          const icon = button.querySelector('i');
-          if (icon) {
-              icon.classList.toggle('fa-chevron-down');
-              icon.classList.toggle('fa-chevron-up');
-          }
-        }
-    }
-    
+    // Moved toggleMobileSubmenu logic to loadComponents.js's initializeHeader
+    // Removed toggleMobileSubmenu from here
+
     function initializeFabButtons() {
         const fabElements = {
             contactMainBtn: document.getElementById('contact-main-btn'),
@@ -729,6 +618,8 @@
         if (newsContainer) {
             const loadingPara = newsContainer.querySelector('p[data-lang-key="loading_news"]');
             if(loadingPara && typeof loadRssFeed !== 'function') { 
+                // Placeholder for actual news loading logic if it's not in a separate script
+                console.warn("loadRssFeed function not found. News content might not load dynamically.");
             }
         }
     }
@@ -740,6 +631,9 @@
             videoElement.addEventListener('error', function() {
                 console.warn('Background video failed to load. Displaying fallback.');
                 if(videoElement.parentElement) {
+                    videoElement.parentElement.style.backgroundImage='url(/images/logo/webbannermo.png)'; 
+                    videoElement.parentElement.style.backgroundSize='cover'; 
+                    videoElement.parentElement.style.backgroundPosition='center'; 
                 }
                 videoSection.classList.add('video-failed-to-load'); 
             });

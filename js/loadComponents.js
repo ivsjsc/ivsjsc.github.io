@@ -28,52 +28,84 @@ async function loadComponent(placeholderId, filePath) {
     }
 }
 
-async function loadComponentsAndInitialize() {
+async function loadComponentsAndInitialize(callback) {
     const HEADER_COMPONENT_URL = '/components/header.html';
     const FOOTER_COMPONENT_URL = '/components/footer.html';
 
     await loadComponent('header-placeholder', HEADER_COMPONENT_URL);
     await loadComponent('footer-placeholder', FOOTER_COMPONENT_URL);
+
+    // Call the callback function after all components are loaded and initialized
+    if (typeof callback === 'function') {
+        callback();
+    }
 }
 
-// Move initializeHeader and initializeFooter definitions here
 function initializeHeader() {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
+    // Changed to 'mobile-menu' to match the updated header.html
     const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuIcon = mobileMenuButton ? mobileMenuButton.querySelector('i') : null;
+    const mobileMenuIconOpen = document.getElementById('icon-menu-open');
+    const mobileMenuIconClose = document.getElementById('icon-menu-close');
 
-    if (mobileMenuButton && mobileMenu && mobileMenuIcon) {
+    if (mobileMenuButton && mobileMenu && mobileMenuIconOpen && mobileMenuIconClose) {
         mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            if (mobileMenu.classList.contains('hidden')) {
-                mobileMenuIcon.classList.remove('fa-times');
-                mobileMenuIcon.classList.add('fa-bars');
-                const openSubmenu = mobileMenu.querySelector('.mobile-submenu:not(.hidden)');
-                if(openSubmenu) openSubmenu.classList.add('hidden');
-                const openSubmenuIcon = mobileMenu.querySelector('.fa-chevron-up');
-                if(openSubmenuIcon) {
-                    openSubmenuIcon.classList.remove('fa-chevron-up');
-                    openSubmenuIcon.classList.add('fa-chevron-down');
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', String(!isHidden));
+
+            if (isHidden) {
+                mobileMenuIconOpen.classList.remove('hidden');
+                mobileMenuIconClose.classList.add('hidden');
+                // Close any open submenus when the main menu is closed
+                const openSubmenuContent = mobileMenu.querySelector('.mobile-submenu-content.max-h-full');
+                if (openSubmenuContent) {
+                    openSubmenuContent.classList.remove('max-h-full');
+                    openSubmenuContent.classList.add('max-h-0');
+                    const openSubmenuIcon = openSubmenuContent.previousElementSibling.querySelector('.mobile-submenu-icon');
+                    if (openSubmenuIcon) {
+                        openSubmenuIcon.classList.remove('rotate-180');
+                    }
                 }
             } else {
-                mobileMenuIcon.classList.remove('fa-bars');
-                mobileMenuIcon.classList.add('fa-times');
+                mobileMenuIconOpen.classList.add('hidden');
+                mobileMenuIconClose.classList.remove('hidden');
             }
         });
 
+        // Close mobile menu when a link inside it is clicked
         const mobileMenuLinks = mobileMenu.querySelectorAll('a');
         mobileMenuLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                if (!e.target.closest('button[onclick*="toggleMobileSubmenu"]')) {
-                     if (!mobileMenu.classList.contains('hidden')) {
+                // Prevent closing if the click is on a submenu toggle button
+                if (!e.target.closest('.mobile-submenu-toggle')) {
+                    if (!mobileMenu.classList.contains('hidden')) {
                         mobileMenu.classList.add('hidden');
-                        mobileMenuIcon.classList.remove('fa-times');
-                        mobileMenuIcon.classList.add('fa-bars');
-                     }
+                        mobileMenuButton.setAttribute('aria-expanded', 'false');
+                        mobileMenuIconOpen.classList.remove('hidden');
+                        mobileMenuIconClose.classList.add('hidden');
+                    }
                 }
             });
         });
     }
+
+    // Initialize mobile submenu toggles
+    const mobileSubmenuToggles = document.querySelectorAll('.mobile-submenu-toggle');
+    mobileSubmenuToggles.forEach(toggleButton => {
+        toggleButton.addEventListener('click', () => {
+            const submenuContent = toggleButton.nextElementSibling;
+            const icon = toggleButton.querySelector('.mobile-submenu-icon');
+
+            if (submenuContent && icon) {
+                const isExpanded = submenuContent.classList.toggle('max-h-0'); // Toggle max-height for smooth transition
+                submenuContent.classList.toggle('max-h-full', !isExpanded); // Use max-h-full for opened state
+
+                icon.classList.toggle('rotate-180');
+                toggleButton.setAttribute('aria-expanded', String(!isExpanded));
+            }
+        });
+    });
+
 
     const langViButton = document.getElementById('lang-vi');
     const langEnButton = document.getElementById('lang-en');
@@ -144,7 +176,7 @@ function initializeHeader() {
 }
 
 function initializeFooter() {
-    const currentYearSpan = document.getElementById('current-year');
+    const currentYearSpan = document.getElementById('currentYearFooter'); // Corrected ID
     if (currentYearSpan) {
       currentYearSpan.textContent = new Date().getFullYear();
     }
@@ -213,7 +245,6 @@ function initializeFooter() {
 
 if (typeof window !== 'undefined') {
     window.loadComponentsAndInitialize = loadComponentsAndInitialize;
-    // Make initializeHeader and initializeFooter globally accessible if they are not already
     window.initializeHeader = initializeHeader;
     window.initializeFooter = initializeFooter;
 }
