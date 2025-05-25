@@ -79,54 +79,9 @@
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="/css/styles.css"> <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .video-wrapper {
-            position: relative; padding-bottom: 56.25%; height: 0;
-            overflow: hidden; width: 100%; background-color: #000; border-radius: 0.5rem;
-        }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
-        .timeline { list-style: none; padding: 0; position: relative; }
-        .timeline::before {
-            content: ''; position: absolute; top: 0; bottom: 0;
-            left: 1.5rem; width: 2px; background-color: #cbd5e1; margin-left: -1px;
-        }
-        .timeline li { position: relative; margin-bottom: 2rem; padding-left: 3.5rem; }
-        .timeline li::before {
-            content: ''; position: absolute; left: 1.5rem; top: 0.25rem;
-            width: 1rem; height: 1rem; border-radius: 50%;
-            background-color: var(--primary-color, #3b82f6);
-            margin-left: -0.5rem; z-index: 1;
-        }
-        .horizontal-scroll-gallery::-webkit-scrollbar { height: 8px; }
-        .horizontal-scroll-gallery::-webkit-scrollbar-track { background: #e5e7eb; border-radius: 10px; }
-        .horizontal-scroll-gallery::-webkit-scrollbar-thumb { background-color: #9ca3af; border-radius: 10px; border: 2px solid #e5e7eb; }
-        .horizontal-scroll-gallery::-webkit-scrollbar-thumb:hover { background-color: #6b7280; }
-        .scroll-snap-type-x-mandatory { scroll-snap-type: x mandatory; }
-        .scroll-snap-align-start { scroll-snap-align: start; }
-        .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
-        .commitment-list li { padding-left: 1.75rem; position: relative; margin-bottom: 0.75rem; }
-        .commitment-list li::before {
-            content: '🤝'; position: absolute; left: 0;
-            color: theme('colors.secondary', '#10b981'); font-size: 1em; top: 0.1em;
-        }
-        #header-placeholder button.active-lang {
-            background-color: #3b82f6 !important; /* Ensure high specificity */
-            color: white !important;
-        }
-        #header-placeholder:empty::before, 
-        #footer-placeholder:empty::before {
-            content: attr(data-loading-text); min-height: 64px; display: flex;
-            align-items: center; justify-content: center; width:100%;
-            background-color: #e5e7eb; color: #6b7280;
-        }
-        html.dark #header-placeholder:empty::before, 
-        html.dark #footer-placeholder:empty::before {
-            background-color: #374151; color: #9ca3af; /* Dark mode loading text */
-        }
-    </style>
+    <link rel="stylesheet" href="/css/styles.css"> 
+    <link rel="stylesheet" href="/css/about.css">
+
 </head>
 <body class="bg-gray-100 text-neutral-700 font-sans antialiased" id="page-about">
     <header id="header-placeholder" data-loading-text="Đang tải menu..."></header>
@@ -323,40 +278,45 @@
             }, { passive: true });
         }
         
-        if (typeof loadComponentsAndInitialize === 'function') {
-            loadComponentsAndInitialize().then(() => {
+        if (typeof window.loadComponentsAndInitialize === 'function') {
+            window.loadComponentsAndInitialize().then(() => {
                 if (typeof AOS !== 'undefined') {
                     AOS.refresh(); 
                 }
-                if (typeof updateLanguage === 'function' && typeof translations !== 'undefined') {
+                if (typeof window.updateLanguage === 'function' && typeof window.translations === 'object') {
                     const currentLang = localStorage.getItem('language') || document.documentElement.lang || 'vi';
-                    updateLanguage(currentLang, translations);
+                    window.updateLanguage(currentLang, window.translations);
+                } else {
                 }
             }).catch(error => {
-                console.error("[Script] Error loading components via loadComponentsAndInitialize:", error);
+                console.error("[Script] Error occurred during execution of loadComponentsAndInitialize:", error);
             });
         } else {
-            console.error("[Script] loadComponentsAndInitialize function not found. Ensure '/js/loadComponents.js' is loaded correctly.");
+            console.error("[Script] 'window.loadComponentsAndInitialize' is not a function or not found. Type: " + typeof window.loadComponentsAndInitialize + ". Ensure '/js/loadComponents.js' is loaded correctly and defines this function globally.");
         }
     });
 
     function toggleMobileSubmenu(button) {
         const submenu = button.nextElementSibling;
-        if (submenu && submenu.classList.contains('mobile-submenu-content')) { 
-          submenu.classList.toggle('hidden');
-          
-          const currentMaxHeight = submenu.style.maxHeight;
-          if (currentMaxHeight && currentMaxHeight !== "0px") {
-            submenu.style.maxHeight = "0px";
-          } else {
-            submenu.style.maxHeight = submenu.scrollHeight + "px";
-          }
+        if (submenu && submenu.classList.contains('mobile-submenu-content')) {
+            const icon = button.querySelector('i.mobile-submenu-icon');
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
 
-          const icon = button.querySelector('i.mobile-submenu-icon');
-          if (icon) { 
-            icon.classList.toggle('fa-chevron-down'); 
-            icon.classList.toggle('fa-chevron-up'); 
-          }
+            if (isExpanded) {
+                submenu.style.maxHeight = '0px';
+                if (icon) {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+                button.setAttribute('aria-expanded', 'false');
+            } else {
+                submenu.style.maxHeight = submenu.scrollHeight + 'px';
+                if (icon) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+                button.setAttribute('aria-expanded', 'true');
+            }
         }
     }
     </script>
@@ -368,8 +328,16 @@
     </button>
 </body>
 </html>
-```
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        if (scrollToTopBtn) {
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
 
-Tệp `about.html` này giờ đây đã được tinh chỉnh để hoạt động hiệu quả hơn với hệ thống tải thành phần động của bạn. Các đường dẫn tài nguyên (`/css/styles.css`, `/js/loadComponents.js`, v.v.) được giữ nguyên vì `about.html` nằm ở thư mục gốc của website.
-
-Nếu bạn cần điều chỉnh thêm hoặc có yêu cầu khác, đừng ngần ngại cho tôi biết n
+            window.addEventListener('scroll', () => {
+                scrollToTopBtn.style.display = (window.pageYOffset > 100) ? 'flex' : 'none';
+            }, { passive: true });
+        }
+    });
