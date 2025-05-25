@@ -113,13 +113,23 @@
             color: theme('colors.secondary', '#10b981'); font-size: 1em; top: 0.1em;
         }
         #header-placeholder button.active-lang {
-            background-color: #3b82f6;
-            color: white;
-        }      
+            background-color: #3b82f6 !important; /* Ensure high specificity */
+            color: white !important;
+        }
+        #header-placeholder:empty::before, 
+        #footer-placeholder:empty::before {
+            content: attr(data-loading-text); min-height: 64px; display: flex;
+            align-items: center; justify-content: center; width:100%;
+            background-color: #e5e7eb; color: #6b7280;
+        }
+        html.dark #header-placeholder:empty::before, 
+        html.dark #footer-placeholder:empty::before {
+            background-color: #374151; color: #9ca3af; /* Dark mode loading text */
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-neutral-700 font-sans antialiased" id="page-about">
-    <header id="header-placeholder"></header>
+    <header id="header-placeholder" data-loading-text="Đang tải menu..."></header>
 
     <main>
         <section class="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-10 md:py-14 text-center" aria-labelledby="banner-heading" data-aos="fade-in" data-aos-duration="1000">
@@ -290,10 +300,65 @@
 
     </main>
 
-    <footer id="footer-placeholder"></footer>
+    <footer id="footer-placeholder" data-loading-text="Đang tải chân trang..."></footer>
     
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="/js/loadComponents.js" defer></script> <script>
+    <script src="/js/loadComponents.js" defer></script> 
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        AOS.init({
+            offset: 120, 
+            duration: 800, 
+            easing: 'ease-in-out-cubic', 
+            once: true, 
+            mirror: false, 
+            anchorPlacement: 'top-bottom',
+        });
+        
+        const scrollToTopBtnExisting = document.getElementById('scrollToTopBtn');
+        if (scrollToTopBtnExisting) {
+            scrollToTopBtnExisting.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            window.addEventListener('scroll', () => {
+                scrollToTopBtnExisting.style.display = (window.pageYOffset > 100) ? 'flex' : 'none';
+            }, { passive: true });
+        }
+        
+        if (typeof loadComponentsAndInitialize === 'function') {
+            loadComponentsAndInitialize().then(() => {
+                if (typeof AOS !== 'undefined') {
+                    AOS.refresh(); 
+                }
+                if (typeof updateLanguage === 'function' && typeof translations !== 'undefined') {
+                    const currentLang = localStorage.getItem('language') || document.documentElement.lang || 'vi';
+                    updateLanguage(currentLang, translations);
+                }
+            }).catch(error => {
+                console.error("[Script] Error loading components via loadComponentsAndInitialize:", error);
+            });
+        } else {
+            console.error("[Script] loadComponentsAndInitialize function not found. Ensure '/js/loadComponents.js' is loaded correctly.");
+        }
+    });
+
+    function toggleMobileSubmenu(button) {
+        const submenu = button.nextElementSibling;
+        if (submenu && submenu.classList.contains('mobile-submenu-content')) { 
+          submenu.classList.toggle('hidden');
+          
+          const currentMaxHeight = submenu.style.maxHeight;
+          if (currentMaxHeight && currentMaxHeight !== "0px") {
+            submenu.style.maxHeight = "0px";
+          } else {
+            submenu.style.maxHeight = submenu.scrollHeight + "px";
+          }
+
+          const icon = button.querySelector('i.mobile-submenu-icon');
+          if (icon) { 
+            icon.classList.toggle('fa-chevron-down'); 
+            icon.classList.toggle('fa-chevron-up'); 
+          }
+        }
+    }
     </script>
 
     <script src="/js/language.js" defer></script>
@@ -302,3 +367,9 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 </body>
+</html>
+```
+
+Tệp `about.html` này giờ đây đã được tinh chỉnh để hoạt động hiệu quả hơn với hệ thống tải thành phần động của bạn. Các đường dẫn tài nguyên (`/css/styles.css`, `/js/loadComponents.js`, v.v.) được giữ nguyên vì `about.html` nằm ở thư mục gốc của website.
+
+Nếu bạn cần điều chỉnh thêm hoặc có yêu cầu khác, đừng ngần ngại cho tôi biết n
