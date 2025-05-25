@@ -8,17 +8,10 @@ async function loadComponent(placeholderId, filePath) {
         const placeholder = document.getElementById(placeholderId);
         if (placeholder) {
             placeholder.innerHTML = html;
+            document.dispatchEvent(new CustomEvent(`${placeholderId}Loaded`, { detail: { placeholderId, filePath } }));
         } else {
             console.error(`[Script] Placeholder element with id '${placeholderId}' not found.`);
         }
-
-        if (placeholderId === 'header-placeholder') {
-            initializeHeader();
-        }
-        if (placeholderId === 'footer-placeholder') {
-            initializeFooter();
-        }
-
     } catch (error) {
         console.error(`[Script] Error loading component from ${filePath}:`, error);
         const placeholder = document.getElementById(placeholderId);
@@ -28,84 +21,24 @@ async function loadComponent(placeholderId, filePath) {
     }
 }
 
-async function loadComponentsAndInitialize(callback) {
+async function loadAppComponents(callback) {
     const HEADER_COMPONENT_URL = '/components/header.html';
     const FOOTER_COMPONENT_URL = '/components/footer.html';
 
-    await loadComponent('header-placeholder', HEADER_COMPONENT_URL);
-    await loadComponent('footer-placeholder', FOOTER_COMPONENT_URL);
+    await Promise.all([
+        loadComponent('header-placeholder', HEADER_COMPONENT_URL),
+        loadComponent('footer-placeholder', FOOTER_COMPONENT_URL)
+    ]);
 
-    // Call the callback function after all components are loaded and initialized
     if (typeof callback === 'function') {
         callback();
     }
+    document.dispatchEvent(new CustomEvent('allAppComponentsLoaded'));
 }
 
-function initializeHeader() {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    // Changed to 'mobile-menu' to match the updated header.html
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuIconOpen = document.getElementById('icon-menu-open');
-    const mobileMenuIconClose = document.getElementById('icon-menu-close');
-
-    if (mobileMenuButton && mobileMenu && mobileMenuIconOpen && mobileMenuIconClose) {
-        mobileMenuButton.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.toggle('hidden');
-            mobileMenuButton.setAttribute('aria-expanded', String(!isHidden));
-
-            if (isHidden) {
-                mobileMenuIconOpen.classList.remove('hidden');
-                mobileMenuIconClose.classList.add('hidden');
-                // Close any open submenus when the main menu is closed
-                const openSubmenuContent = mobileMenu.querySelector('.mobile-submenu-content.max-h-full');
-                if (openSubmenuContent) {
-                    openSubmenuContent.classList.remove('max-h-full');
-                    openSubmenuContent.classList.add('max-h-0');
-                    const openSubmenuIcon = openSubmenuContent.previousElementSibling.querySelector('.mobile-submenu-icon');
-                    if (openSubmenuIcon) {
-                        openSubmenuIcon.classList.remove('rotate-180');
-                    }
-                }
-            } else {
-                mobileMenuIconOpen.classList.add('hidden');
-                mobileMenuIconClose.classList.remove('hidden');
-            }
-        });
-
-        // Close mobile menu when a link inside it is clicked
-        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                // Prevent closing if the click is on a submenu toggle button
-                if (!e.target.closest('.mobile-submenu-toggle')) {
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                        mobileMenuButton.setAttribute('aria-expanded', 'false');
-                        mobileMenuIconOpen.classList.remove('hidden');
-                        mobileMenuIconClose.classList.add('hidden');
-                    }
-                }
-            });
-        });
-    }
-
-    // Initialize mobile submenu toggles
-    const mobileSubmenuToggles = document.querySelectorAll('.mobile-submenu-toggle');
-    mobileSubmenuToggles.forEach(toggleButton => {
-        toggleButton.addEventListener('click', () => {
-            const submenuContent = toggleButton.nextElementSibling;
-            const icon = toggleButton.querySelector('.mobile-submenu-icon');
-
-            if (submenuContent && icon) {
-                const isExpanded = submenuContent.classList.toggle('max-h-0'); // Toggle max-height for smooth transition
-                submenuContent.classList.toggle('max-h-full', !isExpanded); // Use max-h-full for opened state
-
-                icon.classList.toggle('rotate-180');
-                toggleButton.setAttribute('aria-expanded', String(!isExpanded));
-            }
-        });
-    });
-
+function initializeHeaderFeatures() {
+    initializeMobileMenu();
+    highlightActivePage();
 
     const langViButton = document.getElementById('lang-vi');
     const langEnButton = document.getElementById('lang-en');
@@ -127,7 +60,7 @@ function initializeHeader() {
     let currentLanguage = localStorage.getItem('language') || document.documentElement.lang || 'vi';
     setActiveLangButton(currentLanguage);
 
-    if(langViButton) {
+    if (langViButton) {
         langViButton.addEventListener('click', () => {
             localStorage.setItem('language', 'vi');
             setActiveLangButton('vi');
@@ -136,11 +69,11 @@ function initializeHeader() {
         });
     }
 
-    if(langEnButton) {
+    if (langEnButton) {
         langEnButton.addEventListener('click', () => {
             localStorage.setItem('language', 'en');
             setActiveLangButton('en');
-             if (typeof updateLanguage === 'function') updateLanguage('en');
+            if (typeof updateLanguage === 'function') updateLanguage('en');
             else location.reload();
         });
     }
@@ -153,7 +86,7 @@ function initializeHeader() {
             button.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
         }
         if (button && button.id === 'mobile-dark-mode-toggle' && button.querySelector('span.ml-2')) {
-             button.querySelector('span.ml-2').textContent = isDark ? 'Chế độ Sáng' : 'Chế độ Tối';
+            button.querySelector('span.ml-2').textContent = isDark ? 'Chế độ Sáng' : 'Chế độ Tối';
         }
     }
 
@@ -175,10 +108,10 @@ function initializeHeader() {
     updateToggleIcon(mobileHeaderDarkModeToggle, isCurrentlyDark);
 }
 
-function initializeFooter() {
-    const currentYearSpan = document.getElementById('currentYearFooter'); // Corrected ID
+function initializeFooterFeatures() {
+    const currentYearSpan = document.getElementById('currentYearFooter');
     if (currentYearSpan) {
-      currentYearSpan.textContent = new Date().getFullYear();
+        currentYearSpan.textContent = new Date().getFullYear();
     }
 
     const newsletterForm = document.getElementById('newsletterForm');
@@ -242,9 +175,161 @@ function initializeFooter() {
     }
 }
 
+function initializeMobileMenu() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+    const iconMenuOpen = document.getElementById('icon-menu-open');
+    const iconMenuClose = document.getElementById('icon-menu-close');
+
+    if (!mobileMenuButton || !mobileMenuPanel) {
+        console.warn('Mobile menu elements not found for initialization.');
+        return;
+    }
+    
+    if (mobileMenuButton.__menuInitialized) return;
+
+
+    function openMobileMenu() {
+        mobileMenuPanel.classList.add('open');
+        mobileMenuButton.setAttribute('aria-expanded', 'true');
+        if (iconMenuOpen && iconMenuClose) {
+            iconMenuOpen.classList.add('hidden');
+            iconMenuClose.classList.remove('hidden');
+        }
+        document.body.style.overflow = 'hidden';
+        const firstMenuItem = mobileMenuPanel.querySelector('a, button');
+        if (firstMenuItem) {
+            setTimeout(() => firstMenuItem.focus(), 100);
+        }
+    }
+
+    function closeMobileMenu() {
+        mobileMenuPanel.classList.remove('open');
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
+        if (iconMenuOpen && iconMenuClose) {
+            iconMenuOpen.classList.remove('hidden');
+            iconMenuClose.classList.add('hidden');
+        }
+        document.body.style.overflow = '';
+        mobileMenuButton.focus();
+    }
+
+    mobileMenuButton.addEventListener('click', function() {
+        const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+        if (isExpanded) {
+            closeMobileMenu();
+        } else {
+            openMobileMenu();
+        }
+    });
+
+    mobileMenuPanel.addEventListener('click', function(e) {
+        if (e.target === mobileMenuPanel) {
+            closeMobileMenu();
+        }
+    });
+    
+    const mobileMenuLinks = mobileMenuPanel.querySelectorAll('a');
+    mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            if (!e.target.closest('.mobile-submenu-toggle')) {
+                 if (mobileMenuPanel.classList.contains('open')) {
+                    closeMobileMenu();
+                }
+            }
+        });
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileMenuPanel.classList.contains('open')) {
+            closeMobileMenu();
+        }
+    });
+
+    initializeSubmenuToggles();
+
+    window.closeMobileMenu = closeMobileMenu;
+    window.openMobileMenu = openMobileMenu;
+    mobileMenuButton.__menuInitialized = true;
+}
+
+function initializeSubmenuToggles() {
+    const submenuToggles = document.querySelectorAll('.mobile-submenu-toggle');
+    submenuToggles.forEach(toggle => {
+        if (toggle.__submenuInitialized) return;
+
+        toggle.addEventListener('click', function() {
+            const submenuId = this.getAttribute('aria-controls');
+            const submenu = document.getElementById(submenuId);
+            const icon = this.querySelector('.mobile-submenu-icon');
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+            if (!submenu) return;
+
+            if (isExpanded) {
+                this.setAttribute('aria-expanded', 'false');
+                submenu.classList.remove('open');
+                submenu.style.maxHeight = '0';
+                if (icon) icon.style.transform = 'rotate(0deg)';
+            } else {
+                submenuToggles.forEach(otherToggle => {
+                    if (otherToggle !== this) {
+                        const otherId = otherToggle.getAttribute('aria-controls');
+                        const otherSubmenu = document.getElementById(otherId);
+                        const otherIcon = otherToggle.querySelector('.mobile-submenu-icon');
+                        otherToggle.setAttribute('aria-expanded', 'false');
+                        if (otherSubmenu) {
+                            otherSubmenu.classList.remove('open');
+                            otherSubmenu.style.maxHeight = '0';
+                        }
+                        if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+                    }
+                });
+                this.setAttribute('aria-expanded', 'true');
+                submenu.classList.add('open');
+                submenu.style.maxHeight = submenu.scrollHeight + 'px';
+                if (icon) icon.style.transform = 'rotate(180deg)';
+            }
+        });
+        toggle.__submenuInitialized = true;
+    });
+}
+
+function highlightActivePage() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('#mobile-menu-panel a[href], .nav-links a[href]');
+    navLinks.forEach(link => {
+        link.classList.remove('text-sky-300', 'bg-slate-600', 'active');
+        const href = link.getAttribute('href').split('/').pop();
+        if (href === currentPage || (currentPage === 'index.html' && (href === '' || href === 'index.html'))) {
+            if(link.closest('#mobile-menu-panel')) {
+                link.classList.add('text-sky-300', 'bg-slate-600');
+            } else {
+                link.classList.add('active');
+            }
+        }
+    });
+}
+
+document.addEventListener('header-placeholderLoaded', initializeHeaderFeatures);
+document.addEventListener('footer-placeholderLoaded', initializeFooterFeatures);
+
+document.addEventListener('DOMContentLoaded', function() {
+    initializeMobileMenu();
+    highlightActivePage();
+});
+
+window.addEventListener('resize', function() {
+    if (window.innerWidth >= 768) {
+        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+        if (mobileMenuPanel && mobileMenuPanel.classList.contains('open')) {
+            if (typeof window.closeMobileMenu === 'function') {
+                window.closeMobileMenu();
+            }
+        }
+    }
+});
 
 if (typeof window !== 'undefined') {
-    window.loadComponentsAndInitialize = loadComponentsAndInitialize;
-    window.initializeHeader = initializeHeader;
-    window.initializeFooter = initializeFooter;
+    window.loadAppComponents = loadAppComponents;
 }
