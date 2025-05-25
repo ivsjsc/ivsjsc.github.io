@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <link rel="stylesheet" href="css/styles.css"> <style>
+    <link rel="stylesheet" href="../css/styles.css"> <style>
         :root {
             --ivs-primary: #004080; 
             --ivs-secondary: #ffc107; 
@@ -172,7 +172,7 @@
             <div class="container mx-auto px-4 text-center">
                 <h2 class="text-3xl md:text-4xl font-bold mb-6" data-lang-key="solutions_cta_main_title">Cùng IVS Hiện Thực Hóa Tầm Nhìn Của Bạn</h2>
                 <p class="text-lg md:text-xl mb-8 max-w-3xl mx-auto opacity-90" data-lang-key="solutions_cta_main_subtitle">Dù bạn là một tổ chức giáo dục, doanh nghiệp hay cá nhân đang tìm kiếm giải pháp phát triển, IVS JSC sẵn sàng đồng hành và cung cấp những công cụ mạnh mẽ nhất để bạn đạt được thành công.</p>
-                <a href="contact.html?subject=YeuCauTuVanGiaiPhap" class="inline-block bg-white text-primary hover:bg-gray-100 dark:text-blue-600 dark:hover:bg-gray-200 font-bold py-3.5 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md" data-lang-key="solutions_cta_button_contact">Liên Hệ Tư Vấn Giải Pháp</a>
+                <a href="/contact.html?subject=YeuCauTuVanGiaiPhap" class="inline-block bg-white text-primary hover:bg-gray-100 dark:text-blue-600 dark:hover:bg-gray-200 font-bold py-3.5 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md" data-lang-key="solutions_cta_button_contact">Liên Hệ Tư Vấn Giải Pháp</a>
             </div>
         </section>
     </main>
@@ -180,94 +180,8 @@
     <footer id="footer-placeholder" data-loading-text="Đang tải chân trang..."></footer>
     
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="js/loadComponents.js" defer></script> 
+    <script src="../js/loadComponents.js" defer></script> 
     <script>
-    function initializeHeaderScripts() {
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (mobileMenuButton && mobileMenu) {
-            const mobileMenuIcon = mobileMenuButton.querySelector('i');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-                if (mobileMenuIcon) {
-                    if (mobileMenu.classList.contains('hidden')) {
-                        mobileMenuIcon.classList.remove('fa-times'); mobileMenuIcon.classList.add('fa-bars');
-                        const openSubmenu = mobileMenu.querySelector('.mobile-submenu:not(.hidden)');
-                        if(openSubmenu) openSubmenu.classList.add('hidden');
-                        const openSubmenuIcon = mobileMenu.querySelector('.fa-chevron-up');
-                        if(openSubmenuIcon) { openSubmenuIcon.classList.remove('fa-chevron-up'); openSubmenuIcon.classList.add('fa-chevron-down');}
-                    } else {
-                        mobileMenuIcon.classList.remove('fa-bars'); mobileMenuIcon.classList.add('fa-times');
-                    }
-                }
-            });
-            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-            mobileMenuLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    if (!e.target.closest('button[onclick*="toggleMobileSubmenu"]')) {
-                         if (!mobileMenu.classList.contains('hidden')) {
-                            mobileMenu.classList.add('hidden');
-                            if(mobileMenuIcon){ mobileMenuIcon.classList.remove('fa-times'); mobileMenuIcon.classList.add('fa-bars');}
-                         }
-                    }
-                });
-            });
-        }
-
-        const langViButton = document.getElementById('lang-vi');
-        const langEnButton = document.getElementById('lang-en');
-        function setActiveLangButton(lang) {
-            if (!langViButton || !langEnButton) return;
-            langViButton.classList.remove('active-lang', 'bg-primary', 'text-white');
-            langEnButton.classList.remove('active-lang', 'bg-primary', 'text-white');
-            langViButton.classList.add('text-neutral-700', 'dark:text-gray-300');
-            langEnButton.classList.add('text-neutral-700', 'dark:text-gray-300');
-            if (lang === 'vi') langViButton.classList.add('active-lang');
-            else langEnButton.classList.add('active-lang');
-        }
-        let currentLanguage = localStorage.getItem('language') || document.documentElement.lang || 'vi';
-        setActiveLangButton(currentLanguage);
-        if(langViButton) langViButton.addEventListener('click', () => { localStorage.setItem('language', 'vi'); setActiveLangButton('vi'); if (typeof updateLanguage === 'function') updateLanguage('vi'); else location.reload(); });
-        if(langEnButton) langEnButton.addEventListener('click', () => { localStorage.setItem('language', 'en'); setActiveLangButton('en'); if (typeof updateLanguage === 'function') updateLanguage('en'); else location.reload(); });
-        
-        const headerDarkModeToggle = document.getElementById('dark-mode-toggle');
-        const mobileHeaderDarkModeToggle = document.getElementById('mobile-dark-mode-toggle');
-        function updateToggleIcon(button, isDark) {
-            if (button && button.querySelector('i')) {
-                button.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-            }
-            if (button && button.id === 'mobile-dark-mode-toggle' && button.querySelector('span.ml-2')) {
-                 button.querySelector('span.ml-2').textContent = isDark ? 'Chế độ Sáng' : 'Chế độ Tối';
-            }
-        }
-        function setupThemeToggleListener(button) {
-            if (button) {
-                button.addEventListener('click', () => {
-                    const isDarkMode = document.documentElement.classList.toggle('dark');
-                    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-                    updateToggleIcon(headerDarkModeToggle, isDarkMode);
-                    updateToggleIcon(mobileHeaderDarkModeToggle, isDarkMode);
-                });
-            }
-        }
-        setupThemeToggleListener(headerDarkModeToggle);
-        setupThemeToggleListener(mobileHeaderDarkModeToggle);
-        const isCurrentlyDark = document.documentElement.classList.contains('dark');
-        updateToggleIcon(headerDarkModeToggle, isCurrentlyDark);
-        updateToggleIcon(mobileHeaderDarkModeToggle, isCurrentlyDark);
-    }
-
-    function initializeFooterScripts() {
-        const currentYearSpan = document.getElementById('currentYearFooter');
-        if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
-    }
-
-    function onComponentsLoaded() {
-        initializeHeaderScripts();
-        initializeFooterScripts();
-        if (typeof AOS !== 'undefined') AOS.refresh();
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
         AOS.init({
             offset: 100, duration: 700, easing: 'ease-out-quad', 
@@ -283,24 +197,41 @@
         }
         
         if (typeof loadComponentsAndInitialize === 'function') {
-            loadComponentsAndInitialize(onComponentsLoaded);
+            loadComponentsAndInitialize().then(() => {
+                if (typeof AOS !== 'undefined') {
+                    AOS.refresh();
+                }
+            }).catch(error => {
+                console.error("[Script] Error loading components via loadComponentsAndInitialize:", error);
+            });
         } else {
-            setTimeout(onComponentsLoaded, 500); 
+            console.error("[Script] loadComponentsAndInitialize function not found. Ensure '../js/loadComponents.js' is loaded correctly.");
         }
     });
     
     function toggleMobileSubmenu(button) {
         const submenu = button.nextElementSibling;
-        if (submenu && submenu.classList.contains('mobile-submenu')) {
+        if (submenu && submenu.classList.contains('mobile-submenu-content')) { 
           submenu.classList.toggle('hidden');
-          const icon = button.querySelector('i');
-          if (icon) { icon.classList.toggle('fa-chevron-down'); icon.classList.toggle('fa-chevron-up'); }
+          
+          const currentMaxHeight = submenu.style.maxHeight;
+          if (currentMaxHeight && currentMaxHeight !== "0px") {
+            submenu.style.maxHeight = "0px";
+          } else {
+            submenu.style.maxHeight = submenu.scrollHeight + "px";
+          }
+
+          const icon = button.querySelector('i.mobile-submenu-icon');
+          if (icon) { 
+            icon.classList.toggle('fa-chevron-down'); 
+            icon.classList.toggle('fa-chevron-up'); 
+          }
         }
     }
     </script>
 
-    <script src="js/language.js" defer></script>
-    <script src="js/script.js" defer></script>
+    <script src="../js/language.js" defer></script>
+    <script src="../js/script.js" defer></script>
     <button id="scrollToTopBtn" style="display: none;" class="fixed bottom-5 right-5 z-50 flex items-center justify-center w-12 h-12 rounded-full bg-primary text-white shadow-lg hover:bg-primary-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
         <i class="fas fa-arrow-up"></i>
     </button>
