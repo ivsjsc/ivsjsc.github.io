@@ -117,4 +117,176 @@ a:hover, a:focus {
 
 .fab-hidden {
     display: none !important;
+/* === Header Refinements === */
+
+/* Header chính */
+.nav-header {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06); /* Bóng đổ mềm mại hơn cho header */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Logo - Tăng một chút khoảng cách nếu cần */
+.nav-header .flex.items-center.space-x-3.group {
+    /* Ví dụ: margin-right: 0.5rem; */ /* Điều chỉnh nếu cần thêm không gian bên phải logo */
+}
+
+/* === Desktop Navigation Enhancements === */
+.nav-header nav.hidden.md\\:flex a.font-medium,
+.nav-header nav.hidden.md\\:flex button.font-medium {
+    padding: 0.75rem 1rem; /* Tăng padding cho dễ click hơn */
+    border-radius: 0.375rem; /* Tailwind 'rounded-md' */
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.nav-header nav.hidden.md\\:flex a.font-medium:hover,
+.nav-header nav.hidden.md\\:flex button.font-medium:hover {
+    background-color: #f3f4f6; /* Tailwind 'hover:bg-neutral-100' hoặc màu nhẹ nhàng hơn */
+    color: #3b82f6; /* Tailwind 'hover:text-primary' */
+}
+
+/* Active Menu Link Refinement */
+.active-menu-link {
+    color: #3b82f6; /* ivs-text-primary */
+    font-weight: 600; /* Đã có */
+    background-color: #e0e7ff; /* Màu nền nhẹ cho link active */
+    border-bottom: none; /* Loại bỏ border dưới nếu dùng background */
+    padding-bottom: 0.75rem; /* Điều chỉnh padding cho nhất quán */
+}
+/* Hoặc giữ lại border và tinh chỉnh */
+/*
+.active-menu-link {
+    color: #3b82f6;
+    font-weight: 600;
+    border-bottom: 2px solid #3b82f6;
+    padding-bottom: calc(0.75rem - 2px); // Giữ tổng chiều cao padding
+}
+*/
+
+
+/* Mega Menu Refinements */
+#services-mega-menu {
+    border-radius: 0.5rem; /* Tailwind 'rounded-lg' */
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); /* Bóng đổ tinh tế hơn 'shadow-xl' */
+    border: 1px solid #e5e7eb; /* Border nhẹ nhàng */
+    margin-top: 0.75rem; /* Khoảng cách với nút trigger */
+}
+
+#services-mega-menu h3 {
+    margin-bottom: 0.75rem; /* Tăng khoảng cách dưới heading trong mega menu */
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+#services-mega-menu ul li a {
+    padding: 0.5rem 0.75rem; /* Đồng nhất padding */
+    font-size: 0.9rem;
+}
+
+#services-mega-menu .px-4.pt-4.mt-4.border-t {
+    border-top-color: #f3f4f6; /* Màu border nhạt hơn */
+}
+
+
+/* Search Button & Container Refinements */
+#desktop-search-button {
+    padding: 0.625rem; /* Tailwind 'p-2.5' tương đương */
+}
+#desktop-search-button:hover {
+    background-color: #e0e7ff; /* Nền nhẹ khi hover */
+}
+
+#desktop-search-container {
+    border-radius: 0.5rem; /* Tailwind 'rounded-lg' */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    border: 1px solid #e5e7eb;
+}
+
+#desktop-search-input {
+    font-size: 0.9rem;
+    padding: 0.625rem 0.75rem;
+}
+
+#desktop-search-input:focus { /* Đảm bảo focus style nhất quán */
+    border-color: #3b82f6; /* primary color */
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+
+/* Language Toggle Refinements */
+#language-toggle-container {
+    border: 1px solid #d1d5db; /* Giữ lại border nếu muốn, hoặc bỏ đi */
+    /* box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); */ /* Option: shadow nhẹ */
+}
+#language-toggle-container button {
+    padding: 0.5rem 0.75rem; /* Đồng nhất padding */
+    font-size: 0.8rem;
+    color: #4b5563; /* neutral-600 */
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+#language-toggle-container button:hover {
+    background-color: #f3f4f6; /* neutral-100 */
+}
+#language-toggle-container button.active-lang, /* Cần thêm class 'active-lang' vào JS khi chọn ngôn ngữ */
+#language-toggle-container button:focus {
+    background-color: #3b82f6; /* primary */
+    color: white;
+    font-weight: 500;
+}
+#language-toggle-container button#lang-en {
+    border-left: 1px solid #d1d5db;
+}
+
+/* CTA Buttons - Đã khá tốt, có thể điều chỉnh padding cho cân đối với nav links */
+.nav-header a[data-lang-key="nav_contact"],
+.nav-header a[data-lang-key="nav_cta_consult"] {
+    padding-top: 0.625rem; /* 10px */
+    padding-bottom: 0.625rem; /* 10px */
+    font-size: 0.9rem; /* Đồng nhất với các text khác */
+}
+
+
+/* === Mobile Menu Enhancements === */
+#mobile-menu-panel {
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.15); /* Bóng đổ cho panel mobile */
+    /* backdrop-filter: blur(8px); Đã có backdrop-blur-sm */
+}
+
+#mobile-menu-panel nav a,
+#mobile-menu-panel nav button.mobile-submenu-toggle {
+    padding: 0.8rem 0.75rem; /* Tăng padding cho dễ chạm */
+    border-radius: 0.375rem;
+}
+
+#mobile-menu-panel nav a:hover,
+#mobile-menu-panel nav button.mobile-submenu-toggle:hover {
+    background-color: #f3f4f6;
+}
+
+#mobile-menu-panel .mobile-submenu-content a {
+    padding: 0.7rem 0.75rem 0.7rem 1.5rem; /* Thụt lề cho submenu items */
+    font-size: 0.9rem;
+}
+
+#mobile-search-input {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+}
+#mobile-search-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+
+/* Bottom Navigation - Đã có style, đảm bảo nhất quán nếu cần */
+.bottom-nav {
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.07); /* Bóng đổ mềm hơn */
+}
+.bottom-nav-item i {
+    font-size: 1.35rem; /* Icon lớn hơn chút */
+}
+.bottom-nav-item span {
+    font-size: 0.7rem; /* Text nhỏ hơn chút để cân đối */
+}
+.bottom-nav-item.active {
+    color: #3b82f6; /* Đã có, đảm bảo màu primary */
 }
