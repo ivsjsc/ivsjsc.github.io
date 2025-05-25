@@ -128,3 +128,9 @@ if (document.readyState === 'loading') {
 } else {
     initializeLanguageSystem();
 }
+
+
+document.querySelectorAll('#language-toggle-container button').forEach(btn => {
+    btn.classList.remove('active-lang');
+});
+document.getElementById(`lang-${lang}`).classList.add('active-lang');
