@@ -157,12 +157,6 @@ function initializeHeaderInternal() {
 
     headerInitialized = true;
     componentLog("Header (Tailwind) initialized successfully.");
-    
-    if (typeof window.initializeLanguageButtons === 'function') {
-        window.initializeLanguageButtons(); 
-    } else {
-        componentLog("window.initializeLanguageButtons not found.", 'warn');
-    }
 }
 window.initializeHeader = initializeHeaderInternal; 
 
@@ -236,9 +230,9 @@ function initializeFabButtonsInternal() {
         componentLog("FABs already initialized. Skipping.", 'warn');
         return;
     }
-    const fabContainer = document.querySelector('.fab-container'); 
-    if (!fabContainer && !document.getElementById('scroll-to-top-btn')) { 
-        componentLog("FAB container/elements not found. Skipping FAB initialization.", 'warn');
+    const fabContainer = document.getElementById('fab-container'); 
+    if (!fabContainer ) { 
+        componentLog("FAB container #fab-container not found. Skipping FAB initialization.", 'warn');
         fabInitialized = true; 
         return;
     }
@@ -288,6 +282,7 @@ function initializeFabButtonsInternal() {
         window.addEventListener('scroll', window.debounce(() => {
             if(fabElements.scrollToTopBtn){
                  fabElements.scrollToTopBtn.classList.toggle('fab-hidden', window.pageYOffset <= 100);
+                 fabElements.scrollToTopBtn.classList.toggle('flex', window.pageYOffset > 100);
             }
         }, 150), { passive: true });
     }
@@ -337,7 +332,7 @@ window.loadHeaderFooterAndFab = async function() {
 
     const headerLoaded = await loadComponent('Header', 'header-placeholder', '/components/header.html', 'placeholder');
     const footerLoaded = await loadComponent('Footer', 'footer-placeholder', '/components/footer.html', 'placeholder'); 
-    const fabLoaded = await loadComponent('FAB', null, '/components/fab-container.html', 'body'); 
+    const fabLoaded = await loadComponent('FAB', 'fab-container', '/components/fab-container.html', 'placeholder'); 
 
     if (headerLoaded) {
         initializeHeaderInternal();
@@ -370,6 +365,13 @@ window.loadHeaderFooterAndFab = async function() {
     
     componentsLoadedAndInitialized = true;
     componentLog("Core components loading and initialization process finished.");
+
+    if (typeof window.onPageComponentsLoadedCallback === 'function') {
+        componentLog("Executing onPageComponentsLoadedCallback().");
+        window.onPageComponentsLoadedCallback();
+    } else {
+        componentLog("onPageComponentsLoadedCallback() not defined globally.", "warn");
+    }
 };
 
 if (document.readyState === 'loading') {
