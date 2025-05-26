@@ -1,5 +1,3 @@
-HTML
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -172,10 +170,8 @@ HTML
                         if (section) {
                             const imgTest = new Image();
                             imgTest.onerror = function() {
-                                // Corrected path for mobile banner image
                                 section.style.backgroundImage = "url('/images/webbannermo.png')"; 
                             };
-                            // Corrected path for mobile banner image
                             imgTest.src = '/images/webbannermo.png'; 
                             section.style.backgroundImage = `url('${imgTest.src}')`; 
                         }
@@ -204,7 +200,6 @@ HTML
                     if (videoElement) {
                         let posterPath;
                         if (window.innerWidth < 768) {
-                            // Corrected path for mobile video poster
                             posterPath = '/images/webbannermo.png';
                         } else {
                             posterPath = '/images/logo/webbanner.png';
@@ -579,9 +574,15 @@ HTML
     function onComponentsLoaded() {
         console.log("Components loaded. Attempting to initialize header, footer, and other scripts...");
         if (typeof window.initializeHeader === 'function') {
-            window.initializeHeader();
+             // Kiểm tra xem header có được tải bởi script mới không, nếu có thì không cần gọi lại ở đây nữa
+            const headerContent = document.getElementById('header-placeholder').innerHTML;
+            if (headerContent.includes('nav-header')) { // Dấu hiệu header đã được tải
+                 console.log("Header already initialized by new script or present. Skipping re-initialization by onComponentsLoaded.");
+            } else {
+                 window.initializeHeader();
+            }
         } else {
-            console.error("window.initializeHeader is not defined.");
+            console.error("window.initializeHeader is not defined in onComponentsLoaded context.");
         }
         if (typeof window.initializeFooter === 'function') {
             window.initializeFooter();
@@ -598,6 +599,64 @@ HTML
         initializeNewsLoader(); 
     }
 
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeTheme(); 
+
+        // Đoạn script mới để tải header
+        console.log("Attempting to load header with new fetch script...");
+        fetch('/components/header.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} for /components/header.html`);
+                }
+                return response.text();
+            })
+            .then(data => {
+                const placeholder = document.getElementById('header-placeholder');
+                if (placeholder) {
+                    placeholder.innerHTML = data;
+                    console.log("Header HTML injected.");
+
+                    // Giả định rằng header.html chứa các <script> định nghĩa các hàm này toàn cục
+                    // Hoặc các hàm này đã được định nghĩa trong một file JS khác được tải trước đó.
+                    if (typeof window.initializeHeader === 'function') {
+                        console.log("Calling window.initializeHeader() from new script.");
+                        window.initializeHeader();
+                    } else {
+                        console.warn('window.initializeHeader from header.html component script not found or not executed yet.');
+                    }
+                    if (typeof window.initializeLanguageButtons === 'function') {
+                        console.log("Calling window.initializeLanguageButtons() from new script.");
+                        window.initializeLanguageButtons();
+                    } else {
+                        console.warn('window.initializeLanguageButtons from header.html component script not found or not executed yet.');
+                    }
+                } else {
+                    console.error('Header placeholder (#header-placeholder) not found in index.html.');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching or initializing header with new script:', error);
+                const placeholder = document.getElementById('header-placeholder');
+                if (placeholder) {
+                    placeholder.innerHTML = '<p style="color: red; text-align: center;">Lỗi tải menu đầu trang. Vui lòng kiểm tra console.</p>';
+                }
+            });
+
+        // Logic tải component cũ
+        // Cân nhắc vô hiệu hóa hoặc điều chỉnh phần tải header trong loadComponents.js nếu script mới ở trên hoạt động như mong muốn.
+        if (typeof window.loadComponentsAndInitialize === 'function') {
+            console.log("Calling window.loadComponentsAndInitialize()...");
+            window.loadComponentsAndInitialize().then(onComponentsLoaded).catch(error => {
+                console.error("Error during loadComponentsAndInitialize:", error);
+                onComponentsLoaded(); 
+            });
+        } else {
+            console.error("window.loadComponentsAndInitialize is not defined. Old components might not load.");
+            onComponentsLoaded(); 
+        }
+    });
+
     async function fetchPosts() {
         const newsContainer = document.getElementById('news-container');
         if (!newsContainer) {
@@ -611,7 +670,7 @@ HTML
             }
             const posts = await response.json();
             
-            newsContainer.innerHTML = ''; // Clear loading message
+            newsContainer.innerHTML = ''; 
 
             if (posts && posts.length > 0) {
                 const latestPosts = posts.slice(0, 3); 
@@ -657,20 +716,6 @@ HTML
             fetchPosts();
         }
     }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        initializeTheme(); 
-
-        if (typeof window.loadComponentsAndInitialize === 'function') {
-            window.loadComponentsAndInitialize().then(onComponentsLoaded).catch(error => {
-                console.error("Error during loadComponentsAndInitialize:", error);
-                onComponentsLoaded(); 
-            });
-        } else {
-            console.error("window.loadComponentsAndInitialize is not defined. Components might not load.");
-            onComponentsLoaded(); 
-        }
-    });
 
     const videoSection = document.querySelector('.video-background-section'); 
     if (videoSection) {

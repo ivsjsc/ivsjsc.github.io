@@ -5,45 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Font Awesome CDN for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS CDN (for development; consider using a local build for production) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom CSS for navigation */
+        /* Custom CSS for bottom navigation */
         .bottom-nav-item {
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #ffffff;
-            transition: all 0.3s ease;
+            color: #ffffff; /* White icon color for contrast */
+            transition: all 0.3s ease; /* Smooth transition for hover/active */
         }
 
         .bottom-nav-item:hover,
         .bottom-nav-item.active {
-            color: #3b82f6;
-            transform: scale(1.2);
+            color: #3b82f6; /* IVS blue for hover/active */
+            transform: scale(1.2); /* Slight zoom effect */
         }
 
         .bottom-nav-item i {
-            font-size: 1.5rem;
+            font-size: 1.5rem; /* Larger icon size */
         }
 
+        /* Ensure smooth transitions for mobile submenu */
         .mobile-submenu-content {
             transition: max-height 0.3s ease-in-out;
         }
 
+        /* Active language button styling */
         .active-lang {
             background-color: #3b82f6;
             color: #ffffff !important;
         }
-
-        /* Tailwind config for custom colors */
-        .text-primary { color: #3b82f6; }
-        .text-secondary { color: #10b981; }
-        .bg-primary { background-color: #3b82f6; }
-        .bg-secondary { background-color: #10b981; }
     </style>
 </head>
-<body>
+<body class="bg-neutral-900 text-white">
     <!-- Header Section -->
     <header class="bg-neutral-900 text-white shadow-md sticky top-0 z-50 nav-header">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -314,4 +310,109 @@
                 mobileSubmenuToggles.forEach(toggle => {
                     toggle.addEventListener('click', () => {
                         const submenuContent = toggle.nextElementSibling;
-                        const isExpanded = toggle.getAttribute('aria-
+                        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+                        mobileSubmenuToggles.forEach(otherToggle => {
+                            if (otherToggle !== toggle) {
+                                const otherSubmenuContent = otherToggle.nextElementSibling;
+                                if (otherSubmenuContent && !otherSubmenuContent.classList.contains('max-h-0')) {
+                                    otherSubmenuContent.classList.add('max-h-0');
+                                    otherSubmenuContent.classList.remove('max-h-screen');
+                                    otherToggle.setAttribute('aria-expanded', 'false');
+                                    const otherIcon = otherToggle.querySelector('.mobile-submenu-icon');
+                                    if (otherIcon) {
+                                        otherIcon.classList.remove('fa-chevron-up');
+                                        otherIcon.classList.add('fa-chevron-down');
+                                    }
+                                }
+                            }
+                        });
+
+                        if (submenuContent) {
+                            if (isExpanded) {
+                                submenuContent.classList.add('max-h-0');
+                                submenuContent.classList.remove('max-h-screen');
+                            } else {
+                                submenuContent.classList.remove('max-h-0');
+                                submenuContent.classList.add('max-h-screen');
+                            }
+                            toggle.setAttribute('aria-expanded', !isExpanded);
+                            const icon = toggle.querySelector('.mobile-submenu-icon');
+                            if (icon) {
+                                icon.classList.toggle('fa-chevron-down', isExpanded);
+                                icon.classList.toggle('fa-chevron-up', !isExpanded);
+                            }
+                        }
+                    });
+                });
+            }
+
+            const desktopSearchButton = document.getElementById('desktop-search-button');
+            const desktopSearchContainer = document.getElementById('desktop-search-container');
+            const desktopSearchCloseButton = document.getElementById('desktop-search-close');
+
+            if (desktopSearchButton && desktopSearchContainer) {
+                desktopSearchButton.addEventListener('click', () => {
+                    const isHidden = desktopSearchContainer.classList.contains('hidden');
+                    desktopSearchContainer.classList.toggle('hidden', !isHidden);
+                    desktopSearchButton.setAttribute('aria-expanded', String(isHidden));
+                    if (isHidden) {
+                        document.getElementById('desktop-search-input').focus();
+                    }
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!desktopSearchContainer.classList.contains('hidden') &&
+                        !desktopSearchButton.contains(e.target) &&
+                        !desktopSearchContainer.contains(e.target)) {
+                        desktopSearchContainer.classList.add('hidden');
+                        desktopSearchButton.setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && !desktopSearchContainer.classList.contains('hidden')) {
+                        desktopSearchContainer.classList.add('hidden');
+                        desktopSearchButton.setAttribute('aria-expanded', 'false');
+                        desktopSearchButton.focus();
+                    }
+                });
+            }
+
+            const mobileSearchInput = document.getElementById('mobile-search-input');
+            if (mobileSearchInput) {
+                mobileSearchInput.addEventListener('input', window.debounce(function() {
+                    console.log('Mobile search input:', this.value);
+                }, 300));
+            }
+
+            const currentLang = window.getCurrentLanguage();
+            const langButtons = document.querySelectorAll('#language-toggle-container button');
+            langButtons.forEach(button => {
+                if (button.dataset.lang === currentLang) {
+                    button.classList.add('active-lang');
+                } else {
+                    button.classList.remove('active-lang');
+                }
+            });
+        };
+
+        // Initialize language toggle (placeholder; implement actual logic as needed)
+        window.initializeLanguageButtons = function() {
+            const langButtons = document.querySelectorAll('#language-toggle-container button');
+            langButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const lang = button.dataset.lang;
+                    console.log(`Switch to language: ${lang}`);
+                    // Implement actual language switch logic here
+                    langButtons.forEach(btn => btn.classList.remove('active-lang'));
+                    button.classList.add('active-lang');
+                });
+            });
+        };
+
+        // Call initializeHeader on page load
+        document.addEventListener('DOMContentLoaded', window.initializeHeader);
+    </script>
+</body>
+</html>
