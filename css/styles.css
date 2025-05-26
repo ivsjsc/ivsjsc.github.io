@@ -5,11 +5,24 @@
     box-sizing: border-box;
 }
 
+/* CSS Variables for better maintainability */
+:root {
+    --primary-color: #007bff;
+    --primary-color-hover: #0056b3;
+    --text-color: #333;
+    --bg-color: #f9f9f9;
+    --header-bg: #333333;
+    --white: #fff;
+    --font-family: 'Roboto', sans-serif; /* Ensure this font is imported or available */
+    --shadow: 0 2px 5px rgba(0,0,0,0.2);
+    --border-radius: 4px;
+}
+
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--font-family);
     line-height: 1.6;
-    color: #333;
-    background-color: #f9f9f9;
+    color: var(--text-color);
+    background-color: var(--bg-color);
     padding-top: 70px; /* Add padding to body to prevent content from being hidden by fixed header */
 }
 
@@ -21,14 +34,14 @@ body {
 
 /* Header and Navigation */
 header {
-    background-color: #333333; /* UPDATED: Solid dark background for better visibility */
-    color: #fff;
+    background-color: var(--header-bg);
+    color: var(--white);
     padding: 1rem 0;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000; /* Ensures header is on top */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Adds a subtle shadow */
+    box-shadow: var(--shadow); /* Adds a subtle shadow */
 }
 
 .navbar {
@@ -43,7 +56,7 @@ header {
 .logo {
     font-size: 1.8rem;
     font-weight: bold;
-    color: #fff; /* White logo text */
+    color: var(--white); /* White logo text */
     text-decoration: none;
 }
 
@@ -58,18 +71,18 @@ header {
 }
 
 .nav-links a {
-    color: #fff; /* White link text */
+    color: var(--white); /* White link text */
     text-decoration: none;
     font-size: 1rem;
     padding: 8px 12px; /* Padding for tap targets */
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-links a:hover,
 .nav-links a.active { /* Style for active page link */
-    background-color: #007bff; /* Blue background on hover/active */
-    color: #fff;
+    background-color: var(--primary-color); /* Blue background on hover/active */
+    color: var(--white);
 }
 
 /* Hamburger Menu for Mobile */
@@ -83,7 +96,7 @@ header {
 .menu-toggle .bar {
     width: 25px;
     height: 3px;
-    background-color: #fff; /* White bars */
+    background-color: var(--white); /* White bars */
     margin: 4px 0;
     transition: 0.4s;
 }
@@ -96,26 +109,27 @@ header {
 }
 
 .language-switcher button {
-    background-color: #007bff;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--white);
     border: none;
     padding: 8px 12px;
     margin-left: 5px;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 0.9rem;
     transition: background-color 0.3s ease;
 }
 
 .language-switcher button:hover {
-    background-color: #0056b3;
+    background-color: var(--primary-color-hover);
 }
-
 
 /* Hero Section */
 .hero {
-    background: url('../images/hero-bg.jpg') no-repeat center center/cover;
-    color: #fff;
+    /* Desktop: Use webbanner.png, ensure full image is visible (contain) */
+    background: url('../images/webbanner.png') no-repeat center center;
+    background-size: contain; /* Ensures the whole image is visible */
+    color: var(--white);
     padding: 100px 20px;
     text-align: center;
     position: relative; /* For pseudo-element overlay if needed */
@@ -140,8 +154,8 @@ header {
 }
 
 .hero .btn {
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: var(--white);
     padding: 12px 25px;
     text-decoration: none;
     border-radius: 5px;
@@ -151,7 +165,7 @@ header {
 }
 
 .hero .btn:hover {
-    background-color: #0056b3;
+    background-color: var(--primary-color-hover);
 }
 
 /* Sections */
@@ -161,7 +175,7 @@ header {
 }
 
 .section-light {
-    background-color: #fff;
+    background-color: var(--white);
 }
 
 .section-dark {
@@ -171,7 +185,7 @@ header {
 .section h2 {
     font-size: 2.5rem;
     margin-bottom: 40px;
-    color: #333;
+    color: var(--text-color);
 }
 
 /* Cards for Services/Projects */
@@ -183,7 +197,7 @@ header {
 }
 
 .card {
-    background-color: #fff;
+    background-color: var(--white);
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -211,7 +225,7 @@ header {
 .card-content h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
-    color: #007bff;
+    color: var(--primary-color);
 }
 
 .card-content p {
@@ -221,22 +235,22 @@ header {
 
 .card-content .btn {
     display: inline-block;
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: var(--white);
     padding: 10px 15px;
     text-decoration: none;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     transition: background-color 0.3s ease;
 }
 
 .card-content .btn:hover {
-    background-color: #0056b3;
+    background-color: var(--primary-color-hover);
 }
 
 /* Footer */
 footer {
-    background-color: #333;
-    color: #fff;
+    background-color: var(--header-bg);
+    color: var(--white);
     text-align: center;
     padding: 20px 0;
     margin-top: 40px; /* Space above footer */
@@ -251,7 +265,7 @@ footer p {
 .contact-form {
     max-width: 600px;
     margin: 0 auto;
-    background-color: #fff;
+    background-color: var(--white);
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -273,7 +287,7 @@ footer p {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     font-size: 1rem;
 }
 
@@ -283,11 +297,11 @@ footer p {
 }
 
 .form-group button.btn {
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: var(--white);
     padding: 12px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     cursor: pointer;
     font-size: 1.1rem;
     transition: background-color 0.3s ease;
@@ -295,7 +309,7 @@ footer p {
 }
 
 .form-group button.btn:hover {
-    background-color: #0056b3;
+    background-color: var(--primary-color-hover);
 }
 
 /* About Us Page Specifics */
@@ -326,7 +340,7 @@ footer p {
 }
 
 .team-member {
-    background-color: #fff;
+    background-color: var(--white);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -373,9 +387,9 @@ footer p {
         position: absolute;
         top: 60px; /* Position below the header; adjust if header padding changes */
         left: 0;
-        background-color: #333333; /* UPDATED: Solid dark background for dropdown */
+        background-color: var(--header-bg); /* UPDATED: Solid dark background for dropdown */
         padding: 1rem 0;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        box-shadow: var(--shadow);
         z-index: 999; /* Below header but above content */
     }
 
@@ -405,6 +419,14 @@ footer p {
     .language-switcher button {
         padding: 6px 10px;
         font-size: 0.8rem;
+    }
+
+    .hero {
+        /* Mobile: Use webbannermo.png, ensure it covers the area */
+        background-image: url('../images/webbannermo.png');
+        background-size: cover; /* Use cover for mobile to ensure no gaps */
+        background-position: center;
+        background-repeat: no-repeat;
     }
 
     .hero h1 {

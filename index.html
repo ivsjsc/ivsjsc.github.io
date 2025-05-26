@@ -191,11 +191,33 @@
 
         <section class="py-16 bg-gray-800 dark:bg-slate-800 relative text-white video-background-section rounded-lg shadow-xl my-8 md:my-12 mx-auto max-w-7xl overflow-hidden" data-aos="fade-up">
             <div class="video-background-container">
-            <video autoplay muted loop playsinline poster="/images/logo/webbanner_placeholder_dark.png" style="filter: brightness(1.2);" 
+            <video autoplay muted loop playsinline id="background-video" style="filter: brightness(1.2);" 
                    onerror="this.style.display='none'; if(this.parentElement) { this.parentElement.style.backgroundImage='url(https://placehold.co/1920x500/374151/ffffff?text=Video+Fallback+IVS)'; this.parentElement.style.backgroundSize='cover'; this.parentElement.style.backgroundPosition='center'; }"> 
                 <source src="/videos/ivs_background_video.mp4" type="video/mp4">
                 Trình duyệt của bạn không hỗ trợ thẻ video.
             </video>
+            <script>
+                (function() {
+                    const videoElement = document.getElementById('background-video');
+                    if (videoElement) {
+                        let posterPath;
+                        if (window.innerWidth < 768) {
+                            posterPath = '/images/webbannermo.png'; // Mobile image
+                        } else {
+                            posterPath = '/images/logo/webbanner.png'; // Desktop image
+                        }
+                        videoElement.poster = posterPath;
+
+                        // Optional: Add a fallback for the poster image itself if it fails to load
+                        const imgPosterTest = new Image();
+                        imgPosterTest.onerror = function() {
+                            console.warn(`Failed to load video poster from ${posterPath}. Using generic fallback.`);
+                            videoElement.poster = 'https://placehold.co/1920x500/374151/ffffff?text=Video+Poster+Fallback';
+                        };
+                        imgPosterTest.src = posterPath;
+                    }
+                })();
+            </script>
             </div>
             <div class="video-overlay" style="background-color: rgba(0, 0, 0, 0.3);"></div>
             <div class="container mx-auto px-6 md:px-12 text-center section-content-on-video">
