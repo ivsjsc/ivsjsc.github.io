@@ -170,20 +170,19 @@
 <div class="bottom-nav md:hidden fixed bottom-0 left-0 w-full bg-neutral-800 shadow-t z-50">
     <div class="flex justify-around items-center h-16">
         <a href="/index.html" class="bottom-nav-item active">
-            <i class="fas fa-home fa-lg"></i>
-            <span class="bottom-nav-label" data-lang-key="nav_home">Home</span>
+            <i class="fas fa-home fa-2x"></i>
         </a>
         <a href="/solutions.html" class="bottom-nav-item">
-            <i class="fas fa-tools fa-lg"></i>
-            <span class="bottom-nav-label" data-lang-key="nav_solutions_short">Solutions</span>
+            <i class="fas fa-tools fa-2x"></i>
+        </a>
+        <a href="/news-archive.html" class="bottom-nav-item">
+            <i class="fas fa-newspaper fa-2x"></i>
         </a>
         <a href="/service.html" class="bottom-nav-item">
-            <i class="fas fa-trophy-alt"></i>
-            <span class="bottom-nav-label" data-lang-key="nav_service_short">Services</span>
+            <i class="fas fa-trophy-alt fa-2x"></i>
         </a>
         <a href="/service.html" class="bottom-nav-item">
-            <i class="fas fa-file-search"></i>
-            <span class="bottom-nav-label" data-lang-key="nav_gallery_short">Gallery</span>
+            <i class="fas fa-file-search fa-2x"></i>
         </a>
     </div>
 </div>
@@ -360,7 +359,23 @@
             console.warn("window.initializeLanguageButtons is not defined. Language buttons might not be fully functional.");
         }
     };
+    .bottom-nav-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff; /* Màu icon trắng, nổi bật trên nền tối */
+        transition: all 0.3s ease; /* Hiệu ứng chuyển đổi mượt mà */
+    }
 
+    .bottom-nav-item:hover,
+    .bottom-nav-item.active {
+        color: #3b82f6; /* Màu xanh IVS nổi bật khi hover hoặc active */
+        transform: scale(1.2); /* Phóng to nhẹ khi hover */
+    }
+
+    .bottom-nav-item i {
+        font-size: 1.5rem; /* Kích thước icon lớn hơn */
+    }
     // Ensure this function is called from loadComponents.js
     // window.initializeHeader(); // Do not call directly here; it will be called from loadComponents.js
 </script>
