@@ -62,6 +62,54 @@
         html.dark .testimonial-author { color: #f9fafb; }
         html.dark .check-list li { color: #d1d5db; }
         html.dark .check-list li strong { color: #f9fafb; }
+        .carousel-container {
+    position: relative;
+    overflow: hidden;
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            gap: 1rem;
+        }
+
+        .carousel-item {
+            flex: 0 0 100%;
+            box-sizing: border-box;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .carousel-btn.prev {
+            left: 0;
+        }
+
+        .carousel-btn.next {
+            right: 0;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .carousel-item {
+                flex: 0 0 100%;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-neutral-700 dark:text-gray-300 font-sans antialiased">
@@ -122,27 +170,17 @@
         </section>
 
         <section class="py-12 md:py-16 bg-neutral-100 dark:bg-gray-800/30 section-spacing">
-            <div class="container mx-auto px-4 max-w-5xl">
+            <div class="container mx-auto px-4 max-w-7xl">
                 <h2 class="text-3xl font-bold text-center text-neutral-800 dark:text-gray-100 mb-8 md:mb-12" data-aos="fade-up">
                     Giới thiệu KhaDock.com - Một Dự án Phát triển Website Nổi bật của IVS Celestech
                 </h2>
                 <p class="text-center text-neutral-600 dark:text-gray-400 mb-8 md:mb-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
                     Khám phá KhaDock.com, website chuyên nghiệp về thiết kế, xây dựng và cải tạo bến tàu tại Florida, Mỹ. Được phát triển bởi IVS Celestech, dự án này thể hiện sự kết hợp giữa công nghệ tiên tiến, tối ưu SEO, và thiết kế responsive, mang lại giá trị toàn cầu.
                 </p>
-                <div class="space-y-8">
-                    <!-- Hình ảnh 1: Trang Dự án (Projects) -->
-                    <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="200">
-                        <img src="/images/pages/webs/khadock-projects.jpg" alt="Trang Dự án KhaDock.com" class="rounded-lg w-full h-64 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Dự án - Hiển thị Chất lượng Công trình</h3>
-                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">
-                                Trang "Our Project Showcase" giới thiệu các bến tàu, cầu cảng và cấu trúc hàng hải độc đáo, phản ánh sự đa dạng và chất lượng từ KhaDock. Tích hợp hình ảnh chuyên nghiệp và bố cục trực quan.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Hình ảnh 2: Trang Chủ (Home) -->
-                    <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="300">
-                        <img src="/images/pages/webs/khadock-home.jpg" alt="Trang Chủ KhaDock.com" class="rounded-lg w-full h-64 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                <div class="flex flex-col md:flex-row gap-6">
+                    <!-- Hình ảnh lớn: Trang Chủ -->
+                    <div class="md:w-1/2 card overflow-hidden" data-aos="fade-right" data-aos-delay="200">
+                        <img src="/images/pages/webs/khadock-home.jpg" alt="Trang Chủ KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
                         <div class="p-4">
                             <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Chủ - Ấn tượng Ban Đầu</h3>
                             <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">
@@ -150,34 +188,53 @@
                             </p>
                         </div>
                     </div>
-                    <!-- Hình ảnh 3: Trang Dịch vụ (Services) -->
-                    <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="400">
-                        <img src="/images/pages/webs/khadock-services.jpg" alt="Trang Dịch vụ KhaDock.com" class="rounded-lg w-full h-64 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Dịch vụ - Giải pháp Toàn diện</h3>
-                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">
-                                Trang "Comprehensive Dock Services" liệt kê các dịch vụ như xây dựng, sửa chữa và cải tạo bến tàu, tối ưu hóa trải nghiệm người dùng với thiết kế responsive.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Hình ảnh 4: Trang Liên hệ (Contact) -->
-                    <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="500">
-                        <img src="/images/pages/webs/khadock-contact.jpg" alt="Trang Liên hệ KhaDock.com" class="rounded-lg w-full h-64 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Liên hệ - Kết nối Dễ dàng</h3>
-                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">
-                                Trang "Contact Information" cung cấp thông tin chi tiết (địa chỉ, điện thoại, email) và bản đồ, tích hợp Formspree cho đăng ký bản tin, đảm bảo tương tác hiệu quả.
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Hình ảnh 5: Trang Thiết kế (Design) -->
-                    <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="600">
-                        <img src="/images/pages/webs/khadock-design.jpg" alt="Trang Thiết kế KhaDock.com" class="rounded-lg w-full h-64 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Thiết kế - Định hướng Tương Lai</h3>
-                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">
-                                Trang "KhaDock's Design" giới thiệu tính năng AI Designer, do IVS Celestech phát triển, mang đến các ý tưởng thiết kế độc đáo cho khách hàng.
-                            </p>
+                    <!-- Carousel: Các hình ảnh khác -->
+                    <div class="md:w-1/2" data-aos="fade-left" data-aos-delay="300">
+                        <div class="carousel-container relative">
+                            <div class="carousel">
+                                <!-- Hình ảnh 1: Trang Dự án -->
+                                <div class="carousel-item card overflow-hidden">
+                                    <img src="/images/pages/webs/khadock-projects.jpg" alt="Trang Dự án KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4">
+                                    <div class="p-4">
+                                        <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Dự án - Hiển thị Chất lượng Công trình</h3>
+                                        <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">
+                                            Trang "Our Project Showcase" giới thiệu các bến tàu, cầu cảng và cấu trúc hàng hải độc đáo, phản ánh sự đa dạng và chất lượng từ KhaDock.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Hình ảnh 2: Trang Dịch vụ -->
+                                <div class="carousel-item card overflow-hidden">
+                                    <img src="/images/pages/webs/khadock-services.jpg" alt="Trang Dịch vụ KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4">
+                                    <div class="p-4">
+                                        <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Dịch vụ - Giải pháp Toàn diện</h3>
+                                        <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">
+                                            Trang "Comprehensive Dock Services" liệt kê các dịch vụ như xây dựng, sửa chữa và cải tạo bến tàu, tối ưu hóa trải nghiệm người dùng.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Hình ảnh 3: Trang Liên hệ -->
+                                <div class="carousel-item card overflow-hidden">
+                                    <img src="/images/pages/webs/khadock-contact.jpg" alt="Trang Liên hệ KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4">
+                                    <div class="p-4">
+                                        <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Liên hệ - Kết nối Dễ dàng</h3>
+                                        <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">
+                                            Trang "Contact Information" cung cấp thông tin chi tiết (địa chỉ, điện thoại, email) và bản đồ, tích hợp Formspree cho đăng ký bản tin.
+                                        </p>
+                                    </div>
+                                </div>
+                                <!-- Hình ảnh 4: Trang Thiết kế -->
+                                <div class="carousel-item card overflow-hidden">
+                                    <img src="/images/pages/webs/khadock-design.jpg" alt="Trang Thiết kế KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4">
+                                    <div class="p-4">
+                                        <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Thiết kế - Định hướng Tương Lai</h3>
+                                        <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">
+                                            Trang "KhaDock's Design" giới thiệu tính năng AI Designer, do IVS Celestech phát triển, mang đến các ý tưởng thiết kế độc đáo.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="carousel-btn prev">&larr;</button>
+                            <button class="carousel-btn next">&rarr;</button>
                         </div>
                     </div>
                 </div>
@@ -418,7 +475,33 @@
                     console.warn("loadComponentsAndInitialize is not defined. Ensure loadComponents.js is loaded correctly.");
                 }
             }, 500); // Small delay to ensure all deferred scripts are ready
-        });
+            document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.querySelector('.carousel');
+            const items = document.querySelectorAll('.carousel-item');
+            const prevBtn = document.querySelector('.carousel-btn.prev');
+            const nextBtn = document.querySelector('.carousel-btn.next');
+            let currentIndex = 0;
+
+            function updateCarousel() {
+                carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex > 0) ? currentIndex - 1 : items.length - 1;
+                updateCarousel();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex < items.length - 1) ? currentIndex + 1 : 0;
+                updateCarousel();
+            });
+
+            // Auto-slide every 5 seconds
+            setInterval(() => {
+                currentIndex = (currentIndex < items.length - 1) ? currentIndex + 1 : 0;
+                updateCarousel();
+            }, 5000);
+        });    
     </script>
     <button id="scrollToTopBtn"
             class="fixed bottom-5 right-5 z-50 flex items-center justify-center w-12 h-12 rounded-full bg-gray-700 text-white shadow-lg hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-100"
