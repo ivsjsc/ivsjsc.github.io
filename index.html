@@ -575,30 +575,44 @@
             }
             const posts = await response.json();
             
-            newsContainer.innerHTML = ''; 
+            newsContainer.innerHTML = ''; // Clear loading message
 
             if (posts && posts.length > 0) {
                 const latestPosts = posts.slice(0, 3); 
                 latestPosts.forEach(post => {
+                    // Xác định ngôn ngữ hiện tại, mặc định là 'vi' nếu không được đặt
+                    const currentLang = window.currentLang || 'vi';
+
+                    // Lấy tiêu đề và tóm tắt một cách an toàn, xử lý các đối tượng ngôn ngữ tiềm năng
+                    let displayTitle = post.title;
+                    if (typeof post.title === 'object' && post.title !== null) {
+                        displayTitle = post.title[currentLang] || post.title['vi'] || '';
+                    }
+
+                    let displaySummary = post.summary;
+                    if (typeof post.summary === 'object' && post.summary !== null) {
+                        displaySummary = post.summary[currentLang] || post.summary['vi'] || '';
+                    }
+
                     const postElement = document.createElement('div');
                     postElement.className = 'bg-white dark:bg-slate-800 dark:border-slate-700 p-6 rounded-lg shadow-md flex flex-col transition-transform duration-300 ease-in-out hover:scale-105';
                     postElement.setAttribute('data-aos', 'fade-up');
                     postElement.innerHTML = `
-                        <img src="${post.image || 'https://placehold.co/400x250/cccccc/333333?text=Tin+tức'}" alt="${post.title}" class="rounded-md mb-4 object-cover w-full h-48">
-                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">${post.title}</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">${post.date}</p>
-                        <p class="text-gray-700 dark:text-gray-300 mb-4 flex-grow">${post.summary}</p>
+                        <img src="${post.image || 'https://placehold.co/400x250/cccccc/333333?text=Tin+tức'}" alt="${displayTitle}" class="rounded-md mb-4 object-cover w-full h-48">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">${displayTitle}</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">${post.date || ''}</p>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4 flex-grow">${displaySummary}</p>
                         <a href="${post.link}" class="mt-auto text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500 font-medium">Đọc thêm <i class="fas fa-arrow-right ml-1"></i></a>
                     `;
                     newsContainer.appendChild(postElement);
                 });
             } else {
-                newsContainer.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center">Không có tin tức nào để hiển thị.</p>`;
+                newsContainer.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="no_news_available">Không có tin tức nào để hiển thị.</p>`;
             }
         } catch (error) {
             console.error('Error fetching or processing posts.json:', error);
             if (newsContainer) {
-                newsContainer.innerHTML = `<p class="text-red-500 dark:text-red-400 col-span-full text-center">Lỗi tải tin tức: ${error.message}. Vui lòng thử lại sau.</p>`;
+                newsContainer.innerHTML = `<p class="text-red-500 dark:text-red-400 col-span-full text-center" data-lang-key="news_load_error">Lỗi tải tin tức: ${error.message}. Vui lòng thử lại sau.</p>`;
             }
         }
     }
