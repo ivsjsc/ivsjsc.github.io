@@ -134,4 +134,37 @@ window.initializeLanguageSystem = async function() {
     logDebug(`Language system initialized with language: ${userPreferredLanguage}.`);
 };
 
-// No direct DOMContentLoaded listener here, as index.html will explicitly call window.initializeLanguageSystem()
+function initializeLanguageToggle() {
+  const containers = [
+    document.getElementById('language-toggle-container'),
+    document.getElementById('language-toggle-container-mobile')
+  ];
+
+  containers.forEach(container => {
+    if (!container) return;
+    
+    const buttons = container.querySelectorAll('[data-lang]');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const lang = button.dataset.lang;
+        // Remove active class from all buttons in both containers
+        containers.forEach(c => {
+          c.querySelectorAll('[data-lang]').forEach(b => {
+            b.classList.remove('active-lang');
+            b.setAttribute('aria-pressed', 'false');
+          });
+        });
+        // Add active class to clicked lang buttons in both containers
+        containers.forEach(c => {
+          const matchingButton = c.querySelector(`[data-lang="${lang}"]`);
+          if (matchingButton) {
+            matchingButton.classList.add('active-lang');
+            matchingButton.setAttribute('aria-pressed', 'true');
+          }
+        });
+        // Set language
+        window.setLanguage(lang);
+      });
+    });
+  });
+}
