@@ -12,12 +12,9 @@ async function loadComponent(placeholderId, filePath) {
             console.error(`[Script] Placeholder element with id '${placeholderId}' not found.`);
         }
 
-        if (placeholderId === 'header-placeholder') {
-            initializeHeader();
-        }
-        if (placeholderId === 'footer-placeholder') {
-            initializeFooter();
-        }
+        // The initialization functions are now called directly from onComponentsLoaded in index.html
+        // after all components are loaded, so we remove direct calls here to avoid double initialization
+        // or calling them before all necessary DOM elements are present.
 
     } catch (error) {
         console.error(`[Script] Error loading component from ${filePath}:`, error);
@@ -28,84 +25,53 @@ async function loadComponent(placeholderId, filePath) {
     }
 }
 
-async function loadComponentsAndInitialize(callback) {
+async function loadComponentsAndInitialize() {
     const HEADER_COMPONENT_URL = '/components/header.html';
     const FOOTER_COMPONENT_URL = '/components/footer.html';
 
     await loadComponent('header-placeholder', HEADER_COMPONENT_URL);
     await loadComponent('footer-placeholder', FOOTER_COMPONENT_URL);
-
-    // Call the callback function after all components are loaded and initialized
-    if (typeof callback === 'function') {
-        callback();
-    }
 }
 
-function initializeHeader() {
+// Make initializeHeader and initializeFooter globally accessible
+// These functions are now defined here and will be called by onComponentsLoaded in index.html
+window.initializeHeader = function() {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
-    // Changed to 'mobile-menu' to match the updated header.html
     const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuIconOpen = document.getElementById('icon-menu-open');
-    const mobileMenuIconClose = document.getElementById('icon-menu-close');
+    const mobileMenuIcon = mobileMenuButton ? mobileMenuButton.querySelector('i') : null;
 
-    if (mobileMenuButton && mobileMenu && mobileMenuIconOpen && mobileMenuIconClose) {
+    if (mobileMenuButton && mobileMenu && mobileMenuIcon) {
         mobileMenuButton.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.toggle('hidden');
-            mobileMenuButton.setAttribute('aria-expanded', String(!isHidden));
-
-            if (isHidden) {
-                mobileMenuIconOpen.classList.remove('hidden');
-                mobileMenuIconClose.classList.add('hidden');
-                // Close any open submenus when the main menu is closed
-                const openSubmenuContent = mobileMenu.querySelector('.mobile-submenu-content.max-h-full');
-                if (openSubmenuContent) {
-                    openSubmenuContent.classList.remove('max-h-full');
-                    openSubmenuContent.classList.add('max-h-0');
-                    const openSubmenuIcon = openSubmenuContent.previousElementSibling.querySelector('.mobile-submenu-icon');
-                    if (openSubmenuIcon) {
-                        openSubmenuIcon.classList.remove('rotate-180');
-                    }
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenuIcon.classList.remove('fa-times');
+                mobileMenuIcon.classList.add('fa-bars');
+                const openSubmenu = mobileMenu.querySelector('.mobile-submenu:not(.hidden)');
+                if(openSubmenu) openSubmenu.classList.add('hidden');
+                const openSubmenuIcon = mobileMenu.querySelector('.fa-chevron-up');
+                if(openSubmenuIcon) {
+                    openSubmenuIcon.classList.remove('fa-chevron-up');
+                    openSubmenuIcon.classList.add('fa-chevron-down');
                 }
             } else {
-                mobileMenuIconOpen.classList.add('hidden');
-                mobileMenuIconClose.classList.remove('hidden');
+                mobileMenuIcon.classList.remove('fa-bars');
+                mobileMenuIcon.classList.add('fa-times');
             }
         });
 
-        // Close mobile menu when a link inside it is clicked
         const mobileMenuLinks = mobileMenu.querySelectorAll('a');
         mobileMenuLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                // Prevent closing if the click is on a submenu toggle button
-                if (!e.target.closest('.mobile-submenu-toggle')) {
-                    if (!mobileMenu.classList.contains('hidden')) {
+                if (!e.target.closest('button[onclick*="toggleMobileSubmenu"]')) {
+                     if (!mobileMenu.classList.contains('hidden')) {
                         mobileMenu.classList.add('hidden');
-                        mobileMenuButton.setAttribute('aria-expanded', 'false');
-                        mobileMenuIconOpen.classList.remove('hidden');
-                        mobileMenuIconClose.classList.add('hidden');
-                    }
+                        mobileMenuIcon.classList.remove('fa-times');
+                        mobileMenuIcon.classList.add('fa-bars');
+                     }
                 }
             });
         });
     }
-
-    // Initialize mobile submenu toggles
-    const mobileSubmenuToggles = document.querySelectorAll('.mobile-submenu-toggle');
-    mobileSubmenuToggles.forEach(toggleButton => {
-        toggleButton.addEventListener('click', () => {
-            const submenuContent = toggleButton.nextElementSibling;
-            const icon = toggleButton.querySelector('.mobile-submenu-icon');
-
-            if (submenuContent && icon) {
-                const isExpanded = submenuContent.classList.toggle('max-h-0'); // Toggle max-height for smooth transition
-                submenuContent.classList.toggle('max-h-full', !isExpanded); // Use max-h-full for opened state
-
-                icon.classList.toggle('rotate-180');
-                toggleButton.setAttribute('aria-expanded', String(!isExpanded));
-            }
-        });
-    });
-
 
     const langViButton = document.getElementById('lang-vi');
     const langEnButton = document.getElementById('lang-en');
@@ -131,7 +97,8 @@ function initializeHeader() {
         langViButton.addEventListener('click', () => {
             localStorage.setItem('language', 'vi');
             setActiveLangButton('vi');
-            if (typeof updateLanguage === 'function') updateLanguage('vi');
+            // Call the global updateLanguage function from language.js
+            if (typeof window.updateLanguage === 'function') window.updateLanguage('vi');
             else location.reload();
         });
     }
@@ -140,7 +107,8 @@ function initializeHeader() {
         langEnButton.addEventListener('click', () => {
             localStorage.setItem('language', 'en');
             setActiveLangButton('en');
-             if (typeof updateLanguage === 'function') updateLanguage('en');
+            // Call the global updateLanguage function from language.js
+            if (typeof window.updateLanguage === 'function') window.updateLanguage('en');
             else location.reload();
         });
     }
@@ -173,10 +141,10 @@ function initializeHeader() {
     const isCurrentlyDark = document.documentElement.classList.contains('dark');
     updateToggleIcon(headerDarkModeToggle, isCurrentlyDark);
     updateToggleIcon(mobileHeaderDarkModeToggle, isCurrentlyDark);
-}
+};
 
-function initializeFooter() {
-    const currentYearSpan = document.getElementById('currentYearFooter'); // Corrected ID
+window.initializeFooter = function() {
+    const currentYearSpan = document.getElementById('current-year');
     if (currentYearSpan) {
       currentYearSpan.textContent = new Date().getFullYear();
     }
@@ -190,8 +158,14 @@ function initializeFooter() {
             e.preventDefault();
             const submitButton = newsletterForm.querySelector('button[type="submit"]');
             const originalButtonText = submitButton.textContent;
-
+            
+            // Ensure getTranslation is defined or accessed globally if needed
             const getTranslation = (key, fallback) => {
+                // Assuming language.js exposes getTranslation globally or it's handled differently
+                // For now, using a simple fallback if not available
+                if (typeof window.getTranslation === 'function') {
+                    return window.getTranslation(key) || fallback;
+                }
                 const langKey = key.replace(/_/g, '-') + '-text-key';
                 return submitButton.dataset[langKey] || fallback;
             };
@@ -240,11 +214,9 @@ function initializeFooter() {
             }
         });
     }
-}
+};
 
-
+// Expose loadComponentsAndInitialize to the global window object
 if (typeof window !== 'undefined') {
     window.loadComponentsAndInitialize = loadComponentsAndInitialize;
-    window.initializeHeader = initializeHeader;
-    window.initializeFooter = initializeFooter;
 }

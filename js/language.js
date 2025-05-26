@@ -1,9 +1,9 @@
-window.translations = {};
+window.translations = {}; 
 
 const defaultLanguage = 'vi';
-const languageStorageKey = 'userPreferredLanguage';
+const languageStorageKey = 'userPreferredLanguage'; 
 
-const isDebugMode = false;
+const isDebugMode = false; 
 
 function logDebug(message) {
     if (isDebugMode) {
@@ -75,6 +75,15 @@ window.getCurrentLanguage = () => {
     }
 };
 
+// This function will be called by initializeHeader in loadComponents.js
+window.updateLanguage = async (newLang) => {
+    logDebug(`Updating language to: ${newLang}`);
+    localStorage.setItem(languageStorageKey, newLang);
+    await fetchTranslations(newLang);
+    window.applyTranslations();
+    window.initializeLanguageButtons(); // Re-initialize buttons to set active state
+};
+
 const handleLanguageButtonClick = async (event) => {
     const selectedLanguage = event.target.dataset.lang;
     if (!selectedLanguage) {
@@ -95,42 +104,34 @@ const handleLanguageButtonClick = async (event) => {
 
 window.initializeLanguageButtons = () => {
     logDebug("Initializing language buttons...");
-    const langButtons = document.querySelectorAll('.lang-button');
+    const langButtons = document.querySelectorAll('.lang-button'); 
 
     if (langButtons.length === 0) {
         logWarning("No language buttons (.lang-button) found.");
         return;
     }
     langButtons.forEach(button => {
-        button.removeEventListener('click', handleLanguageButtonClick);
+        button.removeEventListener('click', handleLanguageButtonClick); // Prevent multiple listeners
         button.addEventListener('click', handleLanguageButtonClick);
     });
     logDebug(`Click events attached to ${langButtons.length} language buttons.`);
 };
 
-async function initializeLanguageSystem() {
-    if (window.languageInitialized) {
+// Expose initializeLanguageSystem to the global window object
+window.initializeLanguageSystem = async function() {
+    if (window.languageSystemInitialized) { // Use a flag to prevent re-initialization
         logDebug("Language system already initialized.");
         return;
     }
     logDebug("Initializing language system...");
-    window.languageInitialized = true;
-
+    window.languageSystemInitialized = true; 
+    
     const userPreferredLanguage = window.getCurrentLanguage();
     await fetchTranslations(userPreferredLanguage);
     window.applyTranslations();
-
+    window.initializeLanguageButtons(); // Initialize language buttons after translations are applied
+    
     logDebug(`Language system initialized with language: ${userPreferredLanguage}.`);
-}
+};
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeLanguageSystem);
-} else {
-    initializeLanguageSystem();
-}
-
-
-document.querySelectorAll('#language-toggle-container button').forEach(btn => {
-    btn.classList.remove('active-lang');
-});
-document.getElementById(`lang-${lang}`).classList.add('active-lang');
+// No direct DOMContentLoaded listener here, as index.html will explicitly call window.initializeLanguageSystem()
