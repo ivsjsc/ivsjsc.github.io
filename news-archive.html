@@ -127,9 +127,7 @@
                         </div>
                         <h3 class="text-xl font-semibold text-gray-700 mb-4" data-lang-key="public_services_feed_title">Tin tức từ Cổng Dịch vụ công</h3>
                         <div id="public-services-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <div class="skeleton-loader news-card p-4 rounded-lg shadow"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
-                            <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden md:flex md:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
-                            <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden lg:flex lg:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                            <p class="text-gray-500 col-span-full text-center" data-lang-key="loading_public_services_news">Đang tải tin tức dịch vụ công...</p>
                         </div>
                     </div>
                     <div id="education-news" class="tab-content hidden">
@@ -249,9 +247,11 @@
                     const targetTabId = button.dataset.tab;
                     document.getElementById(targetTabId).classList.remove('hidden');
 
-                    // Load news for the active tab if it's 'ivs-news' (assuming posts.json)
+                    // Load news for the active tab
                     if (targetTabId === 'ivs-news') {
                         fetchIvsNews();
+                    } else if (targetTabId === 'public-services-news') {
+                        fetchPublicServicesNews();
                     } else {
                         // For other tabs, just show skeleton or a message if no actual fetching is implemented
                         const container = document.getElementById(targetTabId).querySelector('.grid');
@@ -281,7 +281,7 @@
             `;
             try {
                 // Assuming posts.json is available at the root or a known path
-                const response = await fetch('/posts.json'); 
+                const response = await fetch(window.location.origin + '/posts.json'); 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -322,10 +322,99 @@
             }
         }
 
+        // Function to fetch Public Services news (mock data for demonstration)
+        async function fetchPublicServicesNews() {
+            const newsContainer = document.getElementById('public-services-rss-container');
+            if (!newsContainer) {
+                console.error("Public Services news container element not found.");
+                return;
+            }
+            // Clear existing content and show skeleton loaders
+            newsContainer.innerHTML = `
+                <div class="skeleton-loader news-card p-4 rounded-lg shadow"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden md:flex md:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden lg:flex lg:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+            `;
+            try {
+                // Mock data for public services news
+                const mockPublicServicesPosts = [
+                    {
+                        title: "Chính phủ đẩy mạnh chuyển đổi số dịch vụ công",
+                        summary: "Nhiều dịch vụ công trực tuyến được triển khai nhằm nâng cao hiệu quả và tiện ích cho người dân và doanh nghiệp.",
+                        link: "https://dichvucong.gov.vn/p/home/dvc-tin-tuc-chi-tiet.html?id=123",
+                        date: "15/05/2025",
+                        image: "https://placehold.co/400x250/4CAF50/ffffff?text=Chuyen+Doi+So"
+                    },
+                    {
+                        title: "Hướng dẫn mới về thủ tục đăng ký kinh doanh",
+                        summary: "Bộ Kế hoạch và Đầu tư ban hành hướng dẫn chi tiết về các bước đăng ký doanh nghiệp trực tuyến, rút ngắn thời gian xử lý.",
+                        link: "https://dangkykinhdoanh.gov.vn/vn/Pages/TinTuc/ChiTietTinTuc.aspx?id=456",
+                        date: "10/05/2025",
+                        image: "https://placehold.co/400x250/FFC107/333333?text=Dang+Ky+Kinh+Doanh"
+                    },
+                    {
+                        title: "Cải cách thủ tục hành chính trong lĩnh vực thuế",
+                        summary: "Tổng cục Thuế công bố các điểm mới trong quy trình nộp thuế điện tử, tạo điều kiện thuận lợi cho người nộp thuế.",
+                        link: "https://thuedientu.gdt.gov.vn/etaxnnt/Request?id=789",
+                        date: "01/05/2025",
+                        image: "https://placehold.co/400x250/2196F3/ffffff?text=Thue+Dien+Tu"
+                    }
+                ];
+                
+                newsContainer.innerHTML = ''; // Clear skeleton loaders
+
+                if (mockPublicServicesPosts && mockPublicServicesPosts.length > 0) {
+                    mockPublicServicesPosts.forEach(post => {
+                        const postElement = document.createElement('div');
+                        postElement.className = 'news-card p-6 rounded-lg shadow-md flex flex-col transition-transform duration-300 ease-in-out hover:scale-105';
+                        postElement.innerHTML = `
+                            <img src="${post.image || 'https://placehold.co/400x250/cccccc/333333?text=Tin+tức'}" alt="${post.title}" class="rounded-md mb-4 object-cover w-full h-48">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">${post.title}</h3>
+                            <p class="text-gray-600 text-sm mb-3">${post.date || ''}</p>
+                            <p class="text-gray-700 mb-4 flex-grow">${post.summary}</p>
+                            <a href="${post.link}" class="mt-auto text-blue-500 hover:text-blue-600 font-medium" target="_blank" rel="noopener noreferrer">Đọc thêm <i class="fas fa-arrow-right ml-1"></i></a>
+                        `;
+                        newsContainer.appendChild(postElement);
+                    });
+                } else {
+                    newsContainer.innerHTML = `<p class="text-gray-500 col-span-full text-center">Không có tin tức dịch vụ công nào để hiển thị.</p>`;
+                }
+            } catch (error) {
+                console.error('Error fetching or processing public services news:', error);
+                newsContainer.innerHTML = `<p class="text-red-500 col-span-full text-center">Lỗi tải tin tức dịch vụ công: ${error.message}. Vui lòng thử lại sau.</p>`;
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            initializePlaceholderComponents();
-            setupTabs();
+            initializeTheme(); 
+
+            if (typeof window.loadComponentsAndInitialize === 'function') {
+                window.loadComponentsAndInitialize().then(onComponentsLoaded).catch(error => {
+                    console.error("Error during loadComponentsAndInitialize:", error);
+                    onComponentsLoaded(); 
+                });
+            } else {
+                console.error("window.loadComponentsAndInitialize is not defined. Components might not load.");
+                onComponentsLoaded(); 
+            }
         });
+
+        const videoSection = document.querySelector('.video-background-section'); 
+        if (videoSection) {
+            const videoElement = videoSection.querySelector('.video-background-container video');
+            if (videoElement) {
+                videoElement.addEventListener('error', function() {
+                    console.warn('Background video failed to load. Displaying fallback.');
+                    if(videoElement.parentElement) {
+                        videoElement.parentElement.style.backgroundImage='url(https://placehold.co/1920x500/374151/ffffff?text=Video+Fallback+IVS)';
+                        videoElement.parentElement.style.backgroundSize='cover';
+                        videoElement.parentElement.style.backgroundPosition='center';
+                    }
+                    videoElement.style.display='none'; 
+                    videoSection.classList.add('video-failed-to-load'); 
+                });
+            }
+        }
     </script>
 </body>
 </html>
