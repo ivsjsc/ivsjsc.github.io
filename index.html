@@ -179,9 +179,9 @@
                         if (section) {
                             const imgTest = new Image();
                             imgTest.onerror = function() {
-                                section.style.backgroundImage = "url('/images/webbannermo.png')"; 
+                                section.style.backgroundImage = "url('/images/logo/webbannermo.png')"; 
                             };
-                            imgTest.src = '/images/webbannermo.png'; 
+                            imgTest.src = '/images/logo/webbannermo.png'; 
                             section.style.backgroundImage = `url('${imgTest.src}')`; 
                         }
                     }
@@ -374,7 +374,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="testimonial-card shadow-xl border border-blue-100 dark:border-gray-700" data-aos="zoom-in" data-aos-delay="100">
                         <i class="fas fa-quote-left text-3xl text-blue-500 dark:text-blue-400 mb-4"></i>
-                        <p class="text-gray-600 dark:text-gray-300 italic mb-4 flex-grow" data-lang-key="testimonial_1_text"> Phụ huynh: "Chương trình học tại IVS Academy linh động và thực tế. Có thể tinh chỉnh theo bất cứ nhu càu học tập, giảng dạy nào, nhờ Đội ngũ giảng viên cực kỳ chất lượng, và tư duy nhạy bén trong giáo dục. Con trai chúng Là con lai lần đầu tiên về Việt Nam, nhưng phải theo học chương trình đào tạo của trường mà cậu bé lớp 1 này đang theo học ở Mỹ để dạy bé trong vòng 3 tháng, điều đó thật tuyệt vời."</p>
+                        <p class="text-gray-600 dark:text-gray-300 italic mb-4 flex-grow" data-lang-key="testimonial_1_text"> Phụ huynh: "Chương trình học tại IVS Academy linh động và thực tế. Có thể tinh chỉnh theo bất cứ nhu càu học tập, giảng dạy nào, nhờ Đội ngũ giảng viên cực kỳ chất lượng, và tư duy nhạy bén trong giáo dục. Con trai chúng Là con lai lần đầu tiên về Việt Nam, nhưng phải theo học chương trình bên đó và IVS kết hợp với chương trình đào tạo của trường mà cậu bé lớp 1 này đang theo học ở Mỹ để dạy bé trong vòng 3 tháng, điều đó thật tuyệt vời."</p>
                         <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
                             <p class="font-semibold text-gray-700 dark:text-gray-200" data-lang-key="testimonial_1_name">Bé Thomas - Quốc tịch Mỹ</p>
                             <p class="text-sm text-gray-500 dark:text-gray-400" data-lang-key="testimonial_1_title">Học viên đặc biệt của IVS</p>
@@ -399,16 +399,12 @@
                      <div class="testimonial-card shadow-xl border border-blue-100 dark:border-gray-700" data-aos="zoom-in" data-aos-delay="400">
                         <i class="fas fa-quote-left text-3xl text-orange-500 dark:text-orange-400 mb-4"></i>
                         <p class="text-lg text-neutral-700 dark:text-gray-300 mb-4" data-lang-key="webdesign_testimonial1_text">"IVS Celestech đã vượt mong đợi của chúng tôi với một website chuyên nghiệp, hiện đại và tối ưu SEO. Rất hài lòng với dịch vụ!"</p>
-                        <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
-                            <p class="font-semibold text-gray-700 dark:text-gray-200" data-lang-key="webdesign_testimonial1_author">- Đại diện Công ty TNHH MTV ST</p>
-                        </div>
+                        <p class="testimonial-author text-primary-dark dark:text-blue-400" data-lang-key="webdesign_testimonial1_author">- Đại diện Công ty TNHH MTV ST</p>
                     </div>
                     <div class="testimonial-card shadow-xl border border-blue-100 dark:border-gray-700" data-aos="zoom-in" data-aos-delay="500">
                         <i class="fas fa-quote-left text-3xl text-teal-500 dark:text-teal-400 mb-4"></i>
                         <p class="text-lg text-neutral-700 dark:text-gray-300 mb-4" data-lang-key="webdesign_testimonial2_text">"The KhaDock.com website is optimized for UI and SEO, and the design was delivered extremely fast. Very professional. I will recommend IVS to my clients and partners in the US."</p>
-                        <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
-                            <p class="font-semibold text-gray-700 dark:text-gray-200" data-lang-key="webdesign_testimonial2_author">- Mr Kha - Founder & Director of KhaDock - Florida, USA.</p>
-                        </div>
+                        <p class="testimonial-author text-primary-dark dark:text-blue-400" data-lang-key="webdesign_testimonial2_author">- Mr Kha - Founder & Director of KhaDock - Florida, USA.</p>
                     </div>
                 </div>
             </div>
@@ -480,8 +476,74 @@
         }
     };
     
-    // Hàm này sẽ được gọi từ loadComponents.js sau khi FAB container được thêm vào DOM
-    // Do đó, không cần gọi lại initializeFabButtons() ở đây.
+    function initializeFabButtons() {
+        const fabElements = {
+            contactMainBtn: document.getElementById('contact-main-btn'),
+            contactOptions: document.getElementById('contact-options'),
+            shareMainBtn: document.getElementById('share-main-btn'),
+            shareOptions: document.getElementById('share-options'),
+            scrollToTopBtn: document.getElementById('scroll-to-top-btn')
+        };
+
+        if (!fabElements.contactMainBtn || !fabElements.contactOptions || !fabElements.shareMainBtn || !fabElements.shareOptions || !fabElements.scrollToTopBtn) {
+            console.warn("[script.js] One or more FAB elements not found. FAB functionality will be limited.");
+            return;
+        }
+
+        function toggleSubmenu(button, submenu) {
+            const isHidden = submenu.classList.contains('fab-hidden');
+            [fabElements.contactOptions, fabElements.shareOptions].forEach(menu => {
+                if (menu !== submenu && !menu.classList.contains('fab-hidden')) {
+                    menu.classList.add('fab-hidden');
+                    const associatedBtn = menu === fabElements.contactOptions ? fabElements.contactMainBtn : fabElements.shareMainBtn;
+                    associatedBtn.setAttribute('aria-expanded', 'false');
+                }
+            });
+            submenu.classList.toggle('fab-hidden');
+            button.setAttribute('aria-expanded', String(submenu.classList.contains('fab-hidden') ? 'false' : 'true'));
+            if (!submenu.classList.contains('fab-hidden')) {
+                const firstOption = submenu.querySelector('a');
+                if (firstOption) firstOption.focus();
+            } else {
+                button.focus();
+            }
+        }
+
+        fabElements.contactMainBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleSubmenu(fabElements.contactMainBtn, fabElements.contactOptions); });
+        fabElements.shareMainBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleSubmenu(fabElements.shareMainBtn, fabElements.shareOptions); });
+        
+        const pageUrl = window.location.href;
+        const pageTitle = document.title;
+        const shareFacebook = document.getElementById('share-facebook');
+        if(shareFacebook) { shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`; shareFacebook.target = '_blank';}
+        const shareZalo = document.getElementById('share-zalo');
+        if(shareZalo) { shareZalo.href = `https://zalo.me/share?text=${encodeURIComponent(pageTitle + " - " + pageUrl)}`; shareZalo.target = '_blank';}
+
+        document.addEventListener('click', (e) => {
+            if (!fabElements.contactOptions.classList.contains('fab-hidden') && !fabElements.contactMainBtn.contains(e.target) && !fabElements.contactOptions.contains(e.target)) {
+                fabElements.contactOptions.classList.add('fab-hidden'); fabElements.contactMainBtn.setAttribute('aria-expanded', 'false');
+            }
+            if (!fabElements.shareOptions.classList.contains('fab-hidden') && !fabElements.shareMainBtn.contains(e.target) && !fabElements.shareOptions.contains(e.target)) {
+                fabElements.shareOptions.classList.add('fab-hidden'); fabElements.shareMainBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                [fabElements.contactOptions, fabElements.shareOptions].forEach(menu => {
+                    if (!menu.classList.contains('fab-hidden')) {
+                        menu.classList.add('fab-hidden');
+                        const associatedBtn = menu === fabElements.contactOptions ? fabElements.contactMainBtn : fabElements.shareMainBtn;
+                        associatedBtn.setAttribute('aria-expanded', 'false'); associatedBtn.focus();
+                    }
+                });
+            }
+        });
+        window.addEventListener('scroll', () => {
+            fabElements.scrollToTopBtn.classList.toggle('fab-hidden', window.pageYOffset <= 100);
+            fabElements.scrollToTopBtn.classList.toggle('flex', window.pageYOffset > 100);
+        }, { passive: true });
+        fabElements.scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
 
     function initializeTheme() {
         const savedTheme = localStorage.getItem('theme');
@@ -493,23 +555,84 @@
         }
     }
 
-    // Callback function được gọi sau khi các components chính đã tải và khởi tạo
-    window.onPageComponentsLoadedCallback = function() {
-        console.log("onPageComponentsLoadedCallback executed. Initializing news loader.");
+    function onComponentsLoaded() {
+        console.log("Components loaded. Attempting to initialize header, footer, and other scripts...");
+        if (typeof window.initializeHeader === 'function') {
+            const headerContent = document.getElementById('header-placeholder').innerHTML;
+            if (headerContent.includes('nav-header')) { 
+                console.log("Header already initialized by new script or present. Skipping re-initialization by onComponentsLoaded.");
+            } else {
+                window.initializeHeader();
+            }
+        } else {
+            console.error("window.initializeHeader is not defined in onComponentsLoaded context.");
+        }
+        if (typeof window.initializeFooter === 'function') {
+            window.initializeFooter();
+        } else {
+            console.error("window.initializeFooter is not defined.");
+        }
+        
+        initializeFabButtons(); 
+        if (typeof window.initializeLanguageSystem === 'function') {
+            window.initializeLanguageSystem();
+        } else {
+            console.error("window.initializeLanguageSystem is not defined.");
+        }
         initializeNewsLoader(); 
-    };
+    }
 
     document.addEventListener('DOMContentLoaded', function() {
         initializeTheme(); 
 
-        // loadComponents.js sẽ tự động tải header, footer và fab container
-        // và gọi các hàm khởi tạo tương ứng.
-        // Không cần gọi fetch('/components/header.html') ở đây nữa.
+        console.log("Attempting to load header with new fetch script...");
+        fetch('/components/header.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} for /components/header.html`);
+                }
+                return response.text();
+            })
+            .then(data => {
+                const placeholder = document.getElementById('header-placeholder');
+                if (placeholder) {
+                    placeholder.innerHTML = data;
+                    console.log("Header HTML injected.");
 
-        // Không cần gọi window.loadHeaderFooterAndFab() ở đây.
-        // loadComponents.js đã có logic để tự gọi nó khi DOMContentLoaded.
-        // Việc này tránh race condition.
-        console.log("index.html DOMContentLoaded: Relying on loadComponents.js for component loading.");
+                    if (typeof window.initializeHeader === 'function') {
+                        console.log("Calling window.initializeHeader() from new script.");
+                        window.initializeHeader();
+                    } else {
+                        console.warn('window.initializeHeader from header.html component script not found or not executed yet.');
+                    }
+                    if (typeof window.initializeLanguageButtons === 'function') {
+                        console.log("Calling window.initializeLanguageButtons() from new script.");
+                        window.initializeLanguageButtons();
+                    } else {
+                        console.warn('window.initializeLanguageButtons from header.html component script not found or not executed yet.');
+                    }
+                } else {
+                    console.error('Header placeholder (#header-placeholder) not found in index.html.');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching or initializing header with new script:', error);
+                const placeholder = document.getElementById('header-placeholder');
+                if (placeholder) {
+                    placeholder.innerHTML = '<p style="color: red; text-align: center;">Lỗi tải menu đầu trang. Vui lòng kiểm tra console.</p>';
+                }
+            });
+
+        if (typeof window.loadComponentsAndInitialize === 'function') {
+            console.log("Calling window.loadComponentsAndInitialize()...");
+            window.loadComponentsAndInitialize().then(onComponentsLoaded).catch(error => {
+                console.error("Error during loadComponentsAndInitialize:", error);
+                onComponentsLoaded(); 
+            });
+        } else {
+            console.error("window.loadComponentsAndInitialize is not defined. Old components might not load.");
+            onComponentsLoaded(); 
+        }
     });
 
     async function fetchPosts() {
@@ -519,8 +642,7 @@
             return;
         }
         try {
-            // Đảm bảo đường dẫn tới posts.json là chính xác bằng cách sử dụng window.location.origin
-            const response = await fetch(window.location.origin + '/posts.json'); 
+            const response = await fetch(window.location.origin + '/posts.json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
