@@ -65,12 +65,40 @@ function initializeHeaderInternal() {
         mobileMenuButton.addEventListener('click', () => {
             const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
             mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
-            mobileMenuPanel.classList.toggle('hidden');
-            iconMenuOpen.classList.toggle('hidden');
-            iconMenuClose.classList.toggle('hidden');
+            mobileMenuPanel.classList.toggle('active'); // Toggles 'active' class
+            iconMenuOpen.classList.toggle('hidden'); // Toggles 'hidden' class
+            iconMenuClose.classList.toggle('hidden'); // Toggles 'hidden' class
             document.body.classList.toggle('overflow-hidden', !isExpanded);
         });
+
+        // Close menu when clicking outside the mobile menu panel
+        mobileMenuPanel.addEventListener('click', function(e) {
+            if (e.target === mobileMenuPanel) {
+                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                if (isExpanded) { // Only toggle if currently open
+                    mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
+                    mobileMenuPanel.classList.toggle('active');
+                    iconMenuOpen.classList.toggle('hidden');
+                    iconMenuClose.classList.toggle('hidden');
+                    document.body.classList.toggle('overflow-hidden', !isExpanded);
+                }
+            }
+        });
+
+        // Close menu when Escape key is pressed
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileMenuPanel.classList.contains('active')) {
+                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
+                mobileMenuPanel.classList.toggle('active');
+                iconMenuOpen.classList.toggle('hidden');
+                iconMenuClose.classList.toggle('hidden');
+                document.body.classList.toggle('overflow-hidden', !isExpanded);
+                mobileMenuButton.focus(); // Return focus to the button
+            }
+        });
     }
+
     const mobileSubmenuToggles = mainHeader.querySelectorAll('.mobile-submenu-toggle');
     mobileSubmenuToggles.forEach(toggle => {
         const submenuContent = document.getElementById(toggle.getAttribute('aria-controls'));
@@ -99,6 +127,7 @@ function initializeHeaderInternal() {
             });
         }
     });
+
     const desktopNavGroups = mainHeader.querySelectorAll('nav.hidden.md\\:flex .group');
     desktopNavGroups.forEach(group => {
         const button = group.querySelector('button[aria-haspopup="true"]');
@@ -121,11 +150,7 @@ function initializeHeaderInternal() {
             });
         }
     });
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && mobileMenuPanel && !mobileMenuPanel.classList.contains('hidden')) {
-            mobileMenuButton.click(); 
-        }
-    });
+    
     headerInitialized = true;
     componentLog("Header (Tailwind) initialized successfully.");
 }
