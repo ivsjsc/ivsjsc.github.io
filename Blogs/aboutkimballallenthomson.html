@@ -3,650 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hồ Sơ Kimball Allen Thomson</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Ông Kimball Allen Thomson - IVS JSC</title>
+    <meta name="description" content="Tìm hiểu về Ông Kimball Allen Thomson, Đối tác Giáo dục và Cộng đồng của IVS JSC từ Hoa Kỳ.">
+    <meta name="keywords" content="Kimball Allen Thomson, IVS JSC, đối tác giáo dục, Hoa Kỳ, cộng đồng">
+    <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio,line-clamp"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* light blue-gray */
+            color: #334155; /* slate-700 */
         }
+        .text-primary { color: #004080; }
+        .bg-primary { background-color: #004080; }
+        .text-secondary { color: #ffc107; }
+        .bg-secondary { background-color: #ffc107; }
+        .hover\:bg-primary-dark:hover { background-color: #003366; }
+        .section-padding { padding-top: 4rem; padding-bottom: 4rem; } /* py-16 */
+        .container-padding { padding-left: 1.5rem; padding-right: 1.5rem; } /* px-6 */
         @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
+            .container-padding { padding-left: 3rem; padding-right: 3rem; } /* md:px-12 */
         }
-        .nav-link {
-            padding: 0.75rem 1rem;
-            border-radius: 0.375rem;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            cursor: pointer;
-        }
-        .nav-link.active, .nav-link:hover {
-            background-color: #0284c7; 
-            color: white;
-        }
-        .job-card {
-            cursor: pointer;
-            transition: background-color 0.2s ease-in-out;
-        }
-        .job-card.active, .job-card:hover {
-            background-color: #e0f2fe; 
-        }
-        .content-section { display: none; }
-        .content-section.active { display: block; }
-        .job-list::-webkit-scrollbar { width: 8px; }
-        .job-list::-webkit-scrollbar-track { background: #f1f5f9; }
-        .job-list::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
-        .job-list::-webkit-scrollbar-thumb:hover { background: #64748b; }
-        .ai-button {
-            background-color: #0ea5e9; 
-            color: white;
-            font-weight: 600; 
-            padding-top: 0.5rem; 
-            padding-bottom: 0.5rem; 
-            padding-left: 1rem; 
-            padding-right: 1rem; 
-            border-radius: 0.5rem; 
-            transition-property: background-color;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            transition-duration: 150ms;
-            margin-bottom: 0.5rem; 
-            margin-right: 0.5rem;
-        }
-        .ai-button:hover {
-            background-color: #0284c7; 
-        }
-        .ai-button:disabled {
-            background-color: #94a3b8; 
-            cursor: not-allowed;
-        }
-        .lang-switcher button {
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            font-weight: 500;
-        }
-        .lang-switcher button.active {
-            background-color: #0284c7;
-            color: white;
-        }
-        .lang-switcher button:not(.active) {
-            background-color: #e0f2fe;
-            color: #0369a1;
-        }
-         .lang-switcher button:not(.active):hover {
-            background-color: #bae6fd;
-        }
-        .ai-output-box {
-            text-slate-700 p-3 bg-sky-50 rounded-md min-h-[50px] border border-sky-100 mt-2;
+        @media (min-width: 1024px) {
+            .container-padding { padding-left: 6rem; padding-right: 6rem; } /* lg:px-24 */
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body class="flex flex-col min-h-screen">
+    <header id="header-placeholder"></header>
 
-    <header class="bg-white shadow-md sticky top-0 z-50">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <span data-translate-key="profileName" class="font-bold text-xl text-sky-600">Kimball Allen Thomson</span>
-                </div>
-                <div class="hidden md:flex items-center space-x-4">
-                    <a data-translate-key="navOverview" href="#tong-quan" class="nav-link">Tổng Quan</a>
-                    <a data-translate-key="navProfile" href="#ho-so" class="nav-link">Hồ Sơ Chuyên Môn</a>
-                    <a data-translate-key="navExperience" href="#kinh-nghiem" class="nav-link">Kinh Nghiệm</a>
-                    <a data-translate-key="navWorks" href="#tac-pham" class="nav-link">Tác Phẩm</a>
-                    <div class="lang-switcher flex space-x-2 ml-4">
-                        <button id="lang-vi" data-lang="vi">Tiếng Việt</button>
-                        <button id="lang-en" data-lang="en">English</button>
-                    </div>
-                </div>
-                <div class="md:hidden flex items-center">
-                     <div class="lang-switcher flex space-x-1 mr-2">
-                        <button id="lang-vi-mobile" data-lang="vi" class="text-xs px-2 py-1">VI</button>
-                        <button id="lang-en-mobile" data-lang="en" class="text-xs px-2 py-1">EN</button>
-                    </div>
-                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-white hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                        <span data-translate-key="srOpenMenu" class="sr-only">Mở menu chính</span>
-                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </nav>
-        <div id="mobile-menu" class="md:hidden hidden">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a data-translate-key="navOverviewMobile" href="#tong-quan" class="nav-link block">Tổng Quan</a>
-                <a data-translate-key="navProfileMobile" href="#ho-so" class="nav-link block">Hồ Sơ Chuyên Môn</a>
-                <a data-translate-key="navExperienceMobile" href="#kinh-nghiem" class="nav-link block">Kinh Nghiệm</a>
-                <a data-translate-key="navWorksMobile" href="#tac-pham" class="nav-link block">Tác Phẩm</a>
-            </div>
-        </div>
-    </header>
-
-    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
-        
-        <section id="tong-quan" class="content-section pt-8">
-            <h2 data-translate-key="overviewTitle" class="text-3xl font-bold text-sky-700 mb-6">Tổng Quan về Kimball Allen Thomson</h2>
-            <div class="space-y-4 text-lg leading-relaxed bg-white p-6 rounded-lg shadow">
-                <p data-translate-key="overviewIntro1">Phần này cung cấp một cái nhìn tổng quan về sự nghiệp của ông Kimball Allen Thomson, tập trung vào các vai trò lãnh đạo chủ chốt và sự phát triển trong định hướng chuyên môn của ông. Từ việc dẫn dắt các tổ chức trong ngành khoa học đời sống và tư vấn chiến lược, đến dự án hiện tại khám phá sức mạnh của nguồn cảm hứng, ông Thomson đã thể hiện một cam kết lâu dài đối với sự tăng trưởng và thay đổi mang tính chuyển đổi.</p>
-                <p data-translate-key="overviewIntro2">Sự nghiệp của ông cho thấy một sự tiến triển từ việc xây dựng các cấu trúc ngành và doanh nghiệp cụ thể sang khám phá các yếu tố nhân văn sâu sắc hơn. Xuyên suốt hành trình này, ông luôn tận dụng bộ kỹ năng đa dạng về lãnh đạo, chiến lược và giao tiếp, cùng với nền tảng học vấn độc đáo kết hợp kinh doanh với khoa học xã hội và nhân văn.</p>
+    <main class="flex-grow">
+        <section class="bg-primary text-white py-20 text-center rounded-b-3xl shadow-lg">
+            <div class="container mx-auto container-padding">
+                <h1 class="text-5xl font-extrabold mb-4" data-lang-key="kimball_hero_title">Ông Kimball Allen Thomson</h1>
+                <p class="text-xl max-w-3xl mx-auto" data-lang-key="kimball_hero_subtitle">
+                    Đối tác Giáo dục và Cộng đồng của IVS JSC từ Hoa Kỳ.
+                </p>
             </div>
         </section>
 
-        <section id="ho-so" class="content-section pt-8">
-            <h2 data-translate-key="profileTitle" class="text-3xl font-bold text-sky-700 mb-6">Hồ Sơ Chuyên Môn</h2>
-            <div class="bg-white p-6 rounded-lg shadow mb-8">
-                <h3 data-translate-key="educationTitle" class="text-2xl font-semibold text-sky-600 mb-4">Nền Tảng Học Vấn</h3>
-                <p data-translate-key="educationIntro" class="mb-4 text-lg">Ông Kimball Allen Thomson sở hữu một nền tảng học vấn vững chắc, kết hợp kiến thức kinh doanh với hiểu biết sâu sắc về khoa học xã hội và nhân văn, tạo tiền đề cho các vai trò lãnh đạo đòi hỏi tư duy có tầm nhìn và khả năng thực thi thực tế.</p>
-                <ul class="list-disc list-inside space-y-2 text-slate-700 text-lg">
-                    <li data-translate-key="educationMBA">Thạc sĩ Quản trị Kinh doanh (MBA) - Đại học Brigham Young.</li>
-                    <li data-translate-key="educationBA">Cử nhân Nghệ thuật (BA) chuyên ngành Văn học So sánh & Kinh tế Chính trị - Đại học California, Berkeley.</li>
-                </ul>
-            </div>
-
-            <div class="bg-white p-6 rounded-lg shadow">
-                <h3 data-translate-key="skillsTitle" class="text-2xl font-semibold text-sky-600 mb-4">Kỹ Năng Chính</h3>
-                <p data-translate-key="skillsIntro" class="mb-6 text-lg">Ông Thomson sở hữu một bộ kỹ năng đa dạng, phản ánh kinh nghiệm sâu rộng trong việc xây dựng, phát triển và quản lý các tổ chức và dự án. Biểu đồ dưới đây phân loại các kỹ năng chính của ông.</p>
-                <div class="chart-container">
-                    <canvas id="skillsChart"></canvas>
-                </div>
-                <div class="mt-6">
-                    <p data-translate-key="skillsDetailListTitle" class="text-md text-slate-600 font-semibold">Danh sách kỹ năng chi tiết:</p>
-                    <p data-translate-key="skillsDetailListContent" class="text-sm text-slate-500">Quan hệ công chúng, Chiến lược, Tiếp thị, Khởi nghiệp, Chiến lược kinh doanh, Hoạch định chiến lược, Diễn thuyết trước công chúng, Quan hệ đối tác chiến lược, Truyền thông xã hội, Vốn đầu tư mạo hiểm, Truyền thông tiếp thị, Kế hoạch kinh doanh, Phát triển kinh doanh, Quản lý điều hành, Sáp nhập & Mua lại (M&A), Quản lý Lãi & Lỗ (P&L), và Tư vấn quản lý.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="kinh-nghiem" class="content-section pt-8">
-            <h2 data-translate-key="experienceTitle" class="text-3xl font-bold text-sky-700 mb-6">Kinh Nghiệm Làm Việc</h2>
-            <p data-translate-key="experienceIntro" class="mb-6 text-lg bg-white p-6 rounded-lg shadow">Khám phá chi tiết các vai trò chuyên môn chính của ông Kimball Allen Thomson. Nhấp vào một mục trong danh sách bên dưới để xem thông tin chi tiết về từng vị trí. Bạn cũng có thể sử dụng các tính năng AI để tạo tóm tắt điểm nổi bật hoặc nhận gợi ý phát triển từ vai trò này.</p>
-            <div class="md:flex md:space-x-6">
-                <div class="md:w-1/3 bg-white p-4 rounded-lg shadow mb-6 md:mb-0 max-h-[600px] overflow-y-auto job-list">
-                    <h3 data-translate-key="experienceSelectRole" class="text-xl font-semibold text-sky-600 mb-3">Chọn một vai trò:</h3>
-                    <div id="job-list-container" class="space-y-2">
+        <section class="section-padding bg-white shadow-md my-8 mx-auto max-w-7xl rounded-xl">
+            <div class="container mx-auto container-padding">
+                <div class="flex flex-col md:flex-row items-center md:space-x-8">
+                    <div class="md:w-1/3 mb-6 md:mb-0">
+                        <img src="https://placehold.co/400x400/d1d5db/4b5563?text=Kimball+Allen+Thomson" alt="Ông Kimball Allen Thomson" class="rounded-full w-64 h-64 object-cover mx-auto shadow-lg border-4 border-primary">
                     </div>
-                </div>
-                <div class="md:w-2/3 bg-white p-6 rounded-lg shadow min-h-[400px]">
-                    <div id="job-details-container">
-                        <p data-translate-key="experienceSelectPrompt" class="text-slate-500 text-center py-10">Vui lòng chọn một vai trò từ danh sách để xem chi tiết.</p>
+                    <div class="md:w-2/3 text-center md:text-left">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2" data-lang-key="kimball_name_heading">Ông Kimball Allen Thomson</h2>
+                        <p class="text-xl text-secondary mb-4" data-lang-key="kimball_position">Đối tác Giáo dục, Cộng đồng từ Hoa Kỳ</p>
+                        <p class="text-lg text-gray-700 leading-relaxed mb-4" data-lang-key="kimball_intro_short">
+                            Ông Kimball Allen Thomson là một đối tác chiến lược quan trọng của IVS JSC, mang đến kinh nghiệm sâu rộng từ hệ thống giáo dục và cộng đồng tại Hoa Kỳ. Với nền tảng học vấn vững chắc và hơn 25 năm kinh nghiệm trong nhiều lĩnh vực, ông đóng góp vào việc phát triển các chương trình chất lượng cao và thúc đẩy sự phát triển bền vững trong cộng đồng giáo dục toàn cầu.
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="tac-pham" class="content-section pt-8">
-            <h2 data-translate-key="worksTitle" class="text-3xl font-bold text-sky-700 mb-6">Tác Phẩm và Ấn Phẩm</h2>
-            <div class="bg-white p-6 rounded-lg shadow">
-                <p data-translate-key="worksIntro" class="mb-6 text-lg">Ông Kimball Allen Thomson đã đóng góp nhiều bài viết và sách trong suốt sự nghiệp của mình, thể hiện chuyên môn và tư duy lãnh đạo. Các tác phẩm này không chỉ phản ánh kinh nghiệm của ông mà còn góp phần định hình câu chuyện kinh tế của tiểu bang Utah.</p>
-                <ul id="works-list-container" class="space-y-3">
-                </ul>
+        <section class="section-padding bg-gray-100 shadow-md my-8 mx-auto max-w-7xl rounded-xl">
+            <div class="container mx-auto container-padding">
+                <h2 class="text-4xl font-bold text-primary mb-8 text-center" data-lang-key="kimball_professional_background_title">Nền Tảng Chuyên Môn</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4" data-lang-key="kimball_education_title">Học Vấn</h3>
+                        <ul class="text-lg text-gray-700 space-y-2 list-disc list-inside">
+                            <li data-lang-key="kimball_education_mba">Thạc sĩ Quản trị Kinh doanh (MBA) - Đại học Brigham Young.</li>
+                            <li data-lang-key="kimball_education_ba">Cử nhân Nghệ thuật (BA) chuyên ngành Văn học So sánh & Kinh tế Chính trị - Đại học California, Berkeley.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-4" data-lang-key="kimball_skills_title">Kỹ Năng Chính</h3>
+                        <p class="text-lg text-gray-700 mb-4" data-lang-key="kimball_skills_intro">
+                            Ông Thomson sở hữu bộ kỹ năng đa dạng, phản ánh kinh nghiệm sâu rộng trong việc xây dựng, phát triển và quản lý các tổ chức và dự án.
+                        </p>
+                        <ul class="text-lg text-gray-700 space-y-2 list-disc list-inside">
+                            <li data-lang-key="kimball_skill_1">Quan hệ công chúng & Truyền thông tiếp thị</li>
+                            <li data-lang-key="kimball_skill_2">Chiến lược kinh doanh & Hoạch định chiến lược</li>
+                            <li data-lang-key="kimball_skill_3">Khởi nghiệp & Phát triển kinh doanh</li>
+                            <li data-lang-key="kimball_skill_4">Quản lý điều hành & Quản lý Lãi & Lỗ (P&L)</li>
+                            <li data-lang-key="kimball_skill_5">Quan hệ đối tác chiến lược & Tư vấn quản lý</li>
+                            <li data-lang-key="kimball_skill_6">Sáp nhập & Mua lại (M&A)</li>
+                            <li data-lang-key="kimball_skill_7">Diễn thuyết trước công chúng & Truyền thông xã hội</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bg-white shadow-md my-8 mx-auto max-w-7xl rounded-xl">
+            <div class="container mx-auto container-padding">
+                <h2 class="text-4xl font-bold text-primary mb-8 text-center" data-lang-key="kimball_work_experience_title">Kinh Nghiệm Làm Việc</h2>
+                <div class="space-y-8">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2" data-lang-key="exp_inspire_org">The Power to Inspire</h3>
+                        <p class="text-lg text-secondary mb-1" data-lang-key="exp_inspire_role">Nhà Sáng lập & CEO</p>
+                        <p class="text-sm text-gray-600 mb-3" data-lang-key="exp_inspire_dates">Hiện tại (từ tháng 2/2024) - Salt Lake, Hoa Kỳ</p>
+                        <p class="text-gray-700 leading-relaxed" data-lang-key="exp_inspire_summary">
+                            Tập trung vào nghệ thuật và khoa học của nguồn cảm hứng, cách cá nhân được truyền cảm hứng và truyền cảm hứng cho người khác để thúc đẩy sự thay đổi mang tính chuyển đổi. Nền tảng Substack (@thepowertoinspire) khám phá cách nguồn cảm hứng thúc đẩy sự thay đổi trong cuộc sống, tổ chức, cộng đồng và văn hóa.
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2" data-lang-key="exp_bioutah_org">BIOUTAH</h3>
+                        <p class="text-lg text-secondary mb-1" data-lang-key="exp_bioutah_role">Nhà Sáng lập, Chủ tịch & CEO</p>
+                        <p class="text-sm text-gray-600 mb-3" data-lang-key="exp_bioutah_dates">Tháng 11/2012 – khoảng 2015 - Salt Lake, Hoa Kỳ</p>
+                        <p class="text-gray-700 leading-relaxed" data-lang-key="exp_bioutah_summary">
+                            Sáng lập và lãnh đạo hiệp hội khoa học đời sống của Utah, đại diện cho các công ty thiết bị y tế, dược phẩm sinh học, và các ngành liên quan. Hiệp hội này đã thu hút hơn 80 tổ chức hỗ trợ trong năm đầu tiên, tối đa hóa vị thế của Utah như một nam châm thu hút vốn, nhân tài và các công ty mang tính chuyển đổi.
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2" data-lang-key="exp_synaptic_org">Synaptic Strategy Group</h3>
+                        <p class="text-lg text-secondary mb-1" data-lang-key="exp_synaptic_role">Chủ tịch & CEO</p>
+                        <p class="text-sm text-gray-600 mb-3" data-lang-key="exp_synaptic_dates">Không rõ cụ thể (bối cảnh sự nghiệp tổng thể hơn 25 năm) - Salt Lake City, UT</p>
+                        <p class="text-gray-700 leading-relaxed" data-lang-key="exp_synaptic_summary">
+                            Công ty tư vấn quản lý và quan hệ công chúng, tập trung vào kết nối và chiến lược tích hợp. Tên gọi 'Synaptic' gợi ý sự tập trung vào kết nối, giao tiếp và chiến lược tích hợp.
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2" data-lang-key="exp_nextphase_org">Next Phase Communications</h3>
+                        <p class="text-lg text-secondary mb-1" data-lang-key="exp_nextphase_role">Chủ tịch & CEO</p>
+                        <p class="text-sm text-gray-600 mb-3" data-lang-key="exp_nextphase_dates">Khoảng 2007 (thời điểm sách "Utah, Life Elevated") - Salt Lake City, UT</p>
+                        <p class="text-gray-700 leading-relaxed" data-lang-key="exp_nextphase_summary">
+                            Công ty dịch vụ đầy đủ về quan hệ công chúng và tiếp thị, hỗ trợ khách hàng từ startup đến Ngân hàng Thế giới. Cung cấp chuyên môn về truyền thông, tiếp thị và chiến lược phát triển kinh doanh.
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-2" data-lang-key="exp_editorial_org">Nhiều Ấn Phẩm</h3>
+                        <p class="text-lg text-secondary mb-1" data-lang-key="exp_editorial_role">Đồng sáng lập, Nhà xuất bản, Tổng biên tập, Biên tập viên</p>
+                        <p class="text-sm text-gray-600 mb-3" data-lang-key="exp_editorial_dates">Khoảng 2004-2006 - Utah</p>
+                        <p class="text-gray-700 leading-relaxed" data-lang-key="exp_editorial_summary">
+                            Kinh nghiệm biên tập và xuất bản sâu rộng, đóng góp vào các ấn phẩm kinh doanh và công nghệ của Utah, bao gồm Digital iQ magazine (Đồng sáng lập, Nhà xuất bản & Tổng biên tập), Business Utah (Biên tập viên), và Utah Business magazine (Biên tập viên đóng góp).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bg-gray-100 my-8 mx-auto max-w-7xl rounded-xl">
+            <div class="container mx-auto container-padding">
+                <h2 class="text-4xl font-bold text-primary mb-8 text-center" data-lang-key="kimball_publications_title">Tác Phẩm và Ấn Phẩm</h2>
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2" data-lang-key="pub_utah_elevated_title">"Utah, Life Elevated" (sách bìa cứng, 2007)</h3>
+                        <p class="text-gray-700" data-lang-key="pub_utah_elevated_desc">Cuốn sách phát triển kinh tế chính thức của tiểu bang Utah.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2" data-lang-key="pub_light_clouds_title">"Light through the clouds: tech companies seeing vibrant futures..." (bài báo kỹ thuật số)</h3>
+                        <p class="text-gray-700" data-lang-key="pub_light_clouds_desc">Bài báo từ Utah Business, tập trung vào lĩnh vực công nghệ của Utah.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2" data-lang-key="pub_jeanette_herbert_title">Bài báo về Jeanette Herbert, Đệ nhất Phu nhân Utah (2012)</h3>
+                        <p class="text-gray-700" data-lang-key="pub_jeanette_herbert_desc">Xuất bản trên "Business In Utah - 2012".</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2" data-lang-key="pub_data_book_title">Sách Dữ liệu Utah chính thức hàng năm</h3>
+                        <p class="text-gray-700" data-lang-key="pub_data_book_desc">Đóng góp trong nhiều năm.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bg-primary text-white text-center rounded-xl shadow-lg my-8 mx-auto max-w-7xl">
+            <div class="container mx-auto container-padding">
+                <h2 class="text-4xl font-bold mb-6" data-lang-key="kimball_cta_title">Bạn muốn tìm hiểu thêm về các đối tác quốc tế của IVS?</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-8" data-lang-key="kimball_cta_subtitle">
+                    Hãy liên hệ với chúng tôi để khám phá những cơ hội hợp tác và phát triển cùng IVS JSC.
+                </p>
+                <a href="/contact.html" class="inline-block bg-secondary hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md" data-lang-key="kimball_cta_button">
+                    Liên Hệ Ngay
+                </a>
             </div>
         </section>
     </main>
 
-    <footer class="bg-slate-800 text-slate-300 text-center p-6 mt-12">
-        <p>&copy; <span id="currentYear"></span> <span data-translate-key="footerInfo">Thông tin tổng hợp về Kimball Allen Thomson.</span></p>
-        <p data-translate-key="footerDisclaimer" class="text-sm">Ứng dụng được tạo cho mục đích minh họa. Tích hợp Gemini AI.</p>
-    </footer>
+    <footer id="footer-placeholder"></footer>
 
     <script>
-        let currentLanguage = localStorage.getItem('preferredLanguage') || 'vi';
-        let skillsChartInstance = null;
-
-        const translations = {
-            pageTitle: { vi: "Hồ Sơ Kimball Allen Thomson", en: "Kimball Allen Thomson Profile" },
-            profileName: { vi: "Kimball Allen Thomson", en: "Kimball Allen Thomson" },
-            navOverview: { vi: "Tổng Quan", en: "Overview" },
-            navProfile: { vi: "Hồ Sơ Chuyên Môn", en: "Professional Profile" },
-            navExperience: { vi: "Kinh Nghiệm", en: "Experience" },
-            navWorks: { vi: "Tác Phẩm", en: "Works" },
-            navOverviewMobile: { vi: "Tổng Quan", en: "Overview" },
-            navProfileMobile: { vi: "Hồ Sơ Chuyên Môn", en: "Profile" },
-            navExperienceMobile: { vi: "Kinh Nghiệm", en: "Experience" },
-            navWorksMobile: { vi: "Tác Phẩm", en: "Works" },
-            srOpenMenu: { vi: "Mở menu chính", en: "Open main menu" },
-            overviewTitle: { vi: "Tổng Quan về Kimball Allen Thomson", en: "Overview of Kimball Allen Thomson" },
-            overviewIntro1: { vi: "Phần này cung cấp một cái nhìn tổng quan về sự nghiệp của ông Kimball Allen Thomson, tập trung vào các vai trò lãnh đạo chủ chốt và sự phát triển trong định hướng chuyên môn của ông. Từ việc dẫn dắt các tổ chức trong ngành khoa học đời sống và tư vấn chiến lược, đến dự án hiện tại khám phá sức mạnh của nguồn cảm hứng, ông Thomson đã thể hiện một cam kết lâu dài đối với sự tăng trưởng và thay đổi mang tính chuyển đổi.", en: "This section provides an overview of Kimball Allen Thomson's career, focusing on his key leadership roles and professional development. From leading organizations in life sciences and strategic consulting to his current project exploring the power of inspiration, Mr. Thomson has demonstrated a long-standing commitment to growth and transformative change." },
-            overviewIntro2: { vi: "Sự nghiệp của ông cho thấy một sự tiến triển từ việc xây dựng các cấu trúc ngành và doanh nghiệp cụ thể sang khám phá các yếu tố nhân văn sâu sắc hơn. Xuyên suốt hành trình này, ông luôn tận dụng bộ kỹ năng đa dạng về lãnh đạo, chiến lược và giao tiếp, cùng với nền tảng học vấn độc đáo kết hợp kinh doanh với khoa học xã hội và nhân văn.", en: "His career shows a progression from building specific industry and business structures to exploring deeper human elements. Throughout this journey, he has consistently leveraged a diverse skill set in leadership, strategy, and communication, along with a unique educational background combining business with social sciences and humanities." },
-            profileTitle: { vi: "Hồ Sơ Chuyên Môn", en: "Professional Profile" },
-            educationTitle: { vi: "Nền Tảng Học Vấn", en: "Educational Background" },
-            educationIntro: { vi: "Ông Kimball Allen Thomson sở hữu một nền tảng học vấn vững chắc, kết hợp kiến thức kinh doanh với hiểu biết sâu sắc về khoa học xã hội và nhân văn, tạo tiền đề cho các vai trò lãnh đạo đòi hỏi tư duy có tầm nhìn và khả năng thực thi thực tế.", en: "Mr. Kimball Allen Thomson possesses a solid educational foundation, combining business knowledge with a deep understanding of social sciences and humanities, laying the groundwork for leadership roles requiring visionary thinking and practical execution." },
-            educationMBA: { vi: "Thạc sĩ Quản trị Kinh doanh (MBA) - Đại học Brigham Young.", en: "Master of Business Administration (MBA) - Brigham Young University." },
-            educationBA: { vi: "Cử nhân Nghệ thuật (BA) chuyên ngành Văn học So sánh & Kinh tế Chính trị - Đại học California, Berkeley.", en: "Bachelor of Arts (BA) in Comparative Literature & Political Economy - University of California, Berkeley." },
-            skillsTitle: { vi: "Kỹ Năng Chính", en: "Key Skills" },
-            skillsIntro: { vi: "Ông Thomson sở hữu một bộ kỹ năng đa dạng, phản ánh kinh nghiệm sâu rộng trong việc xây dựng, phát triển và quản lý các tổ chức và dự án. Biểu đồ dưới đây phân loại các kỹ năng chính của ông.", en: "Mr. Thomson possesses a diverse skill set, reflecting extensive experience in building, developing, and managing organizations and projects. The chart below categorizes his key skills." },
-            skillsDetailListTitle: { vi: "Danh sách kỹ năng chi tiết:", en: "Detailed skills list:" },
-            skillsDetailListContent: { vi: "Quan hệ công chúng, Chiến lược, Tiếp thị, Khởi nghiệp, Chiến lược kinh doanh, Hoạch định chiến lược, Diễn thuyết trước công chúng, Quan hệ đối tác chiến lược, Truyền thông xã hội, Vốn đầu tư mạo hiểm, Truyền thông tiếp thị, Kế hoạch kinh doanh, Phát triển kinh doanh, Quản lý điều hành, Sáp nhập & Mua lại (M&A), Quản lý Lãi & Lỗ (P&L), và Tư vấn quản lý.", en: "Public Relations, Strategy, Marketing, Entrepreneurship, Business Strategy, Strategic Planning, Public Speaking, Strategic Partnerships, Social Media, Venture Capital, Marketing Communications, Business Planning, Business Development, Executive Management, Mergers & Acquisitions (M&A), P&L Management, and Management Consulting." },
-            experienceTitle: { vi: "Kinh Nghiệm Làm Việc", en: "Work Experience" },
-            experienceIntro: { vi: "Khám phá chi tiết các vai trò chuyên môn chính của ông Kimball Allen Thomson. Nhấp vào một mục trong danh sách bên dưới để xem thông tin chi tiết về từng vị trí. Bạn cũng có thể sử dụng các tính năng AI để tạo tóm tắt điểm nổi bật hoặc nhận gợi ý phát triển từ vai trò này.", en: "Explore the details of Mr. Kimball Allen Thomson's key professional roles. Click on an item in the list below to view detailed information about each position. You can also use the AI features to generate a highlights summary or get development suggestions from this role." },
-            experienceSelectRole: { vi: "Chọn một vai trò:", en: "Select a role:" },
-            experienceSelectPrompt: { vi: "Vui lòng chọn một vai trò từ danh sách để xem chi tiết.", en: "Please select a role from the list to see details." },
-            jobTimeLabel: { vi: "Thời gian:", en: "Dates:" },
-            jobLocationLabel: { vi: "Địa điểm:", en: "Location:" },
-            jobDetailsLabel: { vi: "Chi tiết nổi bật:", en: "Key Details:" },
-            aiSummaryAnalysisTitle: { vi: "✨ Phân Tích Tóm Tắt AI", en: "✨ AI Summary Analysis" },
-            aiSummaryButtonText: { vi: "Tạo Tóm Tắt Nổi Bật", en: "Generate Highlights Summary" },
-            aiSummaryLoadingText: { vi: "Đang tạo tóm tắt... vui lòng chờ.", en: "Generating summary... please wait." },
-            aiSummaryButtonProcessingText: { vi: "Đang xử lý...", en: "Processing..." },
-            aiSummaryDefaultOutputText: { vi: "Nhấp vào nút trên để AI tạo tóm tắt các điểm nổi bật của vai trò này.", en: "Click the button above for AI to generate highlights for this role." },
-            aiGrowthAnalysisTitle: { vi: "✨ Gợi Ý Phát Triển Từ AI", en: "✨ AI Growth Suggestions" },
-            aiGrowthButtonText: { vi: "Gợi Ý Kỹ Năng/Phát Triển", en: "Suggest Skills/Growth" },
-            aiGrowthLoadingText: { vi: "Đang tìm gợi ý... vui lòng chờ.", en: "Finding suggestions... please wait." },
-            aiGrowthButtonProcessingText: { vi: "Đang xử lý...", en: "Processing..." },
-            aiGrowthDefaultOutputText: { vi: "Nhấp vào nút trên để AI gợi ý các kỹ năng liên quan hoặc hướng phát triển từ vai trò này.", en: "Click the button above for AI to suggest related skills or growth areas from this role." },
-            aiErrorGeneric: { vi: "Không thể xử lý yêu cầu từ AI vào lúc này. Vui lòng thử lại sau.", en: "Could not process AI request at this time. Please try again later." },
-            aiErrorApi: { vi: "Đã xảy ra lỗi khi cố gắng thực hiện yêu cầu AI. Chi tiết lỗi đã được ghi lại trong console.", en: "An error occurred while trying to perform the AI request. Error details have been logged to the console." },
-            worksTitle: { vi: "Tác Phẩm và Ấn Phẩm", en: "Works and Publications" },
-            worksIntro: { vi: "Ông Kimball Allen Thomson đã đóng góp nhiều bài viết và sách trong suốt sự nghiệp của mình, thể hiện chuyên môn và tư duy lãnh đạo. Các tác phẩm này không chỉ phản ánh kinh nghiệm của ông mà còn góp phần định hình câu chuyện kinh tế của tiểu bang Utah.", en: "Mr. Kimball Allen Thomson has contributed numerous articles and books throughout his career, showcasing his expertise and leadership. These works not only reflect his experience but also help shape Utah's economic narrative." },
-            footerInfo: { vi: "Thông tin tổng hợp về Kimball Allen Thomson.", en: "Aggregated information about Kimball Allen Thomson." },
-            footerDisclaimer: { vi: "Ứng dụng được tạo cho mục đích minh họa. Tích hợp Gemini AI.", en: "Application created for illustrative purposes. Gemini AI integrated." },
-            skillsChartLabel: { vi: "Số lượng kỹ năng", en: "Number of Skills" },
-            skillsCategories: {
-                vi: ['Lãnh đạo & Quản lý', 'Chiến lược & Phát triển', 'Giao tiếp & Quan hệ', 'Tư vấn'],
-                en: ['Leadership & Management', 'Strategy & Development', 'Communication & Relations', 'Consulting']
-            }
-        };
-        
-        const workItems = [
-            { 
-                id: 'utahLifeElevated',
-                title: { vi: '"Utah, Life Elevated" (sách bìa cứng, 2007)', en: '"Utah, Life Elevated" (hardcover book, 2007)' },
-                description: { vi: 'Cuốn sách phát triển kinh tế chính thức của tiểu bang Utah.', en: "The official economic development book for the state of Utah." }
-            },
-            {
-                id: 'lightThroughClouds',
-                title: { vi: '"Light through the clouds: tech companies seeing vibrant futures..." (bài báo kỹ thuật số)', en: '"Light through the clouds: tech companies seeing vibrant futures..." (digital article)' },
-                description: { vi: 'Bài báo từ Utah Business, tập trung vào lĩnh vực công nghệ của Utah.', en: "Article from Utah Business, focusing on Utah's tech sector." }
-            },
-            {
-                id: 'jeanetteHerbert',
-                title: { vi: 'Bài báo về Jeanette Herbert, Đệ nhất Phu nhân Utah (2012)', en: 'Article on Jeanette Herbert, First Lady of Utah (2012)' },
-                description: { vi: 'Xuất bản trên "Business In Utah - 2012".', en: 'Published in "Business In Utah - 2012".' }
-            },
-            {
-                id: 'utahDataBook',
-                title: { vi: 'Sách Dữ liệu Utah chính thức hàng năm', en: 'Official Annual Utah Data Book' },
-                description: { vi: 'Đóng góp trong nhiều năm.', en: 'Contributed for multiple years.' }
-            }
-        ];
-
-        const experiences = [
-            {
-                id: 'thePowerToInspire', 
-                organization: { vi: 'The Power to Inspire', en: 'The Power to Inspire' },
-                role: { vi: 'Nhà Sáng lập & CEO', en: 'Founder & CEO' }, 
-                dates: { vi: 'Hiện tại (từ tháng 2/2024)', en: 'Present (since Feb 2024)' }, 
-                location: { vi: 'Salt Lake, Hoa Kỳ', en: 'Salt Lake, USA' },
-                summary: { 
-                    vi: 'Tập trung vào nghệ thuật và khoa học của nguồn cảm hứng, cách cá nhân được truyền cảm hứng và truyền cảm hứng cho người khác để thúc đẩy sự thay đổi mang tính chuyển đổi.', 
-                    en: 'Focuses on the art and science of inspiration, how individuals are inspired and inspire others to drive transformative change.'
-                },
-                details: {
-                    vi: ["Nền tảng: Substack (@thepowertoinspire).", "Sứ mệnh: Khám phá cách nguồn cảm hứng thúc đẩy sự thay đổi trong cuộc sống, tổ chức, cộng đồng và văn hóa.", "Nội dung mẫu: 'Đà Lạt Của Tôi, Đà Lạt Của Chúng Ta', loạt bài 'SỰ LÂY LAN CỦA NGUỒN CẢM HỨNG'."],
-                    en: ["Platform: Substack (@thepowertoinspire).", "Mission: To explore how inspiration drives change in lives, organizations, communities, and cultures.", "Sample content: 'My Dalat, Our Dalat', 'THE CONTAGION OF INSPIRATION' series."]
-                }
-            },
-            {
-                id: 'bioUtah', 
-                organization: { vi: 'BIOUTAH', en: 'BIOUTAH' }, 
-                role: { vi: 'Nhà Sáng lập, Chủ tịch & CEO', en: 'Founder, President & CEO' }, 
-                dates: { vi: 'Tháng 11/2012 – khoảng 2015', en: 'November 2012 – circa 2015' }, 
-                location: { vi: 'Salt Lake, Hoa Kỳ', en: 'Salt Lake, USA' },
-                summary: { 
-                    vi: 'Sáng lập và lãnh đạo hiệp hội khoa học đời sống của Utah, đại diện cho các công ty thiết bị y tế, dược phẩm sinh học, và các ngành liên quan.', 
-                    en: 'Founded and led Utah\'s life sciences association, representing medical device companies, biopharmaceuticals, and related industries.'
-                },
-                details: {
-                    vi: ["Ra mắt tháng 11/2012, là 'chi nhánh bio mới nhất' lúc bấy giờ.", "Mục tiêu: Tối đa hóa vị thế của Utah như một nam châm thu hút vốn, con người và các công ty mang tính chuyển đổi.", "Thành tựu: Thu hút hơn 80 tổ chức hỗ trợ trong năm đầu tiên."],
-                    en: ["Launched in November 2012, it was the 'newest bio affiliate' at the time.", "Goal: To maximize Utah's position as a magnet for capital, talent, and transformative companies.", "Achievement: Attracted over 80 supporting organizations in its first year."]
-                }
-            },
-            {
-                id: 'synapticStrategy', 
-                organization: { vi: 'Synaptic Strategy Group', en: 'Synaptic Strategy Group' }, 
-                role: { vi: 'Chủ tịch & CEO', en: 'President & CEO' }, 
-                dates: { vi: 'Không rõ cụ thể (bối cảnh sự nghiệp tổng thể hơn 25 năm)', en: 'Not specified (overall career context over 25 years)' }, 
-                location: { vi: 'Salt Lake City, UT', en: 'Salt Lake City, UT' },
-                summary: { 
-                    vi: 'Công ty tư vấn quản lý và quan hệ công chúng, tập trung vào kết nối và chiến lược tích hợp.', 
-                    en: 'Management consulting and public relations firm, focusing on connectivity and integrated strategy.'
-                },
-                details: {
-                    vi: ["Ngành nghề: Quan hệ Công chúng và Tư vấn Quản lý.", "Tên gọi 'Synaptic' gợi ý sự tập trung vào kết nối, giao tiếp và chiến lược tích hợp."],
-                    en: ["Industry: Public Relations and Management Consulting.", "The name 'Synaptic' suggests a focus on connection, communication, and integrated strategy."]
-                }
-            },
-            {
-                id: 'nextPhaseComm', 
-                organization: { vi: 'Next Phase Communications', en: 'Next Phase Communications' }, 
-                role: { vi: 'Chủ tịch & CEO', en: 'President & CEO' }, 
-                dates: { vi: 'Khoảng 2007 (thời điểm sách "Utah, Life Elevated")', en: 'Circa 2007 (around the time of the "Utah, Life Elevated" book)' }, 
-                location: { vi: 'Salt Lake City, UT', en: 'Salt Lake City, UT' },
-                summary: { 
-                    vi: 'Công ty dịch vụ đầy đủ về quan hệ công chúng và tiếp thị, hỗ trợ từ startup đến Ngân hàng Thế giới.', 
-                    en: 'Full-service public relations and marketing firm, supporting clients from startups to the World Bank.'
-                },
-                details: {
-                    vi: ["Cung cấp chuyên môn về truyền thông, tiếp thị và chiến lược phát triển kinh doanh.", "Đại diện cho American Biotech Labs (khoảng 2006)."],
-                    en: ["Provided expertise in communications, marketing, and business development strategy.", "Represented American Biotech Labs (circa 2006)."]
-                }
-            },
-            {
-                id: 'editorialRoles', 
-                organization: { vi: 'Nhiều Ấn Phẩm', en: 'Various Publications' }, 
-                role: { vi: 'Đồng sáng lập, Nhà xuất bản, Tổng biên tập, Biên tập viên', en: 'Co-founder, Publisher, Editor-in-Chief, Editor' }, 
-                dates: { vi: 'Khoảng 2004-2006', en: 'Circa 2004-2006' }, 
-                location: { vi: 'Utah', en: 'Utah' },
-                summary: { 
-                    vi: 'Kinh nghiệm biên tập và xuất bản sâu rộng, đóng góp vào các ấn phẩm kinh doanh và công nghệ của Utah.', 
-                    en: 'Extensive editorial and publishing experience, contributing to Utah\'s business and technology publications.'
-                },
-                details: {
-                    vi: ["Digital iQ magazine: Đồng sáng lập, Nhà xuất bản & Tổng biên tập (khoảng 2004).", "Business Utah (Ấn phẩm Phát triển Kinh tế Bang Utah): Biên tập viên (khoảng 2004, 2006).", "Utah Business magazine: Biên tập viên đóng góp (khoảng 2006)."],
-                    en: ["Digital iQ magazine: Co-founder, Publisher & Editor-in-Chief (circa 2004).", "Business Utah (State of Utah Economic Development Publication): Editor (circa 2004, 2006).", "Utah Business magazine: Contributing Editor (circa 2006)."]
-                }
-            }
-        ];
-
-        function applyTranslations() {
-            document.querySelectorAll('[data-translate-key]').forEach(el => {
-                const key = el.dataset.translateKey;
-                if (translations[key] && translations[key][currentLanguage]) {
-                    el.innerHTML = translations[key][currentLanguage];
-                }
-            });
-            document.documentElement.lang = currentLanguage;
-            document.title = translations.pageTitle[currentLanguage];
-
-            updateSkillsChart();
-            populateJobList();
-            populateWorksList();
-            
-            const currentHash = window.location.hash || '#tong-quan';
-            const activeJobId = document.querySelector('.job-card.active')?.dataset.id;
-            if (currentHash === '#kinh-nghiem' && activeJobId) {
-                 const activeExp = experiences.find(exp => exp.id === activeJobId);
-                 if(activeExp) displayJobDetails(activeExp);
-            } else if (currentHash === '#kinh-nghiem') {
-                 document.getElementById('job-details-container').innerHTML = `<p data-translate-key="experienceSelectPrompt" class="text-slate-500 text-center py-10">${translations.experienceSelectPrompt[currentLanguage]}</p>`;
+        function initializePlaceholderComponents() {
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            if (headerPlaceholder) {
+                fetch('/components/header.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        headerPlaceholder.innerHTML = html;
+                        const scripts = headerPlaceholder.querySelectorAll('script');
+                        scripts.forEach(script => {
+                            const newScript = document.createElement('script');
+                            Array.from(script.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                            newScript.textContent = script.textContent;
+                            script.parentNode.replaceChild(newScript, script);
+                        });
+                        if (typeof window.initializeHeader === 'function') {
+                            window.initializeHeader();
+                        }
+                        if (typeof window.initializeLanguageSystem === 'function') {
+                            window.initializeLanguageSystem();
+                        }
+                    })
+                    .catch(err => console.error('Error loading header:', err));
             }
 
-            updateLanguageSwitcherState();
-        }
-
-        function updateLanguageSwitcherState() {
-            ['vi', 'en'].forEach(lang => {
-                document.getElementById(`lang-${lang}`).classList.toggle('active', lang === currentLanguage);
-                document.getElementById(`lang-${lang}-mobile`).classList.toggle('active', lang === currentLanguage);
-            });
-        }
-
-        function setLanguage(lang) {
-            currentLanguage = lang;
-            localStorage.setItem('preferredLanguage', lang);
-            applyTranslations();
-            updateActiveSection(); 
-        }
-        
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenuButton.querySelectorAll('svg').forEach(svg => svg.classList.toggle('hidden'));
-        });
-
-        const navLinks = document.querySelectorAll('.nav-link');
-        const contentSections = document.querySelectorAll('.content-section');
-
-        function updateActiveSection() {
-            let hash = window.location.hash || '#tong-quan';
-            if (!document.querySelector(hash)) { hash = '#tong-quan'; }
-
-            contentSections.forEach(section => {
-                section.classList.toggle('active', '#' + section.id === hash);
-            });
-            navLinks.forEach(link => {
-                link.classList.toggle('active', link.getAttribute('href') === hash);
-            });
-            if (!mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
-                mobileMenuButton.querySelectorAll('svg').forEach(svg => svg.classList.toggle('hidden'));
-            }
-        }
-        
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                window.location.hash = this.getAttribute('href');
-                 if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                    mobileMenuButton.querySelectorAll('svg').forEach(svg => svg.classList.toggle('hidden'));
-                }
-            });
-        });
-
-        window.addEventListener('hashchange', updateActiveSection);
-        
-        function updateSkillsChart() {
-            const skillsCtx = document.getElementById('skillsChart').getContext('2d');
-            if (skillsChartInstance) {
-                skillsChartInstance.destroy();
-            }
-            skillsChartInstance = new Chart(skillsCtx, {
-                type: 'bar',
-                data: {
-                    labels: translations.skillsCategories[currentLanguage],
-                    datasets: [{
-                        label: translations.skillsChartLabel[currentLanguage],
-                        data: [2, 8, 6, 1],
-                        backgroundColor: ['rgba(54, 162, 235, 0.7)', 'rgba(255, 159, 64, 0.7)', 'rgba(75, 192, 192, 0.7)', 'rgba(153, 102, 255, 0.7)'],
-                        borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 159, 64, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)'],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true, maintainAspectRatio: false, indexAxis: 'y',
-                    scales: {
-                        x: { beginAtZero: true, ticks: { stepSize: 1 } },
-                        y: { ticks: { autoSkip: false, maxRotation: 0, minRotation: 0, font: { size: 10 },
-                            callback: function(value) {
-                                const label = this.getLabelForValue(value); const maxLength = currentLanguage === 'vi' ? 16 : 20;
-                                if (label.length > maxLength) {
-                                    let lines = []; let currentLine = '';
-                                    label.split(' ').forEach(word => {
-                                        if ((currentLine + word).length > maxLength) { lines.push(currentLine.trim()); currentLine = ''; }
-                                        currentLine += word + ' ';
-                                    });
-                                    lines.push(currentLine.trim()); return lines;
-                                } return label;
-                            }
-                        }}
-                    },
-                    plugins: { legend: { display: false }, tooltip: { callbacks: { label: context => ` ${context.dataset.label}: ${context.raw}` } } }
-                }
-            });
-        }
-
-        const jobListContainer = document.getElementById('job-list-container');
-        const jobDetailsContainer = document.getElementById('job-details-container');
-        let activeJobCard = null;
-
-        function populateJobList() {
-            jobListContainer.innerHTML = ''; 
-            experiences.forEach(exp => {
-                const card = document.createElement('div');
-                card.classList.add('job-card', 'p-3', 'border', 'border-slate-200', 'rounded-md', 'hover:bg-sky-50');
-                card.dataset.id = exp.id;
-                card.innerHTML = `<h4 class="font-semibold text-sky-700">${exp.organization[currentLanguage] || exp.organization['en']}</h4><p class="text-sm text-slate-600">${exp.role[currentLanguage]}</p><p class="text-xs text-slate-500">${exp.dates[currentLanguage]}</p>`;
-                card.addEventListener('click', () => {
-                    if (activeJobCard) { activeJobCard.classList.remove('active', 'bg-sky-100', 'border-sky-300'); }
-                    card.classList.add('active', 'bg-sky-100', 'border-sky-300');
-                    activeJobCard = card;
-                    displayJobDetails(exp);
-                });
-                jobListContainer.appendChild(card);
-            });
-        }
-
-        function displayJobDetails(exp) {
-            jobDetailsContainer.innerHTML = `
-                <h3 class="text-2xl font-bold text-sky-700 mb-2">${exp.organization[currentLanguage] || exp.organization['en']}</h3>
-                <p class="text-lg font-semibold text-slate-700">${exp.role[currentLanguage]}</p>
-                <p class="text-sm text-slate-500 mb-1"><strong>${translations.jobTimeLabel[currentLanguage]}</strong> ${exp.dates[currentLanguage]}</p>
-                <p class="text-sm text-slate-500 mb-4"><strong>${translations.jobLocationLabel[currentLanguage]}</strong> ${exp.location[currentLanguage]}</p>
-                <p class="text-slate-700 mb-4 leading-relaxed">${exp.summary[currentLanguage]}</p>
-                <h5 class="font-semibold text-slate-600 mb-2">${translations.jobDetailsLabel[currentLanguage]}</h5>
-                <ul class="list-disc list-inside space-y-1 text-slate-600 mb-6">
-                    ${exp.details[currentLanguage].map(detail => `<li>${detail}</li>`).join('')}
-                </ul>
-
-                <div class="mt-6 pt-4 border-t border-slate-200">
-                    <h5 class="font-semibold text-slate-600 mb-2">${translations.aiSummaryAnalysisTitle[currentLanguage]}</h5>
-                    <button id="ai-summary-button" data-exp-id="${exp.id}" class="ai-button">
-                        ${translations.aiSummaryButtonText[currentLanguage]}
-                    </button>
-                    <div id="ai-summary-loading-indicator" class="hidden text-slate-500 my-2 p-3 bg-sky-50 rounded-md">${translations.aiSummaryLoadingText[currentLanguage]}</div>
-                    <div id="ai-summary-output" class="ai-output-box">
-                        ${translations.aiSummaryDefaultOutputText[currentLanguage]}
-                    </div>
-                </div>
-
-                <div class="mt-8 pt-4 border-t border-slate-200">
-                    <h5 class="font-semibold text-slate-600 mb-2">${translations.aiGrowthAnalysisTitle[currentLanguage]}</h5>
-                    <button id="ai-growth-button" data-exp-id="${exp.id}" class="ai-button">
-                        ${translations.aiGrowthButtonText[currentLanguage]}
-                    </button>
-                    <div id="ai-growth-loading-indicator" class="hidden text-slate-500 my-2 p-3 bg-sky-50 rounded-md">${translations.aiGrowthLoadingText[currentLanguage]}</div>
-                    <div id="ai-growth-output" class="ai-output-box">
-                        ${translations.aiGrowthDefaultOutputText[currentLanguage]}
-                    </div>
-                </div>
-            `;
-        }
-        
-        function populateWorksList() {
-            const worksContainer = document.getElementById('works-list-container');
-            worksContainer.innerHTML = '';
-            workItems.forEach(item => {
-                const listItem = document.createElement('li');
-                listItem.classList.add('p-4', 'border', 'border-slate-200', 'rounded-md', 'hover:bg-slate-50', 'transition-colors');
-                listItem.innerHTML = `
-                    <h4 class="font-semibold text-sky-600">${item.title[currentLanguage]}</h4>
-                    <p class="text-sm text-slate-600">${item.description[currentLanguage]}</p>
-                `;
-                worksContainer.appendChild(listItem);
-            });
-        }
-
-        async function callGeminiAPI(prompt, button, loadingIndicator, outputElement, processingTextKey, defaultButtonTextKey, defaultOutputTextKey) {
-            loadingIndicator.classList.remove('hidden');
-            outputElement.innerHTML = '';
-            button.disabled = true;
-            button.textContent = translations[processingTextKey][currentLanguage];
-
-            try {
-                let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-                const payload = { contents: chatHistory };
-                const apiKey = ""; 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-                
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(`API Error: ${response.status} ${response.statusText}. Details: ${JSON.stringify(errorData)}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    outputElement.innerHTML = text.replace(/\n/g, '<br>');
-                } else {
-                    outputElement.textContent = translations.aiErrorGeneric[currentLanguage];
-                    console.error("Unexpected API response structure:", result);
-                }
-            } catch (error) {
-                console.error("Error calling Gemini API:", error);
-                outputElement.textContent = translations.aiErrorApi[currentLanguage];
-            } finally {
-                loadingIndicator.classList.add('hidden');
-                button.disabled = false;
-                button.textContent = translations[defaultButtonTextKey][currentLanguage];
+            const footerPlaceholder = document.getElementById('footer-placeholder');
+            if (footerPlaceholder) {
+                fetch('/components/footer.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        footerPlaceholder.innerHTML = html;
+                        const scripts = footerPlaceholder.querySelectorAll('script');
+                        scripts.forEach(script => {
+                            const newScript = document.createElement('script');
+                            Array.from(script.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                            newScript.textContent = script.textContent;
+                            script.parentNode.replaceChild(newScript, script);
+                        });
+                        if (typeof window.initializeFooter === 'function') {
+                            window.initializeFooter();
+                        }
+                    })
+                    .catch(err => console.error('Error loading footer:', err));
             }
         }
 
-        jobDetailsContainer.addEventListener('click', async (event) => {
-            const targetButton = event.target.closest('.ai-button');
-            if (!targetButton) return;
-
-            const experienceId = targetButton.dataset.expId;
-            const currentExperience = experiences.find(e => e.id === experienceId);
-            if (!currentExperience) return;
-
-            const org = currentExperience.organization[currentLanguage] || currentExperience.organization['en'];
-            const role = currentExperience.role[currentLanguage];
-            const summary = currentExperience.summary[currentLanguage];
-            const details = currentExperience.details[currentLanguage].join('. ');
-
-            if (targetButton.id === 'ai-summary-button') {
-                const prompt = currentLanguage === 'vi' ?
-                    `Dựa trên thông tin sau về một vai trò công việc của Kimball Allen Thomson:\n- Tổ chức: "${org}"\n- Vai trò: "${role}"\n- Tóm tắt chung: "${summary}"\n- Các chi tiết cụ thể: "${details}"\nHãy viết một đoạn văn ngắn (khoảng 2-4 câu) bằng tiếng Việt, nêu bật những đóng góp, trách nhiệm chính, hoặc bản chất cốt lõi của vai trò này một cách chuyên nghiệp và hấp dẫn. Tập trung vào những điểm quan trọng nhất và phản ánh đúng vai trò của ông Thomson.` :
-                    `Based on the following information about a job role of Kimball Allen Thomson:\n- Organization: "${org}"\n- Role: "${role}"\n- General summary: "${summary}"\n- Specific details: "${details}"\nWrite a short paragraph (about 2-4 sentences) in English, highlighting the key contributions, main responsibilities, or core nature of this role in a professional and engaging manner. Focus on the most important points and accurately reflect Mr. Thomson's role.`;
-                
-                callGeminiAPI(prompt, 
-                    targetButton, 
-                    document.getElementById('ai-summary-loading-indicator'), 
-                    document.getElementById('ai-summary-output'),
-                    'aiSummaryButtonProcessingText',
-                    'aiSummaryButtonText',
-                    'aiSummaryDefaultOutputText'
-                );
-
-            } else if (targetButton.id === 'ai-growth-button') {
-                const prompt = currentLanguage === 'vi' ?
-                    `Dựa trên thông tin sau về một vai trò công việc của Kimball Allen Thomson:\n- Tổ chức: "${org}"\n- Vai trò: "${role}"\n- Tóm tắt chung: "${summary}"\n- Các chi tiết cụ thể: "${details}"\nHãy gợi ý 2-3 kỹ năng liên quan hoặc lĩnh vực phát triển chuyên môn tiềm năng (dưới dạng gạch đầu dòng, ví dụ: "- Kỹ năng A\n- Lĩnh vực B") mà một người trong vai trò này có thể trau dồi để nâng cao hiệu quả hoặc mở rộng cơ hội nghề nghiệp. Trả lời bằng tiếng Việt.` :
-                    `Based on the following information about a job role of Kimball Allen Thomson:\n- Organization: "${org}"\n- Role: "${role}"\n- General summary: "${summary}"\n- Specific details: "${details}"\nPlease suggest 2-3 related skills or potential areas for professional development (as bullet points, e.g., "- Skill A\n- Area B") that someone in this role could cultivate to enhance their effectiveness or broaden career opportunities. Respond in English.`;
-
-                callGeminiAPI(prompt,
-                    targetButton,
-                    document.getElementById('ai-growth-loading-indicator'),
-                    document.getElementById('ai-growth-output'),
-                    'aiGrowthButtonProcessingText',
-                    'aiGrowthButtonText',
-                    'aiGrowthDefaultOutputText'
-                );
-            }
-        });
-
-        document.querySelectorAll('.lang-switcher button').forEach(button => {
-            button.addEventListener('click', (e) => {
-                setLanguage(e.target.dataset.lang);
-            });
-        });
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            applyTranslations(); 
-            updateActiveSection(); 
-        });
+        document.addEventListener('DOMContentLoaded', initializePlaceholderComponents);
     </script>
 </body>
 </html>
