@@ -24,6 +24,7 @@ body {
     color: var(--text-color);
     background-color: var(--bg-color);
     padding-top: 70px; /* Add padding to body to prevent content from being hidden by fixed header */
+    overflow-x: hidden; /* Prevent horizontal scroll issues */
 }
 
 .container {
@@ -80,7 +81,7 @@ header {
 }
 
 .nav-links a:hover,
-.nav-links a.active { /* Style for active page link */
+.nav-links a.active-page-link { /* Style for active page link */
     background-color: var(--primary-color); /* Blue background on hover/active */
     color: var(--white);
 }
@@ -91,6 +92,8 @@ header {
     flex-direction: column;
     cursor: pointer;
     padding: 10px; /* Easier to tap */
+    background: none;
+    border: none;
 }
 
 .menu-toggle .bar {
@@ -100,6 +103,17 @@ header {
     margin: 4px 0;
     transition: 0.4s;
 }
+/* Animation for hamburger to X */
+.menu-toggle.active .bar:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+.menu-toggle.active .bar:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
 
 /* Language Switcher */
 .language-switcher {
@@ -120,7 +134,8 @@ header {
     transition: background-color 0.3s ease;
 }
 
-.language-switcher button:hover {
+.language-switcher button:hover,
+.language-switcher button.active-lang { /* Added active-lang styling */
     background-color: var(--primary-color-hover);
 }
 
@@ -393,8 +408,8 @@ footer p {
         z-index: 999; /* Below header but above content */
     }
 
-    .nav-links.active {
-        display: flex; /* Show when active (toggled by JS) */
+    .nav-links.active { /* This class will be toggled by JavaScript */
+        display: flex; /* Show when active */
     }
 
     .nav-links li {
@@ -423,10 +438,12 @@ footer p {
 
     .hero {
         /* Mobile: Use webbannermo.png, ensure it covers the area */
-        background-image: url('../images/webbannermo.png');
+        background-image: url('../images/webbannermo.png'); /* Ensure this path is correct */
         background-size: cover; /* Use cover for mobile to ensure no gaps */
         background-position: center;
         background-repeat: no-repeat;
+        min-height: 40vh; /* Adjusted min-height for mobile hero */
+        padding: 60px 20px;
     }
 
     .hero h1 {
@@ -457,7 +474,13 @@ footer p {
     }
     /* Further adjustments for very small screens if needed */
 }
-/* css/input.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+/* Tailwind Base, Components, Utilities (if you plan to mix) */
+/* These might conflict if not managed carefully with the custom CSS above.
+   If this styles.css is meant to be standalone, you might not need these.
+   If you are using Tailwind CLI for other parts, this is where its output would go,
+   or you'd import the Tailwind output file.
+*/
+/* @tailwind base; */
+/* @tailwind components; */
+/* @tailwind utilities; */
