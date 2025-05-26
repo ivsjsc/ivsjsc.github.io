@@ -118,3 +118,31 @@ window.initializeFabButtons = function() {
     // Scroll to top when the button is clicked
     fabElements.scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 };
+
+function handleHeaderScroll() {
+    const header = document.getElementById('main-header');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        // Add/remove background opacity based on scroll
+        if (currentScroll > 50) {
+            header.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+        } else {
+            header.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        }
+        
+        // Optional: Hide/show header on scroll up/down
+        if (currentScroll > lastScroll && currentScroll > 200) {
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            header.style.transform = 'translateY(0)';
+        }
+        
+        lastScroll = currentScroll;
+    }, { passive: true });
+}
+
+// Initialize on DOM load
+document.addEventListener('DOMContentLoaded', handleHeaderScroll);

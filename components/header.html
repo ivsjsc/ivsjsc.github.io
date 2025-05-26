@@ -143,9 +143,10 @@
     </style>
 </head>
 <body class="bg-neutral-900 text-white font-sans antialiased">
-    <header id="main-header" class="bg-neutral-900 text-white shadow-sm sticky top-0 w-full sticky-header nav-header"> 
-        <div class="container mx-auto px-2 sm:px-3 lg:px-4"> 
-            <div class="flex items-center justify-between h-12"> 
+    <header id="main-header" class="sticky-header">
+        <nav class="container mx-auto px-4 py-4">
+            <!-- Logo -->
+            <div class="flex items-center justify-between">
                 <a href="/index.html" class="flex items-center space-x-2 group" aria-label="IVS JSC Homepage"> 
                     <img src="/images/logo/LogoVang.png" alt="IVS JSC Logo" class="h-10 w-10 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/40x40/cccccc/333333?text=L';"> 
                     <span class="text-2xl font-bold group-hover:text-blue-400 transition-colors"> 
@@ -154,7 +155,7 @@
                 </a>
 
                 <!-- Desktop Navigation -->
-                <nav class="hidden md:flex space-x-2 lg:space-x-3 items-center" aria-label="Main desktop navigation"> 
+                <div class="hidden md:flex items-center space-x-8">
                     <a href="/index.html" class="hover:text-blue-400 transition-colors duration-300 font-medium px-3 py-2.5 rounded header-nav-text-custom" data-lang-key="nav_home">Trang Chủ</a> 
                     <a href="/about.html" class="hover:text-blue-400 transition-colors duration-300 font-medium px-3 py-2.5 rounded header-nav-text-custom" data-lang-key="nav_about">Về IVS</a>
 
@@ -222,7 +223,7 @@
                         <button id="lang-vi" data-lang="vi" class="lang-button px-2.5 py-1.5 text-base font-medium focus:outline-none rounded-l text-white hover:bg-neutral-700" data-lang-key="lang_vi_short" aria-pressed="true">VI</button> 
                         <button id="lang-en" data-lang="en" class="lang-button px-2.5 py-1.5 text-base font-medium focus:outline-none rounded-r border-l border-neutral-700 text-neutral-400 hover:bg-neutral-700 hover:text-white" data-lang-key="lang_en_short" aria-pressed="false">EN</button>
                     </div>
-                </nav>
+                </div>
 
                 <!-- Mobile Controls -->
                 <div class="flex items-center space-x-2 md:hidden">
@@ -242,68 +243,68 @@
                     </button>
                 </div>
             </div>
-        </div>
-
-        <div id="mobile-menu-panel" class="md:hidden fixed w-full h-full z-40 top-0 left-0 right-0">
-            <div class="mobile-menu-container">
-                <nav class="flex flex-col space-y-0.5 px-3 pt-10 pb-16 h-full overflow-y-auto" aria-label="Main mobile navigation"> 
-                    <a href="/index.html" class="block px-2 py-1.5 rounded hover:bg-neutral-800 hover:text-blue-400 font-medium transition-colors text-sm" data-lang-key="nav_home">Trang Chủ</a> 
-                    <a href="/about.html" class="block px-2 py-1.5 rounded hover:bg-neutral-800 hover:text-blue-400 font-medium transition-colors text-sm" data-lang-key="nav_about">Về IVS</a>
-
-                    <div>
-                        <button type="button" class="mobile-submenu-toggle w-full text-left px-2 py-1.5 rounded hover:bg-neutral-800 font-semibold text-blue-400 flex justify-between items-center transition-colors text-sm" aria-expanded="false" aria-controls="mobile-services-submenu-items" data-lang-key="nav_services">
-                            <span>Dịch Vụ</span>
-                            <i class="fas fa-chevron-down fa-xs mobile-submenu-icon transition-transform duration-200" aria-hidden="true"></i>
-                        </button>
-                        <div id="mobile-services-submenu-items" class="mobile-submenu-content pl-3 pr-1 pb-0.5 space-y-0.5 overflow-hidden max-h-0"> 
-                            <a href="/service.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_services_main">Tổng quan Dịch vụ</a>
-                            <a href="/Pages/education.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_education_main">Chương trình Giáo dục</a>
-                            <a href="/Pages/lkmamnon.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_education_preschool">Mầm non</a>
-                            <a href="/Pages/lktieuhoc.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_education_primary">Tiểu học</a>
-                            <a href="/Pages/lkthcsthpt.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_education_secondary">THCS & THPT</a>
-                            <a href="/Pages/lkttnn.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_education_language_center">Trung tâm Ngoại ngữ</a>
-                            <a href="/Pages/psb_introduction.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-emerald-300 text-xs font-medium transition-colors" data-lang-key="nav_psb_intro">Pháp luật Doanh nghiệp</a>
-                        </div>
-                    </div>
-
-                    <div>
-                        <button type="button" class="mobile-submenu-toggle w-full text-left px-2 py-1.5 rounded hover:bg-neutral-800 font-semibold text-blue-400 flex justify-between items-center transition-colors text-sm" aria-expanded="false" aria-controls="mobile-solutions-submenu-items" data-lang-key="nav_solutions">
-                            <span>Giải pháp</span>
-                            <i class="fas fa-chevron-down fa-xs mobile-submenu-icon transition-transform duration-200" aria-hidden="true"></i>
-                        </button>
-                        <div id="mobile-solutions-submenu-items" class="mobile-submenu-content pl-3 pr-1 pb-0.5 space-y-0.5 overflow-hidden max-h-0">
-                            <a href="/solutions.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_solutions_main">Tổng quan Giải pháp</a>
-                            <a href="/Pages/ivscelestech.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_solution_edtech">Công nghệ Giáo dục</a>
-                            <a href="/Pages/upskill.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_solution_upskill">Nâng cao Trình độ</a>
-                            <a href="/Pages/webdesign.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_solution_webdesign">Thiết kế Website</a>
-                        </div>
-                    </div>
-
-                    <div>
-                        <button type="button" class="mobile-submenu-toggle w-full text-left px-2 py-1.5 rounded hover:bg-neutral-800 font-semibold text-blue-400 flex justify-between items-center transition-colors text-sm" aria-expanded="false" aria-controls="mobile-library-submenu-items" data-lang-key="nav_library">
-                            <span>Thư Viện</span>
-                            <i class="fas fa-chevron-down fa-xs mobile-submenu-icon transition-transform duration-200" aria-hidden="true"></i>
-                        </button>
-                        <div id="mobile-library-submenu-items" class="mobile-submenu-content pl-3 pr-1 pb-0.5 space-y-0.5 overflow-hidden max-h-0">
-                            <a href="/gallerry.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_library_main">Tổng quan Thư viện</a>
-                            <a href="/Pages/document-library.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_library_docs">Tài liệu Giáo dục</a>
-                            <a href="/Pages/story-repository.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_library_stories">Kho truyện</a>
-                        </div>
-                    </div>
-
-                    <a href="/news-archive.html" class="block px-2 py-1.5 rounded hover:bg-neutral-800 hover:text-blue-400 font-medium transition-colors text-sm" data-lang-key="nav_news_archive">Tin tức</a>
-                    <a href="/contact.html" class="block px-2 py-1.5 rounded bg-secondary text-white hover:bg-emerald-600 font-semibold text-center transition-colors shadow-sm hover:shadow-md text-sm" data-lang-key="nav_contact">Liên Hệ</a>
-                    
-                    <div id="language-toggle-container-mobile" class="flex border border-neutral-700 rounded mx-auto mt-3 w-max"> 
-                        <button data-lang="vi" class="lang-button px-2.5 py-1 text-xs font-medium focus:outline-none rounded-l text-white hover:bg-neutral-700" data-lang-key="lang_vi_short" aria-pressed="true">VI</button> 
-                        <button data-lang="en" class="lang-button px-2.5 py-1 text-xs font-medium focus:outline-none rounded-r border-l border-neutral-700 text-neutral-400 hover:bg-neutral-700 hover:text-white" data-lang-key="lang_en_short" aria-pressed="false">EN</button>
-                    </div>
-                </nav>
-            </div>
-            <!-- Overlay để click outside đóng menu -->
-            <div class="absolute inset-0 bg-black/50 -z-10"></div>
-        </div>
+        </nav>
     </header>
+
+    <div id="mobile-menu-panel" class="md:hidden fixed w-full h-full z-40 top-0 left-0 right-0">
+        <div class="mobile-menu-container">
+            <nav class="flex flex-col space-y-0.5 px-3 pt-10 pb-16 h-full overflow-y-auto" aria-label="Main mobile navigation"> 
+                <a href="/index.html" class="block px-2 py-1.5 rounded hover:bg-neutral-800 hover:text-blue-400 font-medium transition-colors text-sm" data-lang-key="nav_home">Trang Chủ</a> 
+                <a href="/about.html" class="block px-2 py-1.5 rounded hover:bg-neutral-800 hover:text-blue-400 font-medium transition-colors text-sm" data-lang-key="nav_about">Về IVS</a>
+
+                <div>
+                    <button type="button" class="mobile-submenu-toggle w-full text-left px-2 py-1.5 rounded hover:bg-neutral-800 font-semibold text-blue-400 flex justify-between items-center transition-colors text-sm" aria-expanded="false" aria-controls="mobile-services-submenu-items" data-lang-key="nav_services">
+                        <span>Dịch Vụ</span>
+                        <i class="fas fa-chevron-down fa-xs mobile-submenu-icon transition-transform duration-200" aria-hidden="true"></i>
+                    </button>
+                    <div id="mobile-services-submenu-items" class="mobile-submenu-content pl-3 pr-1 pb-0.5 space-y-0.5 overflow-hidden max-h-0"> 
+                        <a href="/service.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_services_main">Tổng quan Dịch vụ</a>
+                        <a href="/Pages/education.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_education_main">Chương trình Giáo dục</a>
+                        <a href="/Pages/lkmamnon.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_education_preschool">Mầm non</a>
+                        <a href="/Pages/lktieuhoc.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_education_primary">Tiểu học</a>
+                        <a href="/Pages/lkthcsthpt.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_education_secondary">THCS & THPT</a>
+                        <a href="/Pages/lkttnn.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_education_language_center">Trung tâm Ngoại ngữ</a>
+                        <a href="/Pages/psb_introduction.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-emerald-300 text-xs font-medium transition-colors" data-lang-key="nav_psb_intro">Pháp luật Doanh nghiệp</a>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="button" class="mobile-submenu-toggle w-full text-left px-2 py-1.5 rounded hover:bg-neutral-800 font-semibold text-blue-400 flex justify-between items-center transition-colors text-sm" aria-expanded="false" aria-controls="mobile-solutions-submenu-items" data-lang-key="nav_solutions">
+                        <span>Giải pháp</span>
+                        <i class="fas fa-chevron-down fa-xs mobile-submenu-icon transition-transform duration-200" aria-hidden="true"></i>
+                    </button>
+                    <div id="mobile-solutions-submenu-items" class="mobile-submenu-content pl-3 pr-1 pb-0.5 space-y-0.5 overflow-hidden max-h-0">
+                        <a href="/solutions.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_solutions_main">Tổng quan Giải pháp</a>
+                        <a href="/Pages/ivscelestech.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_solution_edtech">Công nghệ Giáo dục</a>
+                        <a href="/Pages/upskill.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_solution_upskill">Nâng cao Trình độ</a>
+                        <a href="/Pages/webdesign.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_solution_webdesign">Thiết kế Website</a>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="button" class="mobile-submenu-toggle w-full text-left px-2 py-1.5 rounded hover:bg-neutral-800 font-semibold text-blue-400 flex justify-between items-center transition-colors text-sm" aria-expanded="false" aria-controls="mobile-library-submenu-items" data-lang-key="nav_library">
+                        <span>Thư Viện</span>
+                        <i class="fas fa-chevron-down fa-xs mobile-submenu-icon transition-transform duration-200" aria-hidden="true"></i>
+                    </button>
+                    <div id="mobile-library-submenu-items" class="mobile-submenu-content pl-3 pr-1 pb-0.5 space-y-0.5 overflow-hidden max-h-0">
+                        <a href="/gallerry.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_library_main">Tổng quan Thư viện</a>
+                        <a href="/Pages/document-library.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_library_docs">Tài liệu Giáo dục</a>
+                        <a href="/Pages/story-repository.html" class="block px-2 py-1 rounded hover:bg-neutral-700 hover:text-blue-300 text-xs font-medium transition-colors" data-lang-key="nav_library_stories">Kho truyện</a>
+                    </div>
+                </div>
+
+                <a href="/news-archive.html" class="block px-2 py-1.5 rounded hover:bg-neutral-800 hover:text-blue-400 font-medium transition-colors text-sm" data-lang-key="nav_news_archive">Tin tức</a>
+                <a href="/contact.html" class="block px-2 py-1.5 rounded bg-secondary text-white hover:bg-emerald-600 font-semibold text-center transition-colors shadow-sm hover:shadow-md text-sm" data-lang-key="nav_contact">Liên Hệ</a>
+                
+                <div id="language-toggle-container-mobile" class="flex border border-neutral-700 rounded mx-auto mt-3 w-max"> 
+                    <button data-lang="vi" class="lang-button px-2.5 py-1 text-xs font-medium focus:outline-none rounded-l text-white hover:bg-neutral-700" data-lang-key="lang_vi_short" aria-pressed="true">VI</button> 
+                    <button data-lang="en" class="lang-button px-2.5 py-1 text-xs font-medium focus:outline-none rounded-r border-l border-neutral-700 text-neutral-400 hover:bg-neutral-700 hover:text-white" data-lang-key="lang_en_short" aria-pressed="false">EN</button>
+                </div>
+            </nav>
+        </div>
+        <!-- Overlay để click outside đóng menu -->
+        <div class="absolute inset-0 bg-black/50 -z-10"></div>
+    </div>
 
     <div class="bottom-nav md:hidden fixed bottom-0 left-0 w-full bg-neutral-800 shadow-t z-50">
         <div class="flex justify-around items-center h-12"> 
