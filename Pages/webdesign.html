@@ -18,73 +18,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio,line-clamp"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        'primary': '#3b82f6',
-                        'primary-dark': '#2563eb',
-                        'secondary': '#10b981',
-                        'purple-accent': '#8b5cf6',
-                        'warning': '#f59e0b',
-                        'neutral-50': '#f9fafb',
-                        'neutral-100': '#f3f4f6',
-                        'neutral-200': '#e5e7eb',
-                        'neutral-300': '#d1d5db',
-                        'neutral-500': '#6b7280',
-                        'neutral-600': '#4b5563',
-                        'neutral-700': '#374151',
-                        'neutral-800': '#1f2937',
-                        'neutral-900': '#111827',
-                        'gray-50': '#f9fafb',
-                        'gray-100': '#f3f4f6',
-                        'gray-300': '#d1d5db',
-                        'gray-400': '#9ca3af',
-                        'gray-500': '#6b7280',
-                        'gray-600': '#4b5563',
-                        'gray-700': '#374151',
-                        'gray-800': '#1f2937',
-                        'blue-50': '#eff6ff',
-                        'blue-200': '#bfdbfe',
-                        'blue-600': '#2563eb',
-                        'blue-700': '#1d4ed8',
-                        'blue-800': '#1e40af',
-                        'purple-50':'#faf5ff',
-                        'purple-500':'#a855f7',
-                        'purple-600': '#9333ea',
-                        'purple-700': '#7e2d87',
-                        'emerald-50': '#ecfdf5',
-                        'emerald-200': '#a7f3d0',
-                        'emerald-500': '#10b981',
-                        'emerald-600': '#059669',
-                        'amber-200': '#fde68a',
-                        'amber-500': '#f59e0b',
-                        'orange-200': '#fed7aa',
-                        'orange-500': '#f97316',
-                        'sky-200': '#bae6fd',
-                        'sky-600': '#0284c7',
-                        'teal-600': '#0d9488',
-                        'indigo-600': '#4f46e5',
-                        'indigo-700': '#4338ca',
-                        'pink-500': '#ec4899',
-                        'pink-accent': '#ec4899',
-                        'red-600': '#dc2626'
-                    }
-                }
-            },
-            plugins: [
-                '@tailwindcss/typography',
-                '@tailwindcss/forms',
-                '@tailwindcss/aspect-ratio',
-                '@tailwindcss/line-clamp'
-            ],
-        }
-    </script>
-
+    
     <link rel="stylesheet" href="/css/styles.css">
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -119,6 +53,7 @@
         html.dark .card:hover { box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1); }
         html.dark .card h3 { color: #f9fafb; }
         html.dark .card ul li { color: #d1d5db; }
+        html.dark .card ul li::before { color: theme('colors.emerald-400', '#34d399'); } /* Adjusted for dark mode */
         html.dark .process-list-item { background-color: #1f2937; box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05); }
         html.dark .process-list-item:hover { box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); }
         html.dark .process-list-item h4 { color: #f9fafb; }
@@ -128,7 +63,7 @@
         html.dark .check-list li { color: #d1d5db; }
         html.dark .check-list li strong { color: #f9fafb; }
 
-        /* Modal styles */
+        /* Modal styles (kept for general modal styling if other modals exist, but the specific AI modal HTML is removed) */
         .modal {
             display: none;
             position: fixed;
@@ -229,7 +164,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 text-neutral-700 font-sans antialiased">
+<body class="bg-gray-100 dark:bg-gray-900 text-neutral-700 dark:text-gray-300 font-sans antialiased">
 
     <div id="header-placeholder"></div>
 
@@ -241,12 +176,12 @@
             </div>
         </section>
 
-        <section class="py-12 md:py-16">
+        <section class="py-12 md:py-16 bg-white dark:bg-gray-900">
             <div class="container mx-auto px-4 max-w-5xl">
                 <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
                     <div class="md:w-3/5" data-aos="fade-right">
-                        <h2 class="text-3xl font-bold text-neutral-800 mb-4" data-lang-key="webdesign_intro_heading">Tại sao Website là bộ mặt của Doanh nghiệp & Tổ chức?</h2>
-                        <div class="prose prose-neutral max-w-none text-lg leading-relaxed space-y-4">
+                        <h2 class="text-3xl font-bold text-neutral-800 dark:text-gray-100 mb-4" data-lang-key="webdesign_intro_heading">Tại sao Website là bộ mặt của Doanh nghiệp & Tổ chức?</h2>
+                        <div class="prose prose-neutral dark:prose-invert max-w-none text-lg leading-relaxed space-y-4">
                             <p data-lang-key="webdesign_intro_p1">
                                 Trong kỷ nguyên số, website không chỉ là nơi giới thiệu thông tin mà còn là công cụ marketing mạnh mẽ, kênh bán hàng/cung cấp dịch vụ hiệu quả và cầu nối trực tiếp với khách hàng, đối tác, học viên. Một website chuyên nghiệp, chuẩn SEO, thân thiện và tương thích mọi thiết bị (responsive) sẽ giúp tổ chức của bạn khẳng định vị thế, nâng cao uy tín và đạt được mục tiêu đề ra.
                             </p>
@@ -265,9 +200,9 @@
             </div>
         </section>
 
-        <section class="py-12 md:py-16 bg-white section-spacing">
+        <section class="py-12 md:py-16 bg-white dark:bg-gray-900 section-spacing">
             <div class="container mx-auto px-4 max-w-4xl">
-                <h2 class="text-3xl font-bold text-center text-neutral-800 mb-8 md:mb-12" data-lang-key="webdesign_video_showcase_title" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-center text-neutral-800 dark:text-gray-100 mb-8 md:mb-12" data-lang-key="webdesign_video_showcase_title" data-aos="fade-up">
                     Khám Phá Dự Án Thiết Kế Website Thực Tế
                 </h2>
                 <div class="max-w-3xl mx-auto rounded-lg shadow-xl overflow-hidden" data-aos="zoom-in" data-aos-delay="100">
@@ -280,223 +215,248 @@
                         </video>
                     </div>
                 </div>
-                <p class="text-center text-neutral-600 mt-6 text-lg" data-lang-key="webdesign_video_caption_text" data-aos="fade-up" data-aos-delay="200">
+                <p class="text-center text-neutral-600 dark:text-gray-400 mt-6 text-lg" data-lang-key="webdesign_video_caption_text" data-aos="fade-up" data-aos-delay="200">
                     Xem cách IVS Celestech hiện thực hóa ý tưởng website của khách hàng thành những sản phẩm ấn tượng và hiệu quả.
                 </p>
             </div>
         </section>
 
-        <section class="py-12 md:py-16 bg-neutral-100 section-spacing">
+        <section class="py-12 md:py-16 bg-neutral-100 dark:bg-gray-800/30 section-spacing">
             <div class="container mx-auto px-4 max-w-5xl">
-                <h2 class="text-3xl font-bold text-center text-neutral-800 mb-8 md:mb-12" data-lang-key="webdesign_gallery_heading" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-center text-neutral-800 dark:text-gray-100 mb-8 md:mb-12" data-lang-key="webdesign_gallery_heading" data-aos="fade-up">
                     Thư Viện Website Đã Thiết Kế
                 </h2>
-
-        <section class="py-12 md:py-16 bg-neutral-100 section-spacing">
-            <div class="container mx-auto px-4 max-w-5xl">
-                <h2 class="text-3xl font-bold text-center text-neutral-800 mb-8 md:mb-12" data-aos="fade-up">
-                    Giới thiệu KhaDock.com - 1 Dự án phát triển Website nổi bật của IVS Celestech
-                </h2>
-                <p class="text-center text-neutral-600 mb-8 md:mb-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
-                    Khám phá KhaDock.com, website chuyên nghiệp về thiết kế, xây dựng và cải tạo bến tàu tại Florida, Mỹ. Được phát triển bởi IVS Celestech, dự án này thể hiện sự kết hợp giữa công nghệ tiên tiến, tối ưu SEO, và thiết kế responsive, mang lại giá trị toàn cầu.
-                </p>
-                <div class="space-y-8">
-                    <!-- Hình ảnh 1: Trang Dự án (Projects) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                        <img src="/images/pages/webs/webdesign1.jpg" alt="Thiết kế Website 1" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <div class="p-4 flex-grow">
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Dự án Giáo dục X</h3>
+                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Thiết kế website cho trung tâm giáo dục, tập trung vào trải nghiệm người dùng thân thiện và tích hợp hệ thống quản lý khóa học.</p>
+                        </div>
+                    </div>
                     <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="200">
-                        <img src="/images/pages/webs/khadock-projects.jpg" alt="Trang Dự án KhaDock.com" class="rounded-lg w-full h-64 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold text-neutral-800 mb-2">Trang Dự án - Hiển thị Chất lượng Công trình</h3>
-                            <p class="text-sm text-neutral-600 mb-4">
-                                Trang "Our Project Showcase" giới thiệu các bến tàu, cầu cảng và cấu trúc hàng hải độc đáo, phản ánh sự đa dạng và chất lượng từ KhaDock. Tích hợp hình ảnh chuyên nghiệp và bố cục trực quan.
-                            </p>
+                        <img src="/images/pages/webs/webdesign2.jpg" alt="Thiết kế Website 2" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <div class="p-4 flex-grow">
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Nền tảng E-commerce Y</h3>
+                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Phát triển trang thương mại điện tử với giao diện hiện đại, tính năng giỏ hàng thông minh và tối ưu hóa chuyển đổi.</p>
                         </div>
                     </div>
-                    <!-- Hình ảnh 2: Trang Chủ (Home) -->
                     <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="300">
-                        <img src="/images/pages/webs/khadock-home.jpg" alt="Trang Chủ KhaDock.com" class="rounded-lg w-full h-64 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold text-neutral-800 mb-2">Trang Chủ - Ấn tượng Ban Đầu</h3>
-                            <p class="text-sm text-neutral-600 mb-4">
-                                Trang chủ nổi bật với logo KhaDock, thông điệp "Your Trusted Partner in Florida", và nút "View Our Portfolio", tạo ấn tượng mạnh mẽ về dịch vụ chuyên nghiệp.
-                            </p>
+                        <img src="/images/pages/webs/webdesign3.jpg" alt="Thiết kế Website 3" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <div class="p-4 flex-grow">
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang thông tin Doanh nghiệp Z</h3>
+                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Xây dựng website giới thiệu công ty với bố cục rõ ràng, hình ảnh sắc nét và nội dung chuẩn SEO, tăng cường nhận diện thương hiệu.</p>
                         </div>
                     </div>
-                    <!-- Hình ảnh 3: Trang Dịch vụ (Services) -->
                     <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="400">
-                        <img src="/images/pages/webs/khadock-services.jpg" alt="Trang Dịch vụ KhaDock.com" class="rounded-lg w-full h-64 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold text-neutral-800 mb-2">Trang Dịch vụ - Giải pháp Toàn diện</h3>
-                            <p class="text-sm text-neutral-600 mb-4">
-                                Trang "Comprehensive Dock Services" liệt kê các dịch vụ như xây dựng, sửa chữa và cải tạo bến tàu, tối ưu hóa trải nghiệm người dùng với thiết kế responsive.
-                            </p>
+                        <img src="/images/pages/webs/webdesign4.jpg" alt="Thiết kế Website 4" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <div class="p-4 flex-grow">
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Cổng thông tin Du lịch A</h3>
+                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Thiết kế cổng thông tin du lịch với khả năng tìm kiếm, đặt tour trực tuyến và thư viện ảnh phong phú.</p>
                         </div>
                     </div>
-                    <!-- Hình ảnh 4: Trang Liên hệ (Contact) -->
                     <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="500">
-                        <img src="/images/pages/webs/khadock-contact.jpg" alt="Trang Liên hệ KhaDock.com" class="rounded-lg w-full h-64 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold text-neutral-800 mb-2">Trang Liên hệ - Kết nối Dễ dàng</h3>
-                            <p class="text-sm text-neutral-600 mb-4">
-                                Trang "Contact Information" cung cấp thông tin chi tiết (địa chỉ, điện thoại, email) và bản đồ, tích hợp Formspree cho đăng ký bản tin, đảm bảo tương tác hiệu quả.
-                            </p>
+                        <img src="/images/pages/webs/webdesign5.jpg" alt="Thiết kế Website 5" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <div class="p-4 flex-grow">
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Website Cá nhân B</h3>
+                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Thiết kế portfolio cá nhân chuyên nghiệp, nổi bật các dự án và kỹ năng, thu hút nhà tuyển dụng và đối tác.</p>
                         </div>
                     </div>
-                    <!-- Hình ảnh 5: Trang Thiết kế (Design) -->
                     <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="600">
-                        <img src="/images/pages/webs/khadock-design.jpg" alt="Trang Thiết kế KhaDock.com" class="rounded-lg w-full h-64 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold text-neutral-800 mb-2">Trang Thiết kế - Định hướng Tương lai</h3>
-                            <p class="text-sm text-neutral-600 mb-4">
-                                Trang "KhaDock's Design" giới thiệu tính năng AI Designer, do IVS Celestech phát triển, mang đến các ý tưởng thiết kế độc đáo cho khách hàng.
-                            </p>
+                        <img src="/images/pages/webs/webdesign6.jpg" alt="Thiết kế Website 6" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <div class="p-4 flex-grow">
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Dịch vụ Tư vấn C</h3>
+                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Website cho công ty tư vấn, tập trung vào việc trình bày dịch vụ, đội ngũ chuyên gia và các case study thành công.</p>
                         </div>
                     </div>
-                </div>
-                <div class="text-center mt-8">
-                    <a href="https://khadock.com" target="_blank" rel="noopener noreferrer" class="bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-6 rounded-full text-sm transition duration-300 inline-block">
-                        Xem Website
-                    </a>
+                    <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="700">
+                        <img src="/images/pages/webs/webdesign7.jpg" alt="Thiết kế Website 7" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <div class="p-4 flex-grow">
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Blog D</h3>
+                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Thiết kế nền tảng blog với giao diện đọc thân thiện, tối ưu hóa cho nội dung và chia sẻ xã hội.</p>
+                        </div>
+                    </div>
+                    <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="800">
+                        <img src="/images/pages/webs/webdesign8.jpg" alt="Thiết kế Website 8" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <div class="p-4 flex-grow">
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Giải pháp Công nghệ E</h3>
+                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Website giới thiệu sản phẩm công nghệ, với các demo tương tác và thông tin chi tiết về tính năng.</p>
+                        </div>
+                    </div>
+                    <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="900">
+                        <img src="/images/pages/webs/webdesign9.jpg" alt="Thiết kế Website 9" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <div class="p-4 flex-grow">
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Website Y tế F</h3>
+                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Thiết kế website cho phòng khám/bệnh viện, đảm bảo tính bảo mật, thông tin rõ ràng và chức năng đặt lịch hẹn.</p>
+                        </div>
+                    </div>
+                    <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="1000">
+                        <img src="/images/pages/webs/webdesign10.jpg" alt="Thiết kế Website 10" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <div class="p-4 flex-grow">
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang sự kiện G</h3>
+                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Website quảng bá sự kiện với lịch trình, thông tin diễn giả và khả năng đăng ký trực tuyến.</p>
+                        </div>
+                    </div>
+                    <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="1100">
+                        <img src="/images/pages/webs/webdesign11.jpg" alt="Thiết kế Website 11" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <div class="p-4 flex-grow">
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Website Bất động sản H</h3>
+                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Thiết kế website hiển thị các dự án bất động sản, tích hợp bản đồ, bộ lọc tìm kiếm và thông tin chi tiết từng căn hộ/đất nền.</p>
+                        </div>
+                    </div>
+                    <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="1200">
+                        <img src="/images/pages/webs/webdesign12.jpg" alt="Thiết kế Website 12" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <div class="p-4 flex-grow">
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Cửa hàng Nghệ thuật I</h3>
+                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Thiết kế website trưng bày các tác phẩm nghệ thuật, với gallery ảnh chất lượng cao và thông tin chi tiết về nghệ sĩ.</p>
+                        </div>
+                    </div>
+                    <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="1300">
+                        <img src="/images/pages/webs/webdesign13.jpg" alt="Thiết kế Website 13" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <div class="p-4 flex-grow">
+                            <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Nền tảng Cộng đồng J</h3>
+                            <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Xây dựng website cộng đồng với các tính năng diễn đàn, hồ sơ thành viên và hệ thống thông báo.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>                
-                
         </section>
 
-        <section class="bg-neutral-200 py-12 md:py-16 section-spacing">
+        <section class="bg-neutral-200 dark:bg-gray-800/50 py-12 md:py-16 section-spacing">
             <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-center text-neutral-800 mb-8 md:mb-12" data-lang-key="webdesign_services_heading" data-aos="fade-up">Các Gói Dịch Vụ Thiết Kế Website</h2>
+                <h2 class="text-3xl font-bold text-center text-neutral-800 dark:text-gray-100 mb-8 md:mb-12" data-lang-key="webdesign_services_heading" data-aos="fade-up">Các Gói Dịch Vụ Thiết Kế Website</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     <div class="card" data-aos="fade-up" data-aos-delay="100">
-                        <div class="text-primary mb-4 text-4xl"><i class="fas fa-palette" aria-hidden="true"></i></div>
-                        <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service1_title">Thiết kế theo yêu cầu</h3>
-                        <ul class="text-sm text-neutral-600 space-y-1 flex-grow mb-4">
+                        <div class="text-primary dark:text-blue-400 mb-4 text-4xl"><i class="fas fa-palette" aria-hidden="true"></i></div>
+                        <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-3" data-lang-key="webdesign_service1_title">Thiết kế theo yêu cầu</h3>
+                        <ul class="text-sm text-neutral-600 dark:text-gray-400 space-y-1 flex-grow mb-4">
                             <li data-lang-key="webdesign_service1_li1">Phân tích nhu cầu, đối tượng mục tiêu.</li>
                             <li data-lang-key="webdesign_service1_li2">Thiết kế giao diện độc đáo, sáng tạo, đúng nhận diện thương hiệu.</li>
                             <li data-lang-key="webdesign_service1_li3">Đảm bảo trải nghiệm người dùng (UX/UI) tối ưu, dễ sử dụng.</li>
                             <li data-lang-key="webdesign_service1_li4">Lập trình các tính năng riêng biệt theo yêu cầu đặc thù.</li>
                         </ul>
-                        <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+                        <a href="#contact-cta" class="text-primary dark:text-blue-400 hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
                     </div>
                     <div class="card" data-aos="fade-up" data-aos-delay="200">
-                        <div class="text-secondary mb-4 text-4xl"><i class="fas fa-mobile-alt" aria-hidden="true"></i></div>
-                        <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service2_title">Thiết kế Responsive</h3>
-                        <ul class="text-sm text-neutral-600 space-y-1 flex-grow mb-4">
+                        <div class="text-secondary dark:text-emerald-400 mb-4 text-4xl"><i class="fas fa-mobile-alt" aria-hidden="true"></i></div>
+                        <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-3" data-lang-key="webdesign_service2_title">Thiết kế Responsive</h3>
+                        <ul class="text-sm text-neutral-600 dark:text-gray-400 space-y-1 flex-grow mb-4">
                             <li data-lang-key="webdesign_service2_li1">Hiển thị hoàn hảo, tự động co giãn trên mọi thiết bị (PC, tablet, mobile).</li>
                             <li data-lang-key="webdesign_service2_li2">Tối ưu tốc độ tải trang trên tất cả các nền tảng.</li>
                             <li data-lang-key="webdesign_service2_li3">Nâng cao trải nghiệm người dùng di động, tăng tương tác.</li>
                             <li data-lang-key="webdesign_service2_li4">Đáp ứng tiêu chí ưu tiên của Google cho thiết bị di động.</li>
                         </ul>
-                        <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+                        <a href="#contact-cta" class="text-primary dark:text-blue-400 hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
                     </div>
                     <div class="card" data-aos="fade-up" data-aos-delay="300">
-                        <div class="text-purple-500 mb-4 text-4xl"><i class="fas fa-shopping-cart" aria-hidden="true"></i></div>
-                        <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service3_title">Website Thương mại Điện tử</h3>
-                        <ul class="text-sm text-neutral-600 space-y-1 flex-grow mb-4">
+                        <div class="text-purple-500 dark:text-purple-400 mb-4 text-4xl"><i class="fas fa-shopping-cart" aria-hidden="true"></i></div>
+                        <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-3" data-lang-key="webdesign_service3_title">Website Thương mại Điện tử</h3>
+                        <ul class="text-sm text-neutral-600 dark:text-gray-400 space-y-1 flex-grow mb-4">
                             <li data-lang-key="webdesign_service3_li1">Thiết kế gian hàng trực tuyến chuyên nghiệp, thu hút.</li>
                             <li data-lang-key="webdesign_service3_li2">Tích hợp giỏ hàng thông minh, thanh toán online an toàn, đa dạng.</li>
                             <li data-lang-key="webdesign_service3_li3">Hệ thống quản lý sản phẩm, đơn hàng, khách hàng trực quan, dễ dàng.</li>
                             <li data-lang-key="webdesign_service3_li4">Tối ưu hóa SEO cho sản phẩm và danh mục.</li>
                         </ul>
-                        <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+                        <a href="#contact-cta" class="text-primary dark:text-blue-400 hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
                     </div>
                     <div class="card" data-aos="fade-up" data-aos-delay="400">
-                        <div class="text-sky-600 mb-4 text-4xl"><i class="fab fa-wordpress" aria-hidden="true"></i></div>
-                        <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service4_title">Website trên nền tảng CMS</h3>
-                        <ul class="text-sm text-neutral-600 space-y-1 flex-grow mb-4">
+                        <div class="text-sky-600 dark:text-sky-400 mb-4 text-4xl"><i class="fab fa-wordpress" aria-hidden="true"></i></div>
+                        <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-3" data-lang-key="webdesign_service4_title">Website trên nền tảng CMS</h3>
+                        <ul class="text-sm text-neutral-600 dark:text-gray-400 space-y-1 flex-grow mb-4">
                             <li data-lang-key="webdesign_service4_li1">Triển khai trên các CMS phổ biến, mạnh mẽ (WordPress...).</li>
                             <li data-lang-key="webdesign_service4_li2">Giao diện quản trị thân thiện, dễ dàng cập nhật nội dung, hình ảnh.</li>
                             <li data-lang-key="webdesign_service4_li3">Kho giao diện và plugin phong phú, mở rộng tính năng linh hoạt.</li>
                             <li data-lang-key="webdesign_service4_li4">Hỗ trợ đào tạo sử dụng và quản trị website hiệu quả.</li>
                         </ul>
-                        <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+                        <a href="#contact-cta" class="text-primary dark:text-blue-400 hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
                     </div>
                     <div class="card" data-aos="fade-up" data-aos-delay="500">
-                        <div class="text-warning mb-4 text-4xl"><i class="fas fa-search" aria-hidden="true"></i></div>
-                        <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service5_title">Tối ưu hóa SEO</h3>
-                        <ul class="text-sm text-neutral-600 space-y-1 flex-grow mb-4">
+                        <div class="text-warning dark:text-amber-400 mb-4 text-4xl"><i class="fas fa-search" aria-hidden="true"></i></div>
+                        <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-3" data-lang-key="webdesign_service5_title">Tối ưu hóa SEO</h3>
+                        <ul class="text-sm text-neutral-600 dark:text-gray-400 space-y-1 flex-grow mb-4">
                             <li data-lang-key="webdesign_service5_li1">Xây dựng cấu trúc website chuẩn SEO ngay từ nền tảng.</li>
                             <li data-lang-key="webdesign_service5_li2">Tối ưu on-page: thẻ meta, tiêu đề, hình ảnh, nội dung, liên kết nội bộ.</li>
                             <li data-lang-key="webdesign_service5_li3">Cài đặt và cấu hình công cụ theo dõi (Google Analytics, Search Console).</li>
                             <li data-lang-key="webdesign_service5_li4">Tư vấn chiến lược từ khóa và xây dựng nội dung chuẩn SEO cơ bản.</li>
                         </ul>
-                        <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+                        <a href="#contact-cta" class="text-primary dark:text-blue-400 hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
                     </div>
                     <div class="card" data-aos="fade-up" data-aos-delay="600">
-                        <div class="text-red-600 mb-4 text-4xl"><i class="fas fa-tools" aria-hidden="true"></i></div>
-                        <h3 class="text-xl font-semibold text-neutral-800 mb-3" data-lang-key="webdesign_service6_title">Bảo trì & Nâng cấp</h3>
-                        <ul class="text-sm text-neutral-600 space-y-1 flex-grow mb-4">
+                        <div class="text-red-600 dark:text-red-400 mb-4 text-4xl"><i class="fas fa-tools" aria-hidden="true"></i></div>
+                        <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-3" data-lang-key="webdesign_service6_title">Bảo trì & Nâng cấp</h3>
+                        <ul class="text-sm text-neutral-600 dark:text-gray-400 space-y-1 flex-grow mb-4">
                             <li data-lang-key="webdesign_service6_li1">Sao lưu dữ liệu định kỳ, đảm bảo an toàn thông tin website.</li>
                             <li data-lang-key="webdesign_service6_li2">Cập nhật phiên bản mã nguồn, theme, plugin để vá lỗi bảo mật.</li>
                             <li data-lang-key="webdesign_service6_li3">Hỗ trợ khắc phục sự cố kỹ thuật nhanh chóng, kịp thời.</li>
                             <li data-lang-key="webdesign_service6_li4">Tư vấn và hỗ trợ nâng cấp, phát triển tính năng mới khi cần.</li>
                         </ul>
-                        <a href="#contact-cta" class="text-primary hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
+                        <a href="#contact-cta" class="text-primary dark:text-blue-400 hover:underline text-sm font-medium mt-auto" data-lang-key="webdesign_service_cta">Tìm hiểu thêm</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-12 md:py-16 section-spacing">
+        <section class="py-12 md:py-16 bg-white dark:bg-gray-900 section-spacing">
             <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-center text-neutral-800 mb-8 md:mb-12" data-lang-key="webdesign_process_heading" data-aos="fade-up">Quy trình làm việc chuyên nghiệp</h2>
+                <h2 class="text-3xl font-bold text-center text-neutral-800 dark:text-gray-100 mb-8 md:mb-12" data-lang-key="webdesign_process_heading" data-aos="fade-up">Quy trình làm việc chuyên nghiệp</h2>
                 <ol class="process-list max-w-6xl mx-auto">
                     <li class="process-list-item" data-aos="fade-up" data-aos-delay="100">
-                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process1_title">Tiếp nhận & Tư vấn</h4>
-                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process1_desc">Lắng nghe yêu cầu, phân tích mục tiêu kinh doanh/giáo dục, tư vấn giải pháp website phù hợp.</p>
+                        <h4 class="text-lg font-semibold text-neutral-800 dark:text-gray-100 mb-1" data-lang-key="webdesign_process1_title">Tiếp nhận & Tư vấn</h4>
+                        <p class="text-sm text-neutral-600 dark:text-gray-400" data-lang-key="webdesign_process1_desc">Lắng nghe yêu cầu, phân tích mục tiêu kinh doanh/giáo dục, tư vấn giải pháp website phù hợp.</p>
                     </li>
                     <li class="process-list-item" data-aos="fade-up" data-aos-delay="200">
-                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process2_title">Lập kế hoạch & Báo giá</h4>
-                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process2_desc">Xây dựng kế hoạch chi tiết về cấu trúc, tính năng, tiến độ và báo giá minh bạch.</p>
+                        <h4 class="text-lg font-semibold text-neutral-800 dark:text-gray-100 mb-1" data-lang-key="webdesign_process2_title">Lập kế hoạch & Báo giá</h4>
+                        <p class="text-sm text-neutral-600 dark:text-gray-400" data-lang-key="webdesign_process2_desc">Xây dựng kế hoạch chi tiết về cấu trúc, tính năng, tiến độ và báo giá minh bạch.</p>
                     </li>
                     <li class="process-list-item" data-aos="fade-up" data-aos-delay="300">
-                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process3_title">Thiết kế Giao diện</h4>
-                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process3_desc">Phác thảo wireframe, thiết kế mockup UI/UX sáng tạo, chuyên nghiệp và duyệt mẫu với khách hàng.</p>
+                        <h4 class="text-lg font-semibold text-neutral-800 dark:text-gray-100 mb-1" data-lang-key="webdesign_process3_title">Thiết kế Giao diện</h4>
+                        <p class="text-sm text-neutral-600 dark:text-gray-400" data-lang-key="webdesign_process3_desc">Phác thảo wireframe, thiết kế mockup UI/UX sáng tạo, chuyên nghiệp và duyệt mẫu với khách hàng.</p>
                     </li>
                     <li class="process-list-item" data-aos="fade-up" data-aos-delay="400">
-                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process4_title">Lập trình & Phát triển</h4>
-                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process4_desc">Chuyển đổi thiết kế thành website sống động, lập trình các tính năng đã thống nhất.</p>
+                        <h4 class="text-lg font-semibold text-neutral-800 dark:text-gray-100 mb-1" data-lang-key="webdesign_process4_title">Lập trình & Phát triển</h4>
+                        <p class="text-sm text-neutral-600 dark:text-gray-400" data-lang-key="webdesign_process4_desc">Chuyển đổi thiết kế thành website sống động, lập trình các tính năng đã thống nhất.</p>
                     </li>
                     <li class="process-list-item" data-aos="fade-up" data-aos-delay="500">
-                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process5_title">Kiểm thử & Tối ưu</h4>
-                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process5_desc">Kiểm tra kỹ lưỡng các chức năng, hiển thị trên đa thiết bị, tối ưu tốc độ và bảo mật.</p>
+                        <h4 class="text-lg font-semibold text-neutral-800 dark:text-gray-100 mb-1" data-lang-key="webdesign_process5_title">Kiểm thử & Tối ưu</h4>
+                        <p class="text-sm text-neutral-600 dark:text-gray-400" data-lang-key="webdesign_process5_desc">Kiểm tra kỹ lưỡng các chức năng, hiển thị trên đa thiết bị, tối ưu tốc độ và bảo mật.</p>
                     </li>
                     <li class="process-list-item" data-aos="fade-up" data-aos-delay="600">
-                        <h4 class="text-lg font-semibold text-neutral-800 mb-1" data-lang-key="webdesign_process6_title">Bàn giao & Hướng dẫn</h4>
-                        <p class="text-sm text-neutral-600" data-lang-key="webdesign_process6_desc">Triển khai website lên hosting, bàn giao tài khoản quản trị và hướng dẫn sử dụng chi tiết.</p>
+                        <h4 class="text-lg font-semibold text-neutral-800 dark:text-gray-100 mb-1" data-lang-key="webdesign_process6_title">Bàn giao & Hướng dẫn</h4>
+                        <p class="text-sm text-neutral-600 dark:text-gray-400" data-lang-key="webdesign_process6_desc">Triển khai website lên hosting, bàn giao tài khoản quản trị và hướng dẫn sử dụng chi tiết.</p>
                     </li>
                 </ol>
             </div>
         </section>
 
-        <section class="bg-neutral-200 py-12 md:py-16 section-spacing">
+        <section class="bg-neutral-200 dark:bg-gray-800/50 py-12 md:py-16 section-spacing">
             <div class="container mx-auto px-4 max-w-4xl" data-aos="fade-up">
-                <h2 class="text-3xl font-bold text-center text-neutral-800 mb-8 md:mb-12" data-lang-key="webdesign_why_heading">Tại sao chọn Dịch vụ Thiết kế Website của IVS?</h2>
+                <h2 class="text-3xl font-bold text-center text-neutral-800 dark:text-gray-100 mb-8 md:mb-12" data-lang-key="webdesign_why_heading">Tại sao chọn Dịch vụ Thiết kế Website của IVS?</h2>
                 <ul class="space-y-5 check-list">
-                    <li data-lang-key="webdesign_why_item1" data-aos="fade-right" data-aos-delay="100"><strong class="font-semibold text-neutral-700">Kinh nghiệm & Chuyên môn:</strong> Đội ngũ IVS Celestech am hiểu cả về công nghệ lẫn nghiệp vụ giáo dục và kinh doanh.</li>
-                    <li data-lang-key="webdesign_why_item2" data-aos="fade-right" data-aos-delay="200"><strong class="font-semibold text-neutral-700">Thiết kế Sáng tạo & Hiện đại:</strong> Giao diện đẹp mắt, chuyên nghiệp, cập nhật xu hướng UI/UX mới nhất.</li>
-                    <li data-lang-key="webdesign_why_item3" data-aos="fade-right" data-aos-delay="300"><strong class="font-semibold text-neutral-700">Giải pháp Tùy chỉnh:</strong> Website được thiết kế "may đo" theo đúng nhu cầu và mục tiêu riêng của từng khách hàng.</li>
-                    <li data-lang-key="webdesign_why_item4" data-aos="fade-right" data-aos-delay="400"><strong class="font-semibold text-neutral-700">Tối ưu Hiệu suất & SEO:</strong> Website tốc độ nhanh, cấu trúc chuẩn SEO, thân thiện với công cụ tìm kiếm và người dùng.</li>
-                    <li data-lang-key="webdesign_why_item5" data-aos="fade-right" data-aos-delay="500"><strong class="font-semibold text-neutral-700">Bảo mật & Ổn định:</strong> Cam kết website hoạt động an toàn, bảo mật thông tin và ổn định trên mọi nền tảng.</li>
-                    <li data-lang-key="webdesign_why_item6" data-aos="fade-right" data-aos-delay="600"><strong class="font-semibold text-neutral-700">Hỗ trợ Tận tâm:</strong> Đồng hành cùng bạn trong suốt quá trình từ tư vấn, triển khai đến bảo trì, nâng cấp.</li>
+                    <li data-lang-key="webdesign_why_item1" data-aos="fade-right" data-aos-delay="100"><strong class="font-semibold text-neutral-700 dark:text-gray-200">Kinh nghiệm & Chuyên môn:</strong> <span class="text-neutral-700 dark:text-gray-300">Đội ngũ IVS Celestech am hiểu cả về công nghệ lẫn nghiệp vụ giáo dục và kinh doanh.</span></li>
+                    <li data-lang-key="webdesign_why_item2" data-aos="fade-right" data-aos-delay="200"><strong class="font-semibold text-neutral-700 dark:text-gray-200">Thiết kế Sáng tạo & Hiện đại:</strong> <span class="text-neutral-700 dark:text-gray-300">Giao diện đẹp mắt, chuyên nghiệp, cập nhật xu hướng UI/UX mới nhất.</span></li>
+                    <li data-lang-key="webdesign_why_item3" data-aos="fade-right" data-aos-delay="300"><strong class="font-semibold text-neutral-700 dark:text-gray-200">Giải pháp Tùy chỉnh:</strong> <span class="text-neutral-700 dark:text-gray-300">Website được thiết kế "may đo" theo đúng nhu cầu và mục tiêu riêng của từng khách hàng.</span></li>
+                    <li data-lang-key="webdesign_why_item4" data-aos="fade-right" data-aos-delay="400"><strong class="font-semibold text-neutral-700 dark:text-gray-200">Tối ưu Hiệu suất & SEO:</strong> <span class="text-neutral-700 dark:text-gray-300">Website tốc độ nhanh, cấu trúc chuẩn SEO, thân thiện với công cụ tìm kiếm và người dùng.</span></li>
+                    <li data-lang-key="webdesign_why_item5" data-aos="fade-right" data-aos-delay="500"><strong class="font-semibold text-neutral-700 dark:text-gray-200">Bảo mật & Ổn định:</strong> <span class="text-neutral-700 dark:text-gray-300">Cam kết website hoạt động an toàn, bảo mật thông tin và ổn định trên mọi nền tảng.</span></li>
+                    <li data-lang-key="webdesign_why_item6" data-aos="fade-right" data-aos-delay="600"><strong class="font-semibold text-neutral-700 dark:text-gray-200">Hỗ trợ Tận tâm:</strong> <span class="text-neutral-700 dark:text-gray-300">Đồng hành cùng bạn trong suốt quá trình từ tư vấn, triển khai đến bảo trì, nâng cấp.</span></li>
                 </ul>
             </div>
         </section>
 
-        <section class="py-12 md:py-16 bg-neutral-100 section-spacing">
+        <section class="py-12 md:py-16 bg-neutral-100 dark:bg-gray-800/30 section-spacing">
             <div class="container mx-auto px-4 max-w-3xl">
-                <h2 class="text-2xl md:text-3xl font-semibold text-neutral-700 mb-8 text-center" data-aos="fade-up" data-lang-key="webdesign_testimonials_heading">Khách hàng nói gì</h2>
-                <div class="testimonial-card shadow-xl border border-blue-100" data-aos="zoom-in" data-aos-delay="100">
-                    <p class="text-lg text-neutral-700 mb-4" data-lang-key="webdesign_testimonial1_text">"IVS Celestech đã vượt mong đợi của chúng tôi với một website chuyên nghiệp, hiện đại và tối ưu SEO. Rất hài lòng với dịch vụ!"</p>
-                    <p class="testimonial-author text-primary-dark" data-lang-key="webdesign_testimonial1_author">- Đại diện Công ty TNHH MTV ST</p>
+                <h2 class="text-2xl md:text-3xl font-semibold text-neutral-700 dark:text-gray-100 mb-8 text-center" data-aos="fade-up" data-lang-key="webdesign_testimonials_heading">Khách hàng nói gì</h2>
+                <div class="testimonial-card shadow-xl border border-blue-100 dark:border-gray-700" data-aos="zoom-in" data-aos-delay="100">
+                    <p class="text-lg text-neutral-700 dark:text-gray-300 mb-4" data-lang-key="webdesign_testimonial1_text">"IVS Celestech đã vượt mong đợi của chúng tôi với một website chuyên nghiệp, hiện đại và tối ưu SEO. Rất hài lòng với dịch vụ!"</p>
+                    <p class="testimonial-author text-primary-dark dark:text-blue-400" data-lang-key="webdesign_testimonial1_author">- Đại diện Công ty TNHH MTV ST</p>
                 </div>
-                <div class="testimonial-card shadow-xl border border-blue-100" data-aos="zoom-in" data-aos-delay="200">
-                    <p class="text-lg text-neutral-700 mb-4" data-lang-key="webdesign_testimonial2_text">"The KhaDock.com website is optimized for UI and SEO, and the design was delivered extremely fast. Very professional. I will recommend IVS to my clients and partners in the US."</p>
-                    <p class="testimonial-author text-primary-dark" data-lang-key="webdesign_testimonial2_author">- Mr Kha - Founder & Director of KhaDock - Florida, USA.</p>
+                <div class="testimonial-card shadow-xl border border-blue-100 dark:border-gray-700" data-aos="zoom-in" data-aos-delay="200">
+                    <p class="text-lg text-neutral-700 dark:text-gray-300 mb-4" data-lang-key="webdesign_testimonial2_text">"The KhaDock.com website is optimized for UI and SEO, and the design was delivered extremely fast. Very professional. I will recommend IVS to my clients and partners in the US."</p>
+                    <p class="testimonial-author text-primary-dark dark:text-blue-400" data-lang-key="webdesign_testimonial2_author">- Mr Kha - Founder & Director of KhaDock - Florida, USA.</p>
                 </div>
             </div>
         </section>
 
-        <section id="contact-cta" class="py-16 md:py-20 bg-gradient-to-r from-primary to-blue-700 text-white" data-aos="fade-up">
+        <section id="contact-cta" class="py-16 md:py-20 bg-gradient-to-r from-primary to-blue-700 dark:from-blue-800 dark:to-blue-900 text-white" data-aos="fade-up">
             <div class="container mx-auto px-4 text-center max-w-3xl">
                 <h2 class="text-3xl font-bold mb-4" data-lang-key="webdesign_cta_heading">Sẵn sàng sở hữu một website ấn tượng?</h2>
                 <p class="text-lg opacity-90 mb-8" data-lang-key="webdesign_cta_desc">
@@ -504,7 +464,7 @@
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
                     <a href="/contact.html?service=web_design"
-                       class="inline-flex items-center justify-center gap-2 bg-white text-primary-dark font-semibold py-3 px-8 rounded-full shadow-md hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white focus:ring-offset-primary transition duration-300"
+                       class="inline-flex items-center justify-center gap-2 bg-white text-primary-dark dark:text-blue-800 font-semibold py-3 px-8 rounded-full shadow-md hover:bg-neutral-100 dark:hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white focus:ring-offset-primary transition duration-300"
                        data-lang-key="webdesign_cta_button1" data-aos="zoom-in" data-aos-delay="100">
                         <i class="fas fa-phone-alt" aria-hidden="true"></i> Yêu cầu Tư vấn
                     </a>
@@ -531,187 +491,32 @@
             once: true,
         });
 
-        let currentDesignConcept = "";
-
-        async function callGeminiApi(prompt, outputElement, buttonElement, loadingText, originalButtonText) {
-            outputElement.innerHTML = `<p class="text-center py-4"><div class="ai-loading-spinner"></div><br>${loadingText}</p>`;
-            outputElement.classList.remove('hidden');
-            buttonElement.disabled = true;
-            buttonElement.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> ${loadingText.split('...')[0]}...`;
-
-            try {
-                let chatHistory = [];
-                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-                const payload = { contents: chatHistory };
-                const apiKey = "";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(`Lỗi API: ${response.status} - ${errorData.error.message}`);
-                }
-
-                const result = await response.json();
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    outputElement.innerHTML = `<p>${text.replace(/\n/g, '<br>')}</p>`;
-                } else {
-                    outputElement.innerHTML = '<p class="text-red-500">Không thể tạo nội dung. Vui lòng thử lại.</p>';
-                }
-            } catch (error) {
-                console.error("Lỗi khi gọi Gemini API:", error);
-                outputElement.innerHTML = `<p class="text-red-500">Đã xảy ra lỗi: ${error.message}. Vui lòng thử lại sau.</p>`;
-            } finally {
-                buttonElement.disabled = false;
-                buttonElement.innerHTML = originalButtonText;
-            }
-        }
-
-        async function generateDesignConcept(title, description, buttonElement) {
-            const modal = document.getElementById('designConceptModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalContent = document.getElementById('modalContent');
-            const extraFeaturesSection = document.getElementById('gemini-extra-features');
-            const seoOutput = document.getElementById('seo-keywords-output');
-            const contentOutlineOutput = document.getElementById('content-outline-output');
-
-            // Reset previous outputs and hide extra features
-            seoOutput.classList.add('hidden');
-            contentOutlineOutput.classList.add('hidden');
-            extraFeaturesSection.classList.add('hidden');
-            seoOutput.innerHTML = '';
-            contentOutlineOutput.innerHTML = '';
-
-
-            modal.style.display = 'flex';
-            modalTitle.textContent = `Ý Tưởng Thiết Kế cho: ${title}`;
-            modalContent.innerHTML = '<p class="text-center py-8"><div class="ai-loading-spinner"></div><br>Đang tạo ý tưởng, vui lòng chờ...</p>';
-
-            buttonElement.disabled = true;
-            buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang tạo...';
-
-            try {
-                const prompt = `Hãy tạo một ý tưởng thiết kế website sáng tạo và chi tiết cho một trang web có tiêu đề '${title}' và mô tả '${description}'. Ý tưởng nên bao gồm các tính năng độc đáo, đối tượng mục tiêu, và các yếu tố thiết kế nổi bật. Trả lời bằng tiếng Việt.`;
-                let chatHistory = [];
-                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-                const payload = { contents: chatHistory };
-                const apiKey = "";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(`Lỗi API: ${response.status} - ${errorData.error.message}`);
-                }
-
-                const result = await response.json();
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    modalContent.innerHTML = `<p>${text.replace(/\n/g, '<br>')}</p>`;
-                    currentDesignConcept = text; // Store the generated concept for other features
-                    extraFeaturesSection.classList.remove('hidden'); // Show extra features
-                } else {
-                    modalContent.innerHTML = '<p class="text-red-500">Không thể tạo ý tưởng thiết kế. Vui lòng thử lại.</p>';
-                }
-            } catch (error) {
-                console.error("Lỗi khi gọi Gemini API:", error);
-                modalContent.innerHTML = `<p class="text-red-500">Đã xảy ra lỗi: ${error.message}. Vui lòng thử lại sau.</p>`;
-            } finally {
-                buttonElement.disabled = false;
-                buttonElement.innerHTML = 'Tạo Ý Tưởng Thiết Kế ✨';
-            }
-        }
-
-        function setupGeminiFeatures() {
-            const generateButtons = document.querySelectorAll('.generate-concept-btn');
-            const seoKeywordsBtn = document.getElementById('generate-seo-keywords-btn');
-            const contentOutlineBtn = document.getElementById('generate-content-outline-btn');
-            const seoKeywordsOutput = document.getElementById('seo-keywords-output');
-            const contentOutlineOutput = document.getElementById('content-outline-output');
-            const modal = document.getElementById('designConceptModal');
-            const closeButton = modal.querySelector('.close-button');
-
-            generateButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const title = button.dataset.title;
-                    const description = button.dataset.description;
-                    generateDesignConcept(title, description, button);
-                });
-            });
-
-            seoKeywordsBtn.addEventListener('click', () => {
-                if (currentDesignConcept) {
-                    const prompt = `Dựa trên ý tưởng thiết kế website sau: "${currentDesignConcept}". Hãy gợi ý 5-7 từ khóa SEO tiềm năng (tiếng Việt) mà website này có thể nhắm mục tiêu để cải thiện khả năng hiển thị trên công cụ tìm kiếm. Trình bày dưới dạng danh sách gạch đầu dòng.`;
-                    callGeminiApi(prompt, seoKeywordsOutput, seoKeywordsBtn, 'Đang tạo từ khóa SEO...', '<i class="fas fa-tags mr-2"></i> Gợi ý Từ khóa SEO ✨');
-                } else {
-                    seoKeywordsOutput.innerHTML = '<p class="text-red-500">Vui lòng tạo ý tưởng thiết kế trước.</p>';
-                    seoKeywordsOutput.classList.remove('hidden');
-                }
-            });
-
-            contentOutlineBtn.addEventListener('click', () => {
-                if (currentDesignConcept) {
-                    const prompt = `Dựa trên ý tưởng thiết kế website sau: "${currentDesignConcept}". Hãy tạo một dàn ý nội dung cơ bản (tiếng Việt) cho trang chủ của website này, bao gồm các phần chính như Giới thiệu, Dịch vụ/Sản phẩm, Liên hệ, v.v. Trình bày dưới dạng danh sách có cấu trúc.`;
-                    callGeminiApi(prompt, contentOutlineOutput, contentOutlineBtn, 'Đang tạo dàn ý nội dung...', '<i class="fas fa-sitemap mr-2"></i> Tạo Dàn ý Nội dung ✨');
-                } else {
-                    contentOutlineOutput.innerHTML = '<p class="text-red-500">Vui lòng tạo ý tưởng thiết kế trước.</p>';
-                    contentOutlineOutput.classList.remove('hidden');
-                }
-            });
-
-            closeButton.addEventListener('click', () => {
-                modal.style.display = 'none';
-                document.getElementById('gemini-extra-features').classList.add('hidden');
-                seoKeywordsOutput.classList.add('hidden');
-                contentOutlineOutput.classList.add('hidden');
-                seoKeywordsOutput.innerHTML = '';
-                contentOutlineOutput.innerHTML = '';
-                currentDesignConcept = "";
-            });
-
-            window.addEventListener('click', (event) => {
-                if (event.target == modal) {
-                    modal.style.display = 'none';
-                    document.getElementById('gemini-extra-features').classList.add('hidden');
-                    seoKeywordsOutput.classList.add('hidden');
-                    contentOutlineOutput.classList.add('hidden');
-                    seoKeywordsOutput.innerHTML = '';
-                    contentOutlineOutput.innerHTML = '';
-                    currentDesignConcept = "";
-                }
-            });
-        }
-
-        // Call setupGeminiFeatures after all components and main scripts are loaded
+        // No more AI related functions or variables here
+        
         document.addEventListener('DOMContentLoaded', () => {
-            // This event listener will ensure setupGeminiFeatures runs after loadComponentsAndInitialize
-            // and any other deferred scripts like script.js and language.js have executed.
-            // A small timeout is added to ensure all DOM elements from loaded components are fully parsed.
+            // Initialize theme early to avoid flicker
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme) {
+                document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+            } else {
+                document.documentElement.classList.toggle('dark', prefersDark);
+            }
+
             setTimeout(() => {
                 if (typeof window.loadComponentsAndInitialize === 'function') {
                     window.loadComponentsAndInitialize().then(() => {
-                        setupGeminiFeatures();
-                        // You might also want to call AOS.init() here if it depends on loaded content
-                        // AOS.init(); 
+                        // Refresh AOS to apply animations to dynamically loaded/modified content
+                        AOS.refresh(); 
+                        // Ensure language system is initialized after components are loaded
+                        if (typeof window.initializeLanguageSystem === 'function') {
+                            window.initializeLanguageSystem();
+                        } else {
+                            console.error("window.initializeLanguageSystem is not defined.");
+                        }
                     });
                 } else {
                     console.warn("loadComponentsAndInitialize is not defined. Ensure loadComponents.js is loaded correctly.");
-                    setupGeminiFeatures(); // Fallback in case loadComponents.js fails or is missing
                 }
             }, 500); // Small delay to ensure all deferred scripts are ready
         });
