@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 
-    <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio,line-clamp"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
@@ -79,7 +79,6 @@
             background-size: cover;
             background-position: center;
             min-height: 60vh; 
-            /* Removed max-height: 500px; to allow for more flexible height */
         }
         .hero-section-banner .hero-content {
             position: relative; z-index: 2; 
@@ -171,7 +170,6 @@
                         if (section) {
                             const imgTest = new Image();
                             imgTest.onerror = function() {
-                                // Thay thế ảnh fallback placehold.co bằng /images/logo/webbannermo.png
                                 section.style.backgroundImage = "url('/images/logo/webbannermo.png')"; 
                             };
                             imgTest.src = '/images/webbannermo.png'; 
@@ -470,7 +468,7 @@
         </div>  
     </div>
 
-    <script src="/js/script.js"></script>
+    <script src="/js/stript.js"></script>
     <script src="/js/language.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="/js/loadComponents.js" defer></script> 
@@ -613,10 +611,8 @@
             if (posts && posts.length > 0) {
                 const latestPosts = posts.slice(0, 3); 
                 latestPosts.forEach(post => {
-                    // Xác định ngôn ngữ hiện tại, mặc định là 'vi' nếu không được đặt
                     const currentLang = window.currentLang || 'vi';
 
-                    // Lấy tiêu đề và tóm tắt một cách an toàn, xử lý các đối tượng ngôn ngữ tiềm năng
                     let displayTitle = post.title;
                     if (typeof post.title === 'object' && post.title !== null) {
                         displayTitle = post.title[currentLang] || post.title['vi'] || '';
