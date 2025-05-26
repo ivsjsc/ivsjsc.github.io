@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tin tức tổng hợp - IVS JSC</title>
+    <meta name="description" content="Cập nhật tin tức tổng hợp từ IVS JSC, dịch vụ công, giáo dục, kinh tế và công nghệ.">
+    <meta name="keywords" content="IVS JSC, tin tức, sự kiện, dịch vụ công, giáo dục, kinh tế, công nghệ">
+    <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio,line-clamp"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* light blue-gray */
+            color: #334155; /* slate-700 */
+        }
+        /* Custom IVS colors */
+        :root {
+            --ivs-primary: #004080;
+            --ivs-secondary: #ffc107;
+            --ivs-header-orange: #F97316;
+            --ivs-primary-dark: #003366;
+        }
+        .text-primary { color: var(--ivs-primary); }
+        .bg-primary { background-color: var(--ivs-primary); }
+        .text-secondary { color: var(--ivs-secondary); }
+        .bg-secondary { background-color: var(--ivs-secondary); }
+        .hover\:bg-primary-dark:hover { background-color: var(--ivs-primary-dark); }
+        .text-header-orange { color: var(--ivs-header-orange); }
+        .hover\:text-header-orange:hover { color: var(--ivs-header-orange); }
+
+        /* Section padding for consistency */
+        .section-padding { padding-top: 4rem; padding-bottom: 4rem; } /* py-16 */
+        .container-padding { padding-left: 1.5rem; padding-right: 1.5rem; } /* px-6 */
+        @media (min-width: 768px) {
+            .container-padding { padding-left: 3rem; padding-right: 3rem; } /* md:px-12 */
+        }
+        @media (min-width: 1024px) {
+            .container-padding { padding-left: 6rem; padding-right: 6rem; } /* lg:px-24 */
+        }
+
+        /* Tab button active state */
+        .tab-button.active {
+            color: var(--ivs-primary);
+            border-color: var(--ivs-primary);
+        }
+        /* Skeleton loader animation */
+        .skeleton-loader {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 4px;
+        }
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .news-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .news-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+    <header id="header-placeholder"></header>
+
+    <main class="flex-grow">
+        <section class="bg-primary text-white py-20 text-center rounded-b-3xl shadow-lg">
+            <div class="container mx-auto container-padding">
+                <h1 class="text-5xl font-extrabold mb-4" data-lang-key="news_archive_main_title">IVS News - Tin tức tổng hợp</h1>
+                <p class="text-xl max-w-3xl mx-auto" data-lang-key="news_archive_subtitle">
+                    Cập nhật những thông tin mới nhất về IVS, giáo dục, kinh tế, công nghệ và các dịch vụ công.
+                </p>
+            </div>
+        </section>
+
+        <section class="section-padding bg-white shadow-md my-8 mx-auto max-w-7xl rounded-xl">
+            <div class="container mx-auto container-padding">
+                <div class="mb-8 flex flex-wrap justify-center gap-2 md:gap-4 border-b border-gray-300 pb-4">
+                    <button class="tab-button active font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 hover:text-header-orange" data-tab="ivs-news" data-lang-key="tab_ivs_news">
+                        <i class="fas fa-newspaper mr-2"></i>Tin IVS
+                    </button>
+                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 hover:text-header-orange" data-tab="public-services-news" data-lang-key="tab_public_services_news">
+                        <i class="fas fa-building mr-2"></i>Dịch vụ công
+                    </button>
+                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 hover:text-header-orange" data-tab="education-news" data-lang-key="tab_education_news">
+                        <i class="fas fa-graduation-cap mr-2"></i>Giáo dục
+                    </button>
+                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 hover:text-header-orange" data-tab="economy-news" data-lang-key="tab_economy_news">
+                        <i class="fas fa-chart-line mr-2"></i>Kinh tế
+                    </button>
+                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 hover:text-header-orange" data-tab="technology-news" data-lang-key="tab_technology_news">
+                        <i class="fas fa-microchip mr-2"></i>Công nghệ
+                    </button>
+                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 hover:text-header-orange" data-tab="other-news" data-lang-key="tab_other_news">
+                        <i class="fas fa-globe-asia mr-2"></i>Thế Giới
+                    </button>
+                </div>
+
+                <div id="news-content-area">
+                    <div id="ivs-news" class="tab-content active">
+                        <h2 class="text-2xl font-semibold text-gray-700 mb-6" data-lang-key="ivs_news_section_title">Tin tức từ IVS JSC</h2>
+                        <div id="ivs-news-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden md:flex md:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden lg:flex lg:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                        </div>
+                    </div>
+                    <div id="public-services-news" class="tab-content hidden">
+                        <h2 class="text-2xl font-semibold text-gray-700 mb-6" data-lang-key="public_services_news_section_title">Dịch vụ công Quốc gia</h2>
+                        <div class="mb-8">
+                            <h3 class="text-xl font-semibold text-gray-700 mb-4" data-lang-key="public_services_links_title">Liên kết Dịch vụ công</h3>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                                <li><a href="https://dichvucong.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700 font-medium">Cổng Dịch vụ công Quốc gia</a></li>
+                                <li><a href="https://bhxh.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700 font-medium">Bảo hiểm Xã hội Việt Nam</a></li>
+                                <li><a href="https://csdl.dichvucong.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700 font-medium">CSDL Dịch vụ công</a></li>
+                                <li><a href="https://dangkykinhdoanh.gov.vn/vn/Pages/Trangchu.aspx" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700 font-medium">Đăng ký Doanh nghiệp</a></li>
+                                <li><a href="https://thuedientu.gdt.gov.vn/etaxnnt/Request" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700 font-medium">Thuế điện tử</a></li>
+                                <li><a href="https://dichvucong.bocongan.gov.vn/bocongan/bothutuc/tthc?matt=26683" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-700 font-medium">DVC Bộ Công an</a></li>
+                            </ul>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4" data-lang-key="public_services_feed_title">Tin tức từ Cổng Dịch vụ công</h3>
+                        <div id="public-services-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden md:flex md:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden lg:flex lg:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                        </div>
+                    </div>
+                    <div id="education-news" class="tab-content hidden">
+                        <h2 class="text-2xl font-semibold text-gray-700 mb-6" data-lang-key="education_news_section_title">Tin tức Giáo dục</h2>
+                        <div id="education-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden md:flex md:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden lg:flex lg:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                        </div>
+                    </div>
+                    <div id="economy-news" class="tab-content hidden">
+                        <h2 class="text-2xl font-semibold text-gray-700 mb-6" data-lang-key="economy_news_section_title">Tin tức Kinh tế</h2>
+                        <div id="economy-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden md:flex md:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden lg:flex lg:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                        </div>
+                    </div>
+                    <div id="technology-news" class="tab-content hidden">
+                        <h2 class="text-2xl font-semibold text-gray-700 mb-6" data-lang-key="technology_news_section_title">Tin tức Công nghệ & Khoa học</h2>
+                        <div id="technology-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden md:flex md:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden lg:flex lg:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                        </div>
+                    </div>
+                    <div id="other-news" class="tab-content hidden">
+                        <h2 class="text-2xl font-semibold text-gray-700 mb-6" data-lang-key="other_news_section_title">Tin Thế Giới</h2>
+                        <div id="other-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden md:flex md:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                            <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden lg:flex lg:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bg-primary text-white text-center rounded-xl shadow-lg my-8 mx-auto max-w-7xl">
+            <div class="container mx-auto container-padding">
+                <h2 class="text-4xl font-bold mb-6" data-lang-key="news_cta_title">Bạn muốn nhận tin tức mới nhất từ IVS?</h2>
+                <p class="text-lg max-w-3xl mx-auto mb-8" data-lang-key="news_cta_subtitle">
+                    Đăng ký nhận bản tin của chúng tôi để không bỏ lỡ bất kỳ thông tin quan trọng nào về giáo dục, công nghệ và các sự kiện của IVS.
+                </p>
+                <a href="/contact.html" class="inline-block bg-secondary hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md" data-lang-key="news_cta_button">
+                    Đăng Ký Ngay
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer-placeholder"></footer>
+
+    <script>
+        // Function to initialize header and footer components
+        function initializePlaceholderComponents() {
+            const headerPlaceholder = document.getElementById('header-placeholder');
+            if (headerPlaceholder) {
+                fetch('/components/header.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        headerPlaceholder.innerHTML = html;
+                        const scripts = headerPlaceholder.querySelectorAll('script');
+                        scripts.forEach(script => {
+                            const newScript = document.createElement('script');
+                            Array.from(script.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                            newScript.textContent = script.textContent;
+                            script.parentNode.replaceChild(newScript, script);
+                        });
+                        if (typeof window.initializeHeader === 'function') {
+                            window.initializeHeader();
+                        }
+                        if (typeof window.initializeLanguageSystem === 'function') {
+                            window.initializeLanguageSystem();
+                        }
+                    })
+                    .catch(err => console.error('Error loading header:', err));
+            }
+
+            const footerPlaceholder = document.getElementById('footer-placeholder');
+            if (footerPlaceholder) {
+                fetch('/components/footer.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        footerPlaceholder.innerHTML = html;
+                        const scripts = footerPlaceholder.querySelectorAll('script');
+                        scripts.forEach(script => {
+                            const newScript = document.createElement('script');
+                            Array.from(script.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+                            newScript.textContent = script.textContent;
+                            script.parentNode.replaceChild(newScript, script);
+                        });
+                        if (typeof window.initializeFooter === 'function') {
+                            window.initializeFooter();
+                        }
+                    })
+                    .catch(err => console.error('Error loading footer:', err));
+            }
+        }
+
+        // Function to handle tab switching
+        function setupTabs() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Deactivate all buttons and hide all content
+                    tabButtons.forEach(btn => btn.classList.remove('active', 'text-primary', 'border-primary'));
+                    tabButtons.forEach(btn => btn.classList.add('text-gray-600')); // Reset color for inactive tabs
+                    tabContents.forEach(content => content.classList.add('hidden'));
+
+                    // Activate clicked button and show corresponding content
+                    button.classList.add('active', 'text-primary', 'border-primary');
+                    button.classList.remove('text-gray-600'); // Remove gray for active tab
+
+                    const targetTabId = button.dataset.tab;
+                    document.getElementById(targetTabId).classList.remove('hidden');
+
+                    // Load news for the active tab if it's 'ivs-news' (assuming posts.json)
+                    if (targetTabId === 'ivs-news') {
+                        fetchIvsNews();
+                    } else {
+                        // For other tabs, just show skeleton or a message if no actual fetching is implemented
+                        const container = document.getElementById(targetTabId).querySelector('.grid');
+                        if (container && container.children.length === 0) {
+                            container.innerHTML = `<p class="text-gray-500 col-span-full text-center">Nội dung đang được cập nhật hoặc không có sẵn.</p>`;
+                        }
+                    }
+                });
+            });
+
+            // Initially load content for the active tab (Tin IVS)
+            fetchIvsNews();
+        }
+
+        // Function to fetch IVS news from posts.json (similar to index.html)
+        async function fetchIvsNews() {
+            const newsContainer = document.getElementById('ivs-news-container');
+            if (!newsContainer) {
+                console.error("IVS news container element not found.");
+                return;
+            }
+            // Clear existing content and show skeleton loaders
+            newsContainer.innerHTML = `
+                <div class="skeleton-loader news-card p-4 rounded-lg shadow"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden md:flex md:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+                <div class="skeleton-loader news-card p-4 rounded-lg shadow hidden lg:flex lg:flex-col"> <div class="h-6 w-3/4 mb-2"></div> <div class="h-4 w-full"></div> <div class="h-4 w-5/6 mt-1"></div> <div class="h-4 w-1/2 mt-4"></div> </div>
+            `;
+            try {
+                // Assuming posts.json is available at the root or a known path
+                const response = await fetch('/posts.json'); 
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const posts = await response.json();
+                
+                newsContainer.innerHTML = ''; // Clear skeleton loaders
+
+                if (posts && posts.length > 0) {
+                    posts.forEach(post => {
+                        // Determine current language, default to 'vi' if not set
+                        const currentLang = window.currentLang || 'vi'; 
+                        let displayTitle = post.title;
+                        if (typeof post.title === 'object' && post.title !== null) {
+                            displayTitle = post.title[currentLang] || post.title['vi'] || '';
+                        }
+                        let displaySummary = post.summary;
+                        if (typeof post.summary === 'object' && post.summary !== null) {
+                            displaySummary = post.summary[currentLang] || post.summary['vi'] || '';
+                        }
+
+                        const postElement = document.createElement('div');
+                        postElement.className = 'news-card p-6 rounded-lg shadow-md flex flex-col transition-transform duration-300 ease-in-out hover:scale-105';
+                        postElement.innerHTML = `
+                            <img src="${post.image || 'https://placehold.co/400x250/cccccc/333333?text=Tin+tức'}" alt="${displayTitle}" class="rounded-md mb-4 object-cover w-full h-48">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">${displayTitle}</h3>
+                            <p class="text-gray-600 text-sm mb-3">${post.date || ''}</p>
+                            <p class="text-gray-700 mb-4 flex-grow">${displaySummary}</p>
+                            <a href="${post.link}" class="mt-auto text-blue-500 hover:text-blue-600 font-medium">Đọc thêm <i class="fas fa-arrow-right ml-1"></i></a>
+                        `;
+                        newsContainer.appendChild(postElement);
+                    });
+                } else {
+                    newsContainer.innerHTML = `<p class="text-gray-500 col-span-full text-center">Không có tin tức nào để hiển thị.</p>`;
+                }
+            } catch (error) {
+                console.error('Error fetching or processing posts.json:', error);
+                newsContainer.innerHTML = `<p class="text-red-500 col-span-full text-center">Lỗi tải tin tức: ${error.message}. Vui lòng thử lại sau.</p>`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePlaceholderComponents();
+            setupTabs();
+        });
+    </script>
+</body>
+</html>
