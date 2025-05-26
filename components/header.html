@@ -21,7 +21,7 @@
                             <div>
                                 <h3 class="text-lg font-semibold mb-2 text-blue-400" data-lang-key="nav_services_education_title">Liên kết Giáo dục</h3>
                                 <ul class="space-y-1">
-                                    <li><a href="/Pages/education.html" class="block px-2 py-1.5 hover:bg-neutral-700 hover:text-blue-300 transition-colors rounded-md text-sm" data-lang-key="nav_education_main">Tổng quan Chương trình Liên kết></li>
+                                    <li><a href="/Pages/education.html" class="block px-2 py-1.5 hover:bg-neutral-700 hover:text-blue-300 transition-colors rounded-md text-sm" data-lang-key="nav_education_main">Tổng quan Chương trình Liên kết</a></li>
                                     <li><a href="/Pages/lkmamnon.html" class="block px-2 py-1.5 hover:bg-neutral-700 hover:text-blue-300 transition-colors rounded-md text-sm" data-lang-key="nav_education_preschool">Mầm non</a></li>
                                     <li><a href="/Pages/lktieuhoc.html" class="block px-2 py-1.5 hover:bg-neutral-700 hover:text-blue-300 transition-colors rounded-md text-sm" data-lang-key="nav_education_primary">Tiểu học</a></li>
                                     <li><a href="/Pages/lkthcsthpt.html" class="block px-2 py-1.5 hover:bg-neutral-700 hover:text-blue-300 transition-colors rounded-md text-sm" data-lang-key="nav_education_secondary">THCS & THPT</a></li>
@@ -139,7 +139,7 @@
                     <a href="/solutions.html" class="block px-3 py-2.5 rounded-md hover:bg-neutral-700 hover:text-blue-300 text-sm font-medium transition-colors" data-lang-key="nav_solutions_main">Tổng quan Giải pháp</a>
                     <a href="/Pages/ivscelestech.html" class="block px-3 py-2.5 rounded-md hover:bg-neutral-700 hover:text-blue-300 text-sm font-medium transition-colors" data-lang-key="nav_solution_edtech">Công nghệ Giáo dục</a>
                     <a href="/Pages/upskill.html" class="block px-3 py-2.5 rounded-md hover:bg-neutral-700 hover:text-blue-300 text-sm font-medium transition-colors" data-lang-key="nav_solution_upskill">Nâng cao Trình độ</a>
-                    <a href="/Pages/webdesign.html" class="block px-3 py-2.5 rounded-md hover:bg-neutral-700 hover:text-blue-300 text-sm font-medium transition-colors" data-lang-key="nav_solution_webdesign">Thiết kế Website</a>
+                    <li><a href="/Pages/webdesign.html" class="block px-3 py-2.5 rounded-md hover:bg-neutral-700 hover:text-blue-300 text-sm font-medium transition-colors" data-lang-key="nav_solution_webdesign">Thiết kế Website</a></li>
                 </div>
             </div>
 
@@ -149,9 +149,9 @@
                     <i class="fas fa-chevron-down fa-xs mobile-submenu-icon transition-transform duration-200" aria-hidden="true"></i>
                 </button>
                 <div id="mobile-library-submenu-items" class="mobile-submenu-content pl-5 pr-3 pb-1 space-y-1 overflow-hidden max-h-0">
-                    <a href="/gallery.html" class="block px-3 py-2.5 rounded-md hover:bg-neutral-700 hover:text-blue-300 text-sm font-medium transition-colors" data-lang-key="nav_library_main">Tổng quan Thư viện</a>
-                    <a href="/pages/document-library.html" class="block px-3 py-2.5 rounded-md hover:bg-neutral-700 hover:text-blue-300 text-sm font-medium transition-colors" data-lang-key="nav_library_docs">Tài liệu Giáo dục</a>
-                    <a href="/pages/story-repository.html" class="block px-3 py-2.5 rounded-md hover:bg-neutral-700 hover:text-blue-300 text-sm font-medium transition-colors" data-lang-key="nav_library_stories">Kho truyện</a>
+                    <li><a href="/gallery.html" class="block px-3 py-2.5 rounded-md hover:bg-neutral-700 hover:text-blue-300 text-sm font-medium transition-colors" data-lang-key="nav_library_main">Tổng quan Thư viện</a></li>
+                    <li><a href="/pages/document-library.html" class="block px-3 py-2.5 rounded-md hover:bg-neutral-700 hover:text-blue-300 text-sm font-medium transition-colors" data-lang-key="nav_library_docs">Tài liệu Giáo dục</a></li>
+                    <li><a href="/pages/story-repository.html" class="block px-3 py-2.5 rounded-md hover:bg-neutral-700 hover:text-blue-300 text-sm font-medium transition-colors" data-lang-key="nav_library_stories">Kho truyện</a></li>
                 </div>
             </div>
 
@@ -186,3 +186,180 @@
         </a>
     </div>
 </div>
+
+<script>
+    // This function will be called from loadComponents.js after the header is loaded
+    window.initializeHeader = function() {
+        const desktopNavItems = document.querySelectorAll('nav.hidden.md\\:flex > div.relative.group');
+
+        desktopNavItems.forEach(item => {
+            const button = item.querySelector('button[aria-haspopup="true"]');
+            const dropdown = item.querySelector('.mega-menu, .absolute.opacity-0');
+
+            if (button && dropdown) {
+                let timeout;
+
+                // Event when mouse enters the button or menu
+                item.addEventListener('mouseenter', () => {
+                    clearTimeout(timeout);
+                    dropdown.classList.remove('opacity-0', 'invisible', 'pointer-events-none');
+                    dropdown.classList.add('opacity-100', 'visible', 'pointer-events-auto');
+                    button.setAttribute('aria-expanded', 'true');
+                });
+
+                // Event when mouse leaves the button or menu
+                item.addEventListener('mouseleave', () => {
+                    timeout = setTimeout(() => {
+                        dropdown.classList.remove('opacity-100', 'visible', 'pointer-events-auto');
+                        dropdown.classList.add('opacity-0', 'invisible', 'pointer-events-none');
+                        button.setAttribute('aria-expanded', 'false');
+                    }, 300); // Increased delay to 300ms for better user experience
+                });
+
+                // Handle closing menu with Escape key
+                dropdown.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        dropdown.classList.remove('opacity-100', 'visible', 'pointer-events-auto');
+                        dropdown.classList.add('opacity-0', 'invisible', 'pointer-events-none');
+                        button.setAttribute('aria-expanded', 'false');
+                        button.focus(); // Return focus to the main button
+                    }
+                });
+            }
+        });
+
+        // Handle mobile menu
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+        const iconMenuOpen = document.getElementById('icon-menu-open');
+        const iconMenuClose = document.getElementById('icon-menu-close');
+
+        if (mobileMenuButton && mobileMenuPanel && iconMenuOpen && iconMenuClose) {
+            mobileMenuButton.addEventListener('click', () => {
+                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                mobileMenuPanel.classList.toggle('hidden');
+                iconMenuOpen.classList.toggle('hidden');
+                iconMenuClose.classList.toggle('hidden');
+                document.body.classList.toggle('overflow-hidden'); // Prevent body scroll when menu is open
+            });
+
+            // Handle closing menu when clicking outside (mobile only)
+            mobileMenuPanel.addEventListener('click', (e) => {
+                if (e.target === mobileMenuPanel) { // Only close when clicking on the panel background
+                    mobileMenuButton.click(); // Trigger click event to close menu
+                }
+            });
+
+            // Handle mobile submenu toggle
+            const mobileSubmenuToggles = document.querySelectorAll('.mobile-submenu-toggle');
+            mobileSubmenuToggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const submenuContent = toggle.nextElementSibling;
+                    const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+                    // Close all other submenus
+                    mobileSubmenuToggles.forEach(otherToggle => {
+                        if (otherToggle !== toggle) {
+                            const otherSubmenuContent = otherToggle.nextElementSibling;
+                            if (otherSubmenuContent && !otherSubmenuContent.classList.contains('max-h-0')) {
+                                otherSubmenuContent.classList.add('max-h-0');
+                                otherSubmenuContent.classList.remove('max-h-screen');
+                                otherToggle.setAttribute('aria-expanded', 'false');
+                                const otherIcon = otherToggle.querySelector('.mobile-submenu-icon');
+                                if (otherIcon) {
+                                    otherIcon.classList.remove('fa-chevron-up');
+                                    otherIcon.classList.add('fa-chevron-down');
+                                }
+                            }
+                        }
+                    });
+
+                    // Open/close current submenu
+                    if (submenuContent) {
+                        if (isExpanded) {
+                            submenuContent.classList.add('max-h-0');
+                            submenuContent.classList.remove('max-h-screen');
+                        } else {
+                            submenuContent.classList.remove('max-h-0');
+                            submenuContent.classList.add('max-h-screen'); // Use max-h-screen to allow for long content
+                        }
+                        toggle.setAttribute('aria-expanded', !isExpanded);
+                        const icon = toggle.querySelector('.mobile-submenu-icon');
+                        if (icon) {
+                            icon.classList.toggle('fa-chevron-down', isExpanded);
+                            icon.classList.toggle('fa-chevron-up', !isExpanded);
+                        }
+                    }
+                });
+            });
+        }
+
+        // Handle desktop search
+        const desktopSearchButton = document.getElementById('desktop-search-button');
+        const desktopSearchContainer = document.getElementById('desktop-search-container');
+        const desktopSearchCloseButton = document.getElementById('desktop-search-close');
+
+        if (desktopSearchButton && desktopSearchContainer) {
+            desktopSearchButton.addEventListener('click', () => {
+                const isHidden = desktopSearchContainer.classList.contains('hidden');
+                desktopSearchContainer.classList.toggle('hidden', !isHidden);
+                desktopSearchButton.setAttribute('aria-expanded', String(isHidden));
+                if (isHidden) {
+                    document.getElementById('desktop-search-input').focus();
+                }
+            });
+
+            // Close search bar when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!desktopSearchContainer.classList.contains('hidden') &&
+                    !desktopSearchButton.contains(e.target) &&
+                    !desktopSearchContainer.contains(e.target)) {
+                    desktopSearchContainer.classList.add('hidden');
+                    desktopSearchButton.setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Close search bar when Escape key is pressed
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !desktopSearchContainer.classList.contains('hidden')) {
+                    desktopSearchContainer.classList.add('hidden');
+                    desktopSearchButton.setAttribute('aria-expanded', 'false');
+                    desktopSearchButton.focus();
+                }
+            });
+        }
+        
+        // Handle mobile search (if applicable) - already within mobile-menu-panel
+        // Ensure mobile-search-input and mobile-search-results are handled here if needed
+        const mobileSearchInput = document.getElementById('mobile-search-input');
+        if (mobileSearchInput) {
+            mobileSearchInput.addEventListener('input', window.debounce(function() {
+                // Actual search logic would go here
+                // Example: fetch('/api/search?q=' + this.value)
+                console.log('Mobile search input:', this.value);
+            }, 300));
+        }
+
+        // Initialize active state for language buttons
+        const currentLang = window.getCurrentLanguage();
+        const langButtons = document.querySelectorAll('#language-toggle-container button');
+        langButtons.forEach(button => {
+            if (button.dataset.lang === currentLang) {
+                button.classList.add('active-lang');
+            } else {
+                button.classList.remove('active-lang');
+            }
+        });
+
+        // Re-attach click events for language buttons (ensure updateLanguage function exists)
+        if (typeof window.initializeLanguageButtons === 'function') {
+            window.initializeLanguageButtons();
+        } else {
+            console.warn("window.initializeLanguageButtons is not defined. Language buttons might not be fully functional.");
+        }
+    };
+
+    // Ensure this function is called from loadComponents.js
+    // window.initializeHeader(); // Do not call directly here; it will be called from loadComponents.js
+</script>
