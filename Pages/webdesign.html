@@ -19,12 +19,34 @@
 
     <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio,line-clamp"></script>
     
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css"> 
     <style>
         body { font-family: 'Inter', sans-serif; }
+        /* Custom IVS colors from root variables */
+        :root {
+            --ivs-primary: #004080; 
+            --ivs-secondary: #ffc107; 
+            --ivs-neutral-800: #1f2937; 
+            --ivs-neutral-700: #374151; 
+            --ivs-neutral-600: #4B5563; 
+            --ivs-text-gray-300: #D1D5DB; 
+            --ivs-text-white: #ffffff;
+            --ivs-primary-dark: #003366;
+            --ivs-orange-500: #F97316; 
+            --ivs-orange-600: #EA580C; 
+            --ivs-orange-700: #C2410C; 
+            --ivs-header-orange: #F97316; 
+        }
+        .text-primary { color: var(--ivs-primary); }
+        .bg-primary { background-color: var(--ivs-primary); }
+        .text-secondary { color: var(--ivs-secondary); }
+        .bg-secondary { background-color: var(--ivs-secondary); }
+        .hover\:bg-primary-dark:hover { background-color: var(--ivs-primary-dark); }
+        .text-header-orange { color: var(--ivs-header-orange); }
+
         .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
         .commitment-list li { padding-left: 1.75rem; position: relative; margin-bottom: 0.75rem;}
-        .commitment-list li::before { content: '🤝'; position: absolute; left: 0; color: theme('colors.secondary', '#10b981'); font-size: 1em; top: 0.1em; }
+        .commitment-list li::before { content: '🤝'; position: absolute; left: 0; color: var(--ivs-secondary); font-size: 1em; top: 0.1em; }
 
         .section-spacing { margin-bottom: 3rem; }
         .card { background-color: #fff; border-radius: 0.75rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); padding: 1.5rem; height: 100%; display: flex; flex-direction: column; transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
@@ -32,7 +54,7 @@
         .card h3 { margin-bottom: 1rem; }
         .card ul { list-style: none; padding: 0; margin-top: 1rem; }
         .card ul li { margin-bottom: 0.5rem; padding-left: 1.5rem; position: relative; text-align: left; }
-        .card ul li::before { content: '✓'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: 0; color: theme('colors.secondary', '#10b981'); font-weight: bold; }
+        .card ul li::before { content: '✓'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: 0; color: var(--ivs-secondary); font-weight: bold; }
         .process-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
         .process-list-item { position: relative; padding: 1.5rem; margin: 0; background-color: #fff; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); text-align: left; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
         .process-list-item:hover { transform: translateY(-5px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
@@ -46,44 +68,42 @@
         .testimonial-card p { margin-bottom: 1rem; }
         .testimonial-author { font-weight: bold; color: #1f2937; font-style: normal; }
         .check-list li { padding-left: 2rem; position: relative; margin-bottom: 0.75rem; }
-        .check-list li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: 0; color: theme('colors.secondary', '#10b981'); font-size: 1em; top: 0.1em; }
+        .check-list li::before { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: 0; color: var(--ivs-secondary); font-size: 1em; top: 0.1em; }
 
         /* Dark mode styles */
-        html.dark .card { background-color: #1f2937; box-shadow: 0 4px 8px rgba(255, 255, 255, 0.05); }
+        html.dark .card { background-color: var(--ivs-neutral-800); box-shadow: 0 4px 8px rgba(255, 255, 255, 0.05); }
         html.dark .card:hover { box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1); }
         html.dark .card h3 { color: #f9fafb; }
         html.dark .card ul li { color: #d1d5db; }
         html.dark .card ul li::before { color: theme('colors.emerald-400', '#34d399'); } /* Adjusted for dark mode */
-        html.dark .process-list-item { background-color: #1f2937; box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05); }
+        html.dark .process-list-item { background-color: var(--ivs-neutral-800); box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05); }
         html.dark .process-list-item:hover { box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); }
         html.dark .process-list-item h4 { color: #f9fafb; }
         html.dark .process-list-item p { color: #d1d5db; }
-        html.dark .testimonial-card { background-color: #1f2937; box-shadow: 0 4px 8px rgba(255, 255, 255, 0.05); color: #d1d5db; }
+        html.dark .testimonial-card { background-color: var(--ivs-neutral-800); box-shadow: 0 4px 8px rgba(255, 255, 255, 0.05); color: #d1d5db; }
         html.dark .testimonial-author { color: #f9fafb; }
         html.dark .check-list li { color: #d1d5db; }
         html.dark .check-list li strong { color: #f9fafb; }
+        
+        /* Carousel specific styles */
         .carousel-container {
-    position: relative;
-    overflow: hidden;
+            position: relative;
+            overflow: hidden;
         }
-
         .carousel {
             display: flex;
             transition: transform 0.5s ease-in-out;
-            gap: 1rem;
+            gap: 1rem; /* Space between carousel items */
         }
-
         .carousel-item {
-            flex: 0 0 100%;
+            flex: 0 0 100%; /* Each item takes full width of container */
             box-sizing: border-box;
         }
-
         .carousel-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
         .carousel-btn {
             position: absolute;
             top: 50%;
@@ -94,20 +114,34 @@
             padding: 0.5rem;
             cursor: pointer;
             z-index: 10;
+            border-radius: 9999px; /* Make buttons round */
+            width: 2.5rem; /* Fixed width for buttons */
+            height: 2.5rem; /* Fixed height for buttons */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
         }
-
+        .carousel-btn:hover {
+            opacity: 1;
+        }
         .carousel-btn.prev {
-            left: 0;
+            left: 0.5rem;
         }
-
         .carousel-btn.next {
-            right: 0;
+            right: 0.5rem;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
+        /* Responsive adjustments for carousel */
+        @media (min-width: 768px) {
             .carousel-item {
-                flex: 0 0 100%;
+                flex: 0 0 50%; /* Two items on medium screens */
+            }
+        }
+        @media (min-width: 1024px) {
+            .carousel-item {
+                flex: 0 0 33.333%; /* Three items on large screens */
             }
         }
     </style>
@@ -148,7 +182,7 @@
             </div>
         </section>
 
-        <section class="py-12 md:py-16 bg-white dark:bg-gray-900 section-spacing">
+        <section class="py-12 md:py-16 bg-neutral-100 dark:bg-gray-800/30 section-spacing">
             <div class="container mx-auto px-4 max-w-7xl">
                 <h2 class="text-3xl font-bold text-center text-neutral-800 dark:text-gray-100 mb-8 md:mb-12" data-lang-key="webdesign_video_showcase_title" data-aos="fade-up">
                     Khám Phá Dự Án Thiết Kế Website Thực Tế
@@ -169,7 +203,7 @@
             </div>
         </section>
 
-        <section class="py-12 md:py-16 bg-neutral-100 dark:bg-gray-800/30 section-spacing">
+        <section class="py-12 md:py-16 bg-white dark:bg-gray-900 section-spacing">
             <div class="container mx-auto px-4 max-w-7xl">
                 <h2 class="text-3xl font-bold text-center text-neutral-800 dark:text-gray-100 mb-8 md:mb-12" data-aos="fade-up">
                     Giới thiệu KhaDock.com - Một Dự án Phát triển Website Nổi bật của IVS Celestech
@@ -178,9 +212,9 @@
                     Khám phá KhaDock.com, website chuyên nghiệp về thiết kế, xây dựng và cải tạo bến tàu tại Florida, Mỹ. Được phát triển bởi IVS Celestech, dự án này thể hiện sự kết hợp giữa công nghệ tiên tiến, tối ưu SEO, và thiết kế responsive, mang lại giá trị toàn cầu.
                 </p>
                 <div class="flex flex-col md:flex-row gap-6">
-                    <!-- Hình ảnh lớn: Trang Chủ -->
                     <div class="md:w-1/2 card overflow-hidden" data-aos="fade-right" data-aos-delay="200">
-                        <img src="/images/pages/webs/khadock-home.jpg" alt="Trang Chủ KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <img src="/images/pages/webs/khadock-home.jpg" alt="Trang Chủ KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4 transform hover:scale-105 transition-transform duration-300"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/E0E7FF/3B82F6?text=KhaDock+Home';">
                         <div class="p-4">
                             <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Chủ - Ấn tượng Ban Đầu</h3>
                             <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">
@@ -188,13 +222,12 @@
                             </p>
                         </div>
                     </div>
-                    <!-- Carousel: Các hình ảnh khác -->
                     <div class="md:w-1/2" data-aos="fade-left" data-aos-delay="300">
                         <div class="carousel-container relative">
                             <div class="carousel">
-                                <!-- Hình ảnh 1: Trang Dự án -->
                                 <div class="carousel-item card overflow-hidden">
-                                    <img src="/images/pages/webs/khadock-projects.jpg" alt="Trang Dự án KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4">
+                                    <img src="/images/pages/webs/khadock-projects.jpg" alt="Trang Dự án KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4"
+                                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/E0E7FF/3B82F6?text=KhaDock+Projects';">
                                     <div class="p-4">
                                         <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Dự án - Hiển thị Chất lượng Công trình</h3>
                                         <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">
@@ -202,9 +235,9 @@
                                         </p>
                                     </div>
                                 </div>
-                                <!-- Hình ảnh 2: Trang Dịch vụ -->
                                 <div class="carousel-item card overflow-hidden">
-                                    <img src="/images/pages/webs/khadock-services.jpg" alt="Trang Dịch vụ KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4">
+                                    <img src="/images/pages/webs/khadock-services.jpg" alt="Trang Dịch vụ KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4"
+                                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/E0E7FF/3B82F6?text=KhaDock+Services';">
                                     <div class="p-4">
                                         <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Dịch vụ - Giải pháp Toàn diện</h3>
                                         <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">
@@ -212,9 +245,9 @@
                                         </p>
                                     </div>
                                 </div>
-                                <!-- Hình ảnh 3: Trang Liên hệ -->
                                 <div class="carousel-item card overflow-hidden">
-                                    <img src="/images/pages/webs/khadock-contact.jpg" alt="Trang Liên hệ KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4">
+                                    <img src="/images/pages/webs/khadock-contact.jpg" alt="Trang Liên hệ KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4"
+                                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/E0E7FF/3B82F6?text=KhaDock+Contact';">
                                     <div class="p-4">
                                         <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Liên hệ - Kết nối Dễ dàng</h3>
                                         <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">
@@ -222,9 +255,9 @@
                                         </p>
                                     </div>
                                 </div>
-                                <!-- Hình ảnh 4: Trang Thiết kế -->
                                 <div class="carousel-item card overflow-hidden">
-                                    <img src="/images/pages/webs/khadock-design.jpg" alt="Trang Thiết kế KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4">
+                                    <img src="/images/pages/webs/khadock-design.jpg" alt="Trang Thiết kế KhaDock.com" class="rounded-lg w-full h-96 object-cover mb-4"
+                                         onerror="this.onerror=null; this.src='https://placehold.co/600x400/E0E7FF/3B82F6?text=KhaDock+Design';">
                                     <div class="p-4">
                                         <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Trang Thiết kế - Định hướng Tương Lai</h3>
                                         <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">
@@ -249,28 +282,31 @@
             </div>
         </section>
 
-        <section class="py-12 md:py-16 bg-white dark:bg-gray-900 section-spacing">
+        <section class="py-12 md:py-16 bg-neutral-100 dark:bg-gray-800/30 section-spacing">
             <div class="container mx-auto px-4 max-w-7xl">
                 <h2 class="text-3xl font-bold text-center text-neutral-800 dark:text-gray-100 mb-8 md:mb-12" data-lang-key="webdesign_gallery_heading" data-aos="fade-up">
                     Các Dự Án Website Tiêu Biểu Khác
                 </h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="100">
-                        <img src="/images/pages/webs/webgd.jpg" alt="Thiết kế Website Giáo dục" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <img src="/images/pages/webs/webgd.jpg" alt="Thiết kế Website Giáo dục" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/E0E7FF/3B82F6?text=Website+Education';">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Dự án Website Giáo dục</h3>
                             <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Thiết kế website cho trung tâm giáo dục, tập trung vào trải nghiệm người dùng thân thiện và tích hợp hệ thống quản lý khóa học.</p>
                         </div>
                     </div>
                     <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="200">
-                        <img src="/images/pages/webs/webbds.jpg" alt="Thiết kế Website Bất động sản" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <img src="/images/pages/webs/webbds.jpg" alt="Thiết kế Website Bất động sản" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/E0E7FF/3B82F6?text=Website+Real+Estate';">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Website Bất động sản</h3>
                             <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Thiết kế website hiển thị các dự án bất động sản, tích hợp bản đồ, bộ lọc tìm kiếm và thông tin chi tiết từng căn hộ/đất nền.</p>
                         </div>
                     </div>
                     <div class="card overflow-hidden" data-aos="fade-up" data-aos-delay="300">
-                        <img src="/images/pages/webs/webblog.jpg" alt="Thiết kế Website Cá nhân/Blog" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300">
+                        <img src="/images/pages/webs/webblog.jpg" alt="Thiết kế Website Cá nhân/Blog" class="rounded-t-lg w-full h-48 object-cover mb-4 transform hover:scale-105 transition-transform duration-300"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x400/E0E7FF/3B82F6?text=Website+Blog';">
                         <div class="p-4 flex-grow">
                             <h3 class="text-xl font-semibold text-neutral-800 dark:text-gray-100 mb-2">Website Cá nhân/Blog</h3>
                             <p class="text-sm text-neutral-600 dark:text-gray-400 mb-4">Thiết kế portfolio cá nhân chuyên nghiệp hoặc nền tảng blog, nổi bật các dự án và kỹ năng, thu hút nhà tuyển dụng và đối tác.</p>
@@ -280,7 +316,7 @@
             </div>
         </section>
 
-        <section class="bg-neutral-200 dark:bg-gray-800/50 py-12 md:py-16 section-spacing">
+        <section class="bg-white dark:bg-gray-900 py-12 md:py-16 section-spacing">
             <div class="container mx-auto px-4 max-w-7xl">
                 <h2 class="text-3xl font-bold text-center text-neutral-800 dark:text-gray-100 mb-8 md:mb-12" data-lang-key="webdesign_services_heading" data-aos="fade-up">Các Gói Dịch Vụ Thiết Kế Website</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -400,7 +436,7 @@
             </div>
         </section>
 
-        <section class="py-12 md:py-16 bg-neutral-100 dark:bg-gray-800/30 section-spacing">
+        <section class="py-12 md:py-16 bg-white dark:bg-gray-900 section-spacing">
             <div class="container mx-auto px-4 max-w-7xl">
                 <h2 class="text-2xl md:text-3xl font-semibold text-neutral-700 dark:text-gray-100 mb-8 text-center" data-aos="fade-up" data-lang-key="webdesign_testimonials_heading">Khách hàng nói gì</h2>
                 <div class="testimonial-card shadow-xl border border-blue-100 dark:border-gray-700" data-aos="zoom-in" data-aos-delay="100">
@@ -462,9 +498,7 @@
             setTimeout(() => {
                 if (typeof window.loadComponentsAndInitialize === 'function') {
                     window.loadComponentsAndInitialize().then(() => {
-                        // Refresh AOS to apply animations to dynamically loaded/modified content
                         AOS.refresh(); 
-                        // Ensure language system is initialized after components are loaded
                         if (typeof window.initializeLanguageSystem === 'function') {
                             window.initializeLanguageSystem();
                         } else {
@@ -474,8 +508,9 @@
                 } else {
                     console.warn("loadComponentsAndInitialize is not defined. Ensure loadComponents.js is loaded correctly.");
                 }
-            }, 500); // Small delay to ensure all deferred scripts are ready
-            document.addEventListener('DOMContentLoaded', () => {
+            }, 500); 
+
+            // Carousel functionality
             const carousel = document.querySelector('.carousel');
             const items = document.querySelectorAll('.carousel-item');
             const prevBtn = document.querySelector('.carousel-btn.prev');
@@ -483,7 +518,10 @@
             let currentIndex = 0;
 
             function updateCarousel() {
-                carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+                if (!carousel || items.length === 0) return;
+
+                const itemWidth = items[0].offsetWidth + parseFloat(getComputedStyle(carousel).gap);
+                carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
             }
 
             prevBtn.addEventListener('click', () => {
@@ -496,12 +534,39 @@
                 updateCarousel();
             });
 
+            // Recalculate carousel position on window resize
+            window.addEventListener('resize', updateCarousel);
+
             // Auto-slide every 5 seconds
             setInterval(() => {
                 currentIndex = (currentIndex < items.length - 1) ? currentIndex + 1 : 0;
                 updateCarousel();
             }, 5000);
-        });    
+
+            // Initial carousel update
+            updateCarousel();
+        }); 
+        
+        // Scroll to top button functionality
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        window.addEventListener('scroll', () => {
+            if (scrollToTopBtn) {
+                if (window.pageYOffset > 200) { // Show button after scrolling 200px
+                    scrollToTopBtn.style.display = 'flex';
+                } else {
+                    scrollToTopBtn.style.display = 'none';
+                }
+            }
+        });
+
+        if (scrollToTopBtn) {
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
     </script>
     <button id="scrollToTopBtn"
             class="fixed bottom-5 right-5 z-50 flex items-center justify-center w-12 h-12 rounded-full bg-gray-700 text-white shadow-lg hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-100"
