@@ -3,80 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome CDN for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS CDN (for development; consider using a local build for production) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/css/styles.css">
     <style>
-        body {
-            /* Applied via class bg-neutral-900 text-white */
-        }
+        /* Custom CSS for bottom navigation */
         .bottom-nav-item {
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #ffffff; 
-            transition: all 0.3s ease; 
+            color: #ffffff; /* White icon color for contrast */
+            transition: all 0.3s ease; /* Smooth transition for hover/active */
         }
+
         .bottom-nav-item:hover,
         .bottom-nav-item.active {
-            color: #3b82f6; 
-            transform: scale(1.2); 
+            color: #3b82f6; /* IVS blue for hover/active */
+            transform: scale(1.2); /* Slight zoom effect */
         }
+
         .bottom-nav-item i {
-            font-size: 1.5rem; 
+            font-size: 1.5rem; /* Larger icon size */
         }
+
+        /* Ensure smooth transitions for mobile submenu */
         .mobile-submenu-content {
-            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
-            opacity: 1; /* Start with opacity 1 for smoother transition with max-height */
+            transition: max-height 0.3s ease-in-out;
         }
-        .mobile-submenu-content.max-h-0 {
-            opacity: 0;
-        }
-        .lang-button.active-lang {
-            background-color: #3b82f6; /* IVS Blue for active language */
+
+        /* Active language button styling */
+        .active-lang {
+            background-color: #3b82f6;
             color: #ffffff !important;
-            font-weight: bold;
-        }
-        .sticky-header {
-            z-index: 1000; 
-        }
-
-        /* Desktop Mega Menu & Dropdown Styling */
-        .mega-menu, .desktop-dropdown-menu {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition: opacity 0.3s ease-out, visibility 0s linear 0.3s, transform 0.3s ease-out; /* Delay visibility change */
-            transform: translateY(10px); /* Slight animation */
-        }
-        .group:hover .mega-menu,
-        .group:focus-within .mega-menu, /* For keyboard navigation */
-        .group:hover .desktop-dropdown-menu,
-        .group:focus-within .desktop-dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            transform: translateY(0);
-            transition-delay: 0s; /* Ensure visibility changes immediately on hover/focus */
-        }
-
-        /* Ensure primary and secondary colors are defined in Tailwind config or styles.css if not default */
-        .text-primary { color: #3b82f6; } /* Example IVS Blue */
-        .text-secondary { color: #10b981; } /* Example Emerald */
-        .bg-primary { background-color: #3b82f6; }
-        .bg-secondary { background-color: #10b981; }
-
-        /* Mobile menu panel smooth transition */
-        #mobile-menu-panel {
-            transition: transform 0.3s ease-in-out;
-        }
-        #mobile-menu-panel.hidden {
-            transform: translateX(-100%);
         }
     </style>
 </head>
-<body class="bg-neutral-900 text-white font-sans antialiased">
-    <header id="main-header" class="bg-neutral-900 text-white shadow-md sticky top-0 w-full sticky-header nav-header">
+<body class="bg-neutral-900 text-white">
+    <!-- Header Section -->
+    <header class="bg-neutral-900 text-white shadow-md sticky top-0 z-50 nav-header">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <a href="/index.html" class="flex items-center space-x-3 group" aria-label="IVS JSC Homepage">
@@ -92,9 +57,9 @@
 
                     <div class="relative group mega-menu-container">
                         <button type="button" id="nav-services-button" aria-haspopup="true" aria-expanded="false" aria-controls="services-mega-menu" class="hover:text-blue-400 transition-colors duration-300 font-medium flex items-center px-3 py-2 rounded-md text-sm lg:text-base" data-lang-key="nav_services">
-                            Dịch Vụ <i class="fas fa-chevron-down fa-xs ml-1.5 transform transition-transform duration-200 group-hover:rotate-180" aria-hidden="true"></i>
+                            Dịch Vụ <i class="fas fa-chevron-down fa-xs ml-1.5 transform group-hover:rotate-180 transition-transform duration-200" aria-hidden="true"></i>
                         </button>
-                        <div id="services-mega-menu" class="mega-menu absolute bg-neutral-800 text-white py-4 rounded-md shadow-xl z-20 min-w-[600px] origin-top-left" aria-labelledby="nav-services-button">
+                        <div id="services-mega-menu" class="mega-menu absolute opacity-0 invisible pointer-events-none bg-neutral-800 text-white mt-2 py-4 rounded-md shadow-xl z-20 min-w-[600px] transition-all duration-300 ease-out origin-top-left group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto" aria-labelledby="nav-services-button">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 px-4">
                                 <div>
                                     <h3 class="text-lg font-semibold mb-2 text-blue-400" data-lang-key="nav_services_education_title">Liên kết Giáo dục</h3>
@@ -122,9 +87,9 @@
 
                     <div class="relative group">
                         <button type="button" id="nav-solutions-button" aria-haspopup="true" aria-expanded="false" aria-controls="solutions-dropdown-menu" class="hover:text-blue-400 transition-colors duration-300 font-medium flex items-center px-3 py-2 rounded-md text-sm lg:text-base" data-lang-key="nav_solutions">
-                            Giải pháp <i class="fas fa-chevron-down fa-xs ml-1.5 transform transition-transform duration-200 group-hover:rotate-180" aria-hidden="true"></i>
+                            Giải pháp <i class="fas fa-chevron-down fa-xs ml-1.5 transform group-hover:rotate-180 transition-transform duration-200" aria-hidden="true"></i>
                         </button>
-                        <div id="solutions-dropdown-menu" class="desktop-dropdown-menu absolute bg-neutral-800 text-white py-2 rounded-md shadow-xl z-20 min-w-[220px] origin-top-left" aria-labelledby="nav-solutions-button">
+                        <div id="solutions-dropdown-menu" class="absolute opacity-0 invisible pointer-events-none bg-neutral-800 text-white mt-2 py-2 rounded-md shadow-xl z-20 min-w-[220px] transition-all duration-300 ease-out origin-top-left group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto" aria-labelledby="nav-solutions-button">
                             <ul class="space-y-1">
                                 <li><a href="/solutions.html" class="block px-4 py-2 hover:bg-neutral-700 hover:text-blue-300 transition-colors rounded-md text-sm" data-lang-key="nav_solutions_main">Tổng quan Giải pháp</a></li>
                                 <li><a href="/Pages/ivscelestech.html" class="block px-4 py-2 hover:bg-neutral-700 hover:text-blue-300 transition-colors rounded-md text-sm" data-lang-key="nav_solution_edtech">Công nghệ Giáo dục</a></li>
@@ -136,9 +101,9 @@
 
                     <div class="relative group">
                         <button type="button" id="nav-library-button" aria-haspopup="true" aria-expanded="false" aria-controls="library-dropdown-menu" class="hover:text-blue-400 transition-colors duration-300 font-medium flex items-center px-3 py-2 rounded-md text-sm lg:text-base" data-lang-key="nav_library">
-                            Thư Viện <i class="fas fa-chevron-down fa-xs ml-1.5 transform transition-transform duration-200 group-hover:rotate-180" aria-hidden="true"></i>
+                            Thư Viện <i class="fas fa-chevron-down fa-xs ml-1.5 transform group-hover:rotate-180 transition-transform duration-200" aria-hidden="true"></i>
                         </button>
-                        <div id="library-dropdown-menu" class="desktop-dropdown-menu absolute bg-neutral-800 text-white py-2 rounded-md shadow-xl z-20 min-w-[220px] origin-top-left" aria-labelledby="nav-library-button">
+                        <div id="library-dropdown-menu" class="absolute opacity-0 invisible pointer-events-none bg-neutral-800 text-white mt-2 py-2 rounded-md shadow-xl z-20 min-w-[220px] transition-all duration-300 ease-out origin-top-left group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto" aria-labelledby="nav-library-button">
                             <ul class="space-y-1">
                                 <li><a href="/gallery.html" class="block px-4 py-2 hover:bg-neutral-700 hover:text-blue-300 transition-colors rounded-md text-sm" data-lang-key="nav_library_main">Tổng quan Thư viện</a></li>
                                 <li><a href="/pages/document-library.html" class="block px-4 py-2 hover:bg-neutral-700 hover:text-blue-300 transition-colors rounded-md text-sm" data-lang-key="nav_library_docs">Tài liệu Giáo dục</a></li>
@@ -149,11 +114,31 @@
 
                     <a href="/news-archive.html" class="hover:text-blue-400 transition-colors duration-300 font-medium px-3 py-2 rounded-md text-sm lg:text-base" data-lang-key="nav_news_archive">Tin tức</a>
                     <a href="/contact.html" class="bg-secondary hover:bg-emerald-600 text-white px-4 py-2 lg:px-5 lg:py-2.5 rounded-md font-semibold transition-colors duration-300 shadow-sm hover:shadow-md text-sm lg:text-base" data-lang-key="nav_contact">Liên Hệ</a>
-                    
-                    <div id="language-toggle-container" class="flex border border-neutral-700 rounded-md">
-                        <button id="lang-vi" data-lang="vi" class="lang-button px-3 py-1 text-xs font-medium focus:outline-none rounded-l-md text-white hover:bg-neutral-700" data-lang-key="lang_vi_short" aria-pressed="true">VI</button>
-                        <button id="lang-en" data-lang="en" class="lang-button px-3 py-1 text-xs font-medium focus:outline-none rounded-r-md border-l border-neutral-700 text-neutral-400 hover:bg-neutral-700 hover:text-white" data-lang-key="lang_en_short" aria-pressed="false">EN</button>
+
+                    <div class="relative" id="desktop-search-wrapper">
+                        <button type="button" id="desktop-search-button" aria-label="Open search bar" aria-expanded="false" aria-controls="desktop-search-container" class="text-neutral-400 hover:text-blue-400 p-2 rounded-full transition-colors">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </button>
+                        <div id="desktop-search-container" class="hidden absolute right-0 mt-2 p-3 bg-neutral-800 rounded-lg shadow-xl z-30 w-64 lg:w-72 origin-top-right">
+                            <form class="search-form flex items-center" role="search" action="javascript:void(0);">
+                                <label for="desktop-search-input" class="sr-only">Search site</label>
+                                <input type="search" id="desktop-search-input" placeholder="Tìm kiếm..." class="w-full px-3 py-2 text-sm text-white bg-neutral-700 rounded-l-md focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none placeholder-neutral-400" data-lang-key="search_placeholder">
+                                <button type="submit" aria-label="Submit search" class="bg-primary text-white px-3 py-2 rounded-r-md hover:bg-blue-700 text-sm transition-colors">
+                                    <i class="fas fa-search" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" id="desktop-search-close" aria-label="Close search bar" class="absolute top-1 right-1 text-neutral-500 hover:text-neutral-300 p-1.5 rounded-full transition-colors md:hidden">
+                                    <i class="fas fa-times fa-sm" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                            <div id="search-results" class="mt-2 text-neutral-400 text-sm"></div>
+                        </div>
                     </div>
+
+                    <div id="language-toggle-container" class="flex border border-neutral-700 rounded-md">
+                        <button id="lang-vi" data-lang="vi" class="px-3 py-1 text-xs font-medium focus:outline-none rounded-l-md text-white" data-lang-key="lang_vi_short">VI</button>
+                        <button id="lang-en" data-lang="en" class="px-3 py-1 text-xs font-medium focus:outline-none rounded-r-md border-l border-neutral-700 text-neutral-400" data-lang-key="lang_en_short">EN</button>
+                    </div>
+                    <a href="/contact.html?action=consult" class="hidden lg:inline-block bg-secondary text-white px-5 py-2 rounded-full hover:bg-emerald-600 transition-colors text-sm font-semibold shadow-sm" data-lang-key="nav_cta_consult">Tư Vấn Miễn Phí</a>
                 </nav>
 
                 <button type="button" id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu-panel" class="md:hidden text-white hover:text-blue-400 focus:outline-none p-2 rounded-md transition-colors" aria-label="Open main menu">
@@ -212,32 +197,222 @@
 
                 <a href="/news-archive.html" class="block px-3 py-2.5 rounded-md hover:bg-neutral-800 hover:text-blue-400 font-medium transition-colors" data-lang-key="nav_news_archive">Tin tức</a>
                 <a href="/contact.html" class="block px-3 py-2.5 rounded-md bg-secondary text-white hover:bg-emerald-600 font-semibold text-center transition-colors shadow-sm hover:shadow-md" data-lang-key="nav_contact">Liên Hệ</a>
-                
-                <div id="language-toggle-container-mobile" class="flex border border-neutral-700 rounded-md mx-auto mt-6 w-max">
-                    <button data-lang="vi" class="lang-button px-4 py-2 text-sm font-medium focus:outline-none rounded-l-md text-white hover:bg-neutral-700" data-lang-key="lang_vi_short" aria-pressed="true">VI</button>
-                    <button data-lang="en" class="lang-button px-4 py-2 text-sm font-medium focus:outline-none rounded-r-md border-l border-neutral-700 text-neutral-400 hover:bg-neutral-700 hover:text-white" data-lang-key="lang_en_short" aria-pressed="false">EN</button>
-                </div>
+
+                <form class="search-form mt-4 px-3" role="search" action="javascript:void(0);">
+                    <label for="mobile-search-input" class="sr-only">Search</label>
+                    <input type="search" id="mobile-search-input" placeholder="Tìm kiếm..." class="w-full px-4 py-2.5 text-sm text-white bg-neutral-700 rounded-md focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none placeholder-neutral-400" data-lang-key="search_placeholder">
+                    <div id="mobile-search-results" class="mt-2 text-neutral-400 text-sm"></div>
+                </form>
             </nav>
         </div>
     </header>
 
+    <!-- Bottom Navigation -->
     <div class="bottom-nav md:hidden fixed bottom-0 left-0 w-full bg-neutral-800 shadow-t z-50">
         <div class="flex justify-around items-center h-16">
-            <a href="/index.html" class="bottom-nav-item active" data-lang-key="bottom_nav_home" aria-label="Trang chủ">
-                <i class="fas fa-home fa-lg"></i>
+            <a href="/index.html" class="bottom-nav-item active">
+                <i class="fas fa-home fa-2x"></i>
             </a>
-            <a href="/solutions.html" class="bottom-nav-item" data-lang-key="bottom_nav_solutions" aria-label="Giải pháp">
-                <i class="fas fa-tools fa-lg"></i>
+            <a href="/solutions.html" class="bottom-nav-item">
+                <i class="fas fa-tools fa-2x"></i>
             </a>
-            <a href="/news-archive.html" class="bottom-nav-item" data-lang-key="bottom_nav_news" aria-label="Tin tức">
-                <i class="fas fa-newspaper fa-lg"></i>
+            <a href="/news-archive.html" class="bottom-nav-item">
+                <i class="fas fa-newspaper fa-2x"></i>
             </a>
-            <a href="/service.html" class="bottom-nav-item" data-lang-key="bottom_nav_services" aria-label="Dịch vụ">
-                <i class="fas fa-concierge-bell fa-lg"></i> </a>
-            <a href="/gallery.html" class="bottom-nav-item" data-lang-key="bottom_nav_library" aria-label="Thư viện">
-                <i class="fas fa-book-open fa-lg"></i> </a>
+            <a href="/service.html" class="bottom-nav-item">
+                <i class="fas fa-trophy-alt fa-2x"></i>
+            </a>
+            <a href="/gallery.html" class="bottom-nav-item">
+                <i class="fas fa-file-search fa-2x"></i>
+            </a>
         </div>
     </div>
 
+    <!-- JavaScript for Navigation Functionality -->
+    <script>
+        // Debounce function to limit rapid input events
+        window.debounce = function(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        };
+
+        // Placeholder for language detection (modify as needed)
+        window.getCurrentLanguage = function() {
+            return 'vi'; // Default to Vietnamese; replace with actual logic
+        };
+
+        // Initialize header functionality
+        window.initializeHeader = function() {
+            const desktopNavItems = document.querySelectorAll('nav.hidden.md\\:flex > div.relative.group');
+
+            desktopNavItems.forEach(item => {
+                const button = item.querySelector('button[aria-haspopup="true"]');
+                const dropdown = item.querySelector('.mega-menu, .absolute.opacity-0');
+
+                if (button && dropdown) {
+                    let timeout;
+
+                    item.addEventListener('mouseenter', () => {
+                        clearTimeout(timeout);
+                        dropdown.classList.remove('opacity-0', 'invisible', 'pointer-events-none');
+                        dropdown.classList.add('opacity-100', 'visible', 'pointer-events-auto');
+                        button.setAttribute('aria-expanded', 'true');
+                    });
+
+                    item.addEventListener('mouseleave', () => {
+                        timeout = setTimeout(() => {
+                            dropdown.classList.remove('opacity-100', 'visible', 'pointer-events-auto');
+                            dropdown.classList.add('opacity-0', 'invisible', 'pointer-events-none');
+                            button.setAttribute('aria-expanded', 'false');
+                        }, 300);
+                    });
+
+                    dropdown.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape') {
+                            dropdown.classList.remove('opacity-100', 'visible', 'pointer-events-auto');
+                            dropdown.classList.add('opacity-0', 'invisible', 'pointer-events-none');
+                            button.setAttribute('aria-expanded', 'false');
+                            button.focus();
+                        }
+                    });
+                }
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+            const iconMenuOpen = document.getElementById('icon-menu-open');
+            const iconMenuClose = document.getElementById('icon-menu-close');
+
+            if (mobileMenuButton && mobileMenuPanel && iconMenuOpen && iconMenuClose) {
+                mobileMenuButton.addEventListener('click', () => {
+                    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                    mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                    mobileMenuPanel.classList.toggle('hidden');
+                    iconMenuOpen.classList.toggle('hidden');
+                    iconMenuClose.classList.toggle('hidden');
+                    document.body.classList.toggle('overflow-hidden');
+                });
+
+                mobileMenuPanel.addEventListener('click', (e) => {
+                    if (e.target === mobileMenuPanel) {
+                        mobileMenuButton.click();
+                    }
+                });
+
+                const mobileSubmenuToggles = document.querySelectorAll('.mobile-submenu-toggle');
+                mobileSubmenuToggles.forEach(toggle => {
+                    toggle.addEventListener('click', () => {
+                        const submenuContent = toggle.nextElementSibling;
+                        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+
+                        mobileSubmenuToggles.forEach(otherToggle => {
+                            if (otherToggle !== toggle) {
+                                const otherSubmenuContent = otherToggle.nextElementSibling;
+                                if (otherSubmenuContent && !otherSubmenuContent.classList.contains('max-h-0')) {
+                                    otherSubmenuContent.classList.add('max-h-0');
+                                    otherSubmenuContent.classList.remove('max-h-screen');
+                                    otherToggle.setAttribute('aria-expanded', 'false');
+                                    const otherIcon = otherToggle.querySelector('.mobile-submenu-icon');
+                                    if (otherIcon) {
+                                        otherIcon.classList.remove('fa-chevron-up');
+                                        otherIcon.classList.add('fa-chevron-down');
+                                    }
+                                }
+                            }
+                        });
+
+                        if (submenuContent) {
+                            if (isExpanded) {
+                                submenuContent.classList.add('max-h-0');
+                                submenuContent.classList.remove('max-h-screen');
+                            } else {
+                                submenuContent.classList.remove('max-h-0');
+                                submenuContent.classList.add('max-h-screen');
+                            }
+                            toggle.setAttribute('aria-expanded', !isExpanded);
+                            const icon = toggle.querySelector('.mobile-submenu-icon');
+                            if (icon) {
+                                icon.classList.toggle('fa-chevron-down', isExpanded);
+                                icon.classList.toggle('fa-chevron-up', !isExpanded);
+                            }
+                        }
+                    });
+                });
+            }
+
+            const desktopSearchButton = document.getElementById('desktop-search-button');
+            const desktopSearchContainer = document.getElementById('desktop-search-container');
+            const desktopSearchCloseButton = document.getElementById('desktop-search-close');
+
+            if (desktopSearchButton && desktopSearchContainer) {
+                desktopSearchButton.addEventListener('click', () => {
+                    const isHidden = desktopSearchContainer.classList.contains('hidden');
+                    desktopSearchContainer.classList.toggle('hidden', !isHidden);
+                    desktopSearchButton.setAttribute('aria-expanded', String(isHidden));
+                    if (isHidden) {
+                        document.getElementById('desktop-search-input').focus();
+                    }
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!desktopSearchContainer.classList.contains('hidden') &&
+                        !desktopSearchButton.contains(e.target) &&
+                        !desktopSearchContainer.contains(e.target)) {
+                        desktopSearchContainer.classList.add('hidden');
+                        desktopSearchButton.setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && !desktopSearchContainer.classList.contains('hidden')) {
+                        desktopSearchContainer.classList.add('hidden');
+                        desktopSearchButton.setAttribute('aria-expanded', 'false');
+                        desktopSearchButton.focus();
+                    }
+                });
+            }
+
+            const mobileSearchInput = document.getElementById('mobile-search-input');
+            if (mobileSearchInput) {
+                mobileSearchInput.addEventListener('input', window.debounce(function() {
+                    console.log('Mobile search input:', this.value);
+                }, 300));
+            }
+
+            const currentLang = window.getCurrentLanguage();
+            const langButtons = document.querySelectorAll('#language-toggle-container button');
+            langButtons.forEach(button => {
+                if (button.dataset.lang === currentLang) {
+                    button.classList.add('active-lang');
+                } else {
+                    button.classList.remove('active-lang');
+                }
+            });
+        };
+
+        // Initialize language toggle (placeholder; implement actual logic as needed)
+        window.initializeLanguageButtons = function() {
+            const langButtons = document.querySelectorAll('#language-toggle-container button');
+            langButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const lang = button.dataset.lang;
+                    console.log(`Switch to language: ${lang}`);
+                    // Implement actual language switch logic here
+                    langButtons.forEach(btn => btn.classList.remove('active-lang'));
+                    button.classList.add('active-lang');
+                });
+            });
+        };
+
+        // Call initializeHeader on page load
+        document.addEventListener('DOMContentLoaded', window.initializeHeader);
+    </script>
 </body>
 </html>
