@@ -96,27 +96,27 @@
             border-color: rgba(255, 255, 255, 0.2);
             outline: none;
         }
-        #mobile-menu-button .icon-menu-bar,
-        #mobile-menu-button .icon-menu-close-bar {
+        #mobile-menu-button #icon-menu-open,
+        #mobile-menu-button #icon-menu-close {
             transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.25s ease-in-out;
             position: absolute;
             font-size: 1.375rem; 
         }
 
-        #mobile-menu-button[aria-expanded="true"] .icon-menu-bar {
+        #mobile-menu-button[aria-expanded="true"] #icon-menu-open {
             transform: rotate(45deg) scale(0.8);
             opacity: 0;
         }
-        #mobile-menu-button[aria-expanded="false"] .icon-menu-bar {
+        #mobile-menu-button[aria-expanded="false"] #icon-menu-open {
             transform: rotate(0deg) scale(1);
             opacity: 1;
         }
         
-        #mobile-menu-button[aria-expanded="true"] .icon-menu-close-bar {
+        #mobile-menu-button[aria-expanded="true"] #icon-menu-close {
             transform: rotate(0deg) scale(1);
             opacity: 1;
         }
-        #mobile-menu-button[aria-expanded="false"] .icon-menu-close-bar {
+        #mobile-menu-button[aria-expanded="false"] #icon-menu-close {
             transform: rotate(-45deg) scale(0.8);
             opacity: 0;
         }
@@ -125,22 +125,22 @@
 </head>
 <body class="bg-neutral-900 text-white font-sans antialiased">
     <header id="main-header" class="bg-neutral-900 text-white shadow-sm sticky top-0 w-full sticky-header nav-header"> 
-        <div class="container mx-auto px-3 sm:px-4 lg:px-6"> 
-            <div class="flex items-center justify-between h-9"> 
-                <a href="/index.html" class="flex items-center space-x-1.5 group" aria-label="IVS JSC Homepage"> 
-                    <img src="/images/logo/LogoVang.png" alt="IVS JSC Logo" class="h-6 w-6 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/24x24/cccccc/333333?text=L';"> 
-                    <span class="text-lg font-bold group-hover:text-blue-400 transition-colors"> 
+        <div class="container mx-auto px-2 sm:px-3 lg:px-4"> 
+            <div class="flex items-center justify-between h-10"> 
+                <a href="/index.html" class="flex items-center space-x-2 group" aria-label="IVS JSC Homepage"> 
+                    <img src="/images/logo/LogoVang.png" alt="IVS JSC Logo" class="h-10 w-10 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/40x40/cccccc/333333?text=L';"> 
+                    <span class="text-xl font-bold group-hover:text-blue-400 transition-colors"> 
                         <span class="text-secondary group-hover:text-emerald-400">JSC</span>
                     </span>
                 </a>
 
                 <nav class="hidden md:flex space-x-1.5 lg:space-x-2 items-center" aria-label="Main desktop navigation"> 
-                    <a href="/index.html" class="hover:text-blue-400 transition-colors duration-300 font-medium px-1.5 py-1 rounded header-nav-text" data-lang-key="nav_home">Trang Chủ</a> 
-                    <a href="/about.html" class="hover:text-blue-400 transition-colors duration-300 font-medium px-1.5 py-1 rounded header-nav-text" data-lang-key="nav_about">Về IVS</a>
+                    <a href="/index.html" class="hover:text-blue-400 transition-colors duration-300 font-medium px-2 py-1.5 rounded text-sm" data-lang-key="nav_home">Trang Chủ</a> 
+                    <a href="/about.html" class="hover:text-blue-400 transition-colors duration-300 font-medium px-2 py-1.5 rounded text-sm" data-lang-key="nav_about">Về IVS</a>
 
                     <div class="relative group mega-menu-container">
-                        <button type="button" id="nav-services-button" aria-haspopup="true" aria-expanded="false" aria-controls="services-mega-menu" class="hover:text-blue-400 transition-colors duration-300 font-medium flex items-center px-1.5 py-1 rounded header-nav-text" data-lang-key="nav_services">
-                            Dịch Vụ <i class="fas fa-chevron-down header-icon-xs transform transition-transform duration-200 group-hover:rotate-180" aria-hidden="true"></i> 
+                        <button type="button" id="nav-services-button" aria-haspopup="true" aria-expanded="false" aria-controls="services-mega-menu" class="hover:text-blue-400 transition-colors duration-300 font-medium flex items-center px-2 py-1.5 rounded text-sm" data-lang-key="nav_services">
+                            Dịch Vụ <i class="fas fa-chevron-down text-xs ml-1 transform transition-transform duration-200 group-hover:rotate-180" aria-hidden="true"></i> 
                         </button>
                         <div id="services-mega-menu" class="mega-menu absolute bg-neutral-800 text-white py-2 rounded-md shadow-lg z-20 min-w-[450px] origin-top-left" aria-labelledby="nav-services-button"> 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 px-2"> 
@@ -162,15 +162,15 @@
                                 </div>
                             </div>
                             <div class="px-2 pt-2 mt-2 border-t border-neutral-700"> 
-                                <img src="images/pages/ivs_solutions.jpeg" alt="IVS Solution Promotion" class="rounded shadow-md w-full max-h-[100px] object-cover" onerror="this.onerror=null; this.src='https://placehold.co/200x100/cccccc/ffffff?text=Img Err';"> 
+                                <img src="/images/pages/ivs_solutions.jpeg" alt="IVS Solution Promotion" class="rounded shadow-md w-full max-h-[100px] object-cover" onerror="this.onerror=null; this.src='https://placehold.co/200x100/cccccc/ffffff?text=Img Err';"> 
                                 <p class="text-xs text-neutral-400 mt-1" data-lang-key="nav_mega_promo">Khám phá các giải pháp toàn diện của IVS JSC!</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="relative group">
-                        <button type="button" id="nav-solutions-button" aria-haspopup="true" aria-expanded="false" aria-controls="solutions-dropdown-menu" class="hover:text-blue-400 transition-colors duration-300 font-medium flex items-center px-1.5 py-1 rounded header-nav-text" data-lang-key="nav_solutions">
-                            Giải pháp <i class="fas fa-chevron-down header-icon-xs transform transition-transform duration-200 group-hover:rotate-180" aria-hidden="true"></i>
+                        <button type="button" id="nav-solutions-button" aria-haspopup="true" aria-expanded="false" aria-controls="solutions-dropdown-menu" class="hover:text-blue-400 transition-colors duration-300 font-medium flex items-center px-2 py-1.5 rounded text-sm" data-lang-key="nav_solutions">
+                            Giải pháp <i class="fas fa-chevron-down text-xs ml-1 transform transition-transform duration-200 group-hover:rotate-180" aria-hidden="true"></i>
                         </button>
                         <div id="solutions-dropdown-menu" class="desktop-dropdown-menu absolute bg-neutral-800 text-white py-1 rounded-md shadow-lg z-20 min-w-[180px] origin-top-left" aria-labelledby="nav-solutions-button"> 
                             <ul class="space-y-px">
@@ -183,8 +183,8 @@
                     </div>
 
                     <div class="relative group">
-                        <button type="button" id="nav-library-button" aria-haspopup="true" aria-expanded="false" aria-controls="library-dropdown-menu" class="hover:text-blue-400 transition-colors duration-300 font-medium flex items-center px-1.5 py-1 rounded header-nav-text" data-lang-key="nav_library">
-                            Thư Viện <i class="fas fa-chevron-down header-icon-xs transform transition-transform duration-200 group-hover:rotate-180" aria-hidden="true"></i>
+                        <button type="button" id="nav-library-button" aria-haspopup="true" aria-expanded="false" aria-controls="library-dropdown-menu" class="hover:text-blue-400 transition-colors duration-300 font-medium flex items-center px-2 py-1.5 rounded text-sm" data-lang-key="nav_library">
+                            Thư Viện <i class="fas fa-chevron-down text-xs ml-1 transform transition-transform duration-200 group-hover:rotate-180" aria-hidden="true"></i>
                         </button>
                         <div id="library-dropdown-menu" class="desktop-dropdown-menu absolute bg-neutral-800 text-white py-1 rounded-md shadow-lg z-20 min-w-[180px] origin-top-left" aria-labelledby="nav-library-button">
                             <ul class="space-y-px">
@@ -195,20 +195,20 @@
                         </div>
                     </div>
 
-                    <a href="/news-archive.html" class="hover:text-blue-400 transition-colors duration-300 font-medium px-1.5 py-1 rounded header-nav-text" data-lang-key="nav_news_archive">Tin tức</a>
-                    <a href="/contact.html" class="bg-secondary hover:bg-emerald-600 text-white px-2.5 py-1.5 rounded-md font-semibold transition-colors duration-300 shadow-sm hover:shadow-md header-nav-text" data-lang-key="nav_contact">Liên Hệ</a> 
+                    <a href="/news-archive.html" class="hover:text-blue-400 transition-colors duration-300 font-medium px-2 py-1.5 rounded text-sm" data-lang-key="nav_news_archive">Tin tức</a>
+                    <a href="/contact.html" class="bg-secondary hover:bg-emerald-600 text-white px-3 py-2 rounded-md font-semibold transition-colors duration-300 shadow-sm hover:shadow-md text-sm" data-lang-key="nav_contact">Liên Hệ</a> 
                     
                     <div id="language-toggle-container" class="flex border border-neutral-700 rounded"> 
-                        <button id="lang-vi" data-lang="vi" class="lang-button px-1.5 py-0.5 text-xs font-medium focus:outline-none rounded-l text-white hover:bg-neutral-700" data-lang-key="lang_vi_short" aria-pressed="true">VI</button> 
-                        <button id="lang-en" data-lang="en" class="lang-button px-1.5 py-0.5 text-xs font-medium focus:outline-none rounded-r border-l border-neutral-700 text-neutral-400 hover:bg-neutral-700 hover:text-white" data-lang-key="lang_en_short" aria-pressed="false">EN</button>
+                        <button id="lang-vi" data-lang="vi" class="lang-button px-2 py-1 text-xs font-medium focus:outline-none rounded-l text-white hover:bg-neutral-700" data-lang-key="lang_vi_short" aria-pressed="true">VI</button> 
+                        <button id="lang-en" data-lang="en" class="lang-button px-2 py-1 text-xs font-medium focus:outline-none rounded-r border-l border-neutral-700 text-neutral-400 hover:bg-neutral-700 hover:text-white" data-lang-key="lang_en_short" aria-pressed="false">EN</button>
                     </div>
                 </nav>
 
                 <button type="button" id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu-panel" class="md:hidden text-white focus:outline-none" aria-label="Open main menu"> 
                     <span class="sr-only">Open main menu</span>
                     <span class="relative flex items-center justify-center w-6 h-6">
-                        <i class="fas fa-bars text-lg icon-menu-bar" id="icon-menu-open"></i> 
-                        <i class="fas fa-times text-lg icon-menu-close-bar" id="icon-menu-close"></i>
+                        <i class="fas fa-bars icon-menu-bar" id="icon-menu-open"></i> 
+                        <i class="fas fa-times icon-menu-close-bar" id="icon-menu-close"></i>
                     </span>
                 </button>
             </div>
