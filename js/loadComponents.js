@@ -369,15 +369,15 @@ window.loadHeaderFooterAndFab = async function() {
     
     initializeFabButtonsInternal(); 
 
-    if (typeof window.initializeLanguageSystem === 'function') {
+    if (typeof window.initializeLanguageToggle === 'function') {
         try {
-            await window.initializeLanguageSystem(); 
+            await window.initializeLanguageToggle(); 
             componentLog("Language system initialized.");
         } catch (error) {
             componentLog(`Error initializing language system: ${error.message}`, 'error');
         }
     } else {
-        componentLog("window.initializeLanguageSystem not found.", 'error');
+        componentLog("window.initializeLanguageToggle not found.", 'error');
     }
     
     componentsLoadedAndInitialized = true;
@@ -398,3 +398,34 @@ if (document.readyState === 'loading') {
         window.loadHeaderFooterAndFab();
     }
 }
+let componentsInitialized = false;
+
+window.loadComponentsAndInitialize = async function() {
+    if (componentsInitialized) {
+        console.warn('Components already initialized');
+        return;
+    }
+
+    try {
+        // Load header
+        await loadComponent('header', 'header-placeholder', '/components/header.html');
+        
+        // Load footer 
+        await loadComponent('footer', 'footer-placeholder', '/components/footer.html');
+        
+        // Initialize components
+        if (typeof window.initializeHeader === 'function') {
+            window.initializeHeader();
+        }
+        
+        if (typeof window.initializeFabButtons === 'function') {
+            window.initializeFabButtons();
+        }
+
+        componentsInitialized = true;
+        
+    } catch (error) {
+        console.error('Error loading components:', error);
+        throw error;
+    }
+};
