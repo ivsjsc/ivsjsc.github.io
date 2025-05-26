@@ -1,86 +1,73 @@
-// js/about-page.js - Scripts specific to the About Us page
+.video-wrapper {
+    position: relative; padding-bottom: 56.25%; height: 0;
+    overflow: hidden; width: 100%; background-color: #000; border-radius: 0.5rem;
+}
+.video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-// Function to toggle mobile submenus, needs to be globally accessible
-// if called via onclick attribute in dynamically loaded header.
-window.toggleMobileSubmenu = function(button) {
-    const submenu = button.nextElementSibling;
-    // Check if the submenu element exists and has the correct class
-    if (submenu && submenu.classList.contains('mobile-submenu-content')) {
-        const icon = button.querySelector('i.mobile-submenu-icon');
-        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+.timeline { list-style: none; padding: 0; position: relative; }
+.timeline::before {
+    content: ''; position: absolute; top: 0; bottom: 0;
+    left: 1.5rem; width: 2px; background-color: #cbd5e1; /* neutral-300 */ margin-left: -1px;
+}
+html.dark .timeline::before {
+    background-color: #4b5563; /* neutral-600 for dark mode */
+}
+.timeline li { position: relative; margin-bottom: 2rem; padding-left: 3.5rem; }
+.timeline li::before {
+    content: ''; position: absolute; left: 1.5rem; top: 0.25rem;
+    width: 1rem; height: 1rem; border-radius: 50%;
+    background-color: #3b82f6; /* primary color from Tailwind config */
+    margin-left: -0.5rem; z-index: 1;
+}
+html.dark .timeline li::before {
+    background-color: #60a5fa; /* blue-400 for dark mode, or similar primary accent */
+}
 
-        if (isExpanded) {
-            // Collapse the submenu
-            submenu.style.maxHeight = '0px';
-            if (icon) {
-                icon.classList.remove('fa-chevron-up');
-                icon.classList.add('fa-chevron-down');
-            }
-            button.setAttribute('aria-expanded', 'false');
-        } else {
-            // Expand the submenu
-            // Ensure submenu is visible to calculate scrollHeight correctly if it was display:none
-            // submenu.style.display = 'block'; // Temporarily ensure it's block for scrollHeight
-            submenu.style.maxHeight = submenu.scrollHeight + 'px';
-            // submenu.style.removeProperty('display'); // Clean up if needed, though max-height handles visibility
-            if (icon) {
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-chevron-up');
-            }
-            button.setAttribute('aria-expanded', 'true');
-        }
-    } else {
-        console.warn('[Script - about-page.js] Submenu element not found or missing class for toggle button:', button);
-    }
-};
+.horizontal-scroll-gallery::-webkit-scrollbar { height: 8px; }
+.horizontal-scroll-gallery::-webkit-scrollbar-track { background: #e5e7eb; border-radius: 10px; }
+html.dark .horizontal-scroll-gallery::-webkit-scrollbar-track { background: #374151; } /* neutral-700 for dark mode */
+.horizontal-scroll-gallery::-webkit-scrollbar-thumb { background-color: #9ca3af; border-radius: 10px; border: 2px solid #e5e7eb; }
+html.dark .horizontal-scroll-gallery::-webkit-scrollbar-thumb { background-color: #6b7280; border-color: #374151; } /* neutral-500 and neutral-700 for dark mode */
+.horizontal-scroll-gallery::-webkit-scrollbar-thumb:hover { background-color: #6b7280; }
+html.dark .horizontal-scroll-gallery::-webkit-scrollbar-thumb:hover { background-color: #9ca3af; } /* neutral-400 for dark mode */
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize AOS (Animate On Scroll)
-    if (typeof AOS !== 'undefined') {
-        AOS.init({
-            offset: 120, 
-            duration: 800, 
-            easing: 'ease-in-out-cubic', 
-            once: true, 
-            mirror: false, 
-            anchorPlacement: 'top-bottom',
-        });
-    } else {
-        console.warn('[Script - about-page.js] AOS library not found.');
-    }
-    
-    // Initialize Scroll-to-Top Button
-    const scrollToTopBtnExisting = document.getElementById('scrollToTopBtn');
-    if (scrollToTopBtnExisting) {
-        scrollToTopBtnExisting.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-        window.addEventListener('scroll', () => {
-            const btn = document.getElementById('scrollToTopBtn'); // Re-fetch in case it's removed/re-added
-            if (btn) {
-                btn.style.display = (window.pageYOffset > 100) ? 'flex' : 'none';
-            }
-        }, { passive: true });
-    } else {
-        // console.warn('[Script - about-page.js] scrollToTopBtn not found.');
-    }
-    
-    // Load shared components (header, footer) and initialize their scripts
-    if (typeof window.loadComponentsAndInitialize === 'function') {
-        window.loadComponentsAndInitialize().then(() => {
-            // Actions to perform after components are loaded and initialized
-            if (typeof AOS !== 'undefined') {
-                AOS.refresh(); 
-            }
-            // Initialize language settings if applicable and functions are available
-            if (typeof window.updateLanguage === 'function' && typeof window.translations === 'object') {
-                const currentLang = localStorage.getItem('language') || document.documentElement.lang || 'vi';
-                window.updateLanguage(currentLang, window.translations);
-            } else {
-                // console.log("[Script - about-page.js] updateLanguage function or translations object not found on window. Language update skipped post component load.");
-            }
-        }).catch(error => {
-            console.error("[Script - about-page.js] Error occurred during execution of loadComponentsAndInitialize:", error);
-        });
-    } else {
-        console.error("[Script - about-page.js] 'window.loadComponentsAndInitialize' is not a function or not found. Ensure '/js/loadComponents.js' is loaded correctly and defines this function globally.");
-    }
-});
+.scroll-snap-type-x-mandatory { scroll-snap-type: x mandatory; }
+.scroll-snap-align-start { scroll-snap-align: start; }
+
+.hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+
+.commitment-list li { padding-left: 1.75rem; position: relative; margin-bottom: 0.75rem; }
+.commitment-list li::before {
+    content: '🤝'; position: absolute; left: 0;
+    color: #10b981; /* secondary color from Tailwind config */
+    font-size: 1em; top: 0.1em;
+}
+html.dark .commitment-list li::before {
+    color: #34d399; /* emerald-400 for dark mode */
+}
+
+#header-placeholder button.active-lang {
+    background-color: #3b82f6 !important; 
+    color: white !important;
+}
+html.dark #header-placeholder button.active-lang {
+    background-color: var(--ivs-primary-dark) !important; /* Using a darker primary for active state in dark mode */
+}
+
+#header-placeholder:empty::before, 
+#footer-placeholder:empty::before {
+    content: attr(data-loading-text); min-height: 64px; display: flex;
+    align-items: center; justify-content: center; width:100%;
+    background-color: #e5e7eb; color: #6b7280;
+}
+
+html.dark #header-placeholder:empty::before, 
+html.dark #footer-placeholder:empty::before {
+    background-color: #374151; color: #9ca3af; 
+}
+
+.mobile-submenu-content {
+    transition: max-height 0.3s ease-in-out;
+    overflow: hidden; 
+    max-height: 0; 
+}
