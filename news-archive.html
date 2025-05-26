@@ -80,7 +80,7 @@
             max-height: 200px;
             object-fit: cover;
         }
-        #header-placeholder:empty::before, 
+         #header-placeholder:empty::before, 
         #footer-placeholder:empty::before {
             content: attr(data-loading-text);
             min-height: 64px; 
@@ -96,6 +96,7 @@
             background-color: #374151; 
             color: #9ca3af; 
         }
+         .fab-hidden { display: none !important; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen dark:bg-slate-900 dark:text-slate-300">
@@ -144,21 +145,21 @@
                         </div>
                     </div>
                     <div id="public-services-news" class="tab-content hidden">
-                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-slate-200 mb-6" data-lang-key="public_services_news_section_title">Dịch vụ công Quốc gia</h2>
+                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-slate-200 mb-6" data-lang-key="public_services_news_section_title">Tin tức Chính phủ & Dịch vụ công</h2>
                         <div class="mb-8">
-                            <h3 class="text-xl font-semibold text-gray-700 dark:text-slate-200 mb-4" data-lang-key="public_services_links_title">Liên kết Dịch vụ công</h3>
+                            <h3 class="text-xl font-semibold text-gray-700 dark:text-slate-200 mb-4" data-lang-key="public_services_links_title">Liên kết Dịch vụ công Hữu ích</h3>
                             <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                                 <li><a href="https://dichvucong.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Cổng Dịch vụ công Quốc gia</a></li>
-                                <li><a href="https://bhxh.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Bảo hiểm Xã hội Việt Nam</a></li>
-                                <li><a href="https://csdl.dichvucong.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">CSDL Dịch vụ công</a></li>
-                                <li><a href="https://dangkykinhdoanh.gov.vn/vn/Pages/Trangchu.aspx" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Đăng ký Doanh nghiệp</a></li>
-                                <li><a href="https://thuedientu.gdt.gov.vn/etaxnnt/Request" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Thuế điện tử</a></li>
-                                <li><a href="https://dichvucong.bocongan.gov.vn/bocongan/bothutuc/tthc?matt=26683" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">DVC Bộ Công an</a></li>
+                                <li><a href="https://baohiemxahoi.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Bảo hiểm Xã hội Việt Nam</a></li>
+                                <li><a href="https://chinhphu.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Cổng TTĐT Chính phủ</a></li>
+                                <li><a href="https://dangkykinhdoanh.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Đăng ký Doanh nghiệp</a></li>
+                                <li><a href="https://thuedientu.gdt.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Thuế điện tử</a></li>
+                                <li><a href="https://dichvucong.bocongan.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">DVC Bộ Công an</a></li>
                             </ul>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-700 dark:text-slate-200 mb-4" data-lang-key="public_services_feed_title">Tin tức từ Cổng Dịch vụ công</h3>
+                        <h3 class="text-xl font-semibold text-gray-700 dark:text-slate-200 mb-4" data-lang-key="public_services_feed_title">Tin tức nổi bật từ Cổng TTĐT Chính phủ</h3>
                         <div id="public-services-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="loading_public_services_news">Đang tải tin tức dịch vụ công...</p>
+                            <p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="loading_public_services_news">Đang tải tin tức...</p>
                         </div>
                     </div>
                     <div id="education-news" class="tab-content hidden">
@@ -377,9 +378,22 @@
     }
 
     window.onPageComponentsLoadedCallback = function() {
-        console.log("[news-archive.html] All components loaded and base systems initialized by loadComponents.js. Initializing page-specific scripts...");
-        if (typeof initializeFabButtons === 'function') initializeFabButtons();
-        if (typeof setupTabs === 'function') setupTabs(); 
+        console.log("[News Archive Page] Components loaded. Page specific JS can run now.");
+        if (typeof window.initializeLanguageSystem === 'function') {
+            window.initializeLanguageSystem().then(() => {
+                console.log("[News Archive Page] Language system initialized by callback. Setting up tabs.");
+                if (typeof setupTabs === 'function') setupTabs();
+            }).catch(error => {
+                console.error("[News Archive Page] Error initializing language system from callback:", error);
+                if (typeof setupTabs === 'function') setupTabs(); 
+            });
+        } else {
+            console.error("[News Archive Page] window.initializeLanguageSystem is not defined. Tabs might not load localized content correctly.");
+            if (typeof setupTabs === 'function') setupTabs(); 
+        }
+        if (typeof initializeFabButtons === 'function') {
+            initializeFabButtons();
+        }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -531,7 +545,7 @@
 
     function fetchPublicServicesNews() {
          fetchGenericRssFeed({ 
-            rssUrl: 'https://thanhtra.gov.vn/rss/Pages/chuyenmuctin.aspx?ChuyenMucID=63', 
+            rssUrl: 'http://chinhphu.vn/portal/page/portal/chinhphu/RSS?categoryId=700', 
             containerId: 'public-services-rss-container',
             titleKey: 'public_services_feed_title',
             loadingKey: 'loading_public_services_news',
