@@ -79,7 +79,7 @@
             background-size: cover;
             background-position: center;
             min-height: 60vh; 
-            max-height: 500px; 
+            /* Removed max-height: 500px; to allow for more flexible height */
         }
         .hero-section-banner .hero-content {
             position: relative; z-index: 2; 
@@ -159,7 +159,7 @@
 
     <main>
         <section 
-            class="hero-section-banner relative text-center overflow-hidden shadow-xl bg-gray-700 dark:bg-gray-800" 
+            class="hero-section-banner relative text-center overflow-hidden shadow-xl bg-gray-700 dark:bg-gray-800 w-screen" 
             style="background-image: url('/images/logo/webbanner.png');"
             data-aos="fade-in" 
             data-aos-duration="1000"
@@ -169,13 +169,12 @@
                     if (typeof window !== 'undefined' && window.innerWidth < 768) {
                         const section = document.currentScript.parentElement;
                         if (section) {
-                            // Corrected the onerror to use a placeholder if webbannermo.png is not found
                             const imgTest = new Image();
                             imgTest.onerror = function() {
                                 section.style.backgroundImage = "url('https://placehold.co/767x500/374151/ffffff?text=Mobile+Hero+Banner+IVS')";
                             };
-                            imgTest.src = '/images/webbannermo.png'; // Original path from error log
-                            section.style.backgroundImage = `url('${imgTest.src}')`; // Set initial background
+                            imgTest.src = '/images/webbannermo.png';
+                            section.style.backgroundImage = `url('${imgTest.src}')`;
                         }
                     }
                 })();
@@ -202,13 +201,12 @@
                     if (videoElement) {
                         let posterPath;
                         if (window.innerWidth < 768) {
-                            posterPath = '/images/webbannermo.png'; // Mobile image
+                            posterPath = '/images/webbannermo.png';
                         } else {
-                            posterPath = '/images/logo/webbanner.png'; // Desktop image
+                            posterPath = '/images/logo/webbanner.png';
                         }
                         videoElement.poster = posterPath;
 
-                        // Optional: Add a fallback for the poster image itself if it fails to load
                         const imgPosterTest = new Image();
                         imgPosterTest.onerror = function() {
                             console.warn(`Failed to load video poster from ${posterPath}. Using generic fallback.`);
@@ -453,7 +451,6 @@
         anchorPlacement: 'top-bottom', 
     });
         
-    // Make toggleMobileSubmenu globally accessible as it's used in header.html
     window.toggleMobileSubmenu = function(button) {
         const submenu = button.nextElementSibling;
         if (submenu && submenu.classList.contains('mobile-submenu')) {
@@ -542,10 +539,8 @@
         }
     }
 
-    // This function will now be called by loadComponentsAndInitialize after components are loaded
     function onComponentsLoaded() {
         console.log("Components loaded. Attempting to initialize header, footer, and other scripts...");
-        // Call the globally exposed initialization functions from loadComponents.js
         if (typeof window.initializeHeader === 'function') {
             window.initializeHeader();
         } else {
@@ -558,7 +553,6 @@
         }
         
         initializeFabButtons(); 
-        // Ensure language system is initialized after components are loaded
         if (typeof window.initializeLanguageSystem === 'function') {
             window.initializeLanguageSystem();
         } else {
@@ -567,7 +561,6 @@
         initializeNewsLoader(); 
     }
 
-    // Placeholder for news loading logic
     async function fetchPosts() {
         const newsContainer = document.getElementById('news-container');
         if (!newsContainer) {
@@ -575,17 +568,15 @@
             return;
         }
         try {
-            // Use absolute URL for posts.json
             const response = await fetch(window.location.origin + '/posts.json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const posts = await response.json();
             
-            newsContainer.innerHTML = ''; // Clear loading message
+            newsContainer.innerHTML = ''; 
 
             if (posts && posts.length > 0) {
-                // Display only the first 3 posts for the homepage
                 const latestPosts = posts.slice(0, 3); 
                 latestPosts.forEach(post => {
                     const postElement = document.createElement('div');
@@ -614,26 +605,20 @@
     function initializeNewsLoader() {
         const newsContainer = document.getElementById('news-container');
         if (newsContainer) {
-            // Check if posts.json exists and load it
             fetchPosts();
         }
     }
 
-    // Ensure loadComponentsAndInitialize is called after DOMContentLoaded
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize theme early to avoid flicker
         initializeTheme(); 
 
-        // Call loadComponentsAndInitialize from the global scope (made available by loadComponents.js)
         if (typeof window.loadComponentsAndInitialize === 'function') {
             window.loadComponentsAndInitialize().then(onComponentsLoaded).catch(error => {
                 console.error("Error during loadComponentsAndInitialize:", error);
-                // Fallback if component loading fails
                 onComponentsLoaded(); 
             });
         } else {
             console.error("window.loadComponentsAndInitialize is not defined. Components might not load.");
-            // Fallback if loadComponentsAndInitialize is not available
             onComponentsLoaded(); 
         }
     });
@@ -649,11 +634,11 @@
                     videoElement.parentElement.style.backgroundSize='cover';
                     videoElement.parentElement.style.backgroundPosition='center';
                 }
-                videoElement.style.display='none'; // Hide the broken video element
+                videoElement.style.display='none'; 
                 videoSection.classList.add('video-failed-to-load'); 
             });
         }
     }
     </script>
-    </body>
+</body>
 </html>
