@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 
-/* CSS Variables for better maintainability */
+/* CSS Variables */
 :root {
     --primary-color: #007bff;
     --primary-color-hover: #0056b3;
@@ -13,9 +13,19 @@
     --bg-color: #f9f9f9;
     --header-bg: #333333;
     --white: #fff;
-    --font-family: 'Roboto', sans-serif; /* Ensure this font is imported or available */
+    --font-family: 'Roboto', sans-serif;
     --shadow: 0 2px 5px rgba(0,0,0,0.2);
     --border-radius: 4px;
+    
+    /* Thêm các biến mới */
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --dark-color: #343a40;
+    --light-color: #f8f9fa;
+    --transition-speed: 0.3s;
 }
 
 body {
@@ -23,14 +33,89 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
-    padding-top: 70px; /* Add padding to body to prevent content from being hidden by fixed header */
-    overflow-x: hidden; /* Prevent horizontal scroll issues */
+    padding-top: 70px;
+    overflow-x: hidden;
+    min-height: 100vh; /* Đảm bảo chiều cao tối thiểu là 100% viewport */
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    width: 100%;
+}
+
+/* Header Improvements */
+header {
+    background-color: var(--header-bg);
+    color: var(--white);
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+    transition: all var(--transition-speed) ease;
+}
+
+/* Thêm class cho header khi scroll */
+header.scrolled {
+    padding: 0.5rem 0;
+    background-color: rgba(51, 51, 51, 0.95);
+    backdrop-filter: blur(5px);
+}
+
+/* Thêm animations cho các elements */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+.slide-in {
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+.mt-5 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.mb-5 { margin-bottom: 2rem; }
+
+/* Responsive Typography */
+html {
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 12px;
+    }
 }
 
 /* Header and Navigation */

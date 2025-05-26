@@ -321,9 +321,11 @@ window.loadHeaderFooterAndFab = async function() {
     }
     componentLog("Starting to load core components (Header, Footer, FAB)...");
 
+    // Tải header và footer
     const headerLoaded = await loadComponent('Header', 'header-placeholder', '/components/header.html', 'placeholder');
     const footerLoaded = await loadComponent('Footer', 'footer-placeholder', '/components/footer.html', 'placeholder'); 
     
+    // Thêm FAB container vào body nếu chưa có
     const fabContainerHtml = `
     <div id="fab-container" class="fixed bottom-5 right-5 z-[999] flex flex-col items-end space-y-3">
         <button id="scroll-to-top-btn" title="Lên đầu trang" aria-label="Lên đầu trang"
