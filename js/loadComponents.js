@@ -213,7 +213,7 @@ function initializeFabButtonsInternal() {
             link.href = typeof item.action === 'function' ? item.action() : item.action;
             link.target = '_blank';
             link.rel = 'noopener noreferrer';
-            link.className = 'flex items-center px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md w-full text-left';
+            link.className = 'flex items-center px-3 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md w-full text-left';
             let iconHtml = item.icon ? `<i class="${item.icon} w-5 h-5 mr-2"></i>` : (item.iconSvg || '');
             link.innerHTML = `${iconHtml} ${item.label}`;
             submenuElement.appendChild(link);
