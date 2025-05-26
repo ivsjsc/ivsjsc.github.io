@@ -13,7 +13,6 @@ async function loadComponent(placeholderId, filePath, targetElement = 'body') {
         const html = await response.text();
 
         if (targetElement === 'body') {
-            // For fixed elements like fab-container, append directly to body
             document.body.insertAdjacentHTML('beforeend', html);
         } else {
             const placeholder = document.getElementById(placeholderId);
@@ -28,274 +27,310 @@ async function loadComponent(placeholderId, filePath, targetElement = 'body') {
         if (targetElement !== 'body') {
             const placeholder = document.getElementById(placeholderId);
             if (placeholder) {
-                placeholder.innerHTML = `<p style="color: red;">Error loading component: ${error.message || error}</p>`;
+                // Optional: Display an error message in the placeholder
+                // placeholder.innerHTML = `<p class="text-red-500">Error loading component: ${filePath}</p>`;
             }
         }
     }
 }
 
 /**
- * Loads the header, footer, and fab-container components into their respective locations.
- * This function is exposed globally to be called from index.html.
+ * Initializes the Floating Action Buttons (FAB).
+ * This function should be called after fab-container.html is loaded.
  */
-window.loadComponentsAndInitialize = async function() {
-    const HEADER_COMPONENT_URL = '/components/header.html';
-    const FOOTER_COMPONENT_URL = '/components/footer.html';
-    const FAB_COMPONENT_URL = '/components/fab-container.html';
+function initializeFabButtonsInternal() { // Renamed to avoid global scope conflict if script.js also has it
+    const fabElements = {
+        contactMainBtn: document.getElementById('contact-main-btn'),
+        contactOptions: document.getElementById('contact-options'),
+        shareMainBtn: document.getElementById('share-main-btn'),
+        shareOptions: document.getElementById('share-options'),
+        scrollToTopBtn: document.getElementById('scroll-to-top-btn')
+    };
 
-    // Load header, footer, and fab-container concurrently
-    await Promise.all([
-        loadComponent('header-placeholder', HEADER_COMPONENT_URL),
-        loadComponent('footer-placeholder', FOOTER_COMPONENT_URL),
-        loadComponent(null, FAB_COMPONENT_URL, 'body') // Load fab-container directly into body
-    ]);
+    if (!fabElements.contactMainBtn || !fabElements.scrollToTopBtn) {
+        // console.warn("[loadComponents.js] FAB elements not found, skipping initialization.");
+        return;
+    }
 
-    // Initialize components after loading
-    window.initializeHeader();
-    window.initializeFooter();
-    window.initializeFab();
-};
+    // Contact menu toggle
+    if (fabElements.contactMainBtn && fabElements.contactOptions) {
+        fabElements.contactMainBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fabElements.contactOptions.classList.toggle('fab-hidden');
+            fabElements.contactMainBtn.setAttribute('aria-expanded', fabElements.contactOptions.classList.contains('fab-hidden') ? 'false' : 'true');
+            // Hide share options if open
+            if (fabElements.shareOptions && !fabElements.shareOptions.classList.contains('fab-hidden')) {
+                fabElements.shareOptions.classList.add('fab-hidden');
+                if (fabElements.shareMainBtn) fabElements.shareMainBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    // Share menu toggle (if exists)
+    if (fabElements.shareMainBtn && fabElements.shareOptions) {
+        fabElements.shareMainBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fabElements.shareOptions.classList.toggle('fab-hidden');
+            fabElements.shareMainBtn.setAttribute('aria-expanded', fabElements.shareOptions.classList.contains('fab-hidden') ? 'false' : 'true');
+            // Hide contact options if open
+            if (fabElements.contactOptions && !fabElements.contactOptions.classList.contains('fab-hidden')) {
+                fabElements.contactOptions.classList.add('fab-hidden');
+                if (fabElements.contactMainBtn) fabElements.contactMainBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+    
+    // Scroll to top button functionality
+    fabElements.scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        fabElements.scrollToTopBtn.setAttribute('aria-pressed', 'true');
+        setTimeout(() => fabElements.scrollToTopBtn.setAttribute('aria-pressed', 'false'), 1000);
+    });
+
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollPosition > 100) {
+            fabElements.scrollToTopBtn.classList.remove('fab-hidden');
+        } else {
+            fabElements.scrollToTopBtn.classList.add('fab-hidden');
+        }
+    }, { passive: true });
+
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+        if (fabElements.shareMainBtn && fabElements.shareOptions && !fabElements.shareMainBtn.contains(e.target) && !fabElements.shareOptions.contains(e.target)) {
+            fabElements.shareOptions.classList.add('fab-hidden');
+            fabElements.shareMainBtn.setAttribute('aria-expanded', 'false');
+        }
+        if (fabElements.contactMainBtn && fabElements.contactOptions && !fabElements.contactMainBtn.contains(e.target) && !fabElements.contactOptions.contains(e.target)) {
+            fabElements.contactOptions.classList.add('fab-hidden');
+            fabElements.contactMainBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // Keyboard accessibility for FAB menus
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (fabElements.contactOptions && !fabElements.contactOptions.classList.contains('fab-hidden')) {
+                fabElements.contactOptions.classList.add('fab-hidden');
+                fabElements.contactMainBtn.setAttribute('aria-expanded', 'false');
+                fabElements.contactMainBtn.focus();
+            }
+            if (fabElements.shareOptions && !fabElements.shareOptions.classList.contains('fab-hidden')) {
+                fabElements.shareOptions.classList.add('fab-hidden');
+                fabElements.shareMainBtn.setAttribute('aria-expanded', 'false');
+                fabElements.shareMainBtn.focus();
+            }
+        }
+    });
+}
+
 
 /**
- * Initializes interactive elements within the header after it has been loaded.
- * This includes mobile menu toggling, language selection, and dark mode toggle.
- * This function is exposed globally to be called from index.html.
+ * Main initialization logic for the header component.
+ * This function should be called after header.html is loaded into the DOM.
  */
 window.initializeHeader = function() {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuIcon = mobileMenuButton ? mobileMenuButton.querySelector('i') : null;
+    const mobileSubmenuToggles = document.querySelectorAll('.mobile-submenu-toggle');
+    const headerElement = document.getElementById('main-header');
+    const searchInputDesktop = document.getElementById('search-input-desktop');
+    const searchInputMobile = document.getElementById('search-input-mobile');
+    const mobileSearchButton = document.getElementById('mobile-search-button');
+    const mobileSearchContainer = document.getElementById('mobile-search-container');
 
-    // Mobile menu toggle logic
-    if (mobileMenuButton && mobileMenu && mobileMenuIcon) {
+    // Toggle mobile menu
+    if (mobileMenuButton && mobileMenu) {
         mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            if (mobileMenu.classList.contains('hidden')) {
-                mobileMenuIcon.classList.remove('fa-times');
-                mobileMenuIcon.classList.add('fa-bars');
-                const openSubmenu = mobileMenu.querySelector('.mobile-submenu:not(.hidden)');
-                if (openSubmenu) openSubmenu.classList.add('hidden');
-                const openSubmenuIcon = mobileMenu.querySelector('.fa-chevron-up');
-                if (openSubmenuIcon) {
-                    openSubmenuIcon.classList.remove('fa-chevron-up');
-                    openSubmenuIcon.classList.add('fa-chevron-down');
-                }
-            } else {
-                mobileMenuIcon.classList.remove('fa-bars');
-                mobileMenuIcon.classList.add('fa-times');
+            const isExpanded = mobileMenu.classList.toggle('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+            if (mobileSearchContainer && !mobileSearchContainer.classList.contains('hidden')) {
+                mobileSearchContainer.classList.add('hidden'); // Hide search if menu opens
             }
         });
+    }
 
-        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                if (!e.target.closest('button[onclick*="toggleMobileSubmenu"]')) {
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                        mobileMenuIcon.classList.remove('fa-times');
-                        mobileMenuIcon.classList.add('fa-bars');
+    // Toggle mobile submenus
+    mobileSubmenuToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            const submenuContent = toggle.nextElementSibling;
+            const icon = toggle.querySelector('i.fa-chevron-down');
+            if (submenuContent) {
+                const isExpanded = submenuContent.style.maxHeight && submenuContent.style.maxHeight !== '0px';
+                if (isExpanded) {
+                    submenuContent.style.maxHeight = '0px';
+                    toggle.setAttribute('aria-expanded', 'false');
+                    if (icon) icon.classList.remove('rotate-180');
+                } else {
+                    submenuContent.style.maxHeight = submenuContent.scrollHeight + "px";
+                    toggle.setAttribute('aria-expanded', 'true');
+                    if (icon) icon.classList.add('rotate-180');
+                }
+            }
+        });
+    });
+    
+    // Desktop dropdown menu handlers
+    const desktopDropdownButtons = document.querySelectorAll('.desktop-nav .group > button');
+    desktopDropdownButtons.forEach(button => {
+        const menu = button.nextElementSibling; // Assuming ul is the next sibling
+        if (menu) {
+            // Aria-expanded is handled by hover/focus via CSS for desktop
+            // but good to set initial state
+            button.setAttribute('aria-expanded', 'false');
+            menu.addEventListener('mouseenter', () => button.setAttribute('aria-expanded', 'true'));
+            menu.addEventListener('mouseleave', () => button.setAttribute('aria-expanded', 'false'));
+            button.addEventListener('focus', () => menu.style.display = 'block'); // Show on focus
+            // Basic keyboard nav for dropdowns
+            const links = menu.querySelectorAll('a');
+            links.forEach((link, index) => {
+                link.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        if (index < links.length - 1) links[index+1].focus();
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        if (index > 0) links[index-1].focus();
+                    } else if (e.key === 'Escape') {
+                        e.preventDefault();
+                        menu.style.display = 'none';
+                        button.focus();
+                        button.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+            // Hide menu when focus moves out
+            document.addEventListener('focusin', (e) => {
+                if (!button.contains(e.target) && !menu.contains(e.target)) {
+                     // Only hide if not using hover
+                    if (!menu.matches(':hover') && !button.matches(':hover')) {
+                         menu.style.display = 'none';
+                         button.setAttribute('aria-expanded', 'false');
                     }
                 }
             });
-        });
-    }
-
-    const langViButton = document.getElementById('lang-vi');
-    const langEnButton = document.getElementById('lang-en');
-
-    function setActiveLangButton(lang) {
-        if (!langViButton || !langEnButton) return;
-        langViButton.classList.remove('active-lang', 'bg-primary', 'text-white');
-        langEnButton.classList.remove('active-lang', 'bg-primary', 'text-white');
-        langViButton.classList.add('text-neutral-700', 'dark:text-gray-300');
-        langEnButton.classList.add('text-neutral-700', 'dark:text-gray-300');
-
-        if (lang === 'vi') {
-            langViButton.classList.add('active-lang');
-        } else {
-            langEnButton.classList.add('active-lang');
-        }
-    }
-
-    let currentLanguage = localStorage.getItem('language') || document.documentElement.lang || 'vi';
-    setActiveLangButton(currentLanguage);
-
-    if (langViButton) {
-        langViButton.addEventListener('click', () => {
-            localStorage.setItem('language', 'vi');
-            setActiveLangButton('vi');
-            if (typeof window.updateLanguage === 'function') window.updateLanguage('vi');
-            else location.reload();
-        });
-    }
-
-    if (langEnButton) {
-        langEnButton.addEventListener('click', () => {
-            localStorage.setItem('language', 'en');
-            setActiveLangButton('en');
-            if (typeof window.updateLanguage === 'function') window.updateLanguage('en');
-            else location.reload();
-        });
-    }
-
-    const headerDarkModeToggle = document.getElementById('dark-mode-toggle');
-    const mobileHeaderDarkModeToggle = document.getElementById('mobile-dark-mode-toggle');
-
-    function updateToggleIcon(button, isDark) {
-        if (button && button.querySelector('i')) {
-            button.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-        }
-        if (button && button.id === 'mobile-dark-mode-toggle' && button.querySelector('span.ml-2')) {
-            button.querySelector('span.ml-2').textContent = isDark ? 'Chế độ Sáng' : 'Chế độ Tối';
-        }
-    }
-
-    function setupThemeToggleListener(button) {
-        if (button) {
-            button.addEventListener('click', () => {
-                const isDarkMode = document.documentElement.classList.toggle('dark');
-                localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-                updateToggleIcon(headerDarkModeToggle, isDarkMode);
-                updateToggleIcon(mobileHeaderDarkModeToggle, isDarkMode);
-            });
-        }
-    }
-    setupThemeToggleListener(headerDarkModeToggle);
-    setupThemeToggleListener(mobileHeaderDarkModeToggle);
-
-    const isCurrentlyDark = document.documentElement.classList.contains('dark');
-    updateToggleIcon(headerDarkModeToggle, isCurrentlyDark);
-    updateToggleIcon(mobileHeaderDarkModeToggle, isCurrentlyDark);
-};
-
-/**
- * Initializes interactive elements within the footer after it has been loaded.
- * This includes setting the current year and handling newsletter form submission.
- * This function is exposed globally to be called from index.html.
- */
-window.initializeFooter = function() {
-    const currentYearSpan = document.getElementById('current-year');
-    if (currentYearSpan) {
-        currentYearSpan.textContent = new Date().getFullYear();
-    }
-
-    const newsletterForm = document.getElementById('newsletterForm');
-    const newsletterEmail = document.getElementById('newsletterEmail');
-    const newsletterMessage = document.getElementById('newsletterMessage');
-
-    if (newsletterForm && newsletterEmail && newsletterMessage) {
-        newsletterForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const submitButton = newsletterForm.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.textContent;
-
-            const getTranslation = (key, fallback) => {
-                if (typeof window.getTranslation === 'function') {
-                    return window.getTranslation(key) || fallback;
-                }
-                const langKey = key.replace(/_/g, '-') + '-text-key';
-                return submitButton.dataset[langKey] || fallback;
-            };
-
-            const translations = {
-                processing: getTranslation('newsletter_processing', 'Đang xử lý...'),
-                success: getTranslation('newsletter_success', 'Cảm ơn bạn đã đăng ký! Vui lòng kiểm tra email để xác nhận.'),
-                error: getTranslation('newsletter_error', 'Đã có lỗi xảy ra. Vui lòng thử lại sau.'),
-                invalidEmail: getTranslation('newsletter_invalid_email', 'Vui lòng nhập một địa chỉ email hợp lệ.')
-            };
-
-            newsletterMessage.textContent = '';
-            newsletterMessage.className = 'text-sm mt-3';
-
-            if (!newsletterEmail.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newsletterEmail.value)) {
-                newsletterMessage.textContent = translations.invalidEmail;
-                newsletterMessage.className = 'text-sm mt-3 text-red-500 dark:text-red-400';
-                return;
-            }
-
-            submitButton.disabled = true;
-            submitButton.textContent = translations.processing;
-
-            try {
-                const response = await fetch(newsletterForm.action, {
-                    method: 'POST',
-                    body: new FormData(newsletterForm),
-                    headers: { 'Accept': 'application/json' }
-                });
-                if (response.ok) {
-                    newsletterMessage.textContent = translations.success;
-                    newsletterMessage.className = 'text-sm mt-3 text-green-500 dark:text-green-400';
-                    newsletterEmail.value = '';
-                } else {
-                    const data = await response.json().catch(() => ({}));
-                    newsletterMessage.textContent = data.error || translations.error;
-                    newsletterMessage.className = 'text-sm mt-3 text-red-500 dark:text-red-400';
-                }
-            } catch (error) {
-                console.error('[loadComponents.js] Error submitting newsletter:', error);
-                newsletterMessage.textContent = translations.error;
-                newsletterMessage.className = 'text-sm mt-3 text-red-500 dark:text-red-400';
-            } finally {
-                submitButton.disabled = false;
-                submitButton.textContent = originalButtonText;
-            }
-        });
-    }
-};
-
-/**
- * Initializes interactive elements within the fab-container after it has been loaded.
- * This includes scroll-to-top, share, and contact menu toggling.
- * This function is exposed globally to be called from index.html.
- */
-window.initializeFab = function() {
-    // Scroll to top functionality
-    const scrollToTopBtn = document.getElementById('scroll-to-top-btn');
-    if (scrollToTopBtn) {
-        // Show/hide button based on scroll position
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                scrollToTopBtn.classList.remove('fab-hidden');
-            } else {
-                scrollToTopBtn.classList.add('fab-hidden');
-            }
-        });
-
-        // Scroll to top on click
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-
-    // Share menu toggle
-    const shareMainBtn = document.getElementById('share-main-btn');
-    const shareOptions = document.getElementById('share-options');
-    if (shareMainBtn && shareOptions) {
-        shareMainBtn.addEventListener('click', () => {
-            shareOptions.classList.toggle('fab-hidden');
-            shareMainBtn.setAttribute('aria-expanded', shareOptions.classList.contains('fab-hidden') ? 'false' : 'true');
-        });
-    }
-
-    // Contact menu toggle
-    const contactMainBtn = document.getElementById('contact-main-btn');
-    const contactOptions = document.getElementById('contact-options');
-    if (contactMainBtn && contactOptions) {
-        contactMainBtn.addEventListener('click', () => {
-            contactOptions.classList.toggle('fab-hidden');
-            contactMainBtn.setAttribute('aria-expanded', contactOptions.classList.contains('fab-hidden') ? 'false' : 'true');
-        });
-    }
-
-    // Close dropdowns when clicking outside
-    document.addEventListener('click', (e) => {
-        if (shareMainBtn && shareOptions && !shareMainBtn.contains(e.target) && !shareOptions.contains(e.target)) {
-            shareOptions.classList.add('fab-hidden');
-            shareMainBtn.setAttribute('aria-expanded', 'false');
-        }
-        if (contactMainBtn && contactOptions && !contactMainBtn.contains(e.target) && !contactOptions.contains(e.target)) {
-            contactOptions.classList.add('fab-hidden');
-            contactMainBtn.setAttribute('aria-expanded', 'false');
         }
     });
+
+
+    // Sticky header (basic version, no offset calculation)
+    // Tailwind's `sticky` class handles this if applied directly.
+    // If more complex logic is needed (e.g., changing style on scroll), it would go here.
+    // For now, assuming Tailwind's 'sticky' class is sufficient.
+
+    // Search functionality (placeholder console logs)
+    if (searchInputDesktop) {
+        searchInputDesktop.addEventListener('input', window.debounce(function() {
+            console.log('Desktop search input:', this.value);
+            // Implement actual search logic here
+        }, 300));
+    }
+    if (searchInputMobile) {
+        searchInputMobile.addEventListener('input', window.debounce(function() {
+            console.log('Mobile search input:', this.value);
+            // Implement actual search logic here
+        }, 300));
+    }
+    if (mobileSearchButton && mobileSearchContainer) {
+        mobileSearchButton.addEventListener('click', () => {
+            mobileSearchContainer.classList.toggle('hidden');
+            if (!mobileSearchContainer.classList.contains('hidden')) {
+                searchInputMobile.focus();
+                if(mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden'); // Hide menu if search opens
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+    }
+
+    // Closing menus with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            // Close mobile menu
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+                if (mobileMenuButton) mobileMenuButton.setAttribute('aria-expanded', 'false');
+            }
+            // Close mobile search
+            if (mobileSearchContainer && !mobileSearchContainer.classList.contains('hidden')) {
+                mobileSearchContainer.classList.add('hidden');
+            }
+            // Close desktop dropdowns (they should ideally handle this internally too)
+            document.querySelectorAll('.desktop-submenu').forEach(submenu => {
+                submenu.style.display = 'none';
+                const btn = submenu.previousElementSibling;
+                if (btn) btn.setAttribute('aria-expanded', 'false');
+            });
+        }
+    });
+
+    // Update language button active state - this part is now handled by language.js
+    // The `initializeLanguageButtons` from `language.js` should handle this.
+    // However, ensuring buttons get the 'active-lang' class initially might still be needed here
+    // or preferably within language.js after translations are applied.
+    // For now, ensure `language.js` handles setting the active class.
+    // If `window.getCurrentLanguage` and `window.applyTranslations` are available here:
+    if (typeof window.getCurrentLanguage === 'function') {
+        const currentLang = window.getCurrentLanguage();
+        document.querySelectorAll('.lang-button').forEach(button => {
+            if (button.dataset.lang === currentLang) {
+                button.classList.add('active-lang');
+                button.setAttribute('aria-pressed', 'true');
+            } else {
+                button.classList.remove('active-lang');
+                button.setAttribute('aria-pressed', 'false');
+            }
+        });
+    } else {
+        console.warn('[initializeHeader] window.getCurrentLanguage is not defined. Language buttons active state might not be set correctly at init.');
+    }
+    console.log("Header initialized via js/loadComponents.js");
 };
+
+
+/**
+ * Loads header, footer, and FAB components and initializes them.
+ */
+window.loadHeaderAndFooter = async function() {
+    try {
+        await Promise.all([
+            loadComponent('header-placeholder', '/components/header.html', 'placeholder'),
+            loadComponent('footer-placeholder', '/components/footer.html', 'placeholder'),
+            loadComponent(null, '/components/fab-container.html', 'body') // Loads FAB into body
+        ]);
+
+        // Call initialization functions AFTER components are loaded
+        if (typeof window.initializeHeader === 'function') {
+            window.initializeHeader();
+        } else {
+            console.error("initializeHeader function not found after loading header.");
+        }
+        
+        // Footer specific initialization (if any) could be called here
+        // if (typeof window.initializeFooter === 'function') { window.initializeFooter(); }
+
+        initializeFabButtonsInternal(); // Call the internal FAB initializer
+
+        // Initialize language system - this will also call initializeLanguageButtons from language.js
+        if (typeof window.initializeLanguageSystem === 'function') {
+            await window.initializeLanguageSystem();
+        } else {
+            console.error("initializeLanguageSystem function not found. Language features may not work.");
+        }
+
+    } catch (error) {
+        console.error("[loadComponents.js] Error loading core components:", error);
+    }
+};
+
+// Ensure loadHeaderAndFooter is called when the DOM is ready
+// This replaces the individual component loaders in index.html or other pages.
+// Pages should now only need to include this script and then this script handles loading all components.
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', window.loadHeaderAndFooter);
+} else {
+    window.loadHeaderAndFooter(); // Already loaded
+}
