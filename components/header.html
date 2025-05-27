@@ -7,16 +7,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/styles.css">
     <style>
-        /* Điều chỉnh kích thước và spacing của header */
+        /* Header size optimization */
         .sticky-header {
-            height: 72px; /* Chiều cao cố định cho header */
+            height: 64px; /* Giảm chiều cao header xuống */
             background: rgba(17, 24, 39, 0.95);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Logo adjustments */
+        /* Logo size adjustment */
         .logo-container {
             display: flex;
             align-items: center;
@@ -24,7 +24,7 @@
         }
 
         .logo-container img {
-            height: 36px; /* Điều chỉnh kích thước logo */
+            height: 32px; /* Giảm kích thước logo */
             width: auto;
             transition: transform 0.3s ease;
         }
@@ -36,13 +36,14 @@
 
         /* Navigation links */
         .nav-link {
-            font-size: 0.9375rem; /* 15px - size vừa phải */
-            padding: 0.5rem 0.875rem;
+            font-size: 0.875rem; /* 14px */
+            padding: 0.5rem 0.75rem;
             font-weight: 500;
             letter-spacing: 0.01em;
-            height: 40px;
+            height: 36px;
             display: flex;
             align-items: center;
+            gap: 0.375rem;
         }
 
         /* Buttons in header */
@@ -60,20 +61,17 @@
 
         /* Language toggle */
         .lang-button {
-            padding: 0.375rem 0.75rem;
+            padding: 0.25rem 0.75rem;
+            height: 32px;
+            min-width: 40px;
             font-size: 0.875rem; /* 14px */
             font-weight: 500;
-            min-width: 42px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         /* Mobile menu button */
         #mobile-menu-button {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             padding: 0.5rem;
         }
 
@@ -148,11 +146,20 @@
         }
 
         .mega-menu, .desktop-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 0.5rem); /* Khoảng cách với nav link */
+            left: 0;
+            min-width: 220px;
+            background: rgba(23, 23, 23, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+                        0 2px 4px -1px rgba(0, 0, 0, 0.06);
             opacity: 0;
             visibility: hidden;
-            pointer-events: none;
-            transition: opacity 0.3s ease-out, visibility 0s linear 0.3s, transform 0.3s ease-out; 
-            transform: translateY(5px); 
+            transform: translateY(-10px);
+            transition: all 0.2s ease-out;
+            z-index: 50;
         }
         .group:hover .mega-menu,
         .group:focus-within .mega-menu,
@@ -160,9 +167,7 @@
         .group:focus-within .desktop-dropdown-menu {
             opacity: 1;
             visibility: visible;
-            pointer-events: auto;
             transform: translateY(0);
-            transition-delay: 0s; 
         }
 
         .text-primary { color: #3b82f6; } 
@@ -324,22 +329,10 @@
         }
 
         .lang-button {
-            padding: 0.5rem 1rem;
-            color: #ffffff;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .lang-button:hover {
-            background: rgba(59, 130, 246, 0.1);
-        }
-
-        .lang-button.active {
-            background: #3b82f6;
-            color: #ffffff;
-            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            height: 32px;
+            min-width: 40px;
+            font-size: 0.875rem;
         }
 
         /* Mobile menu styles */
@@ -388,6 +381,20 @@
             color: #ffffff;
         }
 
+        /* Fix navigation gap */
+        .nav-items-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Active states */
+        .nav-link.active,
+        .mega-menu-item.active,
+        .desktop-dropdown-menu a.active {
+            color: #60A5FA;
+            background: rgba(96, 165, 250, 0.1);
+        }
     </style>
 </head>
 <body class="bg-neutral-900 text-white font-sans antialiased">
@@ -561,61 +568,46 @@
                 </div>
             </nav>
         </div>
-        <!-- Overlay để click outside đóng menu -->
-        <div class="absolute inset-0 bg-black/50 -z-10"></div>
-    </div>
-
-    <div class="bottom-nav md:hidden fixed bottom-0 left-0 w-full bg-neutral-800 shadow-t z-50">
-        <div class="flex justify-around items-center h-12"> 
-            <a href="/index.html" class="bottom-nav-item active" data-lang-key="bottom_nav_home" aria-label="Trang chủ">
-                <i class="fas fa-home text-xl"></i> 
-            </a>
-            <a href="/solutions.html" class="bottom-nav-item" data-lang-key="bottom_nav_solutions" aria-label="Giải pháp">
-                <i class="fas fa-tools text-xl"></i>
-            </a>
-            <a href="/news-archive.html" class="bottom-nav-item" data-lang-key="bottom_nav_news" aria-label="Tin tức">
-                <i class="fas fa-newspaper text-xl"></i>
-            </a>
-            <a href="/service.html" class="bottom-nav-item" data-lang-key="bottom_nav_services" aria-label="Dịch vụ">
-                <i class="fas fa-concierge-bell text-xl"></i> </a>
-            <a href="/gallery.html" class="bottom-nav-item" data-lang-key="bottom_nav_library" aria-label="Thư viện">
-                <i class="fas fa-book-open text-xl"></i> </a>
-        </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenuPanel = document.getElementById('mobile-menu-panel');
-            const iconMenuOpen = document.getElementById('icon-menu-open');
-            const iconMenuClose = document.getElementById('icon-menu-close');
-
-            function toggleMenu() {
-                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-                mobileMenuPanel.classList.toggle('active');
-                iconMenuOpen.style.display = isExpanded ? 'block' : 'none';
-                iconMenuClose.style.display = isExpanded ? 'none' : 'block';
-                document.body.style.overflow = isExpanded ? '' : 'hidden';
-            }
-
-            // Toggle khi click button
-            mobileMenuButton.addEventListener('click', toggleMenu);
-
-            // Đóng menu khi click outside
-            mobileMenuPanel.addEventListener('click', function(e) {
-                if (e.target === mobileMenuPanel) {
-                    toggleMenu();
+    // Fix dropdown behavior
+    document.addEventListener('DOMContentLoaded', function() {
+        // Prevent dropdown from closing immediately
+        const dropdowns = document.querySelectorAll('.group');
+        dropdowns.forEach(dropdown => {
+            dropdown.addEventListener('mouseenter', function() {
+                const menu = this.querySelector('.mega-menu, .desktop-dropdown-menu');
+                if (menu) {
+                    menu.style.display = 'block';
+                    setTimeout(() => {
+                        menu.style.opacity = '1';
+                        menu.style.transform = 'translateY(0)';
+                    }, 10);
                 }
             });
 
-            // Đóng menu khi ấn ESC
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && mobileMenuPanel.classList.contains('active')) {
-                    toggleMenu();
+            dropdown.addEventListener('mouseleave', function() {
+                const menu = this.querySelector('.mega-menu, .desktop-dropdown-menu');
+                if (menu) {
+                    menu.style.opacity = '0';
+                    menu.style.transform = 'translateY(-10px)';
+                    setTimeout(() => {
+                        menu.style.display = 'none';
+                    }, 200);
                 }
             });
         });
+
+        // Set active state for current page
+        const currentPath = window.location.pathname;
+        const navLinks = document.querySelectorAll('.nav-link, .mega-menu-item, .desktop-dropdown-menu a');
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            }
+        });
+    });
     </script>
 </body>
 </html>
