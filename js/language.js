@@ -1,9 +1,11 @@
-window.translations = {}; 
-
-const defaultLanguage = 'vi';
-const languageStorageKey = 'userPreferredLanguage'; 
-
-const isDebugMode = false; 
+// Initialize global namespace for language system
+window.langSystem = window.langSystem || {
+    translations: {},
+    defaultLanguage: 'vi',
+    languageStorageKey: 'userPreferredLanguage',
+    isDebugMode: false,
+    currentLanguage: null
+};
 
 function logDebug(message) {
     if (isDebugMode) {

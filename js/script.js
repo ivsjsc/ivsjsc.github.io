@@ -149,8 +149,31 @@ function handleHeaderScroll() {
     window.addEventListener('scroll', handleScroll, { passive: true });
 }
 
-// Initialize on DOM load
-document.addEventListener('DOMContentLoaded', handleHeaderScroll);
+/**
+ * Initializes all UI components in the correct order
+ */
+window.initializeUI = async function() {
+    try {
+        // Initialize language system first
+        if (window.initializeLanguageSystem) {
+            await window.initializeLanguageSystem();
+        }
+        
+        // Initialize header after language system
+        if (window.initializeHeader) {
+            await window.initializeHeader();
+        }
+        
+        // Initialize FAB buttons
+        if (window.initializeFabButtons) {
+            window.initializeFabButtons();
+        }
+        
+        console.log('[script.js] All UI components initialized successfully');
+    } catch (error) {
+        console.error('[script.js] Error during UI initialization:', error);
+    }
+};
 
 async function fetchPosts() {
     const newsContainer = document.getElementById('news-container');

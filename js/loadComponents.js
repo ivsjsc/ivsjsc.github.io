@@ -3,7 +3,8 @@ window.componentState = window.componentState || {
     componentsLoadedAndInitialized: false,
     headerInitialized: false,
     fabInitialized: false,
-    footerInitialized: false
+    footerInitialized: false,
+    headerElement: null
 };
 
 function componentLog(message, type = 'log') {
@@ -412,3 +413,41 @@ window.loadComponentsAndInitialize = async function() {
         throw error;
     }
 };
+
+async function initializeHeader() {
+    if (window.componentState.headerInitialized) {
+        componentLog('Header already initialized');
+        return;
+    }
+
+    try {
+        const headerElement = document.querySelector('header');
+        if (!headerElement) {
+            throw new Error('Header element not found');
+        }
+        window.componentState.headerElement = headerElement;
+        
+        // Initialize header scroll behavior
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', window.debounce(() => {
+            if (!window.componentState.headerElement) return;
+            
+            const st = window.pageYOffset || document.documentElement.scrollTop;
+            if (st > lastScrollTop && st > 100) {
+                window.componentState.headerElement.classList.add('header-hidden');
+            } else {
+                window.componentState.headerElement.classList.remove('header-hidden');
+            }
+            lastScrollTop = st <= 0 ? 0 : st;
+        }, 100));
+
+        window.componentState.headerInitialized = true;
+        componentLog('Header initialized successfully');
+    } catch (error) {
+        componentLog(`Error initializing header: ${error.message}`, 'error');
+        window.componentState.headerInitialized = false;
+    }
+}
+
+// Make header initialization available globally
+window.initializeHeader = initializeHeader;
