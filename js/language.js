@@ -4,24 +4,25 @@ window.langSystem = window.langSystem || {
     defaultLanguage: 'vi',
     languageStorageKey: 'userPreferredLanguage',
     isDebugMode: false,
-    currentLanguage: null
+    currentLanguage: null,
+    initialized: false
 };
 
 function logDebug(message) {
-    if (isDebugMode) {
+    if (window.langSystem.isDebugMode) {
         console.log(`[LangJS] ${message}`);
     }
 }
 
 function logWarning(message) {
-    if (isDebugMode) {
+    if (window.langSystem.isDebugMode) {
         console.warn(`[LangJS] ${message}`);
     }
 }
 
 async function fetchTranslations(lang) {
     logDebug(`Fetching translations for: ${lang}`);
-    if (window.translations[lang] && Object.keys(window.translations[lang]).length > 0) {
+    if (window.langSystem.translations[lang] && Object.keys(window.langSystem.translations[lang]).length > 0) {
         logDebug(`Translations for ${lang} already loaded.`);
         return;
     }
@@ -30,13 +31,12 @@ async function fetchTranslations(lang) {
         if (!response.ok) {
             throw new Error(`Failed to load translations for ${lang}: ${response.statusText}`);
         }
-        window.translations[lang] = await response.json();
-        logDebug(`Successfully loaded translations for ${lang}.`);
-    } catch (error) {
+        window.langSystem.translations[lang] = await response.json();
+        logDebug(`Successfully loaded translations for ${lang}.`);    } catch (error) {
         console.error(`[LangJS] Error loading translations for ${lang}:`, error);
-        if (lang !== defaultLanguage) {
-            logWarning(`Falling back to default language: ${defaultLanguage}`);
-            await fetchTranslations(defaultLanguage);
+        if (lang !== window.langSystem.defaultLanguage) {
+            logWarning(`Falling back to default language: ${window.langSystem.defaultLanguage}`);
+            await fetchTranslations(window.langSystem.defaultLanguage);
         } else {
             console.error("[LangJS] Failed to load default translations!");
         }
@@ -47,8 +47,8 @@ window.applyTranslations = () => {
     logDebug("Applying translations...");
     const elementsToTranslate = document.querySelectorAll('[data-lang-key]');
     const currentLang = window.getCurrentLanguage();
-    const currentTranslations = window.translations[currentLang];
-    const defaultTranslations = window.translations[defaultLanguage];
+    const currentTranslations = window.langSystem.translations[currentLang];
+    const defaultTranslations = window.langSystem.translations[window.langSystem.defaultLanguage];
 
     elementsToTranslate.forEach(element => {
         const key = element.getAttribute('data-lang-key');
@@ -65,26 +65,20 @@ window.applyTranslations = () => {
 };
 
 window.getCurrentLanguage = () => {
-    const storedLanguage = localStorage.getItem(languageStorageKey);
+    const storedLanguage = localStorage.getItem(window.langSystem.languageStorageKey);
     if (storedLanguage) {
         logDebug(`Retrieved language from localStorage: ${storedLanguage}`);
         return storedLanguage;
     } else {
         const browserLanguage = navigator.language || navigator.userLanguage;
-        const languageCode = browserLanguage ? browserLanguage.split('-')[0] : defaultLanguage;
+        const languageCode = browserLanguage ? browserLanguage.split('-')[0] : window.langSystem.defaultLanguage;
         logDebug(`Using browser language: ${languageCode}`);
         return languageCode;
     }
 };
 
-// This function will be called by initializeHeader in loadComponents.js
-window.updateLanguage = async (newLang) => {
-    logDebug(`Updating language to: ${newLang}`);
-    localStorage.setItem(languageStorageKey, newLang);
-    await fetchTranslations(newLang);
-    window.applyTranslations();
-    window.initializeLanguageButtons(); // Re-initialize buttons to set active state
-};
+// Alias updateLanguage to setLanguage for backwards compatibility
+window.updateLanguage = window.setLanguage;
 
 const handleLanguageButtonClick = async (event) => {
     const selectedLanguage = event.target.dataset.lang;
@@ -93,9 +87,7 @@ const handleLanguageButtonClick = async (event) => {
         return;
     }
     logDebug(`User selected language: ${selectedLanguage}`);
-    localStorage.setItem(languageStorageKey, selectedLanguage);
-    await fetchTranslations(selectedLanguage);
-    window.applyTranslations();
+    await window.setLanguage(selectedLanguage);
 
     const langButtons = document.querySelectorAll('.lang-button');
     langButtons.forEach(button => {
@@ -121,52 +113,31 @@ window.initializeLanguageButtons = () => {
 
 // Expose initializeLanguageSystem to the global window object
 window.initializeLanguageSystem = async function() {
-    if (window.languageSystemInitialized) { // Use a flag to prevent re-initialization
+    if (window.langSystem.initialized) { // Move flag into langSystem
         logDebug("Language system already initialized.");
         return;
     }
     logDebug("Initializing language system...");
-    window.languageSystemInitialized = true; 
     
     const userPreferredLanguage = window.getCurrentLanguage();
     await fetchTranslations(userPreferredLanguage);
     window.applyTranslations();
     window.initializeLanguageButtons(); // Initialize language buttons after translations are applied
     
+    window.langSystem.initialized = true;
+    window.langSystem.currentLanguage = userPreferredLanguage;
     logDebug(`Language system initialized with language: ${userPreferredLanguage}.`);
 };
 
-function initializeLanguageToggle() {
-  const containers = [
-    document.getElementById('language-toggle-container'),
-    document.getElementById('language-toggle-container-mobile')
-  ];
+// Remove duplicate initializeLanguageToggle function since we already have initializeLanguageButtons
 
-  containers.forEach(container => {
-    if (!container) return;
-    
-    const buttons = container.querySelectorAll('[data-lang]');
-    buttons.forEach(button => {
-      button.addEventListener('click', () => {
-        const lang = button.dataset.lang;
-        // Remove active class from all buttons in both containers
-        containers.forEach(c => {
-          c.querySelectorAll('[data-lang]').forEach(b => {
-            b.classList.remove('active-lang');
-            b.setAttribute('aria-pressed', 'false');
-          });
-        });
-        // Add active class to clicked lang buttons in both containers
-        containers.forEach(c => {
-          const matchingButton = c.querySelector(`[data-lang="${lang}"]`);
-          if (matchingButton) {
-            matchingButton.classList.add('active-lang');
-            matchingButton.setAttribute('aria-pressed', 'true');
-          }
-        });
-        // Set language
-        window.setLanguage(lang);
-      });
-    });
-  });
-}
+// Add setLanguage function to window object
+window.setLanguage = async (lang) => {
+    logDebug(`Setting language to: ${lang}`);
+    localStorage.setItem(window.langSystem.languageStorageKey, lang);
+    await fetchTranslations(lang);
+    window.applyTranslations();
+    if (window.initializeLanguageButtons) {
+        window.initializeLanguageButtons();
+    }
+};
