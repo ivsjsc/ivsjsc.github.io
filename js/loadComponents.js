@@ -46,115 +46,38 @@ async function loadComponent(componentName, placeholderId, filePath, targetType 
     }
 }
 
-function initializeHeaderInternal() {
-    if (headerInitialized) {
-        return;
-    }
-    componentLog("Initializing header (Tailwind)...");
-    const mainHeader = document.getElementById('main-header');
-    if (!mainHeader) {
-        componentLog("Main header element (#main-header) not found. Cannot initialize.", 'error');
-        return;
-    }
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenuPanel = document.getElementById('mobile-menu-panel');
-    const iconMenuOpen = document.getElementById('icon-menu-open');
-    const iconMenuClose = document.getElementById('icon-menu-close');
+async function initializeHeaderInternal() {
+    const header = document.getElementById('header-placeholder');
+    if (!header) return;
 
-    if (mobileMenuButton && mobileMenuPanel && iconMenuOpen && iconMenuClose) {
-        mobileMenuButton.addEventListener('click', () => {
-            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-            mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
-            mobileMenuPanel.classList.toggle('active'); // Toggles 'active' class
-            iconMenuOpen.classList.toggle('hidden'); // Toggles 'hidden' class
-            iconMenuClose.classList.toggle('hidden'); // Toggles 'hidden' class
-            document.body.classList.toggle('overflow-hidden', !isExpanded);
-        });
-
-        // Close menu when clicking outside the mobile menu panel
-        mobileMenuPanel.addEventListener('click', function(e) {
-            if (e.target === mobileMenuPanel) {
-                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                if (isExpanded) { // Only toggle if currently open
-                    mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
-                    mobileMenuPanel.classList.toggle('active');
-                    iconMenuOpen.classList.toggle('hidden');
-                    iconMenuClose.classList.toggle('hidden');
-                    document.body.classList.toggle('overflow-hidden', !isExpanded);
-                }
-            }
-        });
-
-        // Close menu when Escape key is pressed
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && mobileMenuPanel.classList.contains('active')) {
-                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
-                mobileMenuPanel.classList.toggle('active');
-                iconMenuOpen.classList.toggle('hidden');
-                iconMenuClose.classList.toggle('hidden');
-                document.body.classList.toggle('overflow-hidden', !isExpanded);
-                mobileMenuButton.focus(); // Return focus to the button
-            }
-        });
-    }
-
-    const mobileSubmenuToggles = mainHeader.querySelectorAll('.mobile-submenu-toggle');
-    mobileSubmenuToggles.forEach(toggle => {
-        const submenuContent = document.getElementById(toggle.getAttribute('aria-controls'));
-        const icon = toggle.querySelector('.mobile-submenu-icon');
-        if (submenuContent) {
-            toggle.addEventListener('click', () => {
-                const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-                if (!isExpanded) {
-                    mobileSubmenuToggles.forEach(otherToggle => {
-                        if (otherToggle !== toggle) {
-                            const otherSubmenu = document.getElementById(otherToggle.getAttribute('aria-controls'));
-                            const otherIcon = otherToggle.querySelector('.mobile-submenu-icon');
-                            if (otherSubmenu && !otherSubmenu.classList.contains('max-h-0')) {
-                                otherSubmenu.classList.add('max-h-0');
-                                otherSubmenu.classList.remove('max-h-screen');
-                                otherToggle.setAttribute('aria-expanded', 'false');
-                                if (otherIcon) otherIcon.classList.remove('rotate-180');
-                            }
-                        }
-                    });
-                }
-                submenuContent.classList.toggle('max-h-0', isExpanded);
-                submenuContent.classList.toggle('max-h-screen', !isExpanded);
-                toggle.setAttribute('aria-expanded', String(!isExpanded));
-                if (icon) icon.classList.toggle('rotate-180', !isExpanded);
+    try {
+        const response = await fetch('/components/header.html');
+        const html = await response.text();
+        
+        header.innerHTML = html;
+        
+        // Initialize mobile menu
+        const mobileMenuBtn = header.querySelector('#mobile-menu-button');
+        const mobileMenu = header.querySelector('#mobile-menu-panel');
+        
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+                mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('active');
+                document.body.classList.toggle('overflow-hidden');
             });
         }
-    });
 
-    const desktopNavGroups = mainHeader.querySelectorAll('nav.hidden.md\\:flex .group');
-    desktopNavGroups.forEach(group => {
-        const button = group.querySelector('button[aria-haspopup="true"]');
-        const menu = group.querySelector('.mega-menu, .desktop-dropdown-menu');
-        if (button && menu) {
-            button.addEventListener('focus', () => {
-                menu.style.opacity = '1'; menu.style.visibility = 'visible'; menu.style.pointerEvents = 'auto'; menu.style.transform = 'translateY(0)'; button.setAttribute('aria-expanded', 'true');
-            });
-            group.addEventListener('mouseenter', () => button.setAttribute('aria-expanded', 'true'));
-            group.addEventListener('mouseleave', () => button.setAttribute('aria-expanded', 'false'));
-            menu.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    menu.style.opacity = '0'; menu.style.visibility = 'hidden'; menu.style.pointerEvents = 'none'; menu.style.transform = 'translateY(5px)'; button.setAttribute('aria-expanded', 'false'); button.focus();
-                }
-            });
-            group.addEventListener('focusout', (e) => {
-                if (!group.contains(e.relatedTarget)) {
-                    menu.style.opacity = '0'; menu.style.visibility = 'hidden'; menu.style.pointerEvents = 'none'; menu.style.transform = 'translateY(5px)'; button.setAttribute('aria-expanded', 'false');
-                }
-            });
-        }
-    });
-    
-    headerInitialized = true;
-    componentLog("Header (Tailwind) initialized successfully.");
+        // Initialize dropdowns
+        const dropdowns = header.querySelectorAll('.group');
+        dropdowns.forEach(initializeDropdown);
+
+    } catch (error) {
+        console.error('Error initializing header:', error);
+        header.innerHTML = '<p class="text-red-500 p-4 text-center">Error loading header</p>';
+    }
 }
-window.initializeHeader = initializeHeaderInternal; 
 
 function initializeFooterInternal() {
     if (footerInitialized) {

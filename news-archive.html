@@ -544,56 +544,120 @@
     }
 
     function fetchPublicServicesNews() {
-        // Mảng các RSS feed từ Cổng TTĐT Chính phủ
+        // Cấu hình CORS Proxy để xử lý cross-origin
+        const corsProxy = 'https://api.allorigins.win/raw?url=';
+        
+        // Cập nhật các RSS feed từ Cổng TTĐT Chính phủ
         const rssFeeds = [
             {
-                url: 'http://rss.chinhphu.vn/rss/tinhoatdongcuachinhphu.rss',
-                title: 'Hoạt động của Chính phủ'
+                url: 'https://chinhphu.vn/feed/hoat-dong-cua-lanh-dao-dang-nha-nuoc',
+                title: 'Hoạt động của Lãnh đạo',
+                id: 'feed-leaders'
             },
             {
-                url: 'http://rss.chinhphu.vn/rss/tinthoisuquocte.rss', 
-                title: 'Thời sự - Chính trị'
+                url: 'https://chinhphu.vn/feed/chinh-sach-moi',
+                title: 'Chính sách mới',
+                id: 'feed-policies'
             },
             {
-                url: 'http://rss.chinhphu.vn/rss/tinkinhte.rss',
-                title: 'Kinh tế'
+                url: 'https://chinhphu.vn/feed/tin-noi-bat',
+                title: 'Tin nổi bật',
+                id: 'feed-highlights'
             },
             {
-                url: 'http://rss.chinhphu.vn/rss/tinxahoi.rss',
-                title: 'Xã hội'
+                url: 'https://chinhphu.vn/feed/thoi-su',
+                title: 'Thời sự',
+                id: 'feed-news'
             }
         ];
 
         const container = document.getElementById('public-services-rss-container');
         if (!container) return;
 
-        // Tạo grid container cho các feed
+        // Tạo layout grid
         container.innerHTML = `
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 ${rssFeeds.map(feed => `
                     <div class="feed-section bg-white dark:bg-slate-800 rounded-lg shadow-md p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">${feed.title}</h3>
-                        <div id="feed-${feed.url.split('/').pop()}" class="space-y-4">
-                            <div class="skeleton-loader h-20"></div>
-                            <div class="skeleton-loader h-20"></div>
-                            <div class="skeleton-loader h-20"></div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+                            <i class="fas fa-newspaper mr-2"></i>${feed.title}
+                        </h3>
+                        <div id="${feed.id}" class="space-y-4 loading">
+                            <div class="animate-pulse">
+                                <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-4"></div>
+                                <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full mb-2"></div>
+                                <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+                            </div>
                         </div>
                     </div>
                 `).join('')}
             </div>
         `;
 
-        // Tải từng feed
+        // Hàm parse XML thành JSON
+        function parseXML(xmlText) {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+            const items = xmlDoc.querySelectorAll('item');
+            
+            return Array.from(items).map(item => ({
+                title: item.querySelector('title')?.textContent || '',
+                link: item.querySelector('link')?.textContent || '',
+                description: item.querySelector('description')?.textContent || '',
+                pubDate: item.querySelector('pubDate')?.textContent || '',
+                image: item.querySelector('image')?.textContent || 
+                       item.querySelector('enclosure')?.getAttribute('url') || ''
+            }));
+        }
+
+        // Fetch và xử lý từng feed
         rssFeeds.forEach(feed => {
-            fetchGenericRssFeed({
-                rssUrl: feed.url,
-                containerId: `feed-${feed.url.split('/').pop()}`,
-                titleKey: 'public_services_feed_title',
-                loadingKey: 'loading_public_services_news',
-                errorKey: 'rss_load_error',
-                noNewsKey: 'rss_no_news',
-                maxItems: 5 // Giới hạn số tin hiển thị cho mỗi feed
-            });
+            fetch(corsProxy + encodeURIComponent(feed.url))
+                .then(response => response.text())
+                .then(xmlText => {
+                    const items = parseXML(xmlText);
+                    const feedContainer = document.getElementById(feed.id);
+                    
+                    if (!feedContainer) return;
+                    
+                    if (items.length > 0) {
+                        feedContainer.innerHTML = items.slice(0, 5).map(item => `
+                            <article class="border-b border-gray-200 dark:border-gray-700 last:border-b-0 pb-4 last:pb-0">
+                                <a href="${item.link}" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="block group">
+                                    <h4 class="text-gray-800 dark:text-gray-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 font-medium text-sm mb-2">
+                                        ${item.title}
+                                    </h4>
+                                    <div class="flex items-center text-xs text-gray-500 dark:text-gray-400">
+                                        <i class="far fa-clock mr-2"></i>
+                                        ${new Date(item.pubDate).toLocaleDateString('vi-VN')}
+                                    </div>
+                                </a>
+                            </article>
+                        `).join('');
+                        
+                        feedContainer.classList.remove('loading');
+                    } else {
+                        feedContainer.innerHTML = `
+                            <p class="text-gray-500 dark:text-gray-400 text-center text-sm">
+                                Không có tin tức mới
+                            </p>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    const feedContainer = document.getElementById(feed.id);
+                    if (feedContainer) {
+                        feedContainer.innerHTML = `
+                            <p class="text-red-500 dark:text-red-400 text-center text-sm">
+                                Không thể tải tin tức: ${error.message}
+                            </p>
+                        `;
+                    }
+                    console.error(`Error fetching ${feed.title}:`, error);
+                });
         });
     }
 
