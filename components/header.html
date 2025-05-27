@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/css/styles.css">
     <style>
@@ -208,7 +208,7 @@
                         </button>
                         <div id="library-dropdown-menu" class="desktop-dropdown-menu absolute bg-neutral-800 text-white py-1 rounded-md shadow-lg z-20 min-w-[180px] origin-top-left" aria-labelledby="nav-library-button">
                             <ul class="space-y-px">
-                                <li><a href="/gallerry.html" class="block px-2 py-1 hover:bg-neutral-700 hover:text-blue-300 transition-colors rounded text-xs" data-lang-key="nav_library_main">Tổng quan Thư viện</a></li>
+                                <li><a href="/gallery.html" class="block px-2 py-1 hover:bg-neutral-700 hover:text-blue-300 transition-colors rounded text-xs" data-lang-key="nav_library_main">Tổng quan Thư viện</a></li>
                                 <li><a href="/Pages/document-library.html" class="block px-2 py-1 hover:bg-neutral-700 hover:text-blue-300 transition-colors rounded text-xs" data-lang-key="nav_library_docs">Tài liệu Giáo dục</a></li>
                                 <li><a href="/Pages/story-repository.html" class="block px-2 py-1 hover:bg-neutral-700 hover:text-blue-300 transition-colors rounded text-xs" data-lang-key="nav_library_stories">Kho truyện</a></li>
                             </ul>
@@ -354,6 +354,49 @@
                 if (e.key === 'Escape' && mobileMenuPanel.classList.contains('active')) {
                     toggleMenu();
                 }
+            });
+
+            // Xử lý mobile submenu
+            const mobileSubmenus = document.querySelectorAll('.mobile-submenu-toggle');
+            
+            mobileSubmenus.forEach(submenuToggle => {
+                submenuToggle.addEventListener('click', function() {
+                    const submenuContent = document.getElementById(this.getAttribute('aria-controls'));
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    const icon = this.querySelector('.mobile-submenu-icon');
+                    
+                    // Toggle aria-expanded
+                    this.setAttribute('aria-expanded', !isExpanded);
+                    
+                    // Toggle submenu visibility
+                    if (!isExpanded) {
+                        submenuContent.style.maxHeight = submenuContent.scrollHeight + "px";
+                        icon.style.transform = 'rotate(180deg)';
+                    } else {
+                        submenuContent.style.maxHeight = "0";
+                        icon.style.transform = 'rotate(0)';
+                    }
+                });
+            });
+
+            // Handle language toggle
+            const langButtons = document.querySelectorAll('.lang-button');
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    // Remove active class from all buttons
+                    langButtons.forEach(btn => {
+                        btn.classList.remove('active-lang');
+                        btn.setAttribute('aria-pressed', 'false');
+                    });
+                    // Add active class to clicked button
+                    const similarLangButtons = document.querySelectorAll(`[data-lang="${lang}"]`);
+                    similarLangButtons.forEach(btn => {
+                        btn.classList.add('active-lang');
+                        btn.setAttribute('aria-pressed', 'true');
+                    });
+                    // Here you can add your language switching logic
+                });
             });
         });
     </script>
