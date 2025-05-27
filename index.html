@@ -204,49 +204,38 @@
     <script src="/js/script.js"></script>
     <script src="/js/language.js"></script>
     <script src="/js/loadComponents.js"></script>
-    
-    <!-- Initialize after DOM loaded -->
+      <!-- Initialize after DOM loaded -->
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {
+                console.log("Starting initialization sequence...");
+                
                 // First initialize language system
                 if (window.initializeLanguageSystem) {
                     await window.initializeLanguageSystem();
+                    console.log("Language system initialized");
                 }
                 
                 // Then load and initialize components
                 if (window.loadComponentsAndInitialize) {
                     await window.loadComponentsAndInitialize();
+                    console.log("Components initialized");
                 }
                 
                 // Finally initialize FAB buttons
                 if (window.initializeFabButtons) {
                     window.initializeFabButtons();
+                    console.log("FAB buttons initialized");
                 }
+
+                // Run any page-specific initialization
+                if (typeof window.onPageComponentsLoadedCallback === 'function') {
+                    window.onPageComponentsLoadedCallback();
+                }
+
+                console.log("Initialization sequence completed");
             } catch (error) {
                 console.error('Error during page initialization:', error);
-            }
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async function() {
-            try {
-                // First initialize core functionality
-                if (typeof window.initializeFabButtons === 'function') {
-                    window.initializeFabButtons();
-                }
-                
-                // Then load and initialize components
-                if (typeof window.loadComponentsAndInitialize === 'function') {
-                    await window.loadComponentsAndInitialize();
-                }
-                
-                // Finally initialize language system
-                if (typeof window.initializeLanguageSystem === 'function') {
-                    window.initializeLanguageSystem();
-                }
-            } catch (error) {
-                console.error('Error initializing components:', error);
             }
         });
     </script>
