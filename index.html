@@ -200,16 +200,29 @@
         .group:hover .group-hover\\:visible {
             visibility: visible !important;
         }
-    </style>    <!-- Load scripts in correct order -->
+    </style>    <!-- Load scripts in correct order -->    <!-- Load dependencies first -->
     <script src="/js/script.js"></script>
-    <script src="/js/loadComponents.js"></script>
     <script src="/js/language.js"></script>
+    <script src="/js/loadComponents.js"></script>
     
     <!-- Initialize after DOM loaded -->
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                await window.initializeUI();
+                // First initialize language system
+                if (window.initializeLanguageSystem) {
+                    await window.initializeLanguageSystem();
+                }
+                
+                // Then load and initialize components
+                if (window.loadComponentsAndInitialize) {
+                    await window.loadComponentsAndInitialize();
+                }
+                
+                // Finally initialize FAB buttons
+                if (window.initializeFabButtons) {
+                    window.initializeFabButtons();
+                }
             } catch (error) {
                 console.error('Error during page initialization:', error);
             }

@@ -299,13 +299,11 @@ window.initializeFabButtons = initializeFabButtonsInternal;
 
 
 window.loadHeaderFooterAndFab = async function() {
-    if (componentsLoadedAndInitialized) {
+    if (window.componentState.componentsLoadedAndInitialized) {
         componentLog("Core components already loaded and initialized. Skipping.", 'warn');
         return;
     }
     componentLog("Starting to load core components (Header, Footer, FAB)...");
-
-    // Tải header và footer
     const headerLoaded = await loadComponent('Header', 'header-placeholder', '/components/header.html', 'placeholder');
     const footerLoaded = await loadComponent('Footer', 'footer-placeholder', '/components/footer.html', 'placeholder'); 
     
@@ -450,4 +448,79 @@ async function initializeHeader() {
 }
 
 // Make header initialization available globally
-window.initializeHeader = initializeHeader;
+window.initializeHeader = async function() {
+    if (window.componentState.headerInitialized) {
+        componentLog('Header already initialized');
+        return;
+    }
+
+    try {
+        const headerElement = document.querySelector('header');
+        if (!headerElement) {
+            throw new Error('Header element not found');
+        }
+        window.componentState.headerElement = headerElement;
+        
+        // Initialize header scroll behavior
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', window.debounce(() => {
+            if (!window.componentState.headerElement) return;
+            
+            const st = window.pageYOffset || document.documentElement.scrollTop;
+            if (st > lastScrollTop && st > 100) {
+                window.componentState.headerElement.classList.add('header-hidden');
+            } else {
+                window.componentState.headerElement.classList.remove('header-hidden');
+            }
+            lastScrollTop = st <= 0 ? 0 : st;
+        }, 100));
+
+        // Initialize mobile menu
+        const mobileMenuBtn = headerElement.querySelector('#mobile-menu-button');
+        const mobileMenu = headerElement.querySelector('#mobile-menu-panel');
+        const iconMenuOpen = headerElement.querySelector('#icon-menu-open');
+        const iconMenuClose = headerElement.querySelector('#icon-menu-close');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+                mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('active');
+                if (iconMenuOpen && iconMenuClose) {
+                    iconMenuOpen.classList.toggle('hidden');
+                    iconMenuClose.classList.toggle('hidden');
+                }
+                document.body.classList.toggle('overflow-hidden');
+            });
+        }
+
+        // Initialize dropdowns
+        const dropdowns = headerElement.querySelectorAll('.group');
+        dropdowns.forEach(dropdown => {
+            const button = dropdown.querySelector('[aria-haspopup="true"]');
+            const menu = dropdown.querySelector('[role="menu"]');
+            if (!button || !menu) return;
+
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const isExpanded = button.getAttribute('aria-expanded') === 'true';
+                button.setAttribute('aria-expanded', !isExpanded);
+                menu.classList.toggle('hidden');
+            });
+
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!dropdown.contains(e.target)) {
+                    button.setAttribute('aria-expanded', 'false');
+                    menu.classList.add('hidden');
+                }
+            });
+        });
+
+        window.componentState.headerInitialized = true;
+        componentLog('Header initialized successfully');
+    } catch (error) {
+        componentLog(`Error initializing header: ${error.message}`, 'error');
+        window.componentState.headerInitialized = false;
+    }
+};
