@@ -1,7 +1,10 @@
-let componentsLoadedAndInitialized = false;
-let headerInitialized = false;
-let fabInitialized = false;
-let footerInitialized = false;
+// Global state tracking
+window.componentState = window.componentState || {
+    componentsLoadedAndInitialized: false,
+    headerInitialized: false,
+    fabInitialized: false,
+    footerInitialized: false
+};
 
 function componentLog(message, type = 'log') {
     const debugMode = false; 
@@ -48,7 +51,32 @@ async function loadComponent(componentName, placeholderId, filePath, targetType 
 
 async function initializeHeaderInternal() {
     const header = document.getElementById('header-placeholder');
-    if (!header) return;
+    if (!header) {
+        componentLog('Header placeholder not found', 'warn');
+        return;
+    }
+    
+    // Initialize dropdown functionality
+    window.initializeDropdown = function(buttonId, menuId) {
+        const button = document.getElementById(buttonId);
+        const menu = document.getElementById(menuId);
+        if (!button || !menu) return;
+
+        button.addEventListener('click', () => {
+            const isExpanded = button.getAttribute('aria-expanded') === 'true';
+            button.setAttribute('aria-expanded', !isExpanded);
+            menu.classList.toggle('hidden');
+        });
+    };
+
+    // Initialize all dropdowns
+    const dropdownButtons = document.querySelectorAll('[aria-haspopup="true"]');
+    dropdownButtons.forEach(button => {
+        const menuId = button.getAttribute('aria-controls');
+        if (menuId) {
+            window.initializeDropdown(button.id, menuId);
+        }
+    });
 
     try {
         const response = await fetch('/components/header.html');
@@ -76,6 +104,38 @@ async function initializeHeaderInternal() {
     } catch (error) {
         console.error('Error initializing header:', error);
         header.innerHTML = '<p class="text-red-500 p-4 text-center">Error loading header</p>';
+    }
+}
+
+async function loadHeader() {
+    try {
+        const header = document.getElementById('header-placeholder');
+        if (!header) {
+            throw new Error('Header placeholder not found');
+        }
+
+        // Show loading state
+        header.setAttribute('aria-busy', 'true');
+        
+        const success = await loadComponent('Header', 'header-placeholder', '/components/header.html');
+        if (!success) {
+            throw new Error('Failed to load header component');
+        }
+
+        // Initialize header functionality
+        await initializeHeaderInternal();
+        
+        header.setAttribute('aria-busy', 'false');
+        window.componentState.headerInitialized = true;
+        
+        componentLog('Header successfully loaded and initialized');
+    } catch (error) {
+        componentLog(`Error in loadHeader: ${error.message}`, 'error');
+        const header = document.getElementById('header-placeholder');
+        if (header) {
+            header.innerHTML = `<div class="p-4 text-center text-red-500">Failed to load header: ${error.message}</div>`;
+            header.setAttribute('aria-busy', 'false');
+        }
     }
 }
 

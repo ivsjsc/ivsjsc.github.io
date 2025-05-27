@@ -16,13 +16,12 @@
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="/images/logo/logo-192.png">
     <link rel="manifest" href="/manifest.json">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
@@ -52,31 +51,36 @@
         .bg-header-orange { background-color: var(--ivs-header-orange); }
         .hover\:bg-orange-700:hover { background-color: var(--ivs-orange-700); }
         .text-purple-accent { color: #8B5CF6; } 
-        .text-warning { color: #F59E0B; } 
-
-        /* Header styles */
+        .text-warning { color: #F59E0B; }        /* Header styles */
         #header-placeholder {
-            min-height: var(--header-height);
+            height: var(--header-height);
             transition: transform 0.3s ease;
         }
 
         @media (max-width: 768px) {
             #header-placeholder {
-                min-height: var(--header-height-mobile);
+                height: var(--header-height-mobile);
             }
         }
 
         /* Hero section adjustment */
         .hero-section-banner {
-            padding-top: var(--header-height);
             min-height: calc(100vh - var(--header-height));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         @media (max-width: 768px) {
             .hero-section-banner {
-                padding-top: var(--header-height-mobile);
                 min-height: calc(100vh - var(--header-height-mobile));
             }
+        }
+
+        /* Ensure content doesn't get hidden under fixed header */
+        main {
+            position: relative;
+            z-index: 1;
         }
 
         /* Hide header on scroll down */
@@ -196,18 +200,26 @@
         .group:hover .group-hover\\:visible {
             visibility: visible !important;
         }
-    </style>
-
-    <!-- Load core scripts first -->
-    <script src="/js/loadComponents.js"></script>
-    <script src="/js/language.js"></script>
+    </style>    <!-- Load scripts in correct order -->
     <script src="/js/script.js"></script>
+    <script src="/js/language.js"></script>
+    <script src="/js/loadComponents.js"></script>
     
     <!-- Initialize after DOM loaded -->
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
             try {
-                await loadComponentsAndInitialize();
+                // First initialize core functionality
+                if (typeof window.initializeFabButtons === 'function') {
+                    window.initializeFabButtons();
+                }
+                
+                // Then load and initialize components
+                if (typeof window.loadComponentsAndInitialize === 'function') {
+                    await window.loadComponentsAndInitialize();
+                }
+                
+                // Finally initialize language system
                 if (typeof window.initializeLanguageSystem === 'function') {
                     window.initializeLanguageSystem();
                 }
@@ -217,18 +229,17 @@
         });
     </script>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter pt-16 md:pt-20" id="page-index">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-index">
     
-    <!-- Thêm class cố định cho header placeholder -->
+    <!-- Header với backdrop blur -->
     <header id="header-placeholder" 
             class="fixed top-0 left-0 right-0 z-50 bg-neutral-900/95 backdrop-blur-sm border-b border-neutral-800"
             data-loading-text="Đang tải menu...">
     </header>
 
-    <!-- Điều chỉnh hero section để không bị che -->
-    <main>
+    <main class="pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)]">
         <section 
-            class="hero-section-banner relative text-center overflow-hidden shadow-xl bg-gray-700 dark:bg-gray-800 mt-0"
+            class="hero-section-banner relative text-center overflow-hidden shadow-xl bg-gray-700 dark:bg-gray-800"
             style="background-image: url('/images/logo/webbanner.png');"
             data-aos="fade-in" 
             data-aos-duration="1000">

@@ -121,27 +121,32 @@ window.initializeFabButtons = function() {
 
 function handleHeaderScroll() {
     const header = document.getElementById('main-header');
+    if (!header) {
+        console.warn('[script.js] Header element not found');
+        return;
+    }
+
     let lastScroll = 0;
     
-    window.addEventListener('scroll', () => {
+    const handleScroll = () => {
         const currentScroll = window.pageYOffset;
         
         // Add/remove background opacity based on scroll
-        if (currentScroll > 50) {
-            header.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-        } else {
-            header.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
-        }
+        header.style.backgroundColor = currentScroll > 50 ? 
+            'rgba(0, 0, 0, 0.9)' : 'rgba(0, 0, 0, 0.7)';
         
         // Optional: Hide/show header on scroll up/down
-        if (currentScroll > lastScroll && currentScroll > 200) {
-            header.style.transform = 'translateY(-100%)';
-        } else {
-            header.style.transform = 'translateY(0)';
-        }
+        header.style.transform = (currentScroll > lastScroll && currentScroll > 200) ?
+            'translateY(-100%)' : 'translateY(0)';
         
         lastScroll = currentScroll;
-    }, { passive: true });
+    };
+
+    // Initial call to set initial state
+    handleScroll();
+    
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
 }
 
 // Initialize on DOM load
