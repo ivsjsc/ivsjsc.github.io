@@ -84,4 +84,100 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.error('Feed container element #vnexpress-rss-feed not found!');
     }
+
+    function loadPublicServiceFeeds() {
+        // Cấu hình RSS feeds
+        const rssFeeds = [
+            {
+                id: 'congbao-feed',
+                url: 'https://congbao.chinhphu.vn/cac_so_cong_bao_moi_dang.rss',
+                title: 'Công Báo Chính Phủ',
+                maxItems: 5
+            },
+            {
+                id: 'nhandan-law-feed', 
+                url: 'https://nhandan.vn/rss/phapluat-1287.rss',
+                title: 'Tin Pháp Luật - Nhân Dân',
+                maxItems: 5
+            }
+        ];
+
+        // CORS Proxy để tránh lỗi cross-origin
+        const corsProxy = 'https://api.allorigins.win/raw?url=';
+
+        rssFeeds.forEach(feed => {
+            const container = document.getElementById(feed.id);
+            if (!container) return;
+
+            // Hiển thị loading state
+            container.innerHTML = `
+                <div class="animate-pulse">
+                    <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-4"></div>
+                    <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full mb-2"></div>
+                    <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
+                </div>
+            `;
+
+            // Fetch RSS feed
+            fetch(corsProxy + encodeURIComponent(feed.url))
+                .then(response => response.text())
+                .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+                .then(data => {
+                    const items = data.querySelectorAll("item");
+                    let html = `<h3 class="text-lg font-semibold mb-4">${feed.title}</h3>`;
+                    
+                    items.forEach((item, index) => {
+                        if (index >= feed.maxItems) return;
+                        
+                        const title = item.querySelector("title")?.textContent || '';
+                        const link = item.querySelector("link")?.textContent || '';
+                        const pubDate = item.querySelector("pubDate")?.textContent || '';
+                        const date = new Date(pubDate).toLocaleDateString('vi-VN');
+
+                        html += `
+                            <div class="mb-4 pb-4 border-b border-gray-200 dark:border-gray-700 last:border-0">
+                                <a href="${link}" target="_blank" rel="noopener noreferrer" 
+                                   class="block group">
+                                    <h4 class="text-sm font-medium text-gray-800 dark:text-gray-200 
+                                             group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                        ${title}
+                                    </h4>
+                                    <div class="mt-2 flex items-center text-xs text-gray-500 dark:text-gray-400">
+                                        <i class="far fa-clock mr-2"></i>
+                                        ${date}
+                                    </div>
+                                </a>
+                            </div>
+                        `;
+                    });
+
+                    container.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error(`Error fetching ${feed.title}:`, error);
+                    container.innerHTML = `
+                        <div class="text-red-500 dark:text-red-400">
+                            Không thể tải tin tức. Vui lòng thử lại sau.
+                        </div>
+                    `;
+                });
+        });
+    }
+
+    // Thêm containers vào trang HTML
+    const publicServiceTemplate = `
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+            <div id="congbao-feed" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"></div>
+            <div id="nhandan-law-feed" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6"></div>
+        </div>
+    `;
+
+    // Thêm vào DOM khi trang đã load
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.querySelector('#public-services-content');
+        if (container) {
+            container.insertAdjacentHTML('beforeend', publicServiceTemplate);
+            loadPublicServiceFeeds();
+        }
+    });
 });
