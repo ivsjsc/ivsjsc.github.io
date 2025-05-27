@@ -571,11 +571,9 @@
     </div>
 
     <script>
-    // Fix dropdown behavior
     document.addEventListener('DOMContentLoaded', function() {
-        // Prevent dropdown from closing immediately
-        const dropdowns = document.querySelectorAll('.group');
-        dropdowns.forEach(dropdown => {
+        // Dropdown hover (desktop)
+        document.querySelectorAll('.mega-menu-container, .group').forEach(dropdown => {
             dropdown.addEventListener('mouseenter', function() {
                 const menu = this.querySelector('.mega-menu, .desktop-dropdown-menu');
                 if (menu) {
@@ -583,15 +581,16 @@
                     setTimeout(() => {
                         menu.style.opacity = '1';
                         menu.style.transform = 'translateY(0)';
+                        menu.style.visibility = 'visible';
                     }, 10);
                 }
             });
-
             dropdown.addEventListener('mouseleave', function() {
                 const menu = this.querySelector('.mega-menu, .desktop-dropdown-menu');
                 if (menu) {
                     menu.style.opacity = '0';
                     menu.style.transform = 'translateY(-10px)';
+                    menu.style.visibility = 'hidden';
                     setTimeout(() => {
                         menu.style.display = 'none';
                     }, 200);
@@ -599,13 +598,65 @@
             });
         });
 
-        // Set active state for current page
-        const currentPath = window.location.pathname;
-        const navLinks = document.querySelectorAll('.nav-link, .mega-menu-item, .desktop-dropdown-menu a');
-        navLinks.forEach(link => {
-            if (link.getAttribute('href') === currentPath) {
+        // Mobile menu open/close
+        const mobileBtn = document.getElementById('mobile-menu-button');
+        const mobilePanel = document.getElementById('mobile-menu-panel');
+        mobileBtn?.addEventListener('click', function() {
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !expanded);
+            mobilePanel.classList.toggle('active');
+            document.body.classList.toggle('overflow-hidden');
+        });
+        // Đóng mobile menu khi click ngoài panel
+        mobilePanel?.addEventListener('click', function(e) {
+            if (e.target === this) {
+                mobilePanel.classList.remove('active');
+                mobileBtn.setAttribute('aria-expanded', 'false');
+                document.body.classList.remove('overflow-hidden');
+            }
+        });
+
+        // Mobile submenu toggle
+        document.querySelectorAll('.mobile-submenu-toggle').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const submenu = this.nextElementSibling;
+                const expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !expanded);
+                if (!expanded) {
+                    submenu.classList.remove('max-h-0');
+                    submenu.style.maxHeight = submenu.scrollHeight + 'px';
+                } else {
+                    submenu.classList.add('max-h-0');
+                    submenu.style.maxHeight = null;
+                }
+            });
+        });
+
+        // Active link highlight
+        const currentPath = window.location.pathname.replace(/\/$/, '');
+        document.querySelectorAll('.nav-link, .mobile-menu-container a').forEach(link => {
+            if (link.getAttribute('href')?.replace(/\/$/, '') === currentPath) {
                 link.classList.add('active');
             }
+        });
+
+        // Language toggle (sync desktop & mobile)
+        function setLang(lang) {
+            document.querySelectorAll('.lang-button').forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active-lang');
+                    btn.setAttribute('aria-pressed', 'true');
+                } else {
+                    btn.classList.remove('active-lang');
+                    btn.setAttribute('aria-pressed', 'false');
+                }
+            });
+            // TODO: Thêm logic đổi ngôn ngữ toàn trang nếu cần
+        }
+        document.querySelectorAll('.lang-button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                setLang(this.dataset.lang);
+            });
         });
     });
     </script>
