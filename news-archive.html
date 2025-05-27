@@ -454,7 +454,7 @@
     }
     
     async function fetchGenericRssFeed(rssConfig) {
-        const { rssUrl, containerId, titleKey, loadingKey, errorKey, noNewsKey } = rssConfig;
+        const { rssUrl, containerId, titleKey, loadingKey, errorKey, noNewsKey, maxItems } = rssConfig;
         const feedContainer = document.getElementById(containerId);
         const currentLang = window.currentLang || 'vi';
         const translations = window.translations && window.translations[currentLang] ? window.translations[currentLang] : {};
@@ -481,7 +481,7 @@
             feedContainer.innerHTML = '';
 
             if (data.status === 'ok' && data.items && data.items.length > 0) {
-                const items = data.items.slice(0, 6); 
+                const items = data.items.slice(0, maxItems || 6); 
                 items.forEach(item => {
                     const articleDiv = document.createElement('div');
                     articleDiv.className = 'news-card p-6 rounded-lg shadow-md flex flex-col dark:bg-slate-800 dark:border-slate-700';
@@ -544,13 +544,56 @@
     }
 
     function fetchPublicServicesNews() {
-         fetchGenericRssFeed({ 
-            rssUrl: 'http://chinhphu.vn/portal/page/portal/chinhphu/RSS?categoryId=700', 
-            containerId: 'public-services-rss-container',
-            titleKey: 'public_services_feed_title',
-            loadingKey: 'loading_public_services_news',
-            errorKey: 'rss_load_error',
-            noNewsKey: 'rss_no_news'
+        // Mảng các RSS feed từ Cổng TTĐT Chính phủ
+        const rssFeeds = [
+            {
+                url: 'http://rss.chinhphu.vn/rss/tinhoatdongcuachinhphu.rss',
+                title: 'Hoạt động của Chính phủ'
+            },
+            {
+                url: 'http://rss.chinhphu.vn/rss/tinthoisuquocte.rss', 
+                title: 'Thời sự - Chính trị'
+            },
+            {
+                url: 'http://rss.chinhphu.vn/rss/tinkinhte.rss',
+                title: 'Kinh tế'
+            },
+            {
+                url: 'http://rss.chinhphu.vn/rss/tinxahoi.rss',
+                title: 'Xã hội'
+            }
+        ];
+
+        const container = document.getElementById('public-services-rss-container');
+        if (!container) return;
+
+        // Tạo grid container cho các feed
+        container.innerHTML = `
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                ${rssFeeds.map(feed => `
+                    <div class="feed-section bg-white dark:bg-slate-800 rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">${feed.title}</h3>
+                        <div id="feed-${feed.url.split('/').pop()}" class="space-y-4">
+                            <div class="skeleton-loader h-20"></div>
+                            <div class="skeleton-loader h-20"></div>
+                            <div class="skeleton-loader h-20"></div>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+
+        // Tải từng feed
+        rssFeeds.forEach(feed => {
+            fetchGenericRssFeed({
+                rssUrl: feed.url,
+                containerId: `feed-${feed.url.split('/').pop()}`,
+                titleKey: 'public_services_feed_title',
+                loadingKey: 'loading_public_services_news',
+                errorKey: 'rss_load_error',
+                noNewsKey: 'rss_no_news',
+                maxItems: 5 // Giới hạn số tin hiển thị cho mỗi feed
+            });
         });
     }
 
