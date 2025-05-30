@@ -27,26 +27,23 @@
     
     <style>
         :root {
-            --ivs-primary: #004080;
-            --ivs-secondary: #ffc107;
-            --ivs-neutral-800: #1f2937;
-            --ivs-neutral-700: #374151;
-            --ivs-neutral-600: #4B5563;
-            --ivs-text-gray-300: #D1D5DB;
+            --ivs-primary: #004080; 
+            --ivs-secondary: #ffc107; 
+            --ivs-neutral-800: #1f2937; 
+            --ivs-neutral-700: #374151; 
+            --ivs-neutral-600: #4B5563; 
+            --ivs-text-gray-300: #D1D5DB; 
             --ivs-text-white: #ffffff;
             --ivs-primary-dark: #003366;
-            --ivs-orange-500: #F97316;
-            --ivs-orange-600: #EA580C;
-            --ivs-orange-700: #C2410C;
-            --ivs-header-orange: #F97316;
-            --header-height: 4rem;
-            --header-height-mobile: 3.5rem;
+            --ivs-orange-500: #F97316; 
+            --ivs-orange-600: #EA580C; 
+            --ivs-orange-700: #C2410C; 
+            --ivs-header-orange: #F97316; 
+            --header-height: 4rem;      /* 64px */
+            --header-height-mobile: 3.5rem;  /* 56px */
         }
         body {
             font-family: 'Inter', Arial, sans-serif;
-        }
-        html.dark body {
-            background-color: #030712;
         }
         .bg-primary { background-color: var(--ivs-primary); }
         .text-primary { color: var(--ivs-primary); }
@@ -54,9 +51,9 @@
         .text-secondary { color: var(--ivs-secondary); }
         .bg-header-orange { background-color: var(--ivs-header-orange); }
         .hover\:bg-orange-700:hover { background-color: var(--ivs-orange-700); }
-        .text-purple-accent { color: #8B5CF6; }
+        .text-purple-accent { color: #8B5CF6; } 
         .text-warning { color: #F59E0B; }
-
+        /* Header styles */
         #header-placeholder {
             height: var(--header-height);
             transition: transform 0.3s ease;
@@ -68,48 +65,32 @@
             }
         }
 
+        /* Hero section adjustment */
         .hero-section-banner {
-            min-height: 60vh;
-            background-size: cover;
-            background-position: center;
+            min-height: calc(100vh - var(--header-height));
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
-        .hero-section-banner .hero-content {
-            position: relative; z-index: 2;
-            padding: 5rem 1rem;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background-color: rgba(0, 0, 0, 0.25);
-            width: 100%;
-            height: 100%;
-        }
-        html.dark .hero-section-banner .hero-content {
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        @media (max-width: 767px) {
-            .hero-section-banner { min-height: 50vh; }
-            .hero-section-banner .hero-content { padding: 3rem 1rem; }
+
+        @media (max-width: 768px) {
+            .hero-section-banner {
+                min-height: calc(100vh - var(--header-height-mobile));
+            }
         }
 
-        .section-padding { padding-top: 4rem; padding-bottom: 4rem; }
-        .container-padding { padding-left: 1rem; padding-right: 1rem; }
-        @media (min-width: 640px) {
-            .container-padding { padding-left: 1.5rem; padding-right: 1.5rem; }
-        }
-        @media (min-width: 1024px) {
-            .container-padding { padding-left: 2rem; padding-right: 2rem; }
-        }
-
+        /* Ensure content doesn't get hidden under fixed header */
         main {
             position: relative;
             z-index: 1;
         }
 
+        /* Hide header on scroll down */
         .header-hidden {
             transform: translateY(-100%);
         }
 
+        /* Show header on scroll up */
         .header-visible {
             transform: translateY(0);
         }
@@ -125,19 +106,37 @@
         }
         .video-background-section .video-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.5); 
             z-index: 1; border-radius: inherit;
         }
         html.dark .video-background-section .video-overlay {
-            background-color: rgba(0, 0, 0, 0.65);
+            background-color: rgba(0, 0, 0, 0.65); 
         }
         .video-background-section .section-content-on-video {
             position: relative; z-index: 2;
-            padding: 4rem 1rem;
+            padding: 4rem 1rem; 
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             min-height: 300px;
         }
+        .hero-section-banner {
+            background-size: cover;
+            background-position: center;
+            min-height: 60vh; 
+        }
+        .hero-section-banner .hero-content {
+            position: relative; z-index: 2; 
+            padding: 5rem 1rem; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background-color: rgba(0, 0, 0, 0.25); 
+            width: 100%;
+            height: 100%;
+        }
+        html.dark .hero-section-banner .hero-content {
+            background-color: rgba(0, 0, 0, 0.5); 
+        }
         @media (max-width: 767px) {
+            .hero-section-banner { min-height: 50vh; }
+            .hero-section-banner .hero-content { padding: 3rem 1rem; }
             .video-background-section .section-content-on-video { min-height: 250px; }
         }
         .service-card, .education-level-card {
@@ -148,48 +147,41 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
         html.dark .service-card, html.dark .education-level-card {
-            background-color: #1f2937;
-            border: 1px solid #374151;
+            background-color: #1f2937; 
+            border: 1px solid #374151; 
         }
         html.dark .service-card:hover, html.dark .education-level-card:hover {
             box-shadow: 0 10px 20px rgba(255,255,255,0.05);
         }
-        .testimonial-card {
-            min-height: auto;
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-        }
+        .testimonial-card { 
+            min-height: auto; 
+            background-color: #ffffff; 
+            padding: 1.5rem; 
+            border-radius: 0.75rem; 
+        } 
         html.dark .testimonial-card {
-            background-color: #1f2937;
-            border: 1px solid #374151;
-        }
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        html.dark .testimonial-card:hover {
-            box-shadow: 0 10px 20px rgba(255,255,255,0.05);
+            background-color: #1f2937; 
+            border: 1px solid #374151; 
         }
         .testimonial-author {
-            font-weight: 600;
-            margin-top: 1rem;
+            font-weight: 600; 
+            margin-top: 1rem; 
         }
-        #header-placeholder:empty::before,
+        #header-placeholder:empty::before, 
         #footer-placeholder:empty::before {
             content: attr(data-loading-text);
-            min-height: 64px;
+            min-height: 64px; 
             display: flex;
             align-items: center;
             justify-content: center;
             width:100%;
-            background-color: #e5e7eb;
-            color: #6b7280;
+            background-color: #e5e7eb; 
+            color: #6b7280; 
         }
-        html.dark #header-placeholder:empty::before,
+        html.dark #header-placeholder:empty::before, 
         html.dark #footer-placeholder:empty::before {
-            background-color: #374151;
-            color: #9ca3af;
+            background-color: #374151; 
+            color: #9ca3af; 
         }
         .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
 
@@ -199,62 +191,83 @@
             display: flex; flex-direction: column; align-items: flex-end;
         }
         #contact-options, #share-options { z-index: 1000; }
-
+        
         #header-placeholder button.active-lang {
-            background-color: var(--ivs-primary) !important;
+            background-color: var(--ivs-primary) !important; 
             color: var(--ivs-text-white) !important;
         }
-        .group:hover .group-hover\:opacity-100 {
+        .group:hover .group-hover\\:opacity-100 {
             opacity: 1 !important; visibility: visible !important;
         }
-        .group:hover .group-hover\:visible {
+        .group:hover .group-hover\\:visible {
             visibility: visible !important;
         }
     </style>
 </head>
-<body class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-index">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-index">
     
-    <header id="header-placeholder"
+    <header id="header-placeholder" 
             class="fixed top-0 left-0 right-0 z-50 bg-neutral-900/95 backdrop-blur-sm border-b border-neutral-800"
             data-loading-text="Đang tải menu...">
     </header>
 
-    <main class="flex-grow pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)]">
-        <section
+    <main class="pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)]">
+        <section 
             class="hero-section-banner relative text-center overflow-hidden shadow-xl bg-gray-700 dark:bg-gray-800"
             style="background-image: url('/images/logo/webbanner.png');"
-            data-aos="fade-in"
+            data-aos="fade-in" 
             data-aos-duration="1000">
-            <div class="hero-content container mx-auto container-padding">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 hero-text-shadow text-white"
+            <div class="hero-content">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 hero-text-shadow text-white" 
                     data-lang-key="hero_title_index_main">IVS JSC</h1>
-                <p class="text-md md:text-lg mb-8 hero-text-shadow italic text-white"
+                <p class="text-md md:text-lg mb-8 hero-text-shadow italic text-white" 
                     data-lang-key="hero_slogan_index">"Nâng tầm Tri thức - Kiến tạo Tương lai"</p>
                 <div>
-                    <a href="/news-archive.html"
-                       class="bg-header-orange hover:bg-orange-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
+                    <a href="/news-archive.html" 
+                       class="bg-header-orange hover:bg-orange-700 text-white font-semibold py-3 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md" 
                        data-lang-key="hero_button_about_us">IVS News - Tin tức tổng hợp</a>
                 </div>
             </div>
         </section>
 
-        <section class="section-padding bg-gray-800 dark:bg-slate-800 relative text-white video-background-section rounded-lg shadow-xl my-8 md:my-12 mx-auto max-w-7xl overflow-hidden" data-aos="fade-up">
+        <section class="py-16 bg-gray-800 dark:bg-slate-800 relative text-white video-background-section rounded-lg shadow-xl my-8 md:my-12 mx-auto max-w-7xl overflow-hidden" data-aos="fade-up">
             <div class="video-background-container">
-            <video autoplay muted loop playsinline id="background-video" style="filter: brightness(1.2);"
-                    onerror="this.style.display='none'; if(this.parentElement) { this.parentElement.style.backgroundImage='url(https://placehold.co/1920x500/374151/ffffff?text=Video+Fallback+IVS)'; this.parentElement.style.backgroundSize='cover'; this.parentElement.style.backgroundPosition='center'; }">
+            <video autoplay muted loop playsinline id="background-video" style="filter: brightness(1.2);" 
+                   onerror="this.style.display='none'; if(this.parentElement) { this.parentElement.style.backgroundImage='url(https://placehold.co/1920x500/374151/ffffff?text=Video+Fallback+IVS)'; this.parentElement.style.backgroundSize='cover'; this.parentElement.style.backgroundPosition='center'; }"> 
                 <source src="/videos/ivs_background_video.mp4" type="video/mp4">
                 Trình duyệt của bạn không hỗ trợ thẻ video.
             </video>
+            <script>
+                (function() {
+                    const videoElement = document.getElementById('background-video');
+                    if (videoElement) {
+                        let posterPath;
+                        if (window.innerWidth < 768) {
+                            posterPath = '/images/webbannermo.png';
+                        } else {
+                            posterPath = '/images/logo/webbanner.png';
+                        }
+                        videoElement.poster = posterPath;
+
+                        const imgPosterTest = new Image();
+                        imgPosterTest.onerror = function() {
+                            console.warn(`Failed to load video poster from ${posterPath}. Using generic fallback.`);
+                            videoElement.poster = 'https://placehold.co/1920x500/374151/ffffff?text=Video+Poster+Fallback';
+                        };
+                        imgPosterTest.src = posterPath;
+                    }
+                })();
+            </script>
             </div>
             <div class="video-overlay" style="background-color: rgba(0, 0, 0, 0.3);"></div>
-            <div class="container mx-auto text-center section-content-on-video container-padding">
+            <div class="container mx-auto px-6 md:px-12 text-center section-content-on-video">
                 <h2 class="text-3xl font-bold mb-6" data-lang-key="index_section_title_our_core">IVS Academy</h2>
                 <a href="/about.html" class="inline-block bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-8 rounded-lg text-md transition duration-300 ease-in-out transform hover:scale-105 shadow-md" data-lang-key="button_learn_more_about_us">Về chúng tôi</a>
             </div>
         </section>
 
-        <section class="section-padding bg-gray-50 dark:bg-gray-800/30" data-aos="fade-up">
-            <div class="container mx-auto container-padding">
+        <section class="py-16 md:py-20 bg-gray-50 dark:bg-gray-800/30" data-aos="fade-up">
+            <div class="container mx-auto px-4">
                 <h2 class="text-center text-3xl font-bold text-gray-800 dark:text-gray-100 mb-12" data-lang-key="index_section_title_key_areas_updated">Lĩnh vực Hoạt động Chính</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center dark:bg-slate-800 dark:border-slate-700" data-aos="zoom-in-up" data-aos-delay="100">
@@ -285,8 +298,8 @@
             </div>
         </section>
 
-        <section class="section-padding bg-white dark:bg-gray-900" data-aos="fade-up">
-            <div class="container mx-auto container-padding">
+        <section class="py-16 md:py-20 bg-white dark:bg-gray-900" data-aos="fade-up">
+            <div class="container mx-auto px-4">
                 <h2 class="text-center text-3xl font-bold text-gray-800 dark:text-gray-100 mb-12" data-lang-key="index_section_title_education_programs_detail">Chương Trình Đào Tạo Chi Tiết</h2>
                 <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
                     <a href="/Pages/lkmamnon.html" class="education-level-card group block bg-gray-50 dark:bg-slate-800 dark:border-slate-700 p-6 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 ease-in-out text-center" data-aos="fade-up" data-aos-delay="100">
@@ -341,8 +354,8 @@
             </div>
         </section>
         
-        <section class="section-padding bg-gray-50 dark:bg-gray-800/30" data-aos="fade-up">
-            <div class="container mx-auto container-padding">
+        <section class="py-16 bg-gray-50 dark:bg-gray-800/30" data-aos="fade-up"> 
+            <div class="container mx-auto px-6 md:px-12">
                 <h2 class="text-center text-3xl font-bold text-gray-800 dark:text-gray-100 mb-12" data-lang-key="index_section_title_why_us">Tại Sao Chọn IVS JSC?</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
                     <div data-aos="fade-right" data-aos-delay="100">
@@ -368,7 +381,7 @@
                     </div>
                     <div data-aos="fade-left" data-aos-delay="400">
                         <div class="bg-warning text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg">
-                            <i class="fas fa-handshake fa-2x"></i>
+                            <i class="fas fa-handshake fa-2x"></i> 
                         </div>
                         <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-2" data-lang-key="why_us_partnership">Đối tác Tin cậy</h3>
                         <p class="text-gray-600 dark:text-gray-400 text-sm" data-lang-key="why_us_partnership_desc">Đồng hành cùng phát triển, mang lại giá trị bền vững.</p>
@@ -377,8 +390,8 @@
             </div>
         </section>
 
-        <section class="section-padding bg-white dark:bg-gray-900" data-aos="fade-up">
-            <div class="container mx-auto container-padding">
+        <section class="py-16 bg-white dark:bg-gray-900" data-aos="fade-up">
+            <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center text-gray-800 dark:text-gray-100 mb-8" data-lang-key="index_news_title">Tin Tức & Sự Kiện</h2>
                 <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="loading_news">Đang tải tin tức...</p>
@@ -389,8 +402,8 @@
             </div>
         </section>
         
-        <section class="section-padding bg-gray-100 dark:bg-gray-800/50 section-spacing" data-aos="fade-up">
-            <div class="container mx-auto max-w-7xl container-padding">
+        <section class="py-12 md:py-16 bg-gray-100 dark:bg-gray-800/50 section-spacing" data-aos="fade-up">
+            <div class="container mx-auto px-4 max-w-7xl">
                 <h2 class="text-2xl md:text-3xl font-semibold text-neutral-700 dark:text-gray-100 mb-8 text-center" data-aos="fade-up" data-lang-key="webdesign_testimonials_heading">Khách hàng & Đối tác nói gì về IVS JSC</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="testimonial-card shadow-xl border border-blue-100 dark:border-gray-700" data-aos="zoom-in" data-aos-delay="100">
@@ -417,7 +430,7 @@
                             <p class="text-sm text-gray-500 dark:text-gray-400" data-lang-key="testimonial_3_title">Trưởng phòng Hợp tác Quốc tế, Công ty Giáo dục Việt</p>
                         </div>
                     </div>
-                    <div class="testimonial-card shadow-xl border border-blue-100 dark:border-gray-700" data-aos="zoom-in" data-aos-delay="400">
+                     <div class="testimonial-card shadow-xl border border-blue-100 dark:border-gray-700" data-aos="zoom-in" data-aos-delay="400">
                         <i class="fas fa-quote-left text-3xl text-orange-500 dark:text-orange-400 mb-4"></i>
                         <p class="text-lg text-neutral-700 dark:text-gray-300 mb-4" data-lang-key="webdesign_testimonial1_text">"IVS Celestech đã vượt mong đợi của chúng tôi với một website chuyên nghiệp, hiện đại và tối ưu SEO. Rất hài lòng với dịch vụ!"</p>
                         <p class="testimonial-author text-primary-dark dark:text-blue-400" data-lang-key="webdesign_testimonial1_author">- Đại diện Công ty TNHH MTV ST</p>
@@ -431,8 +444,8 @@
             </div>
         </section>
 
-        <section class="section-padding bg-primary dark:bg-blue-700 text-white" data-aos="zoom-in">
-            <div class="container mx-auto text-center container-padding">
+        <section class="py-20 bg-primary dark:bg-blue-700 text-white" data-aos="zoom-in">
+            <div class="container mx-auto px-6 text-center">
                 <h2 class="text-3xl md:text-4xl font-bold mb-6" data-lang-key="cta_main_title">Sẵn sàng Nâng tầm Tri thức & Kiến tạo Tương lai?</h2>
                 <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto" data-lang-key="cta_main_subtitle">Hãy kết nối với IVS JSC ngay hôm nay để khám phá các giải pháp giáo dục và công nghệ hàng đầu, cùng những cơ hội hợp tác phát triển bền vững.</p>
                 <div class="space-y-4 md:space-y-0 md:space-x-4">
@@ -443,7 +456,7 @@
         </section>
     </main>
 
-    <footer id="footer-placeholder" data-loading-text="Đang tải chân trang..."></footer>
+    <footer id="footer-placeholder" data-loading-text="Đang tải chân trang..."></footer> 
 
     <div id="fab-container" class="fixed bottom-5 right-5 z-[999] flex flex-col items-end space-y-3">
         <button id="scroll-to-top-btn" title="Lên đầu trang" aria-label="Lên đầu trang"
@@ -473,23 +486,56 @@
     <script src="/js/script.js"></script>
     <script src="/js/language.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="/js/loadComponents.js" defer></script>
+    <script src="/js/loadComponents.js" defer></script> 
 
     <script>
-        AOS.init({
-            offset: 100,
-            duration: 700,
-            easing: 'ease-out-quad',
-            once: true,
-            mirror: false,
-            anchorPlacement: 'top-bottom',
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                console.log("Starting initialization sequence...");
+                
+                // Khởi tạo hệ thống ngôn ngữ
+                if (window.initializeLanguageSystem) {
+                    await window.initializeLanguageSystem();
+                    console.log("Language system initialized");
+                }
+                
+                // Tải và khởi tạo các component (header, footer, FABs)
+                if (window.loadComponentsAndInitialize) {
+                    await window.loadComponentsAndInitialize();
+                    console.log("Components initialized");
+                }
+                
+                // Chạy bất kỳ khởi tạo cụ thể nào của trang
+                if (typeof window.onPageComponentsLoadedCallback === 'function') {
+                    window.onPageComponentsLoadedCallback();
+                }
+
+                // Khởi tạo trình tải tin tức cho trang index
+                if (typeof initializeNewsLoader === 'function') {
+                    initializeNewsLoader();
+                }
+
+                // Khởi tạo AOS
+                AOS.init({
+                    offset: 100, 
+                    duration: 700, 
+                    easing: 'ease-out-quad', 
+                    once: true, 
+                    mirror: false, 
+                    anchorPlacement: 'top-bottom', 
+                });
+
+                console.log("Initialization sequence completed");
+            } catch (error) {
+                console.error('Error during page initialization:', error);
+            }
         });
 
+        // Hàm chuyển đổi submenu di động (được giữ lại vì có thể dùng ở nhiều nơi)
         window.toggleMobileSubmenu = function(button) {
             const submenu = button.nextElementSibling;
-            if (submenu && submenu.classList.contains('mobile-submenu-content')) {
-                submenu.classList.toggle('max-h-0');
-                submenu.classList.toggle('opacity-0');
+            if (submenu && submenu.classList.contains('mobile-submenu')) {
+                submenu.classList.toggle('hidden');
                 const icon = button.querySelector('i');
                 if (icon) {
                     icon.classList.toggle('fa-chevron-down');
@@ -497,129 +543,26 @@
                 }
             }
         };
-
-        window.initializeFabButtons = function() {
-            const fabElements = {
-                contactMainBtn: document.getElementById('contact-main-btn'),
-                contactOptions: document.getElementById('contact-options'),
-                shareMainBtn: document.getElementById('share-main-btn'),
-                shareOptions: document.getElementById('share-options'),
-                scrollToTopBtn: document.getElementById('scroll-to-top-btn')
-            };
-
-            if (!fabElements.contactMainBtn || !fabElements.contactOptions || !fabElements.shareMainBtn || !fabElements.shareOptions || !fabElements.scrollToTopBtn) {
-                console.warn("[index.html] One or more FAB elements not found. FAB functionality will be limited.");
-                return;
-            }
-
-            function toggleSubmenu(button, submenu) {
-                const isHidden = submenu.classList.contains('fab-hidden');
-                [fabElements.contactOptions, fabElements.shareOptions].forEach(menu => {
-                    if (menu !== submenu && !menu.classList.contains('fab-hidden')) {
-                        menu.classList.add('fab-hidden');
-                        const associatedBtn = menu === fabElements.contactOptions ? fabElements.contactMainBtn : fabElements.shareMainBtn;
-                        associatedBtn.setAttribute('aria-expanded', 'false');
-                    }
-                });
-                submenu.classList.toggle('fab-hidden');
-                button.setAttribute('aria-expanded', String(submenu.classList.contains('fab-hidden') ? 'false' : 'true'));
-                if (!submenu.classList.contains('fab-hidden')) {
-                    const firstOption = submenu.querySelector('a');
-                    if (firstOption) firstOption.focus();
-                } else {
-                    button.focus();
-                }
-            }
-
-            fabElements.contactMainBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleSubmenu(fabElements.contactMainBtn, fabElements.contactOptions); });
-            fabElements.shareMainBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleSubmenu(fabElements.shareMainBtn, fabElements.shareOptions); });
-            
-            const pageUrl = window.location.href;
-            const pageTitle = document.title;
-            if (fabElements.shareOptions.children.length === 0) {
-                fabElements.shareOptions.innerHTML = `
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}" target="_blank" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_facebook">
-                        <i class="fab fa-facebook-f mr-2"></i> Facebook
-                    </a>
-                    <a href="https://zalo.me/share?text=${encodeURIComponent(pageTitle + " - " + pageUrl)}" target="_blank" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_zalo">
-                        <i class="fas fa-comment-dots mr-2"></i> Zalo
-                    </a>
-                    <button onclick="document.execCommand('copy', false, '${pageUrl}'); alert('Đã sao chép liên kết!');" class="block w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_copy_link">
-                        <i class="fas fa-copy mr-2"></i> Sao chép liên kết
-                    </button>
-                `;
-            }
-            if (fabElements.contactOptions.children.length === 0) {
-                fabElements.contactOptions.innerHTML = `
-                    <a href="tel:+84987654321" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="contact_phone">
-                        <i class="fas fa-phone mr-2"></i> Gọi điện
-                    </a>
-                    <a href="mailto:info@ivsacademy.edu.vn" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="contact_email">
-                        <i class="fas fa-envelope mr-2"></i> Email
-                    </a>
-                    <a href="https://m.me/yourfacebookpage" target="_blank" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="contact_messenger">
-                        <i class="fab fa-facebook-messenger mr-2"></i> Messenger
-                    </a>
-                    <a href="https://zalo.me/yourzaloid" target="_blank" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="contact_zalo">
-                        <i class="fas fa-comment-dots mr-2"></i> Zalo Chat
-                    </button>
-                `;
-            }
-
-
-            document.addEventListener('click', (e) => {
-                if (!fabElements.contactOptions.classList.contains('fab-hidden') && !fabElements.contactMainBtn.contains(e.target) && !fabElements.contactOptions.contains(e.target)) {
-                    fabElements.contactOptions.classList.add('fab-hidden'); fabElements.contactMainBtn.setAttribute('aria-expanded', 'false');
-                }
-                if (!fabElements.shareOptions.classList.contains('fab-hidden') && !fabElements.shareMainBtn.contains(e.target) && !fabElements.shareOptions.contains(e.target)) {
-                    fabElements.shareOptions.classList.add('fab-hidden'); fabElements.shareMainBtn.setAttribute('aria-expanded', 'false');
-                }
-            });
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    [fabElements.contactOptions, fabElements.shareOptions].forEach(menu => {
-                        if (!menu.classList.contains('fab-hidden')) {
-                            menu.classList.add('fab-hidden');
-                            const associatedBtn = menu === fabElements.contactOptions ? fabElements.contactMainBtn : fabElements.shareMainBtn;
-                            associatedBtn.setAttribute('aria-expanded', 'false'); associatedBtn.focus();
-                        }
-                    });
-                }
-            });
-            window.addEventListener('scroll', () => {
-                fabElements.scrollToTopBtn.classList.toggle('fab-hidden', window.pageYOffset <= 100);
-                fabElements.scrollToTopBtn.classList.toggle('flex', window.pageYOffset > 100);
-            }, { passive: true });
-            fabElements.scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-        };
-
-        window.initializeTheme = function() {
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (savedTheme) {
-                document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-            } else {
-                document.documentElement.classList.toggle('dark', prefersDark);
-            }
-        };
-
-        window.fetchPosts = async function() {
+        
+        // Hàm lấy và hiển thị bài viết
+        async function fetchPosts() {
             const newsContainer = document.getElementById('news-container');
             if (!newsContainer) {
                 console.error("News container element not found.");
                 return;
             }
             try {
-                const response = await fetch(window.location.origin + '/posts.json');
+                // Đã thay đổi đường dẫn để chỉ sử dụng '/posts.json'
+                const response = await fetch('/posts.json'); 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const posts = await response.json();
                 
-                newsContainer.innerHTML = '';
+                newsContainer.innerHTML = ''; 
 
                 if (posts && posts.length > 0) {
-                    const latestPosts = posts.slice(0, 3);
+                    const latestPosts = posts.slice(0, 3); 
                     latestPosts.forEach(post => {
                         const currentLang = window.currentLang || 'vi';
 
@@ -654,42 +597,45 @@
                     newsContainer.innerHTML = `<p class="text-red-500 dark:text-red-400 col-span-full text-center" data-lang-key="news_load_error">Lỗi tải tin tức: ${error.message}. Vui lòng thử lại sau.</p>`;
                 }
             }
-        };
+        }
 
-        window.initializeNewsLoader = function() {
+        // Hàm khởi tạo trình tải tin tức
+        function initializeNewsLoader() {
             const newsContainer = document.getElementById('news-container');
             if (newsContainer) {
-                window.fetchPosts();
+                fetchPosts();
             }
-        };
+        }
 
-        window.onPageComponentsLoadedCallback = function() {
-            window.initializeTheme();
-            if (typeof window.initializeLanguageSystem === 'function') {
-                window.initializeLanguageSystem().then(() => {
-                }).catch(error => {
-                    console.error("Error initializing language system from callback:", error);
+        // Xử lý lỗi tải video nền
+        const videoSection = document.querySelector('.video-background-section'); 
+        if (videoSection) {
+            const videoElement = videoSection.querySelector('.video-background-container video');
+            if (videoElement) {
+                videoElement.addEventListener('error', function() {
+                    console.warn('Background video failed to load. Displaying fallback.');
+                    if(videoElement.parentElement) {
+                        videoElement.parentElement.style.backgroundImage='url(https://placehold.co/1920x500/374151/ffffff?text=Video+Fallback+IVS)';
+                        videoElement.parentElement.style.backgroundSize='cover';
+                        videoElement.parentElement.style.backgroundPosition='center';
+                    }
+                    videoElement.style.display='none'; 
+                    videoSection.classList.add('video-failed-to-load'); 
                 });
             }
-            window.initializeFabButtons();
-            window.initializeNewsLoader();
+        }
 
-            const videoSection = document.querySelector('.video-background-section');
-            if (videoSection) {
-                const videoElement = videoSection.querySelector('.video-background-container video');
-                if (videoElement) {
-                    videoElement.addEventListener('error', function() {
-                        if(videoElement.parentElement) {
-                            videoElement.parentElement.style.backgroundImage='url(https://placehold.co/1920x500/374151/ffffff?text=Video+Fallback+IVS)';
-                            videoElement.parentElement.style.backgroundSize='cover';
-                            videoElement.parentElement.style.backgroundPosition='center';
-                        }
-                        videoElement.style.display='none';
-                        videoSection.classList.add('video-failed-to-load');
-                    });
-                }
+        // Hàm khởi tạo chủ đề (sáng/tối)
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme) {
+                document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+            } else {
+                document.documentElement.classList.toggle('dark', prefersDark);
             }
-        };
+        }
+        initializeTheme(); // Gọi hàm khởi tạo chủ đề ngay
     </script>
 </body>
 </html>
