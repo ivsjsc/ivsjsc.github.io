@@ -1,4 +1,3 @@
-```javascript
 // Global state tracking
 window.componentState = window.componentState || {
     componentsLoadedAndInitialized: false,
