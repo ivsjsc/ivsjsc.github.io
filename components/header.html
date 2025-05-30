@@ -90,12 +90,12 @@
         }
 
         .header-nav-text-custom { 
-            font-size: 1.25rem; /* text-xl */
+            font-size: 1.25rem; 
             line-height: 1.75rem; 
         }
         .header-icon-custom { 
-            font-size: 0.875rem; /* text-sm */
-            margin-left: 0.25rem; /* ml-1 */
+            font-size: 0.875rem; 
+            margin-left: 0.25rem; 
         }
         #mobile-menu-button {
             padding: 0.75rem; 
@@ -119,7 +119,7 @@
         #mobile-menu-button .icon-menu-close-bar {
             transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.25s ease-in-out;
             position: absolute;
-            font-size: 1.875rem; /* text-3xl */
+            font-size: 1.875rem; 
         }
 
         #mobile-menu-button[aria-expanded="true"] .icon-menu-bar {
@@ -147,13 +147,12 @@
         <div class="container mx-auto px-2 sm:px-3 lg:px-4"> 
             <div class="flex items-center justify-between h-12"> 
                 <a href="/index.html" class="flex items-center space-x-2 group" aria-label="IVS JSC Homepage"> 
-                    <img src="/images/logo/logo.png" alt="IVS JSC Logo" class="h-10 w-10 object-contain" onerror="this.onerror=null; this.src='https://placehold.co/40x40/cccccc/333333?text=L';"> 
+                    <img src="/images/logo/logo.png" alt="IVS JSC Logo" class="h-10 w-10 object-contain max-w-full max-h-full" style="width: 40px !important; height: 40px !important;" onerror="this.onerror=null; this.src='https://placehold.co/40x40/cccccc/333333?text=L';"> 
                     <span class="text-2xl font-bold group-hover:text-blue-400 transition-colors"> 
                         <span class="text-secondary group-hover:text-emerald-400">JSC</span>
                     </span>
                 </a>
 
-                <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-2 lg:space-x-3 items-center" aria-label="Main desktop navigation"> 
                     <a href="/index.html" class="hover:text-blue-400 transition-colors duration-300 font-medium px-3 py-2.5 rounded header-nav-text-custom" data-lang-key="nav_home">Trang Chủ</a> 
                     <a href="/about.html" class="hover:text-blue-400 transition-colors duration-300 font-medium px-3 py-2.5 rounded header-nav-text-custom" data-lang-key="nav_about">Về IVS</a>
@@ -224,15 +223,12 @@
                     </div>
                 </nav>
 
-                <!-- Mobile Controls -->
                 <div class="flex items-center space-x-2 md:hidden">
-                    <!-- Add Language Toggle for Mobile -->
                     <div id="language-toggle-container-mobile" class="flex border border-neutral-700 rounded">
                         <button data-lang="vi" class="lang-button px-2 py-1 text-xs font-medium focus:outline-none rounded-l text-white hover:bg-neutral-700" data-lang-key="lang_vi_short" aria-pressed="true">VI</button>
                         <button data-lang="en" class="lang-button px-2 py-1 text-xs font-medium focus:outline-none rounded-r border-l border-neutral-700 text-neutral-400 hover:bg-neutral-700 hover:text-white" data-lang-key="lang_en_short" aria-pressed="false">EN</button>
                     </div>
 
-                    <!-- Existing Mobile Menu Button -->
                     <button type="button" id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu-panel" class="text-white focus:outline-none" aria-label="Open main menu"> 
                         <span class="sr-only">Open main menu</span>
                         <span class="relative flex items-center justify-center w-8 h-8">
@@ -300,7 +296,6 @@
                     </div>
                 </nav>
             </div>
-            <!-- Overlay để click outside đóng menu -->
             <div class="absolute inset-0 bg-black/50 -z-10"></div>
         </div>
     </header>
@@ -327,29 +322,22 @@
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenuPanel = document.getElementById('mobile-menu-panel');
-            const iconMenuOpen = document.getElementById('icon-menu-open');
-            const iconMenuClose = document.getElementById('icon-menu-close');
 
             function toggleMenu() {
                 const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
                 mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
                 mobileMenuPanel.classList.toggle('active');
-                iconMenuOpen.style.display = isExpanded ? 'block' : 'none';
-                iconMenuClose.style.display = isExpanded ? 'none' : 'block';
                 document.body.style.overflow = isExpanded ? '' : 'hidden';
             }
 
-            // Toggle khi click button
             mobileMenuButton.addEventListener('click', toggleMenu);
 
-            // Đóng menu khi click outside
             mobileMenuPanel.addEventListener('click', function(e) {
                 if (e.target === mobileMenuPanel) {
                     toggleMenu();
                 }
             });
 
-            // Đóng menu khi ấn ESC
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && mobileMenuPanel.classList.contains('active')) {
                     toggleMenu();
