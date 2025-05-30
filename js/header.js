@@ -64,3 +64,28 @@ function initializeHeader() {
 }
 
 document.addEventListener('DOMContentLoaded', initializeHeader);
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+
+            function toggleMenu() {
+                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                mobileMenuPanel.classList.toggle('active');
+                document.body.style.overflow = isExpanded ? '' : 'hidden';
+            }
+
+            mobileMenuButton.addEventListener('click', toggleMenu);
+
+            mobileMenuPanel.addEventListener('click', function(e) {
+                if (e.target === mobileMenuPanel) {
+                    toggleMenu();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileMenuPanel.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
