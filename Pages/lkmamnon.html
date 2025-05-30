@@ -16,55 +16,39 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
     
     <style>
-        /* Các biến CSS tùy chỉnh của IVS (được giữ lại nếu cần thiết, nhưng nên tập trung vào styles.css) */
+        /* Các biến CSS tùy chỉnh của IVS */
         :root {
-            --ivs-primary: #004080; 
-            --ivs-secondary: #ffc107; 
-            --ivs-neutral-800: #1f2937; 
-            --ivs-neutral-700: #374151; 
-            --ivs-neutral-600: #4B5563; 
-            --ivs-text-gray-300: #D1D5DB; 
+            --ivs-primary: #004080;
+            --ivs-secondary: #ffc107;
+            --ivs-neutral-800: #1f2937;
+            --ivs-neutral-700: #374151;
+            --ivs-neutral-600: #4B5563;
+            --ivs-text-gray-300: #D1D5DB;
             --ivs-text-white: #ffffff;
             --ivs-primary-dark: #003366;
-            --ivs-orange-500: #F97316; 
-            --ivs-orange-600: #EA580C; 
-            --ivs-orange-700: #C2410C; 
-            --ivs-header-orange: #F97316; 
+            --ivs-orange-500: #F97316;
+            --ivs-orange-600: #EA580C;
+            --ivs-orange-700: #C2410C;
+            --ivs-header-orange: #F97316;
             --header-height: 4rem;      /* 64px */
             --header-height-mobile: 3.5rem;  /* 56px */
         }
-        body { font-family: 'Inter', sans-serif; }
-        .hero-text-shadow { text-shadow: 1px 1px 4px rgba(0,0,0,0.5); }
-        .feature-card-mamnon { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .feature-card-mamnon:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
-        .feature-card-mamnon i { transition: transform 0.3s ease-out; }
-        .feature-card-mamnon:hover i { transform: rotate(10deg) scale(1.1); }
-        .benefit-icon { transition: transform 0.3s ease; }
-        .benefit-card:hover .benefit-icon { transform: scale(1.15); }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb; /* bg-gray-50 */
+            color: #374151; /* text-neutral-700 */
+        }
+        html.dark body {
+            background-color: #030712; /* dark:bg-gray-900 */
+            color: #d1d5db; /* dark:text-gray-300 */
         }
 
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
         /* Các lớp tiện ích Tailwind tùy chỉnh */
         .bg-primary { background-color: var(--ivs-primary); }
         .text-primary { color: var(--ivs-primary); }
@@ -72,8 +56,9 @@
         .text-secondary { color: var(--ivs-secondary); }
         .bg-header-orange { background-color: var(--ivs-header-orange); }
         .hover\:bg-orange-700:hover { background-color: var(--ivs-orange-700); }
-        .text-purple-accent { color: #8B5CF6; } 
+        .text-purple-accent { color: #8B5CF6; }
         .text-warning { color: #F59E0B; }
+
         /* Điều chỉnh Header Placeholder */
         #header-placeholder {
             height: var(--header-height);
@@ -88,6 +73,12 @@
         main {
             position: relative;
             z-index: 1;
+            padding-top: var(--header-height); /* Đẩy nội dung xuống dưới header */
+        }
+        @media (max-width: 768px) {
+            main {
+                padding-top: var(--header-height-mobile);
+            }
         }
         /* Ẩn header khi cuộn xuống */
         .header-hidden {
@@ -97,6 +88,7 @@
         .header-visible {
             transform: translateY(0);
         }
+
         /* Các kiểu cho phần Hero Section */
         .hero-section-banner {
             background-size: cover;
@@ -104,37 +96,69 @@
             min-height: 50vh; /* Điều chỉnh chiều cao cho trang nội dung */
         }
         .hero-section-banner .hero-content {
-            position: relative; z-index: 2; 
-            padding: 5rem 1rem; 
+            position: relative; z-index: 2;
+            padding: 5rem 1rem;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background-color: rgba(0, 0, 0, 0.25); 
+            background-color: rgba(0, 0, 0, 0.25);
             width: 100%;
             height: 100%;
         }
         html.dark .hero-section-banner .hero-content {
-            background-color: rgba(0, 0, 0, 0.5); 
+            background-color: rgba(0, 0, 0, 0.5);
         }
         @media (max-width: 767px) {
             .hero-section-banner { min-height: 40vh; }
             .hero-section-banner .hero-content { padding: 3rem 1rem; }
         }
+        .hero-text-shadow { text-shadow: 1px 1px 4px rgba(0,0,0,0.5); }
+
+        /* Các kiểu cho feature card mầm non */
+        .feature-card-mamnon { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .feature-card-mamnon:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .feature-card-mamnon i { transition: transform 0.3s ease-out; }
+        .feature-card-mamnon:hover i { transform: rotate(10deg) scale(1.1); }
+
+        /* Các kiểu cho benefit icon */
+        .benefit-icon { transition: transform 0.3s ease; }
+        .benefit-card:hover .benefit-icon { transform: scale(1.15); }
+
+        /* Kiểu cho video nhúng */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
         /* Kiểu cho placeholder khi tải component */
-        #header-placeholder:empty::before, 
+        #header-placeholder:empty::before,
         #footer-placeholder:empty::before {
             content: attr(data-loading-text);
-            min-height: 64px; 
+            min-height: 64px;
             display: flex;
             align-items: center;
             justify-content: center;
             width:100%;
-            background-color: #e5e7eb; 
-            color: #6b7280; 
+            background-color: #e5e7eb;
+            color: #6b7280;
         }
-        html.dark #header-placeholder:empty::before, 
+        html.dark #header-placeholder:empty::before,
         html.dark #footer-placeholder:empty::before {
-            background-color: #374151; 
-            color: #9ca3af; 
+            background-color: #374151;
+            color: #9ca3af;
         }
+
         /* Kiểu cho Floating Action Buttons (FABs) */
         .fab-hidden { display: none !important; }
         #contact-options:not(.fab-hidden),
@@ -145,14 +169,14 @@
         
         /* Kiểu cho nút ngôn ngữ đang hoạt động */
         #header-placeholder button.active-lang {
-            background-color: var(--ivs-primary) !important; 
+            background-color: var(--ivs-primary) !important;
             color: var(--ivs-text-white) !important;
         }
         /* Hiệu ứng hover cho dropdown/mega menu */
-        .group:hover .group-hover\\:opacity-100 {
+        .group:hover .group-hover\:opacity-100 {
             opacity: 1 !important; visibility: visible !important;
         }
-        .group:hover .group-hover\\:visible {
+        .group:hover .group-hover\:visible {
             visibility: visible !important;
         }
     </style>
@@ -228,7 +252,7 @@
 
                  <section class="py-12 md:py-16 bg-emerald-50 rounded-xl" data-aos="fade-up">
                      <div class="container mx-auto px-4 max-w-4xl">
-                         <h2 class="text-3xl font-bold text-center text-secondary-dark mb-10" data-lang-key="lkmamnon_daily_routine_title">Một Ngày Ngập Tràn Niềm Vui Tại IVS Kindergarten</h2>
+                         <h2 class="text-3xl font-bold text-center text-emerald-600 mb-10" data-lang-key="lkmamnon_daily_routine_title">Một Ngày Ngập Tràn Niềm Vui Tại IVS Kindergarten</h2>
                          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                              <div class="flex flex-col items-center" data-aos="fade-up" data-aos-delay="100">
                                  <div class="benefit-icon w-24 h-24 rounded-full bg-white shadow-md flex items-center justify-center mb-4 border-4 border-emerald-200">
@@ -262,7 +286,7 @@
                             <div data-aos="fade-right" data-aos-delay="100">
                                 <h3 class="text-xl font-semibold text-gray-800 mb-4" data-lang-key="lkmamnon_video1_title">Bài hát: Tập đếm (luôn đối tốt và chia sẻ)</h3>
                                 <div class="video-container">
-                                    <iframe src="https://www.youtube-nocookie.com/embed/g3YjsMhM0NE?si=1x3rAd7rUA2KF8ur&amp;start=1"
+                                    <iframe src="https://www.youtube-nocookie.com/embed/g3YjsMhM0NE?si=1x3rAd7rUA2KF3ur&amp;start=1"
                                             title="YouTube video player - Tập đếm" frameborder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                             referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -350,18 +374,14 @@
         // Khởi tạo toàn bộ trang sau khi DOM đã tải hoàn chỉnh
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                console.log("Starting initialization sequence for Kindergarten page...");
-                
                 // Khởi tạo hệ thống ngôn ngữ
                 if (window.initializeLanguageSystem) {
                     await window.initializeLanguageSystem();
-                    console.log("Language system initialized.");
                 }
                 
                 // Tải và khởi tạo các component (header, footer, FABs)
                 if (window.loadComponentsAndInitialize) {
                     await window.loadComponentsAndInitialize();
-                    console.log("Components initialized.");
                 }
                 
                 // Chạy bất kỳ khởi tạo cụ thể nào của trang này (nếu có)
@@ -371,22 +391,21 @@
 
                 // Khởi tạo thư viện AOS (Animate On Scroll)
                 AOS.init({
-                    offset: 100, 
-                    duration: 700, 
-                    easing: 'ease-out-quad', 
-                    once: true, 
-                    mirror: false, 
-                    anchorPlacement: 'top-bottom', 
+                    offset: 100,
+                    duration: 700,
+                    easing: 'ease-out-quad',
+                    once: true,
+                    mirror: false,
+                    anchorPlacement: 'top-bottom',
                 });
-
-                console.log("Initialization sequence completed for Kindergarten page.");
             } catch (error) {
                 console.error('Error during page initialization:', error);
             }
         });
 
         // Hàm initializeTheme được giữ lại ở đây để đảm bảo tính nhất quán nếu trang này được truy cập trực tiếp
-        function initializeTheme() {
+        // Hàm này sẽ được gọi bởi loadComponentsAndInitialize hoặc trực tiếp nếu trang được tải độc lập
+        window.initializeTheme = function() {
             const savedTheme = localStorage.getItem('theme');
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             if (savedTheme) {
@@ -394,8 +413,10 @@
             } else {
                 document.documentElement.classList.toggle('dark', prefersDark);
             }
-        }
-        initializeTheme(); // Gọi hàm khởi tạo chủ đề ngay khi script được tải
+        };
+        // Gọi hàm khởi tạo chủ đề ngay khi script được tải
+        // Điều này đảm bảo theme được áp dụng nhanh chóng, tránh FOUC (Flash of Unstyled Content)
+        initializeTheme();
     </script>
 
 </body>
