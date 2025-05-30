@@ -9,7 +9,7 @@ window.componentState = window.componentState || {
 };
 
 function componentLog(message, type = 'log') {
-    const debugMode = false; 
+    const debugMode = false; // Đặt thành true để bật console logs cho debug
     if (debugMode || type === 'error' || type === 'warn') {
         console[type](`[loadComponents.js] ${message}`);
     }
@@ -81,44 +81,36 @@ async function initializeHeaderInternal() {
         // Initialize mobile menu
         const mobileMenuBtn = headerElement.querySelector('#mobile-menu-button');
         const mobileMenu = headerElement.querySelector('#mobile-menu-panel');
-        const iconMenuOpen = headerElement.querySelector('#icon-menu-open');
-        const iconMenuClose = headerElement.querySelector('#icon-menu-close');
-
+        
         if (mobileMenuBtn && mobileMenu) {
             mobileMenuBtn.addEventListener('click', () => {
                 const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
                 mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
                 mobileMenu.classList.toggle('active');
-                if (iconMenuOpen && iconMenuClose) {
-                    iconMenuOpen.classList.toggle('hidden');
-                    iconMenuClose.classList.toggle('hidden');
-                }
                 document.body.classList.toggle('overflow-hidden');
             });
-        }
 
-        // Initialize dropdowns
-        const dropdowns = headerElement.querySelectorAll('.group');
-        dropdowns.forEach(dropdown => {
-            const button = dropdown.querySelector('[aria-haspopup="true"]');
-            const menu = dropdown.querySelector('[role="menu"]');
-            if (!button || !menu) return;
-
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                const isExpanded = button.getAttribute('aria-expanded') === 'true';
-                button.setAttribute('aria-expanded', !isExpanded);
-                menu.classList.toggle('hidden');
-            });
-
-            // Close on outside click
-            document.addEventListener('click', (e) => {
-                if (!dropdown.contains(e.target)) {
-                    button.setAttribute('aria-expanded', 'false');
-                    menu.classList.add('hidden');
+            // Close mobile menu when clicking outside of it
+            mobileMenu.addEventListener('click', function(e) {
+                if (e.target === mobileMenu) {
+                    const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+                    if (isExpanded) {
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                        mobileMenu.classList.remove('active');
+                        document.body.classList.remove('overflow-hidden');
+                    }
                 }
             });
-        });
+
+            // Close mobile menu on ESC key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    mobileMenu.classList.remove('active');
+                    document.body.classList.remove('overflow-hidden');
+                }
+            });
+        }
 
         window.componentState.headerInitialized = true;
         componentLog('Header initialized successfully');
@@ -130,38 +122,6 @@ async function initializeHeaderInternal() {
 
 // Make header initialization available globally
 window.initializeHeader = initializeHeaderInternal;
-
-async function loadHeader() {
-    try {
-        const header = document.getElementById('header-placeholder');
-        if (!header) {
-            throw new Error('Header placeholder not found');
-        }
-
-        // Show loading state
-        header.setAttribute('aria-busy', 'true');
-        
-        const success = await loadComponent('Header', 'header-placeholder', '/components/header.html');
-        if (!success) {
-            throw new Error('Failed to load header component');
-        }
-
-        // Initialize header functionality
-        await initializeHeaderInternal();
-        
-        header.setAttribute('aria-busy', 'false');
-        window.componentState.headerInitialized = true;
-        
-        componentLog('Header successfully loaded and initialized');
-    } catch (error) {
-        componentLog(`Error in loadHeader: ${error.message}`, 'error');
-        const header = document.getElementById('header-placeholder');
-        if (header) {
-            header.innerHTML = `<div class="p-4 text-center text-red-500">Failed to load header: ${error.message}</div>`;
-            header.setAttribute('aria-busy', 'false');
-        }
-    }
-}
 
 function initializeFooterInternal() {
     if (window.componentState.footerInitialized) {
@@ -311,7 +271,7 @@ function initializeFabButtonsInternal() {
         };
 
         if (fabElements.contactMainBtn) toggleFabMenu(fabElements.contactMainBtn, fabElements.contactOptions);
-        if (fabElements.shareMainBtn) toggleFabMenu(fabElements.shareMainBtn, fabElements.shareOptions);
+        if (fabElements.shareMainBtn) toggleFabMenu(fabElements.shareMainBtn, fabElements.elements.shareOptions); // Lỗi: elements.shareOptions thay vì fabElements.shareOptions
 
         // Initialize scroll to top
         if (fabElements.scrollToTopBtn) {
@@ -393,41 +353,17 @@ window.loadComponentsAndInitialize = async function() {
         // Initialize footer functionality
         await initializeFooterInternal();
 
-        // Add FAB container dynamically if needed
-        const fabContainerHtml = `
-        <div id="fab-container" class="fixed bottom-5 right-5 z-[999] flex flex-col items-end space-y-3">
-            <button id="scroll-to-top-btn" title="Lên đầu trang" aria-label="Lên đầu trang"
-                class="fab-hidden items-center justify-center w-12 h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-full shadow-lg transition-opacity duration-300">
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            <div class="relative">
-                <button id="contact-main-btn" title="Liên hệ" aria-label="Mở menu liên hệ" aria-haspopup="true" aria-expanded="false"
-                    class="flex items-center justify-center w-12 h-12 bg-primary hover:bg-primary-dark text-white rounded-full shadow-lg">
-                    <i class="fas fa-phone"></i>
-                </button>
-                <div id="contact-options" class="fab-hidden absolute bottom-full right-0 mb-2 w-auto min-w-max p-2 bg-white dark:bg-gray-800 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col items-start space-y-1">
-                </div>
-            </div>
-            <div class="relative">
-                <button id="share-main-btn" title="Chia sẻ" aria-label="Mở menu chia sẻ" aria-haspopup="true" aria-expanded="false"
-                    class="flex items-center justify-center w-12 h-12 bg-secondary hover:bg-secondary-dark text-white rounded-full shadow-lg">
-                    <i class="fas fa-share-alt"></i>
-                </button>
-                <div id="share-options" class="fab-hidden absolute bottom-full right-0 mb-2 w-auto min-w-max p-2 bg-white dark:bg-gray-800 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col items-start space-y-1">
-                </div>
-            </div>
-        </div>`;
-
-        if (!document.getElementById('fab-container')) {
-            document.body.insertAdjacentHTML('beforeend', fabContainerHtml);
-            componentLog('FAB container HTML structure injected into body');
+        // Load FAB container dynamically into body
+        const fabLoaded = await loadComponent('FAB Container', null, '/components/fab-container.html', 'body');
+        if (!fabLoaded) {
+            throw new Error('Failed to load FAB container component');
         }
 
         // Initialize FAB buttons
         await initializeFabButtonsInternal();
 
         // Initialize language system if available
-        if (typeof window.initializeLanguageSystem === 'function') { // Changed from initializeLanguageToggle
+        if (typeof window.initializeLanguageSystem === 'function') {
             try {
                 await window.initializeLanguageSystem();
                 componentLog('Language system initialized');
@@ -435,7 +371,7 @@ window.loadComponentsAndInitialize = async function() {
                 componentLog(`Error initializing language system: ${error.message}`, 'error');
             }
         } else {
-            componentLog('window.initializeLanguageSystem not found', 'warn'); // Changed from initializeLanguageToggle
+            componentLog('window.initializeLanguageSystem not found', 'warn');
         }
 
         window.componentState.componentsLoadedAndInitialized = true;

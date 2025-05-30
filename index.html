@@ -46,11 +46,14 @@
         }
         body {
             font-family: 'Inter', Arial, sans-serif;
+            background-color: #f9fafb; /* bg-gray-50 */
+            color: #374151; /* text-neutral-700 */
         }
-        /* Chế độ tối cho body */
         html.dark body {
-            background-color: #030712;
+            background-color: #030712; /* dark:bg-gray-900 */
+            color: #d1d5db; /* dark:text-gray-300 */
         }
+
         /* Các lớp tiện ích Tailwind tùy chỉnh */
         .bg-primary { background-color: var(--ivs-primary); }
         .text-primary { color: var(--ivs-primary); }
@@ -65,7 +68,6 @@
         #header-placeholder {
             height: var(--header-height);
             transition: transform 0.3s ease;
-            /* Các thuộc tính fixed, z-index, background, blur đã có sẵn */
         }
         @media (max-width: 768px) {
             #header-placeholder {
@@ -76,6 +78,12 @@
         main {
             position: relative;
             z-index: 1;
+            padding-top: var(--header-height); /* Đẩy nội dung xuống dưới header */
+        }
+        @media (max-width: 768px) {
+            main {
+                padding-top: var(--header-height-mobile);
+            }
         }
         /* Ẩn header khi cuộn xuống */
         .header-hidden {
@@ -136,6 +144,8 @@
             .hero-section-banner { min-height: 50vh; }
             .hero-section-banner .hero-content { padding: 3rem 1rem; }
         }
+        .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+
         /* Các kiểu cho Service Card và Education Level Card */
         .service-card, .education-level-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -580,255 +590,29 @@
 
     <footer id="footer-placeholder" data-loading-text="Đang tải chân trang..."></footer>
 
-    <div id="fab-container" class="fixed bottom-5 right-5 z-[999] flex flex-col items-end space-y-3">
-        <button id="scroll-to-top-btn" title="Lên đầu trang" aria-label="Lên đầu trang"
-            class="fab-hidden items-center justify-center w-12 h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-full shadow-lg transition-opacity duration-300">
-            <i class="fas fa-arrow-up"></i>
-        </button>
-
-        <div class="relative">
-            <button id="share-main-btn" title="Chia sẻ" aria-label="Mở menu chia sẻ" aria-haspopup="true" aria-expanded="false"
-                class="w-14 h-14 bg-blue-500 hover:bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center transition-transform duration-200 ease-in-out">
-                <i class="fas fa-share-alt"></i>
-            </button>
-            <div id="share-options" class="fab-hidden absolute bottom-full right-0 mb-2 w-auto min-w-max p-2 bg-white dark:bg-gray-800 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col items-start space-y-1">
-            </div>
-        </div>
-
-        <div class="relative">
-            <button id="contact-main-btn" title="Liên hệ nhanh" aria-label="Mở menu liên hệ nhanh" aria-haspopup="true" aria-expanded="false"
-                class="w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center transition-transform duration-200 ease-in-out">
-                <i class="fas fa-comment-dots"></i>
-            </button>
-            <div id="contact-options" class="fab-hidden absolute bottom-full right-0 mb-2 w-auto min-w-max p-2 bg-white dark:bg-gray-800 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col items-start space-y-1">
-            </div>
-        </div>
-    </div>
-
-    <script src="/js/script.js"></script>
-    <script src="/js/language.js"></script>
+    <script src="/js/script.js" defer></script>
+    <script src="/js/language.js" defer></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="/js/loadComponents.js" defer></script>
 
     <script>
-        // Khởi tạo toàn bộ trang sau khi DOM đã tải hoàn chỉnh
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                console.log("Starting initialization sequence...");
-                
-                // Khởi tạo hệ thống ngôn ngữ
-                if (window.initializeLanguageSystem) {
-                    await window.initializeLanguageSystem();
-                    console.log("Language system initialized");
-                }
-                
-                // Tải và khởi tạo các component (header, footer, FABs)
-                // Hàm này sẽ gọi initializeHeaderInternal, initializeFooterInternal, initializeFabButtonsInternal
-                if (window.loadComponentsAndInitialize) {
-                    await window.loadComponentsAndInitialize();
-                    console.log("Components initialized");
-                }
-                
-                // Chạy bất kỳ khởi tạo cụ thể nào của trang (nếu có)
-                if (typeof window.onPageComponentsLoadedCallback === 'function') {
-                    window.onPageComponentsLoadedCallback();
-                }
-
-                // Khởi tạo trình tải tin tức cho trang index
-                if (typeof initializeNewsLoader === 'function') {
-                    initializeNewsLoader();
-                }
-
-                // Khởi tạo thư viện AOS (Animate On Scroll)
-                AOS.init({
-                    offset: 100,
-                    duration: 700,
-                    easing: 'ease-out-quad',
-                    once: true,
-                    mirror: false,
-                    anchorPlacement: 'top-bottom',
-                });
-
-                console.log("Initialization sequence completed");
-            } catch (error) {
-                console.error('Error during page initialization:', error);
+        // Hàm hiển thị thông báo tùy chỉnh (thay thế alert)
+        function showMessage(message, duration = 3000) {
+            let msgBox = document.getElementById('custom-message-box');
+            if (!msgBox) {
+                msgBox = document.createElement('div');
+                msgBox.id = 'custom-message-box';
+                msgBox.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-md shadow-lg opacity-0 transition-opacity duration-300 z-[1001]';
+                document.body.appendChild(msgBox);
             }
-        });
-
-        // Hàm chuyển đổi submenu di động
-        // Hàm này được giữ lại ở đây vì nó có thể được gọi từ các component động
-        window.toggleMobileSubmenu = function(button) {
-            const submenu = button.nextElementSibling;
-            if (submenu && submenu.classList.contains('mobile-submenu-content')) {
-                submenu.classList.toggle('max-h-0');
-                submenu.classList.toggle('opacity-0');
-                const icon = button.querySelector('i');
-                if (icon) {
-                    icon.classList.toggle('fa-chevron-down');
-                    icon.classList.toggle('fa-chevron-up');
-                }
-            }
-        };
-        
-        // Hàm lấy và hiển thị bài viết từ posts.json
-        window.fetchPosts = async function() {
-            const newsContainer = document.getElementById('news-container');
-            if (!newsContainer) {
-                console.error("News container element not found.");
-                return;
-            }
-            try {
-                // Sử dụng đường dẫn tương đối để đảm bảo tải đúng file posts.json
-                const response = await fetch('/posts.json');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const posts = await response.json();
-                
-                newsContainer.innerHTML = ''; // Xóa nội dung "Đang tải tin tức..."
-
-                if (posts && posts.length > 0) {
-                    const latestPosts = posts.slice(0, 3); // Chỉ hiển thị 3 bài viết mới nhất
-                    latestPosts.forEach(post => {
-                        const currentLang = window.currentLang || 'vi'; // Lấy ngôn ngữ hiện tại
-
-                        let displayTitle = post.title;
-                        if (typeof post.title === 'object' && post.title !== null) {
-                            displayTitle = post.title[currentLang] || post.title['vi'] || '';
-                        }
-
-                        let displaySummary = post.summary;
-                        if (typeof post.summary === 'object' && post.summary !== null) {
-                            displaySummary = post.summary[currentLang] || post.summary['vi'] || '';
-                        }
-
-                        const postElement = document.createElement('div');
-                        postElement.className = 'bg-white dark:bg-slate-800 dark:border-slate-700 p-6 rounded-lg shadow-md flex flex-col transition-transform duration-300 ease-in-out hover:scale-105';
-                        postElement.setAttribute('data-aos', 'fade-up');
-                        postElement.innerHTML = `
-                            <img src="${post.image || 'https://placehold.co/400x250/cccccc/333333?text=Tin+tức'}" alt="${displayTitle}" class="rounded-md mb-4 object-cover w-full h-48">
-                            <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">${displayTitle}</h3>
-                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">${post.date || ''}</p>
-                            <p class="text-gray-700 dark:text-gray-300 mb-4 flex-grow">${displaySummary}</p>
-                            <a href="${post.link}" class="mt-auto text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500 font-medium">Đọc thêm <i class="fas fa-arrow-right ml-1"></i></a>
-                        `;
-                        newsContainer.appendChild(postElement);
-                    });
-                } else {
-                    newsContainer.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="no_news_available">Không có tin tức nào để hiển thị.</p>`;
-                }
-            } catch (error) {
-                console.error('Error fetching or processing posts.json:', error);
-                if (newsContainer) {
-                    newsContainer.innerHTML = `<p class="text-red-500 dark:text-red-400 col-span-full text-center" data-lang-key="news_load_error">Lỗi tải tin tức: ${error.message}. Vui lòng thử lại sau.</p>`;
-                }
-            }
-        };
-
-        // Hàm khởi tạo trình tải tin tức (được gọi sau khi components được tải)
-        window.initializeNewsLoader = function() {
-            const newsContainer = document.getElementById('news-container');
-            if (newsContainer) {
-                window.fetchPosts();
-            }
-        };
-
-        // Hàm khởi tạo Floating Action Buttons (FABs)
-        window.initializeFabButtons = function() {
-            const fabElements = {
-                contactMainBtn: document.getElementById('contact-main-btn'),
-                contactOptions: document.getElementById('contact-options'),
-                shareMainBtn: document.getElementById('share-main-btn'),
-                shareOptions: document.getElementById('share-options'),
-                scrollToTopBtn: document.getElementById('scroll-to-top-btn')
-            };
-
-            if (!fabElements.contactMainBtn || !fabElements.contactOptions || !fabElements.shareMainBtn || !fabElements.shareOptions || !fabElements.scrollToTopBtn) {
-                console.warn("[index.html] One or more FAB elements not found. FAB functionality will be limited.");
-                return;
-            }
-
-            function toggleSubmenu(button, submenu) {
-                const isHidden = submenu.classList.contains('fab-hidden');
-                [fabElements.contactOptions, fabElements.shareOptions].forEach(menu => {
-                    if (menu !== submenu && !menu.classList.contains('fab-hidden')) {
-                        menu.classList.add('fab-hidden');
-                        const associatedBtn = menu === fabElements.contactOptions ? fabElements.contactMainBtn : fabElements.shareMainBtn;
-                        associatedBtn.setAttribute('aria-expanded', 'false');
-                    }
-                });
-                submenu.classList.toggle('fab-hidden');
-                button.setAttribute('aria-expanded', String(submenu.classList.contains('fab-hidden') ? 'false' : 'true'));
-                if (!submenu.classList.contains('fab-hidden')) {
-                    const firstOption = submenu.querySelector('a');
-                    if (firstOption) firstOption.focus();
-                } else {
-                    button.focus();
-                }
-            }
-
-            fabElements.contactMainBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleSubmenu(fabElements.contactMainBtn, fabElements.contactOptions); });
-            fabElements.shareMainBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleSubmenu(fabElements.shareMainBtn, fabElements.shareOptions); });
-            
-            const pageUrl = window.location.href;
-            const pageTitle = document.title;
-            // Tạo các liên kết chia sẻ động nếu chưa có
-            if (fabElements.shareOptions.children.length === 0) {
-                fabElements.shareOptions.innerHTML = `
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}" target="_blank" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_facebook">
-                        <i class="fab fa-facebook-f mr-2"></i> Facebook
-                    </a>
-                    <a href="https://zalo.me/share?text=${encodeURIComponent(pageTitle + " - " + pageUrl)}" target="_blank" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_zalo">
-                        <i class="fas fa-comment-dots mr-2"></i> Zalo
-                    </a>
-                    <button onclick="document.execCommand('copy', false, '${pageUrl}'); alert('Đã sao chép liên kết!');" class="block w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_copy_link">
-                        <i class="fas fa-copy mr-2"></i> Sao chép liên kết
-                    </button>
-                `;
-            }
-            // Tạo các liên kết liên hệ động nếu chưa có
-            if (fabElements.contactOptions.children.length === 0) {
-                fabElements.contactOptions.innerHTML = `
-                    <a href="tel:+84987654321" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="contact_phone">
-                        <i class="fas fa-phone mr-2"></i> Gọi điện
-                    </a>
-                    <a href="mailto:info@ivsacademy.edu.vn" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="contact_email">
-                        <i class="fas fa-envelope mr-2"></i> Email
-                    </a>
-                    <a href="https://m.me/yourfacebookpage" target="_blank" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="contact_messenger">
-                        <i class="fab fa-facebook-messenger mr-2"></i> Messenger
-                    </a>
-                    <a href="https://zalo.me/yourzaloid" target="_blank" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="contact_zalo">
-                        <i class="fas fa-comment-dots mr-2"></i> Zalo Chat
-                    </a>
-                `;
-            }
-
-            document.addEventListener('click', (e) => {
-                if (!fabElements.contactOptions.classList.contains('fab-hidden') && !fabElements.contactMainBtn.contains(e.target) && !fabElements.contactOptions.contains(e.target)) {
-                    fabElements.contactOptions.classList.add('fab-hidden'); fabElements.contactMainBtn.setAttribute('aria-expanded', 'false');
-                }
-                if (!fabElements.shareOptions.classList.contains('fab-hidden') && !fabElements.shareMainBtn.contains(e.target) && !fabElements.shareOptions.contains(e.target)) {
-                    fabElements.shareOptions.classList.add('fab-hidden'); fabElements.shareMainBtn.setAttribute('aria-expanded', 'false');
-                }
-            });
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    [fabElements.contactOptions, fabElements.shareOptions].forEach(menu => {
-                        if (!menu.classList.contains('fab-hidden')) {
-                            menu.classList.add('fab-hidden');
-                            const associatedBtn = menu === fabElements.contactOptions ? fabElements.contactMainBtn : fabElements.shareMainBtn;
-                            associatedBtn.setAttribute('aria-expanded', 'false'); associatedBtn.focus();
-                        }
-                    });
-                }
-            });
-            window.addEventListener('scroll', () => {
-                fabElements.scrollToTopBtn.classList.toggle('fab-hidden', window.pageYOffset <= 100);
-                fabElements.scrollToTopBtn.classList.toggle('flex', window.pageYOffset > 100);
-            }, { passive: true });
-            fabElements.scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-        };
+            msgBox.textContent = message;
+            msgBox.classList.remove('opacity-0');
+            msgBox.classList.add('opacity-100');
+            setTimeout(() => {
+                msgBox.classList.remove('opacity-100');
+                msgBox.classList.add('opacity-0');
+            }, duration);
+        }
 
         // Hàm khởi tạo chủ đề (sáng/tối) dựa trên localStorage hoặc tùy chọn hệ thống
         window.initializeTheme = function() {
@@ -840,6 +624,7 @@
                 document.documentElement.classList.toggle('dark', prefersDark);
             }
         };
+
         // Xử lý lỗi tải video nền và hiển thị fallback
         const videoSection = document.querySelector('.video-background-section');
         if (videoSection) {
@@ -857,6 +642,21 @@
                 });
             }
         }
+
+        // Callback chạy sau khi các component chung được tải và khởi tạo bởi loadComponents.js
+        window.onPageComponentsLoadedCallback = function() {
+            console.log("[Index Page] Components loaded. Page specific JS can run now.");
+            window.initializeTheme(); // Khởi tạo theme
+            if (typeof window.initializeLanguageSystem === 'function') {
+                window.initializeLanguageSystem().then(() => {
+                    console.log("[Index Page] Language system initialized by callback.");
+                }).catch(error => {
+                    console.error("[Index Page] Error initializing language system from callback:", error);
+                });
+            }
+            // initializeFabButtons() sẽ được gọi tự động bởi loadComponents.js sau khi FAB container được thêm vào
+            window.initializeNewsLoader(); // Khởi tạo trình tải tin tức
+        };
     </script>
 </body>
 </html>
