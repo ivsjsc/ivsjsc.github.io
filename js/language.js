@@ -1,9 +1,9 @@
-// Initialize global namespace for language system
+// Khởi tạo không gian tên toàn cục cho hệ thống ngôn ngữ
 window.langSystem = window.langSystem || {
     translations: {},
     defaultLanguage: 'vi',
     languageStorageKey: 'userPreferredLanguage',
-    isDebugMode: false,
+    isDebugMode: false, // Đặt thành true để bật console logs cho debug
     currentLanguage: null,
     initialized: false
 };
@@ -27,12 +27,14 @@ async function fetchTranslations(lang) {
         return;
     }
     try {
-        const response = await fetch(`/lang/${lang}.json`);
+        // Sử dụng đường dẫn tuyệt đối để đảm bảo tải đúng file JSON
+        const response = await fetch(`${window.location.origin}/lang/${lang}.json`);
         if (!response.ok) {
             throw new Error(`Failed to load translations for ${lang}: ${response.statusText}`);
         }
         window.langSystem.translations[lang] = await response.json();
-        logDebug(`Successfully loaded translations for ${lang}.`);    } catch (error) {
+        logDebug(`Successfully loaded translations for ${lang}.`);
+    } catch (error) {
         console.error(`[LangJS] Error loading translations for ${lang}:`, error);
         if (lang !== window.langSystem.defaultLanguage) {
             logWarning(`Falling back to default language: ${window.langSystem.defaultLanguage}`);
@@ -88,32 +90,39 @@ const handleLanguageButtonClick = async (event) => {
     }
     logDebug(`User selected language: ${selectedLanguage}`);
     await window.setLanguage(selectedLanguage);
-
-    const langButtons = document.querySelectorAll('.lang-button');
-    langButtons.forEach(button => {
-        button.classList.remove('active-lang');
-    });
-    event.target.classList.add('active-lang');
 };
 
 window.initializeLanguageButtons = () => {
     logDebug("Initializing language buttons...");
-    const langButtons = document.querySelectorAll('.lang-button'); 
+    const langButtons = document.querySelectorAll('.lang-button');
+    const currentActiveLang = window.getCurrentLanguage();
 
     if (langButtons.length === 0) {
         logWarning("No language buttons (.lang-button) found.");
         return;
     }
+
     langButtons.forEach(button => {
-        button.removeEventListener('click', handleLanguageButtonClick); // Prevent multiple listeners
+        // Xóa lắng nghe sự kiện cũ để tránh trùng lặp
+        button.removeEventListener('click', handleLanguageButtonClick);
+        // Thêm lắng nghe sự kiện mới
         button.addEventListener('click', handleLanguageButtonClick);
+
+        // Đặt trạng thái active ban đầu
+        if (button.dataset.lang === currentActiveLang) {
+            button.classList.add('active-lang');
+            button.setAttribute('aria-pressed', 'true');
+        } else {
+            button.classList.remove('active-lang');
+            button.setAttribute('aria-pressed', 'false');
+        }
     });
-    logDebug(`Click events attached to ${langButtons.length} language buttons.`);
+    logDebug(`Click events attached and active state set for ${langButtons.length} language buttons.`);
 };
 
 // Expose initializeLanguageSystem to the global window object
 window.initializeLanguageSystem = async function() {
-    if (window.langSystem.initialized) { // Move flag into langSystem
+    if (window.langSystem.initialized) {
         logDebug("Language system already initialized.");
         return;
     }
@@ -122,22 +131,21 @@ window.initializeLanguageSystem = async function() {
     const userPreferredLanguage = window.getCurrentLanguage();
     await fetchTranslations(userPreferredLanguage);
     window.applyTranslations();
-    window.initializeLanguageButtons(); // Initialize language buttons after translations are applied
+    window.initializeLanguageButtons(); // Khởi tạo nút ngôn ngữ sau khi bản dịch được áp dụng
     
     window.langSystem.initialized = true;
     window.langSystem.currentLanguage = userPreferredLanguage;
     logDebug(`Language system initialized with language: ${userPreferredLanguage}.`);
 };
 
-// Remove duplicate initializeLanguageToggle function since we already have initializeLanguageButtons
-
-// Add setLanguage function to window object
+// Thêm hàm setLanguage vào đối tượng window
 window.setLanguage = async (lang) => {
     logDebug(`Setting language to: ${lang}`);
     localStorage.setItem(window.langSystem.languageStorageKey, lang);
+    window.langSystem.currentLanguage = lang; // Cập nhật ngôn ngữ hiện tại trong hệ thống
     await fetchTranslations(lang);
     window.applyTranslations();
     if (window.initializeLanguageButtons) {
-        window.initializeLanguageButtons();
+        window.initializeLanguageButtons(); // Cập nhật trạng thái active của các nút
     }
 };
