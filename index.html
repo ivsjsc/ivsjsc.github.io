@@ -39,14 +39,14 @@
             --ivs-orange-600: #EA580C;
             --ivs-orange-700: #C2410C;
             --ivs-header-orange: #F97316;
-            --header-height: 4rem;     /* 64px */
-            --header-height-mobile: 3.5rem;   /* 56px */
+            --header-height: 4rem;
+            --header-height-mobile: 3.5rem;
         }
         body {
             font-family: 'Inter', Arial, sans-serif;
         }
         html.dark body {
-            background-color: #030712; /* Consistent dark mode background with about.html */
+            background-color: #030712;
         }
         .bg-primary { background-color: var(--ivs-primary); }
         .text-primary { color: var(--ivs-primary); }
@@ -57,7 +57,6 @@
         .text-purple-accent { color: #8B5CF6; }
         .text-warning { color: #F59E0B; }
 
-        /* Header styles */
         #header-placeholder {
             height: var(--header-height);
             transition: transform 0.3s ease;
@@ -69,9 +68,8 @@
             }
         }
 
-        /* Hero section adjustment */
         .hero-section-banner {
-            min-height: 60vh; /* Adjusted for better visual balance */
+            min-height: 60vh;
             background-size: cover;
             background-position: center;
             display: flex;
@@ -94,7 +92,6 @@
             .hero-section-banner .hero-content { padding: 3rem 1rem; }
         }
 
-        /* Section padding and container padding for consistency */
         .section-padding { padding-top: 4rem; padding-bottom: 4rem; }
         .container-padding { padding-left: 1rem; padding-right: 1rem; }
         @media (min-width: 640px) {
@@ -104,18 +101,15 @@
             .container-padding { padding-left: 2rem; padding-right: 2rem; }
         }
 
-        /* Ensure content doesn't get hidden under fixed header */
         main {
             position: relative;
             z-index: 1;
         }
 
-        /* Hide header on scroll down */
         .header-hidden {
             transform: translateY(-100%);
         }
 
-        /* Show header on scroll up */
         .header-visible {
             transform: translateY(0);
         }
@@ -493,7 +487,7 @@
 
         window.toggleMobileSubmenu = function(button) {
             const submenu = button.nextElementSibling;
-            if (submenu && submenu.classList.contains('mobile-submenu-content')) { // Changed class name
+            if (submenu && submenu.classList.contains('mobile-submenu-content')) {
                 submenu.classList.toggle('max-h-0');
                 submenu.classList.toggle('opacity-0');
                 const icon = button.querySelector('i');
@@ -542,7 +536,6 @@
             
             const pageUrl = window.location.href;
             const pageTitle = document.title;
-            // Create share links dynamically if not already present
             if (fabElements.shareOptions.children.length === 0) {
                 fabElements.shareOptions.innerHTML = `
                     <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}" target="_blank" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_facebook">
@@ -551,12 +544,11 @@
                     <a href="https://zalo.me/share?text=${encodeURIComponent(pageTitle + " - " + pageUrl)}" target="_blank" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_zalo">
                         <i class="fas fa-comment-dots mr-2"></i> Zalo
                     </a>
-                    <button onclick="navigator.clipboard.writeText('${pageUrl}').then(() => alert('Đã sao chép liên kết!'))" class="block w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_copy_link">
+                    <button onclick="document.execCommand('copy', false, '${pageUrl}'); alert('Đã sao chép liên kết!');" class="block w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_copy_link">
                         <i class="fas fa-copy mr-2"></i> Sao chép liên kết
                     </button>
                 `;
             }
-            // Create contact links dynamically if not already present
             if (fabElements.contactOptions.children.length === 0) {
                 fabElements.contactOptions.innerHTML = `
                     <a href="tel:+84987654321" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="contact_phone">
@@ -570,7 +562,7 @@
                     </a>
                     <a href="https://zalo.me/yourzaloid" target="_blank" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="contact_zalo">
                         <i class="fas fa-comment-dots mr-2"></i> Zalo Chat
-                    </a>
+                    </button>
                 `;
             }
 
@@ -624,7 +616,7 @@
                 }
                 const posts = await response.json();
                 
-                newsContainer.innerHTML = ''; // Clear loading message
+                newsContainer.innerHTML = '';
 
                 if (posts && posts.length > 0) {
                     const latestPosts = posts.slice(0, 3);
@@ -672,25 +664,21 @@
         };
 
         window.onPageComponentsLoadedCallback = function() {
-            console.log("[Index Page] Components loaded. Page specific JS can run now.");
-            window.initializeTheme(); // Initialize theme after components loaded
+            window.initializeTheme();
             if (typeof window.initializeLanguageSystem === 'function') {
                 window.initializeLanguageSystem().then(() => {
-                    console.log("[Index Page] Language system initialized by callback.");
                 }).catch(error => {
-                    console.error("[Index Page] Error initializing language system from callback:", error);
+                    console.error("Error initializing language system from callback:", error);
                 });
             }
             window.initializeFabButtons();
             window.initializeNewsLoader();
 
-            // Video background error handling
             const videoSection = document.querySelector('.video-background-section');
             if (videoSection) {
                 const videoElement = videoSection.querySelector('.video-background-container video');
                 if (videoElement) {
                     videoElement.addEventListener('error', function() {
-                        console.warn('Background video failed to load. Displaying fallback.');
                         if(videoElement.parentElement) {
                             videoElement.parentElement.style.backgroundImage='url(https://placehold.co/1920x500/374151/ffffff?text=Video+Fallback+IVS)';
                             videoElement.parentElement.style.backgroundSize='cover';
