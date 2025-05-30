@@ -678,8 +678,8 @@
                 return;
             }
             try {
-                // Sử dụng đường dẫn tương đối để đảm bảo tải đúng file posts.json
-                const response = await fetch('/posts.json');
+                // Sử dụng đường dẫn tuyệt đối để đảm bảo tải đúng file posts.json
+                const response = await fetch(window.location.origin + '/posts.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -781,7 +781,7 @@
                     <a href="https://zalo.me/share?text=${encodeURIComponent(pageTitle + " - " + pageUrl)}" target="_blank" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_zalo">
                         <i class="fas fa-comment-dots mr-2"></i> Zalo
                     </a>
-                    <button onclick="document.execCommand('copy', false, '${pageUrl}'); alert('Đã sao chép liên kết!');" class="block w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_copy_link">
+                    <button onclick="document.execCommand('copy', false, '${pageUrl}'); showMessage('Đã sao chép liên kết!');" class="block w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_copy_link">
                         <i class="fas fa-copy mr-2"></i> Sao chép liên kết
                     </button>
                 `;
@@ -829,6 +829,24 @@
             }, { passive: true });
             fabElements.scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
         };
+
+        // Hàm hiển thị thông báo tùy chỉnh (thay thế alert)
+        function showMessage(message, duration = 3000) {
+            let msgBox = document.getElementById('custom-message-box');
+            if (!msgBox) {
+                msgBox = document.createElement('div');
+                msgBox.id = 'custom-message-box';
+                msgBox.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-md shadow-lg opacity-0 transition-opacity duration-300 z-[1001]';
+                document.body.appendChild(msgBox);
+            }
+            msgBox.textContent = message;
+            msgBox.classList.remove('opacity-0');
+            msgBox.classList.add('opacity-100');
+            setTimeout(() => {
+                msgBox.classList.remove('opacity-100');
+                msgBox.classList.add('opacity-0');
+            }, duration);
+        }
 
         // Hàm khởi tạo chủ đề (sáng/tối) dựa trên localStorage hoặc tùy chọn hệ thống
         window.initializeTheme = function() {
