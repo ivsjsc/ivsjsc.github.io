@@ -596,53 +596,6 @@
     <script src="/js/loadComponents.js" defer></script>
 
     <script>
-        // Hàm hiển thị thông báo tùy chỉnh (thay thế alert)
-        function showMessage(message, duration = 3000) {
-            let msgBox = document.getElementById('custom-message-box');
-            if (!msgBox) {
-                msgBox = document.createElement('div');
-                msgBox.id = 'custom-message-box';
-                msgBox.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-md shadow-lg opacity-0 transition-opacity duration-300 z-[1001]';
-                document.body.appendChild(msgBox);
-            }
-            msgBox.textContent = message;
-            msgBox.classList.remove('opacity-0');
-            msgBox.classList.add('opacity-100');
-            setTimeout(() => {
-                msgBox.classList.remove('opacity-100');
-                msgBox.classList.add('opacity-0');
-            }, duration);
-        }
-
-        // Hàm khởi tạo chủ đề (sáng/tối) dựa trên localStorage hoặc tùy chọn hệ thống
-        window.initializeTheme = function() {
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (savedTheme) {
-                document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-            } else {
-                document.documentElement.classList.toggle('dark', prefersDark);
-            }
-        };
-
-        // Xử lý lỗi tải video nền và hiển thị fallback
-        const videoSection = document.querySelector('.video-background-section');
-        if (videoSection) {
-            const videoElement = videoSection.querySelector('.video-background-container video');
-            if (videoElement) {
-                videoElement.addEventListener('error', function() {
-                    console.warn('Background video failed to load. Displaying fallback.');
-                    if(videoElement.parentElement) {
-                        videoElement.parentElement.style.backgroundImage='url(https://placehold.co/1920x500/374151/ffffff?text=Video+Fallback+IVS)';
-                        videoElement.parentElement.style.backgroundSize='cover';
-                        videoElement.parentElement.style.backgroundPosition='center';
-                    }
-                    videoElement.style.display='none';
-                    videoSection.classList.add('video-failed-to-load');
-                });
-            }
-        }
-
         // Callback chạy sau khi các component chung được tải và khởi tạo bởi loadComponents.js
         window.onPageComponentsLoadedCallback = function() {
             console.log("[Index Page] Components loaded. Page specific JS can run now.");
