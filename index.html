@@ -547,8 +547,21 @@
                 return;
             }
             try {
-                // Sử dụng đường dẫn tương đối để đảm bảo tải đúng file posts.json
-                const response = await fetch('/posts.json'); 
+                let postsUrl = '/posts.json'; // Mặc định là đường dẫn tương đối gốc
+
+                // Kiểm tra nếu URL gốc hiện tại là blob:
+                if (window.location.origin.startsWith('blob:')) {
+                    // Nếu là blob, thử lấy gốc của cửa sổ cha
+                    if (window.location.ancestorOrigins && window.location.ancestorOrigins.length > 0) {
+                        postsUrl = window.location.ancestorOrigins[0] + '/posts.json';
+                        console.log("Đang sử dụng gốc của cửa sổ cha để tải bài viết:", postsUrl);
+                    } else {
+                        console.warn("Không thể xác định gốc của cửa sổ cha. Quay lại đường dẫn tương đối gốc, có thể sẽ thất bại.");
+                        postsUrl = '/posts.json'; // Fallback, có thể vẫn lỗi nếu môi trường không hỗ trợ
+                    }
+                }
+                
+                const response = await fetch(postsUrl); 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
