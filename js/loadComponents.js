@@ -271,7 +271,7 @@ function initializeFabButtonsInternal() {
         };
 
         if (fabElements.contactMainBtn) toggleFabMenu(fabElements.contactMainBtn, fabElements.contactOptions);
-        if (fabElements.shareMainBtn) toggleFabMenu(fabElements.shareMainBtn, fabElements.elements.shareOptions); // Lỗi: elements.shareOptions thay vì fabElements.shareOptions
+        if (fabElements.shareMainBtn) toggleFabMenu(fabElements.shareMainBtn, fabElements.shareOptions); // Đã sửa lỗi ở đây
 
         // Initialize scroll to top
         if (fabElements.scrollToTopBtn) {
