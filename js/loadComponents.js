@@ -427,15 +427,15 @@ window.loadComponentsAndInitialize = async function() {
         await initializeFabButtonsInternal();
 
         // Initialize language system if available
-        if (typeof window.initializeLanguageToggle === 'function') {
+        if (typeof window.initializeLanguageSystem === 'function') { // Changed from initializeLanguageToggle
             try {
-                await window.initializeLanguageToggle();
+                await window.initializeLanguageSystem();
                 componentLog('Language system initialized');
             } catch (error) {
                 componentLog(`Error initializing language system: ${error.message}`, 'error');
             }
         } else {
-            componentLog('window.initializeLanguageToggle not found', 'warn');
+            componentLog('window.initializeLanguageSystem not found', 'warn'); // Changed from initializeLanguageToggle
         }
 
         window.componentState.componentsLoadedAndInitialized = true;
