@@ -46,14 +46,11 @@
         }
         body {
             font-family: 'Inter', Arial, sans-serif;
-            background-color: #f9fafb; /* bg-gray-50 */
-            color: #374151; /* text-neutral-700 */
         }
+        /* Chế độ tối cho body */
         html.dark body {
-            background-color: #030712; /* dark:bg-gray-900 */
-            color: #d1d5db; /* dark:text-gray-300 */
+            background-color: #030712;
         }
-
         /* Các lớp tiện ích Tailwind tùy chỉnh */
         .bg-primary { background-color: var(--ivs-primary); }
         .text-primary { color: var(--ivs-primary); }
@@ -68,6 +65,7 @@
         #header-placeholder {
             height: var(--header-height);
             transition: transform 0.3s ease;
+            /* Các thuộc tính fixed, z-index, background, blur đã có sẵn */
         }
         @media (max-width: 768px) {
             #header-placeholder {
@@ -78,12 +76,6 @@
         main {
             position: relative;
             z-index: 1;
-            padding-top: var(--header-height); /* Đẩy nội dung xuống dưới header */
-        }
-        @media (max-width: 768px) {
-            main {
-                padding-top: var(--header-height-mobile);
-            }
         }
         /* Ẩn header khi cuộn xuống */
         .header-hidden {
@@ -144,8 +136,6 @@
             .hero-section-banner { min-height: 50vh; }
             .hero-section-banner .hero-content { padding: 3rem 1rem; }
         }
-        .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
-
         /* Các kiểu cho Service Card và Education Level Card */
         .service-card, .education-level-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -357,8 +347,12 @@
         }
     </style>
 </head>
-<body class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter">
-    <header id="header-placeholder" data-loading-text="Đang tải menu..."></header>
+<body class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-index">
+    
+    <header id="header-placeholder"
+            class="fixed top-0 left-0 right-0 z-50 bg-neutral-900/95 backdrop-blur-sm border-b border-neutral-800 h-[var(--header-height)] md:h-[var(--header-height-mobile)]"
+            data-loading-text="Đang tải menu...">
+    </header>
 
     <main class="flex-grow pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)]">
         <section
@@ -611,8 +605,8 @@
         </div>
     </div>
 
-    <script src="/js/script.js" defer></script>
-    <script src="/js/language.js" defer></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/language.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="/js/loadComponents.js" defer></script>
 
@@ -620,14 +614,19 @@
         // Khởi tạo toàn bộ trang sau khi DOM đã tải hoàn chỉnh
         document.addEventListener('DOMContentLoaded', async () => {
             try {
+                console.log("Starting initialization sequence...");
+                
                 // Khởi tạo hệ thống ngôn ngữ
                 if (window.initializeLanguageSystem) {
                     await window.initializeLanguageSystem();
+                    console.log("Language system initialized");
                 }
                 
                 // Tải và khởi tạo các component (header, footer, FABs)
+                // Hàm này sẽ gọi initializeHeaderInternal, initializeFooterInternal, initializeFabButtonsInternal
                 if (window.loadComponentsAndInitialize) {
                     await window.loadComponentsAndInitialize();
+                    console.log("Components initialized");
                 }
                 
                 // Chạy bất kỳ khởi tạo cụ thể nào của trang (nếu có)
@@ -649,6 +648,8 @@
                     mirror: false,
                     anchorPlacement: 'top-bottom',
                 });
+
+                console.log("Initialization sequence completed");
             } catch (error) {
                 console.error('Error during page initialization:', error);
             }
@@ -677,8 +678,8 @@
                 return;
             }
             try {
-                // Sử dụng đường dẫn tuyệt đối để đảm bảo tải đúng file posts.json
-                const response = await fetch(window.location.origin + '/posts.json');
+                // Sử dụng đường dẫn tương đối để đảm bảo tải đúng file posts.json
+                const response = await fetch('/posts.json');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -780,7 +781,7 @@
                     <a href="https://zalo.me/share?text=${encodeURIComponent(pageTitle + " - " + pageUrl)}" target="_blank" class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_zalo">
                         <i class="fas fa-comment-dots mr-2"></i> Zalo
                     </a>
-                    <button onclick="document.execCommand('copy', false, '${pageUrl}'); showMessage('Đã sao chép liên kết!');" class="block w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_copy_link">
+                    <button onclick="document.execCommand('copy', false, '${pageUrl}'); alert('Đã sao chép liên kết!');" class="block w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md" data-lang-key="share_copy_link">
                         <i class="fas fa-copy mr-2"></i> Sao chép liên kết
                     </button>
                 `;
@@ -828,24 +829,6 @@
             }, { passive: true });
             fabElements.scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
         };
-
-        // Hàm hiển thị thông báo tùy chỉnh (thay thế alert)
-        function showMessage(message, duration = 3000) {
-            let msgBox = document.getElementById('custom-message-box');
-            if (!msgBox) {
-                msgBox = document.createElement('div');
-                msgBox.id = 'custom-message-box';
-                msgBox.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-md shadow-lg opacity-0 transition-opacity duration-300 z-[1001]';
-                document.body.appendChild(msgBox);
-            }
-            msgBox.textContent = message;
-            msgBox.classList.remove('opacity-0');
-            msgBox.classList.add('opacity-100');
-            setTimeout(() => {
-                msgBox.classList.remove('opacity-100');
-                msgBox.classList.add('opacity-0');
-            }, duration);
-        }
 
         // Hàm khởi tạo chủ đề (sáng/tối) dựa trên localStorage hoặc tùy chọn hệ thống
         window.initializeTheme = function() {
