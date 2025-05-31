@@ -6,7 +6,7 @@ window.componentState = window.componentState || {
     fabInitialized: false,
     footerInitialized: false,
     headerElement: null,
-    initialized: false 
+    initialized: false
 };
 
 function componentLog(message, type = 'log') {
@@ -79,45 +79,57 @@ async function initializeHeaderInternal() {
     }
 
     try {
-        const headerElement = document.querySelector('header#main-header'); // More specific selector
+        const headerElement = document.querySelector('header#main-header');
         if (!headerElement) {
             throw new Error('Header element (header#main-header) not found');
         }
         window.componentState.headerElement = headerElement;
 
         const mobileMenuPanel = document.getElementById('mobile-menu-panel');
-        const mobileMenuButton = document.getElementById('mobile-menu-button'); // Matches current header.html
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
         const iconMenuOpen = document.getElementById('icon-menu-open');
         const iconMenuClose = document.getElementById('icon-menu-close');
         const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
         const mobileMenuContainer = mobileMenuPanel ? mobileMenuPanel.querySelector('.mobile-menu-container') : null;
 
-
-        if (!mobileMenuPanel || !mobileMenuButton || !iconMenuOpen || !iconMenuClose || !mobileMenuBackdrop || !mobileMenuContainer) {
-            componentLog('One or more mobile menu elements not found. Skipping mobile menu initialization.', 'warn');
+        if (!mobileMenuPanel || !mobileMenuButton || !iconMenuOpen || !iconMenuClose || !mobileMenuContainer) {
+            componentLog('One or more mobile menu elements not found. Mobile menu may not function correctly.', 'warn');
         } else {
-            iconMenuClose.style.display = 'none';
-            iconMenuOpen.style.display = 'inline-block';
-            mobileMenuContainer.style.transition = 'transform 0.3s ease-in-out';
-            mobileMenuContainer.style.transform = 'translateX(100%)';
-            mobileMenuPanel.classList.add('hidden');
+            iconMenuClose.classList.add('hidden'); 
+            iconMenuOpen.classList.remove('hidden');
+            
+            if(mobileMenuContainer.style.transition === ''){
+                 mobileMenuContainer.style.transition = 'transform 0.3s ease-in-out';
+            }
+            if(!mobileMenuPanel.classList.contains('hidden')){
+                 mobileMenuPanel.classList.add('hidden');
+            }
+            if(mobileMenuContainer.style.transform === ''){
+                 mobileMenuContainer.style.transform = 'translateX(100%)';
+            }
 
 
             const openMobileMenu = () => {
                 mobileMenuPanel.classList.remove('hidden');
-                setTimeout(() => { mobileMenuContainer.style.transform = 'translateX(0%)'; }, 10);
-                iconMenuOpen.style.display = 'none';
-                iconMenuClose.style.display = 'inline-block';
+                setTimeout(() => { 
+                    if (mobileMenuContainer) mobileMenuContainer.style.transform = 'translateX(0%)';
+                    mobileMenuPanel.classList.add('active'); 
+                }, 10);
+                iconMenuOpen.classList.add('hidden');
+                iconMenuClose.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
                 mobileMenuButton.setAttribute('aria-expanded', 'true');
                 componentLog('Mobile menu opened');
             };
 
             const closeMobileMenu = () => {
-                mobileMenuContainer.style.transform = 'translateX(100%)';
-                setTimeout(() => { mobileMenuPanel.classList.add('hidden'); }, 300);
-                iconMenuOpen.style.display = 'inline-block';
-                iconMenuClose.style.display = 'none';
+                if (mobileMenuContainer) mobileMenuContainer.style.transform = 'translateX(100%)';
+                mobileMenuPanel.classList.remove('active');
+                setTimeout(() => { 
+                    mobileMenuPanel.classList.add('hidden'); 
+                }, 300); 
+                iconMenuOpen.classList.remove('hidden');
+                iconMenuClose.classList.add('hidden');
                 document.body.style.overflow = '';
                 mobileMenuButton.setAttribute('aria-expanded', 'false');
                 componentLog('Mobile menu closed');
@@ -131,9 +143,20 @@ async function initializeHeaderInternal() {
                     openMobileMenu();
                 }
             });
-            if(mobileMenuBackdrop) mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
-        }
 
+            if (mobileMenuBackdrop) {
+                mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+            }
+            
+            const mobileNavLinks = mobileMenuContainer.querySelectorAll('a');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenuPanel.classList.contains('hidden')) {
+                         closeMobileMenu();
+                    }
+                });
+            });
+        }
 
         let lastScrollTop = 0;
         const headerScrollHandler = debounce(() => {
@@ -156,7 +179,7 @@ async function initializeHeaderInternal() {
         window.componentState.headerInitialized = false;
     }
 }
-window.initializeHeader = initializeHeaderInternal; 
+window.initializeHeader = initializeHeaderInternal;
 
 async function loadHeader() {
     const headerPlaceholder = document.getElementById('header-placeholder');
@@ -228,7 +251,7 @@ function initializeFooterInternal() {
                         newsletterMessage.className = 'mt-2 text-sm text-green-500 dark:text-green-400';
                         newsletterForm.reset();
                     } else {
-                        const data = await response.json().catch(() => ({})); // Graceful JSON parsing
+                        const data = await response.json().catch(() => ({}));
                         newsletterMessage.textContent = Object.hasOwn(data, 'errors') && data.errors.length > 0
                             ? data.errors.map(error => error.message).join(", ")
                             : 'Đã có lỗi xảy ra khi đăng ký. Vui lòng thử lại.';
@@ -270,6 +293,7 @@ function initializeFabButtonsInternal() {
             contactOptions: fabContainer.querySelector('#contact-options'),
             shareMainBtn: fabContainer.querySelector('#share-main-btn'),
             shareOptions: fabContainer.querySelector('#share-options'),
+            scrollToTopBtn: fabContainer.querySelector('#scroll-to-top-btn')
         };
 
         const shareSubmenuItems = [
@@ -282,9 +306,26 @@ function initializeFabButtonsInternal() {
                 action: () => {
                     navigator.clipboard.writeText(window.location.href).then(() => {
                         componentLog('Link copied to clipboard!');
-                        // Add user feedback here, e.g., show a temporary message
+                        // Consider adding user feedback, e.g., a temporary message
+                        const copyButton = fabElements.shareOptions.querySelector('a[href="#"] > span');
+                        if(copyButton && copyButton.textContent.includes('Copy link')){
+                            const originalText = copyButton.textContent;
+                            copyButton.textContent = 'Đã sao chép!';
+                            setTimeout(() => { copyButton.textContent = originalText; }, 2000);
+                        }
                     }).catch(err => {
-                        componentLog('Failed to copy link: ', 'error', err);
+                        componentLog('Failed to copy link: ' + err, 'error');
+                         try { // Fallback for older browsers / insecure contexts
+                            const tempInput = document.createElement('input');
+                            tempInput.value = window.location.href;
+                            document.body.appendChild(tempInput);
+                            tempInput.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(tempInput);
+                            componentLog('Link copied to clipboard (fallback)!');
+                        } catch (fallbackError) {
+                            componentLog('Fallback copy method also failed: ' + fallbackError, 'error');
+                        }
                     });
                 }
             },
@@ -295,28 +336,34 @@ function initializeFabButtonsInternal() {
             { label: 'Hotline 2', icon: 'fas fa-phone-alt text-green-500 dark:text-green-400', action: 'tel:+84795555789' },
             { label: 'Messenger (IVS Academy)', icon: 'fab fa-facebook-messenger text-blue-500 dark:text-blue-400', action: 'https://m.me/hr.ivsacademy' },
             { label: 'Messenger (IVS JSC)', icon: 'fab fa-facebook-messenger text-blue-500 dark:text-blue-400', action: 'https://m.me/ivsmastery' },
-            { label: 'Zalo OA', icon: 'fa-solid fa-comment-dots text-[#0068ff]', action: 'https://zalo.me/ivsjsc' }, // Zalo icon using a solid comment and color
+            { label: 'Zalo OA', icon: 'fa-solid fa-comment-dots text-[#0068ff]', action: 'https://zalo.me/ivsjsc' },
             { label: 'WhatsApp', icon: 'fab fa-whatsapp text-green-600 dark:text-green-400', action: 'https://wa.me/84795555789' }
         ];
         
         function populateSubmenu(submenuElement, items) {
-            if (!submenuElement) return;
-            submenuElement.innerHTML = '';
+            if (!submenuElement) {
+                componentLog(`Submenu element not found for populating.`, 'warn');
+                return;
+            }
+            submenuElement.innerHTML = ''; // Clear previous items
             items.forEach(item => {
                 const link = document.createElement('a');
-                link.className = 'flex items-center px-3 py-2 text-sm text-gray-700 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-700 rounded-md w-full text-left';
+                // Added 'fab-options-menu-item' for potential specific styling or selection
+                link.className = 'fab-options-menu-item flex items-center px-3 py-2 text-sm text-gray-700 dark:text-neutral-200 hover:bg-gray-100 dark:hover:bg-neutral-700 rounded-md w-full text-left';
                 let iconHtml = item.icon ? `<i class="${item.icon} w-5 h-5 mr-2.5 text-center"></i>` : (item.iconSvg || '');
                 link.innerHTML = `${iconHtml}<span>${item.label}</span>`;
 
                 if (typeof item.action === 'function') {
-                    link.href = '#';
+                    link.href = '#'; // Make it behave like a button
                     link.addEventListener('click', (e) => {
                         e.preventDefault();
                         item.action();
-                        const parentMenu = link.closest('.fab-options-menu');
-                        const parentBtn = parentMenu ? parentMenu.previousElementSibling : null;
-                        if (parentMenu) parentMenu.classList.add('hidden');
-                        if (parentBtn) parentBtn.setAttribute('aria-expanded', 'false');
+                        // Close the menu after action
+                        if (submenuElement.classList.contains('fab-options-menu')) {
+                           submenuElement.classList.add('hidden');
+                           const parentBtn = submenuElement.previousElementSibling;
+                           if (parentBtn) parentBtn.setAttribute('aria-expanded', 'false');
+                        }
                     });
                 } else {
                     link.href = item.action;
@@ -327,14 +374,23 @@ function initializeFabButtonsInternal() {
             });
         }
 
-        if (fabElements.shareOptions) populateSubmenu(fabElements.shareOptions, shareSubmenuItems);
-        if (fabElements.contactOptions) populateSubmenu(fabElements.contactOptions, contactSubmenuItems);
+        if (fabElements.shareOptions) {
+            fabElements.shareOptions.classList.add('fab-options-menu', 'hidden'); // Ensure class for selector and initially hidden
+            populateSubmenu(fabElements.shareOptions, shareSubmenuItems);
+        }
+        if (fabElements.contactOptions) {
+             fabElements.contactOptions.classList.add('fab-options-menu', 'hidden'); // Ensure class for selector and initially hidden
+            populateSubmenu(fabElements.contactOptions, contactSubmenuItems);
+        }
+
 
         const toggleFabMenu = (btn, menu) => {
             if (btn && menu) {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const isCurrentlyHidden = menu.classList.contains('hidden');
+                    
+                    // Close all other FAB submenus
                     document.querySelectorAll('#fab-container .fab-options-menu').forEach(m => {
                         if (m !== menu) {
                             m.classList.add('hidden');
@@ -342,6 +398,7 @@ function initializeFabButtonsInternal() {
                             if (associatedBtn) associatedBtn.setAttribute('aria-expanded', 'false');
                         }
                     });
+                    
                     menu.classList.toggle('hidden', !isCurrentlyHidden);
                     btn.setAttribute('aria-expanded', String(!menu.classList.contains('hidden')));
                 });
@@ -351,10 +408,39 @@ function initializeFabButtonsInternal() {
         if (fabElements.contactMainBtn) toggleFabMenu(fabElements.contactMainBtn, fabElements.contactOptions);
         if (fabElements.shareMainBtn) toggleFabMenu(fabElements.shareMainBtn, fabElements.shareOptions);
 
+        // Scroll-to-top button logic
+        if (fabElements.scrollToTopBtn) {
+            // Initially hide it if not already styled by CSS to be hidden
+            if(!fabElements.scrollToTopBtn.classList.contains('visible') && !fabElements.scrollToTopBtn.classList.contains('hidden') && !fabElements.scrollToTopBtn.classList.contains('fab-hidden')) {
+                 // Assuming 'fab-hidden' or direct style handles initial state based on CSS
+                 // If CSS uses '.visible', then it should be initially hidden by not having '.visible'
+            }
+
+            const fabScrollHandler = debounce(() => {
+                if (fabElements.scrollToTopBtn) { // Check again inside debounced function
+                     // Use 'visible' class as per optimized_styles.css
+                    fabElements.scrollToTopBtn.classList.toggle('visible', window.scrollY > 300);
+                }
+            }, 150);
+
+            window.addEventListener('scroll', fabScrollHandler, { passive: true });
+            // Initial check
+            fabScrollHandler();
+
+
+            fabElements.scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        } else {
+            componentLog('Scroll-to-top button #scroll-to-top-btn not found in FAB container.', 'warn');
+        }
+
+
         document.addEventListener('click', (e) => {
             const openMenus = fabContainer.querySelectorAll('.fab-options-menu:not(.hidden)');
             openMenus.forEach(menu => {
                 const btn = menu.previousElementSibling;
+                // Check if the click is outside the button AND outside the menu
                 if (btn && !btn.contains(e.target) && !menu.contains(e.target)) {
                     menu.classList.add('hidden');
                     btn.setAttribute('aria-expanded', 'false');
@@ -370,7 +456,7 @@ function initializeFabButtonsInternal() {
                     const btn = menu.previousElementSibling;
                     if (btn) {
                         btn.setAttribute('aria-expanded', 'false');
-                        btn.focus();
+                        btn.focus(); 
                     }
                 });
             }
@@ -407,12 +493,14 @@ window.loadComponentsAndInitialize = async function() {
         const fabPlaceholder = document.getElementById('fab-container-placeholder');
         if (fabPlaceholder) {
              const fabLoaded = await loadComponent('FABs', 'fab-container-placeholder', '/components/fab-container.html');
-             if (fabLoaded) await initializeFabButtonsInternal();
-             else componentLog('FAB placeholder found, but failed to load FAB content.', 'warn');
+             if (fabLoaded) {
+                await initializeFabButtonsInternal();
+             } else {
+                componentLog('FAB placeholder found, but failed to load FAB content. FABs might not work.', 'warn');
+             }
         } else {
             componentLog('FAB placeholder #fab-container-placeholder not found. Skipping FAB load.', 'warn');
         }
-
 
         if (typeof window.initializeLanguageSystem === 'function') {
             try {
@@ -467,15 +555,13 @@ window.onPageComponentsLoadedCallback = async () => {
         window.applyLanguage(); 
     }
 
-    if (typeof window.loadPosts === 'function') { // Example for a blog or news page
+    if (typeof window.loadPosts === 'function') {
         window.loadPosts();
     }
-     if (typeof window.initSocialSharing === 'function') { // Example for social sharing buttons
+    if (typeof window.initSocialSharing === 'function') {
         window.initSocialSharing();
     }
-
-};
-
+}
 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', window.loadComponentsAndInitialize);
@@ -485,76 +571,4 @@ if (document.readyState === 'loading') {
     }
 }
 
-async function loadComponentsAndInitialize() {
-    const headerPlaceholder = document.getElementById('header-placeholder');
-    if (headerPlaceholder) {
-        try {
-            const response = await fetch('/header.html');
-            if (response.ok) {
-                headerPlaceholder.innerHTML = await response.text();
-                initializeHeaderInternal();
-            } else {
-                componentLog(`Failed to load header.html: ${response.status}`, 'error');
-            }
-        } catch (error) {
-            componentLog(`Error loading header.html: ${error.message}`, 'error');
-        }
-    }
-
-    const fabPlaceholder = document.getElementById('fab-container-placeholder');
-    if (fabPlaceholder) {
-        fabPlaceholder.innerHTML = `
-            <div id="fab-container" class="fixed bottom-4 right-4 z-[999] flex flex-col items-end space-y-2">
-                <button id="scroll-to-top-btn" title="Lên đầu trang" aria-label="Lên đầu trang"
-                        class="flex items-center justify-center w-10 h-10 bg-ivs-orange-500 hover:bg-ivs-orange-600 text-white rounded-full shadow-md transition-all duration-300">
-                    <i class="fas fa-arrow-up text-sm"></i>
-                </button>
-            </div>
-        `;
-        initializeFabButtonsInternal();
-    }
-}
-
-function initializeHeaderInternal() {
-    if (window.componentState.headerInitialized) return;
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const mobileMenuPanel = document.getElementById('mobile-menu-panel');
-    const closeBtn = document.querySelector('.mobile-menu-close-btn');
-
-    if (!mobileMenuToggle || !mobileMenuPanel) {
-        componentLog('One or more mobile menu elements not found. Skipping mobile menu initialization.', 'warn');
-        return;
-    }
-
-    mobileMenuToggle.addEventListener('click', () => {
-        mobileMenuPanel.classList.toggle('active');
-        mobileMenuToggle.setAttribute('aria-expanded', mobileMenuPanel.classList.contains('active'));
-    });
-
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            mobileMenuPanel.classList.remove('active');
-            mobileMenuToggle.setAttribute('aria-expanded', 'false');
-        });
-    }
-
-    window.componentState.headerInitialized = true;
-    componentLog('Header initialized successfully');
-}
-
-function initializeFabButtonsInternal() {
-    if (window.componentState.fabInitialized) return;
-    const scrollToTopBtn = document.getElementById('scroll-to-top-btn');
-    if (scrollToTopBtn) {
-        window.addEventListener('scroll', () => {
-            scrollToTopBtn.classList.toggle('visible', window.scrollY > 300);
-        });
-        scrollToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-    window.componentState.fabInitialized = true;
-    componentLog('FAB initialized successfully');
-}
-
-document.addEventListener('DOMContentLoaded', loadComponentsAndInitialize);
+// Ensure the componentState is initialized
