@@ -452,7 +452,7 @@
                         <i class="fas fa-quote-left text-3xl text-orange-500 dark:text-orange-400 mb-4" aria-hidden="true"></i>
                         <p class="text-lg text-neutral-700 dark:text-gray-300 mb-4" data-lang-key="webdesign_testimonial1_text">"IVS Celestech đã vượt mong đợi của chúng tôi với một website chuyên nghiệp, hiện đại và tối ưu SEO. Rất hài lòng với dịch vụ!"</p>
                         <p class="testimonial-author text-primary-dark dark:text-blue-400" data-lang-key="webdesign_testimonial1_author">- Đại diện Công ty TNHH MTV ST</p>
-                    </div>
+                        </div>
                     <div class="testimonial-card shadow-xl border border-blue-100 dark:border-gray-700" data-aos="zoom-in" data-aos-delay="500">
                         <i class="fas fa-quote-left text-3xl text-teal-500 dark:text-teal-400 mb-4" aria-hidden="true"></i>
                         <p class="text-lg text-neutral-700 dark:text-gray-300 mb-4" data-lang-key="webdesign_testimonial2_text">"The KhaDock.com website is optimized for UI and SEO, and the design was delivered extremely fast. Very professional. I will recommend IVS to my clients and partners in the US."</p>
@@ -476,31 +476,6 @@
 
     <div id="footer-placeholder" data-loading-text="Đang tải chân trang..."></div>
 
-    <div id="fab-container" class="fixed bottom-5 right-5 z-[999] flex flex-col items-end space-y-3">
-        <button id="scroll-to-top-btn" title="Lên đầu trang" aria-label="Lên đầu trang"
-            class="fab-hidden items-center justify-center w-12 h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-full shadow-lg transition-opacity duration-300">
-            <i class="fas fa-arrow-up" aria-hidden="true"></i>
-        </button>
-
-        <div class="relative">
-            <button id="share-main-btn" title="Chia sẻ" aria-label="Mở menu chia sẻ" aria-haspopup="true" aria-expanded="false"
-                class="w-14 h-14 bg-blue-500 hover:bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center transition-transform duration-200 ease-in-out">
-                <i class="fas fa-share-alt" aria-hidden="true"></i>
-            </button>
-            <div id="share-options" class="fab-hidden absolute bottom-full right-0 mb-2 w-auto min-w-max p-2 bg-white dark:bg-gray-800 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col items-start space-y-1">
-            </div>
-        </div>
-
-        <div class="relative">
-            <button id="contact-main-btn" title="Liên hệ nhanh" aria-label="Mở menu liên hệ nhanh" aria-haspopup="true" aria-expanded="false"
-                class="w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center transition-transform duration-200 ease-in-out">
-                <i class="fas fa-comment-dots" aria-hidden="true"></i>
-            </button>
-            <div id="contact-options" class="fab-hidden absolute bottom-full right-0 mb-2 w-auto min-w-max p-2 bg-white dark:bg-gray-800 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col items-start space-y-1">
-            </div>
-        </div>
-    </div> 
-    
     <script src="js/loadComponents.js"></script>
     <script src="js/language.js"></script>
     <script src="js/script.js"></script>
@@ -508,149 +483,21 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            offset: 100,
-            duration: 700,
-            easing: 'ease-out-quad',
-            once: true,
-            mirror: false,
-            anchorPlacement: 'top-bottom',
-        });
-        
-        // This is a placeholder for the actual loadComponents.js logic
-        // In a real scenario, loadComponents.js would handle loading header/footer
-        // and initialising their functionalities.
-        document.addEventListener('DOMContentLoaded', function() {
-            // Ensure loadComponentsAndInitialize is called if it's defined globally
-            if (typeof window.loadComponentsAndInitialize === 'function') {
-                window.loadComponentsAndInitialize();
-            } else {
-                console.error("window.loadComponentsAndInitialize is not defined. Ensure loadComponents.js is loaded correctly.");
-            }
-
-            // Initialize language system if it's exposed globally by language.js
-            if (typeof window.initializeLanguageSystem === 'function') {
-                window.initializeLanguageSystem();
-            } else {
-                console.warn("window.initializeLanguageSystem is not defined. Language toggling might not work.");
-            }
-
-            // Initialize posts loader if it's exposed globally by posts-loader.js
-            if (typeof window.loadPosts === 'function') {
-                window.loadPosts();
-            } else {
-                console.warn("window.loadPosts is not defined. News feed might not load.");
-            }
-
-            // Initialize social sharing if it's exposed globally by script.js or other
-            if (typeof window.initSocialSharing === 'function') {
-                window.initSocialSharing();
-            } else {
-                console.warn("window.initSocialSharing is not defined. Social sharing might not work.");
-            }
-            
-            // Mobile menu toggle (for header)
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenuPanel = document.getElementById('mobile-menu-panel');
-            const iconMenuOpen = document.getElementById('icon-menu-open');
-            const iconMenuClose = document.getElementById('icon-menu-close');
-
-            if (mobileMenuButton && mobileMenuPanel) {
-                mobileMenuButton.addEventListener('click', () => {
-                    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                    mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-                    mobileMenuPanel.classList.toggle('active');
-                    if (iconMenuOpen && iconMenuClose) {
-                        iconMenuOpen.classList.toggle('hidden');
-                        iconMenuClose.classList.toggle('hidden');
-                    }
-                    document.body.classList.toggle('overflow-hidden');
-                });
-
-                mobileMenuPanel.addEventListener('click', function(e) {
-                    if (e.target === mobileMenuPanel) {
-                        mobileMenuButton.click();
-                    }
-                });
-
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape' && mobileMenuPanel.classList.contains('active')) {
-                        mobileMenuButton.click();
-                    }
-                });
-            }
-
-            const mobileSubmenus = document.querySelectorAll('.mobile-submenu-toggle');
-            mobileSubmenus.forEach(submenuToggle => {
-                submenuToggle.addEventListener('click', function() {
-                    const submenuContent = document.getElementById(this.getAttribute('aria-controls'));
-                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
-                    const icon = this.querySelector('.mobile-submenu-icon');
-                    
-                    this.setAttribute('aria-expanded', !isExpanded);
-                    
-                    if (!isExpanded) {
-                        submenuContent.style.maxHeight = submenuContent.scrollHeight + "px";
-                        icon.style.transform = 'rotate(180deg)';
-                    } else {
-                        submenuContent.style.maxHeight = "0";
-                        icon.style.transform = 'rotate(0)';
-                    }
-                });
+        window.onPageComponentsLoadedCallback = function() {
+            console.log("[Index Page] Components loaded. Page specific JS can run now.");
+            // AOS.init() is called by loadComponents.js after all components are loaded
+            // applyLanguage() is called by loadComponents.js after language system is initialized
+            // loadPosts() is called by loadComponents.js after components are loaded
+            // initSocialSharing() is called by loadComponents.js after components are loaded
+            AOS.init({
+                offset: 100,
+                duration: 700,
+                easing: 'ease-out-quad',
+                once: true,
+                mirror: false,
+                anchorPlacement: 'top-bottom',
             });
-
-            // Dark mode toggle logic (if not handled by loadComponents.js or script.js)
-            function applyTheme(theme) {
-                if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                }
-            }
-
-            const darkModeToggle = document.getElementById('theme-toggle'); // Desktop
-            const mobileDarkModeToggleBtn = document.getElementById('mobile-dark-mode-toggle'); // Mobile
-
-            function setupToggleListener(button) {
-                if (button) {
-                    button.addEventListener('click', () => {
-                        const isDarkMode = document.documentElement.classList.toggle('dark');
-                        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-                        // Update icon for desktop toggle if it exists
-                        if(darkModeToggle && darkModeToggle.querySelector('i')) {
-                            darkModeToggle.querySelector('i').className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
-                        }
-                        // Update text/icon for mobile toggle if it exists
-                        if(mobileDarkModeToggleBtn && mobileDarkModeToggleBtn.querySelector('i')) {
-                            mobileDarkModeToggleBtn.querySelector('i').className = isDarkMode ? 'fas fa-sun mr-2' : 'fas fa-moon mr-2';
-                        }
-                    });
-                }
-            }
-            setupToggleListener(darkModeToggle);
-            setupToggleListener(mobileDarkModeToggleBtn);
-            
-            // Apply saved theme on load or system preference
-            const savedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-            if (savedTheme) {
-                applyTheme(savedTheme);
-            } else if (prefersDark) {
-                applyTheme('dark');
-            } else {
-                applyTheme('light'); // Default to light
-            }
-            // Update toggle icons on initial load
-            const isCurrentlyDark = document.documentElement.classList.contains('dark');
-            if(darkModeToggle && darkModeToggle.querySelector('i')) {
-                darkModeToggle.querySelector('i').className = isCurrentlyDark ? 'fas fa-sun' : 'fas fa-moon';
-            }
-            if(mobileDarkModeToggleBtn && mobileDarkModeToggleBtn.querySelector('i')) {
-                mobileDarkModeToggleBtn.querySelector('i').className = isCurrentlyDark ? 'fas fa-sun mr-2' : 'fas fa-moon mr-2';
-            }
-        });
+        };
     </script>
 </body>
 </html>
