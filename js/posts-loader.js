@@ -1,77 +1,57 @@
-// Expose loadPosts function globally
-window.loadPosts = async function() {
-    const postsContainer = document.getElementById('local-posts-feed'); // Ensure this ID is consistent with HTML
-    if (!postsContainer) {
-        console.error("[posts-loader.js] News container element with ID 'local-posts-feed' not found.");
+// posts-loader.js
+// This script is responsible for fetching and displaying IVS news posts from a JSON file.
+
+window.loadPosts = async function(containerId = 'news-container') {
+    const container = document.getElementById(containerId);
+    if (!container) {
+        console.error(`Posts container #${containerId} not found.`);
         return;
     }
-    
+
+    container.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="loading_news">Đang tải tin tức...</p>`; // Show loading
+
     try {
-        const response = await fetch(window.location.origin + '/posts.json');
+        const response = await fetch('/data/ivs-posts.json'); // Assuming your IVS posts are in this path
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const posts = await response.json();
-        
-        postsContainer.innerHTML = ''; 
 
-        if (posts && posts.length > 0) {
-            const latestPosts = posts.slice(0, 3); // Display only the first 3 posts
-            latestPosts.forEach(post => {
-                const currentLang = window.currentLang || 'vi'; // Get current language from global state
-
-                // Handle multilingual title
-                let displayTitle = post.title;
-                if (typeof post.title === 'object' && post.title !== null) {
-                    displayTitle = post.title[currentLang] || post.title['vi'] || '';
-                }
-
-                // Handle multilingual excerpt
-                let displayExcerpt = post.excerpt;
-                if (typeof post.excerpt === 'object' && post.excerpt !== null) {
-                    displayExcerpt = post.excerpt[currentLang] || post.excerpt['vi'] || '';
-                }
-
-                // Format date
-                const displayDate = new Date(post.date).toLocaleDateString('vi-VN', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-
-                const postElement = document.createElement('div');
-                postElement.className = 'bg-white dark:bg-slate-800 dark:border-slate-700 p-6 rounded-lg shadow-md flex flex-col transition-transform duration-300 ease-in-out hover:scale-105';
-                postElement.setAttribute('data-aos', 'fade-up');
-                postElement.innerHTML = `
-                    <img src="${post.image || 'https://placehold.co/400x250/cccccc/333333?text=Tin+tức'}" 
-                         alt="${post.image_alt?.[currentLang] || post.image_alt?.['vi'] || displayTitle}" 
-                         class="rounded-md mb-4 object-cover w-full h-48">
-                    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">${displayTitle}</h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-3">${displayDate}</p>
-                    <p class="text-gray-700 dark:text-gray-300 mb-4 flex-grow line-clamp-3">${displayExcerpt}</p>
-                    <a href="${post.link}" 
-                       class="mt-auto text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500 font-medium inline-flex items-center">
-                        ${currentLang === 'vi' ? 'Đọc thêm' : 'Read more'}
-                        <i class="fas fa-arrow-right ml-1"></i>
-                    </a>
-                `;
-                postsContainer.appendChild(postElement);
-            });
-        } else {
-            postsContainer.innerHTML = `
-                <p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="no_news_available">
-                    ${currentLang === 'vi' ? 'Không có tin tức nào để hiển thị.' : 'No news available.'}
-                </p>`;
+        if (posts.length === 0) {
+            container.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="no_news_available">Không có tin tức nào để hiển thị.</p>`;
+            return;
         }
+
+        let htmlContent = '';
+        posts.forEach(post => {
+            // Ensure all properties exist or provide fallbacks
+            const title = post.title || 'No Title';
+            const link = post.link || '#';
+            const imageUrl = post.imageUrl || 'https://placehold.co/400x200/cccccc/333333?text=No+Image'; // Placeholder if no image
+            const snippet = post.snippet || 'No description available.';
+            const date = post.date ? new Date(post.date).toLocaleDateString('vi-VN') : 'N/A';
+            const category = post.category || 'General';
+
+            htmlContent += `
+                <div class="news-card bg-white dark:bg-neutral-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex flex-col">
+                    <img src="${imageUrl}" alt="${title}" class="w-full h-40 object-cover rounded-t-lg" onerror="this.onerror=null; this.src='https://placehold.co/400x200/cccccc/333333?text=Image+Error';">
+                    <div class="p-4 flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2 line-clamp-2">${title}</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-3">${snippet}</p>
+                        <span class="text-xs text-gray-500 dark:text-gray-400 mb-3 block">Ngày đăng: ${date}</span>
+                        <a href="${link}" target="_blank" rel="noopener noreferrer" class="mt-auto inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium text-sm">
+                            Đọc thêm <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            `;
+        });
+        container.innerHTML = htmlContent;
     } catch (error) {
-        console.error('[posts-loader.js] Error fetching or processing posts.json:', error);
-        postsContainer.innerHTML = `
-            <p class="text-red-500 dark:text-red-400 col-span-full text-center" data-lang-key="news_load_error">
-                ${(window.currentLang || 'vi') === 'vi' ? 
-                  `Lỗi tải tin tức: ${error.message}. Vui lòng thử lại sau.` : 
-                  `Error loading news: ${error.message}. Please try again later.`}
-            </p>`;
+        console.error("Error loading IVS posts:", error);
+        container.innerHTML = `<p class="text-red-500 dark:text-red-400 col-span-full text-center" data-lang-key="news_load_error">Lỗi tải tin tức: ${error.message}. Vui lòng thử lại sau.</p>`;
     }
 };
 
-// Removed DOMContentLoaded listener as it's now handled by loadComponents.js
+// Ensure this function is available globally if needed by other scripts
+// window.loadPosts = loadPosts; // Already assigned above
