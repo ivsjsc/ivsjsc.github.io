@@ -28,7 +28,105 @@
     <link rel="stylesheet" href="/css/styles.css">
     
     <style>
-        /* Your existing styles (optimized in previous answer) */
+      body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+      .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
+      .service-card { 
+        transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .service-card:hover { 
+        transform: translateY(-6px); 
+        box-shadow: 0 12px 25px rgba(0,0,0,0.1); 
+      }
+      .service-card-content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .service-card-content p {
+        flex-grow: 1;
+      }
+      .service-card i.fa-solid, .service-card i.fa-brands {
+        transition: transform 0.3s ease; 
+      }
+      .service-card:hover i.fa-solid, .service-card:hover i.fa-brands { 
+        transform: scale(1.1); 
+      }
+      .cta-button { 
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out; 
+      }
+      .cta-button:hover { 
+        transform: scale(1.05); 
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15); 
+      }
+      /* Dark mode specific styles */
+      .dark body {
+        background-color: #111827;
+        color: #d1d5db;
+      }
+      .dark .bg-white { background-color: #1f2937; }
+      .dark .text-gray-800 { color: #f3f4f6; }
+      .dark .text-gray-600 { color: #9ca3af; }
+      .dark .text-primary { color: #60a5fa; }
+      .dark .border-blue-500 { border-color: #2563eb; }
+      .dark .text-blue-600 { color: #3b82f6; }
+      .dark .bg-blue-50 { background-color: #1e3a8a; }
+
+      .dark .border-pink-500 { border-color: #db2777; }
+      .dark .text-pink-500 { color: #f472b6; }
+      .dark .text-pink-600 { color: #ec4899; }
+      .dark .bg-pink-50 { background-color: #500724; }
+
+      .dark .border-orange-500 { border-color: #ea580c; }
+      .dark .text-orange-500 { color: #fb923c; }
+      .dark .text-orange-600 { color: #f97316; }
+      .dark .bg-orange-50 { background-color: #7c2d12; }
+
+      .dark .border-teal-500 { border-color: #0d9488; }
+      .dark .text-teal-500 { color: #2dd4bf; }
+      .dark .text-teal-600 { color: #14b8a6; }
+      .dark .bg-teal-50 { background-color: #0f766e; }
+      
+      .dark .border-sky-500 { border-color: #0284c7; }
+      .dark .text-sky-500 { color: #38bdf8; }
+      .dark .text-sky-600 { color: #0ea5e9; }
+      .dark .bg-sky-50 { background-color: #0c4a6e; }
+
+      .dark .border-purple-500 { border-color: #9333ea; }
+      .dark .text-purple-500 { color: #c084fc; }
+      .dark .text-purple-600 { color: #a855f7; }
+      .dark .bg-purple-50 { background-color: #581c87; }
+
+      .dark .border-yellow-400 { border-color: #eab308; }
+      .dark .text-yellow-500 { color: #facc15; }
+      .dark .text-amber-600 { color: #f59e0b; }
+      .dark .bg-yellow-50 { background-color: #713f12; }
+
+      .dark .border-gray-500 { border-color: #6b7280; }
+      .dark .text-gray-500 { color: #9ca3af; }
+      .dark .text-gray-600 { color: #d1d5db; }
+      .dark .bg-gray-100 { background-color: #1f2937; }
+      
+      .dark .border-indigo-500 { border-color: #4f46e5; }
+      .dark .text-indigo-500 { color: #818cf8; }
+      .dark .text-indigo-600 { color: #6366f1; }
+      .dark .bg-indigo-50 { background-color: #3730a3; }
+
+      .dark .border-amber-500 { border-color: #d97706; }
+      .dark .text-amber-500 { color: #fcd34d; }
+      /* .dark .text-amber-600 is already defined for yellow-50 */
+      .dark .bg-amber-50 { background-color: #78350f; }
+
+      .dark .border-rose-500 { border-color: #e11d48; }
+      .dark .text-rose-500 { color: #fb7185; }
+      .dark .text-rose-600 { color: #f43f5e; }
+      .dark .bg-rose-50 { background-color: #881337; }
+
+      .dark .text-gray-800 { color: #f3f4f6; }
+      .dark .text-gray-600 { color: #9ca3af; }
+      .dark .border-t { border-color: #374151; }
     </style>
 </head>
 
@@ -77,52 +175,52 @@
                     <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center dark:bg-slate-800 dark:border-slate-700"
                          data-aos="zoom-in-up" data-aos-delay="200">
                         <div class="bg-green-100 dark:bg-green-900/50 p-4 rounded-full mb-6">
-                            <i class="fas fa-balance-scale fa-3x text-green-500 dark:text-green-400"></i>
+                            <i class="fas fa-gavel fa-3x text-green-500 dark:text-green-400"></i>
                         </div>
                         <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3"
-                            data-lang-key="legal_consulting_area_civil_title">Tư vấn Pháp luật Dân sự</h3>
+                            data-lang-key="legal_consulting_area_civil_litigation_title">Tư vấn & Tranh tụng Dân sự</h3>
                         <p class="text-gray-600 dark:text-gray-400 text-sm mb-6"
-                           data-lang-key="legal_consulting_area_civil_desc">Tư vấn và hỗ trợ giải quyết các vấn đề dân sự như ly hôn, thừa kế, bồi thường thiệt hại, hợp đồng, quyền sở hữu, tranh chấp đất đai...</p>
+                           data-lang-key="legal_consulting_area_civil_litigation_desc">Hỗ trợ giải quyết các tranh chấp dân sự (hợp đồng, thừa kế, đất đai, bồi thường thiệt hại), đại diện tham gia tố tụng tại Tòa án các cấp.</p>
                     </div>
                     <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center dark:bg-slate-800 dark:border-slate-700"
                          data-aos="zoom-in-up" data-aos-delay="300">
                         <div class="bg-yellow-100 dark:bg-yellow-900/50 p-4 rounded-full mb-6">
-                            <i class="fas fa-handshake fa-3x text-yellow-500 dark:text-yellow-400"></i>
+                            <i class="fas fa-users-cog fa-3x text-yellow-500 dark:text-yellow-400"></i>
                         </div>
                         <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3"
-                            data-lang-key="legal_consulting_area_labor_title">Tư vấn Pháp luật Lao động</h3>
+                            data-lang-key="legal_consulting_area_family_matters_title">Tư vấn Hôn nhân & Gia đình</h3>
                         <p class="text-gray-600 dark:text-gray-400 text-sm mb-6"
-                           data-lang-key="legal_consulting_area_labor_desc">Tư vấn về hợp đồng lao động, kỷ luật lao động, tranh chấp lao động, bảo hiểm xã hội, an toàn lao động, quyền và nghĩa vụ của người lao động và người sử dụng lao động.</p>
+                           data-lang-key="legal_consulting_area_family_matters_desc">Tư vấn ly hôn (thuận tình, đơn phương), tranh chấp tài sản, quyền nuôi con, cấp dưỡng, xác nhận quan hệ cha mẹ con...</p>
                     </div>
                     <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center dark:bg-slate-800 dark:border-slate-700"
                          data-aos="zoom-in-up" data-aos-delay="400">
                         <div class="bg-red-100 dark:bg-red-900/50 p-4 rounded-full mb-6">
-                            <i class="fas fa-file-invoice-dollar fa-3x text-red-500 dark:text-red-400"></i>
+                            <i class="fas fa-file-contract fa-3x text-red-500 dark:text-red-400"></i>
                         </div>
                         <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3"
-                            data-lang-key="legal_consulting_area_investment_title">Tư vấn Pháp luật Đầu tư</h3>
+                            data-lang-key="legal_consulting_area_inheritance_title">Tư vấn Thừa kế</h3>
                         <p class="text-gray-600 dark:text-gray-400 text-sm mb-6"
-                           data-lang-key="legal_consulting_area_investment_desc">Tư vấn về thủ tục đầu tư, dự án đầu tư, hợp đồng đầu tư, ưu đãi đầu tư, giải quyết tranh chấp đầu tư.</p>
+                           data-lang-key="legal_consulting_area_inheritance_desc">Tư vấn lập di chúc, phân chia di sản thừa kế, giải quyết tranh chấp thừa kế, xác định hàng thừa kế...</p>
                     </div>
                     <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center dark:bg-slate-800 dark:border-slate-700"
                          data-aos="zoom-in-up" data-aos-delay="500">
                         <div class="bg-indigo-100 dark:bg-indigo-900/50 p-4 rounded-full mb-6">
-                            <i class="fas fa-copyright fa-3x text-indigo-500 dark:text-indigo-400"></i>
+                            <i class="fas fa-money-check-alt fa-3x text-indigo-500 dark:text-indigo-400"></i>
                         </div>
                         <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3"
-                            data-lang-key="legal_consulting_area_ip_title">Tư vấn Pháp luật Sở hữu Trí tuệ</h3>
+                            data-lang-key="legal_consulting_area_debt_collection_title">Tư vấn Thu hồi Nợ</h3>
                         <p class="text-gray-600 dark:text-gray-400 text-sm mb-6"
-                           data-lang-key="legal_consulting_area_ip_desc">Tư vấn về đăng ký nhãn hiệu, bản quyền, kiểu dáng công nghiệp, bí mật kinh doanh, chuyển giao công nghệ và bảo vệ quyền sở hữu trí tuệ.</p>
+                           data-lang-key="legal_consulting_area_debt_collection_desc">Hỗ trợ cá nhân, doanh nghiệp thu hồi các khoản nợ quá hạn, nợ khó đòi thông qua các biện pháp hợp pháp.</p>
                     </div>
                     <div class="service-card bg-white p-8 rounded-xl shadow-lg flex flex-col items-center text-center dark:bg-slate-800 dark:border-slate-700"
                          data-aos="zoom-in-up" data-aos-delay="600">
                         <div class="bg-rose-100 dark:bg-rose-900/50 p-4 rounded-full mb-6">
-                            <i class="fas fa-exclamation-triangle fa-3x text-rose-500 dark:text-rose-400"></i>
+                            <i class="fas fa-user-shield fa-3x text-rose-500 dark:text-rose-400"></i>
                         </div>
                         <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3"
-                            data-lang-key="legal_consulting_area_risk_title">Tư vấn Phòng ngừa Rủi ro Pháp lý</h3>
+                            data-lang-key="legal_consulting_area_personal_rights_title">Bảo vệ Quyền lợi Cá nhân</h3>
                         <p class="text-gray-600 dark:text-gray-400 text-sm mb-6"
-                           data-lang-key="legal_consulting_area_risk_desc">Tư vấn về các biện pháp phòng ngừa rủi ro pháp lý, đánh giá rủi ro, xây dựng quy trình và chính sách để đảm bảo tuân thủ pháp luật và bảo vệ quyền lợi.</p>
+                           data-lang-key="legal_consulting_area_personal_rights_desc">Tư vấn và đại diện bảo vệ quyền nhân thân, quyền công dân, quyền sở hữu, quyền lợi người tiêu dùng, phòng chống lừa đảo...</p>
                     </div>
                 </div>
             </div>
