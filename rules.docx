@@ -1,0 +1,74 @@
+Đánh giá chung và các điểm cần tối ưu hóa:
+
+Đồng bộ hóa CSS (Ưu tiên hàng đầu):
+
+Vấn đề: Các tệp HTML hiện đang chứa các khối <style> riêng lẻ với định nghĩa biến CSS (:root) và các kiểu dáng chung. Điều này gây ra sự trùng lặp mã, khó bảo trì và có thể dẫn đến sự không nhất quán về giao diện.
+Tối ưu hóa: Toàn bộ các khối <style> này (bao gồm cả định nghĩa :root và các kiểu dáng chung cho body, html, header, main, các card, testimonial, FAB, v.v.) cần được chuyển hoàn toàn vào tệp css/styles.css. Điều này sẽ biến styles.css thành một tệp CSS hệ thống thực sự, là nguồn duy nhất cho các kiểu dáng chung.
+Lợi ích: Giảm kích thước file HTML, cải thiện hiệu suất tải trang (trình duyệt chỉ cần tải và phân tích cú pháp một tệp CSS lớn hơn một lần thay vì nhiều khối style inline), dễ dàng bảo trì và đảm bảo tính nhất quán về giao diện trên toàn bộ trang web.
+Tối ưu hóa luồng khởi tạo JavaScript:
+
+Vấn đề: Các tệp HTML vẫn còn các thẻ <script> inline ở cuối <body> để gọi các hàm khởi tạo như window.loadComponentsAndInitialize(), applyLanguage(), loadPosts(), AOS.init(). Điều này có thể dẫn đến việc gọi hàm trùng lặp hoặc gọi hàm trước khi chúng được định nghĩa (gây ra lỗi ReferenceError).
+Tối ưu hóa:
+Loại bỏ tất cả các khối <script> inline ở cuối <body> của index.html, contact.html, about.html.
+Tất cả logic khởi tạo riêng của từng trang (ví dụ: AOS.init(), applyLanguage(), loadPosts(), initializeFabButtons(), setupTabs() nếu có) nên được di chuyển vào hàm window.onPageComponentsLoadedCallback trong tệp js/loadComponents.js.
+js/loadComponents.js đã được thiết kế để gọi window.onPageComponentsLoadedCallback sau khi tất cả các thành phần chung (header, footer, FAB) đã được tải và khởi tạo. Điều này đảm bảo rằng mọi hàm đều sẵn sàng khi được gọi.
+Đảm bảo language.js, script.js, posts-loader.js (nếu có) được tải trước loadComponents.js trong HTML.
+Lợi ích: Tránh lỗi ReferenceError, quản lý tập trung luồng khởi tạo trang, cải thiện hiệu suất bằng cách tránh các lệnh gọi trùng lặp và đảm bảo tài nguyên được tải theo thứ tự hợp lý.
+Tối ưu hóa hình ảnh và video cho Mobile:
+
+Vấn đề: Mặc dù đã có logic thay đổi webbanner.png thành webbannermo.png cho mobile, nhưng việc này vẫn đang được thực hiện thông qua script inline trong index.html và có thể gây ra CLS (Cumulative Layout Shift) hoặc flash of unstyled content.
+Tối ưu hóa: Đối với hình ảnh nền trong hero section, nên sử dụng thuộc tính srcset và thẻ <picture> trong HTML để trình duyệt tự động chọn hình ảnh phù hợp với kích thước màn hình mà không cần JavaScript. Điều này tối ưu hóa việc tải hình ảnh và giảm băng thông.
+Kiểm tra và đồng bộ hóa đường dẫn:
+
+Vấn đề: Một số đường dẫn vẫn còn ivsjsc.github.io hoặc ivs.id.vn.
+Tối ưu hóa: Rà soát lại tất cả các đường dẫn trong href, src và các thuộc tính style="background-image: url(...)" để đảm bảo chúng đều sử dụng https://ivsacademy.edu.vn hoặc đường dẫn tương đối chính xác (ví dụ: /images/logo/logo.png).
+Gợi ý đề xuất những file nào là file hệ thống để đồng bộ toàn bộ:
+
+Để có một cấu trúc dự án tối ưu và dễ quản lý, các tệp sau đây nên được coi là "file hệ thống" và cần được đồng bộ hóa chặt chẽ trên toàn bộ trang web:
+
+css/styles.css: Tệp CSS toàn cục, chứa tất cả các kiểu dáng chung, biến CSS, responsive breakpoints, và các kiểu dáng cho các thành phần tái sử dụng (header, footer, FAB, cards, v.v.).
+js/loadComponents.js: Tệp JavaScript chính chịu trách nhiệm tải động các thành phần HTML (header, footer, FAB) và khởi tạo các chức năng JavaScript chung cho chúng. Nó cũng là điểm mà các script riêng của từng trang sẽ được gọi thông qua window.onPageComponentsLoadedCallback.
+js/language.js: Tệp JavaScript quản lý toàn bộ hệ thống đa ngôn ngữ.
+js/script.js: Chứa các hàm tiện ích chung (utility functions) hoặc các script không liên quan trực tiếp đến việc tải component hoặc ngôn ngữ.
+js/posts-loader.js: Xử lý việc tải và hiển thị các bài viết/tin tức.
+components/header.html: Cấu trúc HTML của header.
+components/footer.html: Cấu trúc HTML của footer.
+components/fab-container.html: Cấu trúc HTML của Floating Action Buttons.
+Hành động cụ thể tôi sẽ thực hiện:
+
+Tôi sẽ cập nhật các tệp index.html, contact.html, about.html, và loadComponents.js theo các đề xuất tối ưu hóa trên.
+index.html đã tối ưu hóa
+8:55 31 thg 5
+contact.html đã tối ưu hóa
+8:55 31 thg 5
+
+Mở
+about.html đã tối ưu hóa
+8:55 31 thg 5
+
+Mở
+js/loadComponents.js đã tối ưu hóa
+8:55 31 thg 5
+
+Mở
+
+Tối ưu hóa các tệp HTML (index.html, contact.html, about.html):
+
+Loại bỏ CSS inline: Toàn bộ khối <style> trong mỗi tệp HTML đã được xóa. Các kiểu dáng này sẽ được quản lý tập trung trong css/styles.css.
+Loại bỏ script inline: Các khối <script> inline ở cuối <body> của mỗi tệp HTML đã được xóa. Tất cả logic khởi tạo trang sẽ được quản lý bởi js/loadComponents.js thông qua window.onPageComponentsLoadedCallback.
+Cập nhật đường dẫn hình ảnh/video:
+Trong index.html, phần hero video đã được điều chỉnh để sử dụng picture tag cho responsive image fallback, đảm bảo hình ảnh poster phù hợp trên các thiết bị khác nhau.
+Các đường dẫn https://ivsacademy.edu.vn đã được sử dụng nhất quán cho các tài nguyên.
+Trong contact.html, đường dẫn Google Maps iframe đã được cập nhật thành một URL nhúng bản đồ thực tế.
+Đảm bảo main padding: Các lớp pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)] trên thẻ <main> đã được giữ nguyên để đảm bảo nội dung không bị header cố định che khuất.
+Tối ưu hóa js/loadComponents.js:
+
+Quản lý window.onPageComponentsLoadedCallback: Tôi đã đảm bảo rằng window.onPageComponentsLoadedCallback được định nghĩa một cách linh hoạt trong loadComponents.js và chịu trách nhiệm gọi applyLanguage(), loadPosts(), initSocialSharing(), và AOS.init() sau khi các thành phần chung đã tải. Điều này giải quyết các lỗi "not defined" trước đó.
+Khởi tạo AOS tập trung: AOS.init() hiện được gọi trong window.onPageComponentsLoadedCallback của loadComponents.js, đảm bảo nó chỉ chạy một lần và sau khi DOM đã sẵn sàng.
+Lợi ích của việc tối ưu hóa này:
+
+Hiệu suất: Giảm thời gian tải trang do giảm số lượng yêu cầu HTTP (tải CSS và JS tập trung) và tránh các thao tác DOM không cần thiết.
+Dễ bảo trì: Mã nguồn sạch hơn, dễ đọc hơn và dễ dàng cập nhật các kiểu dáng hoặc logic trên toàn bộ trang web từ một nơi duy nhất.
+Tính nhất quán: Đảm bảo giao diện và chức năng hoạt động nhất quán trên mọi trang và mọi thiết bị (desktop, mobile).
+Khắc phục lỗi: Giải quyết các lỗi ReferenceError và các vấn đề liên quan đến thứ tự tải script.
+Với các thay đổi này, trang web của bạn sẽ hoạt động ổn định và hiệu quả hơn rất nhiều. Nếu bạn có bất kỳ câu hỏi nào khác hoặc cần hỗ trợ thêm, IVS luôn sẵn lòng đồng hành.
