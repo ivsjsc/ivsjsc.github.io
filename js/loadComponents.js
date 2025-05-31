@@ -15,6 +15,11 @@ function componentLog(message, type = 'log') {
     }
 }
 
+// Utility to check if device is mobile
+function isMobileDevice() {
+    return window.innerWidth <= 768;
+}
+
 async function loadComponent(componentName, placeholderId, filePath, targetType = 'placeholder') {
     componentLog(`Attempting to load component: ${componentName} from ${filePath}`);
     try {
@@ -64,18 +69,33 @@ async function initializeHeaderInternal() {
         }
         window.componentState.headerElement = headerElement;
 
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', window.debounce(() => {
-            if (!window.componentState.headerElement) return;
+        // Initialize mobile menu close button
+        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const closeBtn = document.querySelector('.mobile-menu-close-btn');
 
-            const st = window.pageYOffset || document.documentElement.scrollTop;
-            if (st > lastScrollTop && st > 100) {
-                window.componentState.headerElement.classList.add('header-hidden');
-            } else {
-                window.componentState.headerElement.classList.remove('header-hidden');
-            }
-            lastScrollTop = st <= 0 ? 0 : st;
-        }, 100));
+        if (closeBtn && mobileMenuPanel && mobileMenuToggle) {
+            closeBtn.addEventListener('click', () => {
+                mobileMenuPanel.classList.remove('active');
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                componentLog('Mobile menu closed via close button');
+            });
+        }
+
+        // Scroll handling optimized for mobile
+        if (!isMobileDevice()) {
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', window.debounce(() => {
+                if (!window.componentState.headerElement) return;
+                const st = window.pageYOffset || document.documentElement.scrollTop;
+                if (st > lastScrollTop && st > 100) {
+                    window.componentState.headerElement.classList.add('header-hidden');
+                } else {
+                    window.componentState.headerElement.classList.remove('header-hidden');
+                }
+                lastScrollTop = st <= 0 ? 0 : st;
+            }, 150), { passive: true });
+        }
 
         window.componentState.headerInitialized = true;
         componentLog('Header initialized successfully');
@@ -221,30 +241,28 @@ function initializeFabButtonsInternal() {
                 label: 'Copy link',
                 icon: 'fas fa-link text-gray-500',
                 action: () => {
-                    // Create a temporary input element to hold the URL
                     const tempInput = document.createElement('input');
                     tempInput.value = window.location.href;
                     document.body.appendChild(tempInput);
-                    // Select the text in the input
                     tempInput.select();
-                    tempInput.setSelectionRange(0, 99999); // For mobile devices
-                    // Copy the text to the clipboard
+                    tempInput.setSelectionRange(0, 99999);
                     document.execCommand('copy');
-                    // Remove the temporary input
                     document.body.removeChild(tempInput);
-                    // Optionally, provide user feedback (e.g., a temporary message)
-                    console.log('Link copied to clipboard!');
+                    componentLog('Link copied to clipboard!');
                 }
             },
         ];
-
 
         const contactSubmenuItems = [
             { label: 'Hotline 1', icon: 'fas fa-phone-alt text-green-500', action: 'tel:+84896920547' },
             { label: 'Hotline 2', icon: 'fas fa-phone-alt text-green-500', action: 'tel:+84795555789' },
             { label: 'Messenger (IVS Academy)', icon: 'fab fa-facebook-messenger text-blue-500', action: 'https://m.me/hr.ivsacademy' },
             { label: 'Messenger (IVS JSC)', icon: 'fab fa-facebook-messenger text-blue-500', action: 'https://m.me/ivsmastery' },
-            { label: 'Zalo OA', iconSvg: '<svg class="w-5 h-5 mr-2" viewBox="0 0 50 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 4C6.2504839 4 4 6.2504839 4 9v32c0 2.749516 2.2504839 5 5 5h32c2.749516 0 5-2.250484 5-5V9c0-2.749516-2.250484-5-5-5H9z"/></svg>', action: 'https://zalo.me/ivsjsc' },
+            { 
+                label: 'Zalo OA', 
+                iconSvg: '<svg class="w-4 h-4 mr-2" viewBox="0 0 50 50" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 4C6.2504839 4 4 6.2504839 4 9v32c0 2.749516 2.2504839 5 5 5h32c2.749516 0 5-2.250484 5-5V9c0-2.749516-2.250484-5-5-5H9z"/></svg>', 
+                action: 'https://zalo.me/ivsjsc' 
+            },
             { label: 'WhatsApp', icon: 'fab fa-whatsapp text-green-600', action: 'https://wa.me/84795555789' }
         ];
 
@@ -253,21 +271,19 @@ function initializeFabButtonsInternal() {
             submenuElement.innerHTML = '';
             items.forEach(item => {
                 const link = document.createElement('a');
-                link.className = 'flex items-center px-3 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md w-full text-left';
-                let iconHtml = item.icon ? `<i class="${item.icon} w-5 h-5 mr-2"></i>` : (item.iconSvg || '');
-                link.innerHTML = `${iconHtml} ${item.label}`;
+                link.className = 'flex items-center px-2 py-1.5 text-sm text-gray-900 dark:text-gray-100 hover:bg-ivs-orange-500 hover:text-white rounded-md w-full text-left';
+                let iconHtml = item.icon ? `<i class="${item.icon} w-4 h-4 mr-2"></i>` : (item.iconSvg || '');
+                link.innerHTML = `${iconHtml}${item.label}`;
 
                 if (typeof item.action === 'function') {
                     link.addEventListener('click', (e) => {
-                        e.preventDefault(); // Prevent default navigation for function actions
+                        e.preventDefault();
                         item.action();
-                        // Optionally close the menu after action
                         const parentMenu = link.closest('.relative > div');
                         const parentBtn = parentMenu.previousElementSibling;
                         if (parentMenu) parentMenu.classList.add('fab-hidden');
                         if (parentBtn) parentBtn.setAttribute('aria-expanded', 'false');
                     });
-                    // For function actions, set href to '#' to make it clickable without navigating
                     link.href = '#';
                 } else {
                     link.href = item.action;
@@ -308,7 +324,7 @@ function initializeFabButtonsInternal() {
             });
 
             const handleScroll = window.debounce(() => {
-                if (fabElements.scrollToTopBtn) {
+                if (fabElements.scrollToTopBtn && !isMobileDevice()) {
                     fabElements.scrollToTopBtn.classList.toggle('fab-hidden', window.pageYOffset <= 100);
                     fabElements.scrollToTopBtn.classList.toggle('flex', window.pageYOffset > 100);
                 }
@@ -375,25 +391,21 @@ window.loadComponentsAndInitialize = async function() {
         await initializeFooterInternal();
 
         const fabContainerHtml = `
-        <div id="fab-container" class="fixed bottom-5 right-5 z-[999] flex flex-col items-end space-y-3">
-            <button id="scroll-to-top-btn" title="Lên đầu trang" aria-label="Lên đầu trang"
-                class="fab-hidden items-center justify-center w-12 h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-full shadow-lg transition-opacity duration-300">
-                <i class="fas fa-arrow-up"></i>
-            </button>
+        <div id="fab-container" class="fixed bottom-4 right-4 z-[999] flex flex-col items-end space-y-2">
             <div class="relative">
                 <button id="contact-main-btn" title="Liên hệ" aria-label="Mở menu liên hệ" aria-haspopup="true" aria-expanded="false"
-                    class="flex items-center justify-center w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg">
-                    <i class="fas fa-comment-dots"></i>
+                    class="flex items-center justify-center w-12 h-12 bg-ivs-orange-500 hover:bg-ivs-orange-600 text-white rounded-full shadow-md">
+                    <i class="fas fa-comment-dots text-base"></i>
                 </button>
-                <div id="contact-options" class="fab-hidden absolute bottom-full right-0 mb-2 w-auto min-w-max p-2 bg-white dark:bg-gray-800 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col items-start space-y-1">
+                <div id="contact-options" class="fab-hidden absolute bottom-full right-0 mb-2 w-44 p-1.5 bg-white dark:bg-neutral-800 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col space-y-1">
                 </div>
             </div>
             <div class="relative">
                 <button id="share-main-btn" title="Chia sẻ" aria-label="Mở menu chia sẻ" aria-haspopup="true" aria-expanded="false"
-                    class="flex items-center justify-center w-12 h-12 bg-blue-500 hover:bg-blue-600 text-white rounded-full shadow-lg">
-                    <i class="fas fa-share-alt"></i>
+                    class="flex items-center justify-center w-12 h-12 bg-ivs-orange-500 hover:bg-ivs-orange-600 text-white rounded-full shadow-md">
+                    <i class="fas fa-share-alt text-base"></i>
                 </button>
-                <div id="share-options" class="fab-hidden absolute bottom-full right-0 mb-2 w-auto min-w-max p-2 bg-white dark:bg-gray-800 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col items-start space-y-1">
+                <div id="share-options" class="fab-hidden absolute bottom-full right-0 mb-2 w-44 p-1.5 bg-white dark:bg-neutral-800 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col space-y-1">
                 </div>
             </div>
         </div>`;
@@ -439,8 +451,8 @@ window.loadComponentsAndInitialize = async function() {
 
             if (typeof AOS !== 'undefined' && AOS.init) {
                 AOS.init({
-                    offset: 100,
-                    duration: 700,
+                    offset: isMobileDevice() ? 50 : 100, // Giảm offset trên mobile
+                    duration: isMobileDevice() ? 500 : 700, // Giảm thời gian hiệu ứng
                     easing: 'ease-out-quad',
                     once: true,
                     mirror: false,
@@ -455,7 +467,6 @@ window.loadComponentsAndInitialize = async function() {
         if (document.readyState !== 'loading') {
             await window.onPageComponentsLoadedCallback();
         }
-
 
     } catch (error) {
         componentLog(`Error in component initialization sequence: ${error.message}`, 'error');
