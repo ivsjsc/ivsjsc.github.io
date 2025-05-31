@@ -15,38 +15,7 @@
     <main class="flex-grow">
         <section class="bg-primary text-white py-16 md:py-24 text-center shadow-lg relative overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/images/banners/education_hero.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/004080/ffffff?text=IVS+Education)'; this.classList.add('bg-slate-700');"></div>
-            <div class="hero-section-banner relative text-center overflow-hidden shadow-xl bg-gray-700 dark:bg-gray-800"> 
-            <div class="hero-video-container">
-                <video autoplay loop muted playsinline id="hero-background-video" 
-                       poster="/images/logo/webbanner.png" 
-                       onerror="this.style.display='none'; this.parentElement.style.backgroundImage='url(/images/logo/webbanner.png)'; this.parentElement.classList.add('bg-cover', 'bg-center');">
-                    <source src="/videos/ivs_background_video.mp4" type="video/mp4">
-                    Trình duyệt của bạn không hỗ trợ thẻ video.
-                </video>
-                <script>
-                    // Script to handle responsive video poster and fallback for hero section
-                    (function() {
-                        const videoElement = document.getElementById('hero-background-video');
-                        if (videoElement) {
-                            let posterPath = '/images/logo/webbanner.png'; // Default desktop poster
-                            if (window.innerWidth < 768) {
-                                posterPath = '/images/logo/webbannermo.png'; // Mobile poster
-                            }
-                            videoElement.poster = posterPath;
-
-                            // Fallback if poster image fails to load
-                            const imgPosterTest = new Image();
-                            imgPosterTest.onerror = function() {
-                                console.warn(`Không thể tải poster video từ ${posterPath}. Đang sử dụng fallback chung.`);
-                                // If poster fails, try to use the video itself as a poster if possible, or a generic placeholder
-                                videoElement.poster = 'https://placehold.co/1920x500/374151/ffffff?text=Hero+Video+Fallback';
-                            };
-                            imgPosterTest.src = posterPath;
-                        }
-                    })();
-                </script>
-            </div>
-            <div class="hero-overlay"></div>
+            <div class="hero-section-banner relative text-center overflow-hidden shadow-xl bg-gray-700 dark:bg-gray-800">  
             <div class="hero-content text-white">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 hero-text-shadow" data-lang-key="hero_title_index_main">IVS JSC</h1>
                 <p class="text-md md:text-lg mb-8 hero-text-shadow italic" data-lang-key="hero_slogan_index">"Nâng tầm Tri thức - Kiến tạo Tương lai"</p>
