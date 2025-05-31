@@ -8,7 +8,7 @@ const utils = {
         }
     },
     isMobile: () => window.innerWidth <= 768,
-    debounce: (func, wait, immediate) => { // Giữ nguyên debounce của bạn },
+    debounce: (func, wait, immediate) => {
         let timeout;
         return function executedFunction() {
             const context = this;
@@ -70,17 +70,9 @@ const headerModule = {
             for (const key in elements) {
                 if (!elements[key]) {
                     utils.log(`Mobile menu element #${key} not found`, 'warn');
-                    return; // Hoặc throw error nếu cần
+                    return;
                 }
             }
-
-            // Initial state setup (chuyển vào CSS)
-            // elements.openIcon.classList.remove('hidden');
-            // elements.closeIcon.classList.add('hidden');
-            // elements.panel.classList.add('hidden');
-            // elements.backdrop.classList.add('hidden');
-            // elements.container.style.transition = 'transform 0.3s ease-in-out';
-            // elements.container.style.transform = 'translateX(100%)';
 
             const openMenu = () => {
                 elements.panel.classList.remove('hidden');
@@ -334,7 +326,7 @@ const fabModule = {
                     btn.addEventListener('click', (e) => {
                         e.stopPropagation();
                         const isHidden = menu.classList.contains('hidden');
-                        utils.$$('.fab-options-menu', fabContainer).forEach(m => {
+                        utils.$$('.fab-options-menu:not(.hidden)', fabContainer).forEach(m => {
                             if (m !== menu) {
                                 m.classList.add('hidden');
                                 const prevBtn = m.previousElementSibling;
