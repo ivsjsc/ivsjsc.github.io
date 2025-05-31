@@ -217,6 +217,7 @@ function initializeFabButtonsInternal() {
             { label: 'Facebook', icon: 'fab fa-facebook-f text-blue-600', action: () => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}` },
             { label: 'Twitter', icon: 'fab fa-twitter text-blue-400', action: () => `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(document.title)}` },
             { label: 'LinkedIn', icon: 'fab fa-linkedin-in text-blue-700', action: () => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}` },
+            { label: 'Copy link', icon: 'fas fa-link text-gray-500', action: () => navigator.clipboard.writeText(window.location.href) },
         ];
 
         const contactSubmenuItems = [
