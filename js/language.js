@@ -3,7 +3,7 @@ window.langSystem = window.langSystem || {
     translations: {},
     defaultLanguage: 'vi',
     languageStorageKey: 'userPreferredLanguage',
-    isDebugMode: false, // Đặt thành true để bật console logs cho debug
+    isDebugMode: false, 
     currentLanguage: null,
     initialized: false
 };
@@ -27,7 +27,6 @@ async function fetchTranslations(lang) {
         return;
     }
     try {
-        // Sử dụng đường dẫn tuyệt đối để đảm bảo tải đúng file JSON
         const response = await fetch(`${window.location.origin}/lang/${lang}.json`);
         if (!response.ok) {
             throw new Error(`Failed to load translations for ${lang}: ${response.statusText}`);
@@ -79,7 +78,6 @@ window.getCurrentLanguage = () => {
     }
 };
 
-// Alias updateLanguage to setLanguage for backwards compatibility
 window.updateLanguage = window.setLanguage;
 
 const handleLanguageButtonClick = async (event) => {
@@ -103,12 +101,9 @@ window.initializeLanguageButtons = () => {
     }
 
     langButtons.forEach(button => {
-        // Xóa lắng nghe sự kiện cũ để tránh trùng lặp
         button.removeEventListener('click', handleLanguageButtonClick);
-        // Thêm lắng nghe sự kiện mới
         button.addEventListener('click', handleLanguageButtonClick);
 
-        // Đặt trạng thái active ban đầu
         if (button.dataset.lang === currentActiveLang) {
             button.classList.add('active-lang');
             button.setAttribute('aria-pressed', 'true');
@@ -120,7 +115,6 @@ window.initializeLanguageButtons = () => {
     logDebug(`Click events attached and active state set for ${langButtons.length} language buttons.`);
 };
 
-// Expose initializeLanguageSystem to the global window object
 window.initializeLanguageSystem = async function() {
     if (window.langSystem.initialized) {
         logDebug("Language system already initialized.");
@@ -131,21 +125,20 @@ window.initializeLanguageSystem = async function() {
     const userPreferredLanguage = window.getCurrentLanguage();
     await fetchTranslations(userPreferredLanguage);
     window.applyTranslations();
-    window.initializeLanguageButtons(); // Khởi tạo nút ngôn ngữ sau khi bản dịch được áp dụng
+    window.initializeLanguageButtons(); 
     
     window.langSystem.initialized = true;
     window.langSystem.currentLanguage = userPreferredLanguage;
     logDebug(`Language system initialized with language: ${userPreferredLanguage}.`);
 };
 
-// Thêm hàm setLanguage vào đối tượng window
 window.setLanguage = async (lang) => {
     logDebug(`Setting language to: ${lang}`);
     localStorage.setItem(window.langSystem.languageStorageKey, lang);
-    window.langSystem.currentLanguage = lang; // Cập nhật ngôn ngữ hiện tại trong hệ thống
+    window.langSystem.currentLanguage = lang; 
     await fetchTranslations(lang);
     window.applyTranslations();
     if (window.initializeLanguageButtons) {
-        window.initializeLanguageButtons(); // Cập nhật trạng thái active của các nút
+        window.initializeLanguageButtons(); 
     }
 };

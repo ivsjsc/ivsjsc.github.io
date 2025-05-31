@@ -72,3 +72,53 @@ Dễ bảo trì: Mã nguồn sạch hơn, dễ đọc hơn và dễ dàng cập 
 Tính nhất quán: Đảm bảo giao diện và chức năng hoạt động nhất quán trên mọi trang và mọi thiết bị (desktop, mobile).
 Khắc phục lỗi: Giải quyết các lỗi ReferenceError và các vấn đề liên quan đến thứ tự tải script.
 Với các thay đổi này, trang web của bạn sẽ hoạt động ổn định và hiệu quả hơn rất nhiều. Nếu bạn có bất kỳ câu hỏi nào khác hoặc cần hỗ trợ thêm, IVS luôn sẵn lòng đồng hành.
+
+1. Header (Desktop & Mobile):
+
+Độ cao Header:
+
+styles.css định nghĩa --header-height: 4rem; cho desktop và --header-height-mobile: 3.5rem; cho mobile. Điều này giúp đẩy nội dung chính xuống dưới header cố định.
+Đề xuất: Các giá trị này có vẻ hợp lý. Cần đảm bảo rằng padding-top của main và scroll-padding-top của html luôn khớp với chiều cao header tương ứng trên từng thiết bị để tránh nội dung bị che khuất khi cuộn hoặc nhảy đến anchor. Hiện tại, main và html đã được cập nhật để sử dụng các biến này, điều này rất tốt.
+Hiệu ứng Header ẩn/hiện khi cuộn:
+
+loadComponents.js có logic để ẩn header khi cuộn xuống và hiện lại khi cuộn lên (header-hidden class).
+Đề xuất: Logic này đã được triển khai tốt trong loadComponents.js. Đảm bảo rằng hiệu ứng chuyển động mượt mà và không gây giật lag trên các thiết bị di động cũ hơn.
+Mega Menu & Dropdown Menu (Desktop):
+
+Sử dụng opacity và visibility kết hợp transition-delay cho hiệu ứng ẩn/hiện, điều này tốt cho hiệu suất.
+Đề xuất:
+Khả năng truy cập (Accessibility): aria-labelledby và aria-controls đã được sử dụng, đây là thực hành tốt. Cần đảm bảo rằng khi menu con mở ra, focus của bàn phím có thể di chuyển vào các mục menu con và khi đóng, focus quay lại nút cha. (Đã thấy logic này được xử lý trong header.html script cho các nút dropdown).
+Trải nghiệm người dùng: Đảm bảo rằng khu vực click để mở menu đủ lớn và không quá nhạy để tránh mở/đóng ngoài ý muốn.
+2. Mobile Menu Panel (#mobile-menu-panel):
+
+Hoạt động: Menu trượt từ phải sang, có backdrop làm mờ nội dung phía sau, và nút hamburger chuyển đổi thành nút đóng (X).
+Đề xuất:
+Trải nghiệm người dùng: Khi menu mobile mở, document.body.style.overflow = 'hidden'; được sử dụng để ngăn cuộn nền. Điều này tốt.
+Submenu trong Mobile Menu: Các submenu (mobile-submenu-content) có hiệu ứng max-height và opacity chuyển đổi, điều này tốt cho sự mượt mà. Đảm bảo max-height: 500px; là đủ lớn cho tất cả các submenu, hoặc có thể tính toán scrollHeight động để chính xác hơn. (Đã thấy content.scrollHeight + 'px' được sử dụng trong script của header.html, điều này là tối ưu).
+3. Thanh Điều hướng dưới cùng (Bottom Navigation Bar - Mobile Only):
+
+Tính năng: Thanh điều hướng cố định ở cuối màn hình mobile với các icon và text (bottom-nav-item).
+Đề xuất:
+Tính năng: Đây là một tính năng tuyệt vời cho mobile, giúp người dùng dễ dàng truy cập các trang chính.
+Khả năng truy cập: aria-label đã được thêm vào các mục điều hướng, rất tốt.
+Icon: Các icon (fas fa-home, fas fa-tools, v.v.) rõ ràng và dễ hiểu.
+Trạng thái Active: Hiệu ứng transform: scale(1.1); và chấm tròn màu xanh dưới icon khi active (::after) giúp người dùng nhận biết vị trí hiện tại.
+Z-index: z-index: 50; cho bottom nav, và z-index: 9999; cho header, z-index: 999; cho FAB. Đảm bảo thứ tự hiển thị này là hợp lý. Bottom nav nên nằm dưới header nhưng trên nội dung chính.
+4. Nút FAB (Floating Action Buttons):
+
+Vị trí & Chức năng: Các nút cuộn lên đầu trang, liên hệ nhanh và chia sẻ được đặt cố định ở góc dưới bên phải.
+Đề xuất:
+Tối ưu trên Mobile: Các nút này rất hữu ích trên mobile vì chúng luôn khả dụng. Kích thước nút (w-12 h-12, w-14 h-14) và khoảng cách (space-y-3) có vẻ phù hợp cho việc chạm.
+Submenu của FAB: Các submenu (contact-options, share-options) trượt lên từ nút chính.
+Nội dung Submenu:
+fab-container.html chỉ định nghĩa cấu trúc HTML cơ bản.
+loadComponents.js (trong hàm initializeFabButtonsInternal) đang tự động tạo nội dung cho các submenu này (populateSubmenu). Điều này rất linh hoạt.
+Đề xuất: Đảm bảo rằng tất cả các tùy chọn liên hệ và chia sẻ đều có thể truy cập được và hoạt động đúng.
+Khả năng truy cập: aria-label, aria-haspopup, aria-expanded đã được sử dụng, rất tốt cho khả năng truy cập.
+Z-index: z-index: 999; cho FAB container là hợp lý để đảm bảo chúng luôn nằm trên nội dung trang.
+III. Khả năng truy cập (Accessibility) và Tối ưu chung
+Semantic HTML: Việc sử dụng các thẻ HTML ngữ nghĩa như <header>, <nav>, <a>, <button>, <ul>, <li> là rất tốt.
+ARIA Attributes: Việc sử dụng aria-label, aria-haspopup, aria-expanded, aria-controls, aria-pressed cho các nút và menu là một điểm cộng lớn, giúp người dùng sử dụng công nghệ hỗ trợ (như trình đọc màn hình) có trải nghiệm tốt hơn.
+Responsive Design: Các lớp Tailwind CSS (md:hidden, sm:px-3, lg:px-4, v.v.) được sử dụng rộng rãi để đảm bảo giao diện thích ứng trên các kích thước màn hình khác nhau.
+Font: styles.css chỉ định font-family: 'Inter', sans-serif;, đây là một lựa chọn hiện đại và dễ đọc.
+Màu sắc và Độ tương phản: Các biến CSS (--ivs-primary, --ivs-secondary, --ivs-neutral-800, v.v.) được sử dụng để quản lý màu sắc, đảm bảo sự nhất quán. Cần kiểm tra độ tương phản giữa màu chữ và màu nền để đảm bảo dễ đọc cho tất cả người dùng.

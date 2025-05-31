@@ -89,7 +89,7 @@
                     <span class="sr-only">Open main menu</span>
                     <span class="relative flex items-center justify-center w-8 h-8">
                         <i class="fas fa-bars icon-menu-bar text-2xl" id="icon-menu-open"></i>
-                        <i class="fas fa-times icon-menu-close-bar text-2xl" id="icon-menu-close"></i>
+                        <i class="fas fa-times icon-menu-close-bar text-2xl hidden" id="icon-menu-close"></i>
                     </span>
                 </button>
             </div>
@@ -184,30 +184,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const iconClose = document.getElementById('icon-menu-close');
 
     if (mobileMenuButton && mobileMenuPanel && mobileMenuContainer && iconOpen && iconClose && mobileMenuBackdrop) {
-        iconClose.style.display = 'none';
-        mobileMenuContainer.style.transition = 'transform 0.3s ease-in-out';
-        mobileMenuContainer.style.transform = 'translateX(100%)';
+        // Ensure close icon is hidden initially
+        iconClose.classList.add('hidden');
 
         const openMenu = () => {
             mobileMenuPanel.classList.remove('hidden');
             setTimeout(() => {
-                 mobileMenuContainer.style.transform = 'translateX(0%)';
+                mobileMenuPanel.classList.add('active');
             }, 10); 
 
-            iconOpen.style.display = 'none';
-            iconClose.style.display = 'inline-block';
+            iconOpen.classList.add('hidden');
+            iconClose.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
             mobileMenuButton.setAttribute('aria-expanded', 'true');
         };
 
         const closeMenu = () => {
-            mobileMenuContainer.style.transform = 'translateX(100%)';
+            mobileMenuPanel.classList.remove('active');
             setTimeout(() => {
                 mobileMenuPanel.classList.add('hidden');
-            }, 300);
+            }, 300); // Match transition duration
 
-            iconOpen.style.display = 'inline-block';
-            iconClose.style.display = 'none';
+            iconOpen.classList.remove('hidden');
+            iconClose.classList.add('hidden');
             document.body.style.overflow = '';
             mobileMenuButton.setAttribute('aria-expanded', 'false');
         };
@@ -221,6 +220,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         mobileMenuBackdrop.addEventListener('click', closeMenu);
+
+        // Close mobile menu when a link inside it is clicked
+        const mobileNavLinks = mobileMenuContainer.querySelectorAll('a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenuPanel.classList.contains('active')) {
+                    closeMenu(); 
+                }
+            });
+        });
     }
 
     const mobileSubmenuToggles = document.querySelectorAll('.mobile-submenu-toggle');
@@ -233,8 +242,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (content) {
                 if (isExpanded) {
                     content.style.maxHeight = '0px';
+                    content.style.opacity = '0';
                 } else {
                     content.style.maxHeight = content.scrollHeight + 'px';
+                    content.style.opacity = '1';
                 }
             }
             if (icon) {
@@ -253,19 +264,19 @@ document.addEventListener('DOMContentLoaded', () => {
     desktopDropdownButtons.forEach(button => {
         const menu = document.getElementById(button.getAttribute('aria-controls'));
         if (menu) {
-            menu.style.display = 'none';
-            menu.classList.add('opacity-0', 'transition-opacity', 'duration-200', 'ease-in-out');
+            // Initial state: hidden by CSS classes
+            menu.classList.add('opacity-0', 'invisible', 'pointer-events-none');
 
             button.addEventListener('click', (event) => {
                 event.stopPropagation();
                 const isExpanded = button.getAttribute('aria-expanded') === 'true';
 
+                // Close other open dropdowns
                 desktopDropdownButtons.forEach(otherButton => {
                     if (otherButton !== button) {
                         const otherMenu = document.getElementById(otherButton.getAttribute('aria-controls'));
                         if (otherMenu) {
-                            otherMenu.style.display = 'none';
-                            otherMenu.classList.add('opacity-0');
+                            otherMenu.classList.add('opacity-0', 'invisible', 'pointer-events-none');
                             otherButton.setAttribute('aria-expanded', 'false');
                             const otherIcon = otherButton.querySelector('.header-icon-custom');
                             if (otherIcon) otherIcon.classList.remove('rotate-180');
@@ -274,11 +285,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (isExpanded) {
-                    menu.classList.add('opacity-0');
-                    setTimeout(() => menu.style.display = 'none', 200);
+                    menu.classList.add('opacity-0', 'invisible', 'pointer-events-none');
                 } else {
-                    menu.style.display = 'block';
-                    setTimeout(() => menu.classList.remove('opacity-0'), 10);
+                    menu.classList.remove('opacity-0', 'invisible', 'pointer-events-none');
                 }
                 button.setAttribute('aria-expanded', String(!isExpanded));
                 const icon = button.querySelector('.header-icon-custom');
@@ -290,9 +299,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', (event) => {
         desktopDropdownButtons.forEach(button => {
             const menu = document.getElementById(button.getAttribute('aria-controls'));
+            // Check if menu is open and click is outside button and menu
             if (menu && button.getAttribute('aria-expanded') === 'true' && !button.contains(event.target) && !menu.contains(event.target)) {
-                menu.classList.add('opacity-0');
-                setTimeout(() => menu.style.display = 'none', 200);
+                menu.classList.add('opacity-0', 'invisible', 'pointer-events-none');
                 button.setAttribute('aria-expanded', 'false');
                 const icon = button.querySelector('.header-icon-custom');
                 if (icon) icon.classList.remove('rotate-180');
@@ -300,70 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const allLangButtons = document.querySelectorAll('.lang-button');
-    const currentLangKey = 'current_language_ivs_jsc_v2'; 
-
-    function setActiveLangButtonStates(lang) {
-        allLangButtons.forEach(btn => {
-            if (btn.dataset.lang === lang) {
-                btn.setAttribute('aria-pressed', 'true');
-                btn.classList.remove('text-neutral-400');
-                btn.classList.add('text-white', 'bg-neutral-700');
-            } else {
-                btn.setAttribute('aria-pressed', 'false');
-                btn.classList.remove('text-white', 'bg-neutral-700');
-                btn.classList.add('text-neutral-400');
-            }
-        });
-    }
-    
-    const savedLang = localStorage.getItem(currentLangKey) || 'vi';
-    setActiveLangButtonStates(savedLang);
-    if (typeof window.updateLanguageContent === 'function') {
-         window.updateLanguageContent(savedLang, true);
-    }
-
-
-    allLangButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const lang = this.dataset.lang;
-            localStorage.setItem(currentLangKey, lang);
-            setActiveLangButtonStates(lang);
-
-            if (typeof window.updateLanguageContent === 'function') {
-                window.updateLanguageContent(lang);
-            } else {
-                console.warn('window.updateLanguageContent function not found. Page will reload for language change.');
-                location.reload();
-            }
-        });
-    });
-
-    const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
-    const currentPath = window.location.pathname;
-    const activeBottomNavClass = 'text-white'; 
-    const inactiveBottomNavClass = 'text-neutral-400';
-
-    bottomNavItems.forEach(item => {
-        const itemHref = item.getAttribute('href');
-        let isMatch = false;
-        if (currentPath === itemHref || (currentPath === '/' && itemHref === '/index.html') || (currentPath === '' && itemHref === '/index.html') ) {
-            isMatch = true;
-        } else if (itemHref !== '/index.html' && itemHref !== '/' && currentPath.startsWith(itemHref) && itemHref.length > 1) {
-             // Check if currentPath is exactly itemHref or itemHref + trailing slash or itemHref + /index.html
-            if (currentPath === itemHref || currentPath === itemHref + '/' || currentPath === itemHref + '/index.html') {
-                isMatch = true;
-            }
-        }
-
-
-        if (isMatch) {
-            item.classList.add(activeBottomNavClass);
-            item.classList.remove(inactiveBottomNavClass);
-        } else {
-            item.classList.add(inactiveBottomNavClass);
-            item.classList.remove(activeBottomNavClass);
-        }
-    });
+    // Logic for language buttons and bottom navigation is now handled by language.js and loadComponents.js
+    // Removed redundant language button and bottom nav activation logic from here.
 });
 </script>

@@ -64,7 +64,6 @@ async function initializeHeaderInternal() {
         }
         window.componentState.headerElement = headerElement;
         
-        // Initialize header scroll behavior
         let lastScrollTop = 0;
         window.addEventListener('scroll', window.debounce(() => {
             if (!window.componentState.headerElement) return;
@@ -78,58 +77,6 @@ async function initializeHeaderInternal() {
             lastScrollTop = st <= 0 ? 0 : st;
         }, 100));
 
-        // Initialize mobile menu
-        const mobileMenuBtn = headerElement.querySelector('#mobile-menu-button');
-        const mobileMenu = headerElement.querySelector('#mobile-menu-panel');
-        const iconMenuOpen = headerElement.querySelector('#icon-menu-open');
-        const iconMenuClose = headerElement.querySelector('#icon-menu-close');
-
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-                mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
-                mobileMenu.classList.toggle('active');
-                if (iconMenuOpen && iconMenuClose) {
-                    iconMenuOpen.classList.toggle('hidden');
-                    iconMenuClose.classList.toggle('hidden');
-                }
-                document.body.classList.toggle('overflow-hidden');
-            });
-
-            // Close mobile menu when a link inside it is clicked
-            const mobileNavLinks = mobileMenu.querySelectorAll('a');
-            mobileNavLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (mobileMenu.classList.contains('active')) {
-                        mobileMenuBtn.click(); // Simulate click on menu button to close
-                    }
-                });
-            });
-        }
-
-        // Initialize dropdowns
-        const dropdowns = headerElement.querySelectorAll('.group');
-        dropdowns.forEach(dropdown => {
-            const button = dropdown.querySelector('[aria-haspopup="true"]');
-            const menu = dropdown.querySelector('[role="menu"]');
-            if (!button || !menu) return;
-
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                const isExpanded = button.getAttribute('aria-expanded') === 'true';
-                button.setAttribute('aria-expanded', !isExpanded);
-                menu.classList.toggle('hidden');
-            });
-
-            // Close on outside click
-            document.addEventListener('click', (e) => {
-                if (!dropdown.contains(e.target)) {
-                    button.setAttribute('aria-expanded', 'false');
-                    menu.classList.add('hidden');
-                }
-            });
-        });
-
         window.componentState.headerInitialized = true;
         componentLog('Header initialized successfully');
     } catch (error) {
@@ -138,7 +85,6 @@ async function initializeHeaderInternal() {
     }
 }
 
-// Make header initialization available globally
 window.initializeHeader = initializeHeaderInternal;
 
 async function loadHeader() {
@@ -148,7 +94,6 @@ async function loadHeader() {
             throw new Error('Header placeholder not found');
         }
 
-        // Show loading state
         header.setAttribute('aria-busy', 'true');
         
         const success = await loadComponent('Header', 'header-placeholder', '/components/header.html');
@@ -156,7 +101,6 @@ async function loadHeader() {
             throw new Error('Failed to load header component');
         }
 
-        // Initialize header functionality
         await initializeHeaderInternal();
         
         header.setAttribute('aria-busy', 'false');
@@ -187,9 +131,9 @@ function initializeFooterInternal() {
     }
 
     try {
-        const newsletterForm = document.getElementById('newsletterForm'); // Changed from newsletter-form
-        const newsletterMessage = document.getElementById('newsletterMessage'); // Changed from newsletter-message
-        const currentYearSpan = document.getElementById('current-year'); // Changed from currentYearFooter
+        const newsletterForm = document.getElementById('newsletterForm'); 
+        const newsletterMessage = document.getElementById('newsletterMessage'); 
+        const currentYearSpan = document.getElementById('current-year'); 
         
         if (currentYearSpan) {
             currentYearSpan.textContent = new Date().getFullYear();
@@ -286,7 +230,7 @@ function initializeFabButtonsInternal() {
 
         function populateSubmenu(submenuElement, items) {
             if (!submenuElement) return;
-            submenuElement.innerHTML = ''; // Clear existing items
+            submenuElement.innerHTML = ''; 
             items.forEach(item => {
                 const link = document.createElement('a');
                 link.href = typeof item.action === 'function' ? item.action() : item.action;
@@ -323,7 +267,6 @@ function initializeFabButtonsInternal() {
         if (fabElements.contactMainBtn) toggleFabMenu(fabElements.contactMainBtn, fabElements.contactOptions);
         if (fabElements.shareMainBtn) toggleFabMenu(fabElements.shareMainBtn, fabElements.shareOptions);
 
-        // Initialize scroll to top
         if (fabElements.scrollToTopBtn) {
             fabElements.scrollToTopBtn.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -337,10 +280,9 @@ function initializeFabButtonsInternal() {
             }, 150);
 
             window.addEventListener('scroll', handleScroll, { passive: true });
-            handleScroll(); // Initial check
+            handleScroll(); 
         }
 
-        // Close menus on outside click
         document.addEventListener('click', (e) => {
             const openMenus = fabContainer.querySelectorAll('.relative > div:not(.fab-hidden)');
             openMenus.forEach(menu => {
@@ -352,7 +294,6 @@ function initializeFabButtonsInternal() {
             });
         });
 
-        // Close menus on Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 const openMenus = fabContainer.querySelectorAll('.relative > div:not(.fab-hidden)');
@@ -375,7 +316,6 @@ function initializeFabButtonsInternal() {
     }
 }
 
-// Load and initialize all components in proper sequence
 window.loadComponentsAndInitialize = async function() {
     if (window.componentState.componentsLoadedAndInitialized) {
         componentLog('Components already loaded and initialized. Skipping.', 'warn');
@@ -385,25 +325,20 @@ window.loadComponentsAndInitialize = async function() {
     try {
         componentLog('Starting component initialization sequence...');
 
-        // Load header first
         const headerLoaded = await loadComponent('Header', 'header-placeholder', '/components/header.html', 'placeholder');
         if (!headerLoaded) {
             throw new Error('Failed to load header component');
         }
 
-        // Initialize header functionality
         await initializeHeaderInternal();
 
-        // Load footer
         const footerLoaded = await loadComponent('Footer', 'footer-placeholder', '/components/footer.html', 'placeholder');
         if (!footerLoaded) {
             throw new Error('Failed to load footer component');
         }
 
-        // Initialize footer functionality
         await initializeFooterInternal();
 
-        // Add FAB container dynamically if needed
         const fabContainerHtml = `
         <div id="fab-container" class="fixed bottom-5 right-5 z-[999] flex flex-col items-end space-y-3">
             <button id="scroll-to-top-btn" title="Lên đầu trang" aria-label="Lên đầu trang"
@@ -412,15 +347,15 @@ window.loadComponentsAndInitialize = async function() {
             </button>
             <div class="relative">
                 <button id="contact-main-btn" title="Liên hệ" aria-label="Mở menu liên hệ" aria-haspopup="true" aria-expanded="false"
-                    class="flex items-center justify-center w-12 h-12 bg-primary hover:bg-primary-dark text-white rounded-full shadow-lg">
-                    <i class="fas fa-phone"></i>
+                    class="flex items-center justify-center w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg">
+                    <i class="fas fa-comment-dots"></i>
                 </button>
                 <div id="contact-options" class="fab-hidden absolute bottom-full right-0 mb-2 w-auto min-w-max p-2 bg-white dark:bg-gray-800 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col items-start space-y-1">
                 </div>
             </div>
             <div class="relative">
                 <button id="share-main-btn" title="Chia sẻ" aria-label="Mở menu chia sẻ" aria-haspopup="true" aria-expanded="false"
-                    class="flex items-center justify-center w-12 h-12 bg-secondary hover:bg-secondary-dark text-white rounded-full shadow-lg">
+                    class="flex items-center justify-center w-12 h-12 bg-blue-500 hover:bg-blue-600 text-white rounded-full shadow-lg">
                     <i class="fas fa-share-alt"></i>
                 </button>
                 <div id="share-options" class="fab-hidden absolute bottom-full right-0 mb-2 w-auto min-w-max p-2 bg-white dark:bg-gray-800 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col items-start space-y-1">
@@ -433,10 +368,8 @@ window.loadComponentsAndInitialize = async function() {
             componentLog('FAB container HTML structure injected into body');
         }
 
-        // Initialize FAB buttons
         await initializeFabButtonsInternal();
 
-        // Initialize language system if available
         if (typeof window.initializeLanguageSystem === 'function') { 
             try {
                 await window.initializeLanguageSystem(); 
@@ -451,29 +384,24 @@ window.loadComponentsAndInitialize = async function() {
         window.componentState.componentsLoadedAndInitialized = true;
         componentLog('All components loaded and initialized successfully');
 
-        // Run any page-specific initialization callback
         window.onPageComponentsLoadedCallback = async () => {
             componentLog('Executing page-specific initialization callback');
-            // Ensure applyLanguage is called here after language system is initialized
             if (typeof applyLanguage === 'function') {
                 applyLanguage();
             } else {
                 componentLog('applyLanguage function not found in global scope.', 'error');
             }
-            // Assuming loadPosts is also page-specific and needs to run after components
             if (typeof loadPosts === 'function') {
                 loadPosts();
             } else {
-                componentLog('loadPosts function not found in global scope.', 'error');
+                componentLog('loadPosts function not found in global scope.', 'warn');
             }
-            // Initialize social sharing if it's exposed globally by script.js or other
             if (typeof window.initSocialSharing === 'function') {
                 window.initSocialSharing();
             } else {
                 componentLog("window.initSocialSharing is not defined. Social sharing might not work.", 'warn');
             }
 
-            // Initialize AOS after all components and page-specific scripts are loaded
             if (typeof AOS !== 'undefined' && AOS.init) {
                 AOS.init({
                     offset: 100,
@@ -489,7 +417,6 @@ window.loadComponentsAndInitialize = async function() {
             }
         };
 
-        // Execute the page-specific callback if DOM is already loaded
         if (document.readyState !== 'loading') {
             await window.onPageComponentsLoadedCallback();
         }
@@ -502,7 +429,6 @@ window.loadComponentsAndInitialize = async function() {
     }
 };
 
-// Auto-initialize components when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', window.loadComponentsAndInitialize);
 } else {
