@@ -253,12 +253,27 @@ function initializeFabButtonsInternal() {
             submenuElement.innerHTML = '';
             items.forEach(item => {
                 const link = document.createElement('a');
-                link.href = typeof item.action === 'function' ? item.action() : item.action;
-                link.target = '_blank';
-                link.rel = 'noopener noreferrer';
                 link.className = 'flex items-center px-3 py-2 text-sm text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md w-full text-left';
                 let iconHtml = item.icon ? `<i class="${item.icon} w-5 h-5 mr-2"></i>` : (item.iconSvg || '');
                 link.innerHTML = `${iconHtml} ${item.label}`;
+
+                if (typeof item.action === 'function') {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault(); // Prevent default navigation for function actions
+                        item.action();
+                        // Optionally close the menu after action
+                        const parentMenu = link.closest('.relative > div');
+                        const parentBtn = parentMenu.previousElementSibling;
+                        if (parentMenu) parentMenu.classList.add('fab-hidden');
+                        if (parentBtn) parentBtn.setAttribute('aria-expanded', 'false');
+                    });
+                    // For function actions, set href to '#' to make it clickable without navigating
+                    link.href = '#';
+                } else {
+                    link.href = item.action;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                }
                 submenuElement.appendChild(link);
             });
         }
