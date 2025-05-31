@@ -442,10 +442,27 @@ window.loadComponentsAndInitialize = async function() {
         componentLog('All components loaded and initialized successfully');
 
         // Run any page-specific initialization callback
-        if (typeof window.onPageComponentsLoadedCallback === 'function') {
+        window.onPageComponentsLoadedCallback = async () => {
             componentLog('Executing page-specific initialization callback');
+            // Ensure applyLanguage is called here after language system is initialized
+            if (typeof applyLanguage === 'function') {
+                applyLanguage();
+            } else {
+                componentLog('applyLanguage function not found in global scope.', 'error');
+            }
+            // Assuming loadPosts is also page-specific and needs to run after components
+            if (typeof loadPosts === 'function') {
+                loadPosts();
+            } else {
+                componentLog('loadPosts function not found in global scope.', 'error');
+            }
+        };
+
+        // Execute the page-specific callback if DOM is already loaded
+        if (document.readyState !== 'loading') {
             await window.onPageComponentsLoadedCallback();
         }
+
 
     } catch (error) {
         componentLog(`Error in component initialization sequence: ${error.message}`, 'error');
