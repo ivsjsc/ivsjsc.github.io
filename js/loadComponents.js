@@ -482,3 +482,26 @@ if (document.readyState === 'loading') {
         window.loadComponentsAndInitialize();
     }
 }
+        const fabContainerHtml = `
+        <div id="fab-container" class="fixed bottom-5 right-5 z-[999] flex flex-col items-end space-y-3">
+            <button id="scroll-to-top-btn" title="Lên đầu trang" aria-label="Lên đầu trang"
+                class="fab-hidden items-center justify-center w-12 h-12 bg-orange-500 hover:bg-orange-600 text-white rounded-full shadow-lg transition-opacity duration-300">
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            <div class="relative">
+                <button id="contact-main-btn" title="Liên hệ" aria-label="Mở menu liên hệ" aria-haspopup="true" aria-expanded="false"
+                    class="flex items-center justify-center w-12 h-12 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg">
+                    <i class="fas fa-comment-dots"></i>
+                </button>
+                <div id="contact-options" class="fab-hidden absolute bottom-full right-0 mb-2 w-auto min-w-max p-2 bg-white dark:bg-gray-800 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col items-start space-y-1">
+                </div>
+            </div>
+            <div class="relative">
+                <button id="share-main-btn" title="Chia sẻ" aria-label="Mở menu chia sẻ" aria-haspopup="true" aria-expanded="false"
+                    class="flex items-center justify-center w-12 h-12 bg-blue-500 hover:bg-blue-600 text-white rounded-full shadow-lg">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+                <div id="share-options" class="fab-hidden absolute bottom-full right-0 mb-2 w-auto min-w-max p-2 bg-white dark:bg-gray-800 rounded-md shadow-xl border border-gray-200 dark:border-gray-700 flex flex-col items-start space-y-1">
+                </div>
+            </div>
+        </div>`;
