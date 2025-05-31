@@ -18,7 +18,7 @@
                             class="hover:text-amber-500 transition-colors duration-300 font-medium flex items-center px-3 py-2.5 rounded header-nav-text-custom" data-lang-key="nav_services">
                         Dịch Vụ <i class="fas fa-chevron-down header-icon-custom transform transition-transform duration-200 group-hover:rotate-180" aria-hidden="true"></i>
                     </button>
-                    <div id="services-mega-menu" class="mega-menu absolute top-full bg-neutral-800 text-neutral-200 py-2 rounded-md shadow-lg z-20 min-w-[500px] origin-top-left opacity-0 invisible pointer-events-none transition-opacity duration-300" aria-labelledby="nav-services-button">
+                    <div id="services-mega-menu" class="mega-menu absolute top-full bg-neutral-800 text-neutral-200 py-2 rounded-md shadow-lg z-20 min-w-[500px] origin-top-left opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto transition-opacity duration-300" aria-labelledby="nav-services-button">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 p-4">
                             <div>
                                 <h3 class="text-base font-semibold mb-3 text-amber-400" data-lang-key="nav_services_legal_consulting_main_title">Tư vấn Pháp lý Chuyên sâu</h3>
@@ -97,7 +97,6 @@
                     <button data-lang="vi" class="lang-button px-2.5 py-1.5 text-sm font-semibold focus:outline-none rounded-l text-white bg-neutral-700 hover:bg-neutral-600" data-lang-key="lang_vi_short" aria-pressed="true">VI</button>
                     <button data-lang="en" class="lang-button px-2.5 py-1.5 text-sm font-semibold focus:outline-none rounded-r border-l border-neutral-700 bg-transparent text-neutral-400 hover:bg-neutral-600 hover:text-white" data-lang-key="lang_en_short" aria-pressed="false">EN</button>
                 </div>
-
                 <button type="button" id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu-panel" class="text-white focus:outline-none w-12 h-12 flex items-center justify-center rounded-md hover:bg-neutral-700" aria-label="Mở menu di động" data-lang-key="aria_label_open_mobile_menu">
                     <span class="relative flex items-center justify-center w-6 h-6">
                         <i class="fas fa-bars icon-menu-open text-2xl" id="icon-menu-open"></i>
@@ -108,7 +107,7 @@
         </div>
     </div>
 
-    <div id="mobile-menu-panel" class="md:hidden fixed w-full h-full z-[60] top-0 left-0 hidden">
+    <div id="mobile-menu-panel" class="md:hidden fixed w-full h-full z-[1000] top-0 left-0 hidden">
         <div class="mobile-menu-container bg-neutral-800 absolute top-0 right-0 h-full w-[85vw] max-w-xs shadow-xl transition-transform duration-300 ease-in-out transform translate-x-full">
             <button class="mobile-menu-close-btn px-4 py-3 text-left w-full text-amber-500 hover:text-amber-600 font-medium flex items-center gap-2 text-lg" aria-label="Đóng menu" data-lang-key="aria_label_close_mobile_menu">
                 <i class="fas fa-times"></i> Đóng
@@ -195,233 +194,4 @@
         </div>
     </div>
 </header>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const mobileMenuButton = document.getElementById('mobile-menu-button'); // Updated ID
-    const mobileMenuPanel = document.getElementById('mobile-menu-panel');
-    const mobileMenuContainer = mobileMenuPanel ? mobileMenuPanel.querySelector('.mobile-menu-container') : null;
-    const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
-    const iconOpen = document.getElementById('icon-menu-open'); // Updated ID
-    const iconClose = document.getElementById('icon-menu-close'); // Updated ID
-    const closeBtnInsidePanel = mobileMenuPanel ? mobileMenuPanel.querySelector('.mobile-menu-close-btn') : null;
-
-    if (mobileMenuButton && mobileMenuPanel && mobileMenuContainer && iconOpen && iconClose && mobileMenuBackdrop && closeBtnInsidePanel) {
-        iconOpen.classList.remove('hidden');
-        iconClose.classList.add('hidden');
-        mobileMenuPanel.classList.add('hidden'); 
-        mobileMenuContainer.classList.add('translate-x-full'); 
-
-        const openMenu = () => {
-            mobileMenuPanel.classList.remove('hidden');
-            mobileMenuBackdrop.classList.remove('hidden');
-            setTimeout(() => {
-                mobileMenuContainer.classList.remove('translate-x-full');
-            }, 10); 
-            iconOpen.classList.add('hidden');
-            iconClose.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-            mobileMenuButton.setAttribute('aria-expanded', 'true');
-        };
-
-        const closeMenu = () => {
-            mobileMenuContainer.classList.add('translate-x-full');
-            setTimeout(() => {
-                mobileMenuPanel.classList.add('hidden');
-                mobileMenuBackdrop.classList.add('hidden');
-            }, 300); 
-            iconOpen.classList.remove('hidden');
-            iconClose.classList.add('hidden');
-            document.body.style.overflow = '';
-            mobileMenuButton.setAttribute('aria-expanded', 'false');
-        };
-
-        mobileMenuButton.addEventListener('click', () => {
-            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-            if (isExpanded) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        });
-        
-        mobileMenuBackdrop.addEventListener('click', closeMenu);
-        closeBtnInsidePanel.addEventListener('click', closeMenu);
-
-        const mobileNavLinks = mobileMenuContainer.querySelectorAll('nav a');
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                // If the link is not part of a submenu toggle mechanism, close the menu
-                if (!link.closest('.mobile-submenu-toggle') && !link.parentElement.classList.contains('mobile-submenu-toggle')) {
-                     const parentSubmenuContent = link.closest('.mobile-submenu-content');
-                     if(!parentSubmenuContent) { 
-                        closeMenu();
-                     }
-                     // If it IS a link within a submenu, we let it navigate but don't close the whole menu here,
-                     // as the user might want to explore other items in the same submenu.
-                     // The submenu toggle itself will handle its own open/close state.
-                }
-            });
-        });
-    }
-
-    const mobileSubmenuToggles = document.querySelectorAll('.mobile-submenu-toggle');
-    mobileSubmenuToggles.forEach(toggle => {
-        toggle.addEventListener('click', () => {
-            const content = document.getElementById(toggle.getAttribute('aria-controls'));
-            const icon = toggle.querySelector('.mobile-submenu-icon');
-            const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-
-            if (content) {
-                if (isExpanded) {
-                    content.style.maxHeight = '0px';
-                    content.style.opacity = '0';
-                    content.classList.add('pointer-events-none');
-                } else {
-                    content.style.maxHeight = content.scrollHeight + 'px';
-                    content.style.opacity = '1';
-                    content.classList.remove('pointer-events-none');
-                }
-            }
-            if (icon) {
-                icon.classList.toggle('rotate-90', !isExpanded); 
-            }
-            toggle.setAttribute('aria-expanded', String(!isExpanded));
-        });
-    });
-
-    const desktopDropdownButtons = [
-        document.getElementById('nav-services-button'),
-        document.getElementById('nav-solutions-button'),
-        document.getElementById('nav-library-button')
-    ].filter(Boolean);
-
-    desktopDropdownButtons.forEach(button => {
-        const menu = document.getElementById(button.getAttribute('aria-controls'));
-        if (menu) {
-            button.addEventListener('click', (event) => {
-                event.stopPropagation();
-                const isCurrentlyVisible = !menu.classList.contains('invisible');
-
-                desktopDropdownButtons.forEach(otherButton => {
-                    if (otherButton !== button) {
-                        const otherMenu = document.getElementById(otherButton.getAttribute('aria-controls'));
-                        if (otherMenu) {
-                            otherMenu.classList.add('opacity-0', 'invisible', 'pointer-events-none');
-                            otherButton.setAttribute('aria-expanded', 'false');
-                            const otherIcon = otherButton.querySelector('.header-icon-custom');
-                            if (otherIcon) otherIcon.classList.remove('rotate-180');
-                        }
-                    }
-                });
-
-                menu.classList.toggle('opacity-0', isCurrentlyVisible);
-                menu.classList.toggle('invisible', isCurrentlyVisible);
-                menu.classList.toggle('pointer-events-none', isCurrentlyVisible);
-                button.setAttribute('aria-expanded', String(!isCurrentlyVisible));
-                const icon = button.querySelector('.header-icon-custom');
-                if (icon) icon.classList.toggle('rotate-180', !isCurrentlyVisible);
-            });
-        }
-    });
-
-    document.addEventListener('click', (event) => {
-        desktopDropdownButtons.forEach(button => {
-            const menu = document.getElementById(button.getAttribute('aria-controls'));
-            if (menu && !menu.classList.contains('invisible') && !button.contains(event.target) && !menu.contains(event.target)) {
-                menu.classList.add('opacity-0', 'invisible', 'pointer-events-none');
-                button.setAttribute('aria-expanded', 'false');
-                const icon = button.querySelector('.header-icon-custom');
-                if (icon) icon.classList.remove('rotate-180');
-            }
-        });
-    });
-    
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            desktopDropdownButtons.forEach(button => {
-                const menu = document.getElementById(button.getAttribute('aria-controls'));
-                if (menu && !menu.classList.contains('invisible')) {
-                    menu.classList.add('opacity-0', 'invisible', 'pointer-events-none');
-                    button.setAttribute('aria-expanded', 'false');
-                    const icon = button.querySelector('.header-icon-custom');
-                    if (icon) icon.classList.remove('rotate-180');
-                    button.focus(); 
-                }
-            });
-            
-            const mobileMenuPanel = document.getElementById('mobile-menu-panel');
-            if (mobileMenuPanel && !mobileMenuPanel.classList.contains('hidden')) {
-                 const mobileMenuButton = document.getElementById('mobile-menu-button');
-                 if(mobileMenuButton && mobileMenuButton.getAttribute('aria-expanded') === 'true') {
-                    const closeBtnInsidePanel = mobileMenuPanel.querySelector('.mobile-menu-close-btn');
-                    if(closeBtnInsidePanel) closeBtnInsidePanel.click(); 
-                    mobileMenuButton.focus();
-                 }
-            }
-        }
-    });
-
-    const allLangButtons = document.querySelectorAll('.lang-button');
-    const currentLangKey = 'current_language_ivs_jsc_v2'; 
-
-    function setActiveLangButtonStates(lang) {
-        allLangButtons.forEach(btn => {
-            let isActive = btn.dataset.lang === lang;
-            btn.setAttribute('aria-pressed', String(isActive));
-            if(isActive){
-                btn.classList.add('text-white', 'bg-neutral-700'); 
-                btn.classList.remove('bg-transparent', 'text-neutral-400', 'text-ivs-gray-300');
-            } else {
-                btn.classList.remove('text-white', 'bg-neutral-700', 'bg-ivs-gray-700');
-                btn.classList.add('bg-transparent', 'text-neutral-400');
-            }
-        });
-    }
-    
-    const savedLang = localStorage.getItem(currentLangKey) || 'vi';
-    setActiveLangButtonStates(savedLang);
-    if (typeof window.updateLanguageContent === 'function') {
-         window.updateLanguageContent(savedLang, true); 
-    }
-
-    allLangButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const lang = this.dataset.lang;
-            localStorage.setItem(currentLangKey, lang);
-            setActiveLangButtonStates(lang);
-
-            if (typeof window.updateLanguageContent === 'function') {
-                window.updateLanguageContent(lang);
-            } else {
-                console.warn('window.updateLanguageContent function not found. Page will reload for language change.');
-                location.reload();
-            }
-        });
-    });
-
-    const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
-    const currentPath = window.location.pathname;
-    const activeBottomNavClass = 'text-white'; 
-    const inactiveBottomNavClass = 'text-neutral-300'; // Standardized from text-ivs-gray-300
-
-    bottomNavItems.forEach(item => {
-        const itemHref = item.getAttribute('href');
-        let isMatch = false;
-        if (currentPath === itemHref || (currentPath === '/' && itemHref === '/index.html') || (currentPath === '' && itemHref === '/index.html') ) {
-            isMatch = true;
-        } else if (itemHref !== '/index.html' && itemHref !== '/' && currentPath.startsWith(itemHref)) {
-            // Consider more specific matching if needed, e.g. for /Pages/subpage.html matching /Pages/
-        }
-
-        if (isMatch) {
-            item.classList.add(activeBottomNavClass);
-            item.classList.remove(inactiveBottomNavClass);
-        } else {
-            item.classList.add(inactiveBottomNavClass);
-            item.classList.remove(activeBottomNavClass);
-        }
-    });
-});
-</script>
 <link rel="stylesheet" href="/dist/output.css">
