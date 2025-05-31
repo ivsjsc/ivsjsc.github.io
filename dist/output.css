@@ -553,3 +553,78 @@ video {
 [hidden]:where(:not([hidden="until-found"])) {
   display: none;
 }
+
+/* Tùy chỉnh cho mobile */
+
+@media (max-width: 768px) {
+  .nav-header {
+    padding: 0.5rem 1rem;
+  }
+
+  #mobile-menu-toggle {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .lang-button {
+    padding: 0.25rem 0.5rem;
+    min-width: 2rem;
+  }
+
+  .bottom-nav {
+    display: flex;
+  }
+
+  .bottom-nav-item i {
+    font-size: 1.25rem;
+  }
+
+  .container-padding {
+    padding: 1rem;
+  }
+
+  .tab-button {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .news-card {
+    min-height: 180px;
+  }
+}
+
+@media (min-width: 769px) {
+  .bottom-nav {
+    display: none;
+  }
+}
+
+/* Hiệu ứng menu mobile */
+
+#mobile-menu-panel.active {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+#mobile-menu-panel {
+  animation: slideOut 0.3s ease-out forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
