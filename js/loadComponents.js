@@ -570,5 +570,74 @@ if (document.readyState === 'loading') {
         window.loadComponentsAndInitialize();
     }
 }
+async function loadComponent(url, placeholderId) {
+    const placeholder = document.getElementById(placeholderId);
+    if (!placeholder) {
+        console.error(`Placeholder ${placeholderId} not found.`);
+        return;
+    }
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            placeholder.innerHTML = await response.text();
+            console.log(`Loaded ${url} successfully into ${placeholderId}`);
+        } else {
+            console.error(`Failed to load ${url}: ${response.status} ${response.statusText}`);
+            placeholder.innerHTML = `<p class="text-red-500">Không thể tải ${url}. Vui lòng kiểm tra lại.</p>`;
+        }
+    } catch (error) {
+        console.error(`Error loading ${url}: ${error.message}`);
+        placeholder.innerHTML = `<p class="text-red-500">Lỗi tải ${url}: ${error.message}</p>`;
+    }
+}
 
+async function loadHeader() {
+    await loadComponent('/header.html', 'header-placeholder');
+    initializeHeaderInternal();
+}
+
+function initializeHeaderInternal() {
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+    const closeBtn = document.querySelector('.mobile-menu-close-btn');
+    const iconOpen = document.getElementById('f-icon-menu-open');
+    const iconClose = document.getElementById('f-icon-menu-close');
+    const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+
+    if (!(mobileMenuToggle && mobileMenuPanel && closeBtn && iconOpen && iconClose && mobileMenuBackdrop)) {
+        console.warn('One or more mobile menu elements not found. Mobile menu may not function correctly.');
+        return;
+    }
+
+    const toggleMenu = (isOpen) => {
+        mobileMenuPanel.classList.toggle('hidden', !isOpen);
+        mobileMenuPanel.classList.toggle('active', isOpen);
+        iconOpen.classList.toggle('hidden', isOpen);
+        iconClose.classList.toggle('hidden', !isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+        mobileMenuToggle.setAttribute('aria-expanded', String(isOpen));
+    };
+
+    mobileMenuToggle.addEventListener('click', () => {
+        toggleMenu(mobileMenuToggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    mobileMenuBackdrop.addEventListener('click', () => toggleMenu(false));
+    closeBtn.addEventListener('click', () => toggleMenu(false));
+
+    const mobileNavLinks = mobileMenuPanel.querySelectorAll('a');
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => toggleMenu(false));
+    });
+}
+
+async function loadComponentsAndInitialize() {
+    await loadHeader();
+    // Load các components khác nếu có (footer, FAB, v.v.)
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    window.loadComponentsAndInitialize = loadComponentsAndInitialize;
+    loadComponentsAndInitialize();
+});
 // Ensure the componentState is initialized
