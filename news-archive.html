@@ -1,21 +1,160 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-lang-key="news_archive_main_title">Tin tức tổng hợp - IVS JSC</title>
-    <meta name="description" data-lang-key="news_archive_subtitle">
-    <meta name="keywords" content="IVS JSC, tin tức, sự kiện, dịch vụ công, giáo dục, kinh tế, công nghệ">
-    <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio,line-clamp"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <title data-lang-key="page_title_news_archive">IVS News - Tin tức tổng hợp</title>
+    <meta name="description" content="Tổng hợp tin tức, sự kiện mới nhất từ IVS JSC và các nguồn tin uy tín về Giáo dục, Kinh tế, Công nghệ." data-lang-key="meta_description_news_archive">
+    <meta property="og:title" content="Kho Tin Tức & Cập Nhật - IVS JSC" data-lang-key="og_title_news_archive">
+    <meta property="og:description" content="Theo dõi các cập nhật quan trọng từ IVS JSC và các lĩnh vực liên quan." data-lang-key="og_description_news_archive">
+    <meta property="og:image" content="https://placehold.co/1200x630/1D4ED8/FFFFFF?text=IVS+News"> 
+    <meta property="og:url" content="https://ivs.id.vn/news-archive.html"> 
+    <meta property="og:type" content="website">
+    <meta name="author" content="IVS JSC">
+
+    <link rel="icon" href="/images/logo/logo.png" type="image/png"> 
     <link rel="apple-touch-icon" href="/images/logo/logo-192.png">
     <link rel="manifest" href="/manifest.json">
-    <link rel="stylesheet" href="/css/styles.css"> </head>
-<body class="flex flex-col min-h-screen dark:bg-slate-900 dark:text-slate-300">
-    <div id="header-placeholder" data-loading-text="Đang tải menu..."></div>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+
+    <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio,line-clamp"></script>
+    <script>
+        // Tailwind CSS Configuration
+        tailwind.config = {
+            darkMode: 'class', // Enable dark mode based on class
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: { 
+                        'primary': '#004080', 
+                        'primary-dark': '#003366', 
+                        'secondary': '#ffc107', 
+                        'warning': '#f59e0b', 
+                        'header-orange': '#f97316', 
+                        'blue': { '500': '#3b82f6', '600': '#2563eb', '700': '#1d4ed8', '400':'#60A5FA' }, 
+                        'green': { '500': '#22c55e', '600': '#16a34a', '700': '#15803d', '400':'#4ADE80' },
+                        'amber': { '500': '#f59e0b', '600': '#d97706', '700': '#b45309' },
+                        'purple': { '500': '#8b5cf6', '600': '#7c3aed', '700': '#6d28d9', 'accent': '#8b5cf6' },
+                        'gray-50': '#f9fafb', '100': '#f3f4f6', '200': '#e5e7eb', '300': '#d1d5db', 
+                        '400': '#9ca3af', '500': '#6b7280', '600': '#4b5563', '700': '#374151', 
+                        '800': '#1f2937', '900': '#111827',
+                        'orange': { '100': '#fff7ed', '500': '#f97316', '600': '#ea580c' } 
+                    }
+                }
+            }
+        };
+
+        // RSS Feeds Configuration - Global variable
+        window.rssFeeds = {
+            education: [
+                { name: "VnExpress Giáo dục", url: "https://vnexpress.net/rss/giao-duc.rss" },
+                { name: "Tuổi Trẻ Giáo dục", url: "https://tuoitre.vn/rss/giao-duc.rss" }
+            ],
+            economy: [
+                { name: "VnExpress Kinh doanh", url: "https://vnexpress.net/rss/kinh-doanh.rss" },
+                { name: "Tuổi Trẻ Kinh tế", url: "https://tuoitre.vn/rss/kinh-te.rss" }
+            ],
+            technology: [
+                { name: "VnExpress Số hóa", url: "https://vnexpress.net/rss/so-hoa.rss" },
+                { name: "Tuổi Trẻ Nhịp sống số", url: "https://tuoitre.vn/rss/nhip-song-so.rss" }
+            ],
+            other: [
+                { name: "VnExpress Thế giới", url: "https://vnexpress.net/rss/the-gioi.rss" },
+                { name: "Tuổi Trẻ Thế giới", url: "https://tuoitre.vn/rss/the-gioi.rss" }
+            ],
+            public_services: [ 
+                { name: "Cổng Dịch vụ công Quốc gia", url: "https://dichvucong.gov.vn/p/home/dvc-rss.html" }
+            ]
+        };
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css"> 
+    <style>
+        :root { 
+            --ivs-primary: #004080; 
+            --ivs-primary-dark: #003366;
+            --ivs-secondary: #ffc107; 
+            --ivs-warning: #f59e0b;
+            --ivs-header-orange: #f97316;
+            --ivs-orange-100: #fff7ed; 
+            --ivs-neutral-100: #f3f4f6; 
+            --ivs-neutral-700: #374151; 
+            --ivs-neutral-800: #1f2937; 
+            --ivs-neutral-900: #111827; 
+        }
+        body {
+            background-color: var(--ivs-neutral-100); 
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        html.dark body {
+            background-color: var(--ivs-neutral-900); 
+        }
+        .tab-button.active {
+            border-color: var(--ivs-header-orange) !important; 
+            color: var(--ivs-header-orange) !important;
+            background-color: var(--ivs-orange-100) !important; 
+        }
+        html.dark .tab-button.active {
+            background-color: rgba(249, 115, 22, 0.15) !important; 
+            color: var(--ivs-header-orange) !important;
+        }
+        .news-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 220px; 
+            display: flex;
+            flex-direction: column;
+        }
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+        html.dark .news-card {
+            background-color: var(--ivs-neutral-800);
+            border: 1px solid var(--ivs-neutral-700);
+        }
+        html.dark .news-card:hover {
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.05);
+        }
+        .news-card-content { flex-grow: 1; }
+        .news-card-footer { margin-top: auto; }
+        .skeleton-loader div { background-color: #e0e0e0; border-radius: 4px; margin-bottom: 8px; }
+        html.dark .skeleton-loader div { background-color: #4b5563; } 
+        .tab-content {
+            background-color: white; padding: 1.5rem; border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        html.dark .tab-content {
+            background-color: var(--ivs-neutral-800);
+        }
+        #header-placeholder:empty::before, 
+        #footer-placeholder:empty::before {
+            content: attr(data-loading-text); min-height: 64px; display: flex;
+            align-items: center; justify-content: center; width:100%;
+            background-color: #e5e7eb; color: #6b7280;
+        }
+        html.dark #header-placeholder:empty::before, 
+        html.dark #footer-placeholder:empty::before {
+            background-color: var(--ivs-neutral-700); color: #9ca3af;
+        }
+        #header-placeholder button.active-lang {
+            background-color: var(--ivs-primary) !important;
+            color: white !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-news-archive">
+    <header id="header-placeholder" data-loading-text="Đang tải menu..."></header>
 
     <main class="flex-grow pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)]">
         <section class="relative bg-gradient-to-r from-blue-600 to-purple-700 text-white py-20 md:py-32 overflow-hidden rounded-b-3xl shadow-xl">
@@ -31,71 +170,71 @@
         <section class="section-padding bg-white dark:bg-slate-800 shadow-md my-8 mx-auto max-w-7xl rounded-xl">
             <div class="container mx-auto container-padding">
                 <div class="mb-8 flex flex-wrap justify-center gap-2 md:gap-4 border-b border-gray-300 dark:border-gray-700 pb-4">
-                    <button class="tab-button active font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 hover:text-header-orange dark:text-slate-300 dark:hover:text-header-orange" data-tab="ivs-news" data-lang-key="tab_ivs_news">
+                    <button class="tab-button active font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 hover:text-header-orange dark:hover:text-orange-500" data-tab="ivs-news" data-lang-key="tab_ivs_news">
                         <i class="fas fa-newspaper mr-2"></i>Tin IVS
                     </button>
-                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-slate-400 hover:text-header-orange dark:hover:text-header-orange" data-tab="public-services-news" data-lang-key="tab_public_services_news">
+                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-gray-400 hover:text-header-orange dark:hover:text-orange-500" data-tab="public-services-news" data-lang-key="tab_public_services_news">
                         <i class="fas fa-building mr-2"></i>Dịch vụ công
                     </button>
-                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-slate-400 hover:text-header-orange dark:hover:text-header-orange" data-tab="education-news" data-lang-key="tab_education_news">
+                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-gray-400 hover:text-header-orange dark:hover:text-orange-500" data-tab="education-news" data-lang-key="tab_education_news">
                         <i class="fas fa-graduation-cap mr-2"></i>Giáo dục
                     </button>
-                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-slate-400 hover:text-header-orange dark:hover:text-header-orange" data-tab="economy-news" data-lang-key="tab_economy_news">
+                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-gray-400 hover:text-header-orange dark:hover:text-orange-500" data-tab="economy-news" data-lang-key="tab_economy_news">
                         <i class="fas fa-chart-line mr-2"></i>Kinh tế
                     </button>
-                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-slate-400 hover:text-header-orange dark:hover:text-header-orange" data-tab="technology-news" data-lang-key="tab_technology_news">
+                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-gray-400 hover:text-header-orange dark:hover:text-orange-500" data-tab="technology-news" data-lang-key="tab_technology_news">
                         <i class="fas fa-microchip mr-2"></i>Công nghệ
                     </button>
-                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-slate-400 hover:text-header-orange dark:hover:text-header-orange" data-tab="other-news" data-lang-key="tab_other_news">
+                    <button class="tab-button font-semibold py-2 px-4 border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-gray-400 hover:text-header-orange dark:hover:text-orange-500" data-tab="other-news" data-lang-key="tab_other_news">
                         <i class="fas fa-globe-asia mr-2"></i>Thế Giới
                     </button>
                 </div>
 
                 <div id="news-content-area">
                     <div id="ivs-news" class="tab-content active">
-                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-slate-200 mb-6" data-lang-key="ivs_news_section_title">Tin tức từ IVS JSC</h2>
+                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="ivs_news_section_title">Tin tức từ IVS JSC</h2>
                         <div id="ivs-news-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="loading_news">Đang tải tin tức...</p>
+                            <p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="loading_ivs_news">Đang tải tin tức IVS...</p>
                         </div>
                     </div>
                     <div id="public-services-news" class="tab-content hidden">
-                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-slate-200 mb-6" data-lang-key="public_services_news_section_title">Tin tức Chính phủ & Dịch vụ công</h2>
+                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="public_services_news_section_title">Dịch vụ công Quốc gia</h2>
                         <div class="mb-8">
-                            <h3 class="text-xl font-semibold text-gray-700 dark:text-slate-200 mb-4" data-lang-key="public_services_links_title">Liên kết Dịch vụ công Hữu ích</h3>
+                            <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4" data-lang-key="public_services_links_title">Liên kết Dịch vụ công</h3>
                             <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
                                 <li><a href="https://dichvucong.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Cổng Dịch vụ công Quốc gia</a></li>
-                                <li><a href="https://baohiemxahoi.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Bảo hiểm Xã hội Việt Nam</a></li>
-                                <li><a href="https://chinhphu.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Cổng TTĐT Chính phủ</a></li>
-                                <li><a href="https://dangkykinhdoanh.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Đăng ký Doanh nghiệp</a></li>
-                                <li><a href="https://thuedientu.gdt.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Thuế điện tử</a></li>
-                                <li><a href="https://dichvucong.bocongan.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">DVC Bộ Công an</a></li>
+                                <li><a href="https://bhxh.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Bảo hiểm Xã hội Việt Nam</a></li>
+                                <li><a href="https://csdl.dichvucong.gov.vn" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">CSDL Dịch vụ công</a></li>
+                                <li><a href="https://dangkykinhdoanh.gov.vn/vn/Pages/Trangchu.aspx" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Đăng ký Doanh nghiệp</a></li>
+                                <li><a href="https://thuedientu.gdt.gov.vn/etaxnnt/Request" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">Thuế điện tử</a></li>
+                                <li><a href="https://dichvucong.bocongan.gov.vn/bocongan/bothutuc/tthc?matt=26683" target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium">DVC Bộ Công an</a></li>
                             </ul>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-700 dark:text-slate-200 mb-4" data-lang-key="public_services_feed_title">Tin tức nổi bật từ Cổng TTĐT Chính phủ</h3>
+                        <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4" data-lang-key="public_services_feed_title">Tin tức từ Cổng Dịch vụ công</h3>
                         <div id="public-services-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="loading_public_services_news">Đang tải tin tức...</p>
                         </div>
                     </div>
                     <div id="education-news" class="tab-content hidden">
-                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-slate-200 mb-6" data-lang-key="education_news_section_title">Tin tức Giáo dục</h2>
+                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="education_news_section_title">Tin tức Giáo dục</h2>
                         <div id="education-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="loading_news">Đang tải tin tức...</p>
                         </div>
                     </div>
                     <div id="economy-news" class="tab-content hidden">
-                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-slate-200 mb-6" data-lang-key="economy_news_section_title">Tin tức Kinh tế</h2>
+                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="economy_news_section_title">Tin tức Kinh tế</h2>
                         <div id="economy-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="loading_news">Đang tải tin tức...</p>
                         </div>
                     </div>
                     <div id="technology-news" class="tab-content hidden">
-                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-slate-200 mb-6" data-lang-key="technology_news_section_title">Tin tức Công nghệ & Khoa học</h2>
+                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="technology_news_section_title">Tin tức Công nghệ & Khoa học</h2>
                         <div id="technology-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="loading_news">Đang tải tin tức...</p>
                         </div>
                     </div>
                     <div id="other-news" class="tab-content hidden">
-                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-slate-200 mb-6" data-lang-key="other_news_section_title">Tin Thế Giới</h2>
+                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="other_news_section_title">Tin Thế Giới</h2>
                         <div id="other-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             <p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="loading_news">Đang tải tin tức...</p>
                         </div>
@@ -120,154 +259,34 @@
     <div id="fab-container-placeholder"></div>
     <div id="footer-placeholder" data-loading-text="Đang tải chân trang..."></div>
 
-    <script src="/js/script.js"></script>
-    <script src="/js/language.js"></script>
-    <script src="/js/loadComponents.js" defer></script> 
-    <script src="/js/posts-loader.js" defer></script> 
-    <script src="/js/rss-loader.js"></script> 
+    <script src="js/language.js" defer></script>
+    <script src="js/script.js" defer></script> 
+    <script src="js/loadComponents.js" defer></script> 
+    <script src="js/posts-loader.js" defer></script> 
+    <script src="js/rss-loader.js" defer></script> 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
     // Global configuration for RSS feeds
-    window.rssConfig = {
-        'public-services-rss-container': {
-            url: 'https://chinhphu.vn/rss/thong-tin-tong-hop.rss',
-            limit: 3
-        },
-        'education-rss-container': {
-            url: 'https://thanhnien.vn/rss/giao-duc.rss',
-            limit: 3
-        },
-        'economy-rss-container': {
-            url: 'https://thanhnien.vn/rss/kinh-te.rss',
-            limit: 3
-        },
-        'technology-rss-container': {
-            url: 'https://thanhnien.vn/rss/cong-nghe.rss',
-            limit: 3
-        },
-        'other-rss-container': {
-            url: 'https://thanhnien.vn/rss/the-gioi.rss',
-            limit: 3
-        }
-    };
-
-    // Function to load RSS feed into a container
-    window.loadRssFeed = async function(containerId, feedUrl, limit) {
-        const container = document.getElementById(containerId);
-        if (!container) {
-            console.error(`RSS container #${containerId} not found.`);
-            return;
-        }
-        container.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="loading_news">Đang tải tin tức...</p>`; // Show loading
-
-        try {
-            // Using a proxy to bypass CORS issues for external RSS feeds
-            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(feedUrl)}`;
-            const response = await fetch(proxyUrl);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            const parser = new DOMParser();
-            const xmlDoc = parser.parseFromString(data.contents, "text/xml");
-            const items = xmlDoc.querySelectorAll('item');
-
-            let htmlContent = '';
-            let count = 0;
-            items.forEach(item => {
-                if (count >= limit) return;
-
-                const title = item.querySelector('title')?.textContent || 'No Title';
-                const link = item.querySelector('link')?.textContent || '#';
-                const description = item.querySelector('description')?.textContent || 'No Description';
-                const pubDate = item.querySelector('pubDate')?.textContent ? new Date(item.querySelector('pubDate').textContent).toLocaleDateString('vi-VN') : 'N/A';
-                const imageUrlMatch = description.match(/<img[^>]+src="([^">]+)"/);
-                const imageUrl = imageUrlMatch ? imageUrlMatch[1] : 'https://placehold.co/400x200/cccccc/333333?text=No+Image';
-
-                // Clean description from HTML tags for snippet
-                const cleanDescription = description.replace(/<[^>]*>/g, '').substring(0, 150) + '...';
-
-                htmlContent += `
-                    <div class="news-card bg-white dark:bg-neutral-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 flex flex-col">
-                        <img src="${imageUrl}" alt="${title}" class="w-full h-40 object-cover rounded-t-lg" onerror="this.onerror=null; this.src='https://placehold.co/400x200/cccccc/333333?text=Image+Error';">
-                        <div class="p-4 flex flex-col flex-grow">
-                            <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2 line-clamp-2">${title}</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-3">${cleanDescription}</p>
-                            <span class="text-xs text-gray-500 dark:text-gray-400 mb-3 block">Ngày đăng: ${pubDate}</span>
-                            <a href="${link}" target="_blank" rel="noopener noreferrer" class="mt-auto inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium text-sm">
-                                Đọc thêm <i class="fas fa-arrow-right ml-1 text-xs"></i>
-                            </a>
-                        </div>
-                    </div>
-                `;
-                count++;
-            });
-
-            if (htmlContent === '') {
-                container.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center" data-lang-key="no_news_available">Không có tin tức nào để hiển thị.</p>`;
-            } else {
-                container.innerHTML = htmlContent;
-            }
-        } catch (error) {
-            console.error(`Error loading RSS feed for ${containerId}:`, error);
-            container.innerHTML = `<p class="text-red-500 dark:text-red-400 col-span-full text-center" data-lang-key="news_load_error">Lỗi tải tin tức: ${error.message}. Vui lòng thử lại sau.</p>`;
-        }
-    };
-
-    // Function to set up tab switching logic
-    window.setupTabs = function() {
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        const activateTab = (tabId) => {
-            tabButtons.forEach(button => {
-                if (button.dataset.tab === tabId) {
-                    button.classList.add('active');
-                    button.classList.remove('text-gray-600', 'dark:text-slate-400', 'border-transparent');
-                    button.classList.add('text-header-orange', 'border-header-orange');
-                } else {
-                    button.classList.remove('active', 'text-header-orange', 'border-header-orange');
-                    button.classList.add('text-gray-600', 'dark:text-slate-400', 'border-transparent');
-                }
-            });
-
-            tabContents.forEach(content => {
-                if (content.id === tabId) {
-                    content.classList.remove('hidden');
-                } else {
-                    content.classList.add('hidden');
-                }
-            });
-        };
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const tabId = button.dataset.tab;
-                activateTab(tabId);
-                // Load content dynamically when tab is activated
-                if (tabId === 'ivs-news') {
-                    // posts-loader.js handles IVS news
-                    window.loadPosts('ivs-news-container'); 
-                } else if (window.rssConfig[tabId + '-container']) { // Check if RSS config exists for this tab
-                    const config = window.rssConfig[tabId + '-container'];
-                    window.loadRssFeed(tabId + '-container', config.url, config.limit);
-                }
-            });
-        });
-
-        // Activate the first tab on page load
-        const initialTab = document.querySelector('.tab-button.active');
-        if (initialTab) {
-            const initialTabId = initialTab.dataset.tab;
-            activateTab(initialTabId);
-            // Manually trigger content load for the initial active tab
-            if (initialTabId === 'ivs-news') {
-                window.loadPosts('ivs-news-container');
-            } else if (window.rssConfig[initialTabId + '-container']) {
-                const config = window.rssConfig[initialTabId + '-container'];
-                window.loadRssFeed(initialTabId + '-container', config.url, config.limit);
-            }
-        }
+    window.rssFeeds = {
+        education: [
+            { name: "VnExpress Giáo dục", url: "https://vnexpress.net/rss/giao-duc.rss" },
+            { name: "Tuổi Trẻ Giáo dục", url: "https://tuoitre.vn/rss/giao-duc.rss" }
+        ],
+        economy: [
+            { name: "VnExpress Kinh doanh", url: "https://vnexpress.net/rss/kinh-doanh.rss" },
+            { name: "Tuổi Trẻ Kinh tế", url: "https://tuoitre.vn/rss/kinh-te.rss" }
+        ],
+        technology: [
+            { name: "VnExpress Số hóa", url: "https://vnexpress.net/rss/so-hoa.rss" },
+            { name: "Tuổi Trẻ Nhịp sống số", url: "https://tuoitre.vn/rss/nhip-song-so.rss" }
+        ],
+        other: [
+            { name: "VnExpress Thế giới", url: "https://vnexpress.net/rss/the-gioi.rss" },
+            { name: "Tuổi Trẻ Thế giới", url: "https://tuoitre.vn/rss/the-gioi.rss" }
+        ],
+        public_services: [ 
+            { name: "Cổng Dịch vụ công Quốc gia", url: "https://dichvucong.gov.vn/p/home/dvc-rss.html" }
+        ]
     };
 
     window.onPageComponentsLoadedCallback = function() {
@@ -286,6 +305,59 @@
             setupTabs();
         } else {
             console.error("setupTabs function not found. News tabs might not work.");
+        }
+    };
+
+    // Function to set up tab switching logic
+    window.setupTabs = function() {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        const activateTab = (tabId) => {
+            tabButtons.forEach(button => {
+                if (button.dataset.tab === tabId) {
+                    button.classList.add('active');
+                    button.classList.remove('text-gray-600', 'dark:text-gray-400', 'border-transparent');
+                    button.classList.add('text-header-orange', 'border-header-orange', 'bg-orange-100', 'dark:bg-orange-500/20');
+                } else {
+                    button.classList.remove('active', 'text-header-orange', 'border-header-orange', 'bg-orange-100', 'dark:bg-orange-500/20');
+                    button.classList.add('text-gray-600', 'dark:text-gray-400', 'border-transparent');
+                }
+            });
+
+            tabContents.forEach(content => {
+                if (content.id === tabId) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
+            });
+        };
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.dataset.tab;
+                activateTab(tabId);
+                // Load content dynamically when tab is activated
+                if (tabId === 'ivs-news') {
+                    window.loadPosts('ivs-news-container'); 
+                } else {
+                    const configKey = tabId.replace('-news', '').replace('-', '_'); // e.g. public_services
+                    if (window.rssFeeds[configKey]) {
+                        const feeds = window.rssFeeds[configKey];
+                        const containerId = `${configKey.replace('_', '-')}-rss-container`; // e.g. public-services-rss-container
+                        document.getElementById(containerId).innerHTML = ''; // Clear skeleton before loading
+                        feeds.forEach(feed => window.loadRssFeed(containerId, feed.url, feed.name, 6));
+                    }
+                }
+            });
+        });
+
+        // Activate the first tab on page load
+        const initialTab = document.querySelector('.tab-button[data-tab="ivs-news"]'); // Default to IVS News
+        if (initialTab) {
+            activateTab(initialTab.dataset.tab);
+            window.loadPosts('ivs-news-container'); // Load IVS news initially
         }
     };
     </script>
