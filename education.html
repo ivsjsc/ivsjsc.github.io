@@ -39,8 +39,6 @@
             --ivs-orange-600: #EA580C; 
             --ivs-orange-700: #C2410C; 
             --ivs-header-orange: #F97316; 
-            --header-height: 4rem; /* Default header height for desktop */
-            --header-height-mobile: 3.5rem; /* Default header height for mobile */
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -81,53 +79,12 @@
             color: #9ca3af; 
         }
         .fab-hidden { display: none !important; }
-        /* Header specific styles */
-        #main-header {
-            min-height: var(--header-height); /* Use min-height for flexibility */
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 9999;
-            will-change: transform;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateY(0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            opacity: 1;
-        }
-        .header-hidden {
-            transform: translateY(-100%) !important;
-        }
-        .header-visible {
-            transform: translateY(0);
-        }
-        html {
-            scroll-padding-top: var(--header-height);
-            height: 100%;
-        }
-        body {
-            min-height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        #header-placeholder {
-            min-height: var(--header-height);
-        }
-        @media (max-width: 768px) {
-            html {
-                scroll-padding-top: var(--header-height-mobile);
-            }
-            #header-placeholder {
-                min-height: var(--header-height-mobile);
-            }
-        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter">
-    <div id="header-placeholder" data-loading-text="Đang tải menu..."></div>
+    <header id="header-placeholder" data-loading-text="Đang tải menu..."></header>
 
-    <main class="flex-grow pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)]">
+    <main class="flex-grow">
         <section class="bg-primary text-white py-16 md:py-24 text-center shadow-lg relative overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/images/banners/education_hero.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/004080/ffffff?text=IVS+Education)'; this.classList.add('bg-slate-700');"></div>
             <div class="container mx-auto container-padding relative z-10" data-aos="fade-in">
@@ -206,27 +163,35 @@
         </section>
     </main>
 
-    <div id="fab-container-placeholder"></div>
-    <div id="footer-placeholder" data-loading-text="Đang tải chân trang..."></div>
+    <footer id="footer-placeholder" data-loading-text="Đang tải chân trang..."></footer>
+    <div id="fab-container"></div>
 
     <script src="/js/script.js"></script>
     <script src="/js/language.js"></script>
-    <script src="/js/loadComponents.js" defer></script> 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/js/loadComponents.js" defer></script> 
     <script>
+        AOS.init({
+            offset: 100, 
+            duration: 700, 
+            easing: 'ease-out-quad', 
+            once: true, 
+            mirror: false, 
+            anchorPlacement: 'top-bottom', 
+        });
+        
         window.onPageComponentsLoadedCallback = function() {
             console.log("[Education Page] Components loaded. Page specific JS can run now.");
-            // AOS.init() is called by loadComponents.js after all components are loaded
-            // applyLanguage() is called by loadComponents.js after language system is initialized
-            // initializeFabButtons() is called by loadComponents.js after components are loaded
-            AOS.init({
-                offset: 100, 
-                duration: 700, 
-                easing: 'ease-out-quad', 
-                once: true, 
-                mirror: false, 
-                anchorPlacement: 'top-bottom', 
-            });
+            if (typeof window.initializeLanguageSystem === 'function') {
+                 window.initializeLanguageSystem().then(() => {
+                    console.log("[Education Page] Language system initialized by callback.");
+                 }).catch(error => {
+                    console.error("[Education Page] Error initializing language system from callback:", error);
+                 });
+            }
+            if (typeof initializeFabButtons === 'function') {
+                initializeFabButtons();
+            }
         };
     </script>
 </body>
