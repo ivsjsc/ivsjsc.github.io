@@ -17,7 +17,7 @@
     --ivs-neutral-600: #4B5563;
     --ivs-text-gray-300: #D1D5DB;
     --ivs-text-white: #ffffff;
-    --header-bg: #111827; /* Currently not used for #main-header background, but kept for potential use */
+    --header-bg: #111827;
     --primary-color: #3b82f6;
     --primary-color-hover: #2563eb;
     --text-color: #334155;
@@ -197,7 +197,6 @@ main {
 
 /* Mobile Menu Styles */
 #mobile-menu-panel {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -210,7 +209,6 @@ main {
     transition: opacity 0.3s ease-out, visibility 0s linear 0.3s;
 }
 #mobile-menu-panel.active {
-    display: block;
     opacity: 1;
     visibility: visible;
     transition-delay: 0s;
@@ -236,9 +234,9 @@ main {
 }
 .mobile-menu-container a { /* General links in mobile menu */
     color: var(--ivs-text-gray-300);
-    padding: 0.75rem 1rem; /* Increased padding for better touch */
+    padding: 0.75rem 1rem;
     font-weight: 500;
-    display: block; /* Full width tap target */
+    display: block;
     border-radius: 0.25rem;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
@@ -246,28 +244,25 @@ main {
     background: var(--ivs-orange-500);
     color: var(--ivs-text-white);
 }
-.mobile-submenu-toggle { /* Button to expand submenu */
-    /* Styles for this class are defined later if it's a general utility.
-       If it's specific to the main mobile menu button, it should target its ID.
-       The main mobile menu button in header.html is #mobile-menu-button */
-    padding: 0.75rem 1rem; /* Ensure good tap area if used */
+.mobile-submenu-toggle {
+    padding: 0.75rem 1rem;
 }
-.mobile-submenu-content { /* Collapsible submenu content */
+.mobile-submenu-content {
     background: var(--ivs-neutral-800);
-    padding-left: 1rem; /* Indentation for submenu items */
+    padding-left: 1rem;
     border-radius: 0.25rem;
     margin-top: 0.25rem;
-    max-height: 0; /* Start collapsed */
+    max-height: 0;
     transition: max-height 0.3s ease-out, opacity 0.3s ease-out, padding-bottom 0.3s ease-out;
     overflow: hidden;
     opacity: 0;
 }
 .mobile-submenu-toggle[aria-expanded="true"] + .mobile-submenu-content {
-    max-height: 400px; /* Adjust as needed */
+    max-height: 400px;
     opacity: 1;
-    padding-bottom: 0.5rem; /* Add some space at the bottom when expanded */
+    padding-bottom: 0.5rem;
 }
-.mobile-submenu-toggle .mobile-submenu-icon { /* Chevron icon */
+.mobile-submenu-toggle .mobile-submenu-icon {
     width: 1rem;
     height: 1rem;
     color: var(--ivs-orange-500);
@@ -277,11 +272,13 @@ main {
     transform: rotate(180deg);
 }
 
-/* Mobile Menu Toggle Button (General Class - Check if used by header.html) */
-/* Note: header.html uses id="mobile-menu-button" for its main toggle. This class might be for other uses. */
-.mobile-menu-toggle {
-    display: none; /* Hidden by default, shown on mobile via media query */
-    padding: 0.5rem;
+/* Mobile Menu Toggle Button */
+#mobile-menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
     font-size: 1.25rem;
     color: var(--ivs-text-white);
     background: transparent;
@@ -289,12 +286,11 @@ main {
     cursor: pointer;
     transition: color 0.3s ease;
 }
-.mobile-menu-toggle:hover {
+#mobile-menu-button:hover {
     color: var(--ivs-orange-500);
 }
 
-/* Mobile Menu Close Button (General Class - Check if used by header.html) */
-/* Note: header.html uses an <i> tag with specific classes for the close icon. */
+/* Mobile Menu Close Button */
 .mobile-menu-close-btn {
     display: flex;
     align-items: center;
@@ -306,7 +302,7 @@ main {
     border-radius: 50%;
     border: none;
     cursor: pointer;
-    margin-bottom: 1rem; /* Example spacing if used inside the panel */
+    margin-bottom: 1rem;
 }
 
 
@@ -336,486 +332,20 @@ main {
     display: none !important;
 }
 #fab-container {
-    z-index: 999; /* Ensure FABs are above most other content */
+    z-index: 999;
     position: fixed;
     bottom: 1rem;
     right: 1rem;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 0.5rem; /* Space between FABs if multiple are visible */
+    gap: 0.5rem;
 }
-#fab-container > .relative > button { /* Main FAB toggle buttons */
-    width: 2.75rem; /* Slightly larger for easier tap */
+#fab-container > .relative > button {
+    width: 2.75rem;
     height: 2.75rem;
     background: var(--ivs-orange-500);
     color: var(--ivs-text-white);
     border-radius: 50%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-#fab-container > .relative > button:hover {
-    background: var(--ivs-orange-600);
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-}
-#fab-container > .relative > button:active {
-    transform: scale(0.95);
-}
-#contact-options, #share-options { /* Submenus for FABs */
-    display: flex; /* Handled by JS via fab-hidden toggle */
-    flex-direction: column;
-    align-items: flex-start; /* Align items to the start for LTR text */
-    min-width: 180px;
-    font-size: 0.875rem; /* Slightly larger for readability */
-    padding: 0.5rem;
-    background: var(--ivs-text-white);
-    border: 1px solid var(--ivs-neutral-600);
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: absolute;
-    bottom: calc(100% + 0.5rem); /* Position above the button */
-    right: 0;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: opacity 0.2s ease-out, transform 0.2s ease-out, visibility 0.2s ease-out;
-}
-#fab-container > .relative > button[aria-expanded="true"] + div { /* Show submenu */
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-#contact-options a, #share-options a {
-    color: var(--ivs-primary);
-    font-weight: 500;
-    padding: 0.6rem 0.75rem; /* Increased padding */
-    display: flex;
-    align-items: center;
-    gap: 0.75rem; /* Increased gap */
-    width: 100%;
-    border-radius: 0.25rem;
-}
-#contact-options a:hover, #share-options a:hover {
-    background: var(--ivs-orange-500);
-    color: var(--ivs-text-white);
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    /* Header Mobile */
-    #main-header {
-        min-height: var(--header-height-mobile);
-        background: var(--ivs-primary);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-        backdrop-filter: none;
-    }
-    html {
-        scroll-padding-top: var(--header-height-mobile);
-    }
-    #header-placeholder {
-        min-height: var(--header-height-mobile);
-    }
-    main {
-        padding-top: var(--header-height-mobile);
-    }
-    #main-header.header-hidden {
-        transform: none !important;
-    }
-    .logo-container img {
-        height: 2rem;
-        margin-left: 0.5rem; /* Ensure this is desired or adjust for centering */
-    }
-
-    /* Mobile Menu Toggle - Show the general class if used, or style #mobile-menu-button */
-    .mobile-menu-toggle { /* This rule applies if the class .mobile-menu-toggle is used */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 2.5rem;
-        height: 2.5rem;
-    }
-    /* If targeting the ID from header.html specifically for the main toggle: */
-    /* #mobile-menu-button { ... styles for the main toggle button ... } */
-
-
-    .lang-button {
-        padding: 0.3rem 0.6rem;
-        font-size: 0.8rem;
-    }
-
-    /* FAB Mobile */
-    #fab-container {
-        bottom: 1rem; /* Default is 1rem, adjust if needed with bottom-nav */
-        right: 1rem;
-        /* scale: 0.9; Removed scale as individual buttons are sized */
-    }
-    #fab-container > .relative > button { /* Main FAB buttons on mobile */
-        width: 2.5rem; /* Adjusted size for mobile */
-        height: 2.5rem;
-    }
-    #fab-container > .relative > button i { /* Icon size in FABs */
-        font-size: 0.875rem;
-    }
-
-    #contact-options, #share-options { /* Submenus on mobile */
-        min-width: 160px; /* Slightly smaller submenu width */
-        font-size: 0.8rem;
-        padding: 0.4rem;
-    }
-     #contact-options a, #share-options a {
-        padding: 0.5rem 0.6rem;
-        gap: 0.5rem;
-    }
-
-    #scroll-to-top-btn { /* Specific styling for scroll-to-top on mobile */
-        width: 2.25rem;
-        height: 2.25rem;
-        display: flex; /* Managed by JS via fab-hidden */
-        align-items: center;
-        justify-content: center;
-        background: var(--ivs-orange-500);
-        color: var(--ivs-text-white);
-        border-radius: 50%;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-        opacity: 0;
-        visibility: hidden;
-        transform: scale(0.8);
-    }
-    #scroll-to-top-btn.visible { /* Class to be added by JS when scroll conditions met */
-        opacity: 1;
-        visibility: visible;
-        transform: scale(1);
-    }
-
-    /* Responsive Typography */
-    html {
-        font-size: 14px;
-    }
-    .hero-section-banner { min-height: 40vh; }
-    .hero-section-banner .hero-content { padding: 2rem 0.75rem; }
-    .video-background-section .section-content-on-video { min-height: 200px; }
-
-    /* General Mobile Adjustments */
-    .hero h1 { font-size: 1.8rem; }
-    .hero p { font-size: 0.9rem; }
-    .section h2 { font-size: 1.5rem; }
-    .card { width: 100%; max-width: 300px; }
-    .contact-form { padding: 1rem; }
-}
-
-@media (max-width: 480px) {
-    html {
-        font-size: 13px;
-    }
-    .mobile-menu-container {
-        max-width: 240px; /* Further reduce menu width on very small screens */
-    }
-    .mobile-menu-container a {
-        padding: 0.65rem 0.8rem;
-    }
-     #fab-container > .relative > button {
-        width: 2.25rem;
-        height: 2.25rem;
-    }
-    #fab-container > .relative > button i {
-        font-size: 0.75rem;
-    }
-    #contact-options, #share-options {
-        min-width: 140px;
-    }
-}
-
-
-/* Hero Section Styles */
-.hero-section-banner {
-    background-size: cover;
-    background-position: center;
-    min-height: 50vh; /* Default for larger screens */
-    max-height: 400px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-}
-.hero-section-banner .hero-content {
-    position: relative;
-    z-index: 2;
-    padding: 3rem 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.3);
-    width: 100%;
-    height: 100%;
-}
-html.dark .hero-section-banner .hero-content {
-    background-color: rgba(0, 0, 0, 0.5);
-}
-.hero-text-shadow {
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-/* Video Background Section */
-.video-background-section {
-    position: relative;
-    overflow: hidden;
-    border-radius: 0.5rem;
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-    margin: 1.5rem auto;
-    max-width: 1000px;
-}
-.video-background-section .video-background-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: 0;
-    border-radius: inherit;
-}
-.video-background-section .video-background-container video {
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-}
-.video-background-section .video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1;
-    border-radius: inherit;
-}
-html.dark .video-background-section .video-overlay {
-    background-color: rgba(0, 0, 0, 0.65);
-}
-.video-background-section .section-content-on-video {
-    position: relative;
-    z-index: 2;
-    padding: 3rem 1rem; /* Default for larger screens */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 250px; /* Default for larger screens */
-}
-
-/* Card Styles */
-.service-card, .education-level-card, .service-feature-card, .card-item {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: var(--ivs-text-white);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 1.5rem;
-}
-.service-card:hover, .education-level-card:hover, .service-feature-card:hover, .card-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-}
-html.dark .service-card, html.dark .education-level-card, html.dark .service-feature-card, html.dark .card-item {
-    background-color: var(--ivs-neutral-800);
-    border: 1px solid var(--ivs-neutral-700);
-}
-
-/* Testimonial Card Styles */
-.testimonial-card {
-    min-height: 200px;
-    background-color: var(--ivs-text-white);
-    padding: 1.25rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-html.dark .testimonial-card {
-    background-color: var(--ivs-neutral-800);
-    border: 1px solid var(--ivs-neutral-700);
-}
-
-/* News Card Styles */
-.news-card {
-    background-color: var(--ivs-text-white);
-    border: 1px solid #e2e8f0; /* Consider using a variable like --ivs-neutral-200 or similar */
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-html.dark .news-card {
-    background-color: var(--ivs-neutral-800);
-    border-color: var(--ivs-neutral-700);
-}
-.news-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-.news-card img {
-    max-height: 180px;
-    object-fit: cover;
-    border-top-left-radius: 0.375rem; /* Match card's border-radius for top corners */
-    border-top-right-radius: 0.375rem;
-}
-.news-card p {
-    margin-bottom: 1rem;
-}
-
-/* Skeleton Loader for News */
-.skeleton-loader {
-    background: linear-gradient(90deg, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%);
-    background-size: 200% 100%;
-    animation: loading 1.5s infinite;
-    border-radius: 0.5rem;
-}
-html.dark .skeleton-loader {
-    background: linear-gradient(90deg, var(--ivs-neutral-700) 25%, var(--ivs-neutral-600) 50%, var(--ivs-neutral-700) 75%);
-    background-size: 200% 100%; /* Ensure this is repeated for dark mode */
-}
-@keyframes loading {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
-/* Form Styles (Contact Page) */
-.contact-form {
-    max-width: 500px;
-    margin: 0 auto;
-    background-color: var(--ivs-text-white);
-    padding: 1.5rem; /* Default for larger screens */
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.form-group {
-    margin-bottom: 1rem;
-}
-.form-group label {
-    display: block;
-    margin-bottom: 0.25rem;
-    font-weight: bold;
-    text-align: left;
-}
-.form-input, .form-textarea {
-    width: 100%;
-    padding: 0.6rem 0.8rem;
-    border: 1px solid #cbd5e1; /* Consider a variable */
-    border-radius: var(--border-radius);
-    font-size: 0.9rem;
-    outline: none;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-.form-input:focus, .form-textarea:focus {
-    border-color: var(--ivs-orange-500);
-    box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.25); /* Orange focus ring */
-}
-.form-textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-.form-group button.btn { /* Assuming .btn is a general button class */
-    background-color: var(--ivs-orange-500);
-    color: var(--ivs-text-white);
-    padding: 0.6rem 1rem;
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    width: 100%;
-}
-.form-group button.btn:hover {
-    background-color: var(--ivs-orange-600);
-    transform: translateY(-2px);
-}
-
-/* About Us Page Specifics */
-.about-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-}
-.about-text {
-    max-width: 700px;
-    text-align: left;
-    line-height: 1.8;
-}
-.about-text h2 {
-    text-align: center;
-    margin-bottom: 1rem;
-}
-.team-members {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-.team-member {
-    background-color: var(--ivs-text-white);
-    padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 220px;
-    text-align: center;
-}
-.team-member img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 0.75rem;
-}
-.team-member h4 {
-    font-size: 1.1rem;
-    margin-bottom: 0.25rem;
-}
-.team-member p {
-    font-size: 0.85rem;
-    color: #666; /* Consider a variable like --text-color-light or --ivs-neutral-500 */
-}
-
-/* Utility Classes */
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
-.mt-1 { margin-top: 0.25rem; }
-.mt-2 { margin-top: 0.5rem; }
-.mt-3 { margin-top: 1rem; }
-.mt-4 { margin-top: 1.5rem; }
-.mt-5 { margin-top: 2rem; }
-.mb-1 { margin-bottom: 0.25rem; }
-.mb-2 { margin-bottom: 0.5rem; }
-.mb-3 { margin-bottom: 1rem; }
-.mb-4 { margin-bottom: 1.5rem; }
-.mb-5 { margin-bottom: 2rem; }
-
-/* Line clamp utility */
-.line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    /* autoprefixer: off */
-    -webkit-box-orient: vertical;
-    /* autoprefixer: on */
-    overflow: hidden;
-    line-clamp: 3; /* Standard property */
-}
+    transition
