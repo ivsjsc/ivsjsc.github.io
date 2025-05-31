@@ -95,6 +95,16 @@ async function initializeHeaderInternal() {
                 }
                 document.body.classList.toggle('overflow-hidden');
             });
+
+            // Close mobile menu when a link inside it is clicked
+            const mobileNavLinks = mobileMenu.querySelectorAll('a');
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mobileMenu.classList.contains('active')) {
+                        mobileMenuBtn.click(); // Simulate click on menu button to close
+                    }
+                });
+            });
         }
 
         // Initialize dropdowns
