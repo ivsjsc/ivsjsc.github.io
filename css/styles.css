@@ -207,8 +207,10 @@ main {
 }
 /* Custom header nav text styles from Tailwind context */
 .header-nav-text-custom {
-    /* These are typically Tailwind classes, ensure they are applied or re-defined here */
-    /* e.g., font-medium px-3 py-2.5 rounded */
+    color: var(--ivs-text-gray-300); /* Tailwind gray-300 */
+    /* padding: 0.625rem 0.75rem; */ /* Already defined in nav-link */
+    /* font-size: 0.875rem; */ /* Already defined in nav-link */
+    font-weight: 500; /* Medium weight */
 }
 
 /* Mega Menu Improvements */
@@ -256,7 +258,7 @@ main {
     position: fixed;
     top: var(--header-height-mobile); /* Start below mobile header */
     right: 0; /* Slide in from right */
-    width: 80%; /* Max width for mobile menu */
+    width: 80%; /* Menu width */
     max-width: 300px; /* Limit max width */
     height: calc(100vh - var(--header-height-mobile)); /* Full height minus header */
     background-color: var(--header-bg); /* Dark background */
@@ -267,7 +269,7 @@ main {
     -webkit-overflow-scrolling: touch;
 }
 #mobile-menu-panel.active .mobile-menu-container {
-    transform: translateX(0); /* Slide in */
+    transform: translateX(0); /* Slide in when active */
 }
 
 /* Mobile Submenu Transitions */
@@ -719,7 +721,7 @@ html {
     top: var(--header-height-mobile); /* Start below mobile header */
     right: 0; /* Slide in from right */
     width: 80%; /* Menu width */
-    max-width: 300px; /* Max width for larger mobile devices */
+    max-width: 300px; /* Limit max width */
     height: calc(100vh - var(--header-height-mobile)); /* Full height minus header */
     background-color: var(--header-bg); /* Dark background */
     transform: translateX(100%); /* Initially off-screen */
@@ -741,7 +743,7 @@ html {
 }
 .mobile-submenu-toggle[aria-expanded="true"] + .mobile-submenu-content {
     max-height: 500px; /* Max height for open state (adjust as needed) */
-    opacity: 1; /* Fades in when open */
+    opacity: 1;
 }
 .mobile-submenu-toggle .mobile-submenu-icon {
     transition: transform 0.2s ease;
