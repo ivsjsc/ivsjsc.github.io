@@ -485,3 +485,76 @@ if (document.readyState === 'loading') {
     }
 }
 
+async function loadComponentsAndInitialize() {
+    const headerPlaceholder = document.getElementById('header-placeholder');
+    if (headerPlaceholder) {
+        try {
+            const response = await fetch('/header.html');
+            if (response.ok) {
+                headerPlaceholder.innerHTML = await response.text();
+                initializeHeaderInternal();
+            } else {
+                componentLog(`Failed to load header.html: ${response.status}`, 'error');
+            }
+        } catch (error) {
+            componentLog(`Error loading header.html: ${error.message}`, 'error');
+        }
+    }
+
+    const fabPlaceholder = document.getElementById('fab-container-placeholder');
+    if (fabPlaceholder) {
+        fabPlaceholder.innerHTML = `
+            <div id="fab-container" class="fixed bottom-4 right-4 z-[999] flex flex-col items-end space-y-2">
+                <button id="scroll-to-top-btn" title="Lên đầu trang" aria-label="Lên đầu trang"
+                        class="flex items-center justify-center w-10 h-10 bg-ivs-orange-500 hover:bg-ivs-orange-600 text-white rounded-full shadow-md transition-all duration-300">
+                    <i class="fas fa-arrow-up text-sm"></i>
+                </button>
+            </div>
+        `;
+        initializeFabButtonsInternal();
+    }
+}
+
+function initializeHeaderInternal() {
+    if (window.componentState.headerInitialized) return;
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenuPanel = document.getElementById('mobile-menu-panel');
+    const closeBtn = document.querySelector('.mobile-menu-close-btn');
+
+    if (!mobileMenuToggle || !mobileMenuPanel) {
+        componentLog('One or more mobile menu elements not found. Skipping mobile menu initialization.', 'warn');
+        return;
+    }
+
+    mobileMenuToggle.addEventListener('click', () => {
+        mobileMenuPanel.classList.toggle('active');
+        mobileMenuToggle.setAttribute('aria-expanded', mobileMenuPanel.classList.contains('active'));
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            mobileMenuPanel.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        });
+    }
+
+    window.componentState.headerInitialized = true;
+    componentLog('Header initialized successfully');
+}
+
+function initializeFabButtonsInternal() {
+    if (window.componentState.fabInitialized) return;
+    const scrollToTopBtn = document.getElementById('scroll-to-top-btn');
+    if (scrollToTopBtn) {
+        window.addEventListener('scroll', () => {
+            scrollToTopBtn.classList.toggle('visible', window.scrollY > 300);
+        });
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+    window.componentState.fabInitialized = true;
+    componentLog('FAB initialized successfully');
+}
+
+document.addEventListener('DOMContentLoaded', loadComponentsAndInitialize);
