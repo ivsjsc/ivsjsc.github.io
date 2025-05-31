@@ -437,15 +437,15 @@ window.loadComponentsAndInitialize = async function() {
         await initializeFabButtonsInternal();
 
         // Initialize language system if available
-        if (typeof window.initializeLanguageSystem === 'function') { // Changed from initializeLanguageToggle
+        if (typeof window.initializeLanguageSystem === 'function') { 
             try {
-                await window.initializeLanguageSystem(); // Changed from initializeLanguageToggle
+                await window.initializeLanguageSystem(); 
                 componentLog('Language system initialized');
             } catch (error) {
                 componentLog(`Error initializing language system: ${error.message}`, 'error');
             }
         } else {
-            componentLog('window.initializeLanguageSystem not found', 'warn'); // Changed from initializeLanguageToggle
+            componentLog('window.initializeLanguageSystem not found', 'warn'); 
         }
 
         window.componentState.componentsLoadedAndInitialized = true;
@@ -471,6 +471,21 @@ window.loadComponentsAndInitialize = async function() {
                 window.initSocialSharing();
             } else {
                 componentLog("window.initSocialSharing is not defined. Social sharing might not work.", 'warn');
+            }
+
+            // Initialize AOS after all components and page-specific scripts are loaded
+            if (typeof AOS !== 'undefined' && AOS.init) {
+                AOS.init({
+                    offset: 100,
+                    duration: 700,
+                    easing: 'ease-out-quad',
+                    once: true,
+                    mirror: false,
+                    anchorPlacement: 'top-bottom',
+                });
+                componentLog('AOS initialized via onPageComponentsLoadedCallback');
+            } else {
+                componentLog('AOS library not found or not initialized.', 'warn');
             }
         };
 
