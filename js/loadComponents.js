@@ -318,15 +318,18 @@ function initializeFabButtonsInternal() {
         if (fabElements.contactMainBtn) toggleFabMenu(fabElements.contactMainBtn, fabElements.contactOptions);
         if (fabElements.shareMainBtn) toggleFabMenu(fabElements.shareMainBtn, fabElements.shareOptions);
 
+        // Trong hàm initializeFabButtonsInternal
         if (fabElements.scrollToTopBtn) {
             fabElements.scrollToTopBtn.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
             const handleScroll = window.debounce(() => {
-                if (fabElements.scrollToTopBtn && !isMobileDevice()) {
-                    fabElements.scrollToTopBtn.classList.toggle('fab-hidden', window.pageYOffset <= 100);
-                    fabElements.scrollToTopBtn.classList.toggle('flex', window.pageYOffset > 100);
+                if (fabElements.scrollToTopBtn) {
+                    const scrollThreshold = isMobileDevice() ? 300 : 100; // Ngưỡng cuộn lớn hơn trên mobile
+                    const isVisible = window.pageYOffset > scrollThreshold;
+                    fabElements.scrollToTopBtn.classList.toggle('visible', isVisible);
+                    fabElements.scrollToTopBtn.classList.toggle('fab-hidden', !isVisible);
                 }
             }, 150);
 

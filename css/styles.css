@@ -370,9 +370,43 @@ main {
     color: var(--ivs-text-white);
     border-radius: 0.25rem;
 }
+/* FAB Buttons for Mobile */
 @media (max-width: 768px) {
+    #fab-container {
+        bottom: 1rem;
+        right: 1rem;
+        scale: 0.9;
+    }
+    #fab-container button {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: var(--ivs-orange-500);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    #fab-container button:hover {
+        background: var(--ivs-orange-600);
+        transform: scale(1.05);
+    }
+    #contact-options, #share-options {
+        width: 180px;
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
     #scroll-to-top-btn {
-        display: none; /* Ẩn nút cuộn lên trên để tiết kiệm không gian */
+        width: 2rem; /* Kích thước nhỏ hơn trên mobile */
+        height: 2rem;
+        display: flex; /* Đảm bảo hiển thị */
+        align-items: center;
+        justify-content: center;
+        background: var(--ivs-orange-500);
+        color: var(--ivs-text-white);
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        opacity: 0; /* Ẩn mặc định, chỉ hiện khi cuộn */
+    }
+    #scroll-to-top-btn.visible {
+        opacity: 1; /* Hiển thị khi cuộn */
     }
 }
 
