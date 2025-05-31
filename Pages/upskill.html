@@ -9,57 +9,16 @@
     <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio,line-clamp"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc; /* light blue-gray */
-            color: #334155; /* slate-700 */
-        }
-        /* Custom IVS colors */
-        .text-primary { color: #004080; }
-        .bg-primary { background-color: #004080; }
-        .text-secondary { color: #ffc107; }
-        .bg-secondary { background-color: #ffc107; }
-        .hover\:bg-primary-dark:hover { background-color: #003366; }
-
-        /* Section padding for consistency */
-        .section-padding { padding-top: 4rem; padding-bottom: 4rem; } /* py-16 */
-        .container-padding { padding-left: 1.5rem; padding-right: 1.5rem; } /* px-6 */
-        @media (min-width: 768px) {
-            .container-padding { padding-left: 3rem; padding-right: 3rem; } /* md:px-12 */
-        }
-        @media (min-width: 1024px) {
-            .container-padding { padding-left: 6rem; padding-right: 6rem; } /* lg:px-24 */
-        }
-
-        /* Animations for hero section */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-            animation: fadeIn 1s ease-out forwards;
-        }
-
-        /* Card hover effects */
-        .card-hover-effect {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card-hover-effect:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-    </style>
-</head>
-<body class="flex flex-col min-h-screen">
-    <header id="header-placeholder"></header>
+    <link rel="stylesheet" href="/css/styles.css"> </head>
+<body class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300">
+    <div id="header-placeholder" data-loading-text="Đang tải menu..."></div>
 
     <main class="flex-grow pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)]">
         <section class="relative bg-gradient-to-r from-blue-600 to-purple-700 text-white py-20 md:py-32 overflow-hidden rounded-b-3xl shadow-xl">
-            <div class="absolute inset-0 z-0 opacity-20">
-
-                <h1 class="text-5xl font-extrabold mb-4 animate-fade-in" data-lang-key="upskill_hero_title" style="animation-delay: 0.2s;">Nâng Cao Trình Độ</h1>
-                <p class="text-xl max-w-3xl mx-auto animate-fade-in" data-lang-key="upskill_hero_subtitle" style="animation-delay: 0.4s;">
+            <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('https://ivsacademy.edu.vn/images/banners/upskill_hero_banner.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/004080/ffffff?text=IVS+Upskill)'; this.classList.add('bg-slate-700');"></div>
+            <div class="container mx-auto container-padding relative z-10">
+                <h1 class="text-5xl font-extrabold mb-4 animate-fade-in" data-lang-key="upskill_hero_title">Nâng Cao Trình Độ</h1>
+                <p class="text-xl max-w-3xl mx-auto animate-fade-in" data-lang-key="upskill_hero_subtitle">
                     IVS cung cấp các chương trình đào tạo và phát triển kỹ năng toàn diện, giúp bạn vươn tầm trong sự nghiệp và cuộc sống.
                 </p>
             </div>
@@ -159,7 +118,7 @@
         <section class="section-padding bg-white shadow-md my-8 mx-auto max-w-7xl rounded-xl">
             <div class="container mx-auto container-padding">
                 <h2 class="text-4xl font-bold text-primary mb-8 text-center" data-lang-key="upskill_why_choose_title">Tại Sao Chọn IVS để Nâng Cao Trình Độ?</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div class="bg-gray-50 p-6 rounded-lg shadow-md card-hover-effect">
                         <div class="bg-blue-100 text-blue-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 text-3xl">
                             <i class="fas fa-award"></i>
@@ -205,73 +164,37 @@
         </section>
     </main>
 
-    <footer id="footer-placeholder"></footer>
+    <div id="fab-container-placeholder"></div>
+    <div id="footer-placeholder" data-loading-text="Đang tải chân trang..."></div>
 
+    <script src="/js/script.js"></script>
+    <script src="/js/language.js"></script>
+    <script src="/js/loadComponents.js" defer></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Function to initialize header and footer components
-        function initializePlaceholderComponents() {
-            const headerPlaceholder = document.getElementById('header-placeholder');
-            if (headerPlaceholder) {
-                fetch('/components/header.html') // Assuming header.html is in a components folder
-                    .then(response => response.text())
-                    .then(html => {
-                        headerPlaceholder.innerHTML = html;
-                        // Re-run any scripts that might be in the loaded header content
-                        const scripts = headerPlaceholder.querySelectorAll('script');
-                        scripts.forEach(script => {
-                            const newScript = document.createElement('script');
-                            Array.from(script.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-                            newScript.textContent = script.textContent;
-                            script.parentNode.replaceChild(newScript, script);
-                        });
-                        // Initialize any header-specific JS here if needed (e.g., mobile menu toggle)
-                        if (typeof window.initializeHeader === 'function') {
-                            window.initializeHeader();
-                        }
-                        if (typeof window.initializeLanguageSystem === 'function') {
-                            window.initializeLanguageSystem();
-                        }
-                    })
-                    .catch(err => console.error('Error loading header:', err));
+        window.onPageComponentsLoadedCallback = function() {
+            console.log("[Upskill Page] Components loaded. Page specific JS can run now.");
+            if (typeof AOS !== 'undefined') {
+                AOS.init({
+                    offset: 100,
+                    duration: 700,
+                    easing: 'ease-out-quad',
+                    once: true,
+                    mirror: false,
+                    anchorPlacement: 'top-bottom',
+                });
             }
-
-            const footerPlaceholder = document.getElementById('footer-placeholder');
-            if (footerPlaceholder) {
-                fetch('/components/footer.html') // Assuming footer.html is in a components folder
-                    .then(response => response.text())
-                    .then(html => {
-                        footerPlaceholder.innerHTML = html;
-                        const scripts = footerPlaceholder.querySelectorAll('script');
-                        scripts.forEach(script => {
-                            const newScript = document.createElement('script');
-                            Array.from(script.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-                            newScript.textContent = script.textContent;
-                            script.parentNode.replaceChild(newScript, script);
-                        });
-                        if (typeof window.initializeFooter === 'function') {
-                            window.initializeFooter();
-                        }
-                    })
-                    .catch(err => console.error('Error loading footer:', err));
+            if (typeof window.initializeLanguageSystem === 'function') {
+                window.initializeLanguageSystem().then(() => {
+                    console.log("[Upskill Page] Language system initialized by callback.");
+                }).catch(error => {
+                    console.error("[Upskill Page] Error initializing language system from callback:", error);
+                });
             }
-        }
-
-        // Add a simple animation for hero section text on load
-        document.addEventListener('DOMContentLoaded', () => {
-            initializePlaceholderComponents();
-
-            const heroTitle = document.querySelector('.hero-section h1');
-            const heroSubtitle = document.querySelector('.hero-section p');
-
-            if (heroTitle) {
-                heroTitle.style.opacity = '1';
-                heroTitle.style.transform = 'translateY(0)';
+            if (typeof initializeFabButtons === 'function') {
+                initializeFabButtons();
             }
-            if (heroSubtitle) {
-                heroSubtitle.style.opacity = '1';
-                heroSubtitle.style.transform = 'translateY(0)';
-            }
-        });
+        };
     </script>
 </body>
 </html>
