@@ -217,8 +217,27 @@ function initializeFabButtonsInternal() {
             { label: 'Facebook', icon: 'fab fa-facebook-f text-blue-600', action: () => `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}` },
             { label: 'Twitter', icon: 'fab fa-twitter text-blue-400', action: () => `https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(document.title)}` },
             { label: 'LinkedIn', icon: 'fab fa-linkedin-in text-blue-700', action: () => `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}` },
-            { label: 'Copy link', icon: 'fas fa-link text-gray-500', action: () => navigator.clipboard.writeText(window.location.href) },
+            {
+                label: 'Copy link',
+                icon: 'fas fa-link text-gray-500',
+                action: () => {
+                    // Create a temporary input element to hold the URL
+                    const tempInput = document.createElement('input');
+                    tempInput.value = window.location.href;
+                    document.body.appendChild(tempInput);
+                    // Select the text in the input
+                    tempInput.select();
+                    tempInput.setSelectionRange(0, 99999); // For mobile devices
+                    // Copy the text to the clipboard
+                    document.execCommand('copy');
+                    // Remove the temporary input
+                    document.body.removeChild(tempInput);
+                    // Optionally, provide user feedback (e.g., a temporary message)
+                    console.log('Link copied to clipboard!');
+                }
+            },
         ];
+
 
         const contactSubmenuItems = [
             { label: 'Hotline 1', icon: 'fas fa-phone-alt text-green-500', action: 'tel:+84896920547' },
