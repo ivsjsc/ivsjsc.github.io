@@ -117,9 +117,9 @@
     </style>
 </head>
 <body class="bg-gray-100 text-neutral-700 font-sans antialiased" id="page-about">
-    <div id="header-placeholder"></div>
+    <div id="header-placeholder" data-loading-text="Đang tải menu..."></div>
 
-    <main>
+    <main class="flex-grow pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)]">
         <section class="bg-gradient-to-r from-blue-600 to-purple-700 text-white py-10 md:py-14 text-center" aria-labelledby="banner-heading" data-aos="fade-in" data-aos-duration="1000">
             <div class="container mx-auto px-2">
                 <h1 id="banner-heading" class="text-3xl md:text-4xl font-bold mb-2 hero-text-shadow" data-lang-key="about_page_title" data-aos="fade-down" data-aos-delay="200">Về Chúng Tôi</h1>
@@ -127,7 +127,7 @@
             </div>
         </section>
 
-        <section class="py-8 md:py-10 bg-white" aria-labelledby="intro-heading">
+        <section class="py-8 md:py-10 bg-white dark:bg-gray-800/30 rounded-xl shadow-md mx-auto my-12 max-w-7xl px-6" aria-labelledby="intro-heading">
             <div class="container mx-auto px-2 max-w-3xl">
                 <div class="relative text-center mb-6" data-aos="zoom-in">
                     <img src="/images/logo/logo.png" alt="Logo IVS JSC" data-lang-key="about_ivs_logo_alt"
@@ -288,21 +288,22 @@
     </main>
 
     <div id="fab-container-placeholder"></div>
-    <div id="footer-placeholder"></div>
+    <div id="footer-placeholder" data-loading-text="Đang tải chân trang..."></div>
 
     <script src="js/loadComponents.js"></script>
     <script src="js/language.js"></script>
     <script src="js/script.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            window.loadComponentsAndInitialize();
-            applyLanguage();
+        window.onPageComponentsLoadedCallback = function() {
+            console.log("[About Page] Components loaded. Page specific JS can run now.");
+            // AOS.init() is called by loadComponents.js after all components are loaded
+            // applyLanguage() is called by loadComponents.js after language system is initialized
             AOS.init({
                 once: true,
                 duration: 800,
             });
-        });
+        };
     </script>
 </body>
 </html>

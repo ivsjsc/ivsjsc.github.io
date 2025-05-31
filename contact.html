@@ -21,6 +21,8 @@
             --ivs-secondary: #ffc107;
             --ivs-header-orange: #F97316;
             --ivs-primary-dark: #003366;
+            --header-height: 4rem; /* Default header height for desktop */
+            --header-height-mobile: 3.5rem; /* Default header height for mobile */
         }
         .text-primary { color: var(--ivs-primary); }
         .bg-primary { background-color: var(--ivs-primary); }
@@ -55,12 +57,49 @@
         #contact-options:not(.fab-hidden) {
             display: flex; flex-direction: column; align-items: flex-end;
         }
+        /* Header specific styles */
+        #header-placeholder:empty::before, 
+        #footer-placeholder:empty::before {
+            content: attr(data-loading-text);
+            min-height: 64px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width:100%;
+            background-color: #e5e7eb; 
+            color: #6b7280; 
+        }
+        html.dark #header-placeholder:empty::before, 
+        html.dark #footer-placeholder:empty::before {
+            background-color: #374151; 
+            color: #9ca3af; 
+        }
+        html {
+            scroll-padding-top: var(--header-height);
+            height: 100%;
+        }
+        body {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        #header-placeholder {
+            min-height: var(--header-height);
+        }
+        @media (max-width: 768px) {
+            html {
+                scroll-padding-top: var(--header-height-mobile);
+            }
+            #header-placeholder {
+                min-height: var(--header-height-mobile);
+            }
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
-    <header id="header-placeholder"></header>
+    <div id="header-placeholder" data-loading-text="Đang tải menu..."></div>
 
-    <main class="flex-grow">
+    <main class="flex-grow pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)]">
         <section class="bg-primary text-white py-20 text-center rounded-b-3xl shadow-lg relative overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('https://placehold.co/1920x600/004080/ffffff?text=Contact+Us');"></div>
             <div class="container mx-auto container-padding relative z-10">
@@ -207,87 +246,19 @@
         </section>
     </main>
 
-    <footer id="footer-placeholder"></footer>
+    <div id="fab-container-placeholder"></div>
+    <div id="footer-placeholder" data-loading-text="Đang tải chân trang..."></div>
 
+    <script src="js/loadComponents.js"></script>
+    <script src="js/language.js"></script>
+    <script src="js/script.js"></script>
     <script>
-        function initializePlaceholderComponents() {
-            const headerPlaceholder = document.getElementById('header-placeholder');
-            if (headerPlaceholder) {
-                fetch('/components/header.html')
-                    .then(response => response.text())
-                    .then(html => {
-                        headerPlaceholder.innerHTML = html;
-                        const scripts = headerPlaceholder.querySelectorAll('script');
-                        scripts.forEach(script => {
-                            const newScript = document.createElement('script');
-                            Array.from(script.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-                            newScript.textContent = script.textContent;
-                            script.parentNode.replaceChild(newScript, script);
-                        });
-                        if (typeof window.initializeHeader === 'function') {
-                            window.initializeHeader();
-                        }
-                        if (typeof window.initializeLanguageSystem === 'function') {
-                            window.initializeLanguageSystem();
-                        }
-                    })
-                    .catch(err => console.error('Error loading header:', err));
-            }
-
-            const footerPlaceholder = document.getElementById('footer-placeholder');
-            if (footerPlaceholder) {
-                fetch('/components/footer.html')
-                    .then(response => response.text())
-                    .then(html => {
-                        footerPlaceholder.innerHTML = html;
-                        const scripts = footerPlaceholder.querySelectorAll('script');
-                        scripts.forEach(script => {
-                            const newScript = document.createElement('script');
-                            Array.from(script.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-                            newScript.textContent = script.textContent;
-                            script.parentNode.replaceChild(newScript, script);
-                        });
-                        if (typeof window.initializeFooter === 'function') {
-                            window.initializeFooter();
-                        }
-                    })
-                    .catch(err => console.error('Error loading footer:', err));
-            }
-        }
-
-        function initializeFabButtons() {
-            const contactMainBtn = document.getElementById('contact-main-btn');
-            const contactOptions = document.getElementById('contact-options');
-
-            if (contactMainBtn && contactOptions) {
-                contactMainBtn.addEventListener('click', (e) => {
-                    e.stopPropagation(); 
-                    const isExpanded = contactMainBtn.getAttribute('aria-expanded') === 'true';
-                    contactOptions.classList.toggle('fab-hidden');
-                    contactMainBtn.setAttribute('aria-expanded', String(!isExpanded));
-                });
-
-                document.addEventListener('click', (e) => {
-                    if (!contactOptions.classList.contains('fab-hidden') && !contactMainBtn.contains(e.target) && !contactOptions.contains(e.target)) {
-                        contactOptions.classList.add('fab-hidden');
-                        contactMainBtn.setAttribute('aria-expanded', 'false');
-                    }
-                });
-
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && !contactOptions.classList.contains('fab-hidden')) {
-                        contactOptions.classList.add('fab-hidden');
-                        contactMainBtn.setAttribute('aria-expanded', 'false');
-                        contactMainBtn.focus(); 
-                    }
-                });
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            initializePlaceholderComponents();
-            initializeFabButtons(); 
-        });
+        window.onPageComponentsLoadedCallback = function() {
+            console.log("[Contact Page] Components loaded. Page specific JS can run now.");
+            // AOS.init() is called by loadComponents.js after all components are loaded
+            // applyLanguage() is called by loadComponents.js after language system is initialized
+            // initializeFabButtons() is called by loadComponents.js after components are loaded
+        };
     </script>
 </body>
 </html>
