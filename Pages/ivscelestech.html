@@ -152,29 +152,10 @@
     <script src="/js/loadComponents.js" defer></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        window.onPageComponentsLoadedCallback = function() {
-            console.log("[IVS Celestech Page] Components loaded. Page specific JS can run now.");
-            if (typeof AOS !== 'undefined') {
-                AOS.init({
-                    offset: 100,
-                    duration: 700,
-                    easing: 'ease-out-quad',
-                    once: true,
-                    mirror: false,
-                    anchorPlacement: 'top-bottom',
-                });
-            }
-            if (typeof window.initializeLanguageSystem === 'function') {
-                window.initializeLanguageSystem().then(() => {
-                    console.log("[IVS Celestech Page] Language system initialized by callback.");
-                }).catch(error => {
-                    console.error("[IVS Celestech Page] Error initializing language system from callback:", error);
-                });
-            }
-            if (typeof initializeFabButtons === 'function') {
-                initializeFabButtons();
-            }
-        };
+        // window.onPageComponentsLoadedCallback is now defined in loadComponents.js
+        // This script block is no longer needed here as loadComponents.js handles the DOMContentLoaded
+        // and calls onPageComponentsLoadedCallback when ready.
+        // AOS.init(), initializeLanguageSystem(), initializeFabButtons() should be called via onPageComponentsLoadedCallback in loadComponents.js
     </script>
 </body>
 </html>
