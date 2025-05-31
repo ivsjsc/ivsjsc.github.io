@@ -9,7 +9,7 @@ window.componentState = window.componentState || {
 };
 
 function componentLog(message, type = 'log') {
-    const debugMode = false; 
+    const debugMode = false;
     if (debugMode || type === 'error' || type === 'warn') {
         console[type](`[loadComponents.js] ${message}`);
     }
@@ -63,11 +63,11 @@ async function initializeHeaderInternal() {
             throw new Error('Header element not found');
         }
         window.componentState.headerElement = headerElement;
-        
+
         let lastScrollTop = 0;
         window.addEventListener('scroll', window.debounce(() => {
             if (!window.componentState.headerElement) return;
-            
+
             const st = window.pageYOffset || document.documentElement.scrollTop;
             if (st > lastScrollTop && st > 100) {
                 window.componentState.headerElement.classList.add('header-hidden');
@@ -95,17 +95,17 @@ async function loadHeader() {
         }
 
         header.setAttribute('aria-busy', 'true');
-        
+
         const success = await loadComponent('Header', 'header-placeholder', '/components/header.html');
         if (!success) {
             throw new Error('Failed to load header component');
         }
 
         await initializeHeaderInternal();
-        
+
         header.setAttribute('aria-busy', 'false');
         window.componentState.headerInitialized = true;
-        
+
         componentLog('Header successfully loaded and initialized');
     } catch (error) {
         componentLog(`Error in loadHeader: ${error.message}`, 'error');
@@ -122,7 +122,7 @@ function initializeFooterInternal() {
         componentLog("Footer already initialized. Skipping.", 'warn');
         return;
     }
-    
+
     componentLog("Initializing footer...");
     const footer = document.querySelector('footer');
     if (!footer) {
@@ -131,10 +131,10 @@ function initializeFooterInternal() {
     }
 
     try {
-        const newsletterForm = document.getElementById('newsletterForm'); 
-        const newsletterMessage = document.getElementById('newsletterMessage'); 
-        const currentYearSpan = document.getElementById('current-year'); 
-        
+        const newsletterForm = document.getElementById('newsletterForm');
+        const newsletterMessage = document.getElementById('newsletterMessage');
+        const currentYearSpan = document.getElementById('current-year');
+
         if (currentYearSpan) {
             currentYearSpan.textContent = new Date().getFullYear();
         }
@@ -144,31 +144,31 @@ function initializeFooterInternal() {
                 event.preventDefault();
                 const formData = new FormData(newsletterForm);
                 const email = formData.get('email');
-                
+
                 if (!email) {
                     newsletterMessage.textContent = 'Vui lòng nhập địa chỉ email.';
                     newsletterMessage.className = 'mt-2 text-sm text-red-400';
                     return;
                 }
-                
+
                 newsletterMessage.textContent = 'Đang gửi...';
                 newsletterMessage.className = 'mt-2 text-sm text-yellow-400';
-                
+
                 try {
                     const response = await fetch(newsletterForm.action, {
                         method: 'POST',
                         body: formData,
                         headers: { 'Accept': 'application/json' }
                     });
-                    
+
                     if (response.ok) {
                         newsletterMessage.textContent = 'Cảm ơn bạn đã đăng ký!';
                         newsletterMessage.className = 'mt-2 text-sm text-green-400';
                         newsletterForm.reset();
                     } else {
                         const data = await response.json();
-                        newsletterMessage.textContent = Object.hasOwn(data, 'errors') 
-                            ? data.errors.map(error => error.message).join(", ") 
+                        newsletterMessage.textContent = Object.hasOwn(data, 'errors')
+                            ? data.errors.map(error => error.message).join(", ")
                             : 'Đã có lỗi xảy ra. Vui lòng thử lại.';
                         newsletterMessage.className = 'mt-2 text-sm text-red-400';
                     }
@@ -250,7 +250,7 @@ function initializeFabButtonsInternal() {
 
         function populateSubmenu(submenuElement, items) {
             if (!submenuElement) return;
-            submenuElement.innerHTML = ''; 
+            submenuElement.innerHTML = '';
             items.forEach(item => {
                 const link = document.createElement('a');
                 link.href = typeof item.action === 'function' ? item.action() : item.action;
@@ -300,7 +300,7 @@ function initializeFabButtonsInternal() {
             }, 150);
 
             window.addEventListener('scroll', handleScroll, { passive: true });
-            handleScroll(); 
+            handleScroll();
         }
 
         document.addEventListener('click', (e) => {
@@ -390,15 +390,15 @@ window.loadComponentsAndInitialize = async function() {
 
         await initializeFabButtonsInternal();
 
-        if (typeof window.initializeLanguageSystem === 'function') { 
+        if (typeof window.initializeLanguageSystem === 'function') {
             try {
-                await window.initializeLanguageSystem(); 
+                await window.initializeLanguageSystem();
                 componentLog('Language system initialized');
             } catch (error) {
                 componentLog(`Error initializing language system: ${error.message}`, 'error');
             }
         } else {
-            componentLog('window.initializeLanguageSystem not found', 'warn'); 
+            componentLog('window.initializeLanguageSystem not found', 'warn');
         }
 
         window.componentState.componentsLoadedAndInitialized = true;
