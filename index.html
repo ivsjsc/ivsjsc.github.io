@@ -25,213 +25,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <style>
-        /* CSS Variables */
-        :root {
-            --ivs-primary: #004080; 
-            --ivs-secondary: #ffc107; 
-            --ivs-neutral-800: #1f2937; 
-            --ivs-neutral-700: #374151; 
-            --ivs-neutral-600: #4B5563; 
-            --ivs-text-gray-300: #D1D5DB; 
-            --ivs-text-white: #ffffff;
-            --ivs-primary-dark: #003366;
-            --ivs-orange-500: #F97316; 
-            --ivs-orange-600: #EA580C; 
-            --ivs-orange-700: #C2410C; 
-            --ivs-header-orange: #F97316; 
-            --header-height: 4rem; /* Default header height for desktop */
-            --header-height-mobile: 3.5rem; /* Default header height for mobile */
-        }
 
-        /* Base styles */
-        body {
-            font-family: 'Inter', Arial, sans-serif;
-        }
-
-        /* Header specific styles */
-        #main-header {
-            min-height: var(--header-height); /* Use min-height for flexibility */
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 9999;
-            will-change: transform;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateY(0);
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            opacity: 1;
-        }
-
-        .header-hidden {
-            transform: translateY(-100%) !important;
-        }
-
-        .header-visible {
-            transform: translateY(0);
-        }
-
-        /* Placeholder for dynamically loaded header/footer */
-        #header-placeholder:empty::before, 
-        #footer-placeholder:empty::before {
-            content: attr(data-loading-text);
-            min-height: 64px; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width:100%;
-            background-color: #e5e7eb; /* Tailwind gray-200 */
-            color: #6b7280; /* Tailwind gray-500 */
-        }
-        html.dark #header-placeholder:empty::before, 
-        html.dark #footer-placeholder:empty::before {
-            background-color: #374151; /* Tailwind gray-700 */
-            color: #9ca3af; /* Tailwind gray-400 */
-        }
-
-        /* Ensure main content starts below header */
-        html {
-            scroll-padding-top: var(--header-height);
-            height: 100%;
-        }
-        body {
-            min-height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        /* Placeholder for header to prevent layout shift */
-        #header-placeholder {
-            min-height: var(--header-height); /* Use min-height */
-        }
-
-        /* Mobile specific header adjustments */
-        @media (max-width: 768px) {
-            html {
-                scroll-padding-top: var(--header-height-mobile);
-            }
-            #header-placeholder {
-                min-height: var(--header-height-mobile); /* Use min-height */
-            }
-        }
-
-        /* Custom header nav text styles */
-        .header-nav-text-custom {
-            /* Add any specific styles for nav links here if needed, e.g., */
-            /* padding: 0.625rem 0.75rem; */
-            /* font-size: 0.875rem; */
-        }
-
-        /* Video background section styles */
-        .video-background-section .video-background-container {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            overflow: hidden; z-index: 0; border-radius: inherit;
-        }
-        .video-background-section .video-background-container video {
-            min-width: 100%; min-height: 100%; width: auto; height: auto;
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); object-fit: cover;
-        }
-        .video-background-section .video-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); 
-            z-index: 1; border-radius: inherit;
-        }
-        html.dark .video-background-section .video-overlay {
-            background-color: rgba(0, 0, 0, 0.65); 
-        }
-        .video-background-section .section-content-on-video {
-            position: relative; z-index: 2;
-            padding: 4rem 1rem; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            min-height: 300px;
-        }
-
-        /* Hero section styles */
-        .hero-section-banner {
-            background-size: cover;
-            background-position: center;
-            min-height: 60vh; 
-            max-height: 500px; 
-        }
-        .hero-section-banner .hero-content {
-            position: relative; z-index: 2; 
-            padding: 5rem 1rem; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background-color: rgba(0, 0, 0, 0.25); 
-            width: 100%;
-            height: 100%;
-        }
-        html.dark .hero-section-banner .hero-content {
-            background-color: rgba(0, 0, 0, 0.5); 
-        }
-        @media (max-width: 767px) {
-            .hero-section-banner { min-height: 50vh; }
-            .hero-section-banner .hero-content { padding: 3rem 1rem; }
-            .video-background-section .section-content-on-video { min-height: 250px; }
-        }
-
-        /* Card styles */
-        .service-card, .education-level-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .service-card:hover, .education-level-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-        html.dark .service-card, html.dark .education-level-card {
-            background-color: #1f2937; /* Tailwind gray-800 */
-            border: 1px solid #374151; /* Tailwind gray-700 */
-        }
-        html.dark .service-card:hover, html.dark .education-level-card:hover {
-            box-shadow: 0 10px 20px rgba(255,255,255,0.05);
-        }
-
-        /* Testimonial card styles */
-        .testimonial-card { min-height: 220px; }
-        html.dark .testimonial-card {
-            background-color: #1f2937; /* Tailwind gray-800 */
-            border: 1px solid #374151; /* Tailwind gray-700 */
-        }
-        html.dark .testimonial-card:hover {
-            box-shadow: 0 10px 20px rgba(255,255,255,0.05);
-        }
-        .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
-
-        /* FAB (Floating Action Button) styles */
-        .fab-hidden { display: none !important; }
-        #contact-options:not(.fab-hidden),
-        #share-options:not(.fab-hidden) {
-            display: flex; flex-direction: column; align-items: flex-end;
-        }
-        #contact-options, #share-options { z-index: 1000; }
-        
-        /* Tailwind custom colors */
-        .bg-primary { background-color: var(--ivs-primary); }
-        .text-primary { color: var(--ivs-primary); }
-        .hover\:bg-primary-dark:hover { background-color: var(--ivs-primary-dark); }
-        .text-secondary { color: var(--ivs-secondary); }
-        .bg-header-orange { background-color: var(--ivs-header-orange); }
-        .hover\:bg-orange-700:hover { background-color: var(--ivs-orange-700); }
-        
-        .text-purple-accent { color: #8B5CF6; } 
-        .text-warning { color: #F59E0B; } 
-
-        /* Group hover visibility */
-        .group:hover .group-hover\\:opacity-100 {
-            opacity: 1 !important; visibility: visible !important;
-        }
-         .group:hover .group-hover\\:visible {
-            visibility: visible !important;
-        }
-
-        /* Language toggle button active state */
-        #header-placeholder button.active-lang {
-            background-color: var(--ivs-primary); 
-            color: var(--ivs-text-white) !important;
-        }
-    </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-index">
     
@@ -240,7 +34,7 @@
     <main class="pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)]">
         <section 
             class="hero-section-banner relative text-center overflow-hidden shadow-xl bg-gray-700 dark:bg-gray-800" 
-            style="background-image: url('https://ivs.id.vn/images/logo/webbanner.png');"
+            style="background-image: url('/images/logo/webbanner.png');"
             data-aos="fade-in" 
             data-aos-duration="1000"
             onerror="this.style.backgroundImage='url(https://placehold.co/1920x500/374151/ffffff?text=Hero+Banner+IVS)';"> 
@@ -250,7 +44,7 @@
                     if (typeof window !== 'undefined' && window.innerWidth < 768) {
                         const section = document.currentScript.parentElement;
                         if (section) {
-                            section.style.backgroundImage = "url('https://ivs.id.vn/images/logo/webbannermo.png')";
+                            section.style.backgroundImage = "url('images/logo/webbannermo.png')";
                             const imgTest = new Image();
                             imgTest.onerror = function() {
                                 section.style.backgroundImage = "url('images/logo/webbannermo.png')";
