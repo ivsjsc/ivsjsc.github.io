@@ -1,19 +1,33 @@
+require('dotenv').config();
 const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
-const app = express();
-const port = 3000;
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-// Serve static files (e.g., images, CSS, JS)
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(bodyParser.json());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Route for the homepage
+const geminiApiKey = process.env.GEMINI_API_KEY;
+
+if (!geminiApiKey) {
+    console.error('Lỗi: Khóa API Gemini không được tìm thấy trong biến môi trường. Vui lòng đặt GEMINI_API_KEY trong tệp .env');
+    process.exit(1);
+}
+
+const genAI = new GoogleGenerativeAI(geminiApiKey);
+const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+
 app.get('/', async (req, res) => {
     try {
-        // Read header.html
         const headerContent = await fs.readFile(path.join(__dirname, 'public', 'header.html'), 'utf8');
         
-        // Construct the full HTML response
         const html = `
             <!DOCTYPE html>
             <html lang="vi">
@@ -38,42 +52,24 @@ app.get('/', async (req, res) => {
     }
 });
 
-// Start the server
-app.listen(port, () => {
-    console.log(`IVS JSC server running at http://localhost:${port}`);
-});
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
-
-const app = express();
-const port = 3001; // You can choose a different port
-
-app.use(cors());
-app.use(bodyParser.json());
-
-// Replace with your actual Gemini API key
-const genAI = new GoogleGenerativeAI(process.env.AIzaSyBLCu4JTD0yWFyaC5c_O2RmL2YpcAcyODE);
-const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-
 app.post('/chat', async (req, res) => {
     const { message } = req.body;
 
     if (!message) {
-        return res.status(400).json({ error: 'No message provided.' });
+        return res.status(400).json({ error: 'Vui lòng cung cấp tin nhắn.' });
     }
 
     try {
         const result = await model.generateContent([message]);
-        const response = result.response.candidates[0].content.parts[0].text;
-        res.json({ response });
+        const responseText = result.response.candidates[0].content.parts[0].text;
+        res.json({ response: responseText });
     } catch (error) {
-        console.error('Error generating response:', error);
-        res.status(500).json({ error: 'Failed to generate response.' });
+        console.error('Lỗi khi tạo phản hồi từ Gemini API:', error);
+        res.status(500).json({ error: 'Đã xảy ra lỗi khi xử lý yêu cầu của bạn.' });
     }
 });
 
 app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+    console.log(`IVS JSC server running at http://localhost:${port}`);
+    console.log('IVS – Tư duy chiến lược, Hành động thực tiễn, Giá trị toàn cầu.');
 });
