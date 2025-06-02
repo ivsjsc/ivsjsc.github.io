@@ -42,3 +42,38 @@ app.get('/', async (req, res) => {
 app.listen(port, () => {
     console.log(`IVS JSC server running at http://localhost:${port}`);
 });
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+
+const app = express();
+const port = 3001; // You can choose a different port
+
+app.use(cors());
+app.use(bodyParser.json());
+
+// Replace with your actual Gemini API key
+const genAI = new GoogleGenerativeAI(process.env.AIzaSyBLCu4JTD0yWFyaC5c_O2RmL2YpcAcyODE);
+const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+
+app.post('/chat', async (req, res) => {
+    const { message } = req.body;
+
+    if (!message) {
+        return res.status(400).json({ error: 'No message provided.' });
+    }
+
+    try {
+        const result = await model.generateContent([message]);
+        const response = result.response.candidates[0].content.parts[0].text;
+        res.json({ response });
+    } catch (error) {
+        console.error('Error generating response:', error);
+        res.status(500).json({ error: 'Failed to generate response.' });
+    }
+});
+
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+});
