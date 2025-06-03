@@ -35,7 +35,7 @@
             position: relative; 
         }
 
-        .question-card, .results-card {
+        .question-card, .results-card, .modal-card {
             background-color: rgba(255, 255, 255, 0.97); 
             backdrop-filter: blur(12px);
             border: 1px solid rgba(200, 156, 74, 0.4);
@@ -129,7 +129,25 @@
         .secondary-action-button:hover {
             background-color: #cbd5e0; 
         }
-
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4 advisor-container">
@@ -200,6 +218,18 @@
         </footer>
     </div>
 
+    <div id="continueSessionModal" class="modal-overlay">
+        <div class="modal-card p-6 md:p-8 rounded-xl w-full max-w-md mx-4 text-center">
+            <h3 class="text-xl font-semibold text-[#0a3d4a] mb-4" data-lang-key="modal_continue_title">Tiếp tục Phiên làm việc?</h3>
+            <p class="text-gray-700 mb-6" data-lang-key="modal_continue_text">Chúng tôi tìm thấy dữ liệu từ lần truy cập trước. Bạn có muốn tiếp tục không?</p>
+            <div class="flex justify-center gap-4">
+                <button id="confirmContinueButton" class="control-button primary-action-button py-2.5 px-6 rounded-lg" data-lang-key="modal_continue_yes">Có, Tiếp tục</button>
+                <button id="declineContinueButton" class="control-button secondary-action-button py-2.5 px-6 rounded-lg" data-lang-key="modal_continue_no">Không, Bắt đầu mới</button>
+            </div>
+        </div>
+    </div>
+
+
     <script>
         const translations = {
             vi: {
@@ -215,6 +245,10 @@
                 restart_button: "Làm lại",
                 contact_button_text: "Liên hệ Tư vấn",
                 footer_text: "© 2025 IVS JSC. Bảo lưu mọi quyền.",
+                modal_continue_title: "Tiếp tục Phiên làm việc?",
+                modal_continue_text: "Chúng tôi tìm thấy dữ liệu từ lần truy cập trước. Bạn có muốn tiếp tục không?",
+                modal_continue_yes: "Có, Tiếp tục",
+                modal_continue_no: "Không, Bắt đầu mới",
                 q1_title: "Bạn là ai?",
                 q1_opt1: "Học sinh Phổ thông (Lớp 1-12)",
                 q1_opt1_tooltip: "Dành cho học sinh từ tiểu học đến trung học phổ thông",
@@ -224,6 +258,17 @@
                 q1_opt3_tooltip: "Dành cho cá nhân đã đi làm, muốn nâng cao kỹ năng hoặc chuyển đổi nghề nghiệp",
                 q1_opt4: "Đại diện Doanh nghiệp/Tổ chức Giáo dục",
                 q1_opt4_tooltip: "Dành cho công ty, trường học, hoặc các đơn vị giáo dục tìm kiếm giải pháp đào tạo, hợp tác",
+                
+                q1_1_k12_title: "Bạn đang học lớp mấy hoặc quan tâm đến cấp học nào?",
+                q1_1_k12_opt1: "Tiểu học (Lớp 1-5)",
+                q1_1_k12_opt2: "Trung học Cơ sở (Lớp 6-9)",
+                q1_1_k12_opt3: "Trung học Phổ thông (Lớp 10-12)",
+
+                q1_1_org_title: "Quy mô tổ chức của bạn như thế nào?",
+                q1_1_org_opt1: "Dưới 50 người",
+                q1_1_org_opt2: "Từ 50 - 200 người",
+                q1_1_org_opt3: "Trên 200 người",
+
                 q2_title: "Lĩnh vực nào bạn quan tâm hàng đầu?",
                 q2_opt1: "Ngoại ngữ (Anh, Nhật, Hàn, Trung)",
                 q2_opt1_tooltip: "Các khóa học và luyện thi chứng chỉ ngoại ngữ quốc tế",
@@ -235,6 +280,14 @@
                 q2_opt4_tooltip: "Dịch vụ tư vấn xây dựng lộ trình học tập, du học và phát triển cho các tổ chức giáo dục",
                 q2_opt5: "Giải pháp Đào tạo Toàn diện cho Tổ chức",
                 q2_opt5_tooltip: "Các gói đào tạo theo yêu cầu, xây dựng chương trình và chuyển giao công nghệ giáo dục cho doanh nghiệp, trường học",
+
+                q2_1_lang_title: "Bạn muốn học ngoại ngữ nào cụ thể?",
+                q2_1_lang_opt1: "Tiếng Anh (IELTS, TOEFL, Giao tiếp)",
+                q2_1_lang_opt2: "Tiếng Nhật (JLPT, Giao tiếp)",
+                q2_1_lang_opt3: "Tiếng Hàn (TOPIK, Giao tiếp)",
+                q2_1_lang_opt4: "Tiếng Trung (HSK, Giao tiếp)",
+                q2_1_lang_opt5: "Ngoại ngữ khác/Chưa xác định",
+
                 q3_title: "Mục tiêu chính bạn hướng đến là gì?",
                 q3_opt1: "Đạt Chứng chỉ Quốc tế/Nâng cao Học vấn",
                 q3_opt1_tooltip: "Lấy chứng chỉ IELTS, TOEFL, JLPT, TOPIK,... hoặc bằng cấp học thuật",
@@ -271,6 +324,10 @@
                 restart_button: "Restart",
                 contact_button_text: "Contact for Consultation",
                 footer_text: "© 2025 IVS JSC. All rights reserved.",
+                modal_continue_title: "Continue Session?",
+                modal_continue_text: "We found data from your previous visit. Would you like to continue?",
+                modal_continue_yes: "Yes, Continue",
+                modal_continue_no: "No, Start New",
                 q1_title: "Who are you?",
                 q1_opt1: "K-12 Student (Grade 1-12)",
                 q1_opt1_tooltip: "For students from elementary to high school",
@@ -280,6 +337,17 @@
                 q1_opt3_tooltip: "For working individuals seeking skill enhancement or career change",
                 q1_opt4: "Representative of Business/Educational Organization",
                 q1_opt4_tooltip: "For companies, schools, or educational units seeking training solutions or partnerships",
+
+                q1_1_k12_title: "Which grade level are you in or interested in?",
+                q1_1_k12_opt1: "Elementary School (Grades 1-5)",
+                q1_1_k12_opt2: "Middle School (Grades 6-9)",
+                q1_1_k12_opt3: "High School (Grades 10-12)",
+
+                q1_1_org_title: "What is the size of your organization?",
+                q1_1_org_opt1: "Under 50 people",
+                q1_1_org_opt2: "50 - 200 people",
+                q1_1_org_opt3: "Over 200 people",
+                
                 q2_title: "Which primary field interests you?",
                 q2_opt1: "Foreign Languages (English, Japanese, Korean, Chinese)",
                 q2_opt1_tooltip: "Courses and preparation for international language certifications",
@@ -291,6 +359,14 @@
                 q2_opt4_tooltip: "Consulting services for academic pathway planning, study abroad, and development for educational organizations",
                 q2_opt5: "Comprehensive Training Solutions for Organizations",
                 q2_opt5_tooltip: "Customized training packages, curriculum development, and educational technology transfer for businesses and schools",
+
+                q2_1_lang_title: "Which specific foreign language do you want to learn?",
+                q2_1_lang_opt1: "English (IELTS, TOEFL, Communication)",
+                q2_1_lang_opt2: "Japanese (JLPT, Communication)",
+                q2_1_lang_opt3: "Korean (TOPIK, Communication)",
+                q2_1_lang_opt4: "Chinese (HSK, Communication)",
+                q2_1_lang_opt5: "Other language/Undecided",
+
                 q3_title: "What is your primary objective?",
                 q3_opt1: "Achieve International Certification/Academic Advancement",
                 q3_opt1_tooltip: "Obtain IELTS, TOEFL, JLPT, TOPIK certificates, or academic degrees",
@@ -316,7 +392,7 @@
             }
         };
 
-        const questions = [
+        const allQuestions = [
             {
                 id: 'q1',
                 titleKey: 'q1_title',
@@ -328,6 +404,26 @@
                 ]
             },
             {
+                id: 'q1_1_k12',
+                titleKey: 'q1_1_k12_title',
+                options: [
+                    { value: 'elementary', textKey: 'q1_1_k12_opt1'},
+                    { value: 'middle_school', textKey: 'q1_1_k12_opt2'},
+                    { value: 'high_school', textKey: 'q1_1_k12_opt3'}
+                ],
+                condition: (answers) => answers.q1 === 'k12_student'
+            },
+            {
+                id: 'q1_1_org',
+                titleKey: 'q1_1_org_title',
+                options: [
+                    { value: 'org_small', textKey: 'q1_1_org_opt1'},
+                    { value: 'org_medium', textKey: 'q1_1_org_opt2'},
+                    { value: 'org_large', textKey: 'q1_1_org_opt3'}
+                ],
+                condition: (answers) => answers.q1 === 'organization'
+            },
+            {
                 id: 'q2',
                 titleKey: 'q2_title',
                 options: [
@@ -337,6 +433,18 @@
                     { value: 'consulting_study_abroad', textKey: 'q2_opt4', tooltipKey: 'q2_opt4_tooltip' },
                     { value: 'org_solutions', textKey: 'q2_opt5', tooltipKey: 'q2_opt5_tooltip' }
                 ]
+            },
+            {
+                id: 'q2_1_lang',
+                titleKey: 'q2_1_lang_title',
+                options: [
+                    { value: 'english', textKey: 'q2_1_lang_opt1'},
+                    { value: 'japanese', textKey: 'q2_1_lang_opt2'},
+                    { value: 'korean', textKey: 'q2_1_lang_opt3'},
+                    { value: 'chinese', textKey: 'q2_1_lang_opt4'},
+                    { value: 'other_lang', textKey: 'q2_1_lang_opt5'}
+                ],
+                condition: (answers) => answers.q2 === 'language'
             },
             {
                 id: 'q3',
@@ -351,7 +459,8 @@
             }
         ];
 
-        let currentQuestionIndex = 0;
+        let currentQuestionPath = [];
+        let currentQuestionIndexInPath = 0;
         let answers = {};
         let currentLang = 'vi';
 
@@ -368,11 +477,14 @@
         const recommendationsContainerEl = document.getElementById('recommendationsContainer');
         const restartButton = document.getElementById('restartButton');
         const langButtons = document.querySelectorAll('.lang-switcher button');
-        const allScreens = [welcomeScreen, questionScreen, resultsScreen];
+        const allScreenElements = [welcomeScreen, questionScreen, resultsScreen];
+        const continueSessionModal = document.getElementById('continueSessionModal');
+        const confirmContinueButton = document.getElementById('confirmContinueButton');
+        const declineContinueButton = document.getElementById('declineContinueButton');
 
 
         function showScreen(screenToShow) {
-            allScreens.forEach(screen => {
+            allScreenElements.forEach(screen => {
                 if (screen === screenToShow) {
                     screen.classList.remove('hidden-screen');
                     screen.classList.add('visible-screen');
@@ -390,7 +502,6 @@
             });
         }
 
-
         function updateTexts(lang) {
             currentLang = lang;
             document.documentElement.lang = lang;
@@ -401,7 +512,8 @@
                 }
             });
             if (questionScreen.classList.contains('visible-screen')) {
-                 loadQuestion(currentQuestionIndex);
+                 buildCurrentQuestionPath(); // Rebuild path in case language change affects conditions (though unlikely here)
+                 loadQuestion(currentQuestionIndexInPath);
             }
              if (resultsScreen.classList.contains('visible-screen')) {
                 displayResults();
@@ -416,19 +528,34 @@
                 button.classList.add('active');
             });
         });
+        
+        function buildCurrentQuestionPath() {
+            currentQuestionPath = allQuestions.filter(q => !q.condition || q.condition(answers));
+        }
 
         function updateProgressBar() {
-            const percentage = Math.max(0, (currentQuestionIndex / questions.length)) * 100;
+            if (currentQuestionPath.length === 0) {
+                progressBar.style.width = '0%';
+                progressPercentage.textContent = '0%';
+                return;
+            }
+            const percentage = Math.max(0, (currentQuestionIndexInPath / currentQuestionPath.length)) * 100;
             progressBar.style.width = `${percentage}%`;
             progressPercentage.textContent = `${Math.round(percentage)}%`;
-             if (currentQuestionIndex === questions.length) { 
+             if (currentQuestionIndexInPath === currentQuestionPath.length) { 
                 progressBar.style.width = `100%`;
                 progressPercentage.textContent = `100%`;
             }
         }
 
-        function loadQuestion(index) {
-            const question = questions[index];
+        function loadQuestion(indexInPath) {
+            if (indexInPath < 0 || indexInPath >= currentQuestionPath.length) {
+                 if (currentQuestionPath.length > 0 && indexInPath >= currentQuestionPath.length) { // Attempted to go beyond last question
+                    showResultsScreen();
+                }
+                return;
+            }
+            const question = currentQuestionPath[indexInPath];
             questionTitleEl.textContent = translations[currentLang][question.titleKey];
             optionsContainerEl.innerHTML = '';
             question.options.forEach(option => {
@@ -451,7 +578,7 @@
                 optionsContainerEl.appendChild(button);
             });
             
-            prevButton.style.visibility = index === 0 ? 'hidden' : 'visible';
+            prevButton.style.visibility = indexInPath === 0 ? 'hidden' : 'visible';
             nextButton.disabled = !answers[question.id];
             nextButton.classList.toggle('opacity-50', !answers[question.id]);
             nextButton.classList.toggle('cursor-not-allowed', !answers[question.id]);
@@ -460,65 +587,133 @@
 
         function selectOption(buttonEl, questionId, value) {
             answers[questionId] = value;
+            saveState(); 
+
             document.querySelectorAll(`#optionsContainer .option-button`).forEach(btn => btn.classList.remove('selected'));
             buttonEl.classList.add('selected');
             nextButton.disabled = false;
             nextButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            
+            const oldPathLength = currentQuestionPath.length;
+            buildCurrentQuestionPath(); 
+            
+            if (currentQuestionPath.length !== oldPathLength) {
+                 // Path might have changed, ensure current index is valid or adjust
+                if (currentQuestionIndexInPath >= currentQuestionPath.length) {
+                    // This can happen if a conditional question further down the new path is removed
+                    // Or if the current question itself is no longer valid.
+                    // For simplicity, if path changes, we might need to re-evaluate the next step carefully.
+                    // A common scenario: if current question is removed, try to find its replacement or next valid one.
+                }
+            }
+            // No automatic advance, user clicks next.
         }
 
+        function saveState() {
+            localStorage.setItem('ivsAdvisorAnswers', JSON.stringify(answers));
+            localStorage.setItem('ivsAdvisorCurrentQuestionIndexInPath', currentQuestionIndexInPath.toString());
+        }
+
+        function loadState() {
+            const savedAnswers = localStorage.getItem('ivsAdvisorAnswers');
+            const savedIndex = localStorage.getItem('ivsAdvisorCurrentQuestionIndexInPath');
+
+            if (savedAnswers) {
+                answers = JSON.parse(savedAnswers);
+                if (savedIndex !== null) {
+                    currentQuestionIndexInPath = parseInt(savedIndex, 10);
+                }
+                return true; // Found saved state
+            }
+            return false; // No saved state
+        }
+
+        function clearState() {
+            localStorage.removeItem('ivsAdvisorAnswers');
+            localStorage.removeItem('ivsAdvisorCurrentQuestionIndexInPath');
+            answers = {};
+            currentQuestionIndexInPath = 0;
+        }
+
+        function showResultsScreen() {
+            showScreen(resultsScreen);
+            displayResults();
+            updateProgressBar(); 
+        }
+        
         startButton.addEventListener('click', () => {
             showScreen(questionScreen);
-            loadQuestion(currentQuestionIndex);
+            buildCurrentQuestionPath();
+            loadQuestion(currentQuestionIndexInPath); // currentQuestionIndexInPath is 0 if new start
         });
 
         prevButton.addEventListener('click', () => {
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                loadQuestion(currentQuestionIndex);
+            if (currentQuestionIndexInPath > 0) {
+                currentQuestionIndexInPath--;
+                saveState(); // Save index when going back
+                loadQuestion(currentQuestionIndexInPath);
             }
         });
 
         nextButton.addEventListener('click', () => {
-            if (currentQuestionIndex < questions.length - 1) {
-                currentQuestionIndex++;
-                loadQuestion(currentQuestionIndex);
+            buildCurrentQuestionPath(); // Rebuild path before moving to next, in case current answer changed it
+            if (currentQuestionIndexInPath < currentQuestionPath.length - 1) {
+                currentQuestionIndexInPath++;
+                saveState();
+                loadQuestion(currentQuestionIndexInPath);
             } else {
-                showScreen(resultsScreen);
-                displayResults();
-                updateProgressBar(); 
+                currentQuestionIndexInPath = currentQuestionPath.length; // Mark as completed
+                saveState();
+                showResultsScreen();
             }
         });
         
         function getRecommendations() {
             const q1 = answers.q1; 
+            const q1_1_k12 = answers.q1_1_k12;
+            const q1_1_org = answers.q1_1_org;
             const q2 = answers.q2; 
+            const q2_1_lang = answers.q2_1_lang;
             const q3 = answers.q3; 
             let recommendations = new Set();
 
-            if (q2 === 'language' || q3 === 'certification_academic') {
+            // Language focus
+            if (q2 === 'language' || (q3 === 'certification_academic' && (q2_1_lang || q1 !== 'organization'))) {
                 recommendations.add('ivs_academy');
             }
+
+            // STEAM & Digital
             if (q2 === 'steam_digital') {
                 recommendations.add('ivs_education');
                 if (q1 === 'organization' || q3 === 'org_efficiency_quality') {
                     recommendations.add('ivs_media'); 
                 }
+                if (q1 === 'k12_student' && (q1_1_k12 === 'elementary' || q1_1_k12 === 'middle_school')) {
+                     // KinderLink25 could be mentioned if IVS Education covers early STEAM
+                }
             }
+
+            // Skills & Mindset
             if (q2 === 'skills_mindset' || q3 === 'career_competency' || q3 === 'mindset_potential') {
-                 recommendations.add('ivs_academy');
+                 recommendations.add('ivs_academy'); // Soft skills often here
                  recommendations.add('ivs_lifeminds');
             }
+
+            // Consulting & Study Abroad
             if (q2 === 'consulting_study_abroad' || q3 === 'study_abroad_scholarship') {
                 recommendations.add('ivs_consulting');
             }
-             if (q2 === 'org_solutions' || (q1 === 'organization' && q3 === 'org_efficiency_quality')) {
-                recommendations.add('ivs_consulting');
-                recommendations.add('ivs_education'); 
-                recommendations.add('ivs_media');
-            }
 
+            // Organizational Solutions
+             if (q2 === 'org_solutions' || (q1 === 'organization' && q3 === 'org_efficiency_quality')) {
+                recommendations.add('ivs_consulting'); // Strategic consulting
+                recommendations.add('ivs_education'); // IVSCelesTech, custom programs
+                recommendations.add('ivs_media'); // Digital content, marketing for orgs
+            }
+            
+            // Specifics for user types
             if (q1 === 'k12_student') {
-                if (q2 === 'language' || q2 === 'steam_digital') recommendations.add('ivs_academy');
+                if (q2 === 'language') recommendations.add('ivs_academy');
                 if (q2 === 'steam_digital') recommendations.add('ivs_education');
             }
             if (q1 === 'uni_student') {
@@ -527,8 +722,10 @@
                  if (q2 === 'skills_mindset') recommendations.add('ivs_lifeminds');
             }
             if (q1 === 'professional') {
-                recommendations.add('ivs_academy'); 
-                recommendations.add('ivs_lifeminds');
+                if (q2 === 'language' || q2 === 'skills_mindset' || q3 === 'career_competency') {
+                    recommendations.add('ivs_academy'); 
+                    recommendations.add('ivs_lifeminds');
+                }
                 if (q3 === 'study_abroad_scholarship' || q2 === 'consulting_study_abroad') recommendations.add('ivs_consulting');
             }
             
@@ -562,22 +759,68 @@
                     }, index * 150); 
                 });
             } else {
-                recommendationsContainerEl.innerHTML = `<p class="text-gray-700 text-center" data-lang-key="no_recommendations">Không có đề xuất cụ thể. Vui lòng liên hệ để được tư vấn thêm.</p>`;
+                recommendationsContainerEl.innerHTML = `<p class="text-gray-700 text-center" data-lang-key="no_recommendations_fallback">Chúng tôi đang tìm giải pháp phù hợp. Vui lòng liên hệ để được tư vấn chi tiết.</p>`;
                  updateTexts(currentLang); 
             }
         }
 
         restartButton.addEventListener('click', () => {
-            currentQuestionIndex = 0;
-            answers = {};
+            clearState();
             showScreen(welcomeScreen);
-            progressBar.style.width = '0%';
-            progressPercentage.textContent = '0%';
+            buildCurrentQuestionPath(); // Rebuild for fresh start
+            updateProgressBar();
+        });
+        
+        confirmContinueButton.addEventListener('click', () => {
+            continueSessionModal.classList.remove('visible');
+            showScreen(questionScreen);
+            buildCurrentQuestionPath(); // Build path based on loaded answers
+            loadQuestion(currentQuestionIndexInPath);
+        });
+
+        declineContinueButton.addEventListener('click', () => {
+            continueSessionModal.classList.remove('visible');
+            clearState();
+            showScreen(welcomeScreen); // Or directly to question 1 of new session
+            buildCurrentQuestionPath();
+            updateProgressBar();
         });
         
         document.addEventListener('DOMContentLoaded', () => {
             updateTexts(currentLang); 
-            showScreen(welcomeScreen); 
+            if (loadState() && Object.keys(answers).length > 0) { // Check if answers object is not empty
+                // If currentQuestionIndexInPath points beyond the last question of the saved path,
+                // it means they completed it. Ask to restart or view results (if results can be regenerated).
+                buildCurrentQuestionPath(); // Build path based on loaded answers first
+                if (currentQuestionIndexInPath >= currentQuestionPath.length && currentQuestionPath.length > 0) {
+                    // They were at the results screen or completed.
+                    // Offer to view results again or restart. For simplicity, show modal to restart or continue (which implies restarting if at end).
+                    // Or, directly show results if possible.
+                    // Let's make "continue" mean going to the results if they were at the end.
+                     continueSessionModal.classList.add('visible');
+                     // Adjust confirmContinue logic: if at end, show results.
+                     confirmContinueButton.onclick = () => {
+                        continueSessionModal.classList.remove('visible');
+                        if (currentQuestionIndexInPath >= currentQuestionPath.length && currentQuestionPath.length > 0) {
+                            showResultsScreen();
+                        } else {
+                            showScreen(questionScreen);
+                            loadQuestion(currentQuestionIndexInPath);
+                        }
+                     }
+
+                } else if (currentQuestionPath.length > 0) { // Has progress and not at the end
+                     continueSessionModal.classList.add('visible');
+                } else { // Saved state is invalid or led to an empty path
+                    clearState();
+                    showScreen(welcomeScreen);
+                    buildCurrentQuestionPath();
+                }
+            } else {
+                clearState(); // Ensure clean start if no valid saved state
+                showScreen(welcomeScreen);
+                buildCurrentQuestionPath();
+            }
         });
 
     </script>
