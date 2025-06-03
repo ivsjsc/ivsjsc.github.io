@@ -12,11 +12,11 @@
             font-family: 'Inter', sans-serif;
             background-color: #f9f9f7;
             color: #1a202c;
-            overflow-x: hidden; /* Prevent horizontal scroll during animations */
+            overflow-x: hidden; 
         }
         .advisor-container {
             background: linear-gradient(135deg, #0a3d4a 0%, #0e5061 100%);
-            min-height: 100vh; /* Ensure full viewport height */
+            min-height: 100vh; 
         }
         .screen {
             transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
@@ -26,46 +26,46 @@
             opacity: 0;
             transform: translateY(20px);
             pointer-events: none;
-            position: absolute; /* Keep it in flow but invisible for transition */
-            width: 100%; /* Ensure it takes full width when hidden */
+            position: absolute; 
+            width: 100%; 
         }
          .screen.visible-screen {
             opacity: 1;
             transform: translateY(0);
-            position: relative; /* Or static, depending on layout */
+            position: relative; 
         }
 
         .question-card, .results-card {
-            background-color: rgba(255, 255, 255, 0.97); /* Slightly more opaque */
+            background-color: rgba(255, 255, 255, 0.97); 
             backdrop-filter: blur(12px);
             border: 1px solid rgba(200, 156, 74, 0.4);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Softer, larger shadow */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
         }
         .option-button {
-            transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother transition */
+            transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
             border: 2px solid transparent;
             transform-origin: center;
         }
         .option-button:hover {
             border-color: #c89c4a;
-            transform: translateY(-4px) scale(1.02); /* More pronounced hover */
+            transform: translateY(-4px) scale(1.02); 
             box-shadow: 0 6px 20px rgba(200, 156, 74, 0.25);
         }
         .option-button.selected {
             background-color: #0a3d4a;
             color: white;
             border-color: #08333d;
-            transform: scale(1.03); /* Slightly larger when selected */
+            transform: scale(1.03); 
             box-shadow: 0 5px 15px rgba(10, 61, 74, 0.3);
         }
          .option-button:active {
-            transform: scale(0.98); /* Click feedback */
+            transform: scale(0.98); 
         }
         .progress-bar-fill {
             transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .lang-switcher button {
-            padding: 7px 14px; /* Slightly larger */
+            padding: 7px 14px; 
             border: 1.5px solid #c89c4a;
             color: #c89c4a;
             background-color: transparent;
@@ -92,14 +92,14 @@
             position: absolute;
             bottom: 100%;
             left: 50%;
-            transform: translateX(-50%) translateY(-8px); /* More spacing */
-            background-color: #2d3748; /* Darker gray */
+            transform: translateX(-50%) translateY(-8px); 
+            background-color: #2d3748; 
             color: white;
             padding: 6px 12px;
             border-radius: 6px;
             font-size: 0.875rem;
             white-space: nowrap;
-            z-index: 50; /* Ensure tooltip is on top */
+            z-index: 50; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         [data-tooltip] {
@@ -120,14 +120,14 @@
             color: white;
         }
         .primary-action-button:hover {
-            background-color: #b3893b; /* Darker gold on hover */
+            background-color: #b3893b; 
         }
         .secondary-action-button {
-            background-color: #e2e8f0; /* Light gray */
-            color: #2d3748; /* Dark gray text */
+            background-color: #e2e8f0; 
+            color: #2d3748; 
         }
         .secondary-action-button:hover {
-            background-color: #cbd5e0; /* Slightly darker gray */
+            background-color: #cbd5e0; 
         }
 
     </style>
@@ -376,17 +376,16 @@
                 if (screen === screenToShow) {
                     screen.classList.remove('hidden-screen');
                     screen.classList.add('visible-screen');
-                    screen.style.position = 'relative'; // Or 'static'
+                    screen.style.position = 'relative'; 
                     screen.style.width = '100%';
                 } else {
                     screen.classList.add('hidden-screen');
                     screen.classList.remove('visible-screen');
-                     // Set to absolute for smooth transition out of flow
-                    setTimeout(() => { // Delay setting to absolute to allow transition
+                    setTimeout(() => { 
                         if (screen.classList.contains('hidden-screen')) {
                            screen.style.position = 'absolute';
                         }
-                    }, 50); // Match transition duration
+                    }, 50); 
                 }
             });
         }
@@ -422,7 +421,7 @@
             const percentage = Math.max(0, (currentQuestionIndex / questions.length)) * 100;
             progressBar.style.width = `${percentage}%`;
             progressPercentage.textContent = `${Math.round(percentage)}%`;
-             if (currentQuestionIndex === questions.length) { // When on results screen
+             if (currentQuestionIndex === questions.length) { 
                 progressBar.style.width = `100%`;
                 progressPercentage.textContent = `100%`;
             }
@@ -486,14 +485,14 @@
             } else {
                 showScreen(resultsScreen);
                 displayResults();
-                updateProgressBar(); // To show 100%
+                updateProgressBar(); 
             }
         });
         
         function getRecommendations() {
-            const q1 = answers.q1; // user_type
-            const q2 = answers.q2; // interest_field
-            const q3 = answers.q3; // primary_goal
+            const q1 = answers.q1; 
+            const q2 = answers.q2; 
+            const q3 = answers.q3; 
             let recommendations = new Set();
 
             if (q2 === 'language' || q3 === 'certification_academic') {
@@ -502,7 +501,7 @@
             if (q2 === 'steam_digital') {
                 recommendations.add('ivs_education');
                 if (q1 === 'organization' || q3 === 'org_efficiency_quality') {
-                    recommendations.add('ivs_media'); // Digital solutions for orgs
+                    recommendations.add('ivs_media'); 
                 }
             }
             if (q2 === 'skills_mindset' || q3 === 'career_competency' || q3 === 'mindset_potential') {
@@ -514,7 +513,7 @@
             }
              if (q2 === 'org_solutions' || (q1 === 'organization' && q3 === 'org_efficiency_quality')) {
                 recommendations.add('ivs_consulting');
-                recommendations.add('ivs_education'); // IVSCelesTech for orgs
+                recommendations.add('ivs_education'); 
                 recommendations.add('ivs_media');
             }
 
@@ -528,7 +527,7 @@
                  if (q2 === 'skills_mindset') recommendations.add('ivs_lifeminds');
             }
             if (q1 === 'professional') {
-                recommendations.add('ivs_academy'); // Broad appeal for skills & languages
+                recommendations.add('ivs_academy'); 
                 recommendations.add('ivs_lifeminds');
                 if (q3 === 'study_abroad_scholarship' || q2 === 'consulting_study_abroad') recommendations.add('ivs_consulting');
             }
@@ -560,11 +559,11 @@
                     recommendationsContainerEl.appendChild(div);
                     setTimeout(() => {
                         div.classList.add('visible');
-                    }, index * 150); // Staggered animation
+                    }, index * 150); 
                 });
             } else {
                 recommendationsContainerEl.innerHTML = `<p class="text-gray-700 text-center" data-lang-key="no_recommendations">Không có đề xuất cụ thể. Vui lòng liên hệ để được tư vấn thêm.</p>`;
-                 updateTexts(currentLang); // To translate the fallback message
+                 updateTexts(currentLang); 
             }
         }
 
@@ -577,8 +576,8 @@
         });
         
         document.addEventListener('DOMContentLoaded', () => {
-            updateTexts(currentLang); // Initial text setup
-            showScreen(welcomeScreen); // Show welcome screen first
+            updateTexts(currentLang); 
+            showScreen(welcomeScreen); 
         });
 
     </script>
