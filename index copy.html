@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,133 +79,7 @@
     <link rel="stylesheet" href="/css/styles.css"> 
     <link rel="stylesheet" href="/dist/output.css">
     <style>
-        /* Custom CSS Variables for IVS Tailwind Colors */
-        :root {
-            --primary-color: #004080;
-            --primary-dark-color: #003366;
-            --ivs-neutral-800-color: #1f2937;
-            --ivs-neutral-700-color: #374151;
-            --ivs-neutral-300-color: #D1D5DB;
-            --ivs-neutral-200-color: #e5e7eb;
-            --ivs-neutral-50-color: #f9fafb;
-        }
-
-        /* Styles for IVS Global Teacher Hub App */
-        .container {
-            background-color: #ffffff;
-            border-radius: 1rem;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            max-width: 800px;
-            width: 100%;
-            text-align: center;
-        }
-        .button-primary {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-            border: none;
-        }
-        .button-primary:hover {
-            background-color: var(--primary-dark-color);
-        }
-        .button-secondary {
-            background-color: var(--ivs-neutral-700-color);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-            border: none;
-        }
-        .button-secondary:hover {
-            background-color: var(--ivs-neutral-800-color);
-        }
-        .input-field {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid var(--ivs-neutral-300-color);
-            border-radius: 0.5rem;
-            font-size: 1rem;
-        }
-        .textarea-field {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid var(--ivs-neutral-300-color);
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            min-height: 100px;
-            resize: vertical;
-        }
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s, opacity 0.3s;
-        }
-        .modal.show {
-            visibility: visible;
-            opacity: 1;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        .modal-content button {
-            margin-top: 1rem;
-        }
-        .tab-button {
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            background-color: var(--ivs-neutral-200-color);
-            color: var(--ivs-neutral-800-color);
-            transition: background-color 0.3s ease;
-        }
-        .tab-button.active {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        .teacher-card {
-            background-color: var(--ivs-neutral-50-color);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            text-align: left;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-        .teacher-card img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1rem;
-            border: 3px solid var(--primary-color);
-        }
-
-        /* Custom styles for chatbot (from user's original HTML) */
+        /* Custom styles for chatbot */
         .chatbot-container {
             position: fixed;
             bottom: 20px;
@@ -374,20 +248,9 @@
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-index">
     
-    <div id="header-placeholder" data-loading-text="Loading menu..."></div>
+    <div id="header-placeholder" data-loading-text="Đang tải menu..."></div>
 
-    <div id="loading-spinner" class="fixed inset-0 flex items-center justify-center bg-gray-200 bg-opacity-75 z-50 hidden">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
-    </div>
-
-    <div id="custom-modal" class="modal">
-        <div class="modal-content">
-            <p id="modal-message" class="text-lg font-medium text-gray-800"></p>
-            <button id="modal-close-button" class="button-primary">Close</button>
-        </div>
-    </div>
-
-    <main class="container mx-auto px-4 py-8">
+    <main class="pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)]">
         <section 
             class="hero-section-banner relative text-center overflow-hidden shadow-xl bg-gray-700 dark:bg-gray-800"> 
             <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/images/logo/webbanner.png');" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/004080/ffffff?text=IVS+Banner)'; this.classList.add('bg-slate-700');"></div>
@@ -401,24 +264,18 @@
             </div>
         </section>
 
-        <section class="py-8 bg-primary text-white text-center rounded-lg shadow-lg my-8 mx-auto max-w-7xl" data-aos="fade-up">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Are you a teacher? Register now!</h2>
-                <a href="ivs-global-teacher-hub.html" class="inline-block bg-secondary hover:bg-secondary-dark text-primary-dark font-bold py-3 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md">Apply Here</a>
-            </div>
-        </section>
         <section class="py-16 bg-gray-800 dark:bg-slate-800 relative text-white video-background-section rounded-lg shadow-xl my-8 md:my-12 mx-auto max-w-7xl overflow-hidden" data-aos="fade-up">
             <div class="video-background-container">
             <video autoplay muted loop playsinline poster="/images/logo/webbanner_placeholder_dark.png" style="filter: brightness(1.2);" 
                     onerror="this.style.backgroundImage='url(/images/logo/webbannermo.png)';"> 
                 <source src="/videos/ivs_background_video.mp4" type="video/mp4">
-                Your browser does not support the video tag.
+                Trình duyệt của bạn không hỗ trợ thẻ video.
             </video>
             </div>
             <div class="video-overlay" style="background-color: rgba(0, 0, 0, 0.3);"></div>
             <div class="container mx-auto px-6 md:px-12 text-center section-content-on-video">
                 <h2 class="text-3xl font-bold mb-6" data-lang-key="index_section_title_our_core">IVS Academy</h2>
-                <a href="about.html" class="inline-block bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-8 rounded-lg text-md transition duration-300 ease-in-out transform hover:scale-105 shadow-md" data-lang-key="button_learn_more_about_us">About Us</a>
+                <a href="about.html" class="inline-block bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-8 rounded-lg text-md transition duration-300 ease-in-out transform hover:scale-105 shadow-md" data-lang-key="button_learn_more_about_us">Về chúng tôi</a>
             </div>
         </section>
 
@@ -633,7 +490,7 @@
     </main>
 
     <div id="fab-container-placeholder"></div>
-    <div id="footer-placeholder" data-loading-text="Loading footer..."></div>
+    <div id="footer-placeholder" data-loading-text="Đang tải chân trang..."></div>
     
     <button id="scrollToTopBtn" class="hidden fixed bottom-5 right-5 z-[90] items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-700 text-white shadow-lg hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900 dark:bg-neutral-600 dark:hover:bg-neutral-500" aria-label="Scroll to top">
         <i class="fas fa-arrow-up text-lg md:text-xl" aria-hidden="true"></i>
@@ -646,10 +503,10 @@
                 <button id="chatbot-close-button" class="close-button">&times;</button>
             </div>
             <div id="chatbot-messages" class="chatbot-messages flex flex-col space-y-3">
-                <div class="message bot">Welcome to IVS JSC! How can I help you today?</div>
+                <div class="message bot">Chào mừng bạn đến với IVS JSC! Tôi có thể giúp gì cho bạn hôm nay?</div>
             </div>
             <div class="chatbot-input-area">
-                <input type="text" id="chatbot-input" placeholder="Type your message...">
+                <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn của bạn...">
                 <button id="chatbot-send-button"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
@@ -662,253 +519,32 @@
     <script src="/js/language.js"></script>
     <script src="/js/script.js"></script>
     <script src="/js/posts-loader.js"></script>
-    <script src="/js/chatbot.js"></script> 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/js/chatbot.js"></script> <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, collection, serverTimestamp, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? initialAuthToken : null;
-
-        let app;
-        let db;
-        let auth;
-        let userId = 'Loading...';
-        let isAuthReady = false;
-
-        const applyTabButton = document.getElementById('apply-tab-button');
-        const viewTeachersTabButton = document.getElementById('view-teachers-tab-button');
-        const teacherApplicationSection = document.getElementById('teacher-application-section');
-        const teacherOverviewSection = document.getElementById('teacher-overview-section');
-        const teacherApplicationForm = document.getElementById('teacher-application-form');
-        const teachersList = document.getElementById('teachers-list');
-        const noTeachersMessage = document.getElementById('no-teachers-message');
-        const userIdDisplay = document.getElementById('user-id-display');
-        const loadingSpinner = document.getElementById('loading-spinner');
-
-        const customModal = document.getElementById('custom-modal');
-        const modalMessage = document.getElementById('modal-message');
-        const modalCloseButton = document.getElementById('modal-close-button');
-
-        function showModal(message) {
-            modalMessage.innerHTML = message; // Use innerHTML to render HTML links
-            customModal.classList.add('show');
-        }
-
-        function hideModal() {
-            customModal.classList.remove('show');
-        }
-
-        modalCloseButton.addEventListener('click', hideModal);
-
-        function showLoadingSpinner() {
-            loadingSpinner.classList.remove('hidden');
-        }
-
-        function hideLoadingSpinner() {
-            loadingSpinner.classList.add('hidden');
-        }
-
-        window.onload = async function() {
-            showLoadingSpinner();
-            try {
-                app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-
-                onAuthStateChanged(auth, async (user) => {
-                    if (user) {
-                        userId = user.uid;
-                        userIdDisplay.textContent = `User ID: ${userId}`;
-                        isAuthReady = true;
-                        if (!teacherApplicationSection.classList.contains('hidden')) {
-                        } else {
-                            loadApprovedTeachers();
-                        }
-                    } else {
-                        try {
-                            const anonymousUser = await signInAnonymously(auth);
-                            userId = anonymousUser.user.uid;
-                            userIdDisplay.textContent = `User ID: ${userId}`;
-                            isAuthReady = true;
-                            if (!teacherApplicationSection.classList.contains('hidden')) {
-                            } else {
-                                loadApprovedTeachers();
-                            }
-                        } catch (error) {
-                            console.error("Anonymous sign-in error:", error);
-                            showModal("Unable to sign in anonymously. Please try again.");
-                            userIdDisplay.textContent = `User ID: Error`;
-                        }
-                    }
-                    hideLoadingSpinner();
-                });
-
-                if (initialAuthToken) {
-                    try {
-                        await signInWithCustomToken(auth, initialAuthToken);
-                    } catch (error) {
-                        console.error("Custom token sign-in error:", error);
-                        showModal("Unable to authenticate user. Please try again.");
-                    }
+     <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        if (scrollToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 200) {
+                    scrollToTopBtn.classList.remove('hidden');
+                    scrollToTopBtn.classList.add('flex');
                 } else {
-                }
-            } catch (error) {
-                console.error("Firebase initialization error:", error);
-                showModal("Unable to initialize the application. Please check your internet connection.");
-                hideLoadingSpinner();
-            }
-
-            AOS.init({
-                duration: 800,
-                once: true,
-                offset: 50,
-            });
-            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-            if (scrollToTopBtn) {
-                window.addEventListener('scroll', () => {
-                    if (window.pageYOffset > 200) {
-                        scrollToTopBtn.classList.remove('hidden');
-                        scrollToTopBtn.classList.add('flex');
-                    } else {
-                        scrollToTopBtn.classList.remove('flex');
-                        scrollToTopBtn.classList.add('hidden');
-                    }
-                }, { passive: true });
-
-                scrollToTopBtn.addEventListener('click', () => {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-                if (window.pageYOffset <= 200) {
+                    scrollToTopBtn.classList.remove('flex');
                     scrollToTopBtn.classList.add('hidden');
                 }
-            }
-        };
+            }, { passive: true });
 
-        applyTabButton.addEventListener('click', () => {
-            applyTabButton.classList.add('active');
-            viewTeachersTabButton.classList.remove('active');
-            teacherApplicationSection.classList.remove('hidden');
-            teacherOverviewSection.classList.add('hidden');
-        });
-
-        viewTeachersTabButton.addEventListener('click', () => {
-            viewTeachersTabButton.classList.add('active');
-            applyTabButton.classList.remove('active');
-            teacherApplicationSection.classList.add('hidden');
-            teacherOverviewSection.classList.remove('hidden');
-            if (isAuthReady) {
-                loadApprovedTeachers();
-            } else {
-                showModal("Loading teacher data. Please wait for authentication.");
-            }
-        });
-
-        teacherApplicationForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            showLoadingSpinner();
-
-            if (!db || !userId || !isAuthReady) {
-                showModal("System not ready. Please wait or try again.");
-                hideLoadingSpinner();
-                return;
-            }
-
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            const nationality = document.getElementById('nationality').value;
-            const qualification = document.getElementById('qualification').value;
-            const experience = parseInt(document.getElementById('experience').value);
-            const subjects = document.getElementById('subjects').value.split(',').map(s => s.trim());
-            const bio = document.getElementById('bio').value;
-            const resumeUrl = document.getElementById('resumeUrl').value;
-            const photoUrl = document.getElementById('photoUrl').value;
-
-            const applicationId = doc(collection(db, `artifacts/${appId}/users/${userId}/teacher_applications`)).id;
-
-            const teacherData = {
-                fullName,
-                email,
-                phoneNumber,
-                nationality,
-                qualification,
-                experience,
-                subjects,
-                bio,
-                resumeUrl: resumeUrl || null,
-                photoUrl: photoUrl || 'https://placehold.co/100x100/cccccc/333333?text=No+Photo',
-                submissionTimestamp: serverTimestamp(),
-                userId: userId,
-                applicationId: applicationId
-            };
-
-            const publicTeacherData = {
-                fullName,
-                nationality,
-                qualification,
-                experience,
-                subjects,
-                bio,
-                photoUrl: photoUrl || 'https://placehold.co/100x100/cccccc/333333?text=No+Photo',
-                isApprovedForPublicDisplay: false,
-                applicationId: applicationId,
-                userId: userId
-            };
-
-            try {
-                await setDoc(doc(db, `artifacts/${appId}/users/${userId}/teacher_applications`, applicationId), teacherData);
-
-                await setDoc(doc(db, `artifacts/${appId}/public/data/teacher_applications`, applicationId), publicTeacherData);
-
-                showModal("Your application has been submitted successfully! Please visit this <a href='https://docs.google.com/forms/d/e/1FAIpQLSd_TJ-EstYhFVSEAHGzqG-36dsbkdxvYRuGHiCi5PvgUICjnA/viewform?usp=sharing&ouid=109196735657445874239' target='_blank' class='text-blue-600 hover:text-blue-800 underline'>link</a> to upload your CV, photo, and other documents.");
-                teacherApplicationForm.reset();
-            } catch (error) {
-                console.error("Error submitting application: ", error);
-                showModal("An error occurred while submitting the application. Please try again.");
-            } finally {
-                hideLoadingSpinner();
-            }
-        });
-
-        function loadApprovedTeachers() {
-            if (!db || !isAuthReady) {
-                console.warn("Firestore or Auth not ready to load teachers.");
-                return;
-            }
-
-            const q = query(collection(db, `artifacts/${appId}/public/data/teacher_applications`), where("isApprovedForPublicDisplay", "==", true));
-
-            onSnapshot(q, (snapshot) => {
-                teachersList.innerHTML = '';
-                if (snapshot.empty) {
-                    noTeachersMessage.classList.remove('hidden');
-                } else {
-                    noTeachersMessage.classList.add('hidden');
-                    snapshot.forEach((doc) => {
-                        const teacher = doc.data();
-                        const teacherCard = `
-                            <div class="teacher-card flex flex-col items-center">
-                                <img src="${teacher.photoUrl}" alt="${teacher.fullName}" class="mb-4">
-                                <h3 class="text-xl font-semibold text-gray-800 mb-2">${teacher.fullName}</h3>
-                                <p class="text-gray-600 mb-1"><strong>Nationality:</strong> ${teacher.nationality}</p>
-                                <p class="text-gray-600 mb-1"><strong>Qualification:</strong> ${teacher.qualification}</p>
-                                <p class="text-gray-600 mb-1"><strong>Experience:</strong> ${teacher.experience} years</p>
-                                <p class="text-gray-600 mb-1"><strong>Subjects:</strong> ${teacher.subjects.join(', ')}</p>
-                                <p class="text-gray-700 mt-2 text-sm italic">"${teacher.bio}"</p>
-                            </div>
-                        `;
-                        teachersList.insertAdjacentHTML('beforeend', teacherCard);
-                    });
-                }
-            }, (error) => {
-                console.error("Error loading teacher list: ", error);
-                showModal("Unable to load teacher list. Please try again.");
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
+            if (window.pageYOffset <= 200) {
+                scrollToTopBtn.classList.add('hidden');
+            }
         }
     </script>
 </body>
