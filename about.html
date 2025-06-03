@@ -1,117 +1,304 @@
 <!DOCTYPE html>
-<html lang="vi">
-
+<html lang="vi" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-lang-key="about_page_title">IVS JSC - PROFILE COMPANY</title>
-    <meta name="description" content="Tìm hiểu về IVS JSC - Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy, sứ mệnh, tầm nhìn, giá trị cốt lõi, đội ngũ lãnh đạo và các lĩnh vực hoạt động." data-lang-key="about_meta_description">
-    <meta property="og:title" content="Về Chúng Tôi - IVS JSC" data-lang-key="og_title_about_full">
-    <meta property="og:description" content="Khám phá triết lý, giá trị, con người và định hướng phát triển của IVS JSC - Tổ chức tiên phong về giáo dục, EdTech và hợp tác quốc tế." data-lang-key="og_description_about_full">
-    <meta property="og:image" content="/images/logo/logo.png">
-    <meta property="og:url" content="https://ivsacademy.edu.vn/about.html">
-    <meta property="og:type" content="website">
-    <meta name="author" content="IVS JSC">
+    <!-- Visualization & Content Choices: 
+        - Bilingual Content: All text elements fully bilingual, managed via JS.
+        - IVS Meaning & Commitments: New detailed subsections in "About".
+        - Leadership Section: New section with cards for key personnel.
+        - Development Roadmap: New section with a timeline.
+        - Synergy Ecosystem: Enhanced interactivity between diagram nodes and content tabs. Visual refinement for better readability and contrast.
+        - Video Placeholder: Added for future integration.
+        - Core Values: Enhanced card design with subtle animations.
+        - Strategic Priorities: Accordion with improved visual cues.
+        - Community Impact: Chart.js with bilingual data.
+        - Justification: More comprehensive, visually engaging, and interactive, reflecting the depth of IVS's operations and strategy.
+        - Library/Method: Vanilla JS, Chart.js.
+    -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/images/logo/logo-192.png">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio,line-clamp"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        'primary': '#004080', // IVS Primary Blue
-                        'primary-dark': '#003366', // Darker IVS Primary
-                        'secondary': '#ffc107', // IVS Secondary Yellow/Gold
-                        'secondary-dark': '#e0a800',
-                        'header-orange': '#F97316', // Orange from index.html hero button
-                        'ivs-neutral-800': '#1f2937', // Consistent dark gray
-                        'ivs-neutral-700': '#374151',
-                        'ivs-neutral-600': '#4B5563',
-                        'ivs-neutral-300': '#D1D5DB',
-                        'ivs-neutral-200': '#e5e7eb',
-                        'ivs-neutral-100': '#f3f4f6',
-                        'ivs-neutral-50': '#f9fafb',
-
-                        // Keeping some of the more specific colors from about.html if they are used for unique elements
-                        'purple-accent': '#8b5cf6',
-                        'warning': '#f59e0b', // Same as amber-500
-                        'blue-50': '#eff6ff',
-                        'blue-200': '#bfdbfe',
-                        'blue-600': '#2563eb', // Tailwind blue-600
-                        'blue-700': '#1d4ed8',
-                        'blue-800': '#1e40af',
-                        'purple-50': '#faf5ff',
-                        'purple-500': '#a855f7',
-                        'purple-600': '#9333ea',
-                        'purple-700': '#7e2d87', // Used in about hero gradient
-                        'emerald-50': '#ecfdf5',
-                        'emerald-200': '#a7f3d0',
-                        'emerald-500': '#10b981', // Tailwind emerald-500
-                        'emerald-600': '#059669',
-                        'amber-200': '#fde68a',
-                        'amber-500': '#f59e0b',
-                        'orange-200': '#fed7aa',
-                        'orange-500': '#f97316',
-                        'teal-600': '#0d9488',
-                        'indigo-600': '#4f46e5',
-                        'indigo-700': '#4338ca',
-                        'pink-500': '#ec4899'
-                    }
-                }
-            },
-            plugins: [],
-        }
-    </script>
-
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/styles.css">
     <style>
-        /* Common styles from styles.css will apply */
-        /* Page-specific styles from original about.html */
-        .video-wrapper {
-            position: relative; padding-bottom: 56.25%; height: 0;
-            overflow: hidden; width: 100%; background-color: #000; border-radius: 0.5rem;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f7; 
+            color: #1a202c;
+            transition: background-color 0.3s;
         }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+            padding-bottom: 8px;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2.5px;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #c89c4a; 
+            transition: width 0.4s ease-out;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #0a3d4a; 
+        }
+        .nav-link.active::after, .nav-link:hover::after {
+            width: 100%;
+        }
+        .hero-section {
+            background: linear-gradient(rgba(10, 61, 74, 0.8), rgba(10, 61, 74, 0.8)), url('https://placehold.co/1920x1080/1a2b3c/e0e0e0?text=IVS+Global+Education+Vision') no-repeat center center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-overlay-shape {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 120px; 
+            background: #f9f9f7;
+            clip-path: polygon(0 100%, 50% 40%, 100% 100%); /* More dynamic wave */
+        }
+        .section-title {
+            color: #0a3d4a;
+            font-weight: 800; /* Bolder */
+        }
+        .card-hover {
+            transition: transform 0.3s ease-out, box-shadow 0.4s ease-out, border-color 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+        .card-hover:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 25px 30px -10px rgba(0, 0, 0, 0.1), 0 15px 15px -10px rgba(0, 0, 0, 0.05);
+            border-color: #c89c4a;
+        }
+        
+        /* Ecosystem Tabs refinement */
+        .tab {
+            transition: all 0.3s ease-out;
+            border-width: 2px; /* default border width */
+            font-weight: 600; /* Medium-Bold for default tabs */
+        }
+        .tab:not(.active) {
+            background-color: #f0f4f8; /* Light grayish-blue for default tabs */
+            border-color: #d1dce5; /* Softer border for default tabs */
+            color: #334155; /* Slate-700 for better readability on light bg */
+        }
+        .tab:not(.active):hover {
+            background-color: #e2e8f0; /* Slightly darker on hover */
+            border-color: #b0c4d4;
+            color: #0a3d4a; /* Dark teal text on hover */
+        }
+        .tab.active {
+            background-color: #0a3d4a; /* Dark Teal for active */
+            color: #ffffff;
+            border-color: #0a3d4a;
+            box-shadow: 0 6px 10px rgba(10, 61, 74, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeInEnhanced 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        @keyframes fadeInEnhanced { 
+            from { opacity: 0; transform: translateY(15px) scale(0.98); } 
+            to { opacity: 1; transform: translateY(0) scale(1); } 
+        }
+
+        .accordion-header {
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .accordion-header:hover {
+            background-color: #e8f0f3; 
+            color: #08333d;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), padding 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .accordion-item.active .accordion-icon {
+            transform: rotate(135deg); /* More distinct rotation */
+        }
+        .accordion-icon {
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy rotation */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 950px; 
+            margin-left: auto;
+            margin-right: auto;
+            height: 480px; 
+            max-height: 65vh; 
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 12px; /* More rounded */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.07);
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 400px;
+                max-height: 75vh;
+            }
+        }
+        .lang-switcher button {
+            padding: 8px 16px; /* Larger buttons */
+            border: 1.5px solid #c89c4a;
+            color: #c89c4a;
+            background-color: transparent;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+            font-weight: 600; /* Bolder font */
+        }
+        .lang-switcher button.active, .lang-switcher button:hover {
+            background-color: #c89c4a;
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+        .synergy-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 320px; 
+            height: 320px;
+            margin: 50px auto;
+        }
+        .synergy-center {
+            width: 110px; 
+            height: 110px;
+            background-color: #0a3d4a;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-weight: 700; 
+            z-index: 10;
+            font-size: 15px;
+            padding: 8px;
+            box-shadow: 0 0 20px rgba(10, 61, 74, 0.6);
+            transition: transform 0.3s ease-out;
+        }
+        .synergy-center:hover {
+            transform: scale(1.05);
+        }
+        /* Synergy Nodes refinement */
+        .synergy-node {
+            position: absolute;
+            width: 90px; /* Increased size */
+            height: 90px; /* Increased size */
+            background-color: #ffffff; /* Brighter default background */
+            color: #0a3d4a; /* Dark Teal text for contrast */
+            border: 3px solid #a2c9d1; /* Softer Teal border */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 12px; /* Slightly larger font */
+            font-weight: 600; 
+            cursor: pointer;
+            transition: transform 0.3s ease-out, background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+            padding: 5px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1); /* Softer default shadow */
+        }
+        .synergy-node:hover {
+            transform: scale(1.15) rotate(5deg); 
+            background-color: #c89c4a; /* Gold accent */
+            color: white;
+            border-color: #b3893b; 
+            box-shadow: 0 10px 20px rgba(200, 156, 74, 0.45); /* Enhanced gold shadow */
+        }
+        .synergy-node.active {
+            background-color: #c89c4a;
+            color: white;
+            border-color: #b3893b;
+            transform: scale(1.20) rotate(5deg); /* Slightly more pronounced active state */
+            box-shadow: 0 10px 20px rgba(200, 156, 74, 0.45);
+            z-index: 11; 
+        }
 
         .timeline { list-style: none; padding: 0; position: relative; }
         .timeline::before {
             content: ''; position: absolute; top: 0; bottom: 0;
-            left: 1.5rem; width: 2px; background-color: #cbd5e1; /* neutral-300 */ margin-left: -1px;
+            left: 1.5rem; width: 3px; background-color: #cbd5e1; margin-left: -1.5px;
         }
-        .timeline li { position: relative; margin-bottom: 2rem; padding-left: 3.5rem; }
+        .timeline li { position: relative; margin-bottom: 2.5rem; padding-left: 4rem; }
         .timeline li::before {
             content: ''; position: absolute; left: 1.5rem; top: 0.25rem;
-            width: 1rem; height: 1rem; border-radius: 50%;
-            background-color: var(--ivs-primary, '#004080'); /* Use IVS primary color */
-            margin-left: -0.5rem; z-index: 1;
+            width: 1.25rem; height: 1.25rem; border-radius: 50%;
+            background-color: #0a3d4a; border: 3px solid #f9f9f7;
+            margin-left: -0.625rem; z-index: 1;
+            box-shadow: 0 0 10px rgba(10, 61, 74, 0.3);
         }
-        .horizontal-scroll-gallery::-webkit-scrollbar { height: 8px; }
-        .horizontal-scroll-gallery::-webkit-scrollbar-track { background: #e5e7eb; border-radius: 10px; }
-        .horizontal-scroll-gallery::-webkit-scrollbar-thumb { background-color: #9ca3af; border-radius: 10px; border: 2px solid #e5e7eb; }
-        .horizontal-scroll-gallery::-webkit-scrollbar-thumb:hover { background-color: #6b7280; }
+        .timeline li:hover::before {
+            background-color: #c89c4a;
+        }
+        .video-wrapper {
+            position: relative; padding-bottom: 56.25%; height: 0;
+            overflow: hidden; width: 100%; background-color: #000; border-radius: 0.75rem; /* More rounded */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-        .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
-
-        /* Styles for hero section similar to index.html if needed, otherwise keep specific about.html hero styles */
-        /* .hero-section-banner .hero-content is defined in styles.css */
+        .team-member-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+        .team-member-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+        .team-member-card img {
+            width: 128px; /* 8rem */
+            height: 128px;
+            border-radius: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 16px;
+            object-fit: cover;
+            border: 4px solid #c89c4a;
+            box-shadow: 0 4px 8px rgba(200, 156, 74, 0.3);
+        }
+        .section-subtitle {
+            font-size: 1.125rem; /* text-lg */
+            line-height: 1.75rem; /* leading-7 */
+            color: #4b5563; /* gray-600 */
+            max-width: 48rem; /* max-w-3xl */
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            margin-bottom: 4rem; /* mb-16 */
+        }
+        /* Tab content text refinement */
+        #tab-content-wrapper .text-gray-700 {
+            color: #1f2937; /* Darker gray (slate-800) for better contrast on light bg */
+        }
+        #tab-content-wrapper .dark\:text-gray-300 {
+            color: #d1d5db; /* Lighter gray (slate-300) for dark mode */
+        }
+        #tab-content-wrapper h3 { /* Target headings within tab content */
+            color: #0a3d4a; /* Ensure headings use the primary dark teal */
+            font-weight: 700; /* Bolder headings */
+        }
+        #tab-content-wrapper .dark\:text-blue-300 { /* Dark mode headings */
+            color: #93c5fd; /* A lighter, more readable blue for dark mode headings */
+        }
     </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-neutral-700 dark:text-gray-300 font-sans antialiased font-inter" id="page-about">
-    
-    <div id="header-placeholder" data-loading-text="Đang tải menu..."></div>
+<body class="antialiased">
 
     <header id="header" class="bg-[#f9f9f7]/90 backdrop-blur-lg sticky top-0 z-50 shadow-xl">
         <div class="container mx-auto px-6 py-4">
@@ -462,13 +649,10 @@
         AOS.init({
             duration: 800,
             once: true,
-            offset: 50, // Reduced offset for more sensitivity
+            offset: 50, 
         });
     </script>
-    <script src="/js/loadComponents.js" defer></script>
-    <script src="/js/language.js" defer></script>
-    <script src="/js/script.js" defer></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const translations = {
             vi: {
