@@ -3,29 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IVS JSC - Hồ Sơ Năng Lực / Company Profile</title>
-    <!-- Visualization & Content Choices: 
-        - Bilingual Content: All text elements fully bilingual, managed via JS.
-        - IVS Meaning & Commitments: New detailed subsections in "About".
-        - Leadership Section: New section with cards for key personnel.
-        - Development Roadmap: New section with a timeline.
-        - Synergy Ecosystem: Enhanced interactivity between diagram nodes and content tabs.
-        - Video Placeholder: Added for future integration.
-        - Core Values: Enhanced card design with subtle animations.
-        - Strategic Priorities: Accordion with improved visual cues.
-        - Community Impact: Chart.js with bilingual data.
-        - Justification: More comprehensive, visually engaging, and interactive, reflecting the depth of IVS's operations and strategy.
-        - Library/Method: Vanilla JS, Chart.js.
-    -->
+    <title data-lang-key="about_page_title">IVS JSC - PROFILE COMPANY</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f9f9f7; 
+            background-color: #f9f9f7;
             color: #1a202c;
             transition: background-color 0.3s;
         }
@@ -42,11 +28,11 @@
             bottom: 0px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #c89c4a; 
+            background-color: #c89c4a;
             transition: width 0.4s ease-out;
         }
         .nav-link.active, .nav-link:hover {
-            color: #0a3d4a; 
+            color: #0a3d4a;
         }
         .nav-link.active::after, .nav-link:hover::after {
             width: 100%;
@@ -61,13 +47,13 @@
             bottom: -1px;
             left: 0;
             width: 100%;
-            height: 120px; 
+            height: 120px;
             background: #f9f9f7;
-            clip-path: polygon(0 100%, 50% 40%, 100% 100%); /* More dynamic wave */
+            clip-path: polygon(0 100%, 50% 40%, 100% 100%);
         }
         .section-title {
             color: #0a3d4a;
-            font-weight: 800; /* Bolder */
+            font-weight: 800;
         }
         .card-hover {
             transition: transform 0.3s ease-out, box-shadow 0.4s ease-out, border-color 0.3s;
@@ -78,6 +64,22 @@
             box-shadow: 0 25px 30px -10px rgba(0, 0, 0, 0.1), 0 15px 15px -10px rgba(0, 0, 0, 0.05);
             border-color: #c89c4a;
         }
+        
+        .tab {
+            transition: all 0.3s ease-out;
+            border-width: 2px;
+            font-weight: 600;
+        }
+        .tab:not(.active) {
+            background-color: #e8eff3;
+            border-color: #c5d5e0;
+            color: #2c5282;
+        }
+        .tab:not(.active):hover {
+            background-color: #d8e2e8;
+            border-color: #b0c4d4;
+            color: #0a3d4a;
+        }
         .tab.active {
             background-color: #0a3d4a;
             color: #ffffff;
@@ -85,14 +87,12 @@
             box-shadow: 0 6px 10px rgba(10, 61, 74, 0.25);
             transform: translateY(-2px);
         }
-        .tab {
-            transition: all 0.3s ease-out;
-        }
+
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeInEnhanced 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-        @keyframes fadeInEnhanced { 
-            from { opacity: 0; transform: translateY(15px) scale(0.98); } 
-            to { opacity: 1; transform: translateY(0) scale(1); } 
+        @keyframes fadeInEnhanced {
+            from { opacity: 0; transform: translateY(15px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .accordion-header {
@@ -100,7 +100,7 @@
             transition: background-color 0.3s, color 0.3s;
         }
         .accordion-header:hover {
-            background-color: #e8f0f3; 
+            background-color: #e8f0f3;
             color: #08333d;
         }
         .accordion-content {
@@ -109,37 +109,37 @@
             transition: max-height 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), padding 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
         }
         .accordion-item.active .accordion-icon {
-            transform: rotate(135deg); /* More distinct rotation */
+            transform: rotate(135deg);
         }
         .accordion-icon {
-            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy rotation */
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 950px; 
+            max-width: 950px;
             margin-left: auto;
             margin-right: auto;
-            height: 480px; 
-            max-height: 65vh; 
+            height: 520px;
+            max-height: 70vh;
             background-color: #ffffff;
             padding: 25px;
-            border-radius: 12px; /* More rounded */
+            border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.07);
         }
         @media (max-width: 768px) {
             .chart-container {
-                height: 400px;
-                max-height: 75vh;
+                height: 450px;
+                max-height: 80vh;
             }
         }
         .lang-switcher button {
-            padding: 8px 16px; /* Larger buttons */
+            padding: 8px 16px;
             border: 1.5px solid #c89c4a;
             color: #c89c4a;
             background-color: transparent;
             transition: background-color 0.3s, color 0.3s, transform 0.2s;
-            font-weight: 600; /* Bolder font */
+            font-weight: 600;
         }
         .lang-switcher button.active, .lang-switcher button:hover {
             background-color: #c89c4a;
@@ -151,13 +151,17 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            width: 320px; /* Slightly larger */
-            height: 320px;
+            width: 80vw;
+            height: 80vw;
+            max-width: 320px;
+            max-height: 320px;
             margin: 50px auto;
         }
         .synergy-center {
-            width: 110px; /* Larger */
-            height: 110px;
+            width: 28vw;
+            height: 28vw;
+            max-width: 110px;
+            max-height: 110px;
             background-color: #0a3d4a;
             color: white;
             border-radius: 50%;
@@ -165,9 +169,9 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            font-weight: 700; /* Bolder */
+            font-weight: 700;
             z-index: 10;
-            font-size: 15px;
+            font-size: clamp(10px, 4vw, 15px);
             padding: 8px;
             box-shadow: 0 0 20px rgba(10, 61, 74, 0.6);
             transition: transform 0.3s ease-out;
@@ -175,40 +179,44 @@
         .synergy-center:hover {
             transform: scale(1.05);
         }
+        
         .synergy-node {
             position: absolute;
-            width: 85px; /* Larger */
-            height: 85px;
-            background-color: #f0f4f8;
-            color: #0a3d4a;
-            border: 2.5px solid #0a3d4a;
+            width: 23vw;
+            height: 23vw;
+            max-width: 90px;
+            max-height: 90px;
+            background-color: #f0f7fa;
+            color: #1c3d5a;
+            border: 3px solid #b0d1e0;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-            font-size: 11px;
-            font-weight: 600; /* Bolder */
+            font-size: clamp(9px, 3vw, 12px);
+            font-weight: 600;
             cursor: pointer;
             transition: transform 0.3s ease-out, background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
             padding: 5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.08);
         }
         .synergy-node:hover {
-            transform: scale(1.15) rotate(5deg); /* Added rotation */
+            transform: scale(1.15) rotate(5deg);
             background-color: #c89c4a;
             color: white;
-            border-color: #b3893b; /* Darker gold border on hover */
-            box-shadow: 0 8px 15px rgba(200, 156, 74, 0.4);
+            border-color: #b3893b;
+            box-shadow: 0 10px 20px rgba(200, 156, 74, 0.45);
         }
         .synergy-node.active {
             background-color: #c89c4a;
             color: white;
             border-color: #b3893b;
-            transform: scale(1.15) rotate(5deg);
-            box-shadow: 0 8px 15px rgba(200, 156, 74, 0.4);
-            z-index: 11; /* Ensure active node is on top */
+            transform: scale(1.20) rotate(5deg);
+            box-shadow: 0 10px 20px rgba(200, 156, 74, 0.45);
+            z-index: 11;
         }
+
         .timeline { list-style: none; padding: 0; position: relative; }
         .timeline::before {
             content: ''; position: absolute; top: 0; bottom: 0;
@@ -227,7 +235,7 @@
         }
         .video-wrapper {
             position: relative; padding-bottom: 56.25%; height: 0;
-            overflow: hidden; width: 100%; background-color: #000; border-radius: 0.75rem; /* More rounded */
+            overflow: hidden; width: 100%; background-color: #000; border-radius: 0.75rem;
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
@@ -246,7 +254,7 @@
             box-shadow: 0 12px 25px rgba(0,0,0,0.1);
         }
         .team-member-card img {
-            width: 128px; /* 8rem */
+            width: 128px;
             height: 128px;
             border-radius: 50%;
             margin-left: auto;
@@ -257,14 +265,56 @@
             box-shadow: 0 4px 8px rgba(200, 156, 74, 0.3);
         }
         .section-subtitle {
-            font-size: 1.125rem; /* text-lg */
-            line-height: 1.75rem; /* leading-7 */
-            color: #4b5563; /* gray-600 */
-            max-width: 48rem; /* max-w-3xl */
+            font-size: 1.125rem;
+            line-height: 1.75rem;
+            color: #4b5563;
+            max-width: 48rem;
             margin-left: auto;
             margin-right: auto;
             text-align: center;
-            margin-bottom: 4rem; /* mb-16 */
+            margin-bottom: 4rem;
+        }
+        
+        #tab-content-wrapper {
+             background-color: #f8fafc;
+        }
+        #tab-content-wrapper .text-gray-700 {
+            color: #1e293b;
+        }
+        #tab-content-wrapper .dark\:text-gray-300 {
+            color: #cbd5e1;
+        }
+        #tab-content-wrapper h3 {
+            color: #0a3d4a;
+            font-weight: 700;
+        }
+         #tab-content-wrapper p, #tab-content-wrapper li {
+            color: #334155;
+        }
+        #tab-content-wrapper .dark h3 {
+             color: #bae6fd;
+        }
+         #tab-content-wrapper .dark p, #tab-content-wrapper .dark li {
+            color: #e2e8f0;
+        }
+        #back-to-top-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #c89c4a;
+            color: white;
+            padding: 15px 18px;
+            border-radius: 50%;
+            font-size: 24px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        #back-to-top-btn:hover {
+            background-color: #b3893b;
+            transform: translateY(-5px);
         }
     </style>
 </head>
@@ -338,7 +388,7 @@
                         </div>
                     </div>
                     <div class="flex flex-col md:flex-row items-center gap-8 p-8 bg-white dark:bg-gray-800 rounded-xl shadow-xl border-l-4 border-[#c89c4a]">
-                         <div class="flex-shrink-0 text-5xl text-[#c89c4a]"><i class="fas fa-handshake-angle"></i></div>
+                           <div class="flex-shrink-0 text-5xl text-[#c89c4a]"><i class="fas fa-handshake-angle"></i></div>
                         <div>
                             <h3 class="text-2xl font-semibold text-[#0a3d4a] dark:text-blue-300 mb-2" data-lang-key="ivs_meaning_synergy_title">Synergy – Hợp lực</h3>
                             <p class="text-gray-600 dark:text-gray-300 leading-relaxed" data-lang-key="ivs_meaning_synergy_desc">Sự cộng hưởng giữa các tổ chức, cá nhân và cộng đồng tại IVS tạo nên sức mạnh tổng hợp, thúc đẩy sự phát triển bền vững và lâu dài. Chúng tôi xây dựng một hệ sinh thái giáo dục nơi mọi thành phần cùng hợp tác, chia sẻ giá trị và cùng nhau vươn xa trên hành trình kiến tạo tương lai.</p>
@@ -394,7 +444,7 @@
                 </div>
 
                 <h3 class="text-3xl md:text-5xl font-semibold text-center text-[#0a3d4a] mt-24 mb-10" data-lang-key="commitments_title">Cam Kết Của IVS</h3>
-                 <ul class="space-y-6 max-w-4xl mx-auto">
+                   <ul class="space-y-6 max-w-4xl mx-auto">
                     <li class="flex items-start gap-5 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border-l-4 border-green-500">
                         <i class="fas fa-globe-americas text-green-500 text-3xl mt-1 flex-shrink-0 w-8 text-center"></i>
                         <div>
@@ -429,37 +479,37 @@
                 </p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                     <div class="team-member-card">
-                        <img src="https://placehold.co/128x128/0a3d4a/FFFFFF?text=NMT" alt="Ông Nguyễn Minh Triết" data-lang-key="team_member_triet_alt_placeholder">
+                        <img src="public/images/team/nguyen-minh-triet.png" alt="Ông Nguyễn Minh Triết" onerror="this.onerror=null;this.src='https://placehold.co/128x128/cccccc/333333?text=IVS'">
                         <h3 class="text-xl font-semibold text-[#0a3d4a] dark:text-blue-300" data-lang-key="team_member_triet_name">Ông Nguyễn Minh Triết</h3>
                         <p class="text-[#c89c4a] font-medium" data-lang-key="team_member_triet_title">CEO & Chủ tịch HĐQT</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400 mt-2" data-lang-key="team_member_triet_bio">Chuyên gia quản trị giáo dục, hoạch định chiến lược và phát triển dự án quốc tế.</p>
                     </div>
                     <div class="team-member-card">
-                        <img src="https://placehold.co/128x128/c89c4a/FFFFFF?text=RB" alt="Ông Rachid Belferar" data-lang-key="team_member_rachid_alt_placeholder">
+                        <img src="public/images/team/rachid-belferar.png" alt="Ông Rachid Belferar" onerror="this.onerror=null;this.src='https://placehold.co/128x128/cccccc/333333?text=IVS'">
                         <h3 class="text-xl font-semibold text-[#0a3d4a] dark:text-blue-300" data-lang-key="team_member_rachid_name">Ông Rachid Belferar</h3>
                         <p class="text-[#c89c4a] font-medium" data-lang-key="team_member_rachid_title">Giám đốc Kỹ thuật - ParagonCoder</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400 mt-2" data-lang-key="team_member_rachid_bio">Chuyên gia kỹ thuật, dẫn dắt ParagonCoder phát triển các giải pháp công nghệ giáo dục đột phá.</p>
                     </div>
                     <div class="team-member-card">
-                        <img src="https://placehold.co/128x128/0a3d4a/FFFFFF?text=SM" alt="Bà Salma Mahzoum" data-lang-key="team_member_salma_alt_placeholder">
+                        <img src="public/images/team/salma-mahzoum.png" alt="Bà Salma Mahzoum" onerror="this.onerror=null;this.src='https://placehold.co/128x128/cccccc/333333?text=IVS'">
                         <h3 class="text-xl font-semibold text-[#0a3d4a] dark:text-blue-300" data-lang-key="team_member_salma_name">Bà Salma Mahzoum</h3>
                         <p class="text-[#c89c4a] font-medium" data-lang-key="team_member_salma_title">Giám đốc R&D</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400 mt-2" data-lang-key="team_member_salma_bio">Tiên phong trong nghiên cứu và phát triển, mang đến những đổi mới sáng tạo cho ngành giáo dục.</p>
                     </div>
                     <div class="team-member-card">
-                        <img src="https://placehold.co/128x128/c89c4a/FFFFFF?text=KT" alt="Ông Kimball Allen Thomson" data-lang-key="team_member_kimball_alt_placeholder">
+                        <img src="public/images/team/kimball-allen-thomson.png" alt="Ông Kimball Allen Thomson" onerror="this.onerror=null;this.src='https://placehold.co/128x128/cccccc/333333?text=IVS'">
                         <h3 class="text-xl font-semibold text-[#0a3d4a] dark:text-blue-300" data-lang-key="team_member_kimball_name">Ông Kimball Allen Thomson</h3>
                         <p class="text-[#c89c4a] font-medium" data-lang-key="team_member_kimball_title">Đại diện IIVSA tại Hoa Kỳ, CEO The Power to Inspire</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400 mt-2" data-lang-key="team_member_kimball_bio">Thúc đẩy hợp tác giáo dục Việt - Mỹ, truyền cảm hứng và mở ra cơ hội phát triển toàn cầu.</p>
                     </div>
-                     <div class="team-member-card">
-                        <img src="https://placehold.co/128x128/0a3d4a/FFFFFF?text=Team" alt="Đội ngũ IVS" data-lang-key="team_member_ivsteam_alt_placeholder">
+                       <div class="team-member-card">
+                        <img src="public/images/team/ivsteams.jpg" alt="Đội ngũ IVS" onerror="this.onerror=null;this.src='https://placehold.co/128x128/cccccc/333333?text=IVS'">
                         <h3 class="text-xl font-semibold text-[#0a3d4a] dark:text-blue-300" data-lang-key="team_member_ivsteam_name">Đội ngũ IVS</h3>
                         <p class="text-[#c89c4a] font-medium" data-lang-key="team_member_ivsteam_title">Chuyên gia Đa ngành</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400 mt-2" data-lang-key="team_member_ivsteam_bio">Tập thể chuyên gia tận tâm, đa dạng kinh nghiệm, cùng đồng lòng kiến tạo giá trị giáo dục vượt trội.</p>
                     </div>
                     <div class="team-member-card">
-                        <img src="https://placehold.co/128x128/c89c4a/FFFFFF?text=P%26C" alt="Đối tác & Khách hàng IVS" data-lang-key="team_member_partners_alt_placeholder">
+                        <img src="public/images/team/partners&clients.png" alt="Đối tác & Khách hàng IVS" onerror="this.onerror=null;this.src='https://placehold.co/128x128/cccccc/333333?text=IVS'">
                         <h3 class="text-xl font-semibold text-[#0a3d4a] dark:text-blue-300" data-lang-key="team_member_partners_name">Đối tác & Khách hàng IVS</h3>
                         <p class="text-[#c89c4a] font-medium" data-lang-key="team_member_partners_title">Đồng hành Phát triển Bền vững</p>
                         <p class="text-sm text-gray-500 dark:text-gray-400 mt-2" data-lang-key="team_member_partners_bio">Sự tin tưởng và hợp tác của quý vị là nền tảng và động lực để IVS không ngừng vươn xa, cống hiến cho sự nghiệp giáo dục.</p>
@@ -477,35 +527,35 @@
                 
                 <div class="synergy-diagram mb-20">
                     <div class="synergy-center" data-lang-key="synergy_center_text">Sức Mạnh<br>Tổng Hợp</div>
-                    <div id="node-academy" class="synergy-node" style="transform: rotate(0deg) translate(160px) rotate(0deg);" data-target="ivs-academy" data-lang-key="node_academy_text">IVS Academy</div>
-                    <div id="node-education" class="synergy-node" style="transform: rotate(72deg) translate(160px) rotate(-72deg);" data-target="ivs-education" data-lang-key="node_education_text">IVS Education</div>
-                    <div id="node-consulting" class="synergy-node" style="transform: rotate(144deg) translate(160px) rotate(-144deg);" data-target="ivs-consulting" data-lang-key="node_consulting_text">IVS Consulting</div>
-                    <div id="node-media" class="synergy-node" style="transform: rotate(216deg) translate(160px) rotate(-216deg);" data-target="ivs-media" data-lang-key="node_media_text">IVS Media</div>
-                    <div id="node-lifeminds" class="synergy-node" style="transform: rotate(288deg) translate(160px) rotate(-288deg);" data-target="ivs-lifeminds" data-lang-key="node_lifeminds_text">IVSLife Minds</div>
+                    <div id="node-academy" class="synergy-node" style="transform: rotate(0deg) translate(20vw) rotate(0deg);" data-target="ivs-academy" data-lang-key="node_academy_text">IVS Academy</div>
+                    <div id="node-education" class="synergy-node" style="transform: rotate(72deg) translate(20vw) rotate(-72deg);" data-target="ivs-education" data-lang-key="node_education_text">IVS Education</div>
+                    <div id="node-consulting" class="synergy-node" style="transform: rotate(144deg) translate(20vw) rotate(-144deg);" data-target="ivs-consulting" data-lang-key="node_consulting_text">IVS Consulting</div>
+                    <div id="node-media" class="synergy-node" style="transform: rotate(216deg) translate(20vw) rotate(-216deg);" data-target="ivs-media" data-lang-key="node_media_text">IVS Media</div>
+                    <div id="node-lifeminds" class="synergy-node" style="transform: rotate(288deg) translate(20vw) rotate(-288deg);" data-target="ivs-lifeminds" data-lang-key="node_lifeminds_text">IVSLife Minds</div>
                 </div>
 
                 <div class="flex flex-wrap justify-center gap-4 md:gap-5 mb-16" id="ecosystem-tabs-buttons">
-                    <button data-target="ivs-academy" class="tab active text-base md:text-lg px-6 py-3 font-semibold rounded-xl border-2 border-gray-300 transition shadow-md hover:shadow-lg" data-lang-key="tab_academy">IVS Academy</button>
-                    <button data-target="ivs-education" class="tab text-base md:text-lg px-6 py-3 font-semibold rounded-xl border-2 border-gray-300 transition shadow-md hover:shadow-lg" data-lang-key="tab_education">IVS Education</button>
-                    <button data-target="ivs-consulting" class="tab text-base md:text-lg px-6 py-3 font-semibold rounded-xl border-2 border-gray-300 transition shadow-md hover:shadow-lg" data-lang-key="tab_consulting">IVS Consulting</button>
-                    <button data-target="ivs-media" class="tab text-base md:text-lg px-6 py-3 font-semibold rounded-xl border-2 border-gray-300 transition shadow-md hover:shadow-lg" data-lang-key="tab_media">IVS Media</button>
-                    <button data-target="ivs-lifeminds" class="tab text-base md:text-lg px-6 py-3 font-semibold rounded-xl border-2 border-gray-300 transition shadow-md hover:shadow-lg" data-lang-key="tab_lifeminds">IVSLifeMinds</button>
+                    <button data-target="ivs-academy" class="tab active text-base md:text-lg px-6 py-3 font-semibold rounded-xl border-2 transition shadow-md hover:shadow-lg" data-lang-key="tab_academy">IVS Academy</button>
+                    <button data-target="ivs-education" class="tab text-base md:text-lg px-6 py-3 font-semibold rounded-xl border-2 transition shadow-md hover:shadow-lg" data-lang-key="tab_education">IVS Education</button>
+                    <button data-target="ivs-consulting" class="tab text-base md:text-lg px-6 py-3 font-semibold rounded-xl border-2 transition shadow-md hover:shadow-lg" data-lang-key="tab_consulting">IVS Consulting</button>
+                    <button data-target="ivs-media" class="tab text-base md:text-lg px-6 py-3 font-semibold rounded-xl border-2 transition shadow-md hover:shadow-lg" data-lang-key="tab_media">IVS Media</button>
+                    <button data-target="ivs-lifeminds" class="tab text-base md:text-lg px-6 py-3 font-semibold rounded-xl border-2 transition shadow-md hover:shadow-lg" data-lang-key="tab_lifeminds">IVSLifeMinds</button>
                 </div>
 
                 <div id="tab-content-wrapper" class="bg-gray-50 dark:bg-gray-800/50 p-8 md:p-12 rounded-2xl shadow-xl min-h-[400px] border border-gray-200 dark:border-gray-700">
                     <div id="ivs-academy" class="tab-content active">
-                        <h3 class="text-3xl md:text-4xl font-bold text-[#0a3d4a] dark:text-blue-300 mb-6" data-lang-key="academy_title">IVS Academy: Đào tạo Ngôn ngữ & Kỹ năng</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-8 text-lg leading-relaxed" data-lang-key="academy_desc">Đơn vị này xây dựng năng lực cốt lõi thông qua phát triển ngôn ngữ và kỹ năng.</p>
-                        <ul class="list-disc list-inside space-y-4 text-gray-700 dark:text-gray-300 text-lg">
+                        <h3 class="text-3xl md:text-4xl font-bold mb-6" data-lang-key="academy_title">IVS Academy: Đào tạo Ngôn ngữ & Kỹ năng</h3>
+                        <p class="mb-8 text-lg leading-relaxed" data-lang-key="academy_desc">Đơn vị này xây dựng năng lực cốt lõi thông qua phát triển ngôn ngữ và kỹ năng.</p>
+                        <ul class="list-disc list-inside space-y-4 text-lg">
                             <li data-lang-key="academy_item1">**Đào tạo Ngoại ngữ:** Các chương trình nâng cao cho các chứng chỉ IELTS, TOEFL, TOEIC, cùng với tiếng Nhật, Hàn, Trung, và nhiều hơn nữa.</li>
                             <li data-lang-key="academy_item2">**Phát triển Kỹ năng:** Các khóa học về kỹ năng mềm, tư duy phản biện, tư duy thiết kế, và năng lực số.</li>
                             <li data-lang-key="academy_item3">**Kiểm tra Trình độ Tiếng Anh:** Các bài đánh giá khoa học cho lộ trình học tập cá nhân hóa.</li>
                         </ul>
                     </div>
                     <div id="ivs-education" class="tab-content">
-                        <h3 class="text-3xl md:text-4xl font-bold text-[#0a3d4a] dark:text-blue-300 mb-6" data-lang-key="education_title">IVS Education: STEAM & Giải pháp Số</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-8 text-lg leading-relaxed" data-lang-key="education_desc">Đơn vị này thúc đẩy đổi mới bằng cách tích hợp công nghệ vào giáo dục.</p>
-                        <ul class="list-disc list-inside space-y-4 text-gray-700 dark:text-gray-300 text-lg">
+                        <h3 class="text-3xl md:text-4xl font-bold mb-6" data-lang-key="education_title">IVS Education: STEAM & Giải pháp Số</h3>
+                        <p class="mb-8 text-lg leading-relaxed" data-lang-key="education_desc">Đơn vị này thúc đẩy đổi mới bằng cách tích hợp công nghệ vào giáo dục.</p>
+                        <ul class="list-disc list-inside space-y-4 text-lg">
                             <li data-lang-key="education_item1">**STEAM by IVS:** Các chương trình tích hợp thúc đẩy giải quyết vấn đề và đam mê khoa học.</li>
                             <li data-lang-key="education_item2">**Bộ phận R&D:** Liên tục cập nhật chương trình giảng dạy theo xu hướng toàn cầu.</li>
                             <li data-lang-key="education_item3">**IVSCelesTech:** Cung cấp các công cụ số như LMS, nền tảng e-learning, và giải pháp dựa trên AI.</li>
@@ -513,28 +563,28 @@
                         </ul>
                     </div>
                     <div id="ivs-consulting" class="tab-content">
-                        <h3 class="text-3xl md:text-4xl font-bold text-[#0a3d4a] dark:text-blue-300 mb-6" data-lang-key="consulting_title">IVS Consulting: Tư vấn Toàn diện</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-8 text-lg leading-relaxed" data-lang-key="consulting_desc">Đơn vị này cung cấp hỗ trợ chuyên môn cho các cá nhân và tổ chức giáo dục.</p>
-                        <ul class="list-disc list-inside space-y-4 text-gray-700 dark:text-gray-300 text-lg">
+                        <h3 class="text-3xl md:text-4xl font-bold mb-6" data-lang-key="consulting_title">IVS Consulting: Tư vấn Toàn diện</h3>
+                        <p class="mb-8 text-lg leading-relaxed" data-lang-key="consulting_desc">Đơn vị này cung cấp hỗ trợ chuyên môn cho các cá nhân và tổ chức giáo dục.</p>
+                        <ul class="list-disc list-inside space-y-4 text-lg">
                             <li data-lang-key="consulting_item1">**Tư vấn Giáo dục:** Hỗ trợ chiến lược cho các trường học về vận hành, chương trình, và marketing.</li>
                             <li data-lang-key="consulting_item2">**Thành lập Trung tâm:** Hướng dẫn toàn diện để thành lập các trung tâm giáo dục mới.</li>
                             <li data-lang-key="consulting_item3">**Chương trình Du học:** Hướng dẫn cá nhân hóa cho các điểm đến hàng đầu toàn cầu.</li>
                             <li data-lang-key="consulting_item4">**Dịch vụ Giáo viên:** Cung cấp và đào tạo giáo viên chất lượng theo phương pháp hiện đại.</li>
                         </ul>
                     </div>
-                     <div id="ivs-media" class="tab-content">
-                        <h3 class="text-3xl md:text-4xl font-bold text-[#0a3d4a] dark:text-blue-300 mb-6" data-lang-key="media_title">IVS Media: Truyền thông & Nội dung</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-8 text-lg leading-relaxed" data-lang-key="media_desc">Đơn vị này xây dựng thương hiệu IVS và phổ biến kiến thức thông qua nội dung hấp dẫn.</p>
-                        <ul class="list-disc list-inside space-y-4 text-gray-700 dark:text-gray-300 text-lg">
+                       <div id="ivs-media" class="tab-content">
+                        <h3 class="text-3xl md:text-4xl font-bold mb-6" data-lang-key="media_title">IVS Media: Truyền thông & Nội dung</h3>
+                        <p class="mb-8 text-lg leading-relaxed" data-lang-key="media_desc">Đơn vị này xây dựng thương hiệu IVS và phổ biến kiến thức thông qua nội dung hấp dẫn.</p>
+                        <ul class="list-disc list-inside space-y-4 text-lg">
                             <li data-lang-key="media_item1">**Nội dung Đa phương tiện:** Sản xuất các bài giảng video, podcast, và e-book chất lượng cao.</li>
                             <li data-lang-key="media_item2">**Website & Marketing:** Thiết kế website tối ưu SEO và các giải pháp marketing số.</li>
                             <li data-lang-key="media_item3">**Kênh Thông tin:** Quản lý blog và thư viện để chia sẻ kiến thức và câu chuyện thành công.</li>
                         </ul>
                     </div>
                     <div id="ivs-lifeminds" class="tab-content">
-                        <h3 class="text-3xl md:text-4xl font-bold text-[#0a3d4a] dark:text-blue-300 mb-6" data-lang-key="lifeminds_title">IVSLifeMinds: Phát triển Tư duy & Tiềm năng</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-8 text-lg leading-relaxed" data-lang-key="lifeminds_desc">Đơn vị này tập trung khai phá tiềm năng cá nhân thông qua đào tạo kỹ năng nhận thức và kỹ năng sống.</p>
-                        <ul class="list-disc list-inside space-y-4 text-gray-700 dark:text-gray-300 text-lg">
+                        <h3 class="text-3xl md:text-4xl font-bold mb-6" data-lang-key="lifeminds_title">IVSLifeMinds: Phát triển Tư duy & Tiềm năng</h3>
+                        <p class="mb-8 text-lg leading-relaxed" data-lang-key="lifeminds_desc">Đơn vị này tập trung khai phá tiềm năng cá nhân thông qua đào tạo kỹ năng nhận thức và kỹ năng sống.</p>
+                        <ul class="list-disc list-inside space-y-4 text-lg">
                             <li data-lang-key="lifeminds_item1">**Chương trình Tư duy:** Nâng cao tư duy phản biện, sáng tạo, logic, và hệ thống.</li>
                             <li data-lang-key="lifeminds_item2">**Kỹ năng Sống & Hướng nghiệp:** Đào tạo về quản lý tài chính, kỹ năng xã hội, và lập kế hoạch sự nghiệp.</li>
                             <li data-lang-key="lifeminds_item3">**Workshop & Kết nối:** Tổ chức các diễn đàn học thuật và sự kiện với các chuyên gia đầu ngành.</li>
@@ -568,7 +618,7 @@
         <section id="strategy" class="py-20 md:py-32 bg-white dark:bg-gray-900">
             <div class="container mx-auto px-6">
                 <h2 class="section-title text-4xl md:text-6xl text-center mb-8" data-lang-key="strategy_title">Ưu Tiên Chiến Lược Của Chúng Tôi</h2>
-                 <p class="section-subtitle" data-lang-key="strategy_intro">
+                   <p class="section-subtitle" data-lang-key="strategy_intro">
                     Để hiện thực hóa tầm nhìn, IVS JSC được định hướng bởi bảy ưu tiên chiến lược then chốt nhằm đảm bảo sự tăng trưởng bền vững, đổi mới và giá trị cộng đồng.
                 </p>
                 <div class="max-w-4xl mx-auto space-y-6" id="accordion-container">
@@ -590,7 +640,7 @@
 
         <section id="contact" class="py-20 md:py-32 bg-[#0a3d4a] text-white">
             <div class="container mx-auto px-6 text-center">
-                <h2 class="text-4xl md:text-6xl font-extrabold mb-8" data-lang-key="contact_capacity_title">Năng lực, Khả năng Phục hồi & Liên hệ</h2>
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-8" data-lang-key="contact_capacity_title">Năng lực nền tảng, tầm nhìn và triết lý tích hợp</h2>
                 <p class="max-w-3xl mx-auto text-lg md:text-xl opacity-90 mb-12 leading-relaxed" data-lang-key="contact_capacity_text">
                     Sức mạnh của IVS JSC nằm ở cấu trúc đa dạng, tầm nhìn chiến lược và triết lý **Synergy**. Với nền tảng vững chắc và đội ngũ tận tâm, chúng tôi sẵn sàng vượt qua thử thách và thúc đẩy giáo dục Việt Nam. Chúng tôi hành động với sự chính trực và chuyên nghiệp, luôn ưu tiên lợi ích của người học, đối tác và cộng đồng.
                 </p>
@@ -598,6 +648,12 @@
                     <h3 class="text-3xl md:text-4xl font-bold mb-8" data-lang-key="contact_get_in_touch_title">Liên Hệ Với Chúng Tôi</h3>
                     <p class="text-lg md:text-xl font-medium"><strong><span data-lang-key="contact_company_name">IVS JSC – Hiện thực hóa Tầm nhìn Giáo dục Toàn cầu</span></strong></p>
                     <p class="text-gray-600 dark:text-gray-300 mt-4 text-base md:text-lg" data-lang-key="contact_address">Số 1104, Tổ 6, Ấp Đất Mới, Xã Long Phước, Huyện Long Thành, Tỉnh Đồng Nai, Việt Nam</p>
+                    <ul class="mt-6 space-y-3 text-base md:text-lg">
+                        <li><strong><i class="fas fa-globe mr-2"></i> Website:</strong> <a href="https://ivsacademy.edu.vn" target="_blank" class="text-[#c89c4a] hover:underline">ivsacademy.edu.vn</a></li>
+                        <li><strong><i class="fas fa-envelope mr-2"></i> Email:</strong> <span data-lang-key="contact_email1">info@ivsacademy.edu.vn</span></li>
+                        <li><strong><i class="fas fa-envelope mr-2"></i> Email:</strong> <span data-lang-key="contact_email2">ivscorp.vn@gmail.com</span></li>
+                        <li><strong><i class="fas fa-comment-dots mr-2"></i> Zalo OA:</strong> <a href="https://zalo.me/ivsjsc" target="_blank" class="text-[#c89c4a] hover:underline" data-lang-key="contact_zalo">zalo.me/ivsjsc</a></li>
+                    </ul>
                     <div class="mt-10 space-y-4 md:space-y-0 md:space-x-6">
                         <a href="https://ivsacademy.edu.vn/contact.html?subject=Partnership_Opportunity" target="_blank" class="inline-block bg-[#c89c4a] text-white font-bold py-4 px-10 rounded-lg hover:bg-opacity-90 transition-all text-lg shadow-lg hover:shadow-xl transform hover:scale-105" data-lang-key="contact_us_button_partner">
                             <i class="fas fa-handshake mr-2"></i> <span data-lang-key="contact_partner_button_text">Hợp tác với Chúng tôi</span>
@@ -610,14 +666,27 @@
             </div>
         </section>
     </main>
+    
+    <button id="back-to-top-btn" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
-    <footer class="bg-[#08333d] text-gray-300 py-10">
-        <div class="container mx-auto px-6 text-center">
-            <p class="text-base" data-lang-key="footer_copyright">&copy; 2025 Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy. Bảo lưu mọi quyền.</p>
-            <p class="mt-3 opacity-80 text-sm" data-lang-key="footer_tagline">Tư duy chiến lược, Hành động thực tiễn, Giá trị toàn cầu.</p>
+    <footer class="bg-[#0a3d4a] text-white py-10 text-center">
+        <div class="container mx-auto px-6">
+            <p class="text-lg mb-2" data-lang-key="footer_copyright">© 2025 Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy. Bảo lưu mọi quyền.</p>
+            <p class="text-md font-light opacity-80" data-lang-key="footer_tagline">Tư duy chiến lược, Hành động thực tiễn, Giá trị toàn cầu.</p>
         </div>
     </footer>
-
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50,
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const translations = {
             vi: {
@@ -637,6 +706,7 @@
                 nav_contact_mobile: "Liên Hệ",
                 hero_title: "Integrate Vision Synergy",
                 hero_subtitle: "Tư duy chiến lược, Hành động thực tiễn, Giá trị toàn cầu.",
+                about_page_title: "IVS JSC - PROFILE COMPANY",
                 about_title: "Về IVS JSC",
                 about_intro: "IVS JSC là nhà cung cấp giải pháp giáo dục tiên phong, vận hành dựa trên các nguyên tắc Tích hợp (Integration), Tầm nhìn (Vision), và Sức mạnh tổng hợp (Synergy). Chúng tôi kiến tạo một hệ sinh thái giáo dục toàn diện nhằm trang bị cho người học những kỹ năng của thế kỷ 21 để tự tin trong bối cảnh toàn cầu đầy cạnh tranh.",
                 ivs_meaning_integrate_title: "Integrate – Tích hợp",
@@ -766,26 +836,29 @@
                 impact_title: "Tác Động Cộng Đồng & Trách Nhiệm Xã Hội",
                 impact_intro: "Chúng tôi cam kết mang lại lợi ích thiết thực và tạo ra giá trị xã hội bền vững. Các sáng kiến của chúng tôi tập trung vào các lĩnh vực then chốt để xây dựng một cộng đồng tiến bộ, tập trung vào học tập.",
                 impact_chart_title: "IVS JSC: Lĩnh vực Trọng tâm của Trách nhiệm Xã hội",
-                impact_chart_label_x: "Mức độ Tác động & Trọng tâm (Điểm định tính)",
-                impact_chart_dataset_label: "Trọng tâm Tác động Cộng đồng",
+                impact_chart_label_x: "Mức độ Tác động & Trọng tâm (%)",
+                impact_chart_dataset_label: "Tỷ lệ Tập trung (%)",
                 impact_labels: [
-                    'Nâng cao Giáo dục Địa phương', 
-                    'Tiếp cận Học tập Bình đẳng', 
-                    'Nguồn nhân lực Sẵn sàng cho Tương lai', 
-                    'Văn hóa Học tập Suốt đời', 
-                    'Hỗ trợ các Tổ chức Giáo dục', 
-                    'Tăng trưởng Kinh tế - Xã hội', 
+                    'Nâng cao Giáo dục Địa phương',
+                    'Tiếp cận Học tập Bình đẳng',
+                    'Nguồn nhân lực Sẵn sàng cho Tương lai',
+                    'Văn hóa Học tập Suốt đời',
+                    'Hỗ trợ các Tổ chức Giáo dục',
+                    'Tăng trưởng Kinh tế - Xã hội',
                     'Cộng đồng Tiến bộ'
                 ],
-                contact_capacity_title: "Năng lực, Khả năng Phục hồi & Liên hệ",
+                contact_capacity_title: "Năng lực nền tảng, tầm nhìn và triết lý tích hợp",
                 contact_capacity_text: "Sức mạnh của IVS JSC nằm ở cấu trúc đa dạng, tầm nhìn chiến lược và triết lý **Synergy**. Với nền tảng vững chắc và đội ngũ tận tâm, chúng tôi sẵn sàng vượt qua thử thách và thúc đẩy giáo dục Việt Nam. Chúng tôi hành động với sự chính trực và chuyên nghiệp, luôn ưu tiên lợi ích của người học, đối tác và cộng đồng.",
                 contact_get_in_touch_title: "Liên Hệ Với Chúng Tôi",
                 contact_company_name: "IVS JSC – Hiện thực hóa Tầm nhìn Giáo dục Toàn cầu",
                 contact_address: "Số 1104, Tổ 6, Ấp Đất Mới, Xã Long Phước, Huyện Long Thành, Tỉnh Đồng Nai, Việt Nam",
-                contact_visit_website_button: "Truy Cập Website",
+                contact_website: "ivsacademy.edu.vn",
+                contact_email1: "info@ivsacademy.edu.vn",
+                contact_email2: "ivscorp.vn@gmail.com",
+                contact_zalo: "zalo.me/ivsjsc",
                 contact_partner_button_text: "Hợp tác với Chúng tôi",
                 contact_join_button_text: "Gia nhập Đội ngũ IVS",
-                footer_copyright: "&copy; 2025 Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy. Bảo lưu mọi quyền.",
+                footer_copyright: "© 2025 Công ty Cổ phần Dịch vụ Thương mại Integrate Vision Synergy. Bảo lưu mọi quyền.",
                 footer_tagline: "Tư duy chiến lược, Hành động thực tiễn, Giá trị toàn cầu."
             },
             en: {
@@ -805,6 +878,7 @@
                 nav_contact_mobile: "Contact",
                 hero_title: "Integrate Vision Synergy",
                 hero_subtitle: "Strategic Thinking, Practical Action, Global Values.",
+                about_page_title: "IVS JSC - PROFILE COMPANY",
                 about_title: "About IVS JSC",
                 about_intro: "IVS JSC is a pioneering education provider driven by the principles of Integration, Vision, and Synergy. We are building a comprehensive education ecosystem to empower learners with 21st-century skills for a competitive global landscape.",
                 ivs_meaning_integrate_title: "Integrate",
@@ -934,15 +1008,15 @@
                 impact_title: "Community Impact & Social Responsibility",
                 impact_intro: "We are committed to delivering practical benefits and creating lasting social value. Our initiatives focus on key areas to build a progressive, learning-focused community.",
                 impact_chart_title: "IVS JSC: Focus Areas of Social Responsibility",
-                impact_chart_label_x: "Relative Impact & Focus (Qualitative Score)",
-                impact_chart_dataset_label: "Focus of Community Impact",
+                impact_chart_label_x: "Impact & Focus Level (%)",
+                impact_chart_dataset_label: "Focus Rate (%)",
                 impact_labels: [
-                    'Enhanced Local Education', 
-                    'Equal Learning Access', 
-                    'Future-Ready Workforce', 
-                    'Lifelong Learning Culture', 
-                    'Support for Institutions', 
-                    'Socio-Economic Growth', 
+                    'Enhanced Local Education',
+                    'Equal Learning Access',
+                    'Future-Ready Workforce',
+                    'Lifelong Learning Culture',
+                    'Support for Institutions',
+                    'Socio-Economic Growth',
                     'Progressive Community'
                 ],
                 contact_capacity_title: "Capacity, Resilience & Contact",
@@ -950,16 +1024,29 @@
                 contact_get_in_touch_title: "Get In Touch",
                 contact_company_name: "IVS JSC – Realizing Global Education",
                 contact_address: "No. 1104, Group 6, Dat Moi Hamlet, Long Phuoc Commune, Long Thanh District, Dong Nai Province, Vietnam",
-                contact_visit_website_button: "Visit Our Website",
+                contact_website: "ivsacademy.edu.vn",
+                contact_email1: "info@ivsacademy.edu.vn",
+                contact_email2: "ivscorp.vn@gmail.com",
+                contact_zalo: "zalo.me/ivsjsc",
                 contact_partner_button_text: "Partner With Us",
                 contact_join_button_text: "Join Our Team",
-                footer_copyright: "&copy; 2025 Integrate Vision Synergy Trading Services Joint Stock Company. All Rights Reserved.",
+                footer_copyright: "© 2025 Integrate Vision Synergy Trading Services Joint Stock Company. All Rights Reserved.",
                 footer_tagline: "Strategic Thinking, Practical Action, Global Values."
             }
         };
 
         let currentLang = 'vi';
         let impactChartInstance = null;
+
+        const impactChartRawData = {
+            localEducation: 70,
+            equalAccess: 85,
+            workforce: 70,
+            lifelongLearning: 99,
+            supportInstitutions: 85,
+            socioEconomicGrowth: 70,
+            progressiveCommunity: 80
+        };
 
         function updateTexts(lang) {
             document.documentElement.lang = lang;
@@ -968,7 +1055,6 @@
                 const key = el.dataset.langKey;
                 if (translations[lang] && translations[lang][key]) {
                     let text = translations[lang][key];
-                    // Basic markdown-like bold support for **text**
                     text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                     el.innerHTML = text;
                 }
@@ -980,7 +1066,7 @@
 
         function createStrategyAccordions(lang) {
             const accordionContainer = document.getElementById('accordion-container');
-            accordionContainer.innerHTML = ''; 
+            accordionContainer.innerHTML = '';
             const strategyItems = [
                 { key_title: 'strategy_item1_title', key_desc: 'strategy_item1_desc' },
                 { key_title: 'strategy_item2_title', key_desc: 'strategy_item2_desc' },
@@ -1007,12 +1093,26 @@
             });
         }
         
+        function getImpactChartDataset() {
+            return [
+                impactChartRawData.localEducation,
+                impactChartRawData.equalAccess,
+                impactChartRawData.workforce,
+                impactChartRawData.lifelongLearning,
+                impactChartRawData.supportInstitutions,
+                impactChartRawData.socioEconomicGrowth,
+                impactChartRawData.progressiveCommunity
+            ];
+        }
+
+
         function updateImpactChartData(lang) {
             if (!impactChartInstance) return;
             impactChartInstance.data.labels = translations[lang].impact_labels;
             impactChartInstance.options.plugins.title.text = translations[lang].impact_chart_title;
             impactChartInstance.options.scales.x.title.text = translations[lang].impact_chart_label_x;
             impactChartInstance.data.datasets[0].label = translations[lang].impact_chart_dataset_label;
+            impactChartInstance.data.datasets[0].data = getImpactChartDataset();
             impactChartInstance.update();
         }
 
@@ -1023,7 +1123,7 @@
                 button.addEventListener('click', () => {
                     const lang = button.dataset.lang;
                     updateTexts(lang);
-                    createStrategyAccordions(lang); 
+                    createStrategyAccordions(lang);
                     langButtons.forEach(btn => btn.classList.remove('active'));
                     button.classList.add('active');
                 });
@@ -1059,7 +1159,7 @@
                 let currentSectionId = '';
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
-                    if (pageYOffset >= sectionTop - 90) { 
+                    if (pageYOffset >= sectionTop - 90) {
                         currentSectionId = section.getAttribute('id');
                     }
                 });
@@ -1072,22 +1172,23 @@
                 });
             }
             window.addEventListener('scroll', changeNavOnScroll);
-            changeNavOnScroll(); // Initial check
-
+            changeNavOnScroll();
 
             const ecosystemTabsButtons = document.getElementById('ecosystem-tabs-buttons');
             const tabContentWrapper = document.getElementById('tab-content-wrapper');
             const synergyNodes = document.querySelectorAll('.synergy-node');
 
             function setActiveTab(targetId) {
-                ecosystemTabsButtons.querySelector('.tab.active').classList.remove('active');
-                ecosystemTabsButtons.querySelector(`.tab[data-target="${targetId}"]`).classList.add('active');
+                const currentActiveButton = ecosystemTabsButtons.querySelector('.tab.active');
+                if (currentActiveButton) currentActiveButton.classList.remove('active');
+                const newActiveButton = ecosystemTabsButtons.querySelector(`.tab[data-target="${targetId}"]`);
+                if (newActiveButton) newActiveButton.classList.add('active');
 
-                if (tabContentWrapper.querySelector('.tab-content.active')) {
-                    tabContentWrapper.querySelector('.tab-content.active').classList.remove('active');
-                }
-                document.getElementById(targetId).classList.add('active');
-
+                const currentActiveContent = tabContentWrapper.querySelector('.tab-content.active');
+                if (currentActiveContent) currentActiveContent.classList.remove('active');
+                const newActiveContent = document.getElementById(targetId);
+                if (newActiveContent) newActiveContent.classList.add('active');
+                
                 synergyNodes.forEach(node => node.classList.remove('active'));
                 const activeNode = document.querySelector(`.synergy-node[data-target="${targetId}"]`);
                 if (activeNode) {
@@ -1107,11 +1208,9 @@
                 });
             });
             
-            // Set initial active tab based on the first synergy node or tab button
             if (synergyNodes.length > 0) {
-                 setActiveTab(synergyNodes[0].dataset.target); // Default to first node
+                   setActiveTab(synergyNodes[0].dataset.target);
             }
-
 
             const accordionContainer = document.getElementById('accordion-container');
             accordionContainer.addEventListener('click', (e) => {
@@ -1124,7 +1223,6 @@
                 
                 const isActive = item.classList.contains('active');
 
-                // Close all other items
                 accordionContainer.querySelectorAll('.accordion-item').forEach(otherItem => {
                     if (otherItem !== item && otherItem.classList.contains('active')) {
                         otherItem.classList.remove('active');
@@ -1132,7 +1230,7 @@
                         otherItem.querySelector('.accordion-content').style.paddingTop = '0px';
                         otherItem.querySelector('.accordion-content').style.paddingBottom = '0px';
                         otherItem.querySelector('.accordion-icon').textContent = '+';
-                         otherItem.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+                           otherItem.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
                     }
                 });
                 
@@ -1140,8 +1238,8 @@
 
                 if (!isActive) {
                     content.style.maxHeight = content.scrollHeight + 'px';
-                    content.style.paddingTop = '1.25rem'; // Corresponds to py-5
-                    content.style.paddingBottom = '1.25rem'; // Corresponds to py-5
+                    content.style.paddingTop = '1.25rem';
+                    content.style.paddingBottom = '1.25rem';
                     icon.textContent = '−';
                     icon.style.transform = 'rotate(135deg)';
                 } else {
@@ -1152,39 +1250,23 @@
                     icon.style.transform = 'rotate(0deg)';
                 }
             });
-
-            const impactData = {
-                vi: {
-                    labels: translations.vi.impact_labels,
-                    title: translations.vi.impact_chart_title,
-                    xLabel: translations.vi.impact_chart_label_x,
-                    datasetLabel: translations.vi.impact_chart_dataset_label
-                },
-                en: {
-                    labels: translations.en.impact_labels,
-                    title: translations.en.impact_chart_title,
-                    xLabel: translations.en.impact_chart_label_x,
-                    datasetLabel: translations.en.impact_chart_dataset_label
-                }
-            };
-            const commonDatasetData = [85, 78, 90, 70, 75, 82, 88]; // Example data points
-
+            
             const ctx = document.getElementById('impactChart').getContext('2d');
             impactChartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: impactData[currentLang].labels,
+                    labels: translations[currentLang].impact_labels,
                     datasets: [{
-                        label: impactData[currentLang].datasetLabel,
-                        data: commonDatasetData,
+                        label: translations[currentLang].impact_chart_dataset_label,
+                        data: getImpactChartDataset(),
                         backgroundColor: [
-                            'rgba(10, 61, 74, 0.7)',  // Dark Teal
-                            'rgba(200, 156, 74, 0.7)',// Gold
+                            'rgba(10, 61, 74, 0.7)',
+                            'rgba(200, 156, 74, 0.7)',
                             'rgba(10, 61, 74, 0.85)',
                             'rgba(200, 156, 74, 0.85)',
                             'rgba(10, 61, 74, 1)',
                             'rgba(200, 156, 74, 1)',
-                            'rgba(13, 76, 92, 0.75)', // A slightly different teal
+                            'rgba(13, 76, 92, 0.75)',
                         ],
                         borderColor: [
                            '#0a3d4a',
@@ -1210,7 +1292,7 @@
                         },
                         title: {
                             display: true,
-                            text: impactData[currentLang].title,
+                            text: translations[currentLang].impact_chart_title,
                             font: {
                                 size: 18,
                                 weight: 'bold',
@@ -1231,10 +1313,10 @@
                                 label: function(context) {
                                     let label = context.dataset.label || '';
                                     if (label) {
-                                        label += ': ';
+                                        label = translations[currentLang].impact_chart_dataset_label + ': ';
                                     }
                                     if (context.parsed.x !== null) {
-                                        label += context.parsed.x;
+                                        label += context.parsed.x + '%';
                                     }
                                     return label;
                                 }
@@ -1244,19 +1326,25 @@
                     scales: {
                         x: {
                             beginAtZero: true,
+                            max: 100,
                              title: {
-                                display: true,
-                                text: impactData[currentLang].xLabel,
-                                font: {
-                                    size: 14,
-                                    weight: 'medium'
-                                },
-                                color: '#374151' 
-                            },
+                                 display: true,
+                                 text: translations[currentLang].impact_chart_label_x,
+                                 font: {
+                                     size: 14,
+                                     weight: 'medium'
+                                 },
+                                 color: '#374151'
+                             },
                             grid: {
-                                color: '#e5e7eb' // Lighter grid lines
+                                color: '#e5e7eb'
                             },
-                            ticks: { color: '#4b5563' }
+                            ticks: {
+                                color: '#4b5563',
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
                         },
                         y: {
                             ticks: {
@@ -1264,11 +1352,11 @@
                                 font: {
                                     size: 12
                                 },
-                                color: '#1f2937' 
+                                color: '#1f2937'
                             },
                              grid: {
-                                display: false // Hide Y-axis grid lines for cleaner look
-                            }
+                                 display: false
+                             }
                         }
                     },
                     animation: {
@@ -1276,6 +1364,22 @@
                         easing: 'easeInOutQuart'
                     }
                 }
+            });
+
+            const backToTopBtn = document.getElementById('back-to-top-btn');
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.style.display = 'block';
+                } else {
+                    backToTopBtn.style.display = 'none';
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             });
         });
     </script>
