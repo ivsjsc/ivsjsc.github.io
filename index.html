@@ -78,6 +78,173 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/styles.css"> 
     <link rel="stylesheet" href="/dist/output.css">
+    <style>
+        /* Custom styles for chatbot */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #004080; /* primary color */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.05);
+            background-color: #003366; /* primary-dark */
+        }
+
+        .chatbot-window {
+            width: 350px; /* Default width for desktop */
+            height: 500px;
+            background-color: #f9fafb; /* ivs-neutral-50 */
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            margin-bottom: 15px; /* Space between window and button */
+            transform: translateY(10px); /* Initial slight offset */
+            opacity: 0;
+            visibility: hidden;
+            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .chatbot-window.open {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .chatbot-header {
+            background-color: #004080; /* primary */
+            color: white;
+            padding: 1rem;
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600; /* font-semibold */
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header .close-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .chatbot-messages {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background-color: #ffffff; /* white */
+            border-bottom: 1px solid #e5e7eb; /* ivs-neutral-200 */
+        }
+
+        .message {
+            margin-bottom: 0.75rem;
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .message.user {
+            background-color: #bfdbfe; /* blue-200 */
+            color: #1f2937; /* ivs-neutral-800 */
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .message.bot {
+            background-color: #e5e7eb; /* ivs-neutral-200 */
+            color: #1f2937; /* ivs-neutral-800 */
+            align-self: flex-start;
+            margin-right: auto;
+        }
+
+        .chatbot-input-area {
+            display: flex;
+            padding: 1rem;
+            background-color: #f9fafb; /* ivs-neutral-50 */
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        .chatbot-input-area input {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db; /* ivs-neutral-300 */
+            border-radius: 8px;
+            margin-right: 0.75rem;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .chatbot-input-area input:focus {
+            border-color: #3b82f6; /* blue-500 */
+        }
+
+        .chatbot-input-area button {
+            background-color: #004080; /* primary */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.25rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .chatbot-input-area button:hover {
+            background-color: #003366; /* primary-dark */
+        }
+
+        .chatbot-input-area button:disabled {
+            background-color: #9ca3af; /* gray-400 */
+            cursor: not-allowed;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .chatbot-container {
+                bottom: 15px;
+                right: 15px;
+            }
+            .chatbot-button {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            .chatbot-window {
+                width: 90vw; /* Occupy most of the viewport width */
+                height: 70vh; /* Occupy most of the viewport height */
+                max-width: 400px; /* Max width for larger mobile devices */
+                max-height: 600px; /* Max height */
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-index">
     
@@ -296,15 +463,15 @@
                         <i class="fas fa-quote-left text-3xl text-orange-500 dark:text-orange-400 mb-4" aria-hidden="true"></i>
                         <p class="text-lg text-neutral-700 dark:text-gray-300 mb-4 flex-grow" data-lang-key="webdesign_testimonial1_text">"IVS Celestech đã vượt mong đợi của chúng tôi với một website chuyên nghiệp, hiện đại và tối ưu SEO. Rất hài lòng với dịch vụ!"</p>
                         <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
-                             <p class="font-semibold text-gray-700 dark:text-gray-200" data-lang-key="webdesign_testimonial1_author">- Đại diện Công ty TNHH MTV ST</p>
+                               <p class="font-semibold text-gray-700 dark:text-gray-200" data-lang-key="webdesign_testimonial1_author">- Đại diện Công ty TNHH MTV ST</p>
                         </div>
                     </div>
                     <div class="testimonial-card shadow-xl border border-blue-100 dark:border-gray-700 flex flex-col" data-aos="zoom-in" data-aos-delay="500">
                         <i class="fas fa-quote-left text-3xl text-teal-500 dark:text-teal-400 mb-4" aria-hidden="true"></i>
                         <p class="text-lg text-neutral-700 dark:text-gray-300 mb-4 flex-grow" data-lang-key="webdesign_testimonial2_text">"The KhaDock.com website is optimized for UI and SEO, and the design was delivered extremely fast. Very professional. I will recommend IVS to my clients and partners in the US."</p>
-                         <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
-                            <p class="font-semibold text-gray-700 dark:text-gray-200" data-lang-key="webdesign_testimonial2_author">- Mr Kha - Founder & Director of KhaDock - Florida, USA.</p>
-                        </div>
+                           <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
+                                <p class="font-semibold text-gray-700 dark:text-gray-200" data-lang-key="webdesign_testimonial2_author">- Mr Kha - Founder & Director of KhaDock - Florida, USA.</p>
+                           </div>
                     </div>
                 </div>
             </div>
@@ -329,12 +496,30 @@
         <i class="fas fa-arrow-up text-lg md:text-xl" aria-hidden="true"></i>
     </button>
 
+    <div class="chatbot-container">
+        <div id="chatbot-window" class="chatbot-window">
+            <div class="chatbot-header">
+                <span>IVS AI Assistant</span>
+                <button id="chatbot-close-button" class="close-button">&times;</button>
+            </div>
+            <div id="chatbot-messages" class="chatbot-messages flex flex-col space-y-3">
+                <div class="message bot">Chào mừng bạn đến với IVS JSC! Tôi có thể giúp gì cho bạn hôm nay?</div>
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn của bạn...">
+                <button id="chatbot-send-button"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button id="chatbot-open-button" class="chatbot-button">
+            <i class="fas fa-robot"></i>
+        </button>
+    </div>
 
     <script src="/js/loadComponents.js"></script>
     <script src="/js/language.js"></script>
     <script src="/js/script.js"></script>
     <script src="/js/posts-loader.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="/js/chatbot.js"></script> <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
      <script>
         AOS.init({
@@ -342,25 +527,25 @@
             once: true,
             offset: 50,
         });
-         const scrollToTopBtn = document.getElementById('scrollToTopBtn');
-          if (scrollToTopBtn) {
-              window.addEventListener('scroll', () => {
-                  if (window.pageYOffset > 200) {
-                      scrollToTopBtn.classList.remove('hidden');
-                      scrollToTopBtn.classList.add('flex');
-                  } else {
-                      scrollToTopBtn.classList.remove('flex');
-                      scrollToTopBtn.classList.add('hidden');
-                  }
-              }, { passive: true });
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        if (scrollToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 200) {
+                    scrollToTopBtn.classList.remove('hidden');
+                    scrollToTopBtn.classList.add('flex');
+                } else {
+                    scrollToTopBtn.classList.remove('flex');
+                    scrollToTopBtn.classList.add('hidden');
+                }
+            }, { passive: true });
 
-              scrollToTopBtn.addEventListener('click', () => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-              });
-              if (window.pageYOffset <= 200) {
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            if (window.pageYOffset <= 200) {
                 scrollToTopBtn.classList.add('hidden');
-              }
-          }
+            }
+        }
     </script>
 </body>
 </html>
