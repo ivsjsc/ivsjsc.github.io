@@ -4,19 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-lang-key="about_page_title">IVS JSC - PROFILE COMPANY</title>
-    <!-- Visualization & Content Choices: 
-        - Bilingual Content: All text elements fully bilingual, managed via JS.
-        - IVS Meaning & Commitments: New detailed subsections in "About".
-        - Leadership Section: New section with cards for key personnel.
-        - Development Roadmap: New section with a timeline.
-        - Synergy Ecosystem: Enhanced interactivity between diagram nodes and content tabs. Visual refinement for better readability and contrast.
-        - Video Placeholder: Added for future integration.
-        - Core Values: Enhanced card design with subtle animations.
-        - Strategic Priorities: Accordion with improved visual cues.
-        - Community Impact: Chart.js with bilingual data.
-        - Justification: More comprehensive, visually engaging, and interactive, reflecting the depth of IVS's operations and strategy.
-        - Library/Method: Vanilla JS, Chart.js.
-    -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -51,7 +38,7 @@
             width: 100%;
         }
         .hero-section {
-            background: linear-gradient(rgba(10, 61, 74, 0.8), rgba(10, 61, 74, 0.8)), url('public/videos/ivsblue.mp4') no-repeat center center/cover;
+            background: linear-gradient(rgba(10, 61, 74, 0.8), rgba(10, 61, 74, 0.8)), url('https://placehold.co/1920x1080/1a2b3c/e0e0e0?text=IVS+Global+Education+Vision') no-repeat center center/cover;
             position: relative;
             overflow: hidden;
         }
@@ -62,11 +49,11 @@
             width: 100%;
             height: 120px; 
             background: #f9f9f7;
-            clip-path: polygon(0 100%, 50% 40%, 100% 100%); /* More dynamic wave */
+            clip-path: polygon(0 100%, 50% 40%, 100% 100%); 
         }
         .section-title {
             color: #0a3d4a;
-            font-weight: 800; /* Bolder */
+            font-weight: 800; 
         }
         .card-hover {
             transition: transform 0.3s ease-out, box-shadow 0.4s ease-out, border-color 0.3s;
@@ -78,24 +65,23 @@
             border-color: #c89c4a;
         }
         
-        /* Ecosystem Tabs refinement */
         .tab {
             transition: all 0.3s ease-out;
-            border-width: 2px; /* default border width */
-            font-weight: 600; /* Medium-Bold for default tabs */
+            border-width: 2px; 
+            font-weight: 600; 
         }
         .tab:not(.active) {
-            background-color: #f0f4f8; /* Light grayish-blue for default tabs */
-            border-color: #d1dce5; /* Softer border for default tabs */
-            color: #334155; /* Slate-700 for better readability on light bg */
+            background-color: #e8eff3; /* Softer, slightly bluer default background for tabs */
+            border-color: #c5d5e0; /* Slightly stronger default border */
+            color: #2c5282; /* Darker blue-gray for better readability */
         }
         .tab:not(.active):hover {
-            background-color: #e2e8f0; /* Slightly darker on hover */
+            background-color: #d8e2e8; 
             border-color: #b0c4d4;
-            color: #0a3d4a; /* Dark teal text on hover */
+            color: #0a3d4a; 
         }
         .tab.active {
-            background-color: #0a3d4a; /* Dark Teal for active */
+            background-color: #0a3d4a; 
             color: #ffffff;
             border-color: #0a3d4a;
             box-shadow: 0 6px 10px rgba(10, 61, 74, 0.25);
@@ -123,10 +109,10 @@
             transition: max-height 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), padding 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
         }
         .accordion-item.active .accordion-icon {
-            transform: rotate(135deg); /* More distinct rotation */
+            transform: rotate(135deg); 
         }
         .accordion-icon {
-            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bouncy rotation */
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
         }
         .chart-container {
             position: relative;
@@ -134,26 +120,26 @@
             max-width: 950px; 
             margin-left: auto;
             margin-right: auto;
-            height: 480px; 
-            max-height: 65vh; 
+            height: 520px; /* Increased height for better label display */
+            max-height: 70vh; 
             background-color: #ffffff;
             padding: 25px;
-            border-radius: 12px; /* More rounded */
+            border-radius: 12px; 
             box-shadow: 0 8px 16px rgba(0,0,0,0.07);
         }
         @media (max-width: 768px) {
             .chart-container {
-                height: 400px;
-                max-height: 75vh;
+                height: 450px;
+                max-height: 80vh;
             }
         }
         .lang-switcher button {
-            padding: 8px 16px; /* Larger buttons */
+            padding: 8px 16px; 
             border: 1.5px solid #c89c4a;
             color: #c89c4a;
             background-color: transparent;
             transition: background-color 0.3s, color 0.3s, transform 0.2s;
-            font-weight: 600; /* Bolder font */
+            font-weight: 600; 
         }
         .lang-switcher button.active, .lang-switcher button:hover {
             background-color: #c89c4a;
@@ -189,38 +175,38 @@
         .synergy-center:hover {
             transform: scale(1.05);
         }
-        /* Synergy Nodes refinement */
+        
         .synergy-node {
             position: absolute;
-            width: 90px; /* Increased size */
-            height: 90px; /* Increased size */
-            background-color: #ffffff; /* Brighter default background */
-            color: #0a3d4a; /* Dark Teal text for contrast */
-            border: 3px solid #a2c9d1; /* Softer Teal border */
+            width: 90px; 
+            height: 90px; 
+            background-color: #f0f7fa; /* Lighter, cooler blue for default nodes */
+            color: #1c3d5a; /* Darker blue for text contrast */
+            border: 3px solid #b0d1e0; /* Muted blue border */
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-            font-size: 12px; /* Slightly larger font */
+            font-size: 12px; 
             font-weight: 600; 
             cursor: pointer;
             transition: transform 0.3s ease-out, background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
             padding: 5px;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1); /* Softer default shadow */
+            box-shadow: 0 5px 10px rgba(0,0,0,0.08); 
         }
         .synergy-node:hover {
             transform: scale(1.15) rotate(5deg); 
-            background-color: #c89c4a; /* Gold accent */
+            background-color: #c89c4a; 
             color: white;
             border-color: #b3893b; 
-            box-shadow: 0 10px 20px rgba(200, 156, 74, 0.45); /* Enhanced gold shadow */
+            box-shadow: 0 10px 20px rgba(200, 156, 74, 0.45); 
         }
         .synergy-node.active {
             background-color: #c89c4a;
             color: white;
             border-color: #b3893b;
-            transform: scale(1.20) rotate(5deg); /* Slightly more pronounced active state */
+            transform: scale(1.20) rotate(5deg); 
             box-shadow: 0 10px 20px rgba(200, 156, 74, 0.45);
             z-index: 11; 
         }
@@ -243,7 +229,7 @@
         }
         .video-wrapper {
             position: relative; padding-bottom: 56.25%; height: 0;
-            overflow: hidden; width: 100%; background-color: #000; border-radius: 0.75rem; /* More rounded */
+            overflow: hidden; width: 100%; background-color: #000; border-radius: 0.75rem; 
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
@@ -262,7 +248,7 @@
             box-shadow: 0 12px 25px rgba(0,0,0,0.1);
         }
         .team-member-card img {
-            width: 128px; /* 8rem */
+            width: 128px; 
             height: 128px;
             border-radius: 50%;
             margin-left: auto;
@@ -273,29 +259,39 @@
             box-shadow: 0 4px 8px rgba(200, 156, 74, 0.3);
         }
         .section-subtitle {
-            font-size: 1.125rem; /* text-lg */
-            line-height: 1.75rem; /* leading-7 */
-            color: #4b5563; /* gray-600 */
-            max-width: 48rem; /* max-w-3xl */
+            font-size: 1.125rem; 
+            line-height: 1.75rem; 
+            color: #4b5563; 
+            max-width: 48rem; 
             margin-left: auto;
             margin-right: auto;
             text-align: center;
-            margin-bottom: 4rem; /* mb-16 */
+            margin-bottom: 4rem; 
         }
-        /* Tab content text refinement */
-        #tab-content-wrapper .text-gray-700 {
-            color: #1f2937; /* Darker gray (slate-800) for better contrast on light bg */
+        
+        #tab-content-wrapper {
+             background-color: #f8fafc; /* Lighter background for tab content area (slate-50) */
         }
-        #tab-content-wrapper .dark\:text-gray-300 {
-            color: #d1d5db; /* Lighter gray (slate-300) for dark mode */
+        #tab-content-wrapper .text-gray-700 { /* Old class, will be overridden */
+            color: #1e293b; /* slate-800 for better contrast */
         }
-        #tab-content-wrapper h3 { /* Target headings within tab content */
-            color: #0a3d4a; /* Ensure headings use the primary dark teal */
-            font-weight: 700; /* Bolder headings */
+        #tab-content-wrapper .dark\:text-gray-300 { /* Old class, will be overridden */
+            color: #cbd5e1; /* slate-300 for dark mode */
         }
-        #tab-content-wrapper .dark\:text-blue-300 { /* Dark mode headings */
-            color: #93c5fd; /* A lighter, more readable blue for dark mode headings */
+        #tab-content-wrapper h3 { 
+            color: #0a3d4a; 
+            font-weight: 700; 
         }
+         #tab-content-wrapper p, #tab-content-wrapper li {
+            color: #334155; /* slate-700 for body text inside tabs */
+        }
+        #tab-content-wrapper .dark h3 { 
+             color: #bae6fd; /* sky-300 for dark mode headings in tabs */
+        }
+         #tab-content-wrapper .dark p, #tab-content-wrapper .dark li {
+            color: #e2e8f0; /* slate-200 for dark mode body text in tabs */
+        }
+
     </style>
 </head>
 <body class="antialiased">
@@ -377,7 +373,7 @@
                 </div>
                 
                 <div class="video-wrapper my-16 md:my-20 max-w-4xl mx-auto">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/WSFdBq4vprY?si=X1lIscHb06k3eJK_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                     <iframe width="560" height="315" src="https://www.youtube.com/embed/WSFdBq4vprY?si=X1lIscHb06k3eJK_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
 
 
@@ -801,8 +797,8 @@
                 impact_title: "Tác Động Cộng Đồng & Trách Nhiệm Xã Hội",
                 impact_intro: "Chúng tôi cam kết mang lại lợi ích thiết thực và tạo ra giá trị xã hội bền vững. Các sáng kiến của chúng tôi tập trung vào các lĩnh vực then chốt để xây dựng một cộng đồng tiến bộ, tập trung vào học tập.",
                 impact_chart_title: "IVS JSC: Lĩnh vực Trọng tâm của Trách nhiệm Xã hội",
-                impact_chart_label_x: "Mức độ Tác động & Trọng tâm (Điểm định tính)",
-                impact_chart_dataset_label: "Trọng tâm Tác động Cộng đồng",
+                impact_chart_label_x: "Mức độ Tác động & Trọng tâm (%)",
+                impact_chart_dataset_label: "Tỷ lệ Tập trung (%)",
                 impact_labels: [
                     'Nâng cao Giáo dục Địa phương', 
                     'Tiếp cận Học tập Bình đẳng', 
@@ -969,8 +965,8 @@
                 impact_title: "Community Impact & Social Responsibility",
                 impact_intro: "We are committed to delivering practical benefits and creating lasting social value. Our initiatives focus on key areas to build a progressive, learning-focused community.",
                 impact_chart_title: "IVS JSC: Focus Areas of Social Responsibility",
-                impact_chart_label_x: "Relative Impact & Focus (Qualitative Score)",
-                impact_chart_dataset_label: "Focus of Community Impact",
+                impact_chart_label_x: "Impact & Focus Level (%)",
+                impact_chart_dataset_label: "Focus Rate (%)",
                 impact_labels: [
                     'Enhanced Local Education', 
                     'Equal Learning Access', 
@@ -996,6 +992,16 @@
         let currentLang = 'vi';
         let impactChartInstance = null;
 
+        const impactChartRawData = {
+            localEducation: 70,
+            equalAccess: 85,
+            workforce: 70,
+            lifelongLearning: 99,
+            supportInstitutions: 85,
+            socioEconomicGrowth: 70,
+            progressiveCommunity: 80
+        };
+
         function updateTexts(lang) {
             document.documentElement.lang = lang;
             currentLang = lang;
@@ -1003,7 +1009,6 @@
                 const key = el.dataset.langKey;
                 if (translations[lang] && translations[lang][key]) {
                     let text = translations[lang][key];
-                    // Basic markdown-like bold support for **text**
                     text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                     el.innerHTML = text;
                 }
@@ -1042,12 +1047,26 @@
             });
         }
         
+        function getImpactChartDataset() {
+            return [
+                impactChartRawData.localEducation,
+                impactChartRawData.equalAccess,
+                impactChartRawData.workforce,
+                impactChartRawData.lifelongLearning,
+                impactChartRawData.supportInstitutions,
+                impactChartRawData.socioEconomicGrowth,
+                impactChartRawData.progressiveCommunity
+            ];
+        }
+
+
         function updateImpactChartData(lang) {
             if (!impactChartInstance) return;
             impactChartInstance.data.labels = translations[lang].impact_labels;
             impactChartInstance.options.plugins.title.text = translations[lang].impact_chart_title;
             impactChartInstance.options.scales.x.title.text = translations[lang].impact_chart_label_x;
             impactChartInstance.data.datasets[0].label = translations[lang].impact_chart_dataset_label;
+            impactChartInstance.data.datasets[0].data = getImpactChartDataset();
             impactChartInstance.update();
         }
 
@@ -1107,7 +1126,7 @@
                 });
             }
             window.addEventListener('scroll', changeNavOnScroll);
-            changeNavOnScroll(); // Initial check
+            changeNavOnScroll(); 
 
 
             const ecosystemTabsButtons = document.getElementById('ecosystem-tabs-buttons');
@@ -1115,19 +1134,16 @@
             const synergyNodes = document.querySelectorAll('.synergy-node');
 
             function setActiveTab(targetId) {
-                // Update Tab Buttons
                 const currentActiveButton = ecosystemTabsButtons.querySelector('.tab.active');
                 if (currentActiveButton) currentActiveButton.classList.remove('active');
                 const newActiveButton = ecosystemTabsButtons.querySelector(`.tab[data-target="${targetId}"]`);
                 if (newActiveButton) newActiveButton.classList.add('active');
 
-                // Update Tab Content
                 const currentActiveContent = tabContentWrapper.querySelector('.tab-content.active');
                 if (currentActiveContent) currentActiveContent.classList.remove('active');
                 const newActiveContent = document.getElementById(targetId);
                 if (newActiveContent) newActiveContent.classList.add('active');
                 
-                // Update Synergy Nodes
                 synergyNodes.forEach(node => node.classList.remove('active'));
                 const activeNode = document.querySelector(`.synergy-node[data-target="${targetId}"]`);
                 if (activeNode) {
@@ -1190,31 +1206,15 @@
                     icon.style.transform = 'rotate(0deg)';
                 }
             });
-
-            const impactData = {
-                vi: {
-                    labels: translations.vi.impact_labels,
-                    title: translations.vi.impact_chart_title,
-                    xLabel: translations.vi.impact_chart_label_x,
-                    datasetLabel: translations.vi.impact_chart_dataset_label
-                },
-                en: {
-                    labels: translations.en.impact_labels,
-                    title: translations.en.impact_chart_title,
-                    xLabel: translations.en.impact_chart_label_x,
-                    datasetLabel: translations.en.impact_chart_dataset_label
-                }
-            };
-            const commonDatasetData = [85, 78, 90, 70, 75, 82, 88]; 
-
+            
             const ctx = document.getElementById('impactChart').getContext('2d');
             impactChartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: impactData[currentLang].labels,
+                    labels: translations[currentLang].impact_labels,
                     datasets: [{
-                        label: impactData[currentLang].datasetLabel,
-                        data: commonDatasetData,
+                        label: translations[currentLang].impact_chart_dataset_label,
+                        data: getImpactChartDataset(),
                         backgroundColor: [
                             'rgba(10, 61, 74, 0.7)',  
                             'rgba(200, 156, 74, 0.7)',
@@ -1248,7 +1248,7 @@
                         },
                         title: {
                             display: true,
-                            text: impactData[currentLang].title,
+                            text: translations[currentLang].impact_chart_title,
                             font: {
                                 size: 18,
                                 weight: 'bold',
@@ -1269,10 +1269,10 @@
                                 label: function(context) {
                                     let label = context.dataset.label || '';
                                     if (label) {
-                                        label += ': ';
+                                        label = translations[currentLang].impact_chart_dataset_label + ': ';
                                     }
                                     if (context.parsed.x !== null) {
-                                        label += context.parsed.x;
+                                        label += context.parsed.x + '%';
                                     }
                                     return label;
                                 }
@@ -1282,9 +1282,10 @@
                     scales: {
                         x: {
                             beginAtZero: true,
+                            max: 100, // Set max to 100 for percentage
                              title: {
                                 display: true,
-                                text: impactData[currentLang].xLabel,
+                                text: translations[currentLang].impact_chart_label_x,
                                 font: {
                                     size: 14,
                                     weight: 'medium'
@@ -1294,7 +1295,12 @@
                             grid: {
                                 color: '#e5e7eb' 
                             },
-                            ticks: { color: '#4b5563' }
+                            ticks: { 
+                                color: '#4b5563',
+                                callback: function(value) {
+                                    return value + '%'; // Add percentage sign to X-axis ticks
+                                }
+                            }
                         },
                         y: {
                             ticks: {
