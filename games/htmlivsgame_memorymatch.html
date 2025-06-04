@@ -10,7 +10,12 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f0f7ff;
+            background-color: #f0f7ff; /* Fallback color */
+            background-image: url('/images/logo/LogoVang.png'); /* Thay thế URL này bằng hình ảnh của bạn */
+            background-size: cover; /* Đảm bảo hình nền che phủ toàn bộ trang */
+            background-position: center; /* Căn giữa hình nền */
+            background-repeat: no-repeat; /* Không lặp lại hình nền */
+            background-attachment: fixed; /* Giữ hình nền cố định khi cuộn trang */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -26,7 +31,7 @@
         .ivs-gold-text { color: #B8860B; }
 
         .main-container {
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.9); /* Thêm độ trong suốt nhẹ để hình nền có thể nhìn thấy qua */
             border-radius: 16px;
             box-shadow: 0 12px 30px rgba(0,0,0,0.1);
             padding: 25px;
@@ -207,8 +212,8 @@
             display: none !important;
         }
         .scoreboard-container {
+             background-color: rgba(248, 249, 250, 0.9); /* Thêm độ trong suốt nhẹ */
             padding: 20px;
-            background-color: #f8f9fa;
             border-radius: 12px;
         }
         .scoreboard-container h3 {
@@ -241,10 +246,10 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-            align-items: center; /* Align items for language button */
+            align-items: center;
         }
         .language-switcher {
-            margin-top: 12px; /* Match button margin */
+            margin-top: 12px;
         }
     </style>
 </head>
@@ -280,7 +285,7 @@
             <button id="language-switcher-button" class="btn-language ml-2">VI/EN</button>
         </div>
 
-        <footer class="text-center p-3 mt-4 bg-gray-50 border-t border-gray-200 rounded-b-lg">
+        <footer class="text-center p-3 mt-4 bg-gray-50 rounded-b-lg">
             <p class="text-xs text-gray-400" data-translate="copyright"> <i class="fa-solid fa-copyright"></i> 2025 IVS JSC. All rights reserved.</p>
         </footer>
     </div>
@@ -336,12 +341,11 @@
                 pause: "Pause",
                 resume: "Resume",
                 restartLevel: "Restart Level",
-                copyright: '<i class="fa-solid fa-copyright"></i> 2025 IVS JSC. All rights reserved.', // Corrected string
+                copyright: '<i class="fa-solid fa-copyright"></i> 2025 IVS JSC. All rights reserved.',
                 top5Scoreboard: "Top 5 Scoreboard",
                 levelScore: "Level Score",
                 totalFlips: "Total Flips",
                 timeBonus: "Time Bonus",
-                // Dynamic messages (placeholders, will be replaced by functions)
                 messageTitleCongrats: "Congratulations!",
                 messageTextLevelComplete: "You've completed the level!",
                 messageTitleExcellent: "Excellent!",
@@ -377,7 +381,7 @@
                 pause: "Tạm Dừng",
                 resume: "Tiếp Tục",
                 restartLevel: "Chơi Lại Màn",
-                copyright: '<i class="fa-solid fa-copyright"></i> 2025 IVS JSC. Mọi quyền được bảo lưu.', // Corrected string
+                copyright: '<i class="fa-solid fa-copyright"></i> 2025 IVS JSC. Mọi quyền được bảo lưu.',
                 top5Scoreboard: "Top 5 Bảng Điểm",
                 levelScore: "Điểm Màn",
                 totalFlips: "Tổng Lượt Lật",
@@ -415,34 +419,29 @@
                 if (translations[lang][key]) {
                     if (el.tagName === 'INPUT' && el.dataset.translatePlaceholder) {
                         el.placeholder = translations[lang][key];
-                    } else if (key === 'highScoreTitle' || key === 'gamePausedTitle' || key === 'copyright') { // Ensure copyright uses innerHTML
+                    } else if (key === 'highScoreTitle' || key === 'gamePausedTitle' || key === 'copyright') {
                         el.innerHTML = translations[lang][key];
                     } else {
-                        // For simple text content, try to preserve icons if they are direct children
                         const icon = el.querySelector('i.fas, i.fa-solid');
                         if (icon && el.firstChild === icon && (el.childNodes.length === 1 || (el.childNodes.length > 1 && el.childNodes[1].nodeType === Node.TEXT_NODE))) {
-                             // Icon is the first child, might be followed by text
                              let textContent = " " + translations[lang][key];
-                             // Clear existing text nodes after the icon
                              while(icon.nextSibling && icon.nextSibling.nodeType === Node.TEXT_NODE) {
                                  el.removeChild(icon.nextSibling);
                              }
-                             if(icon.nextSibling) { // If there's something after icon (not text), insert before it
+                             if(icon.nextSibling) {
                                 el.insertBefore(document.createTextNode(textContent), icon.nextSibling);
-                             } else { // Icon is last or only child
+                             } else {
                                 el.appendChild(document.createTextNode(textContent));
                              }
-                        } else { // No icon or structure is different, just set textContent
+                        } else {
                             el.textContent = translations[lang][key];
                         }
                     }
                 }
             });
 
-            // Update pause/resume button text based on gamePaused state
             const pauseResumeSpan = pauseResumeButton.querySelector('span');
             if (pauseResumeSpan) {
-                // Ensure the icon is preserved
                 const iconHTML = pauseResumeButton.querySelector('i')?.outerHTML || "";
                 pauseResumeSpan.textContent = gamePaused ? translations[lang].resume : translations[lang].pause;
                 if (iconHTML) pauseResumeButton.innerHTML = iconHTML + " " + pauseResumeSpan.outerHTML;
@@ -829,7 +828,6 @@
             currentLanguage = currentLanguage === 'en' ? 'vi' : 'en';
             localStorage.setItem(LOCAL_STORAGE_LANGUAGE_KEY, currentLanguage);
             applyTranslations(currentLanguage);
-            // Re-render dynamic messages if overlays are visible
             if (!messageOverlay.classList.contains('hidden')) {
                 updateDynamicMessageTranslations();
             }
@@ -845,7 +843,6 @@
         });
 
         function updateDynamicMessageTranslations() {
-            // Message Overlay
             const messageTitleKey = messageTitleEl.dataset.translateDynamicKey;
             const messageTextKey = messageTextEl.dataset.translateDynamicKey;
             const nextActionKey = nextActionButton.dataset.translateDynamicKey;
@@ -890,7 +887,7 @@
 
         function togglePauseGame() {
             gamePaused = !gamePaused;
-            const pauseResumeButtonSpan = pauseResumeButton.querySelector('span'); // Target the span inside the button
+            const pauseResumeButtonSpan = pauseResumeButton.querySelector('span');
 
             if (gamePaused) {
                 stopTimer();
@@ -903,7 +900,6 @@
                  if(pauseResumeButtonSpan) pauseResumeButtonSpan.textContent = translations[currentLanguage].pause;
                 pauseOverlay.classList.add('hidden');
             }
-             // Ensure the entire pause overlay is re-translated if it becomes visible
             if (!pauseOverlay.classList.contains('hidden')) {
                 document.querySelector('#pause-overlay [data-translate="gamePausedTitle"]').innerHTML = translations[currentLanguage].gamePausedTitle;
                 document.querySelector('#pause-overlay [data-translate="gamePausedText"]').textContent = translations[currentLanguage].gamePausedText;
@@ -991,7 +987,6 @@
             try {
                 localStorage.setItem(LOCAL_STORAGE_TOP_SCORES_KEY, JSON.stringify(topScores));
             } catch (e) {
-                // Error saving
             }
         }
 
