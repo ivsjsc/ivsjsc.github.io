@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IVS Memory Match - Enhanced</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f7ff; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; 
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow-y: auto; 
+        }
+        .ivs-blue { background-color: #003366; }
+        .ivs-blue-text { color: #003366; }
+        .ivs-gold { background-color: #FFD700; }
+        .ivs-gold-text { color: #B8860B; } 
+        
+        .main-container {
+            background-color: #ffffff;
+            border-radius: 16px; 
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1); 
+            padding: 25px; 
+            width: 100%;
+            max-width: 680px; 
+            margin-bottom: 25px;
+        }
+        .ivs-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.7rem; 
+            line-height: 2.2rem;
+        }
+        .game-board {
+            display: grid;
+            gap: 12px; 
+            margin: 25px auto;
+            width: 100%;
+        }
+        .game-card {
+            aspect-ratio: 1 / 1;
+            border-radius: 12px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease; 
+            transform-style: preserve-3d;
+            position: relative;
+            perspective: 1500px; 
+            word-break: break-word;
+            hyphens: auto;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.12);
+        }
+        .game-card:hover {
+            box-shadow: 0 8px 16px rgba(0,0,0,0.18);
+            transform: translateY(-3px) scale(1.02); 
+        }
+        .game-card .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            padding: 10px; 
+            box-sizing: border-box;
+            text-align: center;
+            overflow-wrap: break-word; 
+            word-wrap: break-word;
+        }
+        .game-card .card-front {
+            background-image: url('images/games/ivsplaycard.png');
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat;
+        }
+        .game-card .card-back {
+            background: linear-gradient(135deg, #FFD700 0%, #ffec80 100%); 
+            color: #003366; 
+            transform: rotateY(180deg);
+            font-weight: 600; 
+            font-size: 1.4rem; 
+            line-height: 1.3; 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @media (max-width: 480px) {
+            .game-card .card-back {
+                font-size: 1.1rem;
+                padding: 6px;
+            }
+        }
+         @media (max-width: 360px) {
+            .game-card .card-back {
+                font-size: 0.9rem;
+            }
+        }
+
+        .game-card.is-flipped {
+            transform: rotateY(180deg);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.15); 
+        }
+        .game-card.is-matched {
+            background-color: #28a745;
+            cursor: default;
+            opacity: 0.5; 
+            box-shadow: none;
+        }
+        .game-card.is-matched .card-front, .game-card.is-matched .card-back {
+            background: #28a745 !important; 
+            color: white;
+        }
+        .game-info, .difficulty-selector, .scoreboard-container {
+            margin-bottom: 20px;
+            font-size: 1rem; 
+        }
+        .game-info span, .difficulty-selector span, .scoreboard-container span {
+            font-weight: 500; 
+            color: #003366;
+        }
+        .game-info .timer {
+            color: #c0392b; 
+            font-weight: 700;
+        }
+        .btn-action, .btn-difficulty {
+            background-color: #FFD700;
+            color: #003366;
+            border: none;
+            padding: 12px 20px; 
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: background-color 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .btn-action:hover, .btn-difficulty:hover {
+            background-color: #f1c40f; 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+        }
+        .btn-difficulty.active {
+            background-color: #003366;
+            color: #FFD700;
+            box-shadow: inset 0 3px 5px rgba(0,0,0,0.2);
+        }
+        .message-overlay, .name-input-overlay, .pause-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            backdrop-filter: blur(5px); 
+        }
+        .message-content, .name-input-content, .pause-content {
+            background-color: white;
+            padding: 30px 35px; 
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            color: #003366;
+            max-width: 90%;
+            width: 420px;
+        }
+        .message-content h2, .name-input-content h2, .pause-content h2 {
+            font-size: 1.8rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        .message-content p, .name-input-content p, .pause-content p {
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .name-input-content input[type="text"] {
+            width: calc(100% - 24px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #bdc3c7; 
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .hidden {
+            display: none !important; 
+        }
+        .scoreboard-container {
+            padding: 20px;
+            background-color: #f8f9fa; 
+            border-radius: 12px;
+        }
+        .scoreboard-container h3 {
+            font-family: 'Montserrat', sans-serif;
+            color: #003366;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        .scoreboard-list {
+            list-style: none;
+            padding: 0;
+        }
+        .scoreboard-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 5px; 
+            border-bottom: 1px solid #e0e6ed; 
+            font-size: 0.95rem;
+        }
+        .scoreboard-list li:last-child {
+            border-bottom: none;
+        }
+        .scoreboard-list .rank { width: 15%; text-align: left; font-weight: 600; }
+        .scoreboard-list .name { width: 55%; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+        .scoreboard-list .score { width: 30%; text-align: right; font-weight: 700; }
+
+        .controls-area {
+            display: flex;
+            justify-content: center;
+            gap: 10px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header class="ivs-blue text-white p-4 rounded-t-lg mb-4 text-center">
+            <h1 class="ivs-logo">IVS Memory Match: Eng-Vie</h1>
+        </header>
+
+        <div class="difficulty-selector mb-4 text-center">
+            <h3 class="text-lg font-semibold ivs-blue-text mb-2">Select Difficulty:</h3>
+            <div class="flex justify-center gap-2">
+                <button id="difficulty-easy" class="btn-difficulty" data-difficulty="easy">Easy</button>
+                <button id="difficulty-medium" class="btn-difficulty active" data-difficulty="medium">Medium</button>
+                <button id="difficulty-hard" class="btn-difficulty" data-difficulty="hard">Hard</button>
+            </div>
+        </div>
+
+        <div class="game-info grid grid-cols-2 sm:grid-cols-4 gap-2 items-center p-3 bg-gray-100 rounded-lg text-center sm:text-left">
+            <div>Level: <span id="level-display">1</span></div>
+            <div class="sm:text-center"><i class="fas fa-stopwatch mr-1"></i>Time: <span id="time-display" class="timer">00:00</span></div>
+            <div class="sm:text-center">Flips: <span id="flips-count">0</span></div>
+            <div class="sm:text-right">Total Score: <span id="total-score-display">0</span></div>
+        </div>
+
+
+        <div id="game-board" class="game-board">
+        </div>
+
+        <div class="controls-area text-center">
+            <button id="pause-resume-button" class="btn-action"><i class="fas fa-pause mr-1"></i>Pause</button>
+            <button id="reset-level-button" class="btn-action"><i class="fas fa-redo mr-1"></i>Restart Level</button>
+        </div>
+        
+        <footer class="text-center p-3 mt-4 bg-gray-50 border-t border-gray-200 rounded-b-lg">
+            <p class="text-xs text-gray-400">&copy; 2025 IVS JSC. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <div class="scoreboard-container main-container">
+        <h3><i class="fas fa-trophy ivs-gold-text"></i> Top 5 Scoreboard <i class="fas fa-trophy ivs-gold-text"></i></h3>
+        <ol id="scoreboard-list" class="scoreboard-list">
+        </ol>
+    </div>
+
+    <div id="message-overlay" class="message-overlay hidden">
+        <div class="message-content">
+            <h2 id="message-title">Congratulations!</h2>
+            <p id="message-text">You've completed the level!</p>
+            <p>Level Score: <span id="level-score-message">0</span></p>
+            <p>Total Flips: <span id="final-flips">0</span></p>
+            <p>Time Bonus: <span id="time-bonus-message">0</span></p>
+            <button id="next-action-button" class="btn-action">Next Level</button>
+        </div>
+    </div>
+
+    <div id="name-input-overlay" class="name-input-overlay hidden">
+        <div class="name-input-content">
+            <h2><i class="fas fa-medal ivs-gold-text"></i> High Score! <i class="fas fa-medal ivs-gold-text"></i></h2>
+            <p>You've made it to the Top 5! Please enter your name (1-10 characters):</p>
+            <input type="text" id="player-name-input" maxlength="10" placeholder="Enter name">
+            <button id="submit-name-button" class="btn-action">Save Score</button>
+        </div>
+    </div>
+    
+    <div id="pause-overlay" class="pause-overlay hidden">
+        <div class="pause-content">
+            <h2><i class="fas fa-pause-circle ivs-blue-text"></i> Game Paused</h2>
+            <p>Take a moment. Press Resume to continue.</p>
+            <button id="resume-game-button-modal" class="btn-action"><i class="fas fa-play mr-1"></i>Resume</button>
+        </div>
+    </div>
+
+
+    <script>
+        const gameBoard = document.getElementById('game-board');
+        const flipsCountDisplay = document.getElementById('flips-count');
+        const levelDisplay = document.getElementById('level-display');
+        const totalScoreDisplay = document.getElementById('total-score-display');
+        const timeDisplay = document.getElementById('time-display');
+        const resetLevelButton = document.getElementById('reset-level-button');
+        const pauseResumeButton = document.getElementById('pause-resume-button');
+        
+        const messageOverlay = document.getElementById('message-overlay');
+        const messageTitle = document.getElementById('message-title');
+        const messageText = document.getElementById('message-text');
+        const finalFlipsDisplay = document.getElementById('final-flips');
+        const levelScoreMessageDisplay = document.getElementById('level-score-message');
+        const timeBonusMessageDisplay = document.getElementById('time-bonus-message');
+        const nextActionButton = document.getElementById('next-action-button');
+
+        const nameInputOverlay = document.getElementById('name-input-overlay');
+        const playerNameInput = document.getElementById('player-name-input');
+        const submitNameButton = document.getElementById('submit-name-button');
+        const scoreboardList = document.getElementById('scoreboard-list');
+
+        const difficultyButtons = [
+            document.getElementById('difficulty-easy'),
+            document.getElementById('difficulty-medium'),
+            document.getElementById('difficulty-hard')
+        ];
+
+        const pauseOverlay = document.getElementById('pause-overlay');
+        const resumeGameButtonModal = document.getElementById('resume-game-button-modal');
+
+        // Base time limits for MEDIUM difficulty
+        const allLevelsData = [
+            { 
+                level: 1, 
+                pairs: [ {en: "Hello", vi: "Xin chào"}, {en: "Cat", vi: "Con mèo"}, {en: "Dog", vi: "Con chó"} ], 
+                columns: 3, basePointsPerMatch: 50, efficiencyBonusBase: 50, timeLimitMedium: 45 
+            },
+            { 
+                level: 2, 
+                pairs: [ {en: "Goodbye", vi: "Tạm biệt"}, {en: "Thank you", vi: "Cảm ơn"}, {en: "Yes", vi: "Có"}, {en: "No", vi: "Không"} ], 
+                columns: 4, basePointsPerMatch: 60, efficiencyBonusBase: 80, timeLimitMedium: 70 // Increased medium time slightly
+            },
+            {
+                level: 3,
+                pairs: [ {en: "Good morning", vi: "Chào buổi sáng"}, {en: "How are you?", vi: "Bạn khỏe không?"}, {en: "I am fine", vi: "Tôi khỏe"}, {en: "What is this?", vi: "Đây là cái gì?"}, {en: "Red", vi: "Màu đỏ"}, {en: "Blue", vi: "Màu xanh dương"} ],
+                columns: 4, basePointsPerMatch: 70, efficiencyBonusBase: 120, timeLimitMedium: 100 // Increased medium time slightly
+            }
+        ];
+
+        const difficultySettings = {
+            easy:   { flipTimeout: 1800, scoreMultiplier: 0.8, timeBonusFactor: 0.5, timerMultiplier: 1.5,  name: "Easy" }, // 50% more time
+            medium: { flipTimeout: 1000, scoreMultiplier: 1.0, timeBonusFactor: 1.0, timerMultiplier: 1.0,  name: "Medium" },// Base time
+            hard:   { flipTimeout: 600,  scoreMultiplier: 1.5, timeBonusFactor: 1.5, timerMultiplier: 0.75, name: "Hard" }  // 25% less time
+        };
+        let currentDifficulty = 'medium'; 
+
+        let currentLevelIndex = 0;
+        let cardsArray = [];
+        let cardDataList = []; 
+
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let flipsThisLevel = 0;
+        let lockBoard = false;
+        let totalGameScore = 0;
+        let topScores = [];
+
+        let timerInterval;
+        let timeLeft;
+        let currentLevelTimeLimit; // To store the actual time limit for the current level and difficulty
+        let timeBonus = 0;
+        let gamePaused = false;
+
+        const PENALTY_PER_EXTRA_FLIP = 5;
+        const TIME_BONUS_BASE_POINTS = 50; 
+        const TOP_SCORE_COUNT = 5;
+        const LOCAL_STORAGE_TOP_SCORES_KEY = 'ivsMemoryMatchTopScores_v4'; 
+        const LOCAL_STORAGE_DIFFICULTY_KEY = 'ivsMemoryMatchDifficulty_v4';
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        function startTimer() { // Duration will be calculated inside setupLevel
+            if (gamePaused) return; 
+            timeLeft = currentLevelTimeLimit; // Use the calculated time limit
+            timeDisplay.textContent = formatTime(timeLeft);
+            clearInterval(timerInterval); 
+            timerInterval = setInterval(() => {
+                if (gamePaused) return; 
+                timeLeft--;
+                timeDisplay.textContent = formatTime(timeLeft);
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    handleTimeUp();
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+        
+        function togglePauseGame() {
+            gamePaused = !gamePaused;
+            if (gamePaused) {
+                stopTimer();
+                lockBoard = true; 
+                pauseResumeButton.innerHTML = '<i class="fas fa-play mr-1"></i>Resume';
+                pauseOverlay.classList.remove('hidden');
+            } else {
+                lockBoard = false; 
+                startTimer(); // Restart timer with remaining time (timeLeft is already set)
+                pauseResumeButton.innerHTML = '<i class="fas fa-pause mr-1"></i>Pause';
+                pauseOverlay.classList.add('hidden');
+            }
+        }
+
+        pauseResumeButton.addEventListener('click', togglePauseGame);
+        resumeGameButtonModal.addEventListener('click', togglePauseGame);
+
+
+        function handleTimeUp() {
+            if (gamePaused) return; 
+            lockBoard = true; 
+            messageTitle.textContent = "Time's Up!";
+            messageText.textContent = `You ran out of time for Level ${allLevelsData[currentLevelIndex].level}.`;
+            levelScoreMessageDisplay.textContent = "0 (Time Out)";
+            finalFlipsDisplay.textContent = flipsThisLevel;
+            timeBonusMessageDisplay.textContent = "0";
+            messageOverlay.classList.remove('hidden');
+            
+            nextActionButton.textContent = "Restart Level";
+            nextActionButton.onclick = () => {
+                if (currentLevelIndex === 0) totalGameScore = 0; 
+                setupLevel(currentLevelIndex);
+            };
+        }
+
+
+        function loadDifficulty() {
+            const savedDifficulty = localStorage.getItem(LOCAL_STORAGE_DIFFICULTY_KEY);
+            if (savedDifficulty && difficultySettings[savedDifficulty]) {
+                currentDifficulty = savedDifficulty;
+            }
+            updateDifficultyButtonsUI();
+        }
+
+        function saveDifficulty() {
+            localStorage.setItem(LOCAL_STORAGE_DIFFICULTY_KEY, currentDifficulty);
+        }
+
+        function updateDifficultyButtonsUI() {
+            difficultyButtons.forEach(button => {
+                if (button.dataset.difficulty === currentDifficulty) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+        
+        difficultyButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                currentDifficulty = button.dataset.difficulty;
+                saveDifficulty();
+                updateDifficultyButtonsUI();
+                if (currentLevelIndex === 0 && flipsThisLevel === 0) { 
+                     totalGameScore = 0;
+                }
+                setupLevel(currentLevelIndex); 
+            });
+        });
+
+        function loadTopScores() {
+            const storedScores = localStorage.getItem(LOCAL_STORAGE_TOP_SCORES_KEY);
+            if (storedScores) {
+                try {
+                    topScores = JSON.parse(storedScores);
+                } catch (e) {
+                    console.error("Error loading top scores:", e);
+                    topScores = [];
+                }
+            } else {
+                topScores = [];
+            }
+            renderTopScores();
+        }
+
+        function saveTopScores() {
+            try {
+                localStorage.setItem(LOCAL_STORAGE_TOP_SCORES_KEY, JSON.stringify(topScores));
+            } catch (e) {
+                console.error("Error saving top scores:", e);
+            }
+        }
+
+        function addScoreToBoard(name, score) {
+            topScores.push({ name, score });
+            topScores.sort((a, b) => b.score - a.score);
+            topScores = topScores.slice(0, TOP_SCORE_COUNT);
+            saveTopScores();
+            renderTopScores();
+        }
+
+        function renderTopScores() {
+            scoreboardList.innerHTML = '';
+            if (topScores.length === 0) {
+                const li = document.createElement('li');
+                li.textContent = 'No high scores yet.';
+                li.className = 'text-center text-gray-500 py-2';
+                scoreboardList.appendChild(li);
+                return;
+            }
+            topScores.forEach((entry, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span class="rank">${index + 1}.</span>
+                    <span class="name">${escapeHtml(entry.name)}</span>
+                    <span class="score">${entry.score}</span>
+                `;
+                scoreboardList.appendChild(li);
+            });
+        }
+        
+        function escapeHtml(unsafe) {
+            if (typeof unsafe !== 'string') return '';
+            return unsafe
+                 .replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+        }
+
+        function setupLevel(levelIndex) {
+            currentLevelIndex = levelIndex;
+            const levelData = allLevelsData[levelIndex];
+            
+            gamePaused = false; 
+            pauseResumeButton.innerHTML = '<i class="fas fa-pause mr-1"></i>Pause';
+            pauseOverlay.classList.add('hidden');
+
+            gameBoard.innerHTML = '';
+            matchedPairs = 0;
+            flipsThisLevel = 0;
+            flipsCountDisplay.textContent = flipsThisLevel;
+            levelDisplay.textContent = levelData.level;
+            lockBoard = false;
+            messageOverlay.classList.add('hidden');
+            nameInputOverlay.classList.add('hidden');
+            timeBonus = 0;
+
+            // Calculate actual time limit for this level based on difficulty
+            currentLevelTimeLimit = Math.round(levelData.timeLimitMedium * difficultySettings[currentDifficulty].timerMultiplier);
+
+
+            cardDataList = [];
+            levelData.pairs.forEach(pair => {
+                const pairId = `${pair.en}-${pair.vi}`;
+                cardDataList.push({ id: pairId, display: pair.en, type: 'en' });
+                cardDataList.push({ id: pairId, display: pair.vi, type: 'vi' });
+            });
+
+            cardDataList.sort(() => 0.5 - Math.random());
+
+            gameBoard.style.gridTemplateColumns = `repeat(${levelData.columns}, 1fr)`;
+            
+            cardsArray = [];
+            cardDataList.forEach(cardData => {
+                const card = document.createElement('div');
+                card.classList.add('game-card');
+                card.dataset.id = cardData.id; 
+
+                const cardFaceFront = document.createElement('div');
+                cardFaceFront.classList.add('card-face', 'card-front');
+
+                const cardFaceBack = document.createElement('div');
+                cardFaceBack.classList.add('card-face', 'card-back');
+                cardFaceBack.textContent = cardData.display;
+
+                card.appendChild(cardFaceFront);
+                card.appendChild(cardFaceBack);
+                
+                card.addEventListener('click', handleCardClick);
+                gameBoard.appendChild(card);
+                cardsArray.push(card);
+            });
+            totalScoreDisplay.textContent = totalGameScore;
+            startTimer(); // Uses currentLevelTimeLimit set above
+        }
+
+        function handleCardClick(event) {
+            if (lockBoard || timeLeft <= 0 || gamePaused) return;
+            const clickedCard = event.currentTarget;
+
+            if (clickedCard.classList.contains('is-flipped') || clickedCard.classList.contains('is-matched')) {
+                return;
+            }
+
+            flipCard(clickedCard);
+            flippedCards.push(clickedCard);
+
+            if (flippedCards.length === 1 && flipsThisLevel === 0 && currentLevelIndex === 0 && totalGameScore === 0) {
+                 totalGameScore = 0;
+                 totalScoreDisplay.textContent = totalGameScore;
+            }
+
+            if (flippedCards.length === 2) {
+                flipsThisLevel++;
+                flipsCountDisplay.textContent = flipsThisLevel;
+                lockBoard = true;
+                checkForMatch();
+            }
+        }
+
+        function flipCard(card) {
+            card.classList.add('is-flipped');
+        }
+
+        function unflipCards() {
+            setTimeout(() => {
+                if (timeLeft > 0 && !gamePaused) { 
+                    flippedCards.forEach(card => card.classList.remove('is-flipped'));
+                }
+                flippedCards = [];
+                if (!gamePaused) lockBoard = false; 
+            }, difficultySettings[currentDifficulty].flipTimeout);
+        }
+
+        function checkForMatch() {
+            const [card1, card2] = flippedCards;
+            // const levelData = allLevelsData[currentLevelIndex]; // Not needed here
+
+            if (card1.dataset.id === card2.dataset.id) {
+                card1.classList.add('is-matched');
+                card2.classList.add('is-matched');
+                matchedPairs++;
+                
+                flippedCards = [];
+                if (!gamePaused) lockBoard = false;
+                if (matchedPairs === allLevelsData[currentLevelIndex].pairs.length) { // Check against current level's pairs
+                    stopTimer();
+                    setTimeout(() => showLevelCompleteMessage(allLevelsData[currentLevelIndex]), 300); 
+                }
+            } else {
+                unflipCards();
+            }
+        }
+        
+        function showLevelCompleteMessage(levelData) {
+            if (gamePaused) return; 
+            let scoreFromMatches = levelData.basePointsPerMatch * levelData.pairs.length;
+            
+            const idealFlips = levelData.pairs.length; 
+            let efficiencyBonus = 0;
+            if (flipsThisLevel <= idealFlips) {
+                efficiencyBonus = levelData.efficiencyBonusBase;
+            } else {
+                const extraFlips = flipsThisLevel - idealFlips;
+                efficiencyBonus = Math.max(0, levelData.efficiencyBonusBase - (extraFlips * PENALTY_PER_EXTRA_FLIP));
+            }
+
+            if (timeLeft > 0) {
+                 // Use currentLevelTimeLimit (the actual time given for this difficulty) for calculating bonus percentage
+                 timeBonus = Math.round((timeLeft / currentLevelTimeLimit) * TIME_BONUS_BASE_POINTS * difficultySettings[currentDifficulty].timeBonusFactor);
+            } else {
+                timeBonus = 0; 
+            }
+            
+            const calculatedLevelScore = Math.round((scoreFromMatches + efficiencyBonus + timeBonus) * difficultySettings[currentDifficulty].scoreMultiplier);
+            totalGameScore += calculatedLevelScore;
+
+            finalFlipsDisplay.textContent = flipsThisLevel;
+            levelScoreMessageDisplay.textContent = calculatedLevelScore;
+            timeBonusMessageDisplay.textContent = timeBonus;
+            totalScoreDisplay.textContent = totalGameScore;
+            messageOverlay.classList.remove('hidden');
+            
+            if (currentLevelIndex < allLevelsData.length - 1) {
+                messageTitle.textContent = "Excellent!";
+                messageText.textContent = `You've completed Level ${levelData.level}! Ready for the next challenge?`;
+                nextActionButton.textContent = "Next Level";
+                nextActionButton.onclick = () => setupLevel(currentLevelIndex + 1);
+            } else {
+                messageTitle.textContent = "Awesome!";
+                messageText.textContent = "You've completed all levels!";
+                nextActionButton.textContent = "Play Again From Start";
+                nextActionButton.onclick = () => {
+                    checkAndPromptForHighScore(); 
+                };
+                checkAndPromptForHighScore();
+            }
+        }
+
+        function checkAndPromptForHighScore() {
+            messageOverlay.classList.add('hidden');
+            const lowestTopScore = topScores.length < TOP_SCORE_COUNT ? 0 : topScores[TOP_SCORE_COUNT - 1].score;
+            
+            if (totalGameScore > 0 && (topScores.length < TOP_SCORE_COUNT || totalGameScore > lowestTopScore)) {
+                nameInputOverlay.classList.remove('hidden');
+                playerNameInput.value = '';
+                playerNameInput.focus();
+            } else {
+                totalGameScore = 0;
+                setupLevel(0);
+            }
+        }
+
+        submitNameButton.addEventListener('click', () => {
+            const playerName = playerNameInput.value.trim();
+            if (playerName.length >= 1 && playerName.length <= 10) { 
+                addScoreToBoard(playerName, totalGameScore);
+                nameInputOverlay.classList.add('hidden');
+                totalGameScore = 0;
+                setupLevel(0);
+            } else {
+                alert("Name must be between 1 and 10 characters.");
+            }
+        });
+
+        resetLevelButton.addEventListener('click', () => {
+            stopTimer();
+            if(currentLevelIndex === 0) {
+                totalGameScore = 0;
+            }
+            if (gamePaused) {
+                togglePauseGame(); 
+            }
+            setupLevel(currentLevelIndex);
+        });
+        
+        window.onload = () => {
+            loadDifficulty();
+            loadTopScores();
+            totalGameScore = 0;
+            setupLevel(0);
+        };
+    </script>
+</body>
+</html>
