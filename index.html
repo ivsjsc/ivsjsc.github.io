@@ -16,7 +16,7 @@
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="/images/logo/logo-192.png">
     <link rel="manifest" href="/manifest.json">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -32,11 +32,11 @@
                         sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        'primary': '#004080', 
+                        'primary': '#004080',
                         'primary-dark': '#003366',
-                        'secondary': '#ffc107', 
+                        'secondary': '#ffc107',
                         'secondary-dark': '#e0a800',
-                        'header-orange': '#F97316', 
+                        'header-orange': '#F97316',
                         'ivs-neutral-800': '#1f2937',
                         'ivs-neutral-700': '#374151',
                         'ivs-neutral-600': '#4B5563',
@@ -49,7 +49,7 @@
                         'blue-50': '#eff6ff',
                         'blue-200': '#bfdbfe',
                         'blue-500': '#3b82f6',
-                        'blue-600': '#2563eb', 
+                        'blue-600': '#2563eb',
                         'blue-700': '#1d4ed8',
                         'blue-800': '#1e40af',
                         'purple-50': '#faf5ff',
@@ -76,10 +76,9 @@
     </script>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/styles.css"> 
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/dist/output.css">
     <style>
-        /* Custom CSS Variables for IVS Tailwind Colors */
         :root {
             --primary-color: #004080;
             --primary-dark-color: #003366;
@@ -89,8 +88,6 @@
             --ivs-neutral-200-color: #e5e7eb;
             --ivs-neutral-50-color: #f9fafb;
         }
-
-        /* Styles for IVS Global Teacher Hub App */
         .container {
             background-color: #ffffff;
             border-radius: 1rem;
@@ -205,7 +202,6 @@
             border: 3px solid var(--primary-color);
         }
 
-        /* Custom styles for chatbot (from user's original HTML) */
         .chatbot-container {
             position: fixed;
             bottom: 20px;
@@ -215,12 +211,11 @@
             flex-direction: column;
             align-items: flex-end;
         }
-
         .chatbot-button {
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background-color: #004080; /* primary color */
+            background-color: #004080;
             color: white;
             display: flex;
             align-items: center;
@@ -230,47 +225,42 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, background-color 0.3s ease;
         }
-
         .chatbot-button:hover {
             transform: scale(1.05);
-            background-color: #003366; /* primary-dark */
+            background-color: #003366;
         }
-
         .chatbot-window {
-            width: 350px; /* Default width for desktop */
+            width: 350px;
             height: 500px;
-            background-color: #f9fafb; /* ivs-neutral-50 */
+            background-color: #f9fafb;
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            margin-bottom: 15px; /* Space between window and button */
-            transform: translateY(10px); /* Initial slight offset */
+            margin-bottom: 15px;
+            transform: translateY(10px);
             opacity: 0;
             visibility: hidden;
             transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
         }
-
         .chatbot-window.open {
             transform: translateY(0);
             opacity: 1;
             visibility: visible;
         }
-
         .chatbot-header {
-            background-color: #004080; /* primary */
+            background-color: #004080;
             color: white;
             padding: 1rem;
-            font-size: 1.125rem; /* text-lg */
-            font-weight: 600; /* font-semibold */
+            font-size: 1.125rem;
+            font-weight: 600;
             border-top-left-radius: 12px;
             border-top-right-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
         .chatbot-header .close-button {
             background: none;
             border: none;
@@ -278,15 +268,13 @@
             font-size: 1.5rem;
             cursor: pointer;
         }
-
         .chatbot-messages {
             flex-grow: 1;
             padding: 1rem;
             overflow-y: auto;
-            background-color: #ffffff; /* white */
-            border-bottom: 1px solid #e5e7eb; /* ivs-neutral-200 */
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
         }
-
         .message {
             margin-bottom: 0.75rem;
             padding: 0.6rem 1rem;
@@ -294,46 +282,40 @@
             max-width: 80%;
             word-wrap: break-word;
         }
-
         .message.user {
-            background-color: #bfdbfe; /* blue-200 */
-            color: #1f2937; /* ivs-neutral-800 */
+            background-color: #bfdbfe;
+            color: #1f2937;
             align-self: flex-end;
             margin-left: auto;
         }
-
         .message.bot {
-            background-color: #e5e7eb; /* ivs-neutral-200 */
-            color: #1f2937; /* ivs-neutral-800 */
+            background-color: #e5e7eb;
+            color: #1f2937;
             align-self: flex-start;
             margin-right: auto;
         }
-
         .chatbot-input-area {
             display: flex;
             padding: 1rem;
-            background-color: #f9fafb; /* ivs-neutral-50 */
+            background-color: #f9fafb;
             border-bottom-left-radius: 12px;
             border-bottom-right-radius: 12px;
         }
-
         .chatbot-input-area input {
             flex-grow: 1;
             padding: 0.75rem;
-            border: 1px solid #d1d5db; /* ivs-neutral-300 */
+            border: 1px solid #d1d5db;
             border-radius: 8px;
             margin-right: 0.75rem;
             font-size: 1rem;
             outline: none;
             transition: border-color 0.2s ease;
         }
-
         .chatbot-input-area input:focus {
-            border-color: #3b82f6; /* blue-500 */
+            border-color: #3b82f6;
         }
-
         .chatbot-input-area button {
-            background-color: #004080; /* primary */
+            background-color: #004080;
             color: white;
             border: none;
             border-radius: 8px;
@@ -341,17 +323,14 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-
         .chatbot-input-area button:hover {
-            background-color: #003366; /* primary-dark */
+            background-color: #003366;
         }
-
         .chatbot-input-area button:disabled {
-            background-color: #9ca3af; /* gray-400 */
+            background-color: #9ca3af;
             cursor: not-allowed;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
             .chatbot-container {
                 bottom: 15px;
@@ -363,17 +342,44 @@
                 font-size: 20px;
             }
             .chatbot-window {
-                width: 90vw; /* Occupy most of the viewport width */
-                height: 70vh; /* Occupy most of the viewport height */
-                max-width: 400px; /* Max width for larger mobile devices */
-                max-height: 600px; /* Max height */
+                width: 90vw;
+                height: 70vh;
+                max-width: 400px;
+                max-height: 600px;
                 margin-bottom: 10px;
             }
+        }
+
+        /* Custom styles for Game Section */
+        .game-section {
+            background-color: rgba(0, 51, 102, 0.1); /* Light primary color with transparency */
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .game-iframe-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 75%; /* Aspect ratio 4:3, adjust as needed for your game, e.g., 56.25% for 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem; /* Rounded corners for the iframe container */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .game-iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-index">
-    
+
     <div id="header-placeholder" data-loading-text="Loading menu..."></div>
 
     <div id="loading-spinner" class="fixed inset-0 flex items-center justify-center bg-gray-200 bg-opacity-75 z-50 hidden">
@@ -388,8 +394,8 @@
     </div>
 
     <main class="container mx-auto px-4 py-8">
-        <section 
-            class="hero-section-banner relative text-center overflow-hidden shadow-xl bg-gray-700 dark:bg-gray-800"> 
+        <section
+            class="hero-section-banner relative text-center overflow-hidden shadow-xl bg-gray-700 dark:bg-gray-800">
             <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/images/logo/webbanner.png');" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/004080/ffffff?text=IVS+Banner)'; this.classList.add('bg-slate-700');"></div>
             <div class="hero-overlay"></div>
             <div class="hero-content text-white">
@@ -407,11 +413,11 @@
                 <a href="ivs-global-teacher-hub.html" class="inline-block bg-secondary hover:bg-secondary-dark text-primary-dark font-bold py-3 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md">Apply Here</a>
             </div>
         </section>
-        
+
         <section class="py-16 bg-gray-800 dark:bg-slate-800 relative text-white video-background-section rounded-lg shadow-xl my-8 md:my-12 mx-auto max-w-7xl overflow-hidden" data-aos="fade-up">
             <div class="video-background-container">
-            <video autoplay muted loop playsinline poster="/images/logo/webbanner_placeholder_dark.png" style="filter: brightness(1.2);" 
-                    onerror="this.style.backgroundImage='url(/images/logo/webbannermo.png)';"> 
+            <video autoplay muted loop playsinline poster="/images/logo/webbanner_placeholder_dark.png" style="filter: brightness(1.2);"
+                    onerror="this.style.backgroundImage='url(/images/logo/webbannermo.png)';">
                 <source src="/videos/ivs_background_video.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -422,6 +428,25 @@
                 <a href="about.html" class="inline-block bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-8 rounded-lg text-md transition duration-300 ease-in-out transform hover:scale-105 shadow-md" data-lang-key="button_learn_more_about_us">About Us</a>
             </div>
         </section>
+
+        <!-- Game Section Start -->
+        <section class="game-section mx-auto max-w-7xl" data-aos="fade-up" aria-labelledby="game-memory-match-section">
+            <div class="container mx-auto px-4">
+                <h2 id="game-memory-match-section" class="text-center text-3xl font-bold text-primary dark:text-secondary mb-8" data-lang-key="index_game_title">Giải trí & Học tập: IVS Memory Match</h2>
+                <p class="text-center text-gray-700 dark:text-gray-300 mb-8 max-w-2xl mx-auto" data-lang-key="index_game_description">
+                    Rèn luyện trí nhớ và học từ vựng tiếng Anh-Việt qua trò chơi ghép thẻ vui nhộn của chúng tôi! Thử thách bản thân qua nhiều cấp độ và xem ai đạt điểm cao nhất.
+                </p>
+                <div class="game-iframe-container">
+                    <iframe src="games/htmlivsgame_memorymatch.html" title="IVS Memory Match Game" allowfullscreen></iframe>
+                </div>
+                 <div class="text-center mt-8">
+                    <a href="games/htmlivsgame_memorymatch.html" target="_blank" class="inline-block bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-8 rounded-lg text-md transition duration-300 ease-in-out transform hover:scale-105 shadow-md" data-lang-key="button_play_game_fullscreen">
+                        <i class="fas fa-expand-arrows-alt mr-2"></i>Chơi Toàn Màn Hình
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- Game Section End -->
 
         <section class="py-16 md:py-20 bg-gray-50 dark:bg-gray-800/30" data-aos="fade-up">
             <div class="container mx-auto px-4">
@@ -470,7 +495,7 @@
                 </div>
             </div>
         </section>
-        
+
         <section class="py-16 md:py-20 bg-white dark:bg-gray-900" data-aos="fade-up" aria-labelledby="education-programs-section">
             <div class="container mx-auto px-4">
                 <h2 id="education-programs-section" class="text-center text-3xl font-bold text-gray-800 dark:text-gray-100 mb-12" data-lang-key="index_section_title_education_programs_detail">Chương Trình Đào Tạo Chi Tiết</h2>
@@ -526,8 +551,8 @@
                 </div>
             </div>
         </section>
-        
-        <section class="py-16 bg-gray-50 dark:bg-gray-800/30" data-aos="fade-up" aria-labelledby="why-choose-ivs-section"> 
+
+        <section class="py-16 bg-gray-50 dark:bg-gray-800/30" data-aos="fade-up" aria-labelledby="why-choose-ivs-section">
             <div class="container mx-auto px-6 md:px-12">
                 <h2 id="why-choose-ivs-section" class="text-center text-3xl font-bold text-gray-800 dark:text-gray-100 mb-12" data-lang-key="index_section_title_why_us">Tại Sao Chọn IVS JSC?</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
@@ -554,7 +579,7 @@
                     </div>
                     <div data-aos="fade-left" data-aos-delay="400">
                         <div class="bg-warning text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg">
-                            <i class="fas fa-handshake fa-2x" aria-hidden="true"></i> 
+                            <i class="fas fa-handshake fa-2x" aria-hidden="true"></i>
                         </div>
                         <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-2" data-lang-key="why_us_partnership">Đối tác Tin cậy</h3>
                         <p class="text-gray-600 dark:text-gray-400 text-sm" data-lang-key="why_us_partnership_desc">Đồng hành cùng phát triển, mang lại giá trị bền vững.</p>
@@ -574,7 +599,7 @@
                 </div>
             </div>
         </section>
-        
+
         <section class="py-12 md:py-16 bg-gray-100 dark:bg-gray-800/50 section-spacing" data-aos="fade-up" aria-labelledby="testimonials-section">
             <div class="container mx-auto px-4 max-w-7xl">
                 <h2 id="testimonials-section" class="text-2xl md:text-3xl font-semibold text-neutral-700 dark:text-gray-100 mb-8 text-center" data-aos="fade-up" data-lang-key="webdesign_testimonials_heading">Khách hàng & Đối tác nói gì về IVS JSC</h2>
@@ -607,20 +632,20 @@
                         <i class="fas fa-quote-left text-3xl text-orange-500 dark:text-orange-400 mb-4" aria-hidden="true"></i>
                         <p class="text-lg text-neutral-700 dark:text-gray-300 mb-4 flex-grow" data-lang-key="webdesign_testimonial1_text">"IVS Celestech đã vượt mong đợi của chúng tôi với một website chuyên nghiệp, hiện đại và tối ưu SEO. Rất hài lòng với dịch vụ!"</p>
                         <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
-                               <p class="font-semibold text-gray-700 dark:text-gray-200" data-lang-key="webdesign_testimonial1_author">- Đại diện Công ty TNHH MTV ST</p>
+                                <p class="font-semibold text-gray-700 dark:text-gray-200" data-lang-key="webdesign_testimonial1_author">- Đại diện Công ty TNHH MTV ST</p>
                         </div>
                     </div>
                     <div class="testimonial-card shadow-xl border border-blue-100 dark:border-gray-700 flex flex-col" data-aos="zoom-in" data-aos-delay="500">
                         <i class="fas fa-quote-left text-3xl text-teal-500 dark:text-teal-400 mb-4" aria-hidden="true"></i>
                         <p class="text-lg text-neutral-700 dark:text-gray-300 mb-4 flex-grow" data-lang-key="webdesign_testimonial2_text">"The KhaDock.com website is optimized for UI and SEO, and the design was delivered extremely fast. Very professional. I will recommend IVS to my clients and partners in the US."</p>
-                           <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
-                                <p class="font-semibold text-gray-700 dark:text-gray-200" data-lang-key="webdesign_testimonial2_author">- Mr Kha - Founder & Director of KhaDock - Florida, USA.</p>
-                           </div>
+                            <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
+                                 <p class="font-semibold text-gray-700 dark:text-gray-200" data-lang-key="webdesign_testimonial2_author">- Mr Kha - Founder & Director of KhaDock - Florida, USA.</p>
+                            </div>
                     </div>
                 </div>
             </div>
         </section>
-        
+
         <section class="py-20 bg-primary dark:bg-blue-700 text-white" data-aos="zoom-in" aria-labelledby="cta-section">
             <div class="container mx-auto px-6 text-center">
                 <h2 id="cta-section" class="text-3xl md:text-4xl font-bold mb-6" data-lang-key="cta_main_title">Sẵn sàng Nâng tầm Tri thức & Kiến tạo Tương lai?</h2>
@@ -635,7 +660,7 @@
 
     <div id="fab-container-placeholder"></div>
     <div id="footer-placeholder" data-loading-text="Loading footer..."></div>
-    
+
     <button id="scrollToTopBtn" class="hidden fixed bottom-5 right-5 z-[90] items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-700 text-white shadow-lg hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900 dark:bg-neutral-600 dark:hover:bg-neutral-500" aria-label="Scroll to top">
         <i class="fas fa-arrow-up text-lg md:text-xl" aria-hidden="true"></i>
     </button>
@@ -663,7 +688,7 @@
     <script src="/js/language.js"></script>
     <script src="/js/script.js"></script>
     <script src="/js/posts-loader.js"></script>
-    <script src="/js/chatbot.js"></script> 
+    <script src="/js/chatbot.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script type="module">
@@ -673,7 +698,7 @@
 
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? initialAuthToken : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null; // Corrected variable name
 
         let app;
         let db;
@@ -696,7 +721,7 @@
         const modalCloseButton = document.getElementById('modal-close-button');
 
         function showModal(message) {
-            modalMessage.innerHTML = message; // Use innerHTML to render HTML links
+            modalMessage.innerHTML = message;
             customModal.classList.add('show');
         }
 
@@ -724,40 +749,36 @@
                 onAuthStateChanged(auth, async (user) => {
                     if (user) {
                         userId = user.uid;
-                        userIdDisplay.textContent = `User ID: ${userId}`;
+                        if(userIdDisplay) userIdDisplay.textContent = `User ID: ${userId}`;
                         isAuthReady = true;
-                        if (!teacherApplicationSection.classList.contains('hidden')) {
-                        } else {
+                        if (teacherApplicationSection && !teacherApplicationSection.classList.contains('hidden')) {
+                        } else if (teacherOverviewSection) {
                             loadApprovedTeachers();
                         }
                     } else {
                         try {
-                            const anonymousUser = await signInAnonymously(auth);
-                            userId = anonymousUser.user.uid;
-                            userIdDisplay.textContent = `User ID: ${userId}`;
-                            isAuthReady = true;
-                            if (!teacherApplicationSection.classList.contains('hidden')) {
+                            if (initialAuthToken) { // Check if custom token exists
+                                await signInWithCustomToken(auth, initialAuthToken);
+                                // onAuthStateChanged will handle the user object now
                             } else {
-                                loadApprovedTeachers();
+                                const anonymousUser = await signInAnonymously(auth);
+                                userId = anonymousUser.user.uid;
+                                if(userIdDisplay) userIdDisplay.textContent = `User ID: ${userId}`;
+                                isAuthReady = true;
+                                 if (teacherApplicationSection && !teacherApplicationSection.classList.contains('hidden')) {
+                                } else if (teacherOverviewSection) {
+                                    loadApprovedTeachers();
+                                }
                             }
                         } catch (error) {
-                            console.error("Anonymous sign-in error:", error);
-                            showModal("Unable to sign in anonymously. Please try again.");
-                            userIdDisplay.textContent = `User ID: Error`;
+                            console.error("Auth error:", error);
+                            showModal("Unable to authenticate. Please try again.");
+                            if(userIdDisplay) userIdDisplay.textContent = `User ID: Error`;
                         }
                     }
                     hideLoadingSpinner();
                 });
 
-                if (initialAuthToken) {
-                    try {
-                        await signInWithCustomToken(auth, initialAuthToken);
-                    } catch (error) {
-                        console.error("Custom token sign-in error:", error);
-                        showModal("Unable to authenticate user. Please try again.");
-                    }
-                } else {
-                }
             } catch (error) {
                 console.error("Firebase initialization error:", error);
                 showModal("Unable to initialize the application. Please check your internet connection.");
@@ -789,104 +810,104 @@
                 }
             }
         };
+        if(applyTabButton && viewTeachersTabButton && teacherApplicationSection && teacherOverviewSection){
+            applyTabButton.addEventListener('click', () => {
+                applyTabButton.classList.add('active');
+                viewTeachersTabButton.classList.remove('active');
+                teacherApplicationSection.classList.remove('hidden');
+                teacherOverviewSection.classList.add('hidden');
+            });
 
-        applyTabButton.addEventListener('click', () => {
-            applyTabButton.classList.add('active');
-            viewTeachersTabButton.classList.remove('active');
-            teacherApplicationSection.classList.remove('hidden');
-            teacherOverviewSection.classList.add('hidden');
-        });
+            viewTeachersTabButton.addEventListener('click', () => {
+                viewTeachersTabButton.classList.add('active');
+                applyTabButton.classList.remove('active');
+                teacherApplicationSection.classList.add('hidden');
+                teacherOverviewSection.classList.remove('hidden');
+                if (isAuthReady) {
+                    loadApprovedTeachers();
+                } else {
+                    showModal("Loading teacher data. Please wait for authentication.");
+                }
+            });
+        }
 
-        viewTeachersTabButton.addEventListener('click', () => {
-            viewTeachersTabButton.classList.add('active');
-            applyTabButton.classList.remove('active');
-            teacherApplicationSection.classList.add('hidden');
-            teacherOverviewSection.classList.remove('hidden');
-            if (isAuthReady) {
-                loadApprovedTeachers();
-            } else {
-                showModal("Loading teacher data. Please wait for authentication.");
-            }
-        });
 
-        teacherApplicationForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            showLoadingSpinner();
+        if(teacherApplicationForm) {
+            teacherApplicationForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                showLoadingSpinner();
 
-            if (!db || !userId || !isAuthReady) {
-                showModal("System not ready. Please wait or try again.");
-                hideLoadingSpinner();
-                return;
-            }
+                if (!db || !userId || !isAuthReady || userId === 'Loading...' || userId === 'Error') {
+                    showModal("System not ready or user not authenticated. Please wait or try again.");
+                    hideLoadingSpinner();
+                    return;
+                }
 
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            const nationality = document.getElementById('nationality').value;
-            const qualification = document.getElementById('qualification').value;
-            const experience = parseInt(document.getElementById('experience').value);
-            const subjects = document.getElementById('subjects').value.split(',').map(s => s.trim());
-            const bio = document.getElementById('bio').value;
-            const resumeUrl = document.getElementById('resumeUrl').value;
-            const photoUrl = document.getElementById('photoUrl').value;
+                const fullName = document.getElementById('fullName').value;
+                const email = document.getElementById('email').value;
+                const phoneNumber = document.getElementById('phoneNumber').value;
+                const nationality = document.getElementById('nationality').value;
+                const qualification = document.getElementById('qualification').value;
+                const experience = parseInt(document.getElementById('experience').value);
+                const subjects = document.getElementById('subjects').value.split(',').map(s => s.trim());
+                const bio = document.getElementById('bio').value;
+                const resumeUrl = document.getElementById('resumeUrl').value;
+                const photoUrl = document.getElementById('photoUrl').value;
 
-            const applicationId = doc(collection(db, `artifacts/${appId}/users/${userId}/teacher_applications`)).id;
+                const applicationId = doc(collection(db, `artifacts/${appId}/users/${userId}/teacher_applications`)).id;
 
-            const teacherData = {
-                fullName,
-                email,
-                phoneNumber,
-                nationality,
-                qualification,
-                experience,
-                subjects,
-                bio,
-                resumeUrl: resumeUrl || null,
-                photoUrl: photoUrl || 'https://placehold.co/100x100/cccccc/333333?text=No+Photo',
-                submissionTimestamp: serverTimestamp(),
-                userId: userId,
-                applicationId: applicationId
-            };
+                const teacherData = {
+                    fullName, email, phoneNumber, nationality, qualification, experience, subjects, bio,
+                    resumeUrl: resumeUrl || null,
+                    photoUrl: photoUrl || 'https://placehold.co/100x100/cccccc/333333?text=No+Photo',
+                    submissionTimestamp: serverTimestamp(),
+                    userId: userId,
+                    applicationId: applicationId
+                };
 
-            const publicTeacherData = {
-                fullName,
-                nationality,
-                qualification,
-                experience,
-                subjects,
-                bio,
-                photoUrl: photoUrl || 'https://placehold.co/100x100/cccccc/333333?text=No+Photo',
-                isApprovedForPublicDisplay: false,
-                applicationId: applicationId,
-                userId: userId
-            };
+                const publicTeacherData = {
+                    fullName, nationality, qualification, experience, subjects, bio,
+                    photoUrl: photoUrl || 'https://placehold.co/100x100/cccccc/333333?text=No+Photo',
+                    isApprovedForPublicDisplay: false,
+                    applicationId: applicationId,
+                    userId: userId // Store original applicant's userId for reference if needed
+                };
 
-            try {
-                await setDoc(doc(db, `artifacts/${appId}/users/${userId}/teacher_applications`, applicationId), teacherData);
+                try {
+                    await setDoc(doc(db, `artifacts/${appId}/users/${userId}/teacher_applications`, applicationId), teacherData);
+                    await setDoc(doc(db, `artifacts/${appId}/public/data/teacher_applications`, applicationId), publicTeacherData);
 
-                await setDoc(doc(db, `artifacts/${appId}/public/data/teacher_applications`, applicationId), publicTeacherData);
+                    showModal("Your application has been submitted successfully! Please visit this <a href='https://docs.google.com/forms/d/e/1FAIpQLSd_TJ-EstYhFVSEAHGzqG-36dsbkdxvYRuGHiCi5PvgUICjnA/viewform?usp=sharing&ouid=109196735657445874239' target='_blank' class='text-blue-600 hover:text-blue-800 underline'>link</a> to upload your CV, photo, and other documents.");
+                    teacherApplicationForm.reset();
+                } catch (error) {
+                    console.error("Error submitting application: ", error);
+                    showModal("An error occurred while submitting the application. Please try again.");
+                } finally {
+                    hideLoadingSpinner();
+                }
+            });
+        }
 
-                showModal("Your application has been submitted successfully! Please visit this <a href='https://docs.google.com/forms/d/e/1FAIpQLSd_TJ-EstYhFVSEAHGzqG-36dsbkdxvYRuGHiCi5PvgUICjnA/viewform?usp=sharing&ouid=109196735657445874239' target='_blank' class='text-blue-600 hover:text-blue-800 underline'>link</a> to upload your CV, photo, and other documents.");
-                teacherApplicationForm.reset();
-            } catch (error) {
-                console.error("Error submitting application: ", error);
-                showModal("An error occurred while submitting the application. Please try again.");
-            } finally {
-                hideLoadingSpinner();
-            }
-        });
 
         function loadApprovedTeachers() {
             if (!db || !isAuthReady) {
                 console.warn("Firestore or Auth not ready to load teachers.");
+                 if(noTeachersMessage) noTeachersMessage.textContent = "System not ready. Please wait.";
+                if(noTeachersMessage) noTeachersMessage.classList.remove('hidden');
                 return;
             }
+            if (!teachersList || !noTeachersMessage) {
+                // console.warn("Teacher list elements not found on this page.");
+                return;
+            }
+
 
             const q = query(collection(db, `artifacts/${appId}/public/data/teacher_applications`), where("isApprovedForPublicDisplay", "==", true));
 
             onSnapshot(q, (snapshot) => {
                 teachersList.innerHTML = '';
                 if (snapshot.empty) {
+                    noTeachersMessage.textContent = "No approved teachers to display at the moment.";
                     noTeachersMessage.classList.remove('hidden');
                 } else {
                     noTeachersMessage.classList.add('hidden');
@@ -894,7 +915,7 @@
                         const teacher = doc.data();
                         const teacherCard = `
                             <div class="teacher-card flex flex-col items-center">
-                                <img src="${teacher.photoUrl}" alt="${teacher.fullName}" class="mb-4">
+                                <img src="${teacher.photoUrl || 'https://placehold.co/100x100/cccccc/333333?text=No+Photo'}" alt="${teacher.fullName}" class="mb-4" onerror="this.onerror=null;this.src='https://placehold.co/100x100/cccccc/333333?text=No+Photo';">
                                 <h3 class="text-xl font-semibold text-gray-800 mb-2">${teacher.fullName}</h3>
                                 <p class="text-gray-600 mb-1"><strong>Nationality:</strong> ${teacher.nationality}</p>
                                 <p class="text-gray-600 mb-1"><strong>Qualification:</strong> ${teacher.qualification}</p>
@@ -909,6 +930,8 @@
             }, (error) => {
                 console.error("Error loading teacher list: ", error);
                 showModal("Unable to load teacher list. Please try again.");
+                noTeachersMessage.textContent = "Error loading teachers. Please try again.";
+                noTeachersMessage.classList.remove('hidden');
             });
         }
     </script>
