@@ -161,23 +161,23 @@
          .rss-feed-group {
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid #e5e7eb; /* ivs-neutral-200 */
+            border-bottom: 1px solid #e5e7eb; 
         }
         .dark .rss-feed-group {
-            border-bottom-color: #374151; /* ivs-neutral-700 */
+            border-bottom-color: #374151; 
         }
         .rss-feed-group:last-child {
             border-bottom: none;
             margin-bottom: 0;
         }
         .rss-feed-title {
-            font-size: 1.25rem; /* text-xl */
-            font-weight: 600; /* semibold */
+            font-size: 1.25rem; 
+            font-weight: 600; 
             margin-bottom: 1rem;
-            color: #1d4ed8; /* blue-700 */
+            color: #1d4ed8; 
         }
         .dark .rss-feed-title {
-            color: #60a5fa; /* blue-400 */
+            color: #60a5fa; 
         }
 
     </style>
@@ -187,7 +187,7 @@
 
     <main class="flex-grow pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)]">
         <section class="relative bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white py-20 md:py-32 overflow-hidden rounded-b-3xl shadow-xl">
-            <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/images/banners/news_hero_banner.webp');" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/003366/ffffff?text=IVS+D%E1%BB%8Bch+V%E1%BB%A5+C%C3%B4ng+%26+Tin+T%E1%BB%A9c)'; this.classList.add('bg-slate-700'); console.error('Hero banner image not found, fallback used.');"></div>
+            <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/images/banners/news_hero_banner.webp');" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/003366/ffffff?text=IVS+D%E1%BB%8Bch+V%E1%BB%A5+C%C3%B4ng+%26+Tin+T%E1%BB%A9c)'; this.classList.add('bg-slate-700'); console.error('LỖI: Không tải được ảnh banner news_hero_banner.webp. Đường dẫn có thể sai hoặc file không tồn tại.');"></div>
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 hero-text-shadow" data-lang-key="news_archive_main_title" data-aos="fade-down">IVS News - Dịch vụ công & Tin tức</h1>
                 <p class="text-lg md:text-xl lg:text-2xl opacity-95 max-w-3xl mx-auto hero-text-shadow" data-lang-key="news_archive_subtitle_updated" data-aos="fade-up" data-aos-delay="200">
@@ -327,7 +327,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script>
-        // Configuration for RSS feeds
+        console.log("[NEWS-ARCHIVE] Script nội tuyến bắt đầu thực thi.");
         window.rssFeeds = {
             public_services: [
                 { name: "Chính phủ", url: "https://baochinhphu.vn/rss/hoat-dong-cua-lanh-dao-dang-nha-nuoc-18.rss", limit: 4 },
@@ -352,14 +352,13 @@
             ]
         };
 
-        // Function to load content for a specific tab
         function loadContentForTab(tabId) {
-            console.log(`[Tab Content] Attempting to load for tab: ${tabId}`);
+            console.log(`[Tab Content] Bắt đầu tải cho tab: ${tabId}`);
             const panelId = `${tabId}-panel`;
             const panelElement = document.getElementById(panelId);
 
             if (!panelElement) {
-                console.error(`[Tab Content] Panel element #${panelId} not found. Cannot load content.`);
+                console.error(`[LỖI Tab Content] Không tìm thấy panel: #${panelId}.`);
                 return;
             }
             
@@ -368,135 +367,121 @@
             if (tabId === 'ivs-news') {
                 const ivsNewsContainer = document.getElementById('ivs-news-container');
                 if (!ivsNewsContainer) {
-                    console.error('[Tab Content] IVS news container (ivs-news-container) not found within the panel.');
-                    panelElement.innerHTML = '<p class="text-red-500 dark:text-red-400 col-span-full text-center py-10">Lỗi: Không tìm thấy vùng chứa tin IVS.</p>';
+                    console.error('[LỖI Tab Content] Không tìm thấy container tin IVS: #ivs-news-container.');
+                    panelElement.innerHTML = '<p class="text-red-500 dark:text-red-400 col-span-full text-center py-10" data-lang-key="error_ivs_container_not_found">Lỗi: Không tìm thấy vùng chứa tin IVS.</p>';
                     return;
                 }
+                
                 if (typeof window.loadPosts === 'function') {
-                    console.log('[Tab Content] Calling window.loadPosts for ivs-news-container.');
-                    window.loadPosts('ivs-news-container'); // Ensure this matches the ID in posts-loader.js if it's hardcoded there
+                    console.log(`[Tab Content] Gọi window.loadPosts cho container: 'ivs-news-container'. QUAN TRỌNG: Bạn cần sửa posts-loader.js để fetch từ './posts.json' và xử lý JSON đa ngôn ngữ (post.title.vi, post.excerpt.vi).`);
+                    window.loadPosts('ivs-news-container'); 
                 } else {
-                    console.warn('[Tab Content] window.loadPosts function is not defined. IVS news cannot be loaded.');
-                    ivsNewsContainer.innerHTML = '<p class="text-orange-500 dark:text-orange-400 col-span-full text-center py-10">Chức năng tải tin IVS chưa sẵn sàng.</p>';
+                    console.warn('[CẢNH BÁO Tab Content] Hàm window.loadPosts không tồn tại.');
+                    ivsNewsContainer.innerHTML = '<p class="text-orange-500 dark:text-orange-400 col-span-full text-center py-10" data-lang-key="error_loadposts_not_defined">Chức năng tải tin IVS chưa sẵn sàng (thiếu hàm loadPosts).</p>';
                 }
-            } else {
+            } else { 
                 const configKey = tabId.replace('-news', '').replace(/-/g, '_');
-                // Corrected selector to match the updated HTML IDs
                 const mainRssContainerForTab = document.querySelector(`#${panelId} #${tabId}-rss-container`);
 
-
                 if (!mainRssContainerForTab) {
-                    // Log the panel's innerHTML to help debug if the container is truly missing or if the selector is still off
-                    console.error(`[Tab Content] Main RSS container #${tabId}-rss-container not found inside #${panelId}. Panel HTML:`, panelElement.innerHTML);
-                    // Do not overwrite the entire panelElement.innerHTML here if only the RSS part is failing.
-                    // Instead, if mainRssContainerForTab was expected, show error within it or a placeholder area.
-                    // For now, let's assume if it's not found, we can't proceed with RSS for this tab.
-                    const rssAreaPlaceholder = panelElement.querySelector(`[data-rss-area-for="${tabId}"]`); // Hypothetical attribute
-                    if (rssAreaPlaceholder) {
-                        rssAreaPlaceholder.innerHTML = `<p class="text-red-500 dark:text-red-400 col-span-full text-center py-10">Lỗi: Không tìm thấy vùng chứa RSS cho mục này.</p>`;
-                    } else if (panelId === 'public-services-news-panel' && !document.getElementById('public-services-news-rss-container')) {
-                         // Attempt to append error to a known location if specific container isn't found.
-                        const titleElement = panelElement.querySelector('h2[data-lang-key="public_services_section_title_main"]');
-                        if(titleElement) {
-                            const errorP = document.createElement('p');
-                            errorP.className = "text-red-500 dark:text-red-400 col-span-full text-center py-10";
-                            errorP.textContent = "Lỗi: Container RSS (public-services-news-rss-container) không tìm thấy.";
-                            titleElement.parentNode.insertBefore(errorP, titleElement.nextSibling);
-                        }
-                    }
+                    console.error(`[LỖI Tab Content] Không tìm thấy container RSS chính #${tabId}-rss-container bên trong #${panelId}. HTML của panel:`, panelElement.innerHTML , ` Nguyên nhân có thể do lỗi ở language.js hoặc loadComponents.js ngăn DOM không được khởi tạo đúng.`);
+                    panelElement.innerHTML = `<p class="text-red-600 dark:text-red-400 p-4 text-center" data-lang-key="error_rss_container_generic_not_found">Lỗi nghiêm trọng: Không tìm thấy vùng chứa RSS (#${tabId}-rss-container). Vui lòng kiểm tra lỗi JavaScript ở console (đặc biệt là các lỗi liên quan đến khởi tạo ngôn ngữ và components).</p>`;
                     return; 
                 }
                 
-                mainRssContainerForTab.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" aria-busy="true">Đang tải tin tức cho mục ${configKey}...</p>`;
+                mainRssContainerForTab.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" aria-busy="true" data-lang-key="loading_rss_feed_category">Đang tải tin tức cho mục ${configKey}...</p>`;
+
+                if (typeof window.applyTranslations === 'function') { // Áp dụng dịch cho thông báo "Đang tải..."
+                    window.applyTranslations(mainRssContainerForTab);
+                }
+
 
                 if (window.rssFeeds && window.rssFeeds[configKey] && window.rssFeeds[configKey].length > 0) {
-                    mainRssContainerForTab.innerHTML = ''; // Clear loading message
+                    mainRssContainerForTab.innerHTML = ''; 
 
                     window.rssFeeds[configKey].forEach((feed, index) => {
                         const uniqueFeedGroupId = `${tabId}-rss-feed-group-${index}`;
                         let feedGroupDiv = document.getElementById(uniqueFeedGroupId);
 
-                        if (!feedGroupDiv) {
+                        if (!feedGroupDiv) { 
                             feedGroupDiv = document.createElement('div');
                             feedGroupDiv.id = uniqueFeedGroupId;
-                            feedGroupDiv.className = 'rss-feed-group'; // This div will hold title + grid
+                            feedGroupDiv.className = 'rss-feed-group'; 
 
                             const feedTitleElement = document.createElement('h4');
-                            feedTitleElement.className = 'rss-feed-title'; // col-span-full applied by parent if needed
+                            feedTitleElement.className = 'rss-feed-title'; 
                             feedTitleElement.textContent = feed.name || `Nguồn ${index + 1}`;
                             feedGroupDiv.appendChild(feedTitleElement);
 
                             const gridContainerDiv = document.createElement('div');
-                            // IMPORTANT: The ID for loadRssFeed should be unique for its items
                             gridContainerDiv.id = `${tabId}-rss-feed-items-${index}`; 
                             gridContainerDiv.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6';
                             feedGroupDiv.appendChild(gridContainerDiv);
                             
                             mainRssContainerForTab.appendChild(feedGroupDiv);
                         }
-                         // The target for loadRssFeed is the div that will contain the news cards (the grid)
                         const actualTargetContainerForFeedItems = document.getElementById(`${tabId}-rss-feed-items-${index}`);
                         
                         if (typeof window.loadRssFeed === 'function' && actualTargetContainerForFeedItems) {
-                            console.log(`[Tab Content] Calling window.loadRssFeed for ${feed.name} into #${actualTargetContainerForFeedItems.id}`);
+                            console.log(`[Tab Content] Gọi window.loadRssFeed cho nguồn ${feed.name} vào #${actualTargetContainerForFeedItems.id}`);
                             window.loadRssFeed(actualTargetContainerForFeedItems.id, feed.url, feed.limit || 6);
                         } else {
-                            if(!actualTargetContainerForFeedItems) console.error(`[Tab Content] Could not find/create item container for ${feed.name}`);
-                            console.warn('[Tab Content] window.loadRssFeed function is not defined or target container missing. RSS feeds cannot be loaded for this source.');
-                            if(actualTargetContainerForFeedItems) actualTargetContainerForFeedItems.innerHTML = `<p class="text-orange-500 dark:text-orange-400 col-span-full text-center py-10">Chức năng tải RSS cho ${feed.name} chưa sẵn sàng.</p>`;
+                            if(!actualTargetContainerForFeedItems) console.error(`[LỖI Tab Content] Không tạo/tìm được container cho mục RSS của nguồn ${feed.name}: ${tabId}-rss-feed-items-${index}`);
+                            else console.warn('[CẢNH BÁO Tab Content] Hàm window.loadRssFeed không tồn tại.');
+                            if(actualTargetContainerForFeedItems) actualTargetContainerForFeedItems.innerHTML = `<p class="text-orange-500 dark:text-orange-400 col-span-full text-center py-10" data-lang-key="error_loadrss_not_defined">Chức năng tải RSS cho ${feed.name} chưa sẵn sàng.</p>`;
                         }
                     });
                 } else {
-                    console.warn(`[Tab Content] No RSS feed configuration found for key: ${configKey} or feeds array is empty.`);
-                    mainRssContainerForTab.innerHTML = `<p class="text-orange-500 dark:text-orange-400 col-span-full text-center py-10">Không có cấu hình RSS cho mục này.</p>`;
+                    console.warn(`[CẢNH BÁO Tab Content] Không có cấu hình RSS cho key: ${configKey} hoặc mảng feeds rỗng.`);
+                    mainRssContainerForTab.innerHTML = `<p class="text-orange-500 dark:text-orange-400 col-span-full text-center py-10" data-lang-key="no_rss_config_for_category">Không có cấu hình RSS cho mục này.</p>`;
                 }
             }
 
-            if (typeof window.applyLanguage === 'function') {
-                 console.log(`[Tab Content] Applying language to panel: #${panelId}`);
-                 window.applyLanguage(panelElement); 
+            if (typeof window.applyTranslations === 'function') { // Đổi từ applyLanguage sang applyTranslations
+                 console.log(`[Tab Content] Áp dụng ngôn ngữ (applyTranslations) cho panel: #${panelId}`);
+                 window.applyTranslations(panelElement); 
             } else {
-                console.warn(`[Tab Content] window.applyLanguage function not found when trying to apply to panel #${panelId}.`);
+                console.warn(`[CẢNH BÁO Tab Content] Hàm window.applyTranslations không tồn tại khi cố gắng áp dụng cho panel #${panelId}.`);
             }
         }
 
-        // Function to set up tab interactions
         function setupTabs() {
-            console.log("[Tabs] Setting up tabs...");
+            console.log("[Tabs] Bắt đầu thiết lập tabs...");
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
             
             if(tabButtons.length === 0) {
-                console.warn("[Tabs] No tab buttons found. Tab functionality will not work.");
+                console.warn("[CẢNH BÁO Tabs] Không tìm thấy button tab.");
                 return;
             }
 
-            let initialTabId = tabButtons[0].dataset.tab; // Default to first tab button
+            let initialTabId = tabButtons[0].dataset.tab; 
             const activeTabButtonFromMarkup = document.querySelector('.tab-button[aria-selected="true"]');
             if (activeTabButtonFromMarkup) {
                 initialTabId = activeTabButtonFromMarkup.dataset.tab;
             } else {
                 tabButtons[0].setAttribute('aria-selected', 'true'); 
+                console.log(`[Tabs] Không có tab nào được chọn sẵn, tự động chọn tab đầu tiên: ${initialTabId}`);
             }
-            console.log(`[Tabs] Initial tab to activate: ${initialTabId}`);
-
+            console.log(`[Tabs] Tab khởi tạo sẽ là: ${initialTabId}`);
 
             const activateTab = (tabId) => {
-                console.log(`[Tabs] Activating tab: ${tabId}`);
+                console.log(`[Tabs] Kích hoạt tab: ${tabId}`);
+                if (!tabId) {
+                    console.error("[LỖI Tabs] activateTab được gọi với tabId không hợp lệ:", tabId);
+                    return;
+                }
                 tabButtons.forEach(button => {
                     const isActive = button.dataset.tab === tabId;
                     button.classList.toggle('active', isActive);
                     button.setAttribute('aria-selected', String(isActive));
-                    
                     button.classList.toggle('text-header-orange', isActive);
                     button.classList.toggle('dark:text-orange-400', isActive);
                     button.classList.toggle('border-header-orange', isActive);
                     button.classList.toggle('dark:border-orange-400', isActive);
-                    
                     const isPublicServiceTab = button.dataset.tab === 'public-services-news';
                     button.classList.toggle('bg-orange-50', isActive && !isPublicServiceTab);
                     button.classList.toggle('dark:bg-orange-500/20', isActive && !isPublicServiceTab);
-                    
                     if (isPublicServiceTab) {
                          button.classList.toggle('bg-primary', isActive);
                          button.classList.toggle('text-white', isActive);
@@ -508,7 +493,6 @@
                     }
                     button.classList.toggle('border-transparent', !isActive || (isPublicServiceTab && !isActive) );
                 });
-
                 tabContents.forEach(content => {
                     const isContentActive = content.id === `${tabId}-panel`;
                     content.classList.toggle('hidden', !isContentActive);
@@ -523,7 +507,7 @@
                     if (tabId) {
                         activateTab(tabId);
                     } else {
-                        console.error("[Tabs] Clicked button has no data-tab attribute:", event.currentTarget);
+                        console.error("[LỖI Tabs] Button được click không có data-tab:", event.currentTarget);
                     }
                 });
             });
@@ -531,54 +515,75 @@
             if (initialTabId) {
                 activateTab(initialTabId);
             } else {
-                console.warn("[Tabs] No initial tab ID could be determined. No tab will be activated by default.");
+                console.warn("[CẢNH BÁO Tabs] Không xác định được tab khởi tạo.");
             }
         }
 
-        // Callback function after all components are loaded (presumably by loadComponents.js)
+        // QUAN TRỌNG: Callback này PHẢI được gọi bởi loadComponents.js SAU KHI:
+        // 1. Header và Footer đã được tải và chèn vào DOM.
+        // 2. language.js đã thực thi xong và window.initializeLanguageSystem (hoặc ít nhất window.applyTranslations) đã SẴN SÀNG.
         window.onPageComponentsLoadedCallback = function() {
-            console.log("[Page Init] All page components reported as loaded. Initializing news archive specific JS.");
+            console.log("------------------------------------------------------------------");
+            console.log("[Page Init] SỰ KIỆN: loadComponents.js báo hiệu TẤT CẢ THÀNH PHẦN ĐÃ TẢI XONG.");
+            console.log("------------------------------------------------------------------");
             AOS.init({ duration: 800, once: true, offset: 50 });
 
-            if (typeof window.applyLanguage === 'function') {
-                console.log("[Page Init] Applying initial language to the whole document.");
-                window.applyLanguage(document.documentElement);
+            // QUAN TRỌNG: Đảm bảo hệ thống ngôn ngữ đã được khởi tạo bởi loadComponents.js hoặc language.js TRƯỚC KHI gọi setupTabs
+            // Nếu loadComponents.js gọi initializeLanguageSystem thì không cần gọi lại ở đây.
+            // Nếu không, bạn cần đảm bảo language.js đã chạy và window.applyTranslations có sẵn.
+            if (typeof window.applyTranslations === 'function') { // Đổi từ applyLanguage
+                console.log("[Page Init] ✔️ window.applyTranslations TỒN TẠI. Áp dụng ngôn ngữ cho toàn bộ tài liệu.");
+                window.applyTranslations(document.documentElement); // Áp dụng cho toàn bộ trang ban đầu
             } else {
-                 console.warn('[Page Init] window.applyLanguage function not found globally. Language features may not work. This is CRITICAL for page functionality if loadComponents.js or other scripts depend on it.');
+                 console.error('[LỖI NGHIÊM TRỌNG Page Init] ❌ Hàm window.applyTranslations KHÔNG TÌM THẤY. Yêu cầu sửa language.js để định nghĩa window.applyTranslations hoặc window.applyLanguage và đảm bảo loadComponents.js gọi đúng hàm!');
             }
 
             if (typeof setupTabs === 'function') {
-                console.log("[Page Init] Setting up tabs.");
+                console.log("[Page Init] ✔️ setupTabs TỒN TẠI. Gọi để thiết lập tabs.");
                 setupTabs(); 
             } else {
-                console.error('[Page Init] setupTabs function not found. Tab functionality will be broken.');
+                console.error('[LỖI NGHIÊM TRỌNG Page Init] ❌ Hàm setupTabs KHÔNG TÌM THẤY.');
             }
-            window.pageComponentsCallbackCalled = true; // Set flag
+            window.pageComponentsCallbackCalled = true; 
+            console.log("[Page Init] Khởi tạo news-archive hoàn tất (do onPageComponentsLoadedCallback).");
         };
         
-        // Fallback if loadComponents.js doesn't call onPageComponentsLoadedCallback or is missing/errors out
         document.addEventListener('DOMContentLoaded', function() {
-            console.log("[Page Init] DOMContentLoaded event fired.");
-            // Delay slightly to give `defer` scripts a chance, especially loadComponents.js
-            setTimeout(function() {
+            console.log("------------------------------------------------------------------");
+            console.log("[Page Init] SỰ KIỆN: DOMContentLoaded.");
+            console.log("------------------------------------------------------------------");
+            setTimeout(function() { 
                 if (!window.pageComponentsCallbackCalled) { 
-                    console.warn("[Page Init DOMContentLoaded Fallback] onPageComponentsLoadedCallback was not called. Attempting to run critical page JS like tab setup anyway. This might indicate an issue with loadComponents.js or language.js.");
+                    console.warn("******************************************************************");
+                    console.warn("[CẢNH BÁO Page Init - Fallback DOMContentLoaded]");
+                    console.warn("window.onPageComponentsLoadedCallback KHÔNG được gọi bởi loadComponents.js.");
+                    console.warn("LÝ DO CHÍNH: Lỗi nghiêm trọng trong language.js (ví dụ: hàm applyTranslations/applyLanguage không được định nghĩa đúng) hoặc trong loadComponents.js.");
+                    console.warn("Sẽ cố gắng khởi tạo các chức năng cốt lõi. KIỂM TRA KỸ CÁC TỆP JS BÊN NGOÀI!");
+                    console.warn("******************************************************************");
                     
                     AOS.init({ duration: 800, once: true, offset: 50 });
-                    if (typeof window.applyLanguage === 'function') {
-                         window.applyLanguage(document.documentElement);
+
+                    if (typeof window.initializeLanguageSystem === 'function') {
+                        console.log("[Page Init - Fallback DOMContentLoaded] ✔️ Gọi window.initializeLanguageSystem().");
+                        window.initializeLanguageSystem(); // Thử khởi tạo toàn bộ hệ thống ngôn ngữ
+                    } else if (typeof window.applyTranslations === 'function') { // Đổi từ applyLanguage
+                         console.log("[Page Init - Fallback DOMContentLoaded] ✔️ Gọi window.applyTranslations.");
+                         window.applyTranslations(document.documentElement);
                     } else {
-                         console.warn('[Page Init DOMContentLoaded Fallback] applyLanguage missing.');
+                         console.error('[LỖI NGHIÊM TRỌNG Page Init - Fallback DOMContentLoaded] ❌ Hàm applyTranslations (hoặc applyLanguage) VẪN KHÔNG TÌM THẤY. Sửa language.js!');
                     }
+
                     if (typeof setupTabs === 'function') {
+                        console.log('[Page Init - Fallback DOMContentLoaded] ✔️ Gọi setupTabs().');
                         setupTabs();
                     } else {
-                         console.error('[Page Init DOMContentLoaded Fallback] setupTabs missing.');
+                         console.error('[LỖI NGHIÊM TRỌNG Page Init - Fallback DOMContentLoaded] ❌ Hàm setupTabs KHÔNG TÌM THẤY.');
                     }
+                    console.warn("[Page Init - Fallback DOMContentLoaded] Khởi tạo fallback hoàn tất. KIỂM TRA CONSOLE ĐỂ TÌM LỖI GỐC!");
                 } else {
-                    console.log("[Page Init DOMContentLoaded] onPageComponentsLoadedCallback was already called. No fallback needed.");
+                    console.log("[Page Init - DOMContentLoaded] window.onPageComponentsLoadedCallback đã được gọi. Không chạy fallback.");
                 }
-            }, 500); // Delay of 500ms, adjust if necessary
+            }, 1200); 
         });
         
         const scrollToTopBtn = document.getElementById('scrollToTopBtn');
@@ -600,6 +605,7 @@
                scrollToTopBtn.classList.add('hidden');
             }
         }
+         console.log("[NEWS-ARCHIVE] Script nội tuyến thực thi xong.");
     </script>
 </body>
 </html>
