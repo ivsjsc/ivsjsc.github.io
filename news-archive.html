@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-lang-key="page_title_news_archive">IVS News - Tin tức tổng hợp</title>
-    <meta name="description" content="Tổng hợp tin tức, sự kiện mới nhất từ IVS JSC và các nguồn tin uy tín về Giáo dục, Kinh tế, Công nghệ." data-lang-key="meta_description_news_archive">
+    <meta name="description" content="Tổng hợp tin tức, sự kiện mới nhất từ IVS JSC và các nguồn tin uy tín về Giáo dục, Kinh tế, Công nghệ, Dịch vụ công." data-lang-key="meta_description_news_archive">
     <meta name="keywords" content="IVS JSC, tin tức, sự kiện, giáo dục, kinh tế, công nghệ, dịch vụ công, IVS Academy" data-lang-key="meta_keywords_news_archive">
     <meta property="og:title" content="Kho Tin Tức & Cập Nhật - IVS JSC" data-lang-key="og_title_news_archive">
-    <meta property="og:description" content="Theo dõi các cập nhật quan trọng từ IVS JSC và các lĩnh vực liên quan." data-lang-key="og_description_news_archive">
-    <meta property="og:image" content="/images/banners/news_archive_og_banner.jpg"> <meta property="og:url" content="https://ivsacademy.edu.vn/news-archive.html"> <meta property="og:type" content="website">
+    <meta property="og:description" content="Theo dõi các cập nhật quan trọng từ IVS JSC và các lĩnh vực liên quan, đặc biệt là Dịch vụ công." data-lang-key="og_description_news_archive">
+    <meta property="og:image" content="/images/banners/news_archive_og_banner.jpg">
+    <meta property="og:url" content="https://ivsacademy.edu.vn/news-archive.html">
+    <meta property="og:type" content="website">
     <meta name="author" content="IVS JSC">
 
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
@@ -35,7 +37,7 @@
                         'primary-dark': '#003366',
                         'secondary': '#ffc107',
                         'secondary-dark': '#e0a800',
-                        'header-orange': '#F97316', 
+                        'header-orange': '#F97316',
                         'ivs-neutral-800': '#1f2937',
                         'ivs-neutral-700': '#374151',
                         'ivs-neutral-600': '#4B5563',
@@ -87,12 +89,40 @@
             border-color: #fb923c; /* orange-400 for dark mode */
             background-color: rgba(251, 146, 60, 0.15); /* Lighter orange for dark mode */
         }
+        /* Styling for Public Services tab to make it look more like an app */
+        .tab-button[data-tab="public-services-news"].active {
+            /* background-color: #004080; /* primary color */
+            /* color: white; */
+            font-weight: 700;
+            /* border-bottom-width: 4px; */
+        }
+        /* .dark .tab-button[data-tab="public-services-news"].active {
+            background-color: #003366; /* primary-dark color */
+            /* color: #f0f9ff; /* lighter text for dark primary */
+        /* } */
+
+        #public-services-news-panel.active {
+            border: 1px solid #004080; /* primary color border */
+            border-top: none;
+            padding: 1.5rem; /* More padding */
+            background-color: #f0f9ff; /* Light blue background */
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+        }
+        .dark #public-services-news-panel.active {
+            border-color: #2563eb; /* blue-600 for dark mode */
+            background-color: #1e293b; /* slate-800 slightly lighter for depth */
+        }
+
         .news-card-image {
             width: 100%;
-            height: 200px; /* Or your preferred height */
+            height: 200px;
             object-fit: cover;
         }
         .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
+        .min-h-content {
+            min-height: 300px; /* Adjust as needed to prevent collapsing */
+        }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-news-archive">
@@ -102,9 +132,9 @@
         <section class="relative bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white py-20 md:py-32 overflow-hidden rounded-b-3xl shadow-xl">
             <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/images/banners/news_hero_banner.webp');" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/004080/ffffff?text=IVS+News)'; this.classList.add('bg-slate-700');"></div>
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 hero-text-shadow" data-lang-key="news_archive_main_title" data-aos="fade-down">IVS News - Tin tức tổng hợp</h1>
-                <p class="text-lg md:text-xl lg:text-2xl opacity-95 max-w-3xl mx-auto hero-text-shadow" data-lang-key="news_archive_subtitle" data-aos="fade-up" data-aos-delay="200">
-                    Cập nhật những thông tin mới nhất về IVS, giáo dục, kinh tế, công nghệ và các dịch vụ công.
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 hero-text-shadow" data-lang-key="news_archive_main_title" data-aos="fade-down">IVS News - Dịch vụ công & Tin tức</h1>
+                <p class="text-lg md:text-xl lg:text-2xl opacity-95 max-w-3xl mx-auto hero-text-shadow" data-lang-key="news_archive_subtitle_updated" data-aos="fade-up" data-aos-delay="200">
+                    Cập nhật thông tin Dịch vụ công và các tin tức mới nhất về IVS, giáo dục, kinh tế, công nghệ.
                 </p>
             </div>
         </section>
@@ -112,11 +142,11 @@
         <section class="py-12 md:py-16 bg-white dark:bg-slate-800 shadow-md my-8 mx-auto max-w-7xl rounded-xl">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-8 flex flex-wrap justify-center gap-2 md:gap-4 border-b border-gray-300 dark:border-gray-700 pb-4" role="tablist" aria-orientation="horizontal">
-                    <button class="tab-button active font-semibold py-2 px-4 rounded-t-md border-b-2 border-transparent transition-colors duration-300 hover:text-header-orange dark:hover:text-orange-400" data-tab="ivs-news" data-lang-key="tab_ivs_news" role="tab" aria-selected="true" aria-controls="ivs-news-panel">
-                        <i class="fas fa-newspaper mr-2"></i>Tin IVS
-                    </button>
-                    <button class="tab-button font-semibold py-2 px-4 rounded-t-md border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-gray-400 hover:text-header-orange dark:hover:text-orange-400" data-tab="public-services-news" data-lang-key="tab_public_services_news" role="tab" aria-selected="false" aria-controls="public-services-news-panel">
+                    <button class="tab-button font-semibold py-2 px-4 rounded-t-md border-b-2 border-transparent transition-colors duration-300 hover:text-header-orange dark:hover:text-orange-400" data-tab="public-services-news" data-lang-key="tab_public_services_news" role="tab" aria-selected="true" aria-controls="public-services-news-panel">
                         <i class="fas fa-building mr-2"></i>Dịch vụ công
+                    </button>
+                    <button class="tab-button font-semibold py-2 px-4 rounded-t-md border-b-2 border-transparent transition-colors duration-300 hover:text-header-orange dark:hover:text-orange-400" data-tab="ivs-news" data-lang-key="tab_ivs_news" role="tab" aria-selected="false" aria-controls="ivs-news-panel">
+                        <i class="fas fa-newspaper mr-2"></i>Tin IVS
                     </button>
                     <button class="tab-button font-semibold py-2 px-4 rounded-t-md border-b-2 border-transparent transition-colors duration-300 text-gray-600 dark:text-gray-400 hover:text-header-orange dark:hover:text-orange-400" data-tab="education-news" data-lang-key="tab_education_news" role="tab" aria-selected="false" aria-controls="education-news-panel">
                         <i class="fas fa-graduation-cap mr-2"></i>Giáo dục
@@ -133,37 +163,37 @@
                 </div>
 
                 <div id="news-content-area">
-                    <div id="ivs-news-panel" class="tab-content active" role="tabpanel" aria-labelledby="ivs-news-tab">
+                    <div id="public-services-news-panel" class="tab-content min-h-content" role="tabpanel" aria-labelledby="public-services-news-tab">
+                        <h2 class="text-2xl md:text-3xl font-bold text-primary dark:text-blue-400 mb-6" data-lang-key="public_services_section_title_main">Thông tin Dịch vụ công</h2>
+                        <div id="public-services-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[200px]">
+                             <p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" aria-busy="true" data-lang-key="loading_public_services_news">Đang tải tin Dịch vụ công...</p>
+                        </div>
+                    </div>
+                    <div id="ivs-news-panel" class="tab-content min-h-content hidden" role="tabpanel" aria-labelledby="ivs-news-tab">
                         <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="ivs_news_section_title">Tin tức từ IVS JSC</h2>
                         <div id="ivs-news-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[200px]">
                             <p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" aria-busy="true" data-lang-key="loading_ivs_news">Đang tải tin tức IVS...</p>
                         </div>
                     </div>
-                    <div id="public-services-news-panel" class="tab-content hidden" role="tabpanel" aria-labelledby="public-services-news-tab">
-                        <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="public_services_section_title">Tin tức Dịch vụ công</h2>
-                        <div id="public-services-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[200px]">
-                             <p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" aria-busy="true" data-lang-key="loading_public_services_news">Đang tải tin Dịch vụ công...</p>
-                        </div>
-                    </div>
-                    <div id="education-news-panel" class="tab-content hidden" role="tabpanel" aria-labelledby="education-news-tab">
+                    <div id="education-news-panel" class="tab-content min-h-content hidden" role="tabpanel" aria-labelledby="education-news-tab">
                         <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="education_section_title">Tin tức Giáo dục</h2>
                         <div id="education-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[200px]">
                             <p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" aria-busy="true" data-lang-key="loading_education_news">Đang tải tin Giáo dục...</p>
                         </div>
                     </div>
-                     <div id="economy-news-panel" class="tab-content hidden" role="tabpanel" aria-labelledby="economy-news-tab">
+                     <div id="economy-news-panel" class="tab-content min-h-content hidden" role="tabpanel" aria-labelledby="economy-news-tab">
                         <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="economy_section_title">Tin tức Kinh tế</h2>
                         <div id="economy-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[200px]">
                              <p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" aria-busy="true" data-lang-key="loading_economy_news">Đang tải tin Kinh tế...</p>
                         </div>
                     </div>
-                    <div id="technology-news-panel" class="tab-content hidden" role="tabpanel" aria-labelledby="technology-news-tab">
+                    <div id="technology-news-panel" class="tab-content min-h-content hidden" role="tabpanel" aria-labelledby="technology-news-tab">
                         <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="technology_section_title">Tin tức Công nghệ</h2>
                         <div id="technology-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[200px]">
                             <p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" aria-busy="true" data-lang-key="loading_technology_news">Đang tải tin Công nghệ...</p>
                         </div>
                     </div>
-                     <div id="other-news-panel" class="tab-content hidden" role="tabpanel" aria-labelledby="other-news-tab">
+                     <div id="other-news-panel" class="tab-content min-h-content hidden" role="tabpanel" aria-labelledby="other-news-tab">
                         <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-6" data-lang-key="other_section_title">Tin tức Thế Giới</h2>
                         <div id="other-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[200px]">
                            <p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" aria-busy="true" data-lang-key="loading_other_news">Đang tải tin Thế Giới...</p>
@@ -188,59 +218,116 @@
 
     <div id="fab-container-placeholder"></div>
     <div id="footer-placeholder" data-loading-text="Đang tải chân trang..."></div>
-    
+
     <button id="scrollToTopBtn" class="hidden fixed bottom-5 right-5 z-[90] items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-700 text-white shadow-lg hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900 dark:bg-neutral-600 dark:hover:bg-neutral-500" aria-label="Scroll to top">
         <i class="fas fa-arrow-up text-lg md:text-xl" aria-hidden="true"></i>
     </button>
 
     <script src="/js/loadComponents.js" defer></script>
     <script src="/js/language.js" defer></script>
-    <script src="/js/script.js" defer></script>
-    <script src="/js/posts-loader.js" defer></script>
-    <script src="/js/rss-loader.js" defer></script>
+    <script src="./js/script.js" defer></script>
+    <script src="./js/posts-loader.js" defer></script>
+    <script src="./js/rss-loader.js" defer></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script>
         window.rssFeeds = {
             public_services: [
-                { name: "Chính phủ", url: "https://baochinhphu.vn/rss/hoat-dong-cua-lanh-dao-dang-nha-nuoc-18.rss" },
-                { name: "Pháp luật", url: "https://plo.vn/rss/phap-luat.rss" }
+                { name: "Chính phủ", url: "https://baochinhphu.vn/rss/hoat-dong-cua-lanh-dao-dang-nha-nuoc-18.rss", limit: 6 },
+                { name: "Pháp luật Việt Nam", url: "https://baophapluat.vn/rss/phap-luat-24h-200.rss", limit: 6 },
+                { name: "Dịch vụ công QG", url: "https://dichvucong.gov.vn/p/home/dvc-rss.html", limit: 6} 
             ],
             education: [
-                { name: "Bộ GD&ĐT", url: "https://moet.gov.vn/rss/Pages/index.aspx" },
-                { name: "VnExpress Giáo dục", url: "https://vnexpress.net/rss/giao-duc.rss" } 
+                { name: "Bộ GD&ĐT", url: "https://moet.gov.vn/rss/Pages/index.aspx", limit: 6 },
+                { name: "VnExpress Giáo dục", url: "https://vnexpress.net/rss/giao-duc.rss", limit: 6 }
             ],
             economy: [
-                { name: "VnEconomy", url: "https://vneconomy.vn/rss/home.rss" },
-                { name: "CafeF", url: "https://cafef.vn/bat-dong-san.rss" }
+                { name: "VnEconomy", url: "https://vneconomy.vn/rss/home.rss", limit: 6 },
+                { name: "CafeF", url: "https://cafef.vn/bat-dong-san.rss", limit: 6 }
             ],
             technology: [
-                { name: "VnExpress Số hóa", url: "https://vnexpress.net/rss/so-hoa.rss" },
-                { name: "GenK", url: "https://genk.vn/home.rss" }
+                { name: "VnExpress Số hóa", url: "https://vnexpress.net/rss/so-hoa.rss", limit: 6 },
+                { name: "GenK", url: "https://genk.vn/home.rss", limit: 6 }
             ],
             other: [
-                 { name: "VnExpress Thế giới", url: "https://vnexpress.net/rss/the-gioi.rss" },
-                 { name: "BBC News Tiếng Việt", url: "http://feeds.bbci.co.uk/vietnamese/rss.xml"}
+                 { name: "VnExpress Thế giới", url: "https://vnexpress.net/rss/the-gioi.rss", limit: 6 },
+                 { name: "BBC News Tiếng Việt", url: "http://feeds.bbci.co.uk/vietnamese/rss.xml", limit: 6}
             ]
         };
 
-        window.onPageComponentsLoadedCallback = function() {
-            console.log("[News Archive Page] Components loaded. Page specific JS can run now.");
-            AOS.init({ duration: 800, once: true, offset: 50 });
-            if (typeof setupTabs === 'function') {
-                setupTabs();
+        function loadContentForTab(tabId) {
+            console.log(`Loading content for tab: ${tabId}`);
+            const panelId = `${tabId}-panel`;
+            const panelElement = document.getElementById(panelId);
+
+            if (!panelElement) {
+                console.warn(`Panel element #${panelId} not found.`);
+                return;
+            }
+            
+            panelElement.classList.remove('hidden'); // Make sure panel is visible before loading
+
+            if (tabId === 'ivs-news') {
+                if (typeof window.loadPosts === 'function') {
+                    window.loadPosts('ivs-news-container');
+                } else {
+                    console.warn('loadPosts function not found.');
+                }
             } else {
-                console.warn('setupTabs function not found after components loaded.');
+                const configKey = tabId.replace('-news', '').replace(/-/g, '_');
+                if (window.rssFeeds && window.rssFeeds[configKey]) {
+                    const containerId = `${tabId}-rss-container`;
+                    const containerInPanel = document.querySelector(`#${panelId} > #${containerId}`);
+
+                    if (containerInPanel) {
+                        // Clear previous content and show loading message
+                        containerInPanel.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" aria-busy="true" data-lang-key="loading_${configKey}_news">Đang tải tin ${tabId.replace('-news', '').replace('-', ' ')}...</p>`;
+                        
+                        let feedsLoaded = 0;
+                        const totalFeeds = window.rssFeeds[configKey].length;
+                        let allHtmlContent = '';
+
+                        window.rssFeeds[configKey].forEach(feed => {
+                            if (typeof window.loadRssFeed === 'function') {
+                                // Modify loadRssFeed to return HTML or handle content accumulation
+                                window.loadRssFeed(containerId, feed.url, feed.name, feed.limit || 6, true) // Pass true to accumulate
+                                    .then(html => {
+                                        if(feedsLoaded === 0) containerInPanel.innerHTML = ''; // Clear loading message on first successful load
+                                        allHtmlContent += html;
+                                        feedsLoaded++;
+                                        if (feedsLoaded === totalFeeds) {
+                                            if(allHtmlContent === '') {
+                                                containerInPanel.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" data-lang-key="no_news_available_rss">Không có tin tức nào từ các nguồn RSS.</p>`;
+                                            } else {
+                                                containerInPanel.innerHTML = allHtmlContent;
+                                            }
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error(`Error loading feed ${feed.name}:`, error);
+                                        feedsLoaded++;
+                                        if (feedsLoaded === totalFeeds && allHtmlContent === '') {
+                                            containerInPanel.innerHTML = `<p class="text-red-500 dark:text-red-400 col-span-full text-center py-10" data-lang-key="news_load_error_rss">Lỗi khi tải một số nguồn tin RSS.</p>`;
+                                        }
+                                    });
+                            } else {
+                                console.warn('loadRssFeed function not found.');
+                            }
+                        });
+                    } else {
+                        console.warn(`Container #${containerId} not found inside #${panelId}`);
+                    }
+                } else {
+                    console.warn(`No RSS feed configuration found for key: ${configKey}`);
+                }
             }
-             // Initial load for the default active tab (IVS News)
-            if (typeof window.loadPosts === 'function') {
-                window.loadPosts('ivs-news-container');
-            }
-        };
+        }
+
 
         function setupTabs() {
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
+            let initialTabId = 'public-services-news'; // Default to public services
 
             const activateTab = (tabId) => {
                 tabButtons.forEach(button => {
@@ -252,56 +339,68 @@
                     button.classList.toggle('dark:text-orange-400', isActive);
                     button.classList.toggle('border-header-orange', isActive);
                     button.classList.toggle('dark:border-orange-400', isActive);
-                    button.classList.toggle('bg-orange-50', isActive); // Light orange for active tab
-                    button.classList.toggle('dark:bg-orange-500/20', isActive); // Lighter orange for dark active tab
-
-                    button.classList.toggle('text-gray-600', !isActive);
-                    button.classList.toggle('dark:text-gray-400', !isActive);
+                    button.classList.toggle('bg-orange-50', isActive && button.dataset.tab !== 'public-services-news');
+                    button.classList.toggle('dark:bg-orange-500/20', isActive && button.dataset.tab !== 'public-services-news');
+                    
+                    // Specific active style for public services tab
+                    if (button.dataset.tab === 'public-services-news') {
+                         button.classList.toggle('bg-primary', isActive);
+                         button.classList.toggle('text-white', isActive);
+                         button.classList.toggle('dark:bg-blue-700', isActive);
+                         button.classList.toggle('dark:text-blue-100', isActive);
+                    } else {
+                        button.classList.toggle('text-gray-600', !isActive);
+                        button.classList.toggle('dark:text-gray-400', !isActive);
+                    }
                     button.classList.toggle('border-transparent', !isActive);
+
                 });
 
                 tabContents.forEach(content => {
-                    content.classList.toggle('hidden', content.id !== `${tabId}-panel`);
+                    const isContentActive = content.id === `${tabId}-panel`;
+                    content.classList.toggle('hidden', !isContentActive);
+                    content.classList.toggle('active', isContentActive); // For specific styling if needed
                 });
+                loadContentForTab(tabId);
             };
+
+            // Find the default active tab from HTML if any, otherwise use `initialTabId`
+            const activeTabButton = document.querySelector('.tab-button[aria-selected="true"]');
+            if (activeTabButton) {
+                initialTabId = activeTabButton.dataset.tab;
+            } else if (tabButtons.length > 0) {
+                 // If no tab is pre-selected as active, make the first one (which is now DVC) active
+                tabButtons[0].setAttribute('aria-selected', 'true');
+                initialTabId = tabButtons[0].dataset.tab;
+            }
+
 
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const tabId = button.dataset.tab;
                     activateTab(tabId);
-                    if (tabId === 'ivs-news') {
-                        if (typeof window.loadPosts === 'function') window.loadPosts('ivs-news-container');
-                    } else {
-                        const configKey = tabId.replace('-news', '').replace(/-/g, '_'); // economy-news -> economy
-                        if (window.rssFeeds[configKey]) {
-                            const containerId = `${tabId}-rss-container`; // e.g., economy-news-rss-container
-                            const panelId = `${tabId}-panel`;
-                            const containerInPanel = document.querySelector(`#${panelId} > #${containerId}`);
-                            
-                            if (containerInPanel) {
-                                containerInPanel.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" aria-busy="true" data-lang-key="loading_${configKey}_news">Đang tải tin ${button.textContent.trim()}...</p>`;
-                                window.rssFeeds[configKey].forEach(feed => {
-                                    if (typeof window.loadRssFeed === 'function') {
-                                        window.loadRssFeed(containerId, feed.url, feed.name, 6);
-                                    }
-                                });
-                            } else {
-                                console.warn(`Container #${containerId} not found inside #${panelId}`);
-                            }
-                        }
-                    }
                 });
             });
-
-            // Activate the first tab by default
-            if (tabButtons.length > 0) {
-                 activateTab(tabButtons[0].dataset.tab);
-                 // Initial load for the default active tab (IVS News)
-                if (tabButtons[0].dataset.tab === 'ivs-news' && typeof window.loadPosts === 'function') {
-                     // Already handled by onPageComponentsLoadedCallback
-                }
+            
+            // Activate the initial tab
+            if (initialTabId) {
+                activateTab(initialTabId);
+            } else if (tabButtons.length > 0) {
+                // Fallback if initialTabId somehow is not set
+                activateTab(tabButtons[0].dataset.tab);
             }
         }
+
+        window.onPageComponentsLoadedCallback = function() {
+            console.log("[News Archive Page] Components loaded. Page specific JS can run now.");
+            AOS.init({ duration: 800, once: true, offset: 50 });
+            if (typeof setupTabs === 'function') {
+                setupTabs(); // This will also load content for the initial active tab
+            } else {
+                console.warn('setupTabs function not found after components loaded.');
+            }
+        };
+        
         const scrollToTopBtn = document.getElementById('scrollToTopBtn');
         if (scrollToTopBtn) {
             window.addEventListener('scroll', () => {
@@ -318,7 +417,7 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
             if (window.pageYOffset <= 200) {
-            scrollToTopBtn.classList.add('hidden');
+               scrollToTopBtn.classList.add('hidden');
             }
         }
     </script>
