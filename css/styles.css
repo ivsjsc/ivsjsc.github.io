@@ -9,26 +9,28 @@
 :root {
     --ivs-primary: #004080;
     --ivs-primary-dark: #003366;
-    --ivs-primary-light: #0059b3; /* For hovers or lighter elements on dark backgrounds */
+    --ivs-primary-light: #0059b3; 
     --ivs-secondary: #ffc107;
     --ivs-secondary-dark: #e0a800;
+    --ivs-secondary-light: #ffe066; /* Lighter secondary for hovers */
     --ivs-accent: #F97316;
     --ivs-accent-dark: #DD6B20;
 
-    --ivs-neutral-900: #111827; /* Darkest bg */
-    --ivs-neutral-800: #1f2937; /* Cards on dark, header/footer dark */
-    --ivs-neutral-700: #374151; /* Borders on dark, muted text */
-    --ivs-neutral-600: #4B5563; /* Secondary text on dark */
-    --ivs-neutral-300: #D1D5DB; /* Borders on light */
-    --ivs-neutral-200: #E5E7EB; /* Light section bgs */
-    --ivs-neutral-100: #F3F4F6; /* Main light bg */
-    --ivs-neutral-50: #F9FAFB;  /* Lightest hover/active states */
+    --ivs-neutral-900: #111827; 
+    --ivs-neutral-800: #1f2937; 
+    --ivs-neutral-700: #374151; 
+    --ivs-neutral-600: #4B5563; 
+    --ivs-neutral-300: #D1D5DB; 
+    --ivs-neutral-200: #E5E7EB; 
+    --ivs-neutral-100: #F3F4F6; 
+    --ivs-neutral-50: #F9FAFB;  
 
-    --ivs-text-light: #f8fafc; /* Slate 50 */
-    --ivs-text-dark: #0f172a;  /* Slate 900 */
+    --ivs-text-light: #f8fafc; 
+    --ivs-text-dark: #0f172a;  
     
     --header-height-desktop: 4.5rem; /* 72px */
     --header-height-mobile: 4rem;   /* 64px */
+    --header-height: var(--header-height-desktop); /* Default, JS will update based on context */
 
     --font-sans: 'Inter', sans-serif;
     --font-display: 'Lexend', sans-serif;
@@ -44,6 +46,7 @@
     --border-radius-md: 0.375rem; /* 6px */
     --border-radius-lg: 0.5rem; /* 8px */
     --border-radius-xl: 0.75rem; /* 12px */
+    --border-radius-full: 9999px;
 
     --transition-fast: 150ms;
     --transition-base: 250ms;
@@ -51,13 +54,8 @@
 }
 
 html {
-    scroll-padding-top: var(--header-height-desktop); /* Default for desktop */
+    scroll-padding-top: var(--header-height); 
     scroll-behavior: smooth;
-}
-@media (max-width: 767px) {
-    html {
-        scroll-padding-top: var(--header-height-mobile);
-    }
 }
 
 body {
@@ -67,7 +65,7 @@ body {
     background-color: var(--ivs-neutral-100);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden; 
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -79,27 +77,17 @@ html.dark body {
 
 /* Header Main Structure */
 #main-header {
-    background-color: var(--ivs-neutral-800); /* Darker, more solid appearance */
+    background-color: var(--ivs-neutral-800); 
     color: var(--ivs-text-light);
     box-shadow: var(--shadow-md);
-    height: var(--header-height-desktop); /* Use CSS var */
+    /* height is set by JS via --header-height variable and specific mobile/desktop vars */
 }
-@media (max-width: 767px) {
-    #main-header {
-        height: var(--header-height-mobile);
-    }
+#header-placeholder { 
+    min-height: var(--header-height); /* Uses the dynamically set --header-height */
 }
-#header-placeholder { /* Ensures content starts below fixed header */
-    min-height: var(--header-height-desktop);
-}
-@media (max-width: 767px) {
-    #header-placeholder {
-        min-height: var(--header-height-mobile);
-    }
-}
-main { /* Ensure main content also respects header height */
+main { 
     flex-grow: 1;
-    padding-top: 0; /* Let placeholder handle the space */
+    padding-top: 0; 
 }
 
 /* Header Hidden on Scroll (Desktop) */
@@ -109,67 +97,67 @@ main { /* Ensure main content also respects header height */
 
 /* Desktop Navigation Links */
 .nav-link, .nav-link-dropdown {
-    padding: 0.5rem 0.75rem; /* Slightly reduced padding for a tighter look */
-    font-weight: 500; /* Medium weight */
-    font-size: 0.9rem;  /* 14.4px */
+    padding: 0.5rem 0.875rem; /* 14px for lg:px-3.5 */
+    font-weight: 500; 
+    font-size: 0.9rem;  
     color: var(--ivs-neutral-200);
     border-radius: var(--border-radius-md);
     transition: color var(--transition-fast) ease-out, background-color var(--transition-fast) ease-out;
     display: flex;
     align-items: center;
+    white-space: nowrap;
 }
 .nav-link:hover, .nav-link-dropdown:hover,
-.nav-link.active, .nav-link-dropdown.active { /* Active state can be added by JS */
+.nav-link.active, .nav-link-dropdown.active { 
     color: var(--ivs-text-white);
-    background-color: var(--ivs-neutral-700); /* Subtle hover background */
+    background-color: var(--ivs-neutral-700); 
 }
-.nav-link-dropdown .nav-link-icon { /* Chevron icon */
+.nav-link-dropdown .nav-link-icon { 
     margin-left: 0.35rem;
-    font-size: 0.65rem; /* Smaller icon */
+    font-size: 0.65rem; 
     transition: transform var(--transition-base) ease-out;
 }
-.group:hover .nav-link-dropdown .nav-link-icon {
+.group:hover .nav-link-dropdown .nav-link-icon,
+.nav-link-dropdown[aria-expanded="true"] .nav-link-icon { /* Rotate when expanded or group hovered */
     transform: rotate(180deg);
 }
 
+
 /* Desktop Dropdown & Mega Menu - Unified Styling & Improved Behavior */
-.desktop-dropdown-container, .mega-menu-dropdown-container { /* Parent of button and menu */
-    position: relative; /* Crucial for absolute positioning of dropdown */
-}
 .desktop-dropdown-content, .mega-menu-content {
     position: absolute;
-    top: calc(100% + 0.25rem); /* Position below the button with a small gap */
-    left: 0; /* Default alignment */
+    top: calc(100% + 0.25rem); 
+    left: 0; 
     background-color: var(--ivs-neutral-800);
     color: var(--ivs-neutral-200);
     border: 1px solid var(--ivs-neutral-700);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-xl);
-    z-index: 100; /* Ensure dropdown is above other nav items but below header for scroll */
-    min-width: 240px; /* Good default min-width */
+    z-index: 50; /* Corrected z-index: Tailwind uses 10, 20, etc. Header is 1001, mobile is 1050. */
+    min-width: 240px; 
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px) scale(0.98);
-    pointer-events: none; /* Important: prevent interaction when hidden */
+    transform: translateY(8px) scale(0.98); /* Subtle initial offset */
+    pointer-events: none; 
     transition: opacity var(--transition-fast) ease-out, 
                 transform var(--transition-fast) ease-out, 
-                visibility 0s linear var(--transition-fast); /* Delay visibility change */
+                visibility 0s linear var(--transition-fast);
 }
 .group:hover > .desktop-dropdown-content, 
-.group:focus-within > .desktop-dropdown-content, /* For keyboard navigation */
+.group:focus-within > .desktop-dropdown-content,
 .group:hover > .mega-menu-content,
 .group:focus-within > .mega-menu-content {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
-    pointer-events: auto; /* Allow interaction when visible */
-    transition-delay: 0s; /* Remove delay for visibility on show */
+    pointer-events: auto; 
+    transition-delay: 0s; 
 }
 
 .mega-menu-content {
-    min-width: 550px; /* Specific for mega menu */
-    left: 50%; /* Center mega menu */
-    transform: translateX(-50%) translateY(10px) scale(0.98); /* Adjust centering */
+    min-width: 550px; 
+    left: 50%; 
+    transform: translateX(-50%) translateY(8px) scale(0.98); 
 }
 .group:hover > .mega-menu-content,
 .group:focus-within > .mega-menu-content {
@@ -178,40 +166,40 @@ main { /* Ensure main content also respects header height */
 
 /* Dropdown Items */
 .desktop-dropdown-item, .mega-menu-item {
-    display: flex; /* Use flex for icon alignment */
+    display: flex; 
     align-items: center;
     padding: 0.6rem 1rem;
-    font-size: 0.875rem; /* 14px */
+    font-size: 0.875rem; 
     color: var(--ivs-neutral-200);
     border-radius: var(--border-radius-sm);
     transition: background-color var(--transition-fast) ease-out, color var(--transition-fast) ease-out;
 }
 .desktop-dropdown-item:hover, .mega-menu-item:hover {
-    background-color: var(--ivs-primary); /* Use primary for hover */
+    background-color: var(--ivs-primary); 
     color: var(--ivs-text-white);
 }
 .mega-menu-item:hover .mega-menu-icon {
     color: var(--ivs-secondary);
 }
 .mega-menu-heading {
-    font-size: 0.75rem; /* 12px */
+    font-size: 0.75rem; 
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--ivs-secondary);
     margin-bottom: 0.75rem;
-    padding: 0 1rem; /* Match item padding */
+    padding: 0 1rem; 
 }
 .mega-menu-icon {
     margin-right: 0.75rem;
     color: var(--ivs-secondary-dark);
     transition: color var(--transition-fast) ease-out;
-    width: 1em; /* Consistent icon sizing */
+    width: 1em; 
     text-align: center;
 }
 
 /* Language Dropdown Specifics */
-.nav-lang-btn { /* Language toggle button */
+.nav-lang-btn { 
     padding: 0.5rem 0.75rem;
     font-weight: 500;
     font-size: 0.85rem;
@@ -225,7 +213,7 @@ main { /* Ensure main content also respects header height */
     color: var(--ivs-text-white);
     background-color: var(--ivs-neutral-700);
 }
-.lang-option-item { /* Language option buttons inside dropdown */
+.lang-option-item { 
     width: 100%;
     text-align: left;
     padding: 0.6rem 1rem;
@@ -242,13 +230,13 @@ main { /* Ensure main content also respects header height */
     color: var(--ivs-text-white);
 }
 .lang-flag-icon {
-    width: 1.25rem; /* 20px */
+    width: 1.25rem; 
     height: auto;
     margin-right: 0.75rem;
-    border-radius: 2px; /* Slight rounding for flags */
+    border-radius: 2px; 
     transition: transform var(--transition-fast) ease-out;
 }
-.group\/lang:hover .lang-flag-icon { /* Hover effect on flag within item */
+.group\/lang:hover .lang-flag-icon { 
     transform: scale(1.1);
 }
 
@@ -256,11 +244,11 @@ main { /* Ensure main content also respects header height */
 .nav-contact-btn {
     background-color: var(--ivs-accent);
     color: var(--ivs-text-white);
-    padding: 0.5rem 1rem; /* Balanced padding */
+    padding: 0.6rem 1.1rem; /* Slightly more padding */
     font-weight: 600;
     font-size: 0.9rem;
     border-radius: var(--border-radius-md);
-    transition: background-color var(--transition-fast) ease-out, transform var(--transition-fast) ease-out;
+    transition: background-color var(--transition-fast) ease-out, transform var(--transition-fast) ease-out, box-shadow var(--transition-fast) ease-out;
     box-shadow: var(--shadow-sm);
 }
 .nav-contact-btn:hover {
@@ -272,13 +260,13 @@ main { /* Ensure main content also respects header height */
 /* Mobile Menu Toggle Button */
 .mobile-menu-toggle-btn {
     color: var(--ivs-text-light);
-    background-color: transparent; /* Typically transparent, background on hover/active */
+    background-color: transparent; 
     border: none;
     padding: 0.5rem;
     border-radius: var(--border-radius-full);
     transition: background-color var(--transition-fast) ease-out, color var(--transition-fast) ease-out;
-    width: 2.5rem; /* 40px */
-    height: 2.5rem;
+    width: 2.75rem; /* 44px */
+    height: 2.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -289,48 +277,48 @@ main { /* Ensure main content also respects header height */
 }
 .mobile-menu-toggle-btn .icon-menu-open, 
 .mobile-menu-toggle-btn .icon-menu-close {
-    font-size: 1.25rem; /* 20px */
+    font-size: 1.375rem; /* 22px */
 }
 
 /* Mobile Menu Panel & Container */
-.mobile-menu-panel-base { /* Backdrop */
+.mobile-menu-panel-base { 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1050; /* High z-index */
+    z-index: 1050; 
     opacity: 0;
     visibility: hidden;
     transition: opacity var(--transition-base) ease-out, visibility 0s linear var(--transition-base);
 }
-.mobile-menu-panel-base.active { /* When menu is open */
+.mobile-menu-panel-base.active { 
     opacity: 1;
     visibility: visible;
     transition-delay: 0s;
 }
-.mobile-menu-backdrop-base { /* Actual blur/dim layer */
+.mobile-menu-backdrop-base { 
     position: absolute;
     inset: 0;
     background-color: var(--ivs-neutral-900);
-    opacity: 0.75; /* Tailwind's bg-black/75 */
-    backdrop-filter: blur(4px); /* Tailwind's backdrop-blur-sm */
+    opacity: 0.85; /* Tailwind's bg-black/80 */
+    backdrop-filter: blur(5px); 
 }
-.mobile-menu-container-base { /* The sliding panel */
-    position: fixed; /* Changed from absolute */
+.mobile-menu-container-base { 
+    position: fixed; 
     top: 0;
     right: 0;
     height: 100%;
     width: 85vw;
-    max-width: 300px; /* Max width for the panel */
+    max-width: 320px; /* Slightly wider for better content fit */
     background-color: var(--ivs-neutral-800);
     color: var(--ivs-neutral-100);
     box-shadow: var(--shadow-xl);
     transform: translateX(100%);
-    transition: transform var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1); /* Smoother cubic-bezier */
+    transition: transform var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1); 
     display: flex;
     flex-direction: column;
-    overflow-y: auto; /* Enable scrolling for content */
+    overflow-y: auto; 
 }
 .mobile-menu-panel-base.active .mobile-menu-container-base {
     transform: translateX(0);
@@ -339,12 +327,12 @@ main { /* Ensure main content also respects header height */
 /* Mobile Navigation Links & Submenus */
 .mobile-nav-link {
     display: block;
-    padding: 0.75rem 1rem; /* Good tap size */
+    padding: 0.8rem 1.25rem; 
     border-radius: var(--border-radius-md);
     font-weight: 500;
     color: var(--ivs-neutral-200);
     transition: background-color var(--transition-fast) ease-out, color var(--transition-fast) ease-out;
-    font-size: 0.95rem; /* Slightly larger for mobile */
+    font-size: 1rem; 
 }
 .mobile-nav-link:hover {
     background-color: var(--ivs-neutral-700);
@@ -353,30 +341,30 @@ main { /* Ensure main content also respects header height */
 .mobile-submenu-toggle {
     width: 100%;
     text-align: left;
-    padding: 0.75rem 1rem;
+    padding: 0.8rem 1.25rem;
     border-radius: var(--border-radius-md);
-    font-weight: 500; /* Semibold for toggles */
-    color: var(--ivs-neutral-100); /* Distinct color for parent toggles */
+    font-weight: 500; 
+    color: var(--ivs-neutral-100); 
     display: flex;
     justify-content: space-between;
     align-items: center;
     transition: background-color var(--transition-fast) ease-out, color var(--transition-fast) ease-out;
-    font-size: 0.95rem;
+    font-size: 1rem;
 }
 .mobile-submenu-toggle:hover {
     background-color: var(--ivs-neutral-700);
     color: var(--ivs-secondary);
 }
 .mobile-submenu-icon {
-    font-size: 0.75rem; /* Small chevron */
+    font-size: 0.8rem; 
     color: var(--ivs-neutral-400);
     transition: transform var(--transition-base) ease-out;
 }
 .mobile-submenu-toggle[aria-expanded="true"] .mobile-submenu-icon {
-    transform: rotate(90deg); /* Rotate 90 for vertical expansion */
+    transform: rotate(90deg); 
 }
 .mobile-submenu-content {
-    padding-left: 1rem; /* Indent submenu items */
+    padding-left: 1rem; 
     overflow: hidden;
     max-height: 0;
     opacity: 0;
@@ -385,26 +373,26 @@ main { /* Ensure main content also respects header height */
                 padding-bottom var(--transition-slow) ease-in-out;
 }
 .mobile-submenu-toggle[aria-expanded="true"] + .mobile-submenu-content {
-    max-height: 500px; /* Generous max height */
+    max-height: 500px; 
     opacity: 1;
-    padding-bottom: 0.5rem; /* Space at the bottom when expanded */
+    padding-bottom: 0.5rem; 
 }
 .mobile-submenu-item {
     display: block;
-    padding: 0.6rem 0.75rem; /* Slightly smaller padding for submenu items */
+    padding: 0.65rem 1rem; 
     border-radius: var(--border-radius-sm);
     color: var(--ivs-neutral-300);
-    font-size: 0.875rem; /* Slightly smaller font */
+    font-size: 0.9rem; 
     transition: background-color var(--transition-fast) ease-out, color var(--transition-fast) ease-out;
 }
 .mobile-submenu-item:hover {
     background-color: var(--ivs-neutral-600);
-    color: var(--ivs-secondary-light); /* Lighter secondary for hover */
+    color: var(--ivs-secondary-light); 
 }
-.mobile-submenu-item.indent-1 { /* For further indented items if needed */
-    padding-left: 1.5rem;
+.mobile-submenu-item.indent-1 { 
+    padding-left: 1.75rem; /* Deeper indent for sub-sub-items */
 }
-.lang-option-mobile { /* Language options in mobile menu */
+.lang-option-mobile { 
     width: 100%;
     text-align: left;
     padding: 0.7rem 1rem;
@@ -434,31 +422,56 @@ main { /* Ensure main content also respects header height */
 /* Bottom Navigation Bar (Mobile Only) */
 .bottom-nav {
     box-shadow: var(--shadow-top-strong);
+    border-top: 1px solid var(--ivs-neutral-700); /* More defined top border */
 }
 .bottom-nav-item {
-    flex: 1 1 0%; /* Equal width distribution */
+    flex: 1 1 0%; 
     padding: 0.5rem 0.25rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: var(--ivs-neutral-300); /* Default color */
+    color: var(--ivs-neutral-300); 
     transition: color var(--transition-fast) ease-out, background-color var(--transition-fast) ease-out;
     height: 100%;
     text-decoration: none;
+    position: relative; /* For potential active indicator */
 }
-.bottom-nav-item:hover, .bottom-nav-item.active-bottom-nav { /* Active state needs JS to apply 'active-bottom-nav' */
+.bottom-nav-item:hover, .bottom-nav-item.active-bottom-nav { 
     color: var(--ivs-secondary);
-    background-color: var(--ivs-neutral-700); /* Subtle active background */
+    background-color: var(--ivs-neutral-700); 
+}
+.bottom-nav-item.active-bottom-nav::before { /* Example active indicator */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20%;
+    right: 20%;
+    height: 2px;
+    background-color: var(--ivs-secondary);
 }
 .bottom-nav-icon {
-    font-size: 1.25rem; /* 20px */
-    margin-bottom: 0.125rem; /* 2px */
+    font-size: 1.375rem; /* 22px */
+    margin-bottom: 0.125rem; 
 }
 .bottom-nav-text {
-    font-size: 0.625rem; /* 10px */
+    font-size: 0.6875rem; /* 11px */
     line-height: 1.2;
     font-weight: 500;
-    text-transform: uppercase; /* Consistent with design */
-    letter-spacing: 0.025em;
+    /* text-transform: uppercase; Optional based on design preference */
+    letter-spacing: 0.01em;
+}
+
+/* FAB Styling Enhancements */
+.fab-hidden-alt { /* For FAB scroll to top, to avoid conflict with general .hidden */
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8) translateY(10px);
+    pointer-events: none;
+}
+.fab-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
 }

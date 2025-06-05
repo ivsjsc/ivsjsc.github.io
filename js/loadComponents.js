@@ -10,33 +10,31 @@ window.componentState = window.componentState || {
 };
 
 function componentLog(message, type = 'log') {
-    const debugMode = true; // Enable for development
+    const debugMode = false; // Set to true for development debugging
     if (debugMode || type === 'error' || type === 'warn') {
-        console[type](`[loadComponents.js] ${message}`);
+        console[type](`[IVS Components] ${message}`);
     }
 }
 
 function isMobileDevice() {
-    return window.innerWidth < 768; // Changed to < 768 to align with Tailwind's 'md' breakpoint
+    return window.innerWidth < 768; 
 }
 
-function debounce(func, wait, immediate) {
+function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
         const context = this;
-        const later = function() {
+        const later = () => {
             timeout = null;
-            if (!immediate) func.apply(context, args);
+            func.apply(context, args);
         };
-        const callNow = immediate && !timeout;
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
     };
 }
 
 async function loadComponent(componentName, placeholderId, filePath) {
-    componentLog(`Attempting to load: ${componentName} from ${filePath} into #${placeholderId}`);
+    componentLog(`Loading: ${componentName} from ${filePath} into #${placeholderId}`);
     try {
         const response = await fetch(filePath);
         if (!response.ok) throw new Error(`HTTP ${response.status} for ${filePath}`);
@@ -44,7 +42,7 @@ async function loadComponent(componentName, placeholderId, filePath) {
         const placeholder = document.getElementById(placeholderId);
         if (placeholder) {
             placeholder.innerHTML = html;
-            componentLog(`${componentName} injected into #${placeholderId}.`);
+            componentLog(`${componentName} injected.`);
             return true;
         }
         throw new Error(`Placeholder #${placeholderId} not found.`);
@@ -63,11 +61,11 @@ function initializeHeaderInternal() {
     }
     try {
         const header = document.getElementById('main-header');
-        if (!header) throw new Error('Main header element (#main-header) not found.');
+        if (!header) throw new Error('Main header (#main-header) not found.');
         window.componentState.headerElement = header;
 
         const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenuBottomButton = document.getElementById('mobile-menu-bottom-toggle'); // For bottom nav
+        const mobileMenuBottomButton = document.getElementById('mobile-menu-bottom-toggle');
         const mobileMenuPanel = document.getElementById('mobile-menu-panel');
         const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
         const mobileMenuContainer = document.getElementById('mobile-menu-container');
@@ -76,115 +74,170 @@ function initializeHeaderInternal() {
         const iconClose = header.querySelector('.icon-menu-close');
 
         if (!mobileMenuButton || !mobileMenuPanel || !mobileMenuBackdrop || !mobileMenuContainer || !mobileMenuCloseBtn || !iconOpen || !iconClose) {
-            componentLog('One or more mobile menu elements are missing. Mobile navigation may not function.', 'warn');
+            componentLog('Mobile menu elements missing. Navigation may be impaired.', 'warn');
         } else {
-            const openMobileMenu = () => {
-                if (window.componentState.isMobileMenuOpen) return;
-                mobileMenuPanel.classList.remove('hidden');
-                mobileMenuPanel.classList.add('active'); // For CSS transition trigger
-                mobileMenuContainer.style.transform = 'translateX(0%)';
-                iconOpen.classList.add('hidden');
-                iconClose.classList.remove('hidden');
-                document.body.style.overflow = 'hidden'; // Prevent body scroll
-                mobileMenuButton.setAttribute('aria-expanded', 'true');
-                window.componentState.isMobileMenuOpen = true;
-                componentLog('Mobile menu opened.');
+            const toggleMobileMenu = (forceClose = false) => {
+                const isOpen = mobileMenuPanel.classList.contains('active');
+                if (forceClose || isOpen) { // Close menu
+                    if (!window.componentState.isMobileMenuOpen && !forceClose) return; // Already closing or closed
+                    window.componentState.isMobileMenuOpen = false;
+                    mobileMenuContainer.style.transform = 'translateX(100%)';
+                    mobileMenuPanel.classList.remove('active'); // Start opacity/visibility transition for panel
+                    setTimeout(() => { mobileMenuPanel.classList.add('hidden'); }, 300); // Hide after transition
+
+                    iconOpen.classList.remove('hidden');
+                    iconClose.classList.add('hidden');
+                    document.body.style.overflow = '';
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    componentLog('Mobile menu closed.');
+                } else { // Open menu
+                    if (window.componentState.isMobileMenuOpen) return; // Already opening or open
+                    window.componentState.isMobileMenuOpen = true;
+                    mobileMenuPanel.classList.remove('hidden');
+                    requestAnimationFrame(() => { // Ensure 'hidden' is removed before starting transition
+                        mobileMenuPanel.classList.add('active');
+                        mobileMenuContainer.style.transform = 'translateX(0%)';
+                    });
+                    iconOpen.classList.add('hidden');
+                    iconClose.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                    mobileMenuButton.setAttribute('aria-expanded', 'true');
+                    componentLog('Mobile menu opened.');
+                }
             };
 
-            const closeMobileMenu = () => {
-                if (!window.componentState.isMobileMenuOpen) return;
-                mobileMenuContainer.style.transform = 'translateX(100%)';
-                 // Wait for transition to finish before hiding panel
-                setTimeout(() => {
-                    mobileMenuPanel.classList.add('hidden');
-                    mobileMenuPanel.classList.remove('active');
-                }, 400); // Match transition duration in CSS
-                iconOpen.classList.remove('hidden');
-                iconClose.classList.add('hidden');
-                document.body.style.overflow = ''; // Restore body scroll
-                mobileMenuButton.setAttribute('aria-expanded', 'false');
-                window.componentState.isMobileMenuOpen = false;
-                componentLog('Mobile menu closed.');
-            };
+            mobileMenuButton.addEventListener('click', () => toggleMobileMenu());
+            if (mobileMenuBottomButton) mobileMenuBottomButton.addEventListener('click', () => toggleMobileMenu());
+            mobileMenuBackdrop.addEventListener('click', () => toggleMobileMenu(true));
+            mobileMenuCloseBtn.addEventListener('click', () => toggleMobileMenu(true));
 
-            mobileMenuButton.addEventListener('click', () => window.componentState.isMobileMenuOpen ? closeMobileMenu() : openMobileMenu());
-            if (mobileMenuBottomButton) { // If bottom nav toggle exists
-                mobileMenuBottomButton.addEventListener('click', () => window.componentState.isMobileMenuOpen ? closeMobileMenu() : openMobileMenu());
-            }
-            mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
-            mobileMenuCloseBtn.addEventListener('click', closeMobileMenu);
-
-            // Close menu on link click (if not a submenu toggle)
-            mobileMenuContainer.querySelectorAll('a:not(.mobile-submenu-toggle)').forEach(link => {
+            mobileMenuContainer.querySelectorAll('a:not(.mobile-submenu-toggle), button:not(.mobile-submenu-toggle)').forEach(link => {
                 link.addEventListener('click', (e) => {
-                    if (!link.closest('.mobile-submenu-toggle')) { // Ensure not part of a toggle button itself
-                        closeMobileMenu();
+                    if (!link.closest('.mobile-submenu-toggle')) {
+                         // Do not close if it's a submenu item inside an already open submenu
+                        if(!e.target.closest('.mobile-submenu-content.expanded')) {
+                           toggleMobileMenu(true);
+                        }
                     }
                 });
             });
             
-            // Mobile submenu toggle logic
             mobileMenuContainer.querySelectorAll('.mobile-submenu-toggle').forEach(toggle => {
-                const submenu = document.getElementById(toggle.getAttribute('aria-controls'));
+                const submenuId = toggle.getAttribute('aria-controls');
+                const submenu = document.getElementById(submenuId);
                 const icon = toggle.querySelector('.mobile-submenu-icon');
                 if (submenu) {
-                    submenu.style.transition = 'max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding-bottom 0.3s ease-in-out';
-                    submenu.style.maxHeight = '0';
+                    submenu.style.maxHeight = '0'; // Initial state
                     submenu.style.opacity = '0';
                     submenu.style.overflow = 'hidden';
+                    submenu.classList.remove('expanded');
 
                     toggle.addEventListener('click', () => {
                         const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
                         toggle.setAttribute('aria-expanded', String(!isExpanded));
-                        if (!isExpanded) { // Open
+                        if (!isExpanded) {
                             submenu.style.maxHeight = submenu.scrollHeight + "px";
                             submenu.style.opacity = '1';
-                            submenu.style.paddingBottom = '0.25rem'; // From mobile-submenu-content
+                            submenu.style.paddingBottom = '0.25rem';
                             if(icon) icon.style.transform = 'rotate(90deg)';
-                        } else { // Close
+                            submenu.classList.add('expanded');
+                        } else {
                             submenu.style.maxHeight = '0';
                             submenu.style.opacity = '0';
                             submenu.style.paddingBottom = '0';
                             if(icon) icon.style.transform = 'rotate(0deg)';
+                            submenu.classList.remove('expanded');
                         }
                     });
                 }
             });
         }
 
-        // Header show/hide on scroll (desktop only)
         let lastScrollTop = 0;
-        const headerScrollThreshold = 100; 
+        const headerScrollThreshold = 80; 
         const handleHeaderScroll = () => {
-            if (!window.componentState.headerElement || isMobileDevice()) { // Don't hide on mobile
+            if (!window.componentState.headerElement || isMobileDevice()) {
                  if(window.componentState.headerElement) window.componentState.headerElement.classList.remove('header-hidden');
                 return;
             }
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             if (scrollTop > lastScrollTop && scrollTop > headerScrollThreshold) {
                 window.componentState.headerElement.classList.add('header-hidden');
-            } else {
+            } else if (scrollTop < lastScrollTop || scrollTop <= headerScrollThreshold) {
                 window.componentState.headerElement.classList.remove('header-hidden');
             }
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
         };
-        const debouncedHeaderScroll = debounce(handleHeaderScroll, 50); // Reduced debounce for smoother feel
+        const debouncedHeaderScroll = debounce(handleHeaderScroll, 50);
         window.addEventListener('scroll', debouncedHeaderScroll, { passive: true });
         
-        // Set header height CSS variable
         const updateHeaderHeightVar = () => {
             if (window.componentState.headerElement) {
                 const height = window.componentState.headerElement.offsetHeight;
-                document.documentElement.style.setProperty(
-                    isMobileDevice() ? '--header-height-mobile' : '--header-height-desktop', 
-                    `${height}px`
-                );
-                 document.documentElement.style.setProperty('--header-height', `${height}px`); // General one
-                componentLog(`Header height set to ${height}px for ${isMobileDevice() ? 'mobile' : 'desktop'}`);
+                const varName = isMobileDevice() ? '--header-height-mobile' : '--header-height-desktop';
+                document.documentElement.style.setProperty(varName, `${height}px`);
+                document.documentElement.style.setProperty('--header-height', `${height}px`); // General var
+                // componentLog(`Header height var (${varName}) set to ${height}px`);
             }
         };
+        // Use ResizeObserver for more reliable height updates if available and needed
+        if (window.ResizeObserver && window.componentState.headerElement) {
+            const resizeObserver = new ResizeObserver(debounce(updateHeaderHeightVar, 100));
+            resizeObserver.observe(window.componentState.headerElement);
+        } else {
+            window.addEventListener('resize', debounce(updateHeaderHeightVar, 200));
+        }
         updateHeaderHeightVar(); // Initial set
-        window.addEventListener('resize', debounce(updateHeaderHeightVar, 200)); // Update on resize
+
+        // Desktop dropdown focus and hover persistence logic
+        document.querySelectorAll('.desktop-dropdown-container, .mega-menu-dropdown-container').forEach(container => {
+            const button = container.querySelector('button[aria-haspopup="true"]');
+            const menu = container.querySelector('.desktop-dropdown-content, .mega-menu-content');
+            if (!button || !menu) return;
+
+            let menuTimeout;
+
+            const openMenu = () => {
+                clearTimeout(menuTimeout);
+                menu.style.opacity = '1';
+                menu.style.visibility = 'visible';
+                menu.style.transform = menu.classList.contains('mega-menu-content') ? 'translateX(-50%) translateY(0) scale(1)' : 'translateY(0) scale(1)';
+                menu.style.pointerEvents = 'auto';
+                button.setAttribute('aria-expanded', 'true');
+            };
+
+            const closeMenu = (delay = 150) => { // Slightly longer delay to allow mouse travel
+                menuTimeout = setTimeout(() => {
+                    menu.style.opacity = '0';
+                    menu.style.transform = menu.classList.contains('mega-menu-content') ? 'translateX(-50%) translateY(8px) scale(0.98)' : 'translateY(8px) scale(0.98)';
+                    menu.style.pointerEvents = 'none';
+                     setTimeout(() => { // Ensure visibility is changed after opacity transition
+                        if (menu.style.opacity === '0') menu.style.visibility = 'hidden';
+                    }, 150); // Match transition-fast
+                    button.setAttribute('aria-expanded', 'false');
+                }, delay);
+            };
+
+            container.addEventListener('mouseenter', openMenu);
+            container.addEventListener('mouseleave', () => closeMenu());
+            
+            // For keyboard accessibility
+            button.addEventListener('focus', openMenu);
+            menu.addEventListener('focusout', (e) => {
+                 // If focus moves outside the entire container (button + menu)
+                if (!container.contains(e.relatedTarget)) {
+                    closeMenu(50); // Quicker close if focus moves out completely
+                }
+            });
+            // Close on escape key
+            container.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+                    closeMenu(0);
+                    button.focus();
+                }
+            });
+        });
+
 
         window.componentState.headerInitialized = true;
         componentLog('Header initialized successfully.');
@@ -193,7 +246,7 @@ function initializeHeaderInternal() {
         window.componentState.headerInitialized = false;
     }
 }
-window.initializeHeader = initializeHeaderInternal; // Make it globally accessible if needed by other scripts
+window.initializeHeader = initializeHeaderInternal;
 
 async function loadHeader() {
     const placeholder = document.getElementById('header-placeholder');
@@ -205,7 +258,7 @@ async function loadHeader() {
     try {
         const loaded = await loadComponent('Header', 'header-placeholder', '/components/header.html');
         if (!loaded) throw new Error('Header HTML content failed to load.');
-        await initializeHeaderInternal(); // Initialize after HTML is in place
+        await initializeHeaderInternal(); 
         placeholder.setAttribute('aria-busy', 'false');
         componentLog('Header loaded and initialized.');
         return true;
@@ -217,13 +270,29 @@ async function loadHeader() {
     }
 }
 
-// Footer and FAB initialization (simplified, keep as is or adapt if they also have complex JS)
 function initializeFooterInternal() {
     if (window.componentState.footerInitialized) return;
-    componentLog("Initializing footer...");
-    // ... (current footer logic, ensure it's robust)
+    // componentLog("Initializing footer...");
     const currentYearSpan = document.getElementById('current-year');
     if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
+    
+    // Example: Newsletter form (if it exists and is part of the standard footer)
+    const newsletterForm = document.getElementById('newsletterForm'); // Assume this ID exists in footer.html
+    if (newsletterForm) {
+        const newsletterMessage = document.getElementById('newsletterMessage'); // Assume this ID exists
+        newsletterForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const emailInput = newsletterForm.querySelector('input[name="email"]');
+            if (!emailInput || !emailInput.value.trim()) {
+                if(newsletterMessage) {
+                    newsletterMessage.textContent = 'Please enter a valid email address.'; // Make sure this key exists in lang files
+                    newsletterMessage.className = 'mt-2 text-sm text-ivs-danger dark:text-ivs-danger';
+                } return;
+            }
+            // ... rest of your newsletter submission logic ...
+        });
+    }
+
     window.componentState.footerInitialized = true;
     componentLog("Footer initialized.");
 }
@@ -231,22 +300,22 @@ window.initializeFooter = initializeFooterInternal;
 
 function initializeFabButtonsInternal() {
     if (window.componentState.fabInitialized) return;
-    componentLog("Initializing FABs...");
-    // ... (current FAB logic, ensure it's robust and uses updated CSS classes if necessary)
-    const fabContainer = document.getElementById('fab-container-placeholder'); // FABs are loaded into this
-    if (!fabContainer || !fabContainer.querySelector('#contact-main-btn')) { // Check if FABs actually loaded
-        componentLog("FAB container or main FAB buttons not found after load. Skipping FAB initialization.", 'warn');
-        window.componentState.fabInitialized = true; // Mark as "done" to not retry
+    // componentLog("Initializing FABs...");
+    const fabContainerHost = document.getElementById('fab-container-placeholder');
+    if (!fabContainerHost || !fabContainerHost.querySelector('#contact-main-btn')) {
+        componentLog("FAB container or main FAB buttons not found after load attempt. Skipping.", 'warn');
+        window.componentState.fabInitialized = true; 
         return;
     }
-     // Scroll to top FAB specific logic (if part of the loaded fab-container.html)
-    const scrollToTopFab = document.getElementById('scroll-to-top-btn'); // Assuming this ID is inside fab-container.html
+    const fabContainer = fabContainerHost.firstChild; // Assuming the actual div is the first child after loading
+
+    const scrollToTopFab = fabContainer.querySelector('#scroll-to-top-btn'); 
     if (scrollToTopFab) {
         const fabScrollHandler = debounce(() => {
-            const visibleClass = 'fab-visible'; // Use a generic visibility class
-            const hiddenClass = 'fab-hidden-alt'; // Different from .hidden to avoid conflict
+            const visibleClass = 'fab-visible'; 
+            const hiddenClass = 'fab-hidden-alt'; 
             
-            if (window.scrollY > (isMobileDevice() ? 200 : 120)) {
+            if (window.scrollY > (isMobileDevice() ? 250 : 150)) {
                 scrollToTopFab.classList.add(visibleClass);
                 scrollToTopFab.classList.remove(hiddenClass);
             } else {
@@ -255,113 +324,111 @@ function initializeFabButtonsInternal() {
             }
         }, 100);
         window.addEventListener('scroll', fabScrollHandler, { passive: true });
-        fabScrollHandler(); // Initial check
+        fabScrollHandler(); 
         scrollToTopFab.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    } else {
-        componentLog('Scroll-to-top button #scroll-to-top-btn not found inside FAB container.', 'warn');
     }
 
-
-    // Simplified FAB menu toggle (assuming structure loaded from fab-container.html)
     const fabButtonsWithSubmenu = fabContainer.querySelectorAll('button[aria-haspopup="true"]');
     fabButtonsWithSubmenu.forEach(btn => {
         const menuId = btn.getAttribute('aria-controls');
-        const menu = document.getElementById(menuId);
+        const menu = fabContainer.querySelector(`#${menuId}`); // Ensure menu is queried within FAB container
         if (menu) {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-                // Close other open FAB menus
-                fabButtonsWithSubmenu.forEach(otherBtn => {
-                    if (otherBtn !== btn) {
-                        const otherMenuId = otherBtn.getAttribute('aria-controls');
-                        const otherMenu = document.getElementById(otherMenuId);
-                        if (otherMenu) otherMenu.classList.add('hidden'); // Use Tailwind's hidden
-                        otherBtn.setAttribute('aria-expanded', 'false');
-                    }
-                });
-                menu.classList.toggle('hidden', isExpanded);
-                btn.setAttribute('aria-expanded', String(!isExpanded));
-            });
+            let fabMenuTimeout;
+            const openFabMenu = () => {
+                clearTimeout(fabMenuTimeout);
+                menu.classList.remove('hidden', 'opacity-0', 'scale-95', 'fab-hidden-alt');
+                menu.classList.add('opacity-100', 'scale-100', 'fab-visible');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+            const closeFabMenu = (delay = 200) => {
+                 fabMenuTimeout = setTimeout(() => {
+                    menu.classList.remove('opacity-100', 'scale-100', 'fab-visible');
+                    menu.classList.add('opacity-0', 'scale-95', 'fab-hidden-alt');
+                    setTimeout(() => menu.classList.add('hidden'), 150); // Match transition
+                    btn.setAttribute('aria-expanded', 'false');
+                }, delay);
+            }
+            btn.addEventListener('mouseenter', openFabMenu);
+            btn.addEventListener('focus', openFabMenu);
+            menu.addEventListener('mouseenter', () => clearTimeout(fabMenuTimeout)); // Keep open if mouse moves to menu
+            btn.addEventListener('mouseleave', () => closeFabMenu());
+            menu.addEventListener('mouseleave', () => closeFabMenu());
+
+            // Close on escape or if focus moves out
+            btn.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeFabMenu(0); });
+            menu.addEventListener('focusout', (e) => { if (!menu.contains(e.relatedTarget) && !btn.contains(e.relatedTarget)) closeFabMenu(50); });
         }
     });
-     // Global click to close FAB submenus
+     
     document.addEventListener('click', (e) => {
         fabButtonsWithSubmenu.forEach(btn => {
             const menuId = btn.getAttribute('aria-controls');
-            const menu = document.getElementById(menuId);
+            const menu = fabContainer.querySelector(`#${menuId}`);
             if (menu && !menu.classList.contains('hidden') && !btn.contains(e.target) && !menu.contains(e.target)) {
-                menu.classList.add('hidden');
+                menu.classList.add('hidden', 'opacity-0', 'scale-95', 'fab-hidden-alt');
                 btn.setAttribute('aria-expanded', 'false');
             }
         });
     });
-
 
     window.componentState.fabInitialized = true;
     componentLog("FABs initialized.");
 }
 window.initializeFabButtons = initializeFabButtonsInternal;
 
-
-// Main Orchestration
 async function loadCommonComponents() {
     if (window.componentState.componentsLoadedAndInitialized) {
-        componentLog('All common components already loaded.', 'warn');
+        // componentLog('All common components already loaded.', 'warn');
         return;
     }
-    componentLog('Loading common components...');
+    componentLog('Loading common components sequence initiated...');
     
-    await loadHeader(); // This now includes initialization
+    await loadHeader();
 
     const footerPlaceholder = document.getElementById('footer-placeholder');
     if (footerPlaceholder) {
         const footerLoaded = await loadComponent('Footer', 'footer-placeholder', '/components/footer.html');
         if (footerLoaded) initializeFooterInternal();
-    } else { componentLog('Footer placeholder not found.', 'warn'); }
+    } else { componentLog('Footer placeholder not found.', 'info'); }
     
     const fabPlaceholder = document.getElementById('fab-container-placeholder');
     if (fabPlaceholder) {
         const fabLoaded = await loadComponent('FABs', 'fab-container-placeholder', '/components/fab-container.html');
         if (fabLoaded) initializeFabButtonsInternal();
-    } else { componentLog('FAB placeholder not found.', 'warn'); }
+    } else { componentLog('FAB placeholder not found.', 'info'); }
 
-    // Initialize language system after main components are in DOM
     if (typeof window.initializeLanguageSystem === 'function') {
         try {
-            await window.initializeLanguageSystem(); // This should handle applying the language
-            componentLog('Language system initialized and language applied.');
+            await window.initializeLanguageSystem(); 
+            // componentLog('Language system initialized and language applied.');
         } catch (langError) { componentLog(`Error initializing language system: ${langError.message}`, 'error'); }
     } else { 
-        componentLog('initializeLanguageSystem function not found. Manual language application might be needed.', 'warn');
-        // Fallback to applyLanguage if initializeLanguageSystem is missing (e.g. old language.js)
+        componentLog('initializeLanguageSystem function not found. Attempting fallback.', 'warn');
         if (typeof window.applyLanguage === 'function') {
             window.applyLanguage(); 
-            componentLog('Fallback applyLanguage called.');
+            // componentLog('Fallback applyLanguage called.');
+        } else {
+            componentLog('applyLanguage function also not found.', 'error');
         }
     }
     
     window.componentState.componentsLoadedAndInitialized = true;
     componentLog('All common components loaded and core systems initialized.');
 
-    // Call page-specific callback if defined
     if (typeof window.onPageComponentsLoaded === 'function') {
         try {
             await window.onPageComponentsLoaded();
-            componentLog('Page-specific onPageComponentsLoaded callback executed.');
+            // componentLog('Page-specific onPageComponentsLoaded callback executed.');
         } catch(pageCallbackError) {
             componentLog(`Error in onPageComponentsLoaded callback: ${pageCallbackError.message}`, 'error');
         }
-    } else {
-        componentLog('onPageComponentsLoaded callback not defined for this page.', 'info');
     }
 }
 
-// Execute loading when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', loadCommonComponents);
 } else {
-    if (!window.componentState.componentsLoadedAndInitialized) { // Ensure it only runs once
+    if (!window.componentState.componentsLoadedAndInitialized) { 
         loadCommonComponents();
     }
 }

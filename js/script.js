@@ -12,26 +12,33 @@ window.debounce = function(func, delay) {
 };
 
 // Page-specific initializations (like AOS) that depend on components being loaded
-// will now be called from loadComponents.js via onPageComponentsLoaded callback.
+// should be placed within a `window.onPageComponentsLoaded` function on the specific HTML page,
+// or called after `loadCommonComponents()` promise resolves if a global `script.js` needs to run them.
 
-// Example of a page-specific callback that might be defined on individual HTML pages:
+// Example structure for page-specific initialization (to be defined ON THE ACTUAL PAGE or in a page-specific JS file):
 /*
-window.onPageComponentsLoaded = async () => {
-    console.log('All common components are loaded and initialized on this specific page.');
-    // Initialize AOS for this page
-    if (typeof AOS !== 'undefined' && AOS.init) {
-        AOS.init({
-            offset: window.innerWidth < 768 ? 50 : 80,
-            duration: window.innerWidth < 768 ? 500 : 600,
-            easing: 'ease-out-quad',
-            once: true,
-        });
-        console.log('[script.js] AOS initialized for the page.');
-    } else {
-        console.warn('[script.js] AOS library not found on this page.');
-    }
+if (typeof window.onPageComponentsLoaded === 'undefined') {
+    window.onPageComponentsLoaded = async () => {
+        console.log('[Script.js onPageCallback] All common components are loaded and initialized.');
+        
+        // Initialize AOS for this page (example)
+        if (typeof AOS !== 'undefined' && AOS.init) {
+            AOS.init({
+                offset: window.innerWidth < 768 ? 50 : 80, // Adjusted for mobile
+                duration: window.innerWidth < 768 ? 500 : 600, // Faster on mobile
+                easing: 'ease-out-quad',
+                once: true, // Animate elements only once
+            });
+            console.log('[Script.js onPageCallback] AOS initialized for the page.');
+        } else {
+            console.warn('[Script.js onPageCallback] AOS library not found.');
+        }
 
-    // Other page-specific initializations can go here
-    // e.g., if (typeof window.initPageSpecificSlider === 'function') window.initPageSpecificSlider();
-};
+        // Example: Initialize a page-specific slider if a function for it exists
+        // if (typeof window.initPageSpecificSlider === 'function') {
+        //     window.initPageSpecificSlider();
+        //     console.log('[Script.js onPageCallback] Page-specific slider initialized.');
+        // }
+    };
+}
 */
