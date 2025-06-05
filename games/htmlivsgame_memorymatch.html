@@ -10,12 +10,12 @@
     <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f0f7ff; /* Fallback color */
-            background-image: url('/images/games/ivsplaycard.png'); /* Thay thế URL này bằng hình ảnh của bạn */
-            background-size: cover; /* Đảm bảo hình nền che phủ toàn bộ trang */
-            background-position: center; /* Căn giữa hình nền */
-            background-repeat: no-repeat; /* Không lặp lại hình nền */
-            background-attachment: fixed; /* Giữ hình nền cố định khi cuộn trang */
+            background-color: #f0f7ff;
+            background-image: url('/images/games/ivsplaycard.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -31,7 +31,7 @@
         .ivs-gold-text { color: #B8860B; }
 
         .main-container {
-            background-color: rgba(255, 255, 255, 0.9); /* Thêm độ trong suốt nhẹ để hình nền có thể nhìn thấy qua */
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 16px;
             box-shadow: 0 12px 30px rgba(0,0,0,0.1);
             padding: 25px;
@@ -44,6 +44,10 @@
             font-weight: 700;
             font-size: 1.7rem;
             line-height: 2.2rem;
+        }
+        #start-screen {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
         }
         .game-board {
             display: grid;
@@ -142,7 +146,7 @@
             color: #c0392b;
             font-weight: 700;
         }
-        .btn-action, .btn-difficulty, .btn-language {
+        .btn-action, .btn-difficulty, .btn-language, a.btn-action {
             background-color: #FFD700;
             color: #003366;
             border: none;
@@ -154,8 +158,10 @@
             margin-top: 12px;
             transition: background-color 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-decoration: none;
+            display: inline-block;
         }
-        .btn-action:hover, .btn-difficulty:hover, .btn-language:hover {
+        .btn-action:hover, .btn-difficulty:hover, .btn-language:hover, a.btn-action:hover {
             background-color: #f1c40f;
             transform: translateY(-2px);
             box-shadow: 0 6px 10px rgba(0,0,0,0.15);
@@ -212,7 +218,7 @@
             display: none !important;
         }
         .scoreboard-container {
-             background-color: rgba(248, 249, 250, 0.9); /* Thêm độ trong suốt nhẹ */
+             background-color: rgba(248, 249, 250, 0.9);
             padding: 20px;
             border-radius: 12px;
         }
@@ -247,6 +253,7 @@
             justify-content: center;
             gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
         .language-switcher {
             margin-top: 12px;
@@ -268,22 +275,27 @@
             </div>
         </div>
 
-        <div class="game-info grid grid-cols-2 sm:grid-cols-4 gap-2 items-center p-3 bg-gray-100 rounded-lg text-center sm:text-left">
+        <div id="game-info" class="game-info grid grid-cols-2 sm:grid-cols-4 gap-2 items-center p-3 bg-gray-100 rounded-lg text-center sm:text-left hidden">
             <div><span data-translate="level">Level</span>: <span id="level-display">1</span></div>
             <div class="sm:text-center"><i class="fas fa-stopwatch mr-1"></i><span data-translate="time">Time</span>: <span id="time-display" class="timer">00:00</span></div>
             <div class="sm:text-center"><span data-translate="flips">Flips</span>: <span id="flips-count">0</span></div>
             <div class="sm:text-right"><span data-translate="totalScore">Total Score</span>: <span id="total-score-display">0</span></div>
         </div>
 
-
-        <div id="game-board" class="game-board">
+        <div id="start-screen" class="text-center p-8">
+             <button id="start-game-button" class="btn-action text-2xl py-4 px-8" data-translate="startGame">Start Game</button>
         </div>
 
-        <div class="controls-area text-center">
+        <div id="game-board" class="game-board hidden">
+        </div>
+
+        <div id="controls-area" class="controls-area text-center hidden">
             <button id="pause-resume-button" class="btn-action"><i class="fas fa-pause mr-1"></i><span data-translate="pause">Pause</span></button>
             <button id="reset-level-button" class="btn-action"><i class="fas fa-redo mr-1"></i><span data-translate="restartLevel">Restart Level</span></button>
+            <a href="https://ivsacademy.edu.vn" target="_blank" id="ivs-website-button" class="btn-action" data-translate="ivsWebsite">IVS Website</a>
             <button id="language-switcher-button" class="btn-language ml-2">VI/EN</button>
         </div>
+
 
         <footer class="text-center p-3 mt-4 bg-gray-50 rounded-b-lg">
             <p class="text-xs text-gray-400" data-translate="copyright"> <i class="fa-solid fa-copyright"></i> 2025 IVS JSC. All rights reserved.</p>
@@ -334,6 +346,8 @@
                 easy: "Easy",
                 medium: "Medium",
                 hard: "Hard",
+                startGame: "Start Game",
+                ivsWebsite: "IVS Website",
                 level: "Level",
                 time: "Time",
                 flips: "Flips",
@@ -374,6 +388,8 @@
                 easy: "Dễ",
                 medium: "Trung Bình",
                 hard: "Khó",
+                startGame: "Bắt Đầu",
+                ivsWebsite: "Website IVS",
                 level: "Màn",
                 time: "Thời Gian",
                 flips: "Lật",
@@ -464,6 +480,10 @@
         const resetLevelButton = document.getElementById('reset-level-button');
         const pauseResumeButton = document.getElementById('pause-resume-button');
         const languageSwitcherButton = document.getElementById('language-switcher-button');
+        const startGameButton = document.getElementById('start-game-button');
+        const startScreen = document.getElementById('start-screen');
+        const gameInfo = document.getElementById('game-info');
+        const controlsArea = document.getElementById('controls-area');
 
         const messageOverlay = document.getElementById('message-overlay');
         const messageTitleEl = document.getElementById('message-title');
@@ -824,6 +844,38 @@
         const LOCAL_STORAGE_LANGUAGE_KEY = 'ivsMemoryMatchLanguage_v1';
 
 
+        function showStartScreen() {
+            stopTimer();
+            totalGameScore = 0;
+            currentLevelIndex = 0;
+            totalScoreDisplay.textContent = '0';
+            flipsCountDisplay.textContent = '0';
+            levelDisplay.textContent = '1';
+            timeDisplay.textContent = '00:00';
+
+            gameInfo.classList.add('hidden');
+            gameBoard.classList.add('hidden');
+            controlsArea.classList.add('hidden');
+            messageOverlay.classList.add('hidden');
+            nameInputOverlay.classList.add('hidden');
+            pauseOverlay.classList.add('hidden');
+
+            startScreen.classList.remove('hidden');
+        }
+
+        function startGame() {
+            startScreen.classList.add('hidden');
+            gameInfo.classList.remove('hidden');
+            gameBoard.classList.remove('hidden');
+            controlsArea.classList.remove('hidden');
+
+            totalGameScore = 0;
+            currentLevelIndex = 0;
+            setupLevel(currentLevelIndex);
+        }
+
+        startGameButton.addEventListener('click', startGame);
+
         languageSwitcherButton.addEventListener('click', () => {
             currentLanguage = currentLanguage === 'en' ? 'vi' : 'en';
             localStorage.setItem(LOCAL_STORAGE_LANGUAGE_KEY, currentLanguage);
@@ -959,13 +1011,12 @@
 
         difficultyButtons.forEach(button => {
             button.addEventListener('click', () => {
-                currentDifficulty = button.dataset.difficulty;
+                const newDifficulty = button.dataset.difficulty;
+                if (currentDifficulty === newDifficulty) return;
+                currentDifficulty = newDifficulty;
                 saveDifficulty();
                 updateDifficultyButtonsUI();
-                if (currentLevelIndex === 0 && flipsThisLevel === 0) {
-                     totalGameScore = 0;
-                }
-                setupLevel(currentLevelIndex);
+                showStartScreen();
             });
         });
 
@@ -1021,7 +1072,7 @@
         function escapeHtml(unsafe) {
             if (typeof unsafe !== 'string') return '';
             return unsafe
-                 .replace(/&g/, "&amp;")
+                 .replace(/&/g, "&amp;")
                  .replace(/</g, "&lt;")
                  .replace(/>/g, "&gt;")
                  .replace(/"/g, "&quot;")
@@ -1097,11 +1148,6 @@
 
             flipCard(clickedCard);
             flippedCards.push(clickedCard);
-
-            if (flippedCards.length === 1 && flipsThisLevel === 0 && currentLevelIndex === 0 && totalGameScore === 0) {
-                 totalGameScore = 0;
-                 totalScoreDisplay.textContent = totalGameScore;
-            }
 
             if (flippedCards.length === 2) {
                 flipsThisLevel++;
@@ -1213,8 +1259,7 @@
                 document.querySelector('#name-input-overlay [data-translate="saveScore"]').textContent = translations[currentLanguage].saveScore;
 
             } else {
-                totalGameScore = 0;
-                setupLevel(0);
+                showStartScreen();
             }
         }
 
@@ -1223,8 +1268,7 @@
             if (playerName.length >= 1 && playerName.length <= 10) {
                 addScoreToBoard(playerName, totalGameScore);
                 nameInputOverlay.classList.add('hidden');
-                totalGameScore = 0;
-                setupLevel(0);
+                showStartScreen();
             } else {
                 const tempMsg = document.createElement('div');
                 tempMsg.textContent = translations[currentLanguage].alertNameLength;
@@ -1262,8 +1306,7 @@
             applyTranslations(currentLanguage);
             loadDifficulty();
             loadTopScores();
-            totalGameScore = 0;
-            setupLevel(0);
+            showStartScreen();
         };
     </script>
 </body>
