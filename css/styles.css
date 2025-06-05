@@ -78,12 +78,12 @@ html.dark body {
 }
 
 #main-header {
-    background-color: var(--ivs-neutral-900); /* Tailwind bg-neutral-900 */
-    color: var(--ivs-text-white); /* Tailwind text-white */
-    box-shadow: var(--shadow-lg); /* Tailwind shadow-lg */
+    background-color: var(--ivs-neutral-900);
+    color: var(--ivs-text-white);
+    box-shadow: var(--shadow-lg);
     position: fixed;
     top:0; left:0; right:0;
-    z-index: 1001; /* Tailwind z-[1001] */
+    z-index: 1001;
     transition-property: transform;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
@@ -103,7 +103,7 @@ html.dark body {
 
 main {
     flex-grow: 1;
-    padding-bottom: 80px; /* Khoảng trống cho bottom nav bar trên mobile */
+    padding-bottom: var(--header-target-height-mobile); /* Khoảng trống cho bottom nav bar (64px) */
 }
 @media (min-width: 768px) { /* md breakpoint */
     main {
@@ -312,53 +312,51 @@ main {
     font-size: 1.375rem;
 }
 
-/* Mobile Menu Panel & Container */
 .mobile-menu-panel-base {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh; /* Full viewport height */
+    height: 100vh;
     z-index: 1050;
-    visibility: hidden; /* Use visibility for transition control */
-    transition: visibility 0s linear var(--transition-slow); /* Delay visibility change */
+    visibility: hidden;
+    transition: visibility 0s linear var(--transition-slow);
 }
 .mobile-menu-panel-base.active {
     visibility: visible;
-    transition-delay: 0s; /* Make visible immediately when active */
+    transition-delay: 0s;
 }
 
 .mobile-menu-backdrop-base {
     position: absolute;
     inset: 0;
-    background-color: var(--ivs-neutral-900); /* Or a darker overlay */
-    opacity: 0; /* Start transparent */
-    backdrop-filter: blur(4px); /* Optional: blur background */
+    background-color: var(--ivs-neutral-900);
+    opacity: 0;
+    backdrop-filter: blur(4px);
     transition: opacity var(--transition-base) ease-out;
 }
 .mobile-menu-panel-base.active .mobile-menu-backdrop-base {
-    opacity: 0.85; /* Fade in backdrop */
+    opacity: 0.85;
 }
 
-#mobile-menu-container { /* Target by ID directly */
+#mobile-menu-container {
     position: fixed;
     top: 0;
     right: 0;
-    height: 100vh; /* Full viewport height */
-    width: 85vw; /* 85% of viewport width */
-    max-width: 320px; /* Max width for larger mobile screens */
+    height: 100vh;
+    width: 85vw;
+    max-width: 320px;
     background-color: var(--ivs-neutral-800);
     color: var(--ivs-neutral-100);
     box-shadow: var(--shadow-xl);
-    transform: translateX(100%); /* Start off-screen */
+    transform: translateX(100%);
     transition: transform var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
-    overflow-y: auto; /* Allow scrolling within menu if content exceeds height */
-    /* padding-top: 0; Removed, no need with full height and header-like top bar */
+    overflow-y: auto;
 }
 .mobile-menu-panel-base.active #mobile-menu-container {
-    transform: translateX(0); /* Slide in when active */
+    transform: translateX(0);
 }
 
 
@@ -371,7 +369,7 @@ main {
     transition: background-color var(--transition-fast) ease-out, color var(--transition-fast) ease-out;
     font-size: 1rem;
 }
-.mobile-nav-link:hover, .mobile-nav-link.active-mobile-link { /* Added .active-mobile-link for JS to set */
+.mobile-nav-link:hover, .mobile-nav-link.active-mobile-link {
     background-color: var(--ivs-neutral-700);
     color: var(--ivs-secondary);
 }
@@ -405,14 +403,14 @@ main {
     overflow: hidden;
     max-height: 0;
     opacity: 0;
-    padding-bottom: 0; /* Initial state */
+    padding-bottom: 0;
     transition: max-height var(--transition-slow) ease-in-out,
                 opacity var(--transition-base) ease-in-out,
                 padding-bottom var(--transition-slow) ease-in-out;
 }
-.mobile-submenu-content.expanded, /* Use class for expanded state */
+.mobile-submenu-content.expanded,
 .mobile-submenu-toggle[aria-expanded="true"] + .mobile-submenu-content {
-    max-height: 700px; /* Increased max-height */
+    max-height: 700px;
     opacity: 1;
     padding-bottom: 0.5rem;
 }
@@ -460,33 +458,33 @@ main {
 }
 
 /* Bottom Navigation Bar (Mobile Only) */
-#bottom-nav-bar { /* Target by ID */
+#bottom-nav-bar {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(var(--ivs-neutral-rgb-800, 31, 41, 55), 0.95); /* Fallback for older browsers */
+    background-color: rgba(var(--ivs-neutral-rgb-800, 31, 41, 55), 0.95);
     @supports (backdrop-filter: blur(0.5rem)) {
-      background-color: rgba(var(--ivs-neutral-rgb-800, 31, 41, 55), 0.8); /* Reduced opacity for blur */
-      backdrop-filter: blur(0.5rem); /* Tailwind backdrop-blur-sm */
+      background-color: rgba(var(--ivs-neutral-rgb-800, 31, 41, 55), 0.8);
+      backdrop-filter: blur(0.5rem);
     }
     box-shadow: var(--shadow-top-strong);
-    z-index: 1000; /* Tailwind z-[1000] */
-    height: 4rem; /* Tailwind h-16 */
-    border-top: 1px solid var(--ivs-neutral-700); /* Tailwind border-ivs-neutral-700 */
+    z-index: 1000;
+    height: var(--header-target-height-mobile); /* Cập nhật chiều cao nhất quán 4rem */
+    border-top: 1px solid var(--ivs-neutral-700);
     transition: transform var(--transition-base) ease-in-out;
     transform: translateY(0);
-    display: flex; /* Added for direct children flex control */
-    justify-content: around; /* Added for direct children flex control */
-    align-items: stretch; /* Added for direct children flex control */
+    display: flex;
+    justify-content: space-around; /* Đã sửa: 'around' thành 'space-around' */
+    align-items: stretch;
 }
 
 html.dark #bottom-nav-bar {
-    background-color: rgba(var(--ivs-neutral-rgb-950, 3, 7, 18), 0.95); /* Fallback for dark */
+    background-color: rgba(var(--ivs-neutral-rgb-950, 3, 7, 18), 0.95);
      @supports (backdrop-filter: blur(0.5rem)) {
-      background-color: rgba(var(--ivs-neutral-rgb-950, 3, 7, 18), 0.8); /* Dark mode with blur */
+      background-color: rgba(var(--ivs-neutral-rgb-950, 3, 7, 18), 0.8);
     }
-    border-top-color: var(--ivs-neutral-600); /* Tailwind dark:border-ivs-neutral-600 */
+    border-top-color: var(--ivs-neutral-600);
 }
 
 
@@ -506,8 +504,8 @@ html.dark #bottom-nav-bar {
     height: 100%;
     text-decoration: none;
     position: relative;
-    background-color: transparent; /* Ensure transparent background */
-    border: none; /* Ensure no border */
+    background-color: transparent;
+    border: none;
 }
 .bottom-nav-item:hover, .bottom-nav-item.active-bottom-nav {
     color: var(--ivs-secondary);
@@ -531,7 +529,7 @@ html.dark #bottom-nav-bar {
     line-height: 1.2;
     font-weight: 500;
     letter-spacing: 0.01em;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap;
 }
 
 /* FAB Styling Enhancements */
