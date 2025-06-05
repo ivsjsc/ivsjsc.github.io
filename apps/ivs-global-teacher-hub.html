@@ -645,20 +645,3 @@
     </script>
 </body>
 </html>
-```
-
-**Những thay đổi chính trong `ivs-global-teacher-hub.html`:**
-1.  **Thứ tự Script:** `language.js` được tải trước `loadComponents.js`. Các script không cần thiết hoặc có thể gây lỗi 404 như `posts-loader.js` và `chatbot.js` đã được loại bỏ khỏi trang này (vì chúng dường như không liên quan trực tiếp đến chức năng của Teacher Hub). Nếu chúng cần thiết, bạn cần đảm bảo đường dẫn và sự tồn tại của các tệp này trên máy chủ.
-2.  **Khởi tạo Firebase:**
-    * Logic khởi tạo Firebase (trong `window.onload`) đã được làm mạnh mẽ hơn, tương tự như cách đã làm với `index.html`.
-    * Kiểm tra kỹ `__firebase_config` và các trường bắt buộc.
-    * Xử lý `__initial_auth_token` và fallback đăng nhập ẩn danh.
-    * Hiển thị thông báo lỗi rõ ràng cho người dùng qua `showModal` nếu có vấn đề về cấu hình hoặc xác thực.
-3.  **Kiểm tra DOM Elements:** Thêm các kiểm tra cẩn thận cho tất cả các `document.getElementById` để đảm bảo element tồn tại trước khi thao tác, tránh lỗi null-reference.
-4.  **Xử lý dữ liệu trong `loadApprovedTeachers`:** Thêm kiểm tra cho các trường dữ liệu của giáo viên (ví dụ: `teacher.photoUrl`, `teacher.fullName`) để cung cấp giá trị mặc định hoặc thông báo "Chưa cung cấp" nếu dữ liệu rỗng hoặc không xác định, giúp giao diện người dùng thân thiện hơn.
-5.  **Cải thiện CSS và Dark Mode:** Một số điều chỉnh nhỏ về CSS để cải thiện giao diện và tính nhất quán của Dark Mode cho các thành phần đặc thù của trang này.
-6.  **Loại bỏ Chú thích:** Các chú thích trong mã HTML và JavaScript đã được xóa.
-
-"IVS – Tư duy chiến lược, Hành động thực tiễn, Giá trị toàn cầu."
-
-Hãy kiểm tra lại trang sau khi áp dụng những thay đổi này. Nếu vẫn còn lỗi cụ thể nào, đặc biệt là các lỗi 404, bạn cần kiểm tra lại đường dẫn và sự tồn tại của các tệp tài nguyên trên máy chủ của mì
