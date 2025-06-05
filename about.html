@@ -739,18 +739,19 @@
             if(mainContent) mainContent.classList.add('opacity-0');
 
             try {
-                const response = await fetch(`/languages/${lang}.json?v=${new Date().getTime()}`); 
+                const languageFile = `/lang/${lang}.json?v=${new Date().getTime()}`;
+                const languageFileURL = new URL(languageFile, window.location.origin);
+
+                const response = await fetch(languageFileURL.href); 
                 if (!response.ok) {
-                    console.error(`Lỗi tải tệp ngôn ngữ: ${response.status} cho /languages/${lang}.json`);
+                    console.error(`Lỗi tải tệp ngôn ngữ: ${response.status} cho ${languageFileURL.href}`);
                     currentTranslationData = {}; 
                     if (lang !== 'en') { 
                         console.warn(`Thử tải ngôn ngữ dự phòng: en`);
-                        await applyTranslations('en'); // Fallback to English
+                        await applyTranslations('en'); 
                     } else {
-                         if(mainContent) mainContent.classList.remove('opacity-0'); // Show content even if EN fails
+                         if(mainContent) mainContent.classList.remove('opacity-0'); 
                          if(loadingSpinner) loadingSpinner.classList.add('hidden');
-                         // Consider showing a user-friendly error message in the UI instead of alert
-                         // For example, by setting innerHTML of a dedicated error div.
                          console.error("Không thể tải dữ liệu ngôn ngữ. Vui lòng thử lại sau.");
                     }
                     return;
@@ -766,19 +767,16 @@
                 createStrategyAccordions(); 
                 initializeImpactChart(); 
 
-                if (typeof updateHeaderFooterTexts === 'function') { // This is from loadComponents.js
+                if (typeof updateHeaderFooterTexts === 'function') { 
                     updateHeaderFooterTexts(lang, currentTranslationData);
                 }
-                 // Update language switcher buttons if they exist in the header (loaded by loadComponents)
                 if (typeof updateLanguageSwitcherUI === 'function') {
                     updateLanguageSwitcherUI(lang);
                 }
 
-
             } catch (error) {
                 console.error('Lỗi khi áp dụng bản dịch:', error);
                 currentTranslationData = {}; 
-                // UI error message
             } finally {
                 if(mainContent) mainContent.classList.remove('opacity-0');
                 if(loadingSpinner) loadingSpinner.classList.add('hidden');
@@ -817,8 +815,6 @@
                         </div>
                     `;
                     accordionContainer.appendChild(div);
-                } else {
-                    // console.warn(`Không tìm thấy khóa dịch cho mục chiến lược: ${titleKey} hoặc ${descKey}`);
                 }
             }
             if (!itemsFound && accordionContainer) {
@@ -952,7 +948,7 @@
             }
             
             const sections = document.querySelectorAll('main section[id]');
-            const navLinks = document.querySelectorAll('#header-placeholder nav .nav-link');
+            const navLinks = document.querySelectorAll('#header-placeholder nav .nav-link'); 
             function changeNavOnScroll() {
                 let currentSectionId = '';
                 sections.forEach(section => {
@@ -960,7 +956,9 @@
                         currentSectionId = section.getAttribute('id');
                     }
                 });
-                navLinks.forEach(link => {
+
+                const headerNavLinks = document.querySelectorAll('#header-placeholder nav .nav-link'); 
+                headerNavLinks.forEach(link => {
                     link.classList.remove('active');
                     if (link.getAttribute('href') && link.getAttribute('href').substring(1) === currentSectionId) {
                         link.classList.add('active');
@@ -968,7 +966,7 @@
                 });
             }
             window.addEventListener('scroll', changeNavOnScroll, { passive: true });
-            changeNavOnScroll();
+            changeNavOnScroll(); 
 
             const ecosystemTabsButtons = document.getElementById('ecosystem-tabs-buttons');
             const tabContentWrapper = document.getElementById('tab-content-wrapper');
@@ -1016,6 +1014,7 @@
                     const icon = header.querySelector('.accordion-icon');
                     if (!item || !content || !icon) return;
                     const isActive = item.classList.contains('active');
+                    
                     accordionContainer.querySelectorAll('.accordion-item.active').forEach(otherItem => {
                         if (otherItem !== item) {
                             otherItem.classList.remove('active');
@@ -1023,14 +1022,17 @@
                             otherItem.querySelector('.accordion-icon').textContent = '+';
                         }
                     });
+                    
                     item.classList.toggle('active', !isActive);
-                    if (!isActive) {
+                    if (!isActive) { 
                         content.style.maxHeight = content.scrollHeight + "px";
-                        content.style.paddingTop = '1rem'; content.style.paddingBottom = '1rem'; 
+                        content.style.paddingTop = '1rem'; 
+                        content.style.paddingBottom = '1rem'; 
                         icon.textContent = '−';
-                    } else {
+                    } else { 
                         content.style.maxHeight = null;
-                        content.style.paddingTop = '0px'; content.style.paddingBottom = '0px';
+                        content.style.paddingTop = '0px';
+                        content.style.paddingBottom = '0px';
                         icon.textContent = '+';
                     }
                 });
