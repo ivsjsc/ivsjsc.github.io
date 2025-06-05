@@ -93,17 +93,30 @@
                 <a href="/news-archive.html" class="hover:text-amber-500 transition-colors duration-300 font-medium px-3 py-2.5 rounded header-nav-text-custom" data-lang-key="nav_news_archive">Tin tức</a>
                 <a href="/contact.html" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2.5 rounded-md font-semibold transition-colors duration-300 shadow-sm hover:shadow-lg header-nav-text-custom" data-lang-key="contact">Liên Hệ</a>
 
-                <div id="language-toggle-container" class="flex border border-neutral-700 rounded">
-                    <button id="lang-vi" data-lang="vi" class="lang-button px-3.5 py-2 text-sm font-semibold focus:outline-none rounded-l text-white bg-neutral-700 hover:bg-neutral-600" data-lang-key="lang_vi_short" aria-pressed="true">VI</button>
-                    <button id="lang-en" data-lang="en" class="lang-button px-3.5 py-2 text-sm font-semibold focus:outline-none rounded-r border-l border-neutral-700 bg-transparent text-neutral-400 hover:bg-neutral-600 hover:text-white" data-lang-key="lang_en_short" aria-pressed="false">EN</button>
+                <div class="relative group">
+                    <button type="button" id="nav-language-button" aria-haspopup="true" aria-expanded="false" aria-controls="language-dropdown-menu"
+                            class="hover:text-amber-500 transition-colors duration-300 font-medium flex items-center px-3 py-2 rounded header-nav-text-custom border border-neutral-600 hover:border-amber-500">
+                        <i class="fas fa-globe mr-2 text-base"></i> <span data-lang-key="nav_languages">Languages</span> <i class="fas fa-chevron-down header-icon-custom transform transition-transform duration-200 group-hover:rotate-180 ml-1.5 fa-xs" aria-hidden="true"></i>
+                    </button>
+                    <div id="language-dropdown-menu" class="desktop-dropdown-menu absolute top-full right-0 bg-neutral-800 text-neutral-200 py-1 rounded-md shadow-lg z-20 min-w-[180px] origin-top-right opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto transition-opacity duration-300" aria-labelledby="nav-language-button">
+                        <ul class="space-y-px p-1">
+                            <li>
+                                <button data-lang="vi" class="lang-option group/lang w-full text-left block px-3 py-1.5 hover:bg-neutral-700 hover:text-amber-400 transition-colors rounded-md text-sm flex items-center">
+                                    <img src="/images/flags/vn.png" alt="Vietnamese Flag" class="w-5 h-auto mr-2.5 group-hover/lang:scale-110 transition-transform" onerror="this.onerror=null; this.src='https://placehold.co/20x12/cccccc/333333?text=VN';"> <span data-lang-key="lang_vi_long">Vietnamese (VI)</span>
+                                </button>
+                            </li>
+                            <li>
+                                <button data-lang="en" class="lang-option group/lang w-full text-left block px-3 py-1.5 hover:bg-neutral-700 hover:text-amber-400 transition-colors rounded-md text-sm flex items-center">
+                                    <img src="/images/flags/en.png" alt="English Flag" class="w-5 h-auto mr-2.5 group-hover/lang:scale-110 transition-transform" onerror="this.onerror=null; this.src='https://placehold.co/20x12/cccccc/333333?text=EN';"> <span data-lang-key="lang_en_long">English (EN)</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
 
             <div class="flex items-center space-x-2 md:hidden relative z-[51]">
-                <div id="language-toggle-container-mobile-top" class="flex border border-amber-500 rounded-md shadow-md">
-                    <button data-lang="vi" class="lang-button px-3 py-2 text-sm font-semibold focus:outline-none rounded-l-md text-white bg-amber-500 hover:bg-amber-600" data-lang-key="lang_vi_short" aria-pressed="true">VI</button>
-                    <button data-lang="en" class="lang-button px-3 py-2 text-sm font-semibold focus:outline-none rounded-r-md border-l border-amber-600 bg-transparent text-amber-200 hover:bg-amber-600 hover:text-white" data-lang-key="lang_en_short" aria-pressed="false">EN</button>
-                </div>
+                <!-- Removed language toggle from here for cleaner mobile top bar -->
                 <button type="button" id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu-panel" 
                         class="text-white bg-ivs-primary-dark focus:outline-none w-12 h-12 flex items-center justify-center rounded-full hover:bg-ivs-primary transition-colors duration-200 shadow-md" 
                         aria-label="Mở menu di động" data-lang-key="aria_label_open_mobile_menu">
@@ -172,14 +185,27 @@
                         <a href="/apps/ivsapps.html" class="block px-3 py-2 rounded-md hover:bg-neutral-700 hover:text-amber-400 text-sm font-medium transition-colors" data-lang-key="nav_library_apps_mobile">IVS Apps</a>
                     </div>
                 </div>
-
-                <a href="/news-archive.html" class="block px-3 py-2.5 rounded-md hover:bg-neutral-700 hover:text-amber-500 font-medium transition-colors text-base" data-lang-key="nav_news_archive">Tin tức</a>
-                <a href="/contact.html" class="block px-3 py-2.5 rounded-md bg-amber-500 hover:bg-amber-600 text-white font-semibold text-center transition-colors shadow-sm hover:shadow-md text-base" data-lang-key="contact">Liên Hệ</a>
                 
-                <div id="language-toggle-container-mobile-panel" class="flex border border-neutral-600 rounded mx-auto mt-4 w-max">
-                    <button data-lang="vi" class="lang-button px-3 py-2 text-sm font-semibold focus:outline-none rounded-l text-white bg-neutral-700 hover:bg-neutral-600" data-lang-key="lang_vi_short" aria-pressed="true">VI</button>
-                    <button data-lang="en" class="lang-button px-3 py-2 text-sm font-semibold focus:outline-none rounded-r border-l border-neutral-600 bg-transparent text-neutral-300 hover:bg-neutral-600 hover:text-white" data-lang-key="lang_en_short" aria-pressed="false">EN</button>
+                <a href="/news-archive.html" class="block px-3 py-2.5 rounded-md hover:bg-neutral-700 hover:text-amber-500 font-medium transition-colors text-base" data-lang-key="nav_news_archive">Tin tức</a>
+                
+                <div>
+                    <button type="button" class="mobile-submenu-toggle w-full text-left px-3 py-2.5 rounded-md hover:bg-neutral-700 font-semibold text-amber-400 flex justify-between items-center transition-colors text-base"
+                            aria-expanded="false" aria-controls="mobile-language-submenu-items" data-lang-key="nav_languages_mobile_toggle">
+                        <span class="flex items-center"><i class="fas fa-globe mr-2 text-base"></i> <span data-lang-key="nav_languages">Languages</span></span>
+                        <i class="fas fa-chevron-right fa-sm mobile-submenu-icon transform transition-transform duration-200" aria-hidden="true"></i>
+                    </button>
+                    <div id="mobile-language-submenu-items" class="mobile-submenu-content pl-5 pr-1 pb-0.5 space-y-0.5 overflow-hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out">
+                        <button data-lang="vi" class="lang-option-mobile group/lang w-full text-left block px-3 py-2 rounded-md hover:bg-neutral-700 hover:text-amber-400 text-sm font-medium transition-colors flex items-center">
+                            <img src="/images/flags/vn.png" alt="Vietnamese Flag" class="w-5 h-auto mr-2.5 group-hover/lang:scale-110 transition-transform" onerror="this.onerror=null; this.src='https://placehold.co/20x12/cccccc/333333?text=VN';"> <span data-lang-key="lang_vi_long">Vietnamese (VI)</span>
+                        </button>
+                        <button data-lang="en" class="lang-option-mobile group/lang w-full text-left block px-3 py-2 rounded-md hover:bg-neutral-700 hover:text-amber-400 text-sm font-medium transition-colors flex items-center">
+                            <img src="/images/flags/en.png" alt="English Flag" class="w-5 h-auto mr-2.5 group-hover/lang:scale-110 transition-transform" onerror="this.onerror=null; this.src='https://placehold.co/20x12/cccccc/333333?text=EN';"> <span data-lang-key="lang_en_long">English (EN)</span>
+                        </button>
+                    </div>
                 </div>
+
+                <a href="/contact.html" class="block px-3 py-2.5 rounded-md bg-amber-500 hover:bg-amber-600 text-white font-semibold text-center transition-colors shadow-sm hover:shadow-md text-base mt-3" data-lang-key="contact">Liên Hệ</a>
+                
             </nav>
         </div>
         <div id="mobile-menu-backdrop" class="absolute inset-0 bg-black/70 hidden z-[5]"></div>
