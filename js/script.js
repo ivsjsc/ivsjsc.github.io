@@ -11,7 +11,27 @@ window.debounce = function(func, delay) {
     };
 };
 
-// Removed window.initializeFabButtons as it's now handled by loadComponents.js
-// Removed redundant handleHeaderScroll as loadComponents.js now handles header visibility
-// Removed window.initializeUI as loadComponents.js is the orchestrator
-// Removed fetchPosts as posts-loader.js now handles this and is called by loadComponents.js
+// Page-specific initializations (like AOS) that depend on components being loaded
+// will now be called from loadComponents.js via onPageComponentsLoaded callback.
+
+// Example of a page-specific callback that might be defined on individual HTML pages:
+/*
+window.onPageComponentsLoaded = async () => {
+    console.log('All common components are loaded and initialized on this specific page.');
+    // Initialize AOS for this page
+    if (typeof AOS !== 'undefined' && AOS.init) {
+        AOS.init({
+            offset: window.innerWidth < 768 ? 50 : 80,
+            duration: window.innerWidth < 768 ? 500 : 600,
+            easing: 'ease-out-quad',
+            once: true,
+        });
+        console.log('[script.js] AOS initialized for the page.');
+    } else {
+        console.warn('[script.js] AOS library not found on this page.');
+    }
+
+    // Other page-specific initializations can go here
+    // e.g., if (typeof window.initPageSpecificSlider === 'function') window.initPageSpecificSlider();
+};
+*/
