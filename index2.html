@@ -31,7 +31,7 @@
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        montserrat: ['Montserrat', 'sans-serif'],
+                        montserrat: ['Montserrat', 'sans-serif'], // Font for Memory Match game
                     },
                     colors: {
                         'primary': '#004080', 
@@ -97,11 +97,12 @@
                         'orange-700':'#c2410c',
                         'slate-700': '#334155',
                         'slate-800': '#1e293b',
+                        // Memory Game Specific Colors (can be adjusted)
                         'game-bg': '#f0f7ff',
-                        'game-card-back': '#FFD700',
-                        'game-card-text': '#003366',
-                        'game-matched': '#28a745',
-                        'game-timer': '#c0392b'
+                        'game-card-back': '#FFD700', // Gold
+                        'game-card-text': '#003366', // IVS Dark Blue
+                        'game-matched': '#28a745', // Green
+                        'game-timer': '#c0392b' // Red
                     }
                 }
             },
@@ -137,13 +138,13 @@
                 padding: 4rem 1rem;
             }
         }
-        .hero-section-banner {
+         .hero-section-banner {
             min-height: 60vh; 
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        @media (min-width: 768px) {
+         @media (min-width: 768px) {
             .hero-section-banner {
                 min-height: 70vh;
             }
@@ -186,7 +187,7 @@
             transform: scale(0.95);
             transition: transform 0.3s ease;
         }
-        .dark .modal-content {
+         .dark .modal-content {
             background-color: var(--ivs-neutral-800-color);
         }
         .modal.show .modal-content {
@@ -232,7 +233,7 @@
             transition: transform 0.3s ease, background-color 0.3s ease;
         }
         @media (min-width: 768px) {
-            .chatbot-button {
+             .chatbot-button {
                 width: 60px;
                 height: 60px;
                 font-size: 24px;
@@ -321,7 +322,7 @@
             align-self: flex-start;
             margin-right: auto;
         }
-        .dark .message.bot {
+         .dark .message.bot {
             background-color: theme('colors.ivs-neutral-600');
             color: theme('colors.ivs-neutral-100');
         }
@@ -332,9 +333,9 @@
             border-bottom-left-radius: 12px;
             border-bottom-right-radius: 12px;
         }
-        .dark .chatbot-input-area {
-            background-color: var(--ivs-neutral-700-color);
-        }
+         .dark .chatbot-input-area {
+             background-color: var(--ivs-neutral-700-color);
+         }
         .chatbot-input-area input {
             flex-grow: 1;
             padding: 0.6rem; 
@@ -556,7 +557,7 @@
             border-bottom: 1px solid #e0e6ed;
             font-size: 0.85rem; 
         }
-        .dark .game-scoreboard-list li { border-bottom-color: var(--ivs-neutral-600); }
+         .dark .game-scoreboard-list li { border-bottom-color: var(--ivs-neutral-600); }
         .game-scoreboard-list li:last-child { border-bottom: none; }
         
         /* New style for the start button */
@@ -579,7 +580,7 @@
         }
 
         /* Hide game board elements until game starts */
-        #game-board, .game-info, #game-difficulty-selector-container, .controls-area { /* Updated to hide the new container */
+        #game-board, .game-info, .game-difficulty-selector, .controls-area {
             display: none;
         }
 
@@ -675,16 +676,13 @@
                         <h1 class="text-base sm:text-lg md:text-xl font-bold font-montserrat" data-translate-game="headerTitle">IVS Memory Match: Eng-Vie</h1>
                     </header>
             
-                    <div id="game-ready-state" class="mt-4">
-                        <div id="game-difficulty-selector-container" class="game-difficulty-selector mb-3 sm:mb-4 text-center">
-                            <h3 class="text-sm sm:text-base font-semibold text-ivs-neutral-700 dark:text-ivs-neutral-200 mb-2" data-translate-game="selectDifficulty">Select Difficulty:</h3>
-                            <div class="flex justify-center gap-2">
-                                <button id="game-difficulty-easy" class="game-btn-difficulty text-xs sm:text-sm" data-difficulty="easy" data-translate-game="easy">Easy</button>
-                                <button id="game-difficulty-medium" class="game-btn-difficulty active text-xs sm:text-sm" data-difficulty="medium" data-translate-game="medium">Medium</button>
-                                <button id="game-difficulty-hard" class="game-btn-difficulty text-xs sm:text-sm" data-difficulty="hard" data-translate-game="hard">Hard</button>
-                            </div>
-                    </div>
-                        <button id="game-start-button"><i class="fas fa-play mr-2"></i>Bắt Đầu Chơi</button>
+                    <div class="game-difficulty-selector mb-3 sm:mb-4 text-center">
+                        <h3 class="text-sm sm:text-base font-semibold text-ivs-neutral-700 dark:text-ivs-neutral-200 mb-2" data-translate-game="selectDifficulty">Select Difficulty:</h3>
+                        <div class="flex justify-center gap-2">
+                            <button id="game-difficulty-easy" class="game-btn-difficulty text-xs sm:text-sm" data-difficulty="easy" data-translate-game="easy">Easy</button>
+                            <button id="game-difficulty-medium" class="game-btn-difficulty active text-xs sm:text-sm" data-difficulty="medium" data-translate-game="medium">Medium</button>
+                            <button id="game-difficulty-hard" class="game-btn-difficulty text-xs sm:text-sm" data-difficulty="hard" data-translate-game="hard">Hard</button>
+                        </div>
                     </div>
             
                     <div class="game-info grid grid-cols-2 sm:grid-cols-4 gap-2 items-center p-2 sm:p-3 bg-ivs-neutral-100 dark:bg-ivs-neutral-700 rounded-lg text-center text-xs sm:text-sm">
@@ -695,6 +693,7 @@
                     </div>
             
                     <div id="game-board" class="game-board">
+                        <!-- Cards will be dynamically generated here -->
                     </div>
             
                     <div class="controls-area text-center mt-3 sm:mt-4">
@@ -703,6 +702,10 @@
                         <button id="game-language-switcher-button" class="game-btn-language ml-2 text-xs sm:text-sm">VI/EN</button>
                     </div>
             
+                    <div id="game-ready-state" class="mt-4">
+                        <button id="game-start-button"><i class="fas fa-play mr-2"></i>Bắt Đầu Chơi</button>
+                    </div>
+
                     <footer class="text-center p-2 sm:p-3 mt-3 sm:mt-4 bg-ivs-neutral-50 dark:bg-ivs-neutral-700/50 rounded-b-lg">
                         <p class="text-xs text-gray-400 dark:text-gray-500" data-translate-game="copyright"><i class="fa-solid fa-copyright"></i> 2025 IVS JSC. All rights reserved.</p>
                     </footer>
@@ -964,9 +967,9 @@
 
         function showModal(message, isError = true) {
             if (modalMessage) {
-                modalMessage.innerHTML = message;
-                if(isError) modalMessage.classList.add('text-red-600', 'dark:text-red-400');
-                else modalMessage.classList.remove('text-red-600', 'dark:text-red-400');
+                 modalMessage.innerHTML = message;
+                 if(isError) modalMessage.classList.add('text-red-600', 'dark:text-red-400');
+                 else modalMessage.classList.remove('text-red-600', 'dark:text-red-400');
             }
             if (customModal) customModal.classList.add('show');
         }
@@ -999,18 +1002,19 @@
                     showModal("Cấu hình Firebase không hợp lệ. Vui lòng liên hệ bộ phận hỗ trợ. (Lỗi Parse)");
                 }
             } else {
-                console.warn("Biến cấu hình Firebase (__firebase_config) không được cung cấp hoặc trống.");
+                 console.warn("Biến cấu hình Firebase (__firebase_config) không được cung cấp hoặc trống.");
             }
 
             if (!parsedSuccessfully || !firebaseConfigObject.apiKey || !firebaseConfigObject.authDomain || !firebaseConfigObject.projectId) {
                 console.error("Cấu hình Firebase bị thiếu các trường quan trọng (apiKey, authDomain, projectId) hoặc không hợp lệ.");
                 if (parsedSuccessfully && (!firebaseConfigObject.apiKey || !firebaseConfigObject.authDomain || !firebaseConfigObject.projectId)) { 
-                    showModal("Lỗi cấu hình hệ thống Firebase. Vui lòng thử lại sau hoặc liên hệ bộ phận hỗ trợ. (Thiếu trường quan trọng)");
+                  showModal("Lỗi cấu hình hệ thống Firebase. Vui lòng thử lại sau hoặc liên hệ bộ phận hỗ trợ. (Thiếu trường quan trọng)");
                 } else if (typeof __firebase_config === 'undefined' || String(__firebase_config).trim() === '') {
-                    console.warn("Firebase config not provided by the environment. Skipping Firebase initialization for now.");
+                     // Don't show modal if config is simply not provided by the environment
+                     console.warn("Firebase config not provided by the environment. Skipping Firebase initialization for now.");
                 }
                 hideLoadingSpinner();
-                finalizePageLoad(); 
+                finalizePageLoad(); // Still finalize page UI even if Firebase fails
                 return; 
             }
 
@@ -1060,31 +1064,11 @@
                 offset: 50,
             });
             initializeScrollToTop();
+            // Initialize embedded game if its container exists
             if (document.getElementById('ivs-memory-game-container')) {
-                const gameStartButton = document.getElementById('game-start-button');
-                const gameDifficultySelectorContainer = document.getElementById('game-difficulty-selector-container');
-                const gameInfoPanel = document.querySelector('.game-info');
-                const gameBoardPanel = document.getElementById('game-board');
-                const controlsAreaPanel = document.querySelector('.controls-area');
-                const gameReadyStatePanel = document.getElementById('game-ready-state');
-
-
-                if (gameStartButton && gameDifficultySelectorContainer && gameInfoPanel && gameBoardPanel && controlsAreaPanel && gameReadyStatePanel) {
-                    gameStartButton.addEventListener('click', () => {
-                        gameStarted = true;
-                        gameReadyStatePanel.style.display = 'none'; // Hide the start button and its container
-                        gameDifficultySelectorContainer.style.display = 'block'; // Show difficulty selector
-                        gameInfoPanel.style.display = 'grid'; 
-                        gameBoardPanel.style.display = 'grid';
-                        controlsAreaPanel.style.display = 'block';
-                        if (typeof initIVSMemoryGame === 'function') {
-                            initIVSMemoryGame();
-                        } else {
-                            console.error("Hàm initIVSMemoryGame không tìm thấy để khởi tạo trò chơi.");
-                        }
-                    });
-                }
-                if (typeof gameRenderTopScores === 'function') gameRenderTopScores();
+                // No direct call to initIVSMemoryGame here. It will be called by the start button.
+                // Call renderTopScores immediately to show initial scores even before game starts
+                renderTopScores(); 
             }
         }
 
@@ -1108,7 +1092,7 @@
                     scrollToTopBtn.classList.add('hidden');
                 } else {
                     scrollToTopBtn.classList.remove('hidden');
-                    scrollToTopBtn.classList.add('flex');
+                     scrollToTopBtn.classList.add('flex');
                 }
             }
         }
@@ -1209,8 +1193,8 @@
             }
         };
 
-        let gameCurrentLanguage = localStorage.getItem('ivsMemoryMatchLanguage_v1_embed') || 'en'; 
-        let gameStarted = false; 
+        let gameCurrentLanguage = localStorage.getItem('ivsMemoryMatchLanguage_v1_embed') || 'en'; // Changed key
+        let gameStarted = false; // New flag to control game start
 
         function applyMemoryGameTranslations(lang) {
             const gameContainer = document.getElementById('ivs-memory-game-container');
@@ -1225,16 +1209,16 @@
                         el.innerHTML = gameTranslations[lang][key];
                     } else {
                         const icon = el.querySelector('i.fas, i.fa-solid');
-                        if (icon && el.firstChild === icon && (el.childNodes.length === 1 || (el.childNodes[1] && el.childNodes[1].nodeType === Node.TEXT_NODE))) { 
-                            let textContent = " " + gameTranslations[lang][key];
-                            while(icon.nextSibling && icon.nextSibling.nodeType === Node.TEXT_NODE) {
-                                el.removeChild(icon.nextSibling);
-                            }
-                            if(icon.nextSibling) {
+                        if (icon && el.firstChild === icon && (el.childNodes.length === 1 || (el.childNodes[1] && el.childNodes[1].nodeType === Node.TEXT_NODE))) { // More robust check
+                             let textContent = " " + gameTranslations[lang][key];
+                             while(icon.nextSibling && icon.nextSibling.nodeType === Node.TEXT_NODE) {
+                                 el.removeChild(icon.nextSibling);
+                             }
+                             if(icon.nextSibling) {
                                 el.insertBefore(document.createTextNode(textContent), icon.nextSibling);
-                            } else {
+                             } else {
                                 el.appendChild(document.createTextNode(textContent));
-                            }
+                             }
                         } else {
                             el.textContent = gameTranslations[lang][key];
                         }
@@ -1247,6 +1231,7 @@
                 gamePauseResumeButtonSpan.textContent = gameIsPaused ? gameTranslations[lang].resume : gameTranslations[lang].pause;
                 if(iconHTML) gamePauseResumeButton.innerHTML = iconHTML + " " + gamePauseResumeButtonSpan.outerHTML;
             }
+            // Update modal buttons/titles if they are visible
             if(gameMessageOverlay && !gameMessageOverlay.classList.contains('hidden')) {
                 gameUpdateDynamicMessageTranslations();
             }
@@ -1272,194 +1257,8 @@
             const messageTextEl = document.getElementById('game-message-text');
             const nextActionButton = document.getElementById('game-next-action-button');
 
-            if (!messageTitleEl || !messageTextEl || !nextActionButton || !gameTranslations[gameCurrentLanguage]) {
-                console.warn("Một hoặc nhiều phần tử DOM hoặc bản dịch bị thiếu trong gameUpdateDynamicMessageTranslations.");
-                return;
-            }
-
             const messageTitleKey = messageTitleEl.dataset.translateDynamicGame;
             const messageTextKey = messageTextEl.dataset.translateDynamicGame;
             const nextActionKey = nextActionButton.dataset.translateDynamicGame;
 
-            if (messageTitleKey && gameTranslations[gameCurrentLanguage][messageTitleKey]) {
-                messageTitleEl.innerHTML = gameTranslations[gameCurrentLanguage][messageTitleKey];
-            }
-
-            if (messageTextKey && gameTranslations[gameCurrentLanguage][messageTextKey]) {
-                let text = gameTranslations[gameCurrentLanguage][messageTextKey];
-                if (text.includes('{level}')) {
-                    text = text.replace('{level}', gameAllLevelsData[gameCurrentLevelIndex]?.level || 'N/A');
-                }
-                messageTextEl.textContent = text;
-            }
-
-            if (nextActionKey && gameTranslations[gameCurrentLanguage][nextActionKey]) {
-                nextActionButton.textContent = gameTranslations[gameCurrentLanguage][nextActionKey];
-            }
-        }
-        
-        const gameGameBoard = document.getElementById('game-board');
-        const gameFlipsCountDisplay = document.getElementById('game-flips-count');
-        const gameLevelDisplay = document.getElementById('game-level-display');
-        const gameTotalScoreDisplay = document.getElementById('game-total-score-display');
-        const gameTimeDisplay = document.getElementById('game-time-display');
-        const gameResetLevelButton = document.getElementById('game-reset-level-button');
-        const gamePauseResumeButton = document.getElementById('game-pause-resume-button');
-        const gameLanguageSwitcherButton = document.getElementById('game-language-switcher-button');
-        const gameDifficultyButtons = [
-            document.getElementById('game-difficulty-easy'),
-            document.getElementById('game-difficulty-medium'),
-            document.getElementById('game-difficulty-hard')
-        ];
-        
-        let gameMessageOverlay, gameMessageTitleEl, gameMessageTextEl, gameFinalFlipsDisplay, gameLevelScoreMessageDisplay, gameTimeBonusMessageDisplay, gameNextActionButton;
-        let gameNameInputOverlay, gamePlayerNameInput, gameSubmitNameButton;
-        let gamePauseOverlay, gameResumeGameButtonModal;
-        let gameScoreboardList;
-
-        const gameAllLevelsData = [
-            { level: 1, pairs: [ {en: "Apple", vi: "Táo"}, {en: "Sun", vi: "Mặt trời"} ], columns: 2, basePointsPerMatch: 50, efficiencyBonusBase: 20, timeLimitMedium: 30},
-            { level: 2, pairs: [ {en: "Hello", vi: "Xin chào"}, {en: "Cat", vi: "Con mèo"}, {en: "Dog", vi: "Con chó"} ], columns: 3, basePointsPerMatch: 50, efficiencyBonusBase: 50, timeLimitMedium: 45 },
-            { level: 3, pairs: [ {en: "Goodbye", vi: "Tạm biệt"}, {en: "Thank you", vi: "Cảm ơn"}, {en: "Yes", vi: "Có"}, {en: "No", vi: "Không"} ], columns: 4, basePointsPerMatch: 60, efficiencyBonusBase: 80, timeLimitMedium: 70 },
-        ];
-        const gameDifficultySettings = {
-            easy:   { flipTimeout: 1800, scoreMultiplier: 0.8, timeBonusFactor: 0.5, timerMultiplier: 1.5,  name: "Easy" },
-            medium: { flipTimeout: 1000, scoreMultiplier: 1.0, timeBonusFactor: 1.0, timerMultiplier: 1.0,  name: "Medium" },
-            hard:   { flipTimeout: 600,  scoreMultiplier: 1.5, timeBonusFactor: 1.5, timerMultiplier: 0.75, name: "Hard" }
-        };
-        let gameCurrentDifficulty = 'medium';
-        let gameCurrentLevelIndex = 0;
-        let gameCardsArray = [];
-        let gameCardDataList = [];
-        let gameFlippedCards = [];
-        let gameMatchedPairs = 0;
-        let gameFlipsThisLevel = 0;
-        let gameLockBoard = false;
-        let gameTotalGameScore = 0;
-        let gameTopScores = [];
-        let gameTimerInterval;
-        let gameTimeLeft;
-        let gameCurrentLevelTimeLimit;
-        let gameTimeBonus = 0;
-        let gameIsPaused = false;
-
-        const GAME_PENALTY_PER_EXTRA_FLIP = 5;
-        const GAME_TIME_BONUS_BASE_POINTS = 50;
-        const GAME_TOP_SCORE_COUNT = 5;
-        const GAME_LOCAL_STORAGE_TOP_SCORES_KEY = 'ivsMemoryMatchTopScores_vEmbed';
-        const GAME_LOCAL_STORAGE_DIFFICULTY_KEY = 'ivsMemoryMatchDifficulty_vEmbed';
-        const GAME_LOCAL_STORAGE_LANGUAGE_KEY = 'ivsMemoryMatchLanguage_v1_embed';
-
-        function initIVSMemoryGame() {
-            if (!gameStarted) {
-                console.log("Trò chơi chưa bắt đầu. Nhấn 'Bắt Đầu Chơi'.");
-                return;
-            }
-            // Initialize more specific game elements if they are inside a modal that's not always in DOM
-            gameMessageOverlay = document.createElement('div');
-            gameMessageOverlay.id = 'game-message-overlay';
-            gameMessageOverlay.className = 'game-message-overlay hidden'; // Add classes as per your styles.css
-            document.body.appendChild(gameMessageOverlay);
-
-            gameMessageOverlay.innerHTML = `
-                <div class="game-message-content">
-                    <h2 id="game-message-title" data-translate-dynamic-game=""></h2>
-                    <p id="game-message-text" data-translate-dynamic-game=""></p>
-                    <p><span data-translate-game="levelScore"></span>: <span id="game-level-score-message">0</span></p>
-                    <p><span data-translate-game="totalFlips"></span>: <span id="game-final-flips">0</span></p>
-                    <p><span data-translate-game="timeBonus"></span>: <span id="game-time-bonus-message">0</span></p>
-                    <button id="game-next-action-button" class="game-btn-action" data-translate-dynamic-game=""></button>
-                </div>`;
-            gameMessageTitleEl = document.getElementById('game-message-title');
-            gameMessageTextEl = document.getElementById('game-message-text');
-            gameFinalFlipsDisplay = document.getElementById('game-final-flips');
-            gameLevelScoreMessageDisplay = document.getElementById('game-level-score-message');
-            gameTimeBonusMessageDisplay = document.getElementById('game-time-bonus-message');
-            gameNextActionButton = document.getElementById('game-next-action-button');
-
-
-            gameNameInputOverlay = document.createElement('div');
-            gameNameInputOverlay.id = 'game-name-input-overlay';
-            gameNameInputOverlay.className = 'game-name-input-overlay hidden';
-            document.body.appendChild(gameNameInputOverlay);
-            gameNameInputOverlay.innerHTML = `
-                <div class="game-name-input-content">
-                    <h2 data-translate-game="highScoreTitle"></h2>
-                    <p data-translate-game="highScorePrompt"></p>
-                    <input type="text" id="game-player-name-input" maxlength="10" data-translate-placeholder-game="enterNamePlaceholder">
-                    <button id="game-submit-name-button" class="game-btn-action" data-translate-game="saveScore"></button>
-                </div>`;
-            gamePlayerNameInput = document.getElementById('game-player-name-input');
-            gameSubmitNameButton = document.getElementById('game-submit-name-button');
-            
-            gamePauseOverlay = document.createElement('div');
-            gamePauseOverlay.id = 'game-pause-overlay';
-            gamePauseOverlay.className = 'game-pause-overlay hidden';
-            document.body.appendChild(gamePauseOverlay);
-            gamePauseOverlay.innerHTML = `
-                <div class="game-pause-content">
-                    <h2 data-translate-game="gamePausedTitle"></h2>
-                    <p data-translate-game="gamePausedText"></p>
-                    <button id="game-resume-game-button-modal" class="game-btn-action"><i class="fas fa-play mr-1"></i><span data-translate-game="resume"></span></button>
-                </div>`;
-            gameResumeGameButtonModal = document.getElementById('game-resume-game-button-modal');
-
-            gameScoreboardList = document.getElementById('game-scoreboard-list');
-
-            applyMemoryGameTranslations(gameCurrentLanguage); // Apply translations to newly created elements
-            gameLoadDifficulty();
-            gameLoadTopScores();
-            gameSetupLevel(gameCurrentLevelIndex);
-
-            if (gameLanguageSwitcherButton) {
-                gameLanguageSwitcherButton.addEventListener('click', () => {
-                    gameCurrentLanguage = gameCurrentLanguage === 'en' ? 'vi' : 'en';
-                    localStorage.setItem(GAME_LOCAL_STORAGE_LANGUAGE_KEY, gameCurrentLanguage);
-                    applyMemoryGameTranslations(gameCurrentLanguage);
-                     // Re-render messages if overlays are visible
-                    if(gameMessageOverlay && !gameMessageOverlay.classList.contains('hidden')) gameShowLevelCompleteMessage(gameAllLevelsData[gameCurrentLevelIndex]); 
-                    if(gameNameInputOverlay && !gameNameInputOverlay.classList.contains('hidden')) gameCheckAndPromptForHighScore(); 
-                    if(gamePauseOverlay && !gamePauseOverlay.classList.contains('hidden')) {gameTogglePauseGame(); gameTogglePauseGame();} 
-                    if(gameScoreboardList) gameRenderTopScores(); 
-                });
-            }
-
-            gameDifficultyButtons.forEach(button => {
-                if(button) button.addEventListener('click', () => {
-                    gameCurrentDifficulty = button.dataset.difficulty;
-                    gameSaveDifficulty();
-                    gameUpdateDifficultyButtonsUI();
-                    if (gameCurrentLevelIndex === 0 && gameFlipsThisLevel === 0) gameTotalGameScore = 0;
-                    gameSetupLevel(gameCurrentLevelIndex);
-                });
-            });
-            
-            if(gamePauseResumeButton) gamePauseResumeButton.addEventListener('click', gameTogglePauseGame);
-            if(gameResumeGameButtonModal) gameResumeGameButtonModal.addEventListener('click', gameTogglePauseGame);
-            if(gameResetLevelButton) gameResetLevelButton.addEventListener('click', () => {
-                gameStopTimer();
-                if(gameCurrentLevelIndex === 0) gameTotalGameScore = 0;
-                if (gameIsPaused) gameTogglePauseGame(); 
-                gameSetupLevel(gameCurrentLevelIndex);
-            });
-            if(gameSubmitNameButton && gamePlayerNameInput) {
-                gameSubmitNameButton.addEventListener('click', () => {
-                    const playerName = gamePlayerNameInput.value.trim();
-                    if (playerName.length >= 1 && playerName.length <= 10) {
-                        gameAddScoreToBoard(playerName, gameTotalGameScore);
-                        if(gameNameInputOverlay) gameNameInputOverlay.classList.add('hidden');
-                        gameTotalGameScore = 0;
-                        gameSetupLevel(0);
-                    } else {
-                        const tempMsg = document.createElement('div');
-                        tempMsg.textContent = gameTranslations[gameCurrentLanguage].alertNameLength;
-                        tempMsg.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background-color:var(--secondary-color); color:var(--primary-dark-color); padding:10px 20px; border-radius:8px; z-index:2000; box-shadow: 0 2px 5px rgba(0,0,0,0.2);';
-                        document.body.appendChild(tempMsg);
-                        setTimeout(() => { if (document.body.contains(tempMsg)) document.body.removeChild(tempMsg);}, 3000);
-                    }
-                });
-            }
-        }
-    </script>
-</body>
-</html>
+           
