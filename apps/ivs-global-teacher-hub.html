@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-lang-key="page_title_teacher_hub">IVS Global Teacher Hub - Nền tảng Kết nối Giáo viên Toàn cầu</title>
-    <meta name="description" content="Gia nhập IVS Global Teacher Hub - Cộng đồng giáo viên quốc tế ưu tú. Cơ hội giảng dạy, phát triển sự nghiệp và hợp tác giáo dục toàn cầu cùng IVS JSC." data-lang-key="meta_description_teacher_hub_enhanced">
-    <meta name="keywords" content="IVS JSC, teacher hub, global teachers, teaching jobs Vietnam, international education, apply for teaching, EdTech careers" data-lang-key="meta_keywords_teacher_hub_enhanced">
-    <meta property="og:title" content="IVS Global Teacher Hub - Kết nối Tài năng, Kiến tạo Tương lai Giáo dục" data-lang-key="og_title_teacher_hub_enhanced">
-    <meta property="og:description" content="IVS Global Teacher Hub là nơi quy tụ giáo viên quốc tế xuất sắc, mang đến cơ hội phát triển chuyên môn và giảng dạy tại các dự án giáo dục hàng đầu của IVS JSC." data-lang-key="og_description_teacher_hub_enhanced">
-    <meta property="og:image" content="/images/ivs-teacher-hub-banner.png"> <!-- Recommended: Create a dedicated OG image for Teacher Hub -->
-    <meta property="og:url" content="https://ivsacademy.edu.vn/apps/ivs-global-teacher-hub.html"> <!-- Updated path -->
+    <title data-lang-key="page_title_teacher_hub">IVS Global Teacher Hub - Platform for Global Educators</title>
+    <meta name="description" content="Join IVS Global Teacher Hub - An elite community of international educators. Discover teaching opportunities, career development, and global education collaboration with IVS JSC." data-lang-key="meta_description_teacher_hub_enhanced">
+    <meta name="keywords" content="IVS JSC, teacher hub, global teachers, teaching jobs Vietnam, international education, apply for teaching, EdTech careers, ESL jobs" data-lang-key="meta_keywords_teacher_hub_enhanced">
+    <meta property="og:title" content="IVS Global Teacher Hub - Connecting Talent, Shaping the Future of Education" data-lang-key="og_title_teacher_hub_enhanced">
+    <meta property="og:description" content="IVS Global Teacher Hub brings together outstanding international educators, offering opportunities for professional development and teaching in IVS JSC's leading educational projects." data-lang-key="og_description_teacher_hub_enhanced">
+    <meta property="og:image" content="/images/ivs-teacher-hub-og-banner.png"> <!-- Recommended: Create a dedicated OG image -->
+    <meta property="og:url" content="https://ivsacademy.edu.vn/apps/ivs-global-teacher-hub.html">
     <meta property="og:type" content="website">
     <meta name="author" content="IVS JSC">
 
@@ -26,177 +26,191 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class', // Enable class-based dark mode
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        display: ['Lexend', 'sans-serif'], // A more modern display font
+                        display: ['Lexend', 'sans-serif'],
                     },
                     colors: {
                         'ivs-primary': '#004080', 
                         'ivs-primary-dark': '#003366',
+                        'ivs-primary-light': '#0059b3', // Lighter shade for hover on dark bg
                         'ivs-secondary': '#ffc107', 
                         'ivs-secondary-dark': '#e0a800',
-                        'ivs-accent': '#F97316', // Header Orange as accent
-                        'ivs-neutral-900': '#111827',
-                        'ivs-neutral-800': '#1f2937',
-                        'ivs-neutral-700': '#374151',
-                        'ivs-neutral-600': '#4B5563',
-                        'ivs-neutral-300': '#D1D5DB',
-                        'ivs-neutral-200': '#e5e7eb',
-                        'ivs-neutral-100': '#f3f4f6',
-                        'ivs-neutral-50': '#f9fafb',
+                        'ivs-accent': '#F97316',
+                        'ivs-neutral-900': '#111827', // Darkest background
+                        'ivs-neutral-800': '#1f2937', // Slightly lighter for cards/elements on dark bg
+                        'ivs-neutral-700': '#374151', // Borders or secondary text on dark
+                        'ivs-neutral-600': '#4B5563', // Muted text on dark
+                        'ivs-neutral-300': '#D1D5DB', // Borders on light
+                        'ivs-neutral-200': '#E5E7EB', // Background for sections on light
+                        'ivs-neutral-100': '#F3F4F6', // Main light background
+                        'ivs-neutral-50': '#F9FAFB',  // Lightest background
                         'ivs-success': '#10B981',
+                        'ivs-success-light': '#DEF7EC',
                         'ivs-warning': '#F59E0B',
+                        'ivs-warning-light': '#FEF3C7',
                         'ivs-danger': '#EF4444',
+                        'ivs-danger-light': '#FEE2E2',
+                        'ivs-info': '#3B82F6', // A general info color
+                        'ivs-info-light': '#DBEAFE',
                     }
                 }
             },
-            plugins: [], // Plugins are loaded via CDN URL
+            plugins: [],
         }
     </script>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/styles.css"> <!-- Main site styles -->
-    <!-- Specific styles for Teacher Hub Application -->
+    <link rel="stylesheet" href="/css/styles.css"> 
     <style>
-        :root { /* CSS Variables for easier theming if needed outside Tailwind */
+        :root {
             --ivs-primary-color: #004080;
             --ivs-secondary-color: #ffc107;
         }
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         h1, h2, h3, .font-display {
             font-family: 'Lexend', sans-serif;
         }
         .hub-app-container {
-            background-color: theme('colors.ivs-neutral-50');
-            /* Removed fixed max-width to allow more fluid design based on content */
-            /* max-width: 900px; */ 
+            background-color: theme('colors.ivs-neutral-100');
             width: 100%;
-            min-height: calc(100vh - 160px); /* Adjust based on header/footer height */
+            min-height: calc(100vh - 150px); /* Adjusted for typical header/footer */
         }
         .dark .hub-app-container {
             background-color: theme('colors.ivs-neutral-900');
         }
 
+        .tab-button {
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-button:hover {
+            background-color: theme('colors.ivs-neutral-200');
+            color: theme('colors.ivs-primary-dark');
+        }
+        .dark .tab-button:hover {
+            background-color: theme('colors.ivs-neutral-700');
+            color: theme('colors.ivs-secondary-light');
+        }
         .tab-button-active {
-            background-color: theme('colors.ivs-primary') !important;
-            color: white !important;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            color: theme('colors.ivs-primary') !important;
+            border-bottom-color: theme('colors.ivs-primary') !important;
+            font-weight: 600;
         }
         .dark .tab-button-active {
-             background-color: theme('colors.ivs-secondary') !important;
-             color: theme('colors.ivs-primary-dark') !important;
+             color: theme('colors.ivs-secondary') !important;
+             border-bottom-color: theme('colors.ivs-secondary') !important;
         }
 
         .form-input, .form-textarea {
+            background-color: theme('colors.white');
+            border-color: theme('colors.ivs-neutral-300');
             transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
         .form-input:focus, .form-textarea:focus {
             border-color: theme('colors.ivs-primary');
-            box-shadow: 0 0 0 3px rgba(0, 64, 128, 0.2); /* Tailwind's ring-style focus */
+            box-shadow: 0 0 0 3px theme('colors.ivs-primary / 20%');
             outline: none;
         }
         .dark .form-input, .dark .form-textarea {
-            background-color: theme('colors.ivs-neutral-800');
+            background-color: theme('colors.ivs-neutral-700');
             border-color: theme('colors.ivs-neutral-600');
             color: theme('colors.ivs-neutral-100');
         }
         .dark .form-input::placeholder, .dark .form-textarea::placeholder {
-            color: theme('colors.ivs-neutral-400');
+            color: theme('colors.ivs-neutral-500');
         }
         .dark .form-input:focus, .dark .form-textarea:focus {
             border-color: theme('colors.ivs-secondary');
-            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.25);
+            box-shadow: 0 0 0 3px theme('colors.ivs-secondary / 25%');
         }
 
         .teacher-profile-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
             border: 1px solid theme('colors.ivs-neutral-200');
+            background-color: theme('colors.white');
         }
         .teacher-profile-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 20px rgba(0, 64, 128, 0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px theme('colors.ivs-primary / 10%');
         }
         .dark .teacher-profile-card {
             background-color: theme('colors.ivs-neutral-800');
             border-color: theme('colors.ivs-neutral-700');
         }
         .dark .teacher-profile-card:hover {
-             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+             box-shadow: 0 12px 24px theme('colors.black / 20%');
         }
         .teacher-avatar {
-            border: 4px solid theme('colors.ivs-primary');
+            border: 3px solid theme('colors.ivs-primary');
+            padding: 2px; /* Small padding to make border look nicer */
         }
         .dark .teacher-avatar {
             border-color: theme('colors.ivs-secondary');
         }
         
-        /* Modal styles */
         .modal-backdrop {
-            transition: opacity 0.3s ease-in-out;
+            transition: opacity 0.25s ease-in-out;
         }
         .modal-panel {
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
         }
-        .modal-panel.entering { opacity: 0; transform: scale(0.95); }
-        .modal-panel.entered { opacity: 1; transform: scale(1); }
-        .modal-panel.exiting { opacity: 0; transform: scale(0.95); }
+        .modal-panel.entering { opacity: 0; transform: translateY(20px) scale(0.98); }
+        .modal-panel.entered { opacity: 1; transform: translateY(0) scale(1); }
+        .modal-panel.exiting { opacity: 0; transform: translateY(20px) scale(0.98); }
 
-        /* Scrollbar styling for teacher list (optional enhancement) */
-        #teachers-list-container::-webkit-scrollbar {
-            width: 8px;
-        }
-        #teachers-list-container::-webkit-scrollbar-track {
-            background: theme('colors.ivs-neutral-100');
-            border-radius: 10px;
-        }
-        #teachers-list-container::-webkit-scrollbar-thumb {
-            background: theme('colors.ivs-neutral-300');
-            border-radius: 10px;
-        }
-        #teachers-list-container::-webkit-scrollbar-thumb:hover {
-            background: theme('colors.ivs-neutral-400');
-        }
-        .dark #teachers-list-container::-webkit-scrollbar-track {
-            background: theme('colors.ivs-neutral-700');
-        }
-        .dark #teachers-list-container::-webkit-scrollbar-thumb {
-            background: theme('colors.ivs-neutral-500');
-        }
-        .dark #teachers-list-container::-webkit-scrollbar-thumb:hover {
-            background: theme('colors.ivs-neutral-400');
-        }
+        #teachers-list-container::-webkit-scrollbar { width: 6px; }
+        #teachers-list-container::-webkit-scrollbar-track { background: theme('colors.ivs-neutral-200'); border-radius: 3px;}
+        #teachers-list-container::-webkit-scrollbar-thumb { background: theme('colors.ivs-neutral-400'); border-radius: 3px;}
+        #teachers-list-container::-webkit-scrollbar-thumb:hover { background: theme('colors.ivs-neutral-500');}
+        .dark #teachers-list-container::-webkit-scrollbar-track { background: theme('colors.ivs-neutral-700');}
+        .dark #teachers-list-container::-webkit-scrollbar-thumb { background: theme('colors.ivs-neutral-500');}
+        .dark #teachers-list-container::-webkit-scrollbar-thumb:hover { background: theme('colors.ivs-neutral-400');}
+
+        /* Ensure header placeholder is visible during loading */
+        #header-placeholder:empty { min-height: 60px; background-color: #f3f4f6; }
+        #footer-placeholder:empty { min-height: 60px; background-color: #f3f4f6; }
+        .dark #header-placeholder:empty, .dark #footer-placeholder:empty { background-color: #1f2937; }
+
 
     </style>
 </head>
-<body class="bg-ivs-neutral-100 dark:bg-ivs-neutral-900 text-ivs-neutral-800 dark:text-ivs-neutral-200 antialiased" id="page-teacher-hub">
+<body class="bg-ivs-neutral-100 dark:bg-ivs-neutral-900 text-ivs-neutral-700 dark:text-ivs-neutral-200 antialiased" id="page-teacher-hub">
     
-    <div id="header-placeholder" data-loading-text="Đang tải menu..."></div>
+    <div id="header-placeholder" data-loading-text="Loading menu..."></div>
 
     <div id="loading-spinner" class="fixed inset-0 flex items-center justify-center bg-white/80 dark:bg-ivs-neutral-900/80 backdrop-blur-sm z-[1100] hidden">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-ivs-primary dark:border-ivs-secondary"></div>
-        <p class="ml-4 text-ivs-primary dark:text-ivs-secondary font-semibold" data-lang-key="loading_text">Đang xử lý...</p>
+        <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-ivs-primary dark:border-ivs-secondary"></div>
+        <p class="ml-3 text-base font-medium text-ivs-primary dark:text-ivs-secondary" data-lang-key="loading_text">Processing...</p>
     </div>
 
-    <div id="custom-modal" class="fixed inset-0 z-[1050] overflow-y-auto hidden modal-backdrop bg-black/50">
-        <div class="flex items-center justify-center min-h-screen px-4 text-center">
-            <div class="modal-panel entering inline-block w-full max-w-md p-6 sm:p-8 my-8 overflow-hidden text-left align-middle transition-all transform bg-white dark:bg-ivs-neutral-800 shadow-xl rounded-2xl">
-                <div id="modal-icon-container" class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-ivs-primary/10 dark:bg-ivs-secondary/10 mb-4">
-                    <!-- Icon will be set by JS -->
+    <div id="custom-modal" class="fixed inset-0 z-[1050] overflow-y-auto hidden modal-backdrop bg-ivs-neutral-900/60 dark:bg-black/70">
+        <div class="flex items-center justify-center min-h-screen px-4 text-center py-8">
+            <div class="modal-panel entering inline-block w-full max-w-lg p-6 sm:p-8 my-8 overflow-hidden text-left align-middle transition-all transform bg-white dark:bg-ivs-neutral-800 shadow-2xl rounded-xl">
+                <div class="flex items-center mb-5">
+                    <div id="modal-icon-container" class="flex-shrink-0 flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-full mr-4">
+                        {/* Icon will be set by JS */}
+                    </div>
+                    <h3 id="modal-title" class="text-lg sm:text-xl font-display font-semibold leading-6 text-ivs-neutral-900 dark:text-white"></h3>
                 </div>
-                <h3 id="modal-title" class="text-xl font-display font-semibold leading-6 text-ivs-neutral-900 dark:text-white text-center"></h3>
-                <div class="mt-3">
-                    <p id="modal-message" class="text-sm text-ivs-neutral-600 dark:text-ivs-neutral-300 text-center"></p>
+                <div class="mt-2">
+                    <p id="modal-message" class="text-sm sm:text-base text-ivs-neutral-600 dark:text-ivs-neutral-300"></p>
                 </div>
-                <div class="mt-6 flex justify-center">
+                <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row-reverse gap-3">
                     <button id="modal-close-button" type="button"
-                            class="inline-flex justify-center rounded-md border border-transparent bg-ivs-primary px-6 py-2 text-sm font-medium text-white hover:bg-ivs-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-ivs-primary focus-visible:ring-offset-2 dark:bg-ivs-secondary dark:text-ivs-primary-dark dark:hover:bg-ivs-secondary-dark dark:focus-visible:ring-ivs-secondary"
+                            class="w-full sm:w-auto inline-flex justify-center rounded-md border border-transparent bg-ivs-primary px-5 py-2.5 text-sm font-medium text-white hover:bg-ivs-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-ivs-primary focus-visible:ring-offset-2 dark:bg-ivs-secondary dark:text-ivs-primary-dark dark:hover:bg-ivs-secondary-dark dark:focus-visible:ring-ivs-secondary dark:focus-visible:ring-offset-ivs-neutral-800"
                             data-lang-key="modal_close_button">
-                        Đóng
+                        Close
                     </button>
                 </div>
             </div>
@@ -204,131 +218,133 @@
     </div>
 
     <div class="hub-app-container">
-        <header class="py-10 bg-gradient-to-r from-ivs-primary to-blue-700 dark:from-ivs-neutral-800 dark:to-ivs-neutral-900 text-white shadow-lg">
+        <header class="py-12 sm:py-16 bg-gradient-to-br from-ivs-primary via-blue-800 to-indigo-700 dark:from-ivs-neutral-800 dark:via-ivs-neutral-900 dark:to-black text-white shadow-xl">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h1 class="text-4xl sm:text-5xl font-display font-bold mb-3" data-lang-key="hub_main_title_enhanced">IVS Global Teacher Hub</h1>
-                <p class="text-lg sm:text-xl text-blue-100 dark:text-ivs-neutral-300 max-w-3xl mx-auto" data-lang-key="hub_subtitle_enhanced">
-                    Nền tảng kết nối giáo viên quốc tế tài năng với các cơ hội giảng dạy và phát triển sự nghiệp hàng đầu tại IVS JSC.
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold mb-4 leading-tight" data-lang-key="hub_main_title_enhanced">IVS Global Teacher Hub</h1>
+                <p class="text-lg sm:text-xl text-blue-100 dark:text-ivs-neutral-300 max-w-3xl mx-auto leading-relaxed" data-lang-key="hub_subtitle_enhanced">
+                    Connecting talented international educators with premier teaching and career development opportunities at IVS JSC.
                 </p>
-                <p id="user-id-display" class="mt-4 text-xs text-blue-200 dark:text-ivs-neutral-400">User ID: Đang tải...</p>
+                <p id="user-id-display" class="mt-6 text-xs text-blue-200 dark:text-ivs-neutral-400 uppercase tracking-wider">User ID: Loading...</p>
             </div>
         </header>
 
-        <nav class="bg-white dark:bg-ivs-neutral-800 shadow-md sticky top-0 z-40">
+        <nav class="bg-white dark:bg-ivs-neutral-800/80 backdrop-blur-md shadow-sm sticky top-0 z-40 border-b border-ivs-neutral-200 dark:border-ivs-neutral-700">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-center items-center h-16 space-x-2 sm:space-x-4">
+                <div class="flex justify-center items-stretch h-16 space-x-1 sm:space-x-2">
                     <button id="apply-tab-button" 
-                            class="tab-button flex-1 sm:flex-none px-4 py-2 text-sm font-medium rounded-md transition-colors duration-150 ease-in-out" 
+                            class="tab-button flex-1 sm:flex-none px-3 sm:px-6 py-2 text-sm font-medium rounded-t-md" 
                             data-lang-key="hub_tab_apply">
-                        <i class="fas fa-user-plus mr-2"></i>Ứng tuyển ngay
+                        <i class="fas fa-user-plus mr-1.5 sm:mr-2"></i>Apply Now
                     </button>
                     <button id="view-teachers-tab-button" 
-                            class="tab-button flex-1 sm:flex-none px-4 py-2 text-sm font-medium rounded-md transition-colors duration-150 ease-in-out" 
+                            class="tab-button flex-1 sm:flex-none px-3 sm:px-6 py-2 text-sm font-medium rounded-t-md" 
                             data-lang-key="hub_tab_view_teachers">
-                        <i class="fas fa-users mr-2"></i>Xem Danh sách Giáo viên
+                        <i class="fas fa-users mr-1.5 sm:mr-2"></i>View Teacher Roster
                     </button>
                 </div>
             </div>
         </nav>
 
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-            <section id="teacher-application-section" class="max-w-3xl mx-auto">
+            <section id="teacher-application-section" class="max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
                 <header class="mb-8 text-center">
-                    <h2 class="text-3xl font-display font-semibold text-ivs-primary dark:text-ivs-secondary mb-2" data-lang-key="hub_apply_form_title_enhanced">Trở thành Giáo viên IVS Toàn cầu</h2>
-                    <p class="text-ivs-neutral-600 dark:text-ivs-neutral-400" data-lang-key="hub_apply_form_desc_enhanced">Hoàn tất biểu mẫu dưới đây để mở ra cơ hội nghề nghiệp hấp dẫn. Thông tin của bạn sẽ được bảo mật và sử dụng cho mục đích tuyển dụng tại IVS.</p>
+                    <h2 class="text-2xl sm:text-3xl font-display font-semibold text-ivs-primary dark:text-ivs-secondary mb-2" data-lang-key="hub_apply_form_title_enhanced">Become an IVS Global Educator</h2>
+                    <p class="text-ivs-neutral-600 dark:text-ivs-neutral-400" data-lang-key="hub_apply_form_desc_enhanced">Complete the form below to unlock exciting career opportunities. Your information will be kept confidential and used for recruitment purposes at IVS.</p>
                 </header>
 
-                <form id="teacher-application-form" class="space-y-6 bg-white dark:bg-ivs-neutral-800 p-6 sm:p-8 rounded-xl shadow-xl">
+                <form id="teacher-application-form" class="space-y-6 bg-white dark:bg-ivs-neutral-800 p-6 sm:p-10 rounded-xl shadow-2xl">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label for="fullName" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_fullName">Họ và Tên</label>
-                            <input type="text" id="fullName" name="fullName" class="form-input block w-full rounded-md border-gray-300 shadow-sm" placeholder="Nguyễn Văn A" required>
+                            <label for="fullName" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" class="form-input block w-full rounded-lg border-ivs-neutral-300 shadow-sm" placeholder="e.g., Jane Doe" required>
                         </div>
                         <div>
-                            <label for="email" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_email">Địa chỉ Email</label>
-                            <input type="email" id="email" name="email" class="form-input block w-full rounded-md border-gray-300 shadow-sm" placeholder="your.email@example.com" required>
+                            <label for="email" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_email">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-input block w-full rounded-lg border-ivs-neutral-300 shadow-sm" placeholder="your.email@example.com" required>
                         </div>
                         <div>
-                            <label for="phoneNumber" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_phoneNumber">Số điện thoại</label>
-                            <input type="tel" id="phoneNumber" name="phoneNumber" class="form-input block w-full rounded-md border-gray-300 shadow-sm" placeholder="+84 123 456 789" required>
+                            <label for="phoneNumber" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_phoneNumber">Phone Number</label>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" class="form-input block w-full rounded-lg border-ivs-neutral-300 shadow-sm" placeholder="+1 (555) 123-4567" required>
                         </div>
                         <div>
-                            <label for="nationality" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_nationality">Quốc tịch</label>
-                            <input type="text" id="nationality" name="nationality" class="form-input block w-full rounded-md border-gray-300 shadow-sm" placeholder="Ví dụ: Việt Nam, American" required>
+                            <label for="nationality" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_nationality">Nationality</label>
+                            <input type="text" id="nationality" name="nationality" class="form-input block w-full rounded-lg border-ivs-neutral-300 shadow-sm" placeholder="e.g., American, British" required>
                         </div>
                         <div>
-                            <label for="qualification" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_qualification">Bằng cấp cao nhất</label>
-                            <input type="text" id="qualification" name="qualification" class="form-input block w-full rounded-md border-gray-300 shadow-sm" placeholder="Ví dụ: Thạc sĩ Giáo dục, TESOL" required>
+                            <label for="qualification" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_qualification">Highest Qualification</label>
+                            <input type="text" id="qualification" name="qualification" class="form-input block w-full rounded-lg border-ivs-neutral-300 shadow-sm" placeholder="e.g., Master's in Education, TESOL" required>
                         </div>
                         <div>
-                            <label for="experience" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_experience">Số năm kinh nghiệm giảng dạy</label>
-                            <input type="number" id="experience" name="experience" class="form-input block w-full rounded-md border-gray-300 shadow-sm" placeholder="Ví dụ: 5" min="0" required>
+                            <label for="experience" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_experience">Years of Teaching Experience</label>
+                            <input type="number" id="experience" name="experience" class="form-input block w-full rounded-lg border-ivs-neutral-300 shadow-sm" placeholder="e.g., 5" min="0" required>
                         </div>
                     </div>
 
                     <div>
-                        <label for="subjects" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_subjects">Các môn có thể giảng dạy (cách nhau bằng dấu phẩy)</label>
-                        <input type="text" id="subjects" name="subjects" class="form-input block w-full rounded-md border-gray-300 shadow-sm" placeholder="Ví dụ: Tiếng Anh giao tiếp, IELTS, Toán, Khoa học" required>
+                        <label for="subjects" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_subjects">Subjects You Can Teach (comma-separated)</label>
+                        <input type="text" id="subjects" name="subjects" class="form-input block w-full rounded-lg border-ivs-neutral-300 shadow-sm" placeholder="e.g., ESL, IELTS, Mathematics, Science" required>
                     </div>
 
                     <div>
-                        <label for="bio" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_bio">Giới thiệu bản thân (tối đa 300 từ)</label>
-                        <textarea id="bio" name="bio" rows="4" class="form-textarea block w-full rounded-md border-gray-300 shadow-sm" placeholder="Nêu bật kinh nghiệm, phương pháp giảng dạy và đam mê của bạn..." maxlength="300" required></textarea>
+                        <label for="bio" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_bio">Short Bio (max 300 words)</label>
+                        <textarea id="bio" name="bio" rows="4" class="form-textarea block w-full rounded-lg border-ivs-neutral-300 shadow-sm" placeholder="Highlight your teaching experience, style, and relevant certifications..." maxlength="300" required></textarea>
                     </div>
 
-                    <div class="border-t border-ivs-neutral-200 dark:border-ivs-neutral-700 pt-6">
-                        <p class="text-sm text-ivs-neutral-600 dark:text-ivs-neutral-400 mb-3" data-lang-key="form_upload_notice_enhanced">Tải lên CV và các tài liệu hỗ trợ qua liên kết lưu trữ đám mây (Google Drive, Dropbox, OneDrive, etc.). Đảm bảo liên kết có quyền truy cập công khai.</p>
+                    <div class="border-t border-ivs-neutral-200 dark:border-ivs-neutral-700 pt-6 space-y-4">
+                        <p class="text-sm text-ivs-neutral-600 dark:text-ivs-neutral-400" data-lang-key="form_upload_notice_enhanced">Please provide public URLs to your CV/Resume and a professional photo from a cloud storage service (e.g., Google Drive, Dropbox, OneDrive).</p>
                         <div>
-                            <label for="resumeUrl" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_resumeUrl">Liên kết CV/Hồ sơ (URL)</label>
-                            <input type="url" id="resumeUrl" name="resumeUrl" class="form-input block w-full rounded-md border-gray-300 shadow-sm" placeholder="https://your-cv-link.com">
+                            <label for="resumeUrl" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_resumeUrl">CV/Resume Link (URL)</label>
+                            <input type="url" id="resumeUrl" name="resumeUrl" class="form-input block w-full rounded-lg border-ivs-neutral-300 shadow-sm" placeholder="https://your-cv-link.com">
                         </div>
-                         <div class="mt-4">
-                            <label for="photoUrl" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_photoUrl">Liên kết ảnh hồ sơ chuyên nghiệp (URL)</label>
-                            <input type="url" id="photoUrl" name="photoUrl" class="form-input block w-full rounded-md border-gray-300 shadow-sm" placeholder="https://your-professional-photo-link.com">
+                         <div>
+                            <label for="photoUrl" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="form_photoUrl">Professional Photo Link (URL)</label>
+                            <input type="url" id="photoUrl" name="photoUrl" class="form-input block w-full rounded-lg border-ivs-neutral-300 shadow-sm" placeholder="https://your-professional-photo-link.com">
                         </div>
                     </div>
 
-                    <div class="pt-2">
+                    <div class="pt-4">
                         <button type="submit" 
-                                class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-ivs-primary hover:bg-ivs-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivs-primary dark:bg-ivs-secondary dark:text-ivs-primary-dark dark:hover:bg-ivs-secondary-dark dark:focus:ring-ivs-secondary transition duration-150 ease-in-out" 
+                                class="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg text-base font-medium text-white bg-ivs-accent hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivs-accent dark:focus:ring-offset-ivs-neutral-800 transition duration-150 ease-in-out group" 
                                 data-lang-key="form_submit_button_enhanced">
-                            <i class="fas fa-paper-plane mr-2"></i>Gửi Hồ sơ Ứng tuyển
+                            <i class="fas fa-paper-plane mr-2.5 transform transition-transform duration-200 group-hover:translate-x-1"></i>Submit Application
                         </button>
                     </div>
                 </form>
             </section>
 
-            <section id="teacher-overview-section" class="hidden">
-                 <header class="mb-8 text-center">
-                    <h2 class="text-3xl font-display font-semibold text-ivs-primary dark:text-ivs-secondary mb-2" data-lang-key="hub_teacher_list_title_enhanced">Mạng lưới Giáo viên Ưu tú của IVS</h2>
-                    <p class="text-ivs-neutral-600 dark:text-ivs-neutral-400" data-lang-key="hub_teacher_list_desc_enhanced">Khám phá hồ sơ các giáo viên quốc tế giàu kinh nghiệm, sẵn sàng đồng hành cùng các dự án giáo dục chất lượng cao.</p>
+            <section id="teacher-overview-section" class="hidden" data-aos="fade-up" data-aos-delay="100">
+                 <header class="mb-8 md:mb-10 text-center">
+                    <h2 class="text-2xl sm:text-3xl font-display font-semibold text-ivs-primary dark:text-ivs-secondary mb-2" data-lang-key="hub_teacher_list_title_enhanced">Our Elite Educator Network</h2>
+                    <p class="text-ivs-neutral-600 dark:text-ivs-neutral-400 max-w-2xl mx-auto" data-lang-key="hub_teacher_list_desc_enhanced">Discover profiles of experienced international educators partnering with IVS for high-quality educational projects.</p>
                 </header>
-                <div id="teachers-list-container" class="max-h-[70vh] overflow-y-auto pr-2">
-                    <div id="teachers-list" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                        {/* Teacher cards will be injected here by JavaScript */}
+                <div id="teachers-list-container" class="max-h-[80vh] overflow-y-auto pr-2"> {/* Increased max-height */}
+                    <div id="teachers-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
+                        {/* Teacher cards will be injected here */}
                     </div>
                 </div>
-                <p id="no-teachers-message" class="text-ivs-neutral-500 dark:text-ivs-neutral-400 text-center col-span-full hidden py-8" data-lang-key="hub_no_teachers">
-                    <i class="fas fa-chalkboard-teacher fa-3x mb-4 text-ivs-neutral-400"></i><br>
-                    Hiện chưa có thông tin giáo viên nào được hiển thị.
-                </p>
+                <div id="no-teachers-message" class="text-ivs-neutral-500 dark:text-ivs-neutral-400 text-center col-span-full hidden py-10">
+                    <div class="flex flex-col items-center">
+                        <svg class="w-16 h-16 text-ivs-neutral-400 dark:text-ivs-neutral-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        </svg>
+                        <p class="text-lg font-medium" data-lang-key="hub_no_teachers">No teacher profiles are currently available for display.</p>
+                        <p class="text-sm mt-1" data-lang-key="hub_check_back_later">Please check back later or consider applying to join our network!</p>
+                    </div>
+                </div>
             </section>
         </div>
     </div>
 
-
     <div id="fab-container-placeholder"></div>
-    <div id="footer-placeholder" data-loading-text="Đang tải chân trang..."></div>
+    <div id="footer-placeholder" data-loading-text="Loading footer..."></div>
     
-    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 z-[1040] flex items-center justify-center w-12 h-12 rounded-full bg-ivs-primary text-white shadow-lg hover:bg-ivs-primary-dark transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-ivs-primary/50 dark:bg-ivs-secondary dark:text-ivs-primary-dark dark:hover:bg-ivs-secondary-dark dark:focus:ring-ivs-secondary/50" aria-label="Scroll to top">
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 z-[1040] flex items-center justify-center w-12 h-12 rounded-full bg-ivs-primary text-white shadow-xl hover:bg-ivs-primary-dark active:bg-ivs-primary-darker transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-ivs-primary/50 dark:bg-ivs-secondary dark:text-ivs-primary-dark dark:hover:bg-ivs-secondary-dark dark:focus:ring-ivs-secondary/50" aria-label="Scroll to top">
         <i class="fas fa-arrow-up text-xl" aria-hidden="true"></i>
     </button>
     
     <script>
       if (typeof window.applyLanguage === 'undefined') {
-        window.applyLanguage = function(lang) {
-          // console.log('Dummy applyLanguage (Teacher Hub) fallback for:', lang || 'default');
-        };
+        window.applyLanguage = function(lang) { /* console.log('Dummy applyLanguage (Teacher Hub) for:', lang); */ };
       }
     </script>
     <script src="/js/language.js"></script>
@@ -341,16 +357,16 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, collection, serverTimestamp, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'teacher-hub-app'; // More specific default
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'teacher-hub-app-prod';
         
         let app;
         let db;
         let auth;
-        let userId = null; // Initialize to null
+        let userId = null;
         let isAuthReady = false;
-        let currentActiveTab = 'apply'; // 'apply' or 'view'
+        let currentActiveTab = 'apply';
+        let unsubscribeTeachers = null; 
 
-        // DOM Elements
         const el = {
             applyTabButton: document.getElementById('apply-tab-button'),
             viewTeachersTabButton: document.getElementById('view-teachers-tab-button'),
@@ -368,37 +384,29 @@
             modalIconContainer: document.getElementById('modal-icon-container'),
         };
 
-        // Utility to show modal with different states (success, error, info)
-        function showAppModal(title, message, type = 'info') {
+        function showAppModal(title, message, type = 'info', errorCode = '') {
             if (el.modalTitle) el.modalTitle.textContent = title;
-            if (el.modalMessage) el.modalMessage.innerHTML = message; // Allow HTML for links
+            const finalMessage = errorCode ? `${message} (Error Code: ${errorCode})` : message;
+            if (el.modalMessage) el.modalMessage.innerHTML = finalMessage;
 
             if (el.modalIconContainer) {
                 let iconClass = 'fas fa-info-circle';
-                let iconColorClass = 'text-ivs-primary dark:text-ivs-secondary';
-                if (type === 'success') {
-                    iconClass = 'fas fa-check-circle';
-                    iconColorClass = 'text-ivs-success';
-                } else if (type === 'error') {
-                    iconClass = 'fas fa-times-circle';
-                    iconColorClass = 'text-ivs-danger';
-                } else if (type === 'warning') {
-                    iconClass = 'fas fa-exclamation-triangle';
-                    iconColorClass = 'text-ivs-warning';
-                }
+                let iconColorClass = 'text-ivs-info';
+                if (type === 'success') { iconClass = 'fas fa-check-circle'; iconColorClass = 'text-ivs-success'; }
+                else if (type === 'error') { iconClass = 'fas fa-times-circle'; iconColorClass = 'text-ivs-danger'; } 
+                else if (type === 'warning') { iconClass = 'fas fa-exclamation-triangle'; iconColorClass = 'text-ivs-warning'; }
                 el.modalIconContainer.innerHTML = `<i class="${iconClass} fa-2x ${iconColorClass}"></i>`;
             }
             
             if (el.modal) {
                  el.modal.classList.remove('hidden');
-                 // Force reflow for transition
                  const panel = el.modal.querySelector('.modal-panel');
                  if(panel) {
-                    panel.classList.remove('exiting', 'opacity-0', 'scale-95');
+                    panel.classList.remove('exiting', 'opacity-0', 'scale-95', 'translate-y-5');
                     panel.classList.add('entering');
                     requestAnimationFrame(() => {
                         panel.classList.remove('entering');
-                        panel.classList.add('entered', 'opacity-100', 'scale-100');
+                        panel.classList.add('entered', 'opacity-100', 'scale-100', 'translate-y-0');
                     });
                  }
             }
@@ -408,27 +416,19 @@
             if (el.modal) {
                 const panel = el.modal.querySelector('.modal-panel');
                 if(panel) {
-                    panel.classList.remove('entered', 'opacity-100', 'scale-100');
+                    panel.classList.remove('entered', 'opacity-100', 'scale-100', 'translate-y-0');
                     panel.classList.add('exiting');
-                    setTimeout(() => {
-                        el.modal.classList.add('hidden');
-                        panel.classList.remove('exiting');
-                    }, 300); // Match transition duration
-                } else {
-                    el.modal.classList.add('hidden');
-                }
+                    setTimeout(() => { el.modal.classList.add('hidden'); panel.classList.remove('exiting');}, 250);
+                } else { el.modal.classList.add('hidden');}
             }
         }
 
         if (el.modalCloseButton) el.modalCloseButton.addEventListener('click', hideAppModal);
         
         function toggleLoadingSpinner(show) {
-            if(el.loadingSpinner) {
-                el.loadingSpinner.classList.toggle('hidden', !show);
-            }
+            if(el.loadingSpinner) el.loadingSpinner.classList.toggle('hidden', !show);
         }
 
-        // Tab Management
         function setActiveTab(tabName) {
             currentActiveTab = tabName;
             if (tabName === 'apply') {
@@ -441,47 +441,40 @@
                 el.applyTabButton?.classList.remove('tab-button-active');
                 el.teacherOverviewSection?.classList.remove('hidden');
                 el.teacherApplicationSection?.classList.add('hidden');
-                if (isAuthReady && db) {
-                    loadApprovedTeachers();
-                } else if (!db) {
-                     showAppModal("Lỗi Kết Nối", "Không thể kết nối đến cơ sở dữ liệu để tải danh sách giáo viên. Vui lòng thử lại sau. (Mã lỗi: DB_UNINIT_VIEW)", "error");
-                } else {
-                    showAppModal("Xác thực", "Đang chờ xác thực người dùng. Vui lòng đợi. (Mã lỗi: AUTH_PENDING_VIEW)", "info");
-                }
+                if (isAuthReady && db) loadApprovedTeachers();
+                else if (!db) showAppModal("Connection Error", "Cannot connect to the database to load teacher list. Please try again later.", "error", "DB_VIEW_UNINIT");
+                else showAppModal("Authentication Pending", "Waiting for user authentication. Please wait.", "info", "AUTH_VIEW_PENDING");
             }
         }
 
         el.applyTabButton?.addEventListener('click', () => setActiveTab('apply'));
         el.viewTeachersTabButton?.addEventListener('click', () => setActiveTab('view'));
 
-
-        // Main Initialization on Window Load
         window.onload = async function() {
             toggleLoadingSpinner(true);
             let firebaseConfigObject = {};
             let parsedSuccessfully = false;
 
-            if (typeof __firebase_config !== 'undefined' && __firebase_config !== null && String(__firebase_config).trim() !== '') {
+            if (typeof __firebase_config === 'string' && __firebase_config.trim() !== '') {
                 try {
                     firebaseConfigObject = JSON.parse(__firebase_config);
                     parsedSuccessfully = true;
-                } catch (e) {
-                    console.error("Firebase config parsing error:", e);
-                }
-            } else {
-                 console.warn("__firebase_config is not defined or empty. Firebase features will be unavailable.");
-            }
+                } catch (e) { console.error("Firebase config parsing error:", e); }
+            } else if (typeof __firebase_config === 'object' && __firebase_config !== null) {
+                firebaseConfigObject = __firebase_config; // Already an object
+                parsedSuccessfully = true;
+            } else { console.warn("__firebase_config is not defined, empty, or not a string/object. Firebase features will be unavailable.");}
             
             if (!parsedSuccessfully || !firebaseConfigObject.apiKey || !firebaseConfigObject.authDomain || !firebaseConfigObject.projectId) {
                 console.error("Firebase configuration is invalid or missing critical fields.");
                 if (typeof __firebase_config !== 'undefined' && __firebase_config !== null) { 
-                     showAppModal("Lỗi Cấu Hình", "Cấu hình Firebase không hợp lệ. Một số tính năng có thể không hoạt động. (Mã lỗi: CFG_CRITICAL)", "error");
+                     showAppModal("Configuration Error", "Firebase configuration is invalid. Some features may not work correctly.", "error", "CFG_CRITICAL");
                 }
-                if(el.userIdDisplay) el.userIdDisplay.textContent = 'User ID: Lỗi Cấu hình Firebase';
+                if(el.userIdDisplay) el.userIdDisplay.textContent = 'User ID: Firebase Config Error';
                 toggleLoadingSpinner(false);
-                AOS.init({ duration: 800, once: true, offset: 50 }); 
+                AOS.init({ duration: 700, once: true, offset: 30, easing: 'ease-out-cubic' }); 
                 initializeScrollToTop(); 
-                setActiveTab('apply'); // Default to apply tab even if Firebase fails
+                setActiveTab('apply'); 
                 return; 
             }
 
@@ -490,71 +483,49 @@
                 db = getFirestore(app);
                 auth = getAuth(app);
 
-                const currentInitialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                const currentInitialAuthToken = typeof __initial_auth_token === 'string' && __initial_auth_token.trim() !== '' ? __initial_auth_token : null;
 
                 if (currentInitialAuthToken) {
-                    try {
-                        await signInWithCustomToken(auth, currentInitialAuthToken);
-                    } catch (error) {
-                        console.warn("Custom token sign-in failed, attempting anonymous sign-in:", error.message);
-                        await signInAnonymously(auth);
-                    }
-                } else {
-                    await signInAnonymously(auth);
-                }
+                    try { await signInWithCustomToken(auth, currentInitialAuthToken); }
+                    catch (error) { console.warn("Custom token sign-in failed, attempting anonymous: ", error.message); await signInAnonymously(auth); }
+                } else { await signInAnonymously(auth); }
                 
                 onAuthStateChanged(auth, (user) => {
                     if (user) {
                         userId = user.uid;
-                        if(el.userIdDisplay) el.userIdDisplay.textContent = `User ID: ${userId.substring(0, 8)}...`; // Show partial for brevity
+                        if(el.userIdDisplay) el.userIdDisplay.textContent = `User ID: ${userId.substring(0, 8)}...`;
                         isAuthReady = true;
-                        if (currentActiveTab === 'view' && teacherOverviewSection) { // If view tab was already selected
-                            loadApprovedTeachers();
-                        }
+                        if (currentActiveTab === 'view' && el.teacherOverviewSection) loadApprovedTeachers();
                     } else {
                         userId = null;
-                         if(el.userIdDisplay) el.userIdDisplay.textContent = 'User ID: Chưa xác thực';
+                        if(el.userIdDisplay) el.userIdDisplay.textContent = 'User ID: Not Authenticated';
                         isAuthReady = false;
-                         showAppModal("Chưa xác thực", "Bạn đang truy cập với tư cách khách. Một số tính năng sẽ bị hạn chế.", "warning");
+                        showAppModal("Not Authenticated", "You are browsing as a guest. Some features may be limited.", "warning", "AUTH_STATE_GUEST");
                     }
                     toggleLoadingSpinner(false);
                 });
-
             } catch (error) {
-                console.error("Firebase initialization or auth error:", error.message);
-                showAppModal("Lỗi Hệ Thống", "Không thể khởi tạo dịch vụ ứng dụng. Vui lòng thử lại sau. (Mã lỗi: SYS_INIT_FAIL)", "error");
-                if(el.userIdDisplay) el.userIdDisplay.textContent = 'User ID: Lỗi Khởi tạo';
+                console.error("Firebase initialization error:", error.message);
+                showAppModal("System Error", "Could not initialize application services. Please try again later.", "error", "SYS_INIT_CRITICAL");
+                if(el.userIdDisplay) el.userIdDisplay.textContent = 'User ID: Initialization Error';
                 toggleLoadingSpinner(false);
             }
 
-            AOS.init({ duration: 800, once: true, offset: 50 });
+            AOS.init({ duration: 700, once: true, offset: 30, easing: 'ease-out-cubic' });
             initializeScrollToTop();
-            setActiveTab('apply'); // Set initial active tab
+            setActiveTab('apply');
         };
 
         function initializeScrollToTop(){
             const scrollToTopBtn = document.getElementById('scrollToTopBtn');
             if (scrollToTopBtn) {
-                window.addEventListener('scroll', () => {
-                    if (window.pageYOffset > 300) { // Show button after more scrolling
-                        scrollToTopBtn.classList.remove('hidden');
-                        scrollToTopBtn.classList.add('flex');
-                    } else {
-                        scrollToTopBtn.classList.remove('flex');
-                        scrollToTopBtn.classList.add('hidden');
-                    }
-                }, { passive: true });
-
-                scrollToTopBtn.addEventListener('click', () => {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-                // Initial visibility check
-                if (window.pageYOffset <= 300) { 
-                    scrollToTopBtn.classList.add('hidden');
-                } else {
-                    scrollToTopBtn.classList.remove('hidden');
-                    scrollToTopBtn.classList.add('flex');
-                }
+                const checkVisibility = () => {
+                    if (window.pageYOffset > 300) scrollToTopBtn.classList.replace('hidden', 'flex');
+                    else scrollToTopBtn.classList.replace('flex', 'hidden');
+                };
+                window.addEventListener('scroll', checkVisibility, { passive: true });
+                scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+                checkVisibility(); // Initial check
             }
         }
 
@@ -563,52 +534,39 @@
             toggleLoadingSpinner(true);
 
             if (!db || !auth.currentUser || !isAuthReady) {
-                showAppModal("Lỗi Hệ Thống", "Chưa thể gửi hồ sơ. Vui lòng đảm bảo bạn đã kết nối mạng và thử lại. (Mã lỗi: FORM_SUBMIT_AUTH_FAIL)", "error");
+                showAppModal("System Error", "Cannot submit application. Please ensure you are connected and authenticated.", "error", "FORM_NO_AUTH");
                 toggleLoadingSpinner(false);
                 return;
             }
             const currentUserIDSubmit = auth.currentUser.uid;
 
-            // Gather form data
             const formData = new FormData(el.teacherApplicationForm);
-            const teacherApplicationData = {};
-            formData.forEach((value, key) => {
-                if (key === 'subjects') {
-                    teacherApplicationData[key] = value.split(',').map(s => s.trim()).filter(s => s);
-                } else if (key === 'experience') {
-                    teacherApplicationData[key] = parseInt(value) || 0;
-                } 
-                else {
-                    teacherApplicationData[key] = value;
-                }
-            });
+            const teacherApplicationData = Object.fromEntries(formData.entries());
+            teacherApplicationData.subjects = formData.get('subjects').split(',').map(s => s.trim()).filter(s => s);
+            teacherApplicationData.experience = parseInt(formData.get('experience')) || 0;
             
-            const placeholderInitialSubmit = encodeURIComponent((teacherApplicationData.fullName || 'GV').charAt(0).toUpperCase());
-            const finalPhotoUrl = teacherApplicationData.photoUrl || `https://placehold.co/100x100/004080/FFFFFF?text=${placeholderInitialSubmit}`;
+            const placeholderInitialSubmit = encodeURIComponent((teacherApplicationData.fullName || 'N/A').charAt(0).toUpperCase());
+            const finalPhotoUrl = teacherApplicationData.photoUrl || `https://placehold.co/100x100/004080/FFFFFF?text=${placeholderInitialSubmit}&font=lexend`;
+
+            const generatedApplicationId = doc(collection(db, "_dummy")).id; // Generate client-side ID
 
             const applicationToSave = {
                 ...teacherApplicationData,
                 photoUrl: finalPhotoUrl,
                 submissionTimestamp: serverTimestamp(),
                 userId: currentUserIDSubmit,
-                applicationId: doc(collection(db, "dummy")).id // Generate a client-side ID first
+                applicationId: generatedApplicationId 
             };
             
-            // Define references
-            const userApplicationRef = doc(collection(db, `artifacts/${appId}/users/${currentUserIDSubmit}/teacher_applications`), applicationToSave.applicationId);
-            const publicApplicationRef = doc(collection(db, `artifacts/${appId}/public/data/teacher_applications`), applicationToSave.applicationId);
+            const userApplicationRef = doc(db, `artifacts/${appId}/users/${currentUserIDSubmit}/teacher_applications`, generatedApplicationId);
+            const publicApplicationRef = doc(db, `artifacts/${appId}/public/data/teacher_applications`, generatedApplicationId);
 
             const publicDataSubset = {
-                fullName: applicationToSave.fullName,
-                nationality: applicationToSave.nationality,
-                qualification: applicationToSave.qualification,
-                experience: applicationToSave.experience,
-                subjects: applicationToSave.subjects,
-                bio: applicationToSave.bio,
-                photoUrl: applicationToSave.photoUrl,
-                isApprovedForPublicDisplay: false,
-                applicationId: applicationToSave.applicationId,
-                userId: currentUserIDSubmit 
+                fullName: applicationToSave.fullName, nationality: applicationToSave.nationality,
+                qualification: applicationToSave.qualification, experience: applicationToSave.experience,
+                subjects: applicationToSave.subjects, bio: applicationToSave.bio,
+                photoUrl: applicationToSave.photoUrl, isApprovedForPublicDisplay: false,
+                applicationId: generatedApplicationId, userId: currentUserIDSubmit 
             };
             
             try {
@@ -616,38 +574,33 @@
                 await setDoc(publicApplicationRef, publicDataSubset);
                 
                 showAppModal(
-                    "Hồ sơ đã được gửi!", 
-                    `Cảm ơn bạn đã ứng tuyển. Mã hồ sơ: ${applicationToSave.applicationId.substring(0,6)}. Vui lòng truy cập <a href='https://docs.google.com/forms/d/e/1FAIpQLSd_TJ-EstYhFVSEAHGzqG-36dsbkdxvYRuGHiCi5PvgUICjnA/viewform?usp=sharing&ouid=109196735657445874239' target='_blank' class='font-semibold text-ivs-primary dark:text-ivs-secondary hover:underline'>đây</a> để hoàn tất các tài liệu bổ sung.`,
+                    "Application Submitted!", 
+                    `Thank you for applying. Your application ID is ${generatedApplicationId.substring(0,6)}. Please visit <a href='https://docs.google.com/forms/d/e/1FAIpQLSd_TJ-EstYhFVSEAHGzqG-36dsbkdxvYRuGHiCi5PvgUICjnA/viewform?usp=sharing&ouid=109196735657445874239' target='_blank' class='font-semibold text-ivs-primary dark:text-ivs-secondary hover:underline'>this link</a> to complete supplementary documents.`,
                     "success"
                 );
                 el.teacherApplicationForm.reset();
             } catch (error) {
-                console.error("Lỗi khi gửi hồ sơ ứng tuyển: ", error.message);
-                showAppModal("Gửi Hồ sơ Thất bại", "Đã có lỗi xảy ra. Vui lòng thử lại. (Mã lỗi: FORM_SUBMIT_DB_FAIL)", "error");
+                console.error("Error submitting application: ", error.message);
+                showAppModal("Submission Failed", "An error occurred while submitting your application. Please try again.", "error", "FORM_DB_FAIL");
             } finally {
                 toggleLoadingSpinner(false);
             }
         });
 
-        let unsubscribeTeachers = null; // To store the listener
         function loadApprovedTeachers() {
             if (!db || !isAuthReady) {
-                if(el.teachersList) el.teachersList.innerHTML = `<p class="text-center text-ivs-neutral-500 dark:text-ivs-neutral-400 col-span-full py-6" data-lang-key="hub_error_loading_teachers_auth">Cần xác thực để xem danh sách.</p>`;
+                if(el.teachersList) el.teachersList.innerHTML = `<p class="text-center text-ivs-neutral-500 dark:text-ivs-neutral-400 col-span-full py-6">Authentication required to view teachers.</p>`;
                 return;
             }
             if (!el.teachersList || !el.noTeachersMessage) return;
 
             toggleLoadingSpinner(true);
-
-            // Unsubscribe from previous listener if it exists
-            if (unsubscribeTeachers) {
-                unsubscribeTeachers();
-            }
+            if (unsubscribeTeachers) unsubscribeTeachers(); // Unsubscribe from previous listener
 
             const q = query(collection(db, `artifacts/${appId}/public/data/teacher_applications`), where("isApprovedForPublicDisplay", "==", true));
             
             unsubscribeTeachers = onSnapshot(q, (snapshot) => { 
-                if (!el.teachersList) return; // Element might have been removed if user navigated away
+                if (!el.teachersList) return; 
                 el.teachersList.innerHTML = ''; 
                 if (snapshot.empty) {
                     if(el.noTeachersMessage) el.noTeachersMessage.classList.remove('hidden');
@@ -655,22 +608,22 @@
                     if(el.noTeachersMessage) el.noTeachersMessage.classList.add('hidden');
                     snapshot.forEach((docSnap) => {
                         const teacher = docSnap.data();
-                        const initial = encodeURIComponent((teacher.fullName || 'GV').charAt(0).toUpperCase());
+                        const initial = encodeURIComponent((teacher.fullName || 'N/A').charAt(0).toUpperCase());
                         const teacherCardHTML = `
-                            <article class="teacher-profile-card bg-white dark:bg-ivs-neutral-800 rounded-xl shadow-lg overflow-hidden flex flex-col items-center p-6">
-                                <img src="${teacher.photoUrl || `https://placehold.co/100x100/004080/FFFFFF?text=${initial}`}" 
-                                     alt="Ảnh hồ sơ của ${teacher.fullName || 'Giáo viên'}" 
-                                     class="teacher-avatar w-24 h-24 rounded-full object-cover mb-4" 
-                                     onerror="this.onerror=null; this.src='https://placehold.co/100x100/374151/FFFFFF?text=${initial}'; this.alt='Ảnh lỗi';">
-                                <h3 class="text-xl font-display font-semibold text-ivs-primary dark:text-ivs-secondary mb-1 text-center">${teacher.fullName || 'Chưa cập nhật'}</h3>
-                                <p class="text-sm text-ivs-neutral-500 dark:text-ivs-neutral-400 mb-3 text-center">${teacher.qualification || 'Chuyên môn chưa cập nhật'}</p>
+                            <article class="teacher-profile-card rounded-xl shadow-lg overflow-hidden flex flex-col items-center p-6 text-center">
+                                <img src="${teacher.photoUrl || `https://placehold.co/128x128/004080/FFFFFF?text=${initial}&font=lexend`}" 
+                                     alt="Profile photo of ${teacher.fullName || 'Educator'}" 
+                                     class="teacher-avatar w-28 h-28 rounded-full object-cover mb-5" 
+                                     onerror="this.onerror=null; this.src='https://placehold.co/128x128/374151/FFFFFF?text=${initial}&font=lexend';">
+                                <h3 class="text-xl font-display font-semibold text-ivs-primary dark:text-ivs-secondary mb-1">${teacher.fullName || 'Name Not Provided'}</h3>
+                                <p class="text-sm text-ivs-neutral-500 dark:text-ivs-neutral-400 mb-4">${teacher.qualification || 'Qualification Not Specified'}</p>
                                 
-                                <div class="w-full text-left text-sm space-y-1 mb-4">
-                                    <p><i class="fas fa-flag fa-fw mr-2 text-ivs-primary dark:text-ivs-secondary"></i><strong>Quốc tịch:</strong> ${teacher.nationality || 'N/A'}</p>
-                                    <p><i class="fas fa-briefcase fa-fw mr-2 text-ivs-primary dark:text-ivs-secondary"></i><strong>Kinh nghiệm:</strong> ${teacher.experience !== undefined ? `${teacher.experience} năm` : 'N/A'}</p>
-                                    <p><i class="fas fa-book-open fa-fw mr-2 text-ivs-primary dark:text-ivs-secondary"></i><strong>Môn dạy:</strong> ${(teacher.subjects && Array.isArray(teacher.subjects) && teacher.subjects.join(', ')) || 'N/A'}</p>
+                                <div class="w-full text-left text-xs sm:text-sm space-y-2 mb-4 border-t border-ivs-neutral-200 dark:border-ivs-neutral-700 pt-4">
+                                    <p class="flex items-center"><i class="fas fa-flag fa-fw w-5 mr-2 text-ivs-primary dark:text-ivs-secondary"></i><strong>Nationality:</strong> <span class="ml-1">${teacher.nationality || 'N/A'}</span></p>
+                                    <p class="flex items-center"><i class="fas fa-briefcase fa-fw w-5 mr-2 text-ivs-primary dark:text-ivs-secondary"></i><strong>Experience:</strong> <span class="ml-1">${teacher.experience !== undefined ? `${teacher.experience} years` : 'N/A'}</span></p>
+                                    <p class="flex items-center"><i class="fas fa-book-open fa-fw w-5 mr-2 text-ivs-primary dark:text-ivs-secondary"></i><strong>Subjects:</strong> <span class="ml-1">${(teacher.subjects && Array.isArray(teacher.subjects) && teacher.subjects.join(', ')) || 'N/A'}</span></p>
                                 </div>
-                                <p class="text-xs text-ivs-neutral-600 dark:text-ivs-neutral-300 italic text-center bg-ivs-neutral-100 dark:bg-ivs-neutral-700 p-3 rounded-md">"${teacher.bio || 'Chưa có giới thiệu.'}"</p>
+                                <p class="text-xs text-ivs-neutral-600 dark:text-ivs-neutral-300 italic bg-ivs-neutral-100 dark:bg-ivs-neutral-700 p-3 rounded-md w-full">"${teacher.bio || 'No bio provided.'}"</p>
                             </article>
                         `;
                         el.teachersList.insertAdjacentHTML('beforeend', teacherCardHTML);
@@ -678,19 +631,12 @@
                 }
                 toggleLoadingSpinner(false);
             }, (error) => {
-                console.error("Lỗi lắng nghe danh sách giáo viên: ", error.message);
-                showAppModal("Lỗi Tải Danh Sách", "Không thể cập nhật danh sách giáo viên. Vui lòng thử lại. (Mã lỗi: SNAPSHOT_FAIL)", "error");
-                if(el.teachersList) el.teachersList.innerHTML = `<p class="text-center text-ivs-danger col-span-full py-6" data-lang-key="hub_load_teachers_fail_msg">Đã xảy ra lỗi khi tải danh sách.</p>`;
+                console.error("Error listening to teacher list: ", error.message);
+                showAppModal("Error Loading List", "Could not update teacher list. Please try again.", "error", "SNAPSHOT_FAIL_REALTIME");
+                if(el.teachersList) el.teachersList.innerHTML = `<p class="text-center text-ivs-danger col-span-full py-6">An error occurred while loading the teacher list.</p>`;
                 toggleLoadingSpinner(false);
             });
         }
-
-        // Initialize Dark Mode based on localStorage or system preference
-        // This script assumes `toggleDarkMode` and `currentTheme` are handled globally or in `script.js`
-        // If not, they should be defined here or imported.
-        // For now, ensure this doesn't break if script.js is not fully functional.
-        // Example: document.documentElement.classList.toggle('dark', localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches));
-
     </script>
 </body>
 </html>
