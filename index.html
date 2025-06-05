@@ -23,9 +23,10 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio,line-clamp"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -40,6 +41,8 @@
                         'ivs-neutral-800': '#1f2937',
                         'ivs-neutral-700': '#374151',
                         'ivs-neutral-600': '#4B5563',
+                        'ivs-neutral-500': '#6b7280',
+                        'ivs-neutral-400':'#9ca3af',
                         'ivs-neutral-300': '#D1D5DB',
                         'ivs-neutral-200': '#e5e7eb',
                         'ivs-neutral-100': '#f3f4f6',
@@ -47,27 +50,50 @@
                         'purple-accent': '#8b5cf6',
                         'warning': '#f59e0b',
                         'blue-50': '#eff6ff',
+                        'blue-100': '#dbeafe',
                         'blue-200': '#bfdbfe',
+                        'blue-400': '#60a5fa',
                         'blue-500': '#3b82f6',
                         'blue-600': '#2563eb', 
                         'blue-700': '#1d4ed8',
                         'blue-800': '#1e40af',
-                        'purple-50': '#faf5ff',
+                        'blue-900':'#1e3a8a',
+                        'purple-100': '#f3e8ff',
                         'purple-500': '#a855f7',
                         'purple-600': '#9333ea',
                         'purple-700': '#7e2d87',
-                        'emerald-50': '#ecfdf5',
-                        'emerald-200': '#a7f3d0',
-                        'emerald-500': '#10b981',
-                        'emerald-600': '#059669',
-                        'amber-200': '#fde68a',
-                        'amber-500': '#f59e0b',
-                        'orange-200': '#fed7aa',
-                        'orange-500': '#f97316',
-                        'teal-600': '#0d9488',
+                        'purple-900':'#581c87',
+                        'green-100': '#dcfce7',
+                        'green-400':'#4ade80',
+                        'green-500': '#22c55e',
+                        'green-600': '#16a34a',
+                        'green-900': '#14532d',
+                        'yellow-100': '#fef9c3',
+                        'yellow-400': '#facc15',
+                        'yellow-500': '#eab308',
+                        'yellow-900': '#713f12',
+                        'red-100': '#fee2e2',
+                        'red-400': '#f87171',
+                        'red-500': '#ef4444',
+                        'red-600': '#dc2626',
+                        'red-900': '#7f1d1d',
+                        'indigo-100': '#e0e7ff',
+                        'indigo-400': '#818cf8',
+                        'indigo-500': '#6366f1',
                         'indigo-600': '#4f46e5',
-                        'indigo-700': '#4338ca',
-                        'pink-500': '#ec4899'
+                        'indigo-900': '#312e81',
+                        'teal-100': '#ccfbf1',
+                        'teal-400': '#2dd4bf',
+                        'teal-500': '#14b8a6',
+                        'teal-900': '#0f766e',
+                        'pink-100': '#fce7f3',
+                        'pink-400': '#f472b6',
+                        'pink-500': '#ec4899',
+                        'pink-900': '#831843',
+                        'orange-400': '#fb923c',
+                        'orange-700':'#c2410c',
+                        'slate-700': '#334155',
+                        'slate-800': '#1e293b'
                     }
                 }
             },
@@ -82,25 +108,88 @@
         :root {
             --primary-color: #004080;
             --primary-dark-color: #003366;
+            --secondary-color: #ffc107;
+            --secondary-dark-color: #e0a800;
             --ivs-neutral-800-color: #1f2937;
             --ivs-neutral-700-color: #374151;
             --ivs-neutral-300-color: #D1D5DB;
             --ivs-neutral-200-color: #e5e7eb;
             --ivs-neutral-50-color: #f9fafb;
         }
-        main > .container { /* This targets only the direct .container child of main to avoid conflicts with Tailwind's .container */
-            background-color: #ffffff;
-            border-radius: 1rem;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            /* max-width: 800px; /* Consider removing if using Tailwind's container for layout control */
+        .hero-text-shadow {
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(0, 30, 60, 0.4); 
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 4rem 1rem; 
+        }
+         .hero-section-banner {
+            min-height: 50vh; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .video-background-section {
+            min-height: 40vh; 
+        }
+        .service-card, .testimonial-card, .education-level-card {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .service-card:hover, .testimonial-card:hover, .education-level-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1050;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s linear 0.3s, opacity 0.3s ease;
+        }
+        .modal.show {
+            visibility: visible;
+            opacity: 1;
+            transition-delay: 0s;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
             text-align: center;
+            max-width: 400px;
+            width: calc(100% - 2rem);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+         .dark .modal-content {
+            background-color: var(--ivs-neutral-800-color);
+        }
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+        .modal-content button {
+            margin-top: 1.5rem;
         }
         .button-primary {
             background-color: var(--primary-color);
             color: white;
-            padding: 0.75rem 1.5rem;
+            padding: 0.65rem 1.25rem;
             border-radius: 0.5rem;
             font-weight: 600;
             transition: background-color 0.3s ease;
@@ -110,98 +199,6 @@
         .button-primary:hover {
             background-color: var(--primary-dark-color);
         }
-        .button-secondary {
-            background-color: var(--ivs-neutral-700-color);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-            border: none;
-        }
-        .button-secondary:hover {
-            background-color: var(--ivs-neutral-800-color);
-        }
-        .input-field {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid var(--ivs-neutral-300-color);
-            border-radius: 0.5rem;
-            font-size: 1rem;
-        }
-        .textarea-field {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid var(--ivs-neutral-300-color);
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            min-height: 100px;
-            resize: vertical;
-        }
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s, opacity 0.3s;
-        }
-        .modal.show {
-            visibility: visible;
-            opacity: 1;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        .modal-content button {
-            margin-top: 1rem;
-        }
-        .tab-button {
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            cursor: pointer;
-            border: none;
-            background-color: var(--ivs-neutral-200-color);
-            color: var(--ivs-neutral-800-color);
-            transition: background-color 0.3s ease;
-        }
-        .tab-button.active {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        .teacher-card {
-            background-color: var(--ivs-neutral-50-color);
-            border-radius: 0.75rem;
-            padding: 1.5rem;
-            text-align: left;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        }
-        .teacher-card img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 1rem;
-            border: 3px solid var(--primary-color);
-        }
-
         .chatbot-container {
             position: fixed;
             bottom: 20px;
@@ -211,12 +208,11 @@
             flex-direction: column;
             align-items: flex-end;
         }
-
         .chatbot-button {
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background-color: #004080; 
+            background-color: var(--primary-color);
             color: white;
             display: flex;
             align-items: center;
@@ -226,16 +222,14 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, background-color 0.3s ease;
         }
-
         .chatbot-button:hover {
             transform: scale(1.05);
-            background-color: #003366; 
+            background-color: var(--primary-dark-color);
         }
-
         .chatbot-window {
             width: 350px;
             height: 500px;
-            background-color: #f9fafb; 
+            background-color: var(--ivs-neutral-50-color);
             border-radius: 12px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
             display: flex;
@@ -245,17 +239,16 @@
             transform: translateY(10px);
             opacity: 0;
             visibility: hidden;
-            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s linear 0.3s;
         }
-
         .chatbot-window.open {
             transform: translateY(0);
             opacity: 1;
             visibility: visible;
+            transition-delay: 0s;
         }
-
         .chatbot-header {
-            background-color: #004080; 
+            background-color: var(--primary-color);
             color: white;
             padding: 1rem;
             font-size: 1.125rem;
@@ -266,70 +259,83 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .chatbot-header .close-button {
             background: none;
             border: none;
             color: white;
             font-size: 1.5rem;
             cursor: pointer;
+            padding: 0.25rem;
         }
-
         .chatbot-messages {
             flex-grow: 1;
             padding: 1rem;
             overflow-y: auto;
             background-color: #ffffff;
-            border-bottom: 1px solid #e5e7eb; 
+            border-bottom: 1px solid var(--ivs-neutral-200-color);
         }
-
+        .dark .chatbot-messages {
+            background-color: var(--ivs-neutral-700-color);
+            border-bottom-color: var(--ivs-neutral-600-color);
+        }
         .message {
             margin-bottom: 0.75rem;
             padding: 0.6rem 1rem;
             border-radius: 10px;
             max-width: 80%;
             word-wrap: break-word;
+            line-height: 1.5;
         }
-
         .message.user {
-            background-color: #bfdbfe; 
-            color: #1f2937; 
+            background-color: theme('colors.blue-200');
+            color: theme('colors.ivs-neutral-800');
             align-self: flex-end;
             margin-left: auto;
         }
-
+        .dark .message.user {
+            background-color: theme('colors.blue-500');
+            color: white;
+        }
         .message.bot {
-            background-color: #e5e7eb; 
-            color: #1f2937; 
+            background-color: theme('colors.ivs-neutral-200');
+            color: theme('colors.ivs-neutral-800');
             align-self: flex-start;
             margin-right: auto;
         }
-
+         .dark .message.bot {
+            background-color: theme('colors.ivs-neutral-600');
+            color: theme('colors.ivs-neutral-100');
+        }
         .chatbot-input-area {
             display: flex;
             padding: 1rem;
-            background-color: #f9fafb; 
+            background-color: var(--ivs-neutral-50-color);
             border-bottom-left-radius: 12px;
             border-bottom-right-radius: 12px;
         }
-
+         .dark .chatbot-input-area {
+             background-color: var(--ivs-neutral-700-color);
+         }
         .chatbot-input-area input {
             flex-grow: 1;
             padding: 0.75rem;
-            border: 1px solid #d1d5db; 
+            border: 1px solid var(--ivs-neutral-300-color);
             border-radius: 8px;
             margin-right: 0.75rem;
             font-size: 1rem;
             outline: none;
             transition: border-color 0.2s ease;
         }
-
-        .chatbot-input-area input:focus {
-            border-color: #3b82f6; 
+        .dark .chatbot-input-area input {
+            background-color: var(--ivs-neutral-600-color);
+            border-color: var(--ivs-neutral-500-color);
+            color: var(--ivs-neutral-100-color);
         }
-
+        .chatbot-input-area input:focus {
+            border-color: var(--primary-color);
+        }
         .chatbot-input-area button {
-            background-color: #004080; 
+            background-color: var(--primary-color);
             color: white;
             border: none;
             border-radius: 8px;
@@ -337,16 +343,13 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-
         .chatbot-input-area button:hover {
-            background-color: #003366; 
+            background-color: var(--primary-dark-color);
         }
-
         .chatbot-input-area button:disabled {
-            background-color: #9ca3af;
+            background-color: theme('colors.ivs-neutral-400');
             cursor: not-allowed;
         }
-
         @media (max-width: 768px) {
             .chatbot-container {
                 bottom: 15px;
@@ -358,9 +361,9 @@
                 font-size: 20px;
             }
             .chatbot-window {
-                width: 90vw;
-                height: 70vh;
-                max-width: 400px; 
+                width: calc(100vw - 30px);
+                height: calc(100vh - 80px);
+                max-width: 400px;
                 max-height: 600px;
                 margin-bottom: 10px;
             }
@@ -374,27 +377,27 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-index">
+<body class="bg-ivs-neutral-100 dark:bg-ivs-neutral-800 text-ivs-neutral-800 dark:text-ivs-neutral-200 antialiased font-sans" id="page-index">
     
-    <div id="header-placeholder" data-loading-text="Loading menu..."></div>
+    <div id="header-placeholder" data-loading-text="Đang tải menu..."></div>
 
-    <div id="loading-spinner" class="fixed inset-0 flex items-center justify-center bg-gray-200 bg-opacity-75 z-50 hidden">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+    <div id="loading-spinner" class="fixed inset-0 flex items-center justify-center bg-gray-200/75 dark:bg-gray-900/75 z-[1100] hidden">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary"></div>
     </div>
 
     <div id="custom-modal" class="modal">
         <div class="modal-content">
-            <p id="modal-message" class="text-lg font-medium text-gray-800"></p>
-            <button id="modal-close-button" class="button-primary">Close</button>
+            <p id="modal-message" class="text-lg font-medium text-ivs-neutral-800 dark:text-ivs-neutral-100"></p>
+            <button id="modal-close-button" class="button-primary">Đóng</button>
         </div>
     </div>
 
-    <main class="container mx-auto px-4 py-8"> 
+    <main class="container mx-auto px-4 py-8">
         <section 
-            class="hero-section-banner relative text-center overflow-hidden shadow-xl bg-gray-700 dark:bg-gray-800 rounded-lg"> 
+            class="hero-section-banner relative text-center overflow-hidden shadow-xl bg-ivs-neutral-700 dark:bg-ivs-neutral-800 rounded-lg"> 
             <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/images/logo/webbanner.png');" onerror="this.style.backgroundImage='url(https://placehold.co/1920x600/004080/ffffff?text=IVS+Banner)'; this.classList.add('bg-slate-700');"></div>
-            <div class="hero-overlay" style="background-color: rgba(0, 30, 60, 0.5); position: absolute; inset: 0; z-index: 1;"></div>
-            <div class="hero-content text-white relative z-10 py-20 md:py-32">
+            <div class="hero-overlay"></div>
+            <div class="hero-content text-white">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 hero-text-shadow" data-lang-key="hero_title_index_main">IVS JSC</h1>
                 <p class="text-md md:text-lg mb-8 hero-text-shadow italic" data-lang-key="hero_slogan_index">"Nâng tầm Tri thức - Kiến tạo Tương lai"</p>
                 <div>
@@ -404,27 +407,26 @@
         </section>
 
         <section class="py-8 bg-primary text-white text-center rounded-lg shadow-lg my-8 mx-auto max-w-7xl" data-aos="fade-up">
-            <div class="mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4" data-lang-key="teacher_hub_cta_title">Are you a teacher? Join IVS Global Teacher Hub!</h2>
-                <!-- UPDATED LINK for Teacher Hub -->
-                <a href="apps/ivs-global-teacher-hub.html" class="inline-block bg-secondary hover:bg-secondary-dark text-primary-dark font-bold py-3 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md" data-lang-key="teacher_hub_cta_button">Apply Here & Explore Opportunities</a>
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4" data-lang-key="teacher_hub_cta_title">Bạn là giáo viên? Đăng ký ngay!</h2>
+                <a href="apps/ivs-global-teacher-hub.html" class="inline-block bg-secondary hover:bg-secondary-dark text-primary-dark font-bold py-3 px-8 rounded-lg text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md" data-lang-key="teacher_hub_cta_button">Ứng tuyển tại đây</a>
             </div>
         </section>
         
-        <section class="py-16 bg-gray-800 dark:bg-slate-800 relative text-white video-background-section rounded-lg shadow-xl my-8 md:my-12 mx-auto max-w-7xl overflow-hidden" data-aos="fade-up">
+        <section class="py-16 bg-ivs-neutral-800 dark:bg-slate-800 relative text-white video-background-section rounded-lg shadow-xl my-8 md:my-12 mx-auto max-w-7xl overflow-hidden" data-aos="fade-up">
             <div class="video-background-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0;">
             <video autoplay muted loop playsinline 
                    poster="https://placehold.co/1280x720/1a202c/ffffff?text=IVS+Video+Loading..." 
-                   style="filter: brightness(1.2); width: 100%; height: 100%; object-fit: cover;" 
+                   style="filter: brightness(0.8); width: 100%; height: 100%; object-fit: cover;" 
                    onerror="this.poster='https://placehold.co/1280x720/000000/ffffff?text=Video+Error'; this.style.backgroundColor='#000';"> 
                 <source src="/videos/ivs_background_video.mp4" type="video/mp4">
-                Your browser does not support the video tag.
+                Trình duyệt của bạn không hỗ trợ thẻ video.
             </video>
             </div>
-            <div class="video-overlay" style="background-color: rgba(0, 0, 0, 0.5); position: absolute; inset: 0; z-index: 1;"></div>
+            <div class="video-overlay" style="background-color: rgba(0, 20, 40, 0.4); position: absolute; inset: 0; z-index: 1;"></div>
             <div class="container mx-auto px-6 md:px-12 text-center section-content-on-video relative z-10 py-20 md:py-28">
                 <h2 class="text-3xl font-bold mb-6" data-lang-key="index_section_title_our_core">IVS Academy</h2>
-                <a href="about.html" class="inline-block bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-8 rounded-lg text-md transition duration-300 ease-in-out transform hover:scale-105 shadow-md" data-lang-key="button_learn_more_about_us">About Us</a>
+                <a href="about.html" class="inline-block bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-8 rounded-lg text-md transition duration-300 ease-in-out transform hover:scale-105 shadow-md" data-lang-key="button_learn_more_about_us">Tìm hiểu về Chúng tôi</a>
             </div>
         </section>
 
@@ -494,7 +496,7 @@
 
         <section class="py-16 md:py-20 bg-white dark:bg-gray-900" data-aos="fade-up" aria-labelledby="legal-consulting-section">
             <div class="container mx-auto px-4">
-                <h2 id="legal-consulting-section" class="text-center text-3xl font-bold text-gray-800 dark:text-gray-100 mb-12" data-lang-key="index_featured_legal_title">Dịch vụ Nổi bật: Tư vấn Pháp lý Chuyên sâu</h2>
+                <h2 id="legal-consulting-section-heading" class="text-center text-3xl font-bold text-gray-800 dark:text-gray-100 mb-12" data-lang-key="index_featured_legal_title">Dịch vụ Nổi bật: Tư vấn Pháp lý Chuyên sâu</h2>
                 <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-8 max-w-4xl mx-auto">
                     <div class="service-card bg-gray-50 p-8 rounded-xl shadow-lg flex flex-col items-center text-center dark:bg-slate-800 dark:border-slate-700" data-aos="zoom-in-up" data-aos-delay="100">
                         <div class="bg-blue-100 dark:bg-blue-900/50 p-4 rounded-full mb-6">
@@ -508,9 +510,9 @@
             </div>
         </section>
         
-        <section class="py-16 md:py-20 bg-white dark:bg-gray-900" data-aos="fade-up" aria-labelledby="education-programs-section">
+        <section class="py-16 md:py-20 bg-white dark:bg-gray-900" data-aos="fade-up" aria-labelledby="education-programs-section-heading">
             <div class="container mx-auto px-4">
-                <h2 id="education-programs-section" class="text-center text-3xl font-bold text-gray-800 dark:text-gray-100 mb-12" data-lang-key="index_section_title_education_programs_detail">Chương Trình Đào Tạo Chi Tiết</h2>
+                <h2 id="education-programs-section-heading" class="text-center text-3xl font-bold text-gray-800 dark:text-gray-100 mb-12" data-lang-key="index_section_title_education_programs_detail">Chương Trình Đào Tạo Chi Tiết</h2>
                 <div id="education-programs-container" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
                     <a href="/Pages/lkmamnon.html" class="education-level-card group block bg-gray-50 dark:bg-slate-800 dark:border-slate-700 p-6 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300 ease-in-out text-center" data-aos="fade-up" data-aos-delay="100">
                         <div class="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-blue-100 dark:bg-blue-900/50 group-hover:bg-blue-200 dark:group-hover:bg-blue-800/70 transition-colors duration-300 mb-4">
@@ -564,7 +566,7 @@
             </div>
         </section>
         
-        <section class="py-16 bg-gray-50 dark:bg-gray-800/30" data-aos="fade-up" aria-labelledby="why-choose-ivs-section"> 
+        <section class="py-16 bg-gray-50 dark:bg-gray-800/30" data-aos="fade-up" aria-labelledby="why-choose-ivs-section-heading"> 
             <div class="container mx-auto px-6 md:px-12">
                 <h2 id="why-choose-ivs-section-heading" class="text-center text-3xl font-bold text-gray-800 dark:text-gray-100 mb-12" data-lang-key="index_section_title_why_us">Tại Sao Chọn IVS JSC?</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
@@ -644,7 +646,7 @@
                         <i class="fas fa-quote-left text-3xl text-orange-500 dark:text-orange-400 mb-4" aria-hidden="true"></i>
                         <p class="text-gray-600 dark:text-gray-300 italic mb-4 flex-grow" data-lang-key="webdesign_testimonial1_text">"IVS Celestech đã vượt mong đợi của chúng tôi với một website chuyên nghiệp, hiện đại và tối ưu SEO. Rất hài lòng với dịch vụ!"</p>
                         <div class="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
-                                <p class="font-semibold text-gray-700 dark:text-gray-200" data-lang-key="webdesign_testimonial1_author">- Đại diện Công ty TNHH MTV ST</p>
+                               <p class="font-semibold text-gray-700 dark:text-gray-200" data-lang-key="webdesign_testimonial1_author">- Đại diện Công ty TNHH MTV ST</p>
                         </div>
                     </div>
                     <div class="testimonial-card shadow-xl border border-blue-100 dark:border-gray-700 flex flex-col bg-white dark:bg-slate-800 p-6 rounded-lg" data-aos="zoom-in" data-aos-delay="500">
@@ -671,7 +673,7 @@
     </main>
 
     <div id="fab-container-placeholder"></div>
-    <div id="footer-placeholder" data-loading-text="Loading footer..."></div>
+    <div id="footer-placeholder" data-loading-text="Đang tải chân trang..."></div>
     
     <button id="scrollToTopBtn" class="hidden fixed bottom-5 right-5 z-[90] items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-gray-700 text-white shadow-lg hover:bg-gray-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900 dark:bg-neutral-600 dark:hover:bg-neutral-500" aria-label="Scroll to top">
         <i class="fas fa-arrow-up text-lg md:text-xl" aria-hidden="true"></i>
@@ -680,18 +682,18 @@
     <div class="chatbot-container">
         <div id="chatbot-window" class="chatbot-window">
             <div class="chatbot-header">
-                <span>IVS AI Assistant</span>
-                <button id="chatbot-close-button" class="close-button">&times;</button>
+                <span data-lang-key="chatbot_title">IVS AI Assistant</span>
+                <button id="chatbot-close-button" class="close-button" aria-label="Đóng chatbot">&times;</button>
             </div>
             <div id="chatbot-messages" class="chatbot-messages flex flex-col space-y-3">
-                <div class="message bot">Welcome to IVS JSC! How can I help you today?</div>
+                <div class="message bot" data-lang-key="chatbot_welcome">Welcome to IVS JSC! How can I help you today?</div>
             </div>
             <div class="chatbot-input-area">
-                <input type="text" id="chatbot-input" placeholder="Type your message...">
-                <button id="chatbot-send-button"><i class="fas fa-paper-plane"></i></button>
+                <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn..." data-lang-key="chatbot_placeholder">
+                <button id="chatbot-send-button" aria-label="Gửi tin nhắn"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
-        <button id="chatbot-open-button" class="chatbot-button">
+        <button id="chatbot-open-button" class="chatbot-button" aria-label="Mở chatbot">
             <i class="fas fa-robot"></i>
         </button>
     </div>
@@ -699,106 +701,30 @@
     <script src="/js/language.js"></script>
     <script src="/js/loadComponents.js"></script>
     <script src="/js/script.js"></script>
-    
+    <script src="/js/posts-loader.js"></script> 
+    <script src="/js/chatbot.js"></script> 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-
-    <script>
-        const chatbotOpenButton = document.getElementById('chatbot-open-button');
-        const chatbotCloseButton = document.getElementById('chatbot-close-button');
-        const chatbotWindow = document.getElementById('chatbot-window');
-        const chatbotInput = document.getElementById('chatbot-input');
-        const chatbotSendButton = document.getElementById('chatbot-send-button');
-        const chatbotMessages = document.getElementById('chatbot-messages');
-
-        if (chatbotOpenButton) {
-            chatbotOpenButton.addEventListener('click', () => {
-                if (chatbotWindow) chatbotWindow.classList.add('open');
-            });
-        }
-
-        if (chatbotCloseButton) {
-            chatbotCloseButton.addEventListener('click', () => {
-                if (chatbotWindow) chatbotWindow.classList.remove('open');
-            });
-        }
-        if (chatbotSendButton && chatbotInput && chatbotMessages) {
-            function addMessage(text, type) {
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('message', type);
-                messageDiv.textContent = text;
-                chatbotMessages.appendChild(messageDiv);
-                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-            }
-
-            chatbotSendButton.addEventListener('click', () => {
-                const userText = chatbotInput.value.trim();
-                if (userText) {
-                    addMessage(userText, 'user');
-                    chatbotInput.value = '';
-                    setTimeout(() => {
-                        addMessage("Thanks for your message! An IVS representative will be with you shortly.", 'bot');
-                    }, 500);
-                }
-            });
-            chatbotInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    chatbotSendButton.click();
-                }
-            });
-        }
-
-        function loadPosts() {
-            const newsContainer = document.getElementById('news-container');
-            if (newsContainer) {
-                newsContainer.innerHTML = '<p class="text-gray-700 dark:text-gray-300 col-span-full text-center" data-lang-key="no_news_available">Hiện chưa có tin tức nào.</p>';
-                 if (typeof applyLanguage === 'function' && typeof currentLanguage !== 'undefined') {
-                    applyLanguage(currentLanguage); // Re-apply translations if needed
-                }
-            } else {
-                // console.warn('News container not found.');
-            }
-        }
-        if (document.getElementById('news-container')) {
-            loadPosts();
-        }
-
-        if (typeof window.applyLanguage === 'undefined') {
-            window.applyLanguage = function(lang) {
-                // console.log('Dummy applyLanguage called for language:', lang || 'default');
-            };
-        }
-    </script>
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, collection, serverTimestamp, onSnapshot, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"; 
-
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'; 
         
         let app;
-        let db;
         let auth;
-        let userId = 'Đang tải...';
         let isAuthReady = false;
+        let userId = 'Đang tải...';
 
-        const applyTabButton = document.getElementById('apply-tab-button');
-        const viewTeachersTabButton = document.getElementById('view-teachers-tab-button');
-        const teacherApplicationSection = document.getElementById('teacher-application-section');
-        const teacherOverviewSection = document.getElementById('teacher-overview-section');
-        const teacherApplicationForm = document.getElementById('teacher-application-form');
-        const teachersList = document.getElementById('teachers-list'); 
-        const noTeachersMessage = document.getElementById('no-teachers-message'); 
-        const userIdDisplay = document.getElementById('user-id-display'); 
-        
         const loadingSpinner = document.getElementById('loading-spinner');
         const customModal = document.getElementById('custom-modal');
         const modalMessage = document.getElementById('modal-message');
         const modalCloseButton = document.getElementById('modal-close-button');
 
-        function showModal(message) {
-            if (modalMessage) modalMessage.innerHTML = message; 
+        function showModal(message, isError = true) {
+            if (modalMessage) {
+                 modalMessage.innerHTML = message;
+                 if(isError) modalMessage.classList.add('text-red-600', 'dark:text-red-400');
+                 else modalMessage.classList.remove('text-red-600', 'dark:text-red-400');
+            }
             if (customModal) customModal.classList.add('show');
         }
 
@@ -826,31 +752,27 @@
                     firebaseConfigObject = JSON.parse(__firebase_config);
                     parsedSuccessfully = true;
                 } catch (e) {
-                    // console.error("Lỗi phân tích cấu hình Firebase:", e);
+                    console.error("Lỗi phân tích cấu hình Firebase:", e);
                     showModal("Cấu hình Firebase không hợp lệ. Vui lòng liên hệ bộ phận hỗ trợ. (Lỗi Parse)");
-                    if(userIdDisplay) userIdDisplay.textContent = 'User ID: Lỗi CFG Parse';
                 }
             } else {
-                // console.warn("Biến cấu hình Firebase (__firebase_config) không được cung cấp hoặc trống.");
+                 console.warn("Biến cấu hình Firebase (__firebase_config) không được cung cấp hoặc trống.");
             }
 
             if (!parsedSuccessfully || !firebaseConfigObject.apiKey || !firebaseConfigObject.authDomain || !firebaseConfigObject.projectId) {
-                // console.error("Cấu hình Firebase bị thiếu các trường quan trọng hoặc không hợp lệ.");
+                console.error("Cấu hình Firebase bị thiếu các trường quan trọng (apiKey, authDomain, projectId) hoặc không hợp lệ.");
                 if (parsedSuccessfully) { 
                   showModal("Lỗi cấu hình hệ thống Firebase. Vui lòng thử lại sau hoặc liên hệ bộ phận hỗ trợ. (Thiếu trường quan trọng)");
                 } else if (typeof __firebase_config === 'undefined' || String(__firebase_config).trim() === '') {
-                     // console.warn("Firebase config not provided. Skipping Firebase initialization.");
+                     console.warn("Firebase config not provided. Skipping Firebase initialization.");
                 }
-                if(userIdDisplay) userIdDisplay.textContent = 'User ID: Lỗi CFG Thiếu';
                 hideLoadingSpinner();
-                AOS.init({ duration: 800, once: true, offset: 50 });
-                initializeScrollToTop();
+                finalizePageLoad();
                 return; 
             }
 
             try {
                 app = initializeApp(firebaseConfigObject);
-                db = getFirestore(app);
                 auth = getAuth(app);
                 
                 const currentInitialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
@@ -858,61 +780,44 @@
                 if (currentInitialAuthToken) {
                     try {
                         await signInWithCustomToken(auth, currentInitialAuthToken);
-                        // console.log("Signed in with custom token.");
                     } catch (error) {
-                        // console.error("Lỗi đăng nhập bằng custom token, thử đăng nhập ẩn danh:", error);
-                        try {
-                            await signInAnonymously(auth);
-                            // console.log("Signed in anonymously after custom token failure.");
-                        } catch (anonError) {
-                            // console.error("Lỗi đăng nhập ẩn danh sau khi custom token thất bại:", anonError);
-                            showModal("Lỗi xác thực người dùng. Vui lòng thử lại.");
-                        }
+                        console.warn("Đăng nhập bằng custom token thất bại, thử đăng nhập ẩn danh:", error);
+                        await signInAnonymously(auth);
                     }
                 } else {
-                    try {
-                        await signInAnonymously(auth);
-                        // console.log("Signed in anonymously.");
-                    } catch (error) {
-                        // console.error("Lỗi đăng nhập ẩn danh:", error);
-                        showModal("Lỗi đăng nhập ẩn danh. Vui lòng thử lại.");
-                    }
+                    await signInAnonymously(auth);
                 }
 
                 onAuthStateChanged(auth, (user) => {
                     if (user) {
                         userId = user.uid;
-                        if(userIdDisplay) userIdDisplay.textContent = `User ID: ${userId}`;
-                        // console.log("User authenticated with UID:", userId);
+                        console.log("User authenticated with UID:", userId);
                         isAuthReady = true;
-                        if (teacherOverviewSection && teachersList) { 
-                           if (!teacherApplicationSection || teacherApplicationSection.classList.contains('hidden')) { 
-                                loadApprovedTeachers();
-                           }
-                        }
                     } else {
                         userId = 'N/A (chưa đăng nhập)';
-                        if(userIdDisplay) userIdDisplay.textContent = `User ID: ${userId}`;
-                        // console.log("User is not authenticated.");
                         isAuthReady = false;
+                        console.warn("Người dùng chưa được xác thực.");
                     }
-                    hideLoadingSpinner(); 
+                    hideLoadingSpinner();
+                    finalizePageLoad();
                 });
 
             } catch (error) {
-                // console.error("Lỗi khởi tạo Firebase hoặc xác thực:", error);
+                console.error("Lỗi khởi tạo Firebase hoặc xác thực:", error);
                 showModal("Không thể khởi tạo ứng dụng Firebase. Vui lòng kiểm tra kết nối mạng và cấu hình.");
-                if(userIdDisplay) userIdDisplay.textContent = 'User ID: Lỗi Init Firebase';
                 hideLoadingSpinner();
+                finalizePageLoad();
             }
-            
+        };
+
+        function finalizePageLoad() {
             AOS.init({
                 duration: 800,
                 once: true,
                 offset: 50,
             });
             initializeScrollToTop();
-        };
+        }
 
         function initializeScrollToTop(){
             const scrollToTopBtn = document.getElementById('scrollToTopBtn');
@@ -930,138 +835,13 @@
                 scrollToTopBtn.addEventListener('click', () => {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
-                if (window.pageYOffset <= 200) {
+                if (window.pageYOffset <= 200) { 
                     scrollToTopBtn.classList.add('hidden');
                 } else {
                     scrollToTopBtn.classList.remove('hidden');
-                    scrollToTopBtn.classList.add('flex');
+                     scrollToTopBtn.classList.add('flex');
                 }
             }
-        }
-        
-        if(applyTabButton && viewTeachersTabButton && teacherApplicationSection && teacherOverviewSection) {
-            applyTabButton.addEventListener('click', () => {
-                applyTabButton.classList.add('active');
-                viewTeachersTabButton.classList.remove('active');
-                teacherApplicationSection.classList.remove('hidden');
-                teacherOverviewSection.classList.add('hidden');
-            });
-
-            viewTeachersTabButton.addEventListener('click', () => {
-                viewTeachersTabButton.classList.add('active');
-                applyTabButton.classList.remove('active');
-                teacherApplicationSection.classList.add('hidden');
-                teacherOverviewSection.classList.remove('hidden');
-                if (isAuthReady) {
-                    loadApprovedTeachers();
-                } else {
-                    showModal("Đang tải dữ liệu giáo viên. Vui lòng đợi xác thực hoặc thử làm mới trang.");
-                }
-            });
-        }
-
-        if(teacherApplicationForm) {
-            teacherApplicationForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                showLoadingSpinner();
-
-                if (!db || !auth || !auth.currentUser || !isAuthReady || userId.startsWith('N/A') || userId === 'Đang tải...') {
-                    showModal("Hệ thống chưa sẵn sàng hoặc người dùng chưa được xác thực đầy đủ. Vui lòng đợi hoặc thử làm mới trang.");
-                    hideLoadingSpinner();
-                    return;
-                }
-                const currentFormUserId = auth.currentUser.uid; 
-
-                const fullName = document.getElementById('fullName').value;
-                const email = document.getElementById('email').value;
-                const phoneNumber = document.getElementById('phoneNumber').value;
-                const nationality = document.getElementById('nationality').value;
-                const qualification = document.getElementById('qualification').value;
-                const experience = parseInt(document.getElementById('experience').value);
-                const subjects = document.getElementById('subjects').value.split(',').map(s => s.trim()).filter(s => s); 
-                const bio = document.getElementById('bio').value;
-                const resumeUrl = document.getElementById('resumeUrl').value;
-                const photoUrl = document.getElementById('photoUrl').value;
-
-                const newAppRef = doc(collection(db, `artifacts/${appId}/users/${currentFormUserId}/teacher_applications`));
-                const applicationId = newAppRef.id;
-
-                const teacherData = {
-                    fullName, email, phoneNumber, nationality, qualification, experience, subjects, bio,
-                    resumeUrl: resumeUrl || null,
-                    photoUrl: photoUrl || `https://placehold.co/100x100/004080/FFFFFF?text=${fullName.charAt(0) || 'P'}`, 
-                    submissionTimestamp: serverTimestamp(),
-                    userId: currentFormUserId, 
-                    applicationId: applicationId 
-                };
-
-                const publicTeacherData = {
-                    fullName, nationality, qualification, experience, subjects, bio,
-                    photoUrl: photoUrl || `https://placehold.co/100x100/004080/FFFFFF?text=${fullName.charAt(0) || 'P'}`,
-                    isApprovedForPublicDisplay: false, 
-                    applicationId: applicationId,
-                    userId: currentFormUserId 
-                };
-
-                try {
-                    await setDoc(newAppRef, teacherData);
-                    await setDoc(doc(db, `artifacts/${appId}/public/data/teacher_applications`, applicationId), publicTeacherData);
-                    showModal("Đơn ứng tuyển của bạn đã được gửi thành công! Chúng tôi sẽ sớm liên hệ với bạn. Bạn có thể cần tải lên CV và các tài liệu khác qua một liên kết được cung cấp riêng (nếu có).");
-                    teacherApplicationForm.reset();
-                } catch (error) {
-                    // console.error("Lỗi khi gửi đơn ứng tuyển: ", error);
-                    showModal("Đã xảy ra lỗi khi gửi đơn ứng tuyển. Vui lòng thử lại. Lỗi: " + error.message);
-                } finally {
-                    hideLoadingSpinner();
-                }
-            });
-        }
-
-        function loadApprovedTeachers() {
-            if (!db || !isAuthReady) {
-                // console.warn("Firestore hoặc Auth chưa sẵn sàng để tải danh sách giáo viên.");
-                if (teachersList) teachersList.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">Chưa thể tải danh sách giáo viên. Vui lòng đợi...</p>';
-                return;
-            }
-            if (!teachersList || !noTeachersMessage) {
-                // console.warn("Một số thành phần DOM cho danh sách giáo viên không tồn tại trên trang này.");
-                return; 
-            }
-
-            showLoadingSpinner();
-            const q = query(collection(db, `artifacts/${appId}/public/data/teacher_applications`), where("isApprovedForPublicDisplay", "==", true));
-            
-            onSnapshot(q, (snapshot) => {
-                teachersList.innerHTML = ''; 
-                if (snapshot.empty) {
-                    noTeachersMessage.classList.remove('hidden');
-                } else {
-                    noTeachersMessage.classList.add('hidden');
-                    let teacherCardsHtml = '';
-                    snapshot.forEach((docSnap) => {
-                        const teacher = docSnap.data();
-                        const photoFallback = `https://placehold.co/100x100/004080/FFFFFF?text=${(teacher.fullName || 'N/A').charAt(0)}`;
-                        teacherCardsHtml += `
-                            <div class="teacher-card flex flex-col items-center p-6 bg-white dark:bg-slate-800 rounded-lg shadow-md">
-                                <img src="${teacher.photoUrl || photoFallback}" alt="${teacher.fullName || 'Teacher'}" class="w-24 h-24 rounded-full object-cover mb-4 border-2 border-primary" onerror="this.src='${photoFallback}';">
-                                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">${teacher.fullName || 'N/A'}</h3>
-                                <p class="text-gray-600 dark:text-gray-300 mb-1 text-sm"><strong>Quốc tịch:</strong> ${teacher.nationality || 'N/A'}</p>
-                                <p class="text-gray-600 dark:text-gray-300 mb-1 text-sm"><strong>Bằng cấp:</strong> ${teacher.qualification || 'N/A'}</p>
-                                <p class="text-gray-600 dark:text-gray-300 mb-1 text-sm"><strong>Kinh nghiệm:</strong> ${teacher.experience !== undefined ? teacher.experience + ' năm' : 'N/A'}</p>
-                                <p class="text-gray-600 dark:text-gray-300 mb-1 text-sm"><strong>Môn dạy:</strong> ${(teacher.subjects && Array.isArray(teacher.subjects) && teacher.subjects.join(', ')) || 'N/A'}</p>
-                                <p class="text-gray-700 dark:text-gray-400 mt-2 text-xs italic text-center">"${teacher.bio || 'Không có mô tả.'}"</p>
-                            </div>
-                        `;
-                    });
-                    teachersList.innerHTML = teacherCardsHtml;
-                }
-                hideLoadingSpinner();
-            }, (error) => {
-                // console.error("Lỗi tải danh sách giáo viên: ", error);
-                showModal("Không thể tải danh sách giáo viên. Vui lòng thử lại. Lỗi: " + error.message);
-                if (teachersList) teachersList.innerHTML = '<p class="text-center text-red-500">Đã xảy ra lỗi khi tải danh sách giáo viên.</p>';
-                hideLoadingSpinner();
-            });
         }
     </script>
 </body>
