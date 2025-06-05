@@ -124,12 +124,17 @@
             --ivs-neutral-200-color: #e5e7eb;
             --ivs-neutral-50-color: #f9fafb;
         }
+        /* Attempt to establish a clear stacking context for the main content area */
+        main {
+            position: relative;
+            z-index: 0; /* Or 1, if needed to be above default body stacking */
+        }
         .hero-text-shadow {
             text-shadow: 1px 1px 3px rgba(0,0,0,0.6); 
         }
         .hero-content {
             position: relative;
-            z-index: 2; 
+            z-index: 2; /* Ensure hero content is above its own background */
             padding: 2rem 1rem; 
         }
         @media (min-width: 768px) {
@@ -155,6 +160,7 @@
             transform: translateY(-8px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
+        /* Modal: z-index: 1050 - Very high, intended to be on top */
         .modal {
             position: fixed;
             top: 0;
@@ -165,7 +171,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1050;
+            z-index: 1050; /* Critical for overlay behavior */
             visibility: hidden;
             opacity: 0;
             transition: visibility 0s linear 0.3s, opacity 0.3s ease;
@@ -208,11 +214,12 @@
         .button-primary:hover {
             background-color: var(--primary-dark-color);
         }
+        /* Chatbot container: z-index: 1000 */
         .chatbot-container {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 1000;
+            z-index: 1000; /* High, but below modals */
             display: flex;
             flex-direction: column;
             align-items: flex-end;
@@ -502,14 +509,16 @@
             color: var(--game-card-back);
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
+        /* Game Overlays: z-index: 1001 - Critical for full-screen overlay behavior */
         .game-message-overlay, .game-name-input-overlay, .game-pause-overlay { 
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.88); 
             display: flex; align-items: center; justify-content: center;
-            z-index: 1001; 
+            z-index: 1001; /* Higher than chatbot and bottom-nav, same as header */
             padding: 15px;
             backdrop-filter: blur(4px);
+            /* Ensure these are hidden by default via JS adding a 'hidden' class or similar */
         }
         .game-message-content, .game-name-input-content, .game-pause-content { 
             background-color: white;
@@ -559,12 +568,11 @@
         .dark .game-scoreboard-list li { border-bottom-color: var(--ivs-neutral-600); }
         .game-scoreboard-list li:last-child { border-bottom: none; }
         
-        /* New style for the start button */
         #game-start-button {
             padding: 15px 30px;
             font-size: 1.2rem;
             font-weight: bold;
-            background-color: #28a745; /* Green color */
+            background-color: #28a745; 
             color: white;
             border-radius: 10px;
             cursor: pointer;
@@ -578,9 +586,8 @@
             box-shadow: 0 6px 12px rgba(0,0,0,0.3);
         }
 
-        /* Hide game board elements until game starts */
-        #game-board, .game-info, #game-difficulty-selector-container, .controls-area { /* Updated to hide the new container */
-            display: none;
+        #game-board, .game-info, #game-difficulty-selector-container, .controls-area {
+            display: none; /* Initially hidden, shown by JS */
         }
 
         #game-ready-state {
@@ -588,7 +595,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 200px; /* Ensure some height for content */
+            min-height: 200px; 
         }
     </style>
 </head>
@@ -596,11 +603,12 @@
     
     <header id="header-placeholder" data-loading-text="Đang tải menu..."></header>
 
+    <!-- Loading spinner: z-index: 1100 (Tailwind class z-[1100]) - Highest overlay -->
     <div id="loading-spinner" class="fixed inset-0 flex items-center justify-center bg-gray-200/75 dark:bg-gray-900/75 z-[1100] hidden">
         <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary"></div>
     </div>
 
-    <div id="custom-modal" class="modal">
+    <div id="custom-modal" class="modal"> <!-- Uses .modal style with z-index: 1050 -->
         <div class="modal-content">
             <p id="modal-message" class="text-lg font-medium text-ivs-neutral-800 dark:text-ivs-neutral-100"></p>
             <button id="modal-close-button" class="button-primary">Đóng</button>
@@ -661,7 +669,6 @@
             </div>
         </section>
 
-        <!-- Embedded IVS Memory Match Game Section -->
         <section id="embedded-memory-game-section" class="py-12 md:py-16 bg-ivs-neutral-100 dark:bg-ivs-neutral-900/70 rounded-lg my-8" data-aos="fade-up">
             <div class="container mx-auto px-4 max-w-2xl text-center">
                 <h2 class="text-2xl md:text-3xl font-bold text-primary dark:text-secondary mb-4 sm:mb-6" data-lang-key="memory_game_direct_play_title_index">
@@ -687,7 +694,6 @@
                         <button id="game-start-button"><i class="fas fa-play mr-2"></i>Bắt Đầu Chơi</button>
                     </div>
                     
-                    <!-- New Button Added Here -->
                     <div class="text-center mt-4 mb-4">
                         <a href="games/htmlivsgame_memorymatch.html" 
                         class="inline-block bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-colors duration-150 ease-in-out text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-primary-focus focus:ring-opacity-50"
@@ -695,7 +701,6 @@
                         <i class="fas fa-external-link-alt mr-2"></i>Chơi ngay phiên bản đầy đủ
                         </a>
                     </div>
-                    <!-- End of New Button -->
 
                     <div class="game-info grid grid-cols-2 sm:grid-cols-4 gap-2 items-center p-2 sm:p-3 bg-ivs-neutral-100 dark:bg-ivs-neutral-700 rounded-lg text-center text-xs sm:text-sm">
                         <div><span data-translate-game="level">Level</span>: <span id="game-level-display">1</span></div>
@@ -726,9 +731,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- End Embedded IVS Memory Match Game Section -->
-
 
         <section class="py-12 md:py-20 bg-ivs-neutral-50 dark:bg-ivs-neutral-800/30 rounded-lg my-8" data-aos="fade-up">
             <div class="container mx-auto px-4">
@@ -929,11 +931,12 @@
     <div id="fab-container-placeholder"></div>
     <div id="footer-placeholder" data-loading-text="Đang tải chân trang..."></div>
     
+    <!-- Scroll to top button: z-index: 90 (Tailwind class z-[90]) -->
     <button id="scrollToTopBtn" class="hidden fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-[90] items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-ivs-neutral-700 text-white shadow-lg hover:bg-ivs-neutral-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ivs-neutral-500 focus:ring-offset-2 dark:bg-ivs-neutral-600 dark:hover:bg-ivs-neutral-500" aria-label="Scroll to top">
         <i class="fas fa-arrow-up text-lg md:text-xl" aria-hidden="true"></i>
     </button>
 
-    <div class="chatbot-container">
+    <div class="chatbot-container"> <!-- z-index: 1000 -->
         <div id="chatbot-window" class="chatbot-window">
             <div class="chatbot-header">
                 <span data-lang-key="chatbot_title">IVS AI Assistant</span>
@@ -1083,8 +1086,8 @@
                 if (gameStartButton && gameDifficultySelectorContainer && gameInfoPanel && gameBoardPanel && controlsAreaPanel && gameReadyStatePanel) {
                     gameStartButton.addEventListener('click', () => {
                         gameStarted = true;
-                        gameReadyStatePanel.style.display = 'none'; // Hide the start button and its container
-                        gameDifficultySelectorContainer.style.display = 'block'; // Show difficulty selector
+                        gameReadyStatePanel.style.display = 'none'; 
+                        gameDifficultySelectorContainer.style.display = 'block'; 
                         gameInfoPanel.style.display = 'grid'; 
                         gameBoardPanel.style.display = 'grid';
                         controlsAreaPanel.style.display = 'block';
@@ -1125,7 +1128,6 @@
         }
     </script>
 
-    <!-- Embedded IVS Memory Match Game Script -->
     <script>
         function escapeHtml(unsafe) {
             if (typeof unsafe !== 'string') return '';
@@ -1366,10 +1368,9 @@
                 console.log("Trò chơi chưa bắt đầu. Nhấn 'Bắt Đầu Chơi'.");
                 return;
             }
-            // Initialize more specific game elements if they are inside a modal that's not always in DOM
             gameMessageOverlay = document.createElement('div');
             gameMessageOverlay.id = 'game-message-overlay';
-            gameMessageOverlay.className = 'game-message-overlay hidden'; // Add classes as per your styles.css
+            gameMessageOverlay.className = 'game-message-overlay hidden'; 
             document.body.appendChild(gameMessageOverlay);
 
             gameMessageOverlay.innerHTML = `
@@ -1417,7 +1418,7 @@
 
             gameScoreboardList = document.getElementById('game-scoreboard-list');
 
-            applyMemoryGameTranslations(gameCurrentLanguage); // Apply translations to newly created elements
+            applyMemoryGameTranslations(gameCurrentLanguage); 
             gameLoadDifficulty();
             gameLoadTopScores();
             gameSetupLevel(gameCurrentLevelIndex);
@@ -1427,7 +1428,6 @@
                     gameCurrentLanguage = gameCurrentLanguage === 'en' ? 'vi' : 'en';
                     localStorage.setItem(GAME_LOCAL_STORAGE_LANGUAGE_KEY, gameCurrentLanguage);
                     applyMemoryGameTranslations(gameCurrentLanguage);
-                     // Re-render messages if overlays are visible
                     if(gameMessageOverlay && !gameMessageOverlay.classList.contains('hidden')) gameShowLevelCompleteMessage(gameAllLevelsData[gameCurrentLevelIndex]); 
                     if(gameNameInputOverlay && !gameNameInputOverlay.classList.contains('hidden')) gameCheckAndPromptForHighScore(); 
                     if(gamePauseOverlay && !gamePauseOverlay.classList.contains('hidden')) {gameTogglePauseGame(); gameTogglePauseGame();} 
