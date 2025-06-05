@@ -23,7 +23,8 @@
     <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio,line-clamp"></script>
+    <!-- Tailwind CSS CDN - Note: Console warning about using CDN in production is expected for now. -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio"></script> 
     <script>
         tailwind.config = {
             theme: {
@@ -71,13 +72,15 @@
                     }
                 }
             },
-            plugins: [],
+            // Fixed: Removed plugins array as they are loaded via CDN URL params and require() is not browser-compatible here.
+            plugins: [], 
         }
     </script>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Paths to CSS files are assumed to be correct relative to the server root -->
     <link rel="stylesheet" href="/css/styles.css"> 
-    <link rel="stylesheet" href="/dist/output.css">
+    <link rel="stylesheet" href="/dist/output.css"> 
     <style>
         :root {
             --primary-color: #004080;
@@ -153,7 +156,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1050;
+            z-index: 1050; /* Ensure modal is above other content */
             visibility: hidden;
             opacity: 0;
             transition: visibility 0s linear 0.3s, opacity 0.3s ease;
@@ -231,11 +234,11 @@
             color: var(--ivs-neutral-100-color);
         }
         .dark .input-field::placeholder, .dark .textarea-field::placeholder {
-            color: var(--ivs-neutral-400-color);
+            color: var(--ivs-neutral-400-color); /* Adjusted placeholder color for dark mode */
         }
         .dark .input-field:focus, .dark .textarea-field:focus {
-            border-color: var(--primary-color); /* Tailwind's primary or your chosen primary */
-            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); /* Example primary color shadow */
+            border-color: var(--secondary-color); /* Using secondary for dark mode focus for contrast */
+            box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.3); /* Secondary color shadow */
         }
         .dark .tab-button {
             background-color: var(--ivs-neutral-700-color);
@@ -246,19 +249,19 @@
             border-color: var(--secondary-color);
         }
         .dark .tab-button.active {
-            background-color: var(--primary-color); /* Tailwind primary, e.g., blue-600 */
-            color: white;
-            border-color: var(--primary-dark-color);
+            background-color: var(--secondary-color); 
+            color: var(--primary-dark-color); /* Dark text on gold for contrast */
+            border-color: var(--secondary-dark-color);
         }
         .dark .teacher-card {
-            background-color: var(--ivs-neutral-800-color);
-            border-color: var(--ivs-neutral-700-color);
+            background-color: var(--ivs-neutral-700-color); /* Darker card for dark mode */
+            border-color: var(--ivs-neutral-600-color);
         }
         .dark .teacher-card img {
             border-color: var(--secondary-color);
         }
         .dark .modal-content {
-            background-color: var(--ivs-neutral-800-color);
+            background-color: var(--ivs-neutral-800-color); /* Dark modal */
         }
     </style>
 </head>
@@ -267,17 +270,17 @@
     <div id="header-placeholder" data-loading-text="Đang tải menu..."></div>
 
     <div id="loading-spinner" class="fixed inset-0 flex items-center justify-center bg-gray-200/75 dark:bg-gray-900/75 z-[1100] hidden">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary"></div>
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-primary dark:border-secondary"></div>
     </div>
 
     <div id="custom-modal" class="modal">
         <div class="modal-content">
             <p id="modal-message" class="text-lg font-medium text-gray-800 dark:text-gray-100"></p>
-            <button id="modal-close-button" class="button-primary">Đóng</button>
+            <button id="modal-close-button" class="button-primary dark:bg-secondary dark:text-primary-dark dark:hover:bg-secondary-dark">Đóng</button>
         </div>
     </div>
 
-    <main class="hub-container dark:text-gray-200">
+    <main class="hub-container dark:text-gray-200 px-4 sm:px-6 lg:px-8">
         <h1 class="text-3xl md:text-4xl font-bold text-primary dark:text-secondary mb-4" data-lang-key="hub_main_title">IVS Global Teacher Hub</h1>
         <p class="text-gray-600 dark:text-gray-400 mb-3" data-lang-key="hub_subtitle">Tham gia cộng đồng giáo viên quốc tế của IVS JSC. Chúng tôi kết nối tài năng sư phạm với các cơ hội giảng dạy chất lượng cao tại Việt Nam và trên toàn cầu.</p>
         <p id="user-id-display" class="text-sm text-gray-500 dark:text-gray-500 mb-8">User ID: Đang tải...</p>
@@ -295,45 +298,45 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6">
                     <div>
                         <label for="fullName" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" data-lang-key="form_fullName">Họ và Tên:</label>
-                        <input type="text" id="fullName" name="fullName" class="input-field dark:bg-gray-700 dark:text-white dark:border-gray-600" placeholder="Nguyễn Văn A" required>
+                        <input type="text" id="fullName" name="fullName" class="input-field" placeholder="Nguyễn Văn A" required>
                     </div>
                     <div>
                         <label for="email" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" data-lang-key="form_email">Địa chỉ Email:</label>
-                        <input type="email" id="email" name="email" class="input-field dark:bg-gray-700 dark:text-white dark:border-gray-600" placeholder="your.email@example.com" required>
+                        <input type="email" id="email" name="email" class="input-field" placeholder="your.email@example.com" required>
                     </div>
                     <div>
                         <label for="phoneNumber" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" data-lang-key="form_phoneNumber">Số điện thoại:</label>
-                        <input type="tel" id="phoneNumber" name="phoneNumber" class="input-field dark:bg-gray-700 dark:text-white dark:border-gray-600" placeholder="+84 123 456 789" required>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" class="input-field" placeholder="+84 123 456 789" required>
                     </div>
                     <div>
                         <label for="nationality" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" data-lang-key="form_nationality">Quốc tịch:</label>
-                        <input type="text" id="nationality" name="nationality" class="input-field dark:bg-gray-700 dark:text-white dark:border-gray-600" placeholder="Ví dụ: Việt Nam, American" required>
+                        <input type="text" id="nationality" name="nationality" class="input-field" placeholder="Ví dụ: Việt Nam, American" required>
                     </div>
                     <div>
                         <label for="qualification" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" data-lang-key="form_qualification">Bằng cấp cao nhất:</label>
-                        <input type="text" id="qualification" name="qualification" class="input-field dark:bg-gray-700 dark:text-white dark:border-gray-600" placeholder="Ví dụ: Thạc sĩ Giáo dục, Cử nhân Ngôn ngữ Anh, TESOL" required>
+                        <input type="text" id="qualification" name="qualification" class="input-field" placeholder="Ví dụ: Thạc sĩ Giáo dục, Cử nhân Ngôn ngữ Anh, TESOL" required>
                     </div>
                     <div>
                         <label for="experience" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2" data-lang-key="form_experience">Số năm kinh nghiệm giảng dạy:</label>
-                        <input type="number" id="experience" name="experience" class="input-field dark:bg-gray-700 dark:text-white dark:border-gray-600" placeholder="Ví dụ: 5" min="0" required>
+                        <input type="number" id="experience" name="experience" class="input-field" placeholder="Ví dụ: 5" min="0" required>
                     </div>
                 </div>
 
                 <label for="subjects" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" data-lang-key="form_subjects">Các môn có thể giảng dạy (cách nhau bằng dấu phẩy):</label>
-                <input type="text" id="subjects" name="subjects" class="input-field dark:bg-gray-700 dark:text-white dark:border-gray-600" placeholder="Ví dụ: Tiếng Anh giao tiếp, IELTS, Toán, Khoa học" required>
+                <input type="text" id="subjects" name="subjects" class="input-field" placeholder="Ví dụ: Tiếng Anh giao tiếp, IELTS, Toán, Khoa học" required>
 
                 <label for="bio" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" data-lang-key="form_bio">Giới thiệu ngắn về bản thân (tối đa 300 từ):</label>
-                <textarea id="bio" name="bio" class="textarea-field dark:bg-gray-700 dark:text-white dark:border-gray-600" placeholder="Nêu bật kinh nghiệm giảng dạy, phong cách và chứng chỉ liên quan..." maxlength="300" required></textarea>
+                <textarea id="bio" name="bio" class="textarea-field" placeholder="Nêu bật kinh nghiệm giảng dạy, phong cách và chứng chỉ liên quan..." maxlength="300" required></textarea>
 
                 <p class="text-gray-600 dark:text-gray-400 text-sm mt-4 mb-2" data-lang-key="form_upload_notice">Để nộp CV, ảnh hồ sơ, hoặc các tài liệu khác (video, PDF), vui lòng chuẩn bị các tệp này trên một dịch vụ lưu trữ đám mây (ví dụ: Google Drive, Dropbox) và cung cấp liên kết công khai hoặc có quyền truy cập phù hợp vào các ô dưới đây.</p>
 
                 <label for="resumeUrl" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" data-lang-key="form_resumeUrl">Liên kết CV/Hồ sơ năng lực trực tuyến (tùy chọn):</label>
-                <input type="url" id="resumeUrl" name="resumeUrl" class="input-field dark:bg-gray-700 dark:text-white dark:border-gray-600" placeholder="https://your-cv-link.com">
+                <input type="url" id="resumeUrl" name="resumeUrl" class="input-field" placeholder="https://your-cv-link.com">
 
                 <label for="photoUrl" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2 mt-4" data-lang-key="form_photoUrl">Liên kết ảnh hồ sơ (tùy chọn):</label>
-                <input type="url" id="photoUrl" name="photoUrl" class="input-field dark:bg-gray-700 dark:text-white dark:border-gray-600" placeholder="https://your-photo-link.com">
+                <input type="url" id="photoUrl" name="photoUrl" class="input-field" placeholder="https://your-photo-link.com">
 
-                <button type="submit" class="button-primary w-full mt-6 py-3 text-base" data-lang-key="form_submit_button">Gửi Hồ sơ Ứng tuyển</button>
+                <button type="submit" class="button-primary w-full mt-6 py-3 text-base dark:bg-secondary dark:text-primary-dark dark:hover:bg-secondary-dark" data-lang-key="form_submit_button">Gửi Hồ sơ Ứng tuyển</button>
             </form>
         </div>
 
@@ -352,7 +355,20 @@
     <button id="scrollToTopBtn" class="hidden fixed bottom-5 right-5 z-[1040] items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary text-white shadow-lg hover:bg-primary-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-secondary dark:hover:bg-secondary-dark dark:focus:ring-secondary" aria-label="Scroll to top">
         <i class="fas fa-arrow-up text-lg md:text-xl" aria-hidden="true"></i>
     </button>
-
+    
+    <!-- Dummy applyLanguage to prevent error if language.js loads late -->
+    <script>
+      // This dummy function acts as a fallback if language.js hasn't loaded yet
+      // or if loadComponents.js tries to call it prematurely.
+      if (typeof window.applyLanguage === 'undefined') {
+        window.applyLanguage = function(lang) {
+          console.log('Dummy applyLanguage (Teacher Hub) called for:', lang || 'default');
+          // You could add minimal fallback behavior here if needed, e.g., setting document lang
+          // document.documentElement.lang = lang || 'vi';
+        };
+      }
+    </script>
+    <!-- Actual scripts should be loaded relative to the HTML file's location or from root if paths start with / -->
     <script src="/js/language.js"></script>
     <script src="/js/loadComponents.js"></script>
     <script src="/js/script.js"></script>
@@ -363,7 +379,8 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, collection, serverTimestamp, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        // __app_id and __firebase_config are expected to be injected by the environment (e.g., Canvas)
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id-teacher-hub';
         
         let app;
         let db;
@@ -386,7 +403,7 @@
         const modalCloseButton = document.getElementById('modal-close-button');
 
         function showModal(message) {
-            if (modalMessage) modalMessage.innerHTML = message;
+            if (modalMessage) modalMessage.innerHTML = message; // Allow HTML in messages
             if (customModal) customModal.classList.add('show');
         }
 
@@ -409,31 +426,37 @@
             let firebaseConfigObject = {};
             let parsedSuccessfully = false;
 
-            if (typeof __firebase_config !== 'undefined' && __firebase_config !== null && __firebase_config.trim() !== '') {
+            // Attempt to parse __firebase_config
+            if (typeof __firebase_config !== 'undefined' && __firebase_config !== null && String(__firebase_config).trim() !== '') {
                 try {
                     firebaseConfigObject = JSON.parse(__firebase_config);
                     parsedSuccessfully = true;
                 } catch (e) {
-                    console.error("Lỗi phân tích cấu hình Firebase:", e);
-                    showModal("Cấu hình Firebase không hợp lệ. Vui lòng liên hệ bộ phận hỗ trợ.");
-                    if(userIdDisplay) userIdDisplay.textContent = 'User ID: Lỗi CFG Parse';
-                    hideLoadingSpinner();
-                    return; 
+                    console.error("Lỗi phân tích cấu hình Firebase (dự kiến từ __firebase_config):", e);
+                    // Error will be handled in the next check
                 }
             } else {
-                 console.warn("Biến cấu hình Firebase (__firebase_config) không được cung cấp hoặc trống.");
+                 console.warn("Biến __firebase_config không được cung cấp hoặc trống. Các tính năng Firebase sẽ không hoạt động.");
             }
             
+            // Check for critical Firebase config fields OR if parsing failed
             if (!parsedSuccessfully || !firebaseConfigObject.apiKey || !firebaseConfigObject.authDomain || !firebaseConfigObject.projectId) {
-                console.error("Cấu hình Firebase bị thiếu các trường quan trọng hoặc không hợp lệ.");
-                showModal("Lỗi cấu hình hệ thống Firebase. Vui lòng thử lại sau hoặc liên hệ bộ phận hỗ trợ. (Thiếu trường)");
-                if(userIdDisplay) userIdDisplay.textContent = 'User ID: Lỗi CFG Thiếu';
+                console.error("Cấu hình Firebase không hợp lệ, thiếu trường quan trọng, hoặc không được cung cấp.");
+                if (typeof __firebase_config !== 'undefined' && __firebase_config !== null) { // Only show modal if config was expected
+                     showModal("Lỗi cấu hình hệ thống Firebase. Không thể khởi tạo dịch vụ. (Mã lỗi: CFG_ERR)");
+                } else {
+                    // If __firebase_config was truly undefined (not just empty or bad JSON), this is a dev environment state.
+                    // UI should reflect that Firebase features are unavailable.
+                    if(userIdDisplay) userIdDisplay.textContent = 'User ID: Lỗi CFG';
+                }
+                
                 hideLoadingSpinner();
-                AOS.init({ duration: 800, once: true, offset: 50 });
-                initializeScrollToTop();
+                AOS.init({ duration: 800, once: true, offset: 50 }); 
+                initializeScrollToTop(); 
                 return; 
             }
 
+            // Proceed with Firebase initialization
             try {
                 app = initializeApp(firebaseConfigObject);
                 db = getFirestore(app);
@@ -445,12 +468,12 @@
                     try {
                         await signInWithCustomToken(auth, currentInitialAuthToken);
                     } catch (error) {
-                        console.warn("Đăng nhập bằng custom token thất bại, thử đăng nhập ẩn danh:", error);
+                        console.warn("Đăng nhập bằng custom token thất bại, thử đăng nhập ẩn danh:", error.message);
                         try {
                             await signInAnonymously(auth);
                         } catch (anonError) {
-                            console.error("Lỗi đăng nhập ẩn danh sau khi custom token thất bại:", anonError);
-                            showModal("Lỗi xác thực người dùng. Vui lòng thử lại.");
+                            console.error("Lỗi đăng nhập ẩn danh sau khi custom token thất bại:", anonError.message);
+                            showModal("Lỗi xác thực người dùng nghiêm trọng. (Mã lỗi: AUTH_CRITICAL)");
                             hideLoadingSpinner();
                             return;
                         }
@@ -459,8 +482,8 @@
                     try {
                         await signInAnonymously(auth);
                     } catch (error) {
-                        console.error("Lỗi đăng nhập ẩn danh:", error);
-                        showModal("Lỗi đăng nhập ẩn danh. Vui lòng thử lại.");
+                        console.error("Lỗi đăng nhập ẩn danh:", error.message);
+                        showModal("Lỗi đăng nhập ẩn danh. (Mã lỗi: AUTH_ANON_GENERAL)");
                         hideLoadingSpinner();
                         return;
                     }
@@ -471,23 +494,21 @@
                         userId = user.uid;
                         if(userIdDisplay) userIdDisplay.textContent = `User ID: ${userId}`;
                         isAuthReady = true;
-                        if (teacherApplicationSection && !teacherApplicationSection.classList.contains('hidden')) {
-                           
-                        } else if (teacherOverviewSection) {
+                        if (teacherOverviewSection && viewTeachersTabButton && viewTeachersTabButton.classList.contains('active')) { // Check if tab is active
                             loadApprovedTeachers();
                         }
                     } else {
                         userId = 'N/A (chưa đăng nhập)';
                          if(userIdDisplay) userIdDisplay.textContent = `User ID: ${userId}`;
                         isAuthReady = false;
-                         showModal("Người dùng chưa được xác thực. Một số tính năng có thể bị hạn chế.");
+                         showModal("Người dùng chưa được xác thực. (Mã lỗi: AUTH_NO_USER)");
                     }
                     hideLoadingSpinner();
                 });
 
             } catch (error) {
-                console.error("Lỗi khởi tạo Firebase hoặc xác thực:", error);
-                showModal("Không thể khởi tạo ứng dụng. Vui lòng kiểm tra kết nối mạng và cấu hình.");
+                console.error("Lỗi khởi tạo Firebase:", error.message);
+                showModal("Không thể khởi tạo ứng dụng Firebase. (Mã lỗi: FB_INIT_CRITICAL)");
                  if(userIdDisplay) userIdDisplay.textContent = 'User ID: Lỗi Init Firebase';
                 hideLoadingSpinner();
             }
@@ -516,8 +537,11 @@
                 scrollToTopBtn.addEventListener('click', () => {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
-                if (window.pageYOffset <= 200) { // Initial check
+                if (window.pageYOffset <= 200) { 
                     scrollToTopBtn.classList.add('hidden');
+                } else {
+                    scrollToTopBtn.classList.remove('hidden');
+                    scrollToTopBtn.classList.add('flex');
                 }
             }
         }
@@ -535,10 +559,12 @@
                 applyTabButton.classList.remove('active');
                 teacherApplicationSection.classList.add('hidden');
                 teacherOverviewSection.classList.remove('hidden');
-                if (isAuthReady) {
+                if (isAuthReady && db) { 
                     loadApprovedTeachers();
+                } else if (!db) {
+                     showModal("Kết nối cơ sở dữ liệu thất bại. (Mã lỗi: DB_VIEW_UNAVAILABLE)");
                 } else {
-                    showModal("Đang tải dữ liệu giáo viên. Vui lòng đợi xác thực.");
+                    showModal("Đang xác thực người dùng, vui lòng đợi. (Mã lỗi: AUTH_VIEW_PENDING)");
                 }
             });
         }
@@ -549,11 +575,13 @@
                 e.preventDefault();
                 showLoadingSpinner();
 
-                if (!db || !userId || !isAuthReady || userId === 'Đang tải...' || userId.startsWith('N/A')) {
-                    showModal("Hệ thống chưa sẵn sàng hoặc người dùng chưa được xác thực đầy đủ. Vui lòng đợi hoặc thử làm mới trang.");
+                if (!db || !auth.currentUser || !isAuthReady || userId === 'Đang tải...' || userId.startsWith('N/A')) {
+                    showModal("Hệ thống chưa sẵn sàng hoặc người dùng chưa được xác thực. Vui lòng thử lại. (Mã lỗi: SYS_APPLY_NOT_READY)");
                     hideLoadingSpinner();
                     return;
                 }
+                 const currentUserID = auth.currentUser.uid;
+
 
                 const fullName = document.getElementById('fullName').value;
                 const email = document.getElementById('email').value;
@@ -566,34 +594,34 @@
                 const resumeUrl = document.getElementById('resumeUrl').value;
                 const photoUrl = document.getElementById('photoUrl').value;
 
-                const newAppRef = doc(collection(db, `artifacts/${appId}/users/${userId}/teacher_applications`));
+                const newAppRef = doc(collection(db, `artifacts/${appId}/users/${currentUserID}/teacher_applications`));
                 const applicationId = newAppRef.id;
                 
                 const teacherData = {
                     fullName, email, phoneNumber, nationality, qualification, experience, subjects, bio,
                     resumeUrl: resumeUrl || null,
-                    photoUrl: photoUrl || 'https://placehold.co/100x100/cccccc/333333?text=No+Photo',
+                    photoUrl: photoUrl || `https://placehold.co/100x100/004080/FFFFFF?text=${encodeURIComponent(fullName.charAt(0) || 'GV')}`,
                     submissionTimestamp: serverTimestamp(),
-                    userId: userId, 
+                    userId: currentUserID, 
                     applicationId: applicationId
                 };
 
                 const publicTeacherData = {
                     fullName, nationality, qualification, experience, subjects, bio,
-                    photoUrl: photoUrl || 'https://placehold.co/100x100/cccccc/333333?text=No+Photo',
+                    photoUrl: photoUrl || `https://placehold.co/100x100/004080/FFFFFF?text=${encodeURIComponent(fullName.charAt(0) || 'GV')}`,
                     isApprovedForPublicDisplay: false,
                     applicationId: applicationId,
-                    userId: userId 
+                    userId: currentUserID 
                 };
 
                 try {
                     await setDoc(newAppRef, teacherData);
                     await setDoc(doc(db, `artifacts/${appId}/public/data/teacher_applications`, applicationId), publicTeacherData);
-                    showModal("Hồ sơ ứng tuyển của bạn đã được gửi thành công! Vui lòng truy cập <a href='https://docs.google.com/forms/d/e/1FAIpQLSd_TJ-EstYhFVSEAHGzqG-36dsbkdxvYRuGHiCi5PvgUICjnA/viewform?usp=sharing&ouid=109196735657445874239' target='_blank' class='text-blue-600 hover:text-blue-800 underline font-semibold'>liên kết này</a> để tải lên CV, ảnh chân dung và các tài liệu cần thiết khác.");
+                    showModal("Hồ sơ ứng tuyển của bạn đã được gửi thành công! Vui lòng truy cập <a href='https://docs.google.com/forms/d/e/1FAIpQLSd_TJ-EstYhFVSEAHGzqG-36dsbkdxvYRuGHiCi5PvgUICjnA/viewform?usp=sharing&ouid=109196735657445874239' target='_blank' class='text-blue-600 hover:text-blue-800 underline font-semibold'>liên kết này</a> để tải lên CV, ảnh chân dung và các tài liệu cần thiết khác. (Mã hồ sơ: "+applicationId.substring(0,6)+")");
                     teacherApplicationForm.reset();
                 } catch (error) {
-                    console.error("Lỗi khi gửi hồ sơ ứng tuyển: ", error);
-                    showModal("Đã xảy ra lỗi trong quá trình gửi hồ sơ. Vui lòng thử lại sau.");
+                    console.error("Lỗi khi gửi hồ sơ ứng tuyển: ", error.message);
+                    showModal("Đã xảy ra lỗi trong quá trình gửi hồ sơ. Vui lòng thử lại sau. (Mã lỗi: SUBMIT_APP_FAIL)");
                 } finally {
                     hideLoadingSpinner();
                 }
@@ -603,7 +631,7 @@
         function loadApprovedTeachers() {
             if (!db || !isAuthReady) {
                 console.warn("Firestore hoặc Auth chưa sẵn sàng để tải danh sách giáo viên.");
-                 if(teachersList) teachersList.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400">Chưa thể tải danh sách giáo viên. Vui lòng đợi...</p>';
+                 if(teachersList) teachersList.innerHTML = '<p class="text-center text-gray-500 dark:text-gray-400" data-lang-key="hub_loading_teachers_error">Chưa thể tải danh sách giáo viên. Vui lòng đợi...</p>';
                 return;
             }
             if (!teachersList || !noTeachersMessage) {
@@ -611,37 +639,43 @@
                  return;
             }
 
-
+            showLoadingSpinner();
             const q = query(collection(db, `artifacts/${appId}/public/data/teacher_applications`), where("isApprovedForPublicDisplay", "==", true));
             
-            onSnapshot(q, (snapshot) => {
+            const unsubscribe = onSnapshot(q, (snapshot) => { 
+                if (!teachersList) return; 
                 teachersList.innerHTML = ''; 
                 if (snapshot.empty) {
-                    noTeachersMessage.classList.remove('hidden');
+                    if(noTeachersMessage) noTeachersMessage.classList.remove('hidden');
                 } else {
-                    noTeachersMessage.classList.add('hidden');
+                    if(noTeachersMessage) noTeachersMessage.classList.add('hidden');
                     snapshot.forEach((docSnap) => {
                         const teacher = docSnap.data();
+                        const placeholderInitial = encodeURIComponent((teacher.fullName || 'GV').charAt(0).toUpperCase());
                         const teacherCard = `
                             <div class="teacher-card dark:bg-slate-700">
-                                <img src="${teacher.photoUrl || 'https://placehold.co/100x100/004080/FFFFFF?text=IVS'}" alt="Ảnh của ${teacher.fullName || 'Giáo viên'}" class="mb-4" onerror="this.src='https://placehold.co/100x100/004080/FFFFFF?text=IVS'; this.alt='Ảnh lỗi'">
-                                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">${teacher.fullName || 'Chưa có tên'}</h3>
-                                <p class="text-gray-600 dark:text-gray-300 mb-1"><strong>Quốc tịch:</strong> ${teacher.nationality || 'Chưa cung cấp'}</p>
-                                <p class="text-gray-600 dark:text-gray-300 mb-1"><strong>Bằng cấp:</strong> ${teacher.qualification || 'Chưa cung cấp'}</p>
-                                <p class="text-gray-600 dark:text-gray-300 mb-1"><strong>Kinh nghiệm:</strong> ${teacher.experience !== undefined ? teacher.experience + ' năm' : 'Chưa cung cấp'}</p>
-                                <p class="text-gray-600 dark:text-gray-300 mb-1"><strong>Môn dạy:</strong> ${(teacher.subjects && teacher.subjects.length > 0 && teacher.subjects.join(', ')) || 'Chưa cung cấp'}</p>
-                                <p class="text-gray-700 dark:text-gray-400 mt-3 text-sm italic">"${teacher.bio || 'Chưa có giới thiệu.'}"</p>
+                                <img src="${teacher.photoUrl || `https://placehold.co/100x100/004080/FFFFFF?text=${placeholderInitial}`}" alt="Ảnh của ${teacher.fullName || 'Giáo viên'}" class="mx-auto mb-4" onerror="this.onerror=null; this.src='https://placehold.co/100x100/004080/FFFFFF?text=${placeholderInitial}'; this.alt='Ảnh lỗi';">
+                                <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2 text-center">${teacher.fullName || 'Chưa có tên'}</h3>
+                                <p class="text-gray-600 dark:text-gray-300 mb-1 text-sm"><strong>Quốc tịch:</strong> ${teacher.nationality || 'Chưa cung cấp'}</p>
+                                <p class="text-gray-600 dark:text-gray-300 mb-1 text-sm"><strong>Bằng cấp:</strong> ${teacher.qualification || 'Chưa cung cấp'}</p>
+                                <p class="text-gray-600 dark:text-gray-300 mb-1 text-sm"><strong>Kinh nghiệm:</strong> ${teacher.experience !== undefined ? teacher.experience + ' năm' : 'Chưa cung cấp'}</p>
+                                <p class="text-gray-600 dark:text-gray-300 mb-1 text-sm"><strong>Môn dạy:</strong> ${(teacher.subjects && Array.isArray(teacher.subjects) && teacher.subjects.length > 0 && teacher.subjects.join(', ')) || 'Chưa cung cấp'}</p>
+                                <p class="text-gray-700 dark:text-gray-400 mt-3 text-sm italic text-center">"${teacher.bio || 'Chưa có giới thiệu.'}"</p>
                             </div>
                         `;
                         teachersList.insertAdjacentHTML('beforeend', teacherCard);
                     });
                 }
+                hideLoadingSpinner();
             }, (error) => {
-                console.error("Lỗi tải danh sách giáo viên: ", error);
-                showModal("Không thể tải danh sách giáo viên. Vui lòng thử lại sau.");
-                if(teachersList) teachersList.innerHTML = '<p class="text-center text-red-500 dark:text-red-400">Đã xảy ra lỗi khi tải danh sách giáo viên.</p>';
+                console.error("Lỗi tải danh sách giáo viên: ", error.message);
+                showModal("Không thể tải danh sách giáo viên. Vui lòng thử lại sau. (Mã lỗi: LOAD_TEACHERS_FAIL)");
+                if(teachersList) teachersList.innerHTML = '<p class="text-center text-red-500 dark:text-red-400" data-lang-key="hub_load_teachers_fail_msg">Đã xảy ra lỗi khi tải danh sách giáo viên.</p>';
+                hideLoadingSpinner();
             });
+            // Consider returning unsubscribe if needed elsewhere for cleanup e.g. on page unload.
         }
     </script>
 </body>
 </html>
+
