@@ -12,7 +12,7 @@
     --ivs-primary-light: #0059b3; 
     --ivs-secondary: #ffc107;
     --ivs-secondary-dark: #e0a800;
-    --ivs-secondary-light: #ffe066; /* Lighter secondary for hovers */
+    --ivs-secondary-light: #ffe066; 
     --ivs-accent: #F97316;
     --ivs-accent-dark: #DD6B20;
 
@@ -28,9 +28,14 @@
     --ivs-text-light: #f8fafc; 
     --ivs-text-dark: #0f172a;  
     
-    --header-height-desktop: 4.5rem; /* 72px */
-    --header-height-mobile: 4rem;   /* 64px */
-    --header-height: var(--header-height-desktop); /* Default, JS will update based on context */
+    /* Fixed Header Heights - These are the TARGET heights */
+    --header-target-height-desktop: 72px; /* 4.5rem based on 16px root */
+    --header-target-height-mobile: 64px;   /* 4rem based on 16px root */
+    
+    /* Dynamic Header Height - JS will update this variable with actual offsetHeight */
+    /* It's crucial that padding-top of main content uses this JS-updated variable */
+    --header-actual-height: var(--header-target-height-desktop); /* Fallback */
+
 
     --font-sans: 'Inter', sans-serif;
     --font-display: 'Lexend', sans-serif;
@@ -54,7 +59,7 @@
 }
 
 html {
-    scroll-padding-top: var(--header-height); 
+    scroll-padding-top: var(--header-actual-height); 
     scroll-behavior: smooth;
 }
 
@@ -80,14 +85,27 @@ html.dark body {
     background-color: var(--ivs-neutral-800); 
     color: var(--ivs-text-light);
     box-shadow: var(--shadow-md);
-    /* height is set by JS via --header-height variable and specific mobile/desktop vars */
+    /* Height is primarily controlled by its content and padding, 
+       JS will set --header-actual-height for body padding */
+    /* Explicit min-height can be useful as a fallback */
+    min-height: var(--header-target-height-mobile); 
 }
+@media (min-width: 768px) { /* md breakpoint */
+    #main-header {
+        min-height: var(--header-target-height-desktop);
+    }
+}
+
+/* This placeholder's height MUST match the actual header's height. 
+   JS will set --header-actual-height. */
 #header-placeholder { 
-    min-height: var(--header-height); /* Uses the dynamically set --header-height */
+    height: var(--header-actual-height); 
+    flex-shrink: 0; /* Prevent shrinking */
 }
+
 main { 
     flex-grow: 1;
-    padding-top: 0; 
+    /* padding-top is handled by html scroll-padding-top, no need for direct padding on main */
 }
 
 /* Header Hidden on Scroll (Desktop) */
@@ -97,7 +115,7 @@ main {
 
 /* Desktop Navigation Links */
 .nav-link, .nav-link-dropdown {
-    padding: 0.5rem 0.875rem; /* 14px for lg:px-3.5 */
+    padding: 0.5rem 0.875rem; 
     font-weight: 500; 
     font-size: 0.9rem;  
     color: var(--ivs-neutral-200);
@@ -106,7 +124,15 @@ main {
     display: flex;
     align-items: center;
     white-space: nowrap;
+    height: calc(var(--header-target-height-desktop) - 1rem); /* Ensure links fit within header height */
+    box-sizing: border-box;
 }
+@media (max-width: 767px) {
+    .nav-link, .nav-link-dropdown { /* This is for desktop, but as a fallback */
+        height: calc(var(--header-target-height-mobile) - 0.5rem);
+    }
+}
+
 .nav-link:hover, .nav-link-dropdown:hover,
 .nav-link.active, .nav-link-dropdown.active { 
     color: var(--ivs-text-white);
@@ -118,26 +144,26 @@ main {
     transition: transform var(--transition-base) ease-out;
 }
 .group:hover .nav-link-dropdown .nav-link-icon,
-.nav-link-dropdown[aria-expanded="true"] .nav-link-icon { /* Rotate when expanded or group hovered */
+.nav-link-dropdown[aria-expanded="true"] .nav-link-icon { 
     transform: rotate(180deg);
 }
 
-
-/* Desktop Dropdown & Mega Menu - Unified Styling & Improved Behavior */
+/* Desktop Dropdown & Mega Menu */
 .desktop-dropdown-content, .mega-menu-content {
     position: absolute;
-    top: calc(100% + 0.25rem); 
+    top: 100%; /* Align directly below parent */
     left: 0; 
     background-color: var(--ivs-neutral-800);
     color: var(--ivs-neutral-200);
     border: 1px solid var(--ivs-neutral-700);
-    border-radius: var(--border-radius-lg);
+    border-top: none; /* Remove top border if it touches the header */
+    border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg); /* Round bottom corners */
     box-shadow: var(--shadow-xl);
-    z-index: 50; /* Corrected z-index: Tailwind uses 10, 20, etc. Header is 1001, mobile is 1050. */
+    z-index: 50; 
     min-width: 240px; 
     opacity: 0;
     visibility: hidden;
-    transform: translateY(8px) scale(0.98); /* Subtle initial offset */
+    transform: translateY(5px) scale(0.98); /* Start slightly lower */
     pointer-events: none; 
     transition: opacity var(--transition-fast) ease-out, 
                 transform var(--transition-fast) ease-out, 
@@ -157,7 +183,7 @@ main {
 .mega-menu-content {
     min-width: 550px; 
     left: 50%; 
-    transform: translateX(-50%) translateY(8px) scale(0.98); 
+    transform: translateX(-50%) translateY(5px) scale(0.98); 
 }
 .group:hover > .mega-menu-content,
 .group:focus-within > .mega-menu-content {
@@ -208,6 +234,13 @@ main {
     transition: color var(--transition-fast) ease-out, background-color var(--transition-fast) ease-out;
     display: flex;
     align-items: center;
+    height: calc(var(--header-target-height-desktop) - 1rem); /* Match other nav items height */
+    box-sizing: border-box;
+}
+@media (max-width: 767px) {
+    .nav-lang-btn {
+        height: calc(var(--header-target-height-mobile) - 0.5rem);
+    }
 }
 .nav-lang-btn:hover {
     color: var(--ivs-text-white);
@@ -244,13 +277,23 @@ main {
 .nav-contact-btn {
     background-color: var(--ivs-accent);
     color: var(--ivs-text-white);
-    padding: 0.6rem 1.1rem; /* Slightly more padding */
+    padding: 0.6rem 1.1rem; 
     font-weight: 600;
     font-size: 0.9rem;
     border-radius: var(--border-radius-md);
     transition: background-color var(--transition-fast) ease-out, transform var(--transition-fast) ease-out, box-shadow var(--transition-fast) ease-out;
     box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    height: calc(var(--header-target-height-desktop) - 1.2rem); /* Adjust height if needed */
+    box-sizing: border-box;
 }
+@media (max-width: 767px) {
+    .nav-contact-btn {
+        height: calc(var(--header-target-height-mobile) - 0.8rem);
+    }
+}
+
 .nav-contact-btn:hover {
     background-color: var(--ivs-accent-dark);
     transform: translateY(-1px);
@@ -265,7 +308,7 @@ main {
     padding: 0.5rem;
     border-radius: var(--border-radius-full);
     transition: background-color var(--transition-fast) ease-out, color var(--transition-fast) ease-out;
-    width: 2.75rem; /* 44px */
+    width: 2.75rem; 
     height: 2.75rem;
     display: flex;
     align-items: center;
@@ -277,7 +320,7 @@ main {
 }
 .mobile-menu-toggle-btn .icon-menu-open, 
 .mobile-menu-toggle-btn .icon-menu-close {
-    font-size: 1.375rem; /* 22px */
+    font-size: 1.375rem; 
 }
 
 /* Mobile Menu Panel & Container */
@@ -301,7 +344,7 @@ main {
     position: absolute;
     inset: 0;
     background-color: var(--ivs-neutral-900);
-    opacity: 0.85; /* Tailwind's bg-black/80 */
+    opacity: 0.85; 
     backdrop-filter: blur(5px); 
 }
 .mobile-menu-container-base { 
@@ -310,7 +353,7 @@ main {
     right: 0;
     height: 100%;
     width: 85vw;
-    max-width: 320px; /* Slightly wider for better content fit */
+    max-width: 320px; 
     background-color: var(--ivs-neutral-800);
     color: var(--ivs-neutral-100);
     box-shadow: var(--shadow-xl);
@@ -319,6 +362,7 @@ main {
     display: flex;
     flex-direction: column;
     overflow-y: auto; 
+    padding-top: var(--header-height-mobile); /* Space for header if menu is not full height initially */
 }
 .mobile-menu-panel-base.active .mobile-menu-container-base {
     transform: translateX(0);
@@ -390,7 +434,7 @@ main {
     color: var(--ivs-secondary-light); 
 }
 .mobile-submenu-item.indent-1 { 
-    padding-left: 1.75rem; /* Deeper indent for sub-sub-items */
+    padding-left: 1.75rem; 
 }
 .lang-option-mobile { 
     width: 100%;
@@ -422,7 +466,7 @@ main {
 /* Bottom Navigation Bar (Mobile Only) */
 .bottom-nav {
     box-shadow: var(--shadow-top-strong);
-    border-top: 1px solid var(--ivs-neutral-700); /* More defined top border */
+    border-top: 1px solid var(--ivs-neutral-700); 
 }
 .bottom-nav-item {
     flex: 1 1 0%; 
@@ -435,13 +479,13 @@ main {
     transition: color var(--transition-fast) ease-out, background-color var(--transition-fast) ease-out;
     height: 100%;
     text-decoration: none;
-    position: relative; /* For potential active indicator */
+    position: relative; 
 }
 .bottom-nav-item:hover, .bottom-nav-item.active-bottom-nav { 
     color: var(--ivs-secondary);
     background-color: var(--ivs-neutral-700); 
 }
-.bottom-nav-item.active-bottom-nav::before { /* Example active indicator */
+.bottom-nav-item.active-bottom-nav::before { 
     content: '';
     position: absolute;
     top: 0;
@@ -451,27 +495,41 @@ main {
     background-color: var(--ivs-secondary);
 }
 .bottom-nav-icon {
-    font-size: 1.375rem; /* 22px */
+    font-size: 1.375rem; 
     margin-bottom: 0.125rem; 
 }
 .bottom-nav-text {
-    font-size: 0.6875rem; /* 11px */
+    font-size: 0.6875rem; 
     line-height: 1.2;
     font-weight: 500;
-    /* text-transform: uppercase; Optional based on design preference */
     letter-spacing: 0.01em;
 }
 
 /* FAB Styling Enhancements */
-.fab-hidden-alt { /* For FAB scroll to top, to avoid conflict with general .hidden */
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(0.8) translateY(10px);
-    pointer-events: none;
+.fab-hidden-alt { 
+    opacity: 0 !important; /* Ensure it's hidden */
+    visibility: hidden !important;
+    transform: scale(0.8) translateY(10px) !important;
+    pointer-events: none !important;
 }
 .fab-visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: scale(1) translateY(0) !important;
+    pointer-events: auto !important;
+}
+#fab-container-placeholder .fab-options-menu { /* Default state for FAB submenus */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(0.95);
+    pointer-events: none;
+    transition: opacity var(--transition-fast) ease-out, transform var(--transition-fast) ease-out, visibility 0s linear var(--transition-fast);
+}
+#fab-container-placeholder button[aria-expanded="true"] + .fab-options-menu {
     opacity: 1;
     visibility: visible;
-    transform: scale(1) translateY(0);
+    transform: translateY(0) scale(1);
     pointer-events: auto;
+    transition-delay: 0s;
 }
+
