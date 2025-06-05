@@ -10,7 +10,7 @@ window.componentState = window.componentState || {
 };
 
 function componentLog(message, type = 'log') {
-    const debugMode = false; 
+    const debugMode = true; // Nên đặt là true khi phát triển, false khi deploy
     if (debugMode || type === 'error' || type === 'warn') {
         console[type](`[IVS Components] ${message}`);
     }
@@ -34,358 +34,243 @@ function debounce(func, wait) {
 }
 
 async function loadComponent(componentName, placeholderId, filePath) {
-    componentLog(`Loading: ${componentName} from ${filePath} into #${placeholderId}`);
+    componentLog(`Đang tải: ${componentName} từ ${filePath} vào #${placeholderId}`);
     try {
         const response = await fetch(filePath);
-        if (!response.ok) throw new Error(`HTTP ${response.status} for ${filePath}`);
+        if (!response.ok) throw new Error(`Lỗi HTTP ${response.status} cho ${filePath}`);
         const html = await response.text();
         const placeholder = document.getElementById(placeholderId);
         if (placeholder) {
             placeholder.innerHTML = html;
-            componentLog(`${componentName} injected.`);
+            componentLog(`${componentName} đã được chèn vào DOM.`);
             return true;
         }
-        throw new Error(`Placeholder #${placeholderId} not found.`);
+        throw new Error(`Không tìm thấy Placeholder #${placeholderId}.`);
     } catch (error) {
-        componentLog(`Error loading ${componentName}: ${error.message}`, 'error');
+        componentLog(`Lỗi khi tải ${componentName}: ${error.message}`, 'error');
         const placeholder = document.getElementById(placeholderId);
-        if (placeholder) placeholder.innerHTML = `<div class="p-3 text-center text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/50 rounded-md">Error loading ${componentName}.</div>`;
+        if (placeholder) placeholder.innerHTML = `<div class="p-3 text-center text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/50 rounded-md">Lỗi tải ${componentName}.</div>`;
         return false;
     }
 }
 
-function initializeHeaderInternal() {
-    if (window.componentState.headerInitialized) {
-        componentLog('Header already initialized.', 'warn');
+// --- BEGIN PHẦN ĐÃ CÓ TRONG loadComponents.js CỦA BẠN ---
+// Giả định các hàm initializeHeaderInternal, loadHeader, initializeFooterInternal đã tồn tại
+// và bạn sẽ chèn/thay thế hàm initializeFabButtonsInternal dưới đây vào đúng vị trí.
+// Ví dụ:
+// function initializeHeaderInternal() { /* ... code của bạn ... */ }
+// async function loadHeader() { /* ... code của bạn ... */ }
+// function initializeFooterInternal() { /* ... code của bạn ... */ }
+// window.initializeHeader = initializeHeaderInternal;
+// window.initializeFooter = initializeFooterInternal;
+// --- END PHẦN ĐÃ CÓ ---
+
+
+// HÀM TẠO NỘI DUNG CHO MENU LIÊN HỆ
+function populateContactOptions(contactMenuElement) {
+    if (!contactMenuElement) {
+        componentLog("Phần tử menu liên hệ không tồn tại để điền nội dung.", "warn");
         return;
     }
-    try {
-        const header = document.getElementById('main-header');
-        if (!header) throw new Error('Main header element (#main-header) not found.');
-        window.componentState.headerElement = header;
+    // *** BẠN CẦN TÙY CHỈNH CÁC THÔNG TIN LIÊN HỆ THỰC TẾ VÀO ĐÂY ***
+    const contacts = [
+        { key: "fab_call_hotline", text: "Gọi Hotline", href: "tel:+849xxxxxxxx", icon: "fas fa-phone", color: "text-ivs-accent" },
+        { key: "fab_send_email", text: "Gửi Email", href: "mailto:info@ivs.edu.vn", icon: "fas fa-envelope", color: "text-ivs-accent" },
+        { key: "fab_chat_zalo", text: "Chat Zalo", href: "https://zalo.me/YOUR_ZALO_OA_ID_OR_NUMBER", icon: "fas fa-comment-dots", color: "text-blue-500" }, // Thay YOUR_ZALO_OA_ID_OR_NUMBER
+        { key: "fab_fanpage_fb", text: "Fanpage Facebook", href: "https://www.facebook.com/IVSJSC/", icon: "fab fa-facebook-f", color: "text-blue-600" },
+        { key: "fab_contact_page", text: "Trang Liên Hệ", href: "/contact.html", icon: "fas fa-map-marker-alt", color: "text-ivs-accent" }
+    ];
 
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenuBottomButton = document.getElementById('mobile-menu-bottom-toggle');
-        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
-        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
-        const mobileMenuContainer = document.getElementById('mobile-menu-container');
-        const mobileMenuCloseBtn = document.getElementById('mobile-menu-close-btn');
-        const iconOpen = header.querySelector('.icon-menu-open');
-        const iconClose = header.querySelector('.icon-menu-close');
+    let contactHtml = '';
+    contacts.forEach(contact => {
+        contactHtml += `
+            <a href="${contact.href}" 
+               role="menuitem" 
+               class="fab-submenu-item group" 
+               data-lang-key="${contact.key}"
+               ${contact.href.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''}>
+                <i class="${contact.icon} fa-fw ${contact.color} group-hover:${contact.color.replace('-500', '-600').replace('-accent', '-accent-dark')}"></i>
+                <span>${contact.text}</span>
+            </a>
+        `;
+    });
+    contactMenuElement.innerHTML = contactHtml;
 
-        if (!mobileMenuButton || !mobileMenuPanel || !mobileMenuBackdrop || !mobileMenuContainer || !mobileMenuCloseBtn || !iconOpen || !iconClose) {
-            componentLog('Mobile menu elements missing. Navigation may be impaired.', 'warn');
-        } else {
-            const toggleMobileMenu = (forceClose = false) => {
-                const isOpen = mobileMenuPanel.classList.contains('active');
-                if (forceClose || isOpen) { 
-                    if (!window.componentState.isMobileMenuOpen && !forceClose) return; 
-                    window.componentState.isMobileMenuOpen = false;
-                    mobileMenuContainer.style.transform = 'translateX(100%)';
-                    mobileMenuPanel.classList.remove('active'); 
-                    setTimeout(() => { mobileMenuPanel.classList.add('hidden'); }, 400); 
-
-                    iconOpen.classList.remove('hidden');
-                    iconClose.classList.add('hidden');
-                    document.body.style.overflow = '';
-                    mobileMenuButton.setAttribute('aria-expanded', 'false');
-                    componentLog('Mobile menu closed.');
-                } else { 
-                    if (window.componentState.isMobileMenuOpen) return; 
-                    window.componentState.isMobileMenuOpen = true;
-                    mobileMenuPanel.classList.remove('hidden');
-                    requestAnimationFrame(() => { 
-                        mobileMenuPanel.classList.add('active');
-                        mobileMenuContainer.style.transform = 'translateX(0%)';
-                    });
-                    iconOpen.classList.add('hidden');
-                    iconClose.classList.remove('hidden');
-                    document.body.style.overflow = 'hidden';
-                    mobileMenuButton.setAttribute('aria-expanded', 'true');
-                    componentLog('Mobile menu opened.');
-                }
-            };
-
-            mobileMenuButton.addEventListener('click', () => toggleMobileMenu());
-            if (mobileMenuBottomButton) mobileMenuBottomButton.addEventListener('click', () => toggleMobileMenu());
-            mobileMenuBackdrop.addEventListener('click', () => toggleMobileMenu(true));
-            mobileMenuCloseBtn.addEventListener('click', () => toggleMobileMenu(true));
-
-            mobileMenuContainer.querySelectorAll('a:not(.mobile-submenu-toggle), button:not(.mobile-submenu-toggle)').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    if (!link.closest('.mobile-submenu-toggle')) {
-                        if(!e.target.closest('.mobile-submenu-content.expanded')) {
-                           toggleMobileMenu(true);
-                        }
-                    }
-                });
-            });
-            
-            mobileMenuContainer.querySelectorAll('.mobile-submenu-toggle').forEach(toggle => {
-                const submenuId = toggle.getAttribute('aria-controls');
-                const submenu = document.getElementById(submenuId);
-                const icon = toggle.querySelector('.mobile-submenu-icon');
-                if (submenu) {
-                    submenu.style.transition = 'max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding-bottom 0.3s ease-in-out';
-                    submenu.style.maxHeight = '0'; 
-                    submenu.style.opacity = '0';
-                    submenu.style.overflow = 'hidden';
-                    submenu.classList.remove('expanded');
-
-                    toggle.addEventListener('click', () => {
-                        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
-                        toggle.setAttribute('aria-expanded', String(!isExpanded));
-                        if (!isExpanded) { 
-                            submenu.style.maxHeight = submenu.scrollHeight + "px";
-                            submenu.style.opacity = '1';
-                            submenu.style.paddingBottom = '0.25rem'; 
-                            if(icon) icon.style.transform = 'rotate(90deg)';
-                            submenu.classList.add('expanded');
-                        } else { 
-                            submenu.style.maxHeight = '0';
-                            submenu.style.opacity = '0';
-                            submenu.style.paddingBottom = '0';
-                            if(icon) icon.style.transform = 'rotate(0deg)';
-                            submenu.classList.remove('expanded');
-                        }
-                    });
-                }
-            });
-        }
-
-        let lastScrollTop = 0;
-        const headerScrollThreshold = 80; 
-        const handleHeaderScroll = () => {
-            if (!window.componentState.headerElement) return;
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (isMobileDevice() || scrollTop < lastScrollTop || scrollTop <= headerScrollThreshold) {
-                window.componentState.headerElement.classList.remove('header-hidden');
-            } else if (scrollTop > lastScrollTop && scrollTop > headerScrollThreshold) { 
-                window.componentState.headerElement.classList.add('header-hidden');
-            }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-        };
-        const debouncedHeaderScroll = debounce(handleHeaderScroll, 50);
-        window.addEventListener('scroll', debouncedHeaderScroll, { passive: true });
-        
-        const updateHeaderHeightVar = () => {
-            if (window.componentState.headerElement) {
-                const wasHidden = window.componentState.headerElement.classList.contains('header-hidden');
-                if(wasHidden) window.componentState.headerElement.classList.remove('header-hidden');
-                
-                const height = window.componentState.headerElement.offsetHeight;
-                
-                if(wasHidden) window.componentState.headerElement.classList.add('header-hidden');
-
-                if (height > 0) { 
-                    document.documentElement.style.setProperty('--header-actual-height', `${height}px`);
-                    const placeholder = document.getElementById('header-placeholder');
-                    if (placeholder) placeholder.style.minHeight = `${height}px`; 
-                }
-            }
-        };
-
-        if (window.ResizeObserver && window.componentState.headerElement) {
-            const resizeObserver = new ResizeObserver(debounce(updateHeaderHeightVar, 50)); 
-            resizeObserver.observe(window.componentState.headerElement);
-        } else {
-            window.addEventListener('resize', debounce(updateHeaderHeightVar, 200));
-        }
-        setTimeout(updateHeaderHeightVar, 50);
-
-
-        document.querySelectorAll('.desktop-dropdown-container, .mega-menu-dropdown-container').forEach(container => {
-            const button = container.querySelector('button[aria-haspopup="true"]');
-            const menu = container.querySelector('.desktop-dropdown-content, .mega-menu-content');
-            if (!button || !menu) return;
-
-            let menuTimeout;
-
-            const openMenu = () => {
-                clearTimeout(menuTimeout);
-                menu.style.opacity = '1';
-                menu.style.visibility = 'visible';
-                let transformBase = menu.classList.contains('mega-menu-content') ? 'translateX(-50%)' : '';
-                menu.style.transform = `${transformBase} translateY(0) scale(1)`;
-                menu.style.pointerEvents = 'auto';
-                button.setAttribute('aria-expanded', 'true');
-            };
-
-            const closeMenu = (delay = 200) => { 
-                menuTimeout = setTimeout(() => {
-                    menu.style.opacity = '0';
-                    let transformBase = menu.classList.contains('mega-menu-content') ? 'translateX(-50%)' : '';
-                    menu.style.transform = `${transformBase} translateY(5px) scale(0.98)`;
-                    menu.style.pointerEvents = 'none';
-                    setTimeout(() => { 
-                        if (menu.style.opacity === '0') menu.style.visibility = 'hidden';
-                    }, parseFloat(getComputedStyle(menu).transitionDuration.replace('s',''))*1000 || 150);
-                    button.setAttribute('aria-expanded', 'false');
-                }, delay);
-            };
-            
-            container.addEventListener('mouseenter', openMenu);
-            container.addEventListener('mouseleave', () => closeMenu());
-            
-            button.addEventListener('focus', openMenu);
-            container.addEventListener('focusout', (e) => {
-                if (!container.contains(e.relatedTarget)) {
-                    closeMenu(50); 
-                }
-            });
-            container.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
-                    closeMenu(0);
-                    button.focus(); 
-                }
-            });
-        });
-
-        window.componentState.headerInitialized = true;
-        componentLog('Header initialized successfully.');
-    } catch (error) {
-        componentLog(`Error initializing header: ${error.message}`, 'error');
-        window.componentState.headerInitialized = false;
-    }
-}
-window.initializeHeader = initializeHeaderInternal; 
-
-async function loadHeader() {
-    const placeholder = document.getElementById('header-placeholder');
-    if (!placeholder) {
-        componentLog('Header placeholder not found.', 'error');
-        return false;
-    }
-    placeholder.setAttribute('aria-busy', 'true');
-    try {
-        const loaded = await loadComponent('Header', 'header-placeholder', '/components/header.html');
-        if (!loaded) throw new Error('Header HTML content failed to load.');
-        await initializeHeaderInternal(); 
-        placeholder.setAttribute('aria-busy', 'false');
-        componentLog('Header loaded and initialized.');
-        return true;
-    } catch (error) {
-        componentLog(`Failed to load and initialize header: ${error.message}`, 'error');
-        if(placeholder) placeholder.innerHTML = `<div class="p-3 text-center text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/50 rounded-md">Error loading header.</div>`;
-        placeholder.setAttribute('aria-busy', 'false');
-        return false;
+    // Áp dụng bản dịch cho các mục vừa thêm (nếu hệ thống ngôn ngữ đã sẵn sàng)
+    if (typeof window.applyTranslations === 'function' && window.langSystem && window.langSystem.initialized) {
+        window.applyTranslations(contactMenuElement);
+    } else if (typeof window.applyLanguage === 'function' && window.langSystem && window.langSystem.initialized) { // Fallback cho tên hàm cũ
+        window.applyLanguage(contactMenuElement);
     }
 }
 
-function initializeFooterInternal() {
-    if (window.componentState.footerInitialized) return;
-    const currentYearSpan = document.getElementById('current-year');
-    if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
-    
-    const newsletterForm = document.getElementById('newsletterForm'); 
-    if (newsletterForm) {
-        const newsletterMessage = document.getElementById('newsletterMessage'); 
-        newsletterForm.addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const emailInput = newsletterForm.querySelector('input[name="email"]');
-            if (!emailInput || !emailInput.value.trim()) {
-                if(newsletterMessage) {
-                    newsletterMessage.textContent = 'Please enter a valid email address.'; 
-                    newsletterMessage.className = 'mt-2 text-sm text-ivs-danger dark:text-ivs-danger';
-                } return;
-            }
-            if(newsletterMessage) {
-                 newsletterMessage.textContent = 'Thank you for subscribing!';
-                 newsletterMessage.className = 'mt-2 text-sm text-ivs-success dark:text-ivs-success';
-                 newsletterForm.reset();
-                 setTimeout(() => { newsletterMessage.textContent = ''; }, 3000);
-            }
-        });
+// HÀM TẠO NỘI DUNG CHO MENU CHIA SẺ
+function populateShareOptions(shareMenuElement) {
+    if (!shareMenuElement) {
+        componentLog("Phần tử menu chia sẻ không tồn tại để điền nội dung.", "warn");
+        return;
     }
-    window.componentState.footerInitialized = true;
-    componentLog("Footer initialized.");
+
+    const currentUrl = encodeURIComponent(window.location.href);
+    const pageTitle = encodeURIComponent(document.title);
+
+    const shares = [
+        { text: "Facebook", icon: "fab fa-facebook-f", color: "text-blue-600", action: `window.open('https://www.facebook.com/sharer/sharer.php?u=${currentUrl}', '_blank', 'noopener,noreferrer')` },
+        { text: "Twitter", icon: "fab fa-twitter", color: "text-sky-500", action: `window.open('https://twitter.com/intent/tweet?url=${currentUrl}&text=${pageTitle}', '_blank', 'noopener,noreferrer')` },
+        // { text: "LinkedIn", icon: "fab fa-linkedin-in", color: "text-blue-700", action: `window.open('https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}', '_blank', 'noopener,noreferrer')` },
+        { text: "Sao chép liên kết", icon: "fas fa-link", color: "text-gray-500", action: `navigator.clipboard.writeText(decodeURIComponent('${currentUrl}')).then(() => alert('Đã sao chép liên kết!'), () => alert('Không thể sao chép liên kết.'))` }
+    ];
+
+    let shareHtml = '';
+    shares.forEach(share => {
+        shareHtml += `
+            <button role="menuitem" class="fab-submenu-item group w-full" onclick="${share.action}">
+                <i class="${share.icon} fa-fw ${share.color} group-hover:${share.color.replace('-500', '-600').replace('-600','-700')}"></i>
+                <span>${share.text}</span>
+            </button>
+        `;
+    });
+    shareMenuElement.innerHTML = shareHtml;
+    // Thường không cần dịch các nút "Facebook", "Twitter", nhưng "Sao chép liên kết" có thể cần data-lang-key nếu muốn
 }
-window.initializeFooter = initializeFooterInternal;
+
 
 function initializeFabButtonsInternal() {
-    if (window.componentState.fabInitialized) return;
-    const fabContainerHost = document.getElementById('fab-container-placeholder');
-    if (!fabContainerHost || !fabContainerHost.querySelector('#contact-main-btn')) { 
-        componentLog("FAB container or main FAB buttons not found after load attempt. Skipping.", 'warn');
-        window.componentState.fabInitialized = true; 
+    if (window.componentState.fabInitialized) {
+        componentLog('FABs đã được khởi tạo trước đó.', 'warn');
         return;
     }
-    const fabContainer = fabContainerHost.firstChild; 
+    componentLog("Đang khởi tạo các nút FAB...");
 
+    const fabContainerHost = document.getElementById('fab-container-placeholder');
+    if (!fabContainerHost) {
+        componentLog("Placeholder cho FAB (#fab-container-placeholder) không tìm thấy. Bỏ qua.", 'error');
+        return; 
+    }
+    
+    const fabContainer = fabContainerHost.querySelector('#fab-container');
+    if (!fabContainer) {
+        componentLog("#fab-container không tìm thấy bên trong placeholder. Đảm bảo fab-container.html đã được tải vào.", "error");
+        return;
+    }
+
+    // --- Nút Cuộn Lên Đầu Trang ---
     const scrollToTopFab = fabContainer.querySelector('#scroll-to-top-btn'); 
     if (scrollToTopFab) {
         const fabScrollHandler = debounce(() => {
             const isVisible = window.scrollY > (isMobileDevice() ? 200 : 120);
-            scrollToTopFab.classList.toggle('fab-visible', isVisible);
-            scrollToTopFab.classList.toggle('fab-hidden-alt', !isVisible);
+            scrollToTopFab.classList.toggle('hidden', !isVisible); // Sử dụng class 'hidden' của Tailwind
+            scrollToTopFab.classList.toggle('opacity-0', !isVisible);
+            scrollToTopFab.classList.toggle('scale-90', !isVisible);
+            scrollToTopFab.classList.toggle('pointer-events-none', !isVisible);
+
+            scrollToTopFab.classList.toggle('opacity-100', isVisible);
+            scrollToTopFab.classList.toggle('scale-100', isVisible);
+            scrollToTopFab.classList.toggle('pointer-events-auto', isVisible);
         }, 100);
         window.addEventListener('scroll', fabScrollHandler, { passive: true });
         fabScrollHandler(); 
         scrollToTopFab.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        componentLog('Nút cuộn lên đầu trang đã được khởi tạo.');
+    } else {
+        componentLog('Nút cuộn lên đầu trang (#scroll-to-top-btn) không tìm thấy.', 'warn');
     }
 
+    // --- Các nút FAB có Menu Con ---
     const fabButtonsWithSubmenu = fabContainer.querySelectorAll('button[aria-haspopup="true"]');
     fabButtonsWithSubmenu.forEach(btn => {
         const menuId = btn.getAttribute('aria-controls');
         const menu = fabContainer.querySelector(`#${menuId}`); 
         if (menu) {
-            let fabMenuTimeout;
+            // **QUAN TRỌNG: Điền nội dung cho menu con**
+            if (menuId === 'contact-options') {
+                populateContactOptions(menu);
+                componentLog('Đã điền nội dung cho menu liên hệ.');
+            } else if (menuId === 'share-options') {
+                populateShareOptions(menu);
+                componentLog('Đã điền nội dung cho menu chia sẻ.');
+            }
+
             const openFabMenu = () => {
-                clearTimeout(fabMenuTimeout);
-                menu.classList.remove('hidden', 'opacity-0', 'scale-95', 'fab-hidden-alt');
-                menu.classList.add('opacity-100', 'scale-100', 'fab-visible');
+                menu.classList.remove('hidden');
+                requestAnimationFrame(() => { 
+                    menu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+                    menu.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+                });
                 btn.setAttribute('aria-expanded', 'true');
-            }
-            const closeFabMenu = (delay = 200) => {
-                 fabMenuTimeout = setTimeout(() => {
-                    menu.classList.remove('opacity-100', 'scale-100', 'fab-visible');
-                    menu.classList.add('opacity-0', 'scale-95', 'fab-hidden-alt');
-                    setTimeout(() => menu.classList.add('hidden'), 150); 
-                    btn.setAttribute('aria-expanded', 'false');
-                }, delay);
-            }
-            btn.addEventListener('click', (e) => { // Changed to click for FABs
+                componentLog(`Menu FAB '${menuId}' đã mở.`);
+            };
+
+            const closeFabMenu = () => {
+                menu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                menu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                // Sử dụng transitionend để thêm class 'hidden' sau khi hiệu ứng hoàn tất
+                menu.addEventListener('transitionend', function handler() {
+                    if (menu.classList.contains('opacity-0')) { // Chỉ thêm hidden nếu nó thực sự đã bị ẩn
+                        menu.classList.add('hidden');
+                    }
+                    menu.removeEventListener('transitionend', handler);
+                }, { once: true });
+                btn.setAttribute('aria-expanded', 'false');
+                componentLog(`Menu FAB '${menuId}' đã đóng.`);
+            };
+            
+            btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const isCurrentlyOpen = btn.getAttribute('aria-expanded') === 'true';
+                
+                // Đóng tất cả các menu con khác
                 fabButtonsWithSubmenu.forEach(otherBtn => {
                     if (otherBtn !== btn) {
                         const otherMenuId = otherBtn.getAttribute('aria-controls');
                         const otherMenu = fabContainer.querySelector(`#${otherMenuId}`);
                         if (otherMenu && otherBtn.getAttribute('aria-expanded') === 'true') {
-                            otherMenu.classList.remove('opacity-100', 'scale-100', 'fab-visible');
-                            otherMenu.classList.add('opacity-0', 'scale-95', 'fab-hidden-alt');
-                            setTimeout(() => otherMenu.classList.add('hidden'),150);
+                            otherMenu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                            otherMenu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                            otherMenu.addEventListener('transitionend', function handler() {
+                                if (otherMenu.classList.contains('opacity-0')) {
+                                    otherMenu.classList.add('hidden');
+                                }
+                                otherMenu.removeEventListener('transitionend', handler);
+                            }, { once: true });
                             otherBtn.setAttribute('aria-expanded', 'false');
                         }
                     }
                 });
-                if(isCurrentlyOpen) closeFabMenu(0); else openFabMenu();
+
+                if(isCurrentlyOpen) {
+                    closeFabMenu();
+                } else {
+                    openFabMenu();
+                }
             });
-            // Keep menu open if mouse enters it (optional, can be removed for click-only)
-            // menu.addEventListener('mouseenter', () => clearTimeout(fabMenuTimeout));
-            // btn.addEventListener('mouseleave', () => { if (!menu.matches(':hover')) closeFabMenu();}); // If using hover
-            // menu.addEventListener('mouseleave', () => { if (!btn.matches(':hover')) closeFabMenu();});
             
-            btn.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeFabMenu(0); });
-            // menu.addEventListener('focusout', (e) => { if (!menu.contains(e.relatedTarget) && !btn.contains(e.relatedTarget)) closeFabMenu(50); });
+            btn.addEventListener('keydown', (e) => { 
+                if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+                    closeFabMenu();
+                    btn.focus(); // Trả focus về nút chính
+                }
+            });
+        } else {
+            componentLog(`Không tìm thấy menu con #${menuId} cho nút FAB.`, 'warn');
         }
     });
      
+    // Đóng tất cả menu FAB khi click ra ngoài #fab-container
     document.addEventListener('click', (e) => { 
-        let clickedInsideFab = false;
-        fabButtonsWithSubmenu.forEach(btn => {
-            const menuId = btn.getAttribute('aria-controls');
-            const menu = fabContainer.querySelector(`#${menuId}`);
-            if (btn.contains(e.target) || (menu && menu.contains(e.target))) {
-                clickedInsideFab = true;
-            }
-        });
-        if(!clickedInsideFab){
+        if (!fabContainer.contains(e.target)) { // Nếu click ra ngoài #fab-container
             fabButtonsWithSubmenu.forEach(btn => {
                  const menuId = btn.getAttribute('aria-controls');
                  const menu = fabContainer.querySelector(`#${menuId}`);
-                 if (menu && !menu.classList.contains('hidden')) {
-                    menu.classList.add('hidden', 'opacity-0', 'scale-95', 'fab-hidden-alt');
+                 if (menu && btn.getAttribute('aria-expanded') === 'true') { // Chỉ đóng nếu đang mở
+                    menu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                    menu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                    menu.addEventListener('transitionend', function handler() {
+                        if (menu.classList.contains('opacity-0')) {
+                            menu.classList.add('hidden');
+                        }
+                        menu.removeEventListener('transitionend', handler);
+                    }, { once: true });
                     btn.setAttribute('aria-expanded', 'false');
                  }
             });
@@ -393,60 +278,80 @@ function initializeFabButtonsInternal() {
     });
 
     window.componentState.fabInitialized = true;
-    componentLog("FABs initialized.");
+    componentLog("Các nút FAB đã được khởi tạo với nội dung.");
 }
-window.initializeFabButtons = initializeFabButtonsInternal;
+window.initializeFabButtons = initializeFabButtonsInternal; // Đảm bảo gán vào window
 
+// --- PHẦN CUỐI CỦA loadComponents.js ---
 async function loadCommonComponents() {
     if (window.componentState.componentsLoadedAndInitialized) {
+        componentLog('Các thành phần chung đã được tải và khởi tạo trước đó.', 'info');
         return;
     }
-    componentLog('Loading common components sequence initiated...');
+    componentLog('Bắt đầu chuỗi tải các thành phần chung...');
     
-    // Load Header first, then initialize it, then initialize language system
-    const headerLoaded = await loadHeader(); 
+    // 1. Tải Header, sau đó khởi tạo Header
+    const headerLoaded = await loadHeader(); // loadHeader sẽ tự gọi initializeHeaderInternal
 
+    // 2. Khởi tạo hệ thống ngôn ngữ SAU KHI Header (chứa nút ngôn ngữ) đã được tải và khởi tạo
     if(headerLoaded && window.componentState.headerInitialized) {
         if (typeof window.initializeLanguageSystem === 'function') {
             try {
                 await window.initializeLanguageSystem(); 
-                componentLog('Language system initialized after header.');
-            } catch (langError) { componentLog(`Error initializing language system: ${langError.message}`, 'error'); }
+                componentLog('Hệ thống ngôn ngữ đã được khởi tạo sau header.');
+            } catch (langError) { componentLog(`Lỗi khởi tạo hệ thống ngôn ngữ: ${langError.message}`, 'error'); }
         } else { 
-            componentLog('initializeLanguageSystem function not found.', 'warn');
+            componentLog('Hàm initializeLanguageSystem không tồn tại. Sẽ thử fallback applyLanguage.', 'warn');
+            if (typeof window.applyTranslations === 'function') { // Fallback cho tên hàm applyLanguage cũ hơn
+                try { window.applyTranslations(document.documentElement); } catch(e) { componentLog('Lỗi khi gọi applyTranslations fallback.', 'error');}
+            } else if (typeof window.applyLanguage === 'function') {
+                try { window.applyLanguage(document.documentElement); } catch(e) { componentLog('Lỗi khi gọi applyLanguage fallback.', 'error');}
+            }
+             else {
+                 componentLog('Cả initializeLanguageSystem và applyTranslations/applyLanguage đều không tồn tại. Dịch thuật có thể không hoạt động.', 'error');
+            }
         }
     } else {
-        componentLog('Header failed to load or initialize. Language system might not bind correctly.', 'error');
-         // Attempt to initialize language system anyway if language.js is loaded
+        componentLog('Header không tải hoặc khởi tạo thành công. Hệ thống ngôn ngữ có thể không hoạt động đúng.', 'error');
         if (typeof window.initializeLanguageSystem === 'function') {
-            try { await window.initializeLanguageSystem(); } catch (e) { console.error(e); }
+            try { await window.initializeLanguageSystem(); } catch (e) { componentLog('Lỗi khởi tạo ngôn ngữ (fallback khi header lỗi): '+e.message, 'error'); }
         }
     }
 
+    // 3. Tải Footer và khởi tạo Footer
     const footerPlaceholder = document.getElementById('footer-placeholder');
     if (footerPlaceholder) {
         const footerLoaded = await loadComponent('Footer', 'footer-placeholder', '/components/footer.html');
-        if (footerLoaded) initializeFooterInternal();
-    } else { componentLog('Footer placeholder not found.', 'info'); }
+        if (footerLoaded && typeof initializeFooterInternal === 'function') initializeFooterInternal();
+    } else { componentLog('Placeholder cho Footer không tìm thấy.', 'info'); }
     
+    // 4. Tải FAB container và khởi tạo FABs
     const fabPlaceholder = document.getElementById('fab-container-placeholder');
     if (fabPlaceholder) {
         const fabLoaded = await loadComponent('FABs', 'fab-container-placeholder', '/components/fab-container.html');
-        if (fabLoaded) initializeFabButtonsInternal();
-    } else { componentLog('FAB placeholder not found.', 'info'); }
+        if (fabLoaded) {
+            initializeFabButtonsInternal(); 
+        } else {
+            componentLog('Không thể tải fab-container.html, FABs sẽ không được khởi tạo.', 'error');
+        }
+    } else { componentLog('Placeholder cho FAB không tìm thấy.', 'info'); }
     
     window.componentState.componentsLoadedAndInitialized = true;
-    componentLog('All common components loading sequence complete.');
+    componentLog('Chuỗi tải các thành phần chung đã hoàn tất.');
 
-    if (typeof window.onPageComponentsLoaded === 'function') {
+    if (typeof window.onPageComponentsLoadedCallback === 'function') { 
+        componentLog('Đang gọi onPageComponentsLoadedCallback của trang...');
         try {
-            await window.onPageComponentsLoaded();
+            await window.onPageComponentsLoadedCallback(); 
         } catch(pageCallbackError) {
-            componentLog(`Error in onPageComponentsLoaded callback: ${pageCallbackError.message}`, 'error');
+            componentLog(`Lỗi trong onPageComponentsLoadedCallback: ${pageCallbackError.message}`, 'error');
         }
+    } else {
+         componentLog('Không tìm thấy onPageComponentsLoadedCallback của trang.', 'info');
     }
 }
 
+// Đảm bảo loadCommonComponents được gọi sau khi DOM sẵn sàng
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', loadCommonComponents);
 } else {
