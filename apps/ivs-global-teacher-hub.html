@@ -263,36 +263,35 @@
                         </div>
                         <div>
                             <label for="phoneNumber" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_phoneNumber">Số điện thoại</label>
-                            <input type="tel" id="phoneNumber" name="entry.1234567890" class="form-input block w-full rounded-lg shadow-sm" placeholder="+84 901 234 567" required> {/* Placeholder entry ID */}
+                            <input type="tel" id="phoneNumber" name="entry.1234567890" class="form-input block w-full rounded-lg shadow-sm" placeholder="+84 901 234 567" required> {/* Placeholder entry ID, CẦN THAY THẾ */}
                         </div>
                         <div>
                             <label for="nationality" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_nationality">Quốc tịch</label>
-                            <input type="text" id="nationality" name="entry.0987654321" class="form-input block w-full rounded-lg shadow-sm" placeholder="Ví dụ: Việt Nam, Mỹ" required> {/* Placeholder entry ID */}
+                            <input type="text" id="nationality" name="entry.0987654321" class="form-input block w-full rounded-lg shadow-sm" placeholder="Ví dụ: Việt Nam, Mỹ" required> {/* Placeholder entry ID, CẦN THAY THẾ */}
                         </div>
                         <div>
                             <label for="qualification" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_qualification">Bằng cấp cao nhất</label>
-                            <input type="text" id="qualification" name="entry.1122334455" class="form-input block w-full rounded-lg shadow-sm" placeholder="Ví dụ: Thạc sĩ Giáo dục, TESOL" required> {/* Placeholder entry ID */}
+                            <input type="text" id="qualification" name="entry.1122334455" class="form-input block w-full rounded-lg shadow-sm" placeholder="Ví dụ: Thạc sĩ Giáo dục, TESOL" required> {/* Placeholder entry ID, CẦN THAY THẾ */}
                         </div>
                         <div>
                             <label for="experience" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_experience">Số năm kinh nghiệm giảng dạy</label>
-                            <input type="number" id="experience" name="entry.6677889900" class="form-input block w-full rounded-lg shadow-sm" placeholder="Ví dụ: 5" min="0" step="0.5" required> {/* Placeholder entry ID */}
+                            <input type="number" id="experience" name="entry.6677889900" class="form-input block w-full rounded-lg shadow-sm" placeholder="Ví dụ: 5" min="0" step="0.5" required> {/* Placeholder entry ID, CẦN THAY THẾ */}
                         </div>
                     </div>
 
                     <div>
                         <label for="subjects" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_subjects">Môn học có thể giảng dạy (cách nhau bởi dấu phẩy)</label>
-                        <input type="text" id="subjects" name="entry.1212121212" class="form-input block w-full rounded-lg shadow-sm" placeholder="Ví dụ: Tiếng Anh Giao tiếp, IELTS, Toán, Khoa học" required> {/* Placeholder entry ID */}
+                        <input type="text" id="subjects" name="entry.1212121212" class="form-input block w-full rounded-lg shadow-sm" placeholder="Ví dụ: Tiếng Anh Giao tiếp, IELTS, Toán, Khoa học" required> {/* Placeholder entry ID, CẦN THAY THẾ */}
                     </div>
 
                     <div>
                         <label for="bio" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_bio">Giới thiệu bản thân (tối đa 1500 ký tự)</label>
-                        <textarea id="bio" name="entry.3434343434" rows="5" class="form-textarea block w-full rounded-lg shadow-sm" placeholder="Nêu bật kinh nghiệm giảng dạy, phong cách, và các chứng chỉ liên quan..." maxlength="1500" required></textarea> {/* Placeholder entry ID */}
+                        <textarea id="bio" name="entry.3434343434" rows="5" class="form-textarea block w-full rounded-lg shadow-sm" placeholder="Nêu bật kinh nghiệm giảng dạy, phong cách, và các chứng chỉ liên quan..." maxlength="1500" required></textarea> {/* Placeholder entry ID, CẦN THAY THẾ */}
                         <p id="bio-char-count" class="text-xs text-ivs-neutral-500 dark:text-ivs-neutral-400 mt-1 text-right">0/1500</p>
                     </div>
 
                     <div class="border-t border-ivs-neutral-200 dark:border-ivs-neutral-700 pt-6 space-y-5">
                         <p class="text-sm text-ivs-neutral-600 dark:text-ivs-neutral-400 leading-relaxed" data-lang-key="form_upload_notice_enhanced_gform">Thông tin CV/Resume và Ảnh sẽ được yêu cầu cung cấp trực tiếp trên Google Form.</p>
-                        {/* Removed resumeUrl and photoUrl inputs as they will be on Google Form */}
                     </div>
 
                     <div class="pt-5">
@@ -350,8 +349,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     
     <script type="module">
-        // Không còn import Firebase nữa
-
         const el = {
             applyTabButton: document.getElementById('apply-tab-button'),
             viewTeachersTabButton: document.getElementById('view-teachers-tab-button'),
@@ -375,17 +372,10 @@
         };
 
         let currentActiveTab = 'apply';
-        let allFetchedTeachers = []; // Để lưu trữ danh sách giáo viên gốc cho việc tìm kiếm
+        let allFetchedTeachers = []; 
 
-        // URL Google Form của bạn (thay thế bằng URL thực tế)
-        const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSd_TJ-EstYhFVSEAHGzqG-36dsbkdxvYRuGHiCi5PvgUICjnA/formResponse"; // Sử dụng .../formResponse cho submit
         const GOOGLE_FORM_PREFILL_VIEW_URL = "https://docs.google.com/forms/d/e/1FAIpQLSd_TJ-EstYhFVSEAHGzqG-36dsbkdxvYRuGHiCi5PvgUICjnA/viewform";
-
-
-        // URL Google Sheet đã xuất bản dưới dạng CSV (thay thế bằng URL thực tế của bạn)
-        // QUAN TRỌNG: Đây PHẢI LÀ URL của tệp CSV đã được xuất bản, không phải link chia sẻ thông thường.
-        // Ví dụ: https://docs.google.com/spreadsheets/d/e/[Sheet_ID]/pub?gid=[GID]&single=true&output=csv
-        const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR8T9Lg0hKzvG9JtW5aB2g_XJ7sZkcNnN1oFfVwLhV3jR_8yqB_dM7uP0gQkLwS1iJcO9rT8zU0nL4p/pub?gid=0&single=true&output=csv"; // THAY THẾ URL NÀY! (URL của bạn là sheet private, cần public CSV)
+        const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1nzSbohos7dmaT8WNZOwPNQD59My4agZkxS0pIJwnfWE/export?format=csv&gid=0"; // Thay đổi gid nếu cần
 
         function showAppModal(title, message, type = 'info', { showConfirm = false, confirmText = 'OK', onConfirm = () => {}, showCancel = false, cancelText = 'Cancel', onCancel = () => {} } = {}) {
             if (el.modalTitle) el.modalTitle.textContent = title;
@@ -445,7 +435,8 @@
         if (el.modalCloseButtonX) el.modalCloseButtonX.addEventListener('click', hideAppModal);
         if (el.bioTextarea && el.bioCharCount) {
             el.bioTextarea.addEventListener('input', () => {
-                el.bioCharCount.textContent = `${el.bioTextarea.value.length}/1500`;
+                const maxLength = parseInt(el.bioTextarea.getAttribute('maxlength')) || 1500;
+                el.bioCharCount.textContent = `${el.bioTextarea.value.length}/${maxLength}`;
             });
         }
         
@@ -483,7 +474,7 @@
         el.viewTeachersTabButton?.addEventListener('click', () => setActiveTab('view'));
 
         function initializeAppCore() {
-            console.log("[APP CORE] Initializing core application logic (No Firebase).");
+            console.log("[APP CORE] Khởi tạo logic ứng dụng cốt lõi (Sử dụng Google Form & Sheet).");
             AOS.init({ duration: 700, once: true, offset: 30, easing: 'ease-out-cubic' });
             initializeScrollToTop();
             setActiveTab('apply'); 
@@ -491,24 +482,58 @@
         }
 
         window.onPageComponentsLoadedCallback = async () => {
-            console.log("[HUB PAGE] Components loaded. Initializing Teacher Hub App.");
-            if (typeof window.initializeLanguageSystem === 'function') {
+            console.log("------------------------------------------------------------------");
+            console.log("[HUB PAGE] SỰ KIỆN: loadComponents.js báo hiệu TẤT CẢ THÀNH PHẦN ĐÃ TẢI XONG.");
+            console.log("[HUB PAGE] Khởi tạo ứng dụng Teacher Hub...");
+            console.log("------------------------------------------------------------------");
+
+            // Kiểm tra xem hệ thống ngôn ngữ đã được khởi tạo bởi loadComponents.js hay chưa
+            if (window.langSystem && window.langSystem.initialized) {
+                console.log("[HUB PAGE] ✔️ Hệ thống ngôn ngữ đã được khởi tạo bởi loadComponents.js.");
+                if (typeof window.applyTranslations === 'function') {
+                    console.log("[HUB PAGE] Áp dụng bản dịch cho toàn bộ nội dung trang Teacher Hub.");
+                    window.applyTranslations(document.body); // Áp dụng cho toàn bộ body của trang này
+                } else {
+                    console.warn("[HUB PAGE] CẢNH BÁO: window.applyTranslations không tồn tại, không thể áp dụng bản dịch cho trang này.");
+                }
+            } else if (typeof window.initializeLanguageSystem === 'function') {
+                console.warn("[HUB PAGE] CẢNH BÁO: Hệ thống ngôn ngữ chưa được khởi tạo. Sẽ thử gọi window.initializeLanguageSystem(). Đảm bảo language.js được tải đúng cách TRƯỚC loadComponents.js, và loadComponents.js gọi initializeLanguageSystem().");
                 await window.initializeLanguageSystem();
             } else {
-                console.error("[HUB PAGE] initializeLanguageSystem is not defined! Translations will not work.");
+                console.error("[HUB PAGE] LỖI NGHIÊM TRỌNG: window.initializeLanguageSystem và window.langSystem.initialized đều không có! Hệ thống ngôn ngữ hoàn toàn không hoạt động. YÊU CẦU KIỂM TRA LẠI language.js và loadComponents.js!");
             }
-            initializeAppCore(); // Không còn async vì không có Firebase init
-            window.pageComponentsCallbackCalled = true;
+            
+            initializeAppCore(); 
+            window.pageComponentsCallbackCalled = true; // Đánh dấu callback đã được gọi
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            console.log("[HUB PAGE] DOMContentLoaded.");
+            console.log("[HUB PAGE] SỰ KIỆN: DOMContentLoaded.");
             setTimeout(() => {
                 if (!window.pageComponentsCallbackCalled) {
-                    console.warn("[HUB PAGE] Fallback: onPageComponentsLoadedCallback not called. Initializing app directly.");
-                    window.onPageComponentsLoadedCallback(); 
+                    console.warn("******************************************************************");
+                    console.warn("[HUB PAGE - Fallback DOMContentLoaded]");
+                    console.warn("window.onPageComponentsLoadedCallback KHÔNG được gọi bởi loadComponents.js. Điều này rất có thể là do lỗi nghiêm trọng trong language.js hoặc loadComponents.js (ví dụ: các hàm ngôn ngữ không được định nghĩa/gọi đúng).");
+                    console.warn("Sẽ cố gắng khởi tạo các chức năng cốt lõi của Teacher Hub. KIỂM TRA KỸ CÁC TỆP JS BÊN NGOÀI!");
+                    console.warn("******************************************************************");
+                    
+                    if (typeof window.initializeLanguageSystem === 'function') {
+                        console.log("[HUB PAGE - Fallback] Thử gọi window.initializeLanguageSystem().");
+                        window.initializeLanguageSystem().then(() => {
+                             if (typeof window.applyTranslations === 'function') window.applyTranslations(document.body);
+                             initializeAppCore();
+                        }).catch(err => {
+                            console.error("[HUB PAGE - Fallback] Lỗi khi gọi initializeLanguageSystem trong fallback:", err);
+                            initializeAppCore(); // Vẫn thử khởi tạo app core
+                        });
+                    } else {
+                         console.error('[HUB PAGE - Fallback] LỖI NGHIÊM TRỌNG: initializeLanguageSystem VẪN KHÔNG TÌM THẤY. Sửa language.js!');
+                         initializeAppCore(); // Vẫn thử khởi tạo app core
+                    }
+                } else {
+                    console.log("[HUB PAGE - DOMContentLoaded] window.onPageComponentsLoadedCallback đã được gọi. Không chạy fallback.");
                 }
-            }, 1000);
+            }, 1200); 
         });
 
         function initializeScrollToTop(){
@@ -530,42 +555,35 @@
 
             const formData = new FormData(el.teacherApplicationForm);
             const params = new URLSearchParams();
-
-            // Ánh xạ tên trường trong form HTML sang Google Form entry IDs
-            // BẠN CẦN THAY THẾ CÁC 'entry.xxxxxxx' BẰNG ENTRY ID THỰC TẾ TỪ GOOGLE FORM CỦA BẠN
-            const fieldToEntryMap = {
-                'fullName': 'entry.1992502008', // Ví dụ: ID cho Họ và Tên
-                'email': 'entry.1839894741',    // Ví dụ: ID cho Email
-                'phoneNumber': 'entry.1234567890', // THAY THẾ ID NÀY
-                'nationality': 'entry.0987654321', // THAY THẾ ID NÀY
-                'qualification': 'entry.1122334455',// THAY THẾ ID NÀY
-                'experience': 'entry.6677889900',  // THAY THẾ ID NÀY
-                'subjects': 'entry.1212121212',    // THAY THẾ ID NÀY
-                'bio': 'entry.3434343434'          // THAY THẾ ID NÀY
-                // Các trường 'resumeUrl' và 'photoUrl' sẽ được nhập trực tiếp trên Google Form
-            };
-
-            for (const [fieldName, entryId] of Object.entries(fieldToEntryMap)) {
-                const formInput = el.teacherApplicationForm.elements[fieldName];
-                if (formInput && formInput.value) {
-                    params.append(entryId, formInput.value);
+            
+            // Lấy tất cả các input có thuộc tính 'name' bắt đầu bằng 'entry.'
+            for (let [name, value] of formData.entries()) {
+                if (name.startsWith('entry.')) {
+                     if (value.trim()) { // Chỉ thêm nếu có giá trị
+                        params.append(name, value);
+                    }
                 }
             }
             
-            // Tạo URL pre-filled cho Google Form
             const prefilledGoogleFormUrl = `${GOOGLE_FORM_PREFILL_VIEW_URL}?${params.toString()}`;
             
-            console.log("Redirecting to Google Form:", prefilledGoogleFormUrl);
+            console.log("Chuyển hướng đến Google Form:", prefilledGoogleFormUrl);
             
             showAppModal(
                 "Chuyển đến Google Form", 
-                "Bạn sẽ được chuyển hướng đến Google Form để hoàn tất hồ sơ. Vui lòng kiểm tra và nộp đơn trên đó.",
+                "Bạn sẽ được chuyển hướng đến Google Form để hoàn tất hồ sơ. Vui lòng kiểm tra và nộp đơn trên đó. Các thông tin bạn đã điền sẽ được tự động điền trước.",
                 "info", 
-                { showConfirm: true, confirmText: "Đến Google Form", onConfirm: () => {
-                    window.open(prefilledGoogleFormUrl, '_blank');
-                    el.teacherApplicationForm.reset();
-                    if(el.bioCharCount) el.bioCharCount.textContent = "0/1500";
-                }}
+                { 
+                    showConfirm: true, 
+                    confirmText: "Đến Google Form", 
+                    onConfirm: () => {
+                        window.open(prefilledGoogleFormUrl, '_blank');
+                        el.teacherApplicationForm.reset();
+                        if(el.bioCharCount) el.bioCharCount.textContent = "0/1500";
+                    },
+                    showCancel: true,
+                    cancelText: "Ở lại trang"
+                }
             );
             toggleLoadingSpinner(false);
         });
@@ -574,18 +592,37 @@
             const lines = csvText.split(/\r\n|\n/);
             if (lines.length < 1) return [];
             
-            const headers = lines[0].split(',').map(header => header.trim().replace(/^"|"$/g, '')); // Loại bỏ dấu "" nếu có
+            const headers = lines[0].split(',').map(header => header.trim().replace(/^"|"$/g, '').trim());
             const data = [];
 
             for (let i = 1; i < lines.length; i++) {
-                if (!lines[i].trim()) continue; // Bỏ qua dòng trống
-                const values = lines[i].split(',').map(value => value.trim().replace(/^"|"$/g, ''));
+                if (!lines[i].trim()) continue; 
+                
+                // Xử lý giá trị CSV phức tạp hơn, có thể chứa dấu phẩy trong dấu ngoặc kép
+                const values = [];
+                let currentVal = '';
+                let inQuotes = false;
+                for (let char of lines[i]) {
+                    if (char === '"') {
+                        inQuotes = !inQuotes;
+                    } else if (char === ',' && !inQuotes) {
+                        values.push(currentVal.trim().replace(/^"|"$/g, '').trim());
+                        currentVal = '';
+                    } else {
+                        currentVal += char;
+                    }
+                }
+                values.push(currentVal.trim().replace(/^"|"$/g, '').trim());
+
+
                 if (values.length === headers.length) {
                     const entry = {};
                     headers.forEach((header, index) => {
                         entry[header] = values[index];
                     });
                     data.push(entry);
+                } else {
+                    console.warn("Dòng CSV không khớp số lượng header:", lines[i], "Headers:", headers, "Values:", values);
                 }
             }
             return data;
@@ -594,9 +631,11 @@
         function filterTeachers(searchTerm) {
             const lowerCaseSearchTerm = searchTerm.toLowerCase();
             const filteredTeachers = allFetchedTeachers.filter(teacher => {
+                // Đảm bảo các tên cột này khớp với Google Sheet của bạn
                 return (teacher["Họ và Tên"]?.toLowerCase().includes(lowerCaseSearchTerm) ||
                         teacher["Môn dạy"]?.toLowerCase().includes(lowerCaseSearchTerm) ||
-                        teacher["Quốc tịch"]?.toLowerCase().includes(lowerCaseSearchTerm));
+                        teacher["Quốc tịch"]?.toLowerCase().includes(lowerCaseSearchTerm) ||
+                        teacher["Email"]?.toLowerCase().includes(lowerCaseSearchTerm) ); // Thêm tìm kiếm theo email
             });
             renderTeacherList(filteredTeachers);
         }
@@ -607,25 +646,26 @@
             });
         }
 
-
         function renderTeacherList(teachers) {
-            if (!el.teachersList || !el.noTeachersMessage || !el.rosterErrorMessage) return;
+            if (!el.teachersList || !el.noTeachersMessage || !el.rosterErrorMessage) {
+                console.error("[Render List] Một hoặc nhiều thành phần DOM cần thiết không tồn tại.");
+                return;
+            }
             el.teachersList.innerHTML = '';
             el.noTeachersMessage.classList.add('hidden');
             el.rosterErrorMessage.classList.add('hidden');
 
             if (teachers.length === 0) {
                 el.noTeachersMessage.classList.remove('hidden');
+                 if(typeof window.applyTranslations === 'function') window.applyTranslations(el.noTeachersMessage);
             } else {
                 teachers.forEach(teacher => {
-                    // QUAN TRỌNG: Đảm bảo các tên cột dưới đây ('Họ và Tên', 'Ảnh (URL)', v.v.)
-                    // KHỚP CHÍNH XÁC với tên cột trong file CSV từ Google Sheet của bạn.
-                    const fullName = teacher["Họ và Tên"] || 'Chưa cung cấp tên';
-                    const photoUrl = teacher["Ảnh (URL)"] || ''; // URL ảnh từ Sheet
-                    const qualification = teacher["Bằng cấp cao nhất"] || 'Chưa cung cấp bằng cấp';
+                    const fullName = teacher["Họ và Tên"] || 'Chưa có tên';
+                    const photoUrl = teacher["Ảnh (URL)"] || '';
+                    const qualification = teacher["Bằng cấp cao nhất"] || 'Chưa có bằng cấp';
                     const experience = teacher["Kinh nghiệm (năm)"] !== undefined ? `${teacher["Kinh nghiệm (năm)"]} năm` : 'N/A';
                     const subjects = teacher["Môn dạy"] || 'N/A';
-                    const bio = teacher["Tiểu sử ngắn"] || 'Không có giới thiệu.';
+                    const bio = teacher["Tiểu sử ngắn"] || 'Chưa có giới thiệu.';
                     const nationality = teacher["Quốc tịch"] || 'N/A';
 
                     const initial = encodeURIComponent(fullName.charAt(0).toUpperCase());
@@ -652,30 +692,36 @@
                     el.teachersList.insertAdjacentHTML('beforeend', teacherCardHTML);
                 });
             }
-            if(typeof window.applyTranslations === 'function') window.applyTranslations(el.teachersListContainer);
+             // Chỉ áp dụng dịch cho container danh sách nếu nó không rỗng, tránh lỗi nếu nó chưa được tạo
+            if(el.teachersList.parentElement) { // Kiểm tra xem teachersList có parent không (tức là teachers-list-container)
+                 if(typeof window.applyTranslations === 'function') window.applyTranslations(el.teachersList.parentElement);
+            }
         }
-
 
         async function loadApprovedTeachers() {
             if (!el.teachersList || !el.noTeachersMessage || !el.rosterErrorMessage) return;
             
             toggleLoadingSpinner(true);
-            el.teachersList.innerHTML = ''; // Xóa danh sách cũ
+            el.teachersList.innerHTML = ''; 
             el.noTeachersMessage.classList.add('hidden');
             el.rosterErrorMessage.classList.add('hidden');
 
             try {
                 console.log(`[TEACHER LIST] Fetching CSV từ: ${GOOGLE_SHEET_CSV_URL}`);
-                const response = await fetch(GOOGLE_SHEET_CSV_URL);
+                // Thêm cache-busting query parameter
+                const now = new Date().getTime();
+                const csvUrlWithCacheBust = `${GOOGLE_SHEET_CSV_URL}&t=${now}`;
+                const response = await fetch(csvUrlWithCacheBust);
+
                 if (!response.ok) {
-                    throw new Error(`Lỗi HTTP khi tải Google Sheet: ${response.status} ${response.statusText}`);
+                    throw new Error(`Lỗi HTTP ${response.status} khi tải Google Sheet: ${response.statusText}. URL: ${csvUrlWithCacheBust}`);
                 }
                 const csvText = await response.text();
+                if (!csvText || csvText.trim() === "") {
+                    throw new Error("Dữ liệu CSV từ Google Sheet trống.");
+                }
                 const parsedTeachers = await parseCSV(csvText);
                 
-                // Lọc những giáo viên được phép hiển thị
-                // BẠN CẦN CÓ MỘT CỘT TRONG GOOGLE SHEET, ví dụ "Hiển thị công khai" với giá trị "TRUE" hoặc "FALSE"
-                // Và đảm bảo tên cột đó khớp với key ở đây, ví dụ teacher["Hiển thị công khai"]
                 allFetchedTeachers = parsedTeachers.filter(teacher => 
                     teacher["Hiển thị công khai"] && teacher["Hiển thị công khai"].toUpperCase() === 'TRUE'
                 );
