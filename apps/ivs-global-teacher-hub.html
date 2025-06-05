@@ -130,46 +130,12 @@
             color: theme('colors.ivs-danger');
             margin-left: 0.25rem;
         }
-        
-        .teacher-profile-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid theme('colors.ivs-neutral-200');
-            background-color: theme('colors.white');
-        }
-        .teacher-profile-card:hover {
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 15px 30px theme('colors.ivs-primary / 12%'), 0 5px 10px theme('colors.ivs-primary / 8%');
-        }
-        .dark .teacher-profile-card {
-            background-color: theme('colors.ivs-neutral-800');
-            border-color: theme('colors.ivs-neutral-700');
-        }
-        .dark .teacher-profile-card:hover {
-             box-shadow: 0 15px 30px theme('colors.black / 25%'), 0 5px 10px theme('colors.black / 15%');
-        }
-        .teacher-avatar {
-            border: 4px solid theme('colors.ivs-primary');
-            padding: 3px;
-            box-shadow: 0 2px 8px theme('colors.ivs-primary / 30%');
-        }
-        .dark .teacher-avatar {
-            border-color: theme('colors.ivs-secondary');
-            box-shadow: 0 2px 8px theme('colors.ivs-secondary / 30%');
-        }
-        
+                
         .modal-backdrop { transition: opacity 0.3s ease-in-out; }
         .modal-panel { transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease-in-out; }
         .modal-panel.entering { opacity: 0; transform: translateY(30px) scale(0.95); }
         .modal-panel.entered { opacity: 1; transform: translateY(0) scale(1); }
         .modal-panel.exiting { opacity: 0; transform: translateY(30px) scale(0.95); }
-
-        #teachers-list-container::-webkit-scrollbar { width: 8px; }
-        #teachers-list-container::-webkit-scrollbar-track { background: theme('colors.ivs-neutral-200'); border-radius: 4px;}
-        #teachers-list-container::-webkit-scrollbar-thumb { background: theme('colors.ivs-neutral-400'); border-radius: 4px;}
-        #teachers-list-container::-webkit-scrollbar-thumb:hover { background: theme('colors.ivs-neutral-500');}
-        .dark #teachers-list-container::-webkit-scrollbar-track { background: theme('colors.ivs-neutral-700');}
-        .dark #teachers-list-container::-webkit-scrollbar-thumb { background: theme('colors.ivs-neutral-500');}
-        .dark #teachers-list-container::-webkit-scrollbar-thumb:hover { background: theme('colors.ivs-neutral-400');}
 
         #header-placeholder:empty, #footer-placeholder:empty { min-height: 60px; background-color: theme('colors.ivs-neutral-100'); display: flex; align-items: center; justify-content: center; }
         .dark #header-placeholder:empty, .dark #footer-placeholder:empty { background-color: theme('colors.ivs-neutral-800'); }
@@ -237,7 +203,7 @@
                     </button>
                     <a href="apps/teacherlistsavailable.html" 
                             id="view-teachers-tab-link"
-                            class="tab-button flex-1 sm:flex-none px-4 sm:px-8 py-2 text-sm font-medium rounded-t-lg text-ivs-neutral-700 dark:text-ivs-neutral-300 hover:text-ivs-primary-dark dark:hover:text-ivs-secondary no-underline" 
+                            class="tab-button flex-1 sm:flex-none px-4 sm:px-8 py-2 text-sm font-medium rounded-t-lg text-ivs-neutral-700 dark:text-ivs-neutral-300 hover:text-ivs-primary-dark dark:hover:text-ivs-secondary no-underline flex items-center justify-center" 
                             data-lang-key="hub_tab_view_teachers">
                         <i class="fas fa-users mr-1.5 sm:mr-2 text-base"></i>View Teacher Roster
                     </a>
@@ -420,11 +386,7 @@
                 el.applyTabButton?.classList.add('tab-button-active');
                 el.viewTeachersTabLink?.classList.remove('tab-button-active');
                 el.teacherApplicationSection?.classList.remove('hidden');
-            } else {
-                 el.applyTabButton?.classList.remove('tab-button-active');
-                 el.viewTeachersTabLink?.classList.add('tab-button-active'); 
-                 el.teacherApplicationSection?.classList.add('hidden');
-            }
+            } 
             AOS.refreshHard();
         }
 
@@ -432,12 +394,11 @@
         
         if(el.viewTeachersTabLink) {
             el.viewTeachersTabLink.addEventListener('click', function(e) {
-                e.preventDefault(); 
-                setActiveTab('view'); 
-                window.location.href = this.href; 
+                // No preventDefault, allow navigation
+                el.applyTabButton?.classList.remove('tab-button-active');
+                el.viewTeachersTabLink?.classList.add('tab-button-active');
             });
         }
-
 
         function initializeAppCore() {
             AOS.init({ duration: 700, once: true, offset: 30, easing: 'ease-out-cubic' });
@@ -523,7 +484,6 @@
             );
             toggleLoadingSpinner(false);
         });
-
     </script>
 </body>
 </html>

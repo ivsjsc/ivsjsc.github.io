@@ -56,11 +56,15 @@
                         'blue-700': '#1d4ed8',
                         'purple-100': '#f3e8ff',
                         'purple-400': '#c084fc',
+                        'purple-500': '#a855f7',
                         'purple-600': '#9333ea',
+                        'purple-900': '#581c87',
                         'green-100': '#dcfce7',
                         'green-400': '#4ade80',
+                        'green-500': '#22c55e',
                         'green-600': '#16a34a',
                         'amber-400': '#facc15',
+                        'amber-500': '#f59e0b',
                         'amber-600': '#ca8a04',
                         'red-400': '#f87171',
                         'red-600': '#dc2626',
@@ -71,8 +75,8 @@
                 }
             },
             plugins: [
-                require('@tailwindcss/typography'),
-                require('@tailwindcss/aspect-ratio'),
+                // Removed: require('@tailwindcss/typography'),
+                // Removed: require('@tailwindcss/aspect-ratio'), as they are loaded via CDN
             ],
         }
     </script>
@@ -152,9 +156,8 @@
         .dark .testimonial-author {
             color: var(--blue-400);
         }
-        /* Carousel Styles */
         .carousel-container { overflow: hidden; }
-        .carousel { display: flex; transition: transform 0.5s ease-in-out; gap: 1rem; } /* Added gap */
+        .carousel { display: flex; transition: transform 0.5s ease-in-out; gap: 1rem; } 
         .carousel-item { min-width: 100%; box-sizing: border-box; }
         .carousel-btn {
             position: absolute;
@@ -182,7 +185,7 @@
     </div>
 
     <main class="flex-grow pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)] opacity-0 transition-opacity duration-500">
-        <section class="relative bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white py-20 md:py-32 overflow-hidden rounded-b-3xl shadow-xl">
+        <section class="relative bg-gradient-to-r from-blue-600 to-purple-700 text-white py-20 md:py-32 overflow-hidden rounded-b-3xl shadow-xl">
             <div class="absolute inset-0 bg-cover bg-center opacity-30" style="background-image: url('/images/banners/webdesign_hero_banner.jpg');" onerror="this.style.backgroundImage='url(https://placehold.co/1920x480/1e3a8a/ffffff?text=IVS+WebDesign)'; this.classList.add('bg-slate-700');"></div>
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <h1 id="page-title-webdesign" class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 hero-text-shadow" data-lang-key="webdesign_hero_title" data-aos="fade-up">Thiết Kế Website Chuyên Nghiệp</h1>
@@ -536,13 +539,13 @@
 
             function updateCarousel(smooth = true) {
                 if (!carousel || items.length === 0) return;
-                const itemWidth = items[0].offsetWidth + (parseFloat(getComputedStyle(carousel).gap) || 16); // 1rem gap = 16px approx
+                const itemWidth = items[0].offsetWidth + (parseFloat(getComputedStyle(carousel).gap) || 16); 
                 carousel.style.transition = smooth ? 'transform 0.5s ease-in-out' : 'none';
                 carousel.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
             }
 
             function startAutoSlide() {
-                stopAutoSlide(); // Clear existing interval
+                stopAutoSlide(); 
                 autoSlideInterval = setInterval(() => {
                     currentIndex = (currentIndex < items.length - 1) ? currentIndex + 1 : 0;
                     updateCarousel();
@@ -557,22 +560,22 @@
                 prevBtn.addEventListener('click', () => {
                     currentIndex = (currentIndex > 0) ? currentIndex - 1 : items.length - 1;
                     updateCarousel();
-                    startAutoSlide(); // Restart auto-slide on manual navigation
+                    startAutoSlide(); 
                 });
 
                 nextBtn.addEventListener('click', () => {
                     currentIndex = (currentIndex < items.length - 1) ? currentIndex + 1 : 0;
                     updateCarousel();
-                    startAutoSlide(); // Restart auto-slide on manual navigation
+                    startAutoSlide(); 
                 });
                 
                 carousel.addEventListener('mouseenter', stopAutoSlide);
                 carousel.addEventListener('mouseleave', startAutoSlide);
             }
             
-            window.addEventListener('resize', () => updateCarousel(false)); // Update without smooth transition on resize
-            updateCarousel(false); // Initial position without animation
-            startAutoSlide(); // Start auto-slide
+            window.addEventListener('resize', () => updateCarousel(false)); 
+            updateCarousel(false); 
+            startAutoSlide(); 
 
             const loadingSpinner = document.getElementById('loading-spinner');
             const mainContent = document.querySelector('main');
