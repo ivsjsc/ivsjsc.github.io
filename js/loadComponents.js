@@ -282,7 +282,7 @@ function initializeHeaderInternal() {
 }
 window.initializeHeader = initializeHeaderInternal;
 
-async function loadHeader() {
+async function loadHeader(basePath = './components/') {
     const placeholder = document.getElementById('header-placeholder');
     if (!placeholder) {
         componentLog('Placeholder của Header không tìm thấy.', 'error');
@@ -290,7 +290,8 @@ async function loadHeader() {
     }
     placeholder.setAttribute('aria-busy', 'true');
     try {
-        const loaded = await loadComponent('Header', 'header-placeholder', '/components/header.html');
+        const filePath = `${basePath}header.html`;
+        const loaded = await loadComponent('Header', 'header-placeholder', filePath);
         if (!loaded) throw new Error('Nội dung HTML của Header không tải được.');
 
         if (typeof initializeHeaderInternal === 'function') {
@@ -556,7 +557,11 @@ async function loadCommonComponents() {
     }
     componentLog('Bắt đầu chuỗi tải các thành phần chung...');
 
-    const headerLoaded = await loadHeader();
+    // ĐỊNH NGHĨA ĐƯỜNG DẪN CƠ SỞ. Sử dụng './' để đảm bảo tính tương đối.
+    // Nếu tệp HTML (vd: about.html) nằm trong 1 thư mục con, anh có thể đổi thành '../components/'
+    const basePath = './components/';
+    
+    const headerLoaded = await loadHeader(basePath);
 
     if (headerLoaded && window.componentState.headerInitialized) {
         if (typeof window.initializeLanguageSystem === 'function') {
@@ -577,13 +582,14 @@ async function loadCommonComponents() {
     } else {
         componentLog('Header không tải/khởi tạo thành công. Hệ thống ngôn ngữ có thể không hoạt động đúng.', 'error');
         if (typeof window.initializeLanguageSystem === 'function') {
-            try { await window.initializeLanguageSystem(); } catch (e) { componentLog('Lỗi khởi tạo ngôn ngữ (fallback khi header lỗi): ' + e.message, 'error'); }
+            try { await window.initializeLanguage-system(); } catch (e) { componentLog('Lỗi khởi tạo ngôn ngữ (fallback khi header lỗi): ' + e.message, 'error'); }
         }
     }
 
     const footerPlaceholder = document.getElementById('footer-placeholder');
     if (footerPlaceholder) {
-        const footerLoaded = await loadComponent('Footer', 'footer-placeholder', '/components/footer.html');
+        const footerFilePath = `${basePath}footer.html`;
+        const footerLoaded = await loadComponent('Footer', 'footer-placeholder', footerFilePath);
         if (footerLoaded && typeof initializeFooterInternal === 'function') {
             initializeFooterInternal();
         }
@@ -594,13 +600,14 @@ async function loadCommonComponents() {
 
     const fabPlaceholder = document.getElementById('fab-container-placeholder');
     if (fabPlaceholder) {
-        const fabLoaded = await loadComponent('FABs', 'fab-container-placeholder', '/components/fab-container.html');
+        const fabFilePath = `${basePath}fab-container.html`;
+        const fabLoaded = await loadComponent('FABs', 'fab-container-placeholder', fabFilePath);
         if (fabLoaded && typeof initializeFabButtonsInternal === 'function') {
             initializeFabButtonsInternal();
         } else if (fabLoaded) {
             componentLog('initializeFabButtonsInternal không tìm thấy sau khi tải FABs.', 'warn');
         } else {
-            componentLog('Không tải được fab-container.html.', 'error');
+            componentLog(`Không tải được ${fabFilePath}.`, 'error');
         }
     } else { componentLog('Placeholder FAB không tìm thấy.', 'info'); }
 
