@@ -178,23 +178,23 @@
 </head>
 <body class="bg-ivs-neutral-50 dark:bg-ivs-neutral-900 text-ivs-neutral-700 dark:text-ivs-neutral-200 antialiased" id="page-teacher-hub">
     
-    <div id="header-placeholder" data-loading-text="Đang tải menu..."></div>
+    <div id="header-placeholder" data-loading-text="Loading menu..."></div>
 
     <div id="loading-spinner" class="fixed inset-0 flex items-center justify-center bg-white/70 dark:bg-ivs-neutral-900/70 backdrop-blur-md z-[1100] hidden transition-opacity duration-300">
         <div class="animate-spin rounded-full h-14 w-14 border-t-4 border-b-4 border-ivs-primary dark:border-ivs-secondary"></div>
-        <p class="ml-4 text-lg font-medium text-ivs-primary dark:text-ivs-secondary" data-lang-key="loading_text">Đang xử lý...</p>
+        <p class="ml-4 text-lg font-medium text-ivs-primary dark:text-ivs-secondary" data-lang-key="loading_text">Processing...</p>
     </div>
 
     <div id="custom-modal" class="fixed inset-0 z-[1050] overflow-y-auto hidden modal-backdrop bg-ivs-neutral-900/60 dark:bg-black/75">
         <div class="flex items-end sm:items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
             <div class="modal-panel entering inline-block w-full max-w-md p-6 sm:p-8 my-8 overflow-hidden text-left align-middle transition-all transform bg-white dark:bg-ivs-neutral-800 shadow-2xl rounded-xl">
                 <div class="flex items-start">
-                    <div id="modal-icon-container" class="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full mr-4">
+                    <div id="modal-icon-container" class="flex-shrink-0 flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-full mr-3 sm:mr-4">
                     </div>
                     <div class="flex-grow">
-                        <h3 id="modal-title" class="text-xl font-display font-semibold leading-6 text-ivs-neutral-900 dark:text-white">Modal Title</h3>
+                        <h3 id="modal-title" class="text-xl font-display font-semibold leading-6 text-ivs-neutral-900 dark:text-white" data-lang-key="modal_default_title">Notification</h3>
                         <div class="mt-2">
-                            <p id="modal-message" class="text-sm text-ivs-neutral-600 dark:text-ivs-neutral-300">Modal message here.</p>
+                            <p id="modal-message" class="text-sm text-ivs-neutral-600 dark:text-ivs-neutral-300" data-lang-key="modal_default_message">Details here.</p>
                         </div>
                     </div>
                     <button id="modal-close-button-x" type="button" class="ml-auto -mr-2 -mt-2 p-2 text-ivs-neutral-400 hover:text-ivs-neutral-600 dark:text-ivs-neutral-500 dark:hover:text-ivs-neutral-300 rounded-full focus:outline-none focus:ring-2 focus:ring-ivs-primary dark:focus:ring-ivs-secondary" aria-label="Close modal">
@@ -205,12 +205,12 @@
                     <button id="modal-confirm-button" type="button"
                             class="w-full sm:w-auto inline-flex justify-center rounded-lg border border-transparent bg-ivs-primary px-6 py-2.5 text-base font-medium text-white hover:bg-ivs-primary-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-ivs-primary focus-visible:ring-offset-2 dark:bg-ivs-secondary dark:text-ivs-neutral-900 dark:hover:bg-ivs-secondary-dark dark:focus-visible:ring-ivs-secondary dark:focus-visible:ring-offset-ivs-neutral-800 transition-colors duration-150"
                             data-lang-key="modal_confirm_button">
-                        Đồng ý
+                        Confirm
                     </button>
                     <button id="modal-cancel-button" type="button"
                             class="w-full sm:w-auto inline-flex justify-center rounded-lg border border-ivs-neutral-300 dark:border-ivs-neutral-600 bg-white dark:bg-ivs-neutral-700 px-6 py-2.5 text-base font-medium text-ivs-neutral-700 dark:text-ivs-neutral-200 hover:bg-ivs-neutral-50 dark:hover:bg-ivs-neutral-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-ivs-primary focus-visible:ring-offset-2 dark:focus-visible:ring-ivs-secondary dark:focus-visible:ring-offset-ivs-neutral-800 transition-colors duration-150"
                             data-lang-key="modal_cancel_button">
-                        Hủy bỏ
+                        Cancel
                     </button>
                 </div>
             </div>
@@ -233,13 +233,14 @@
                     <button id="apply-tab-button" 
                             class="tab-button flex-1 sm:flex-none px-4 sm:px-8 py-2 text-sm font-medium rounded-t-lg" 
                             data-lang-key="hub_tab_apply">
-                        <i class="fas fa-user-plus mr-1.5 sm:mr-2 text-base"></i>Ứng tuyển ngay
+                        <i class="fas fa-user-plus mr-1.5 sm:mr-2 text-base"></i>Apply Now
                     </button>
-                    <button id="view-teachers-tab-button" 
-                            class="tab-button flex-1 sm:flex-none px-4 sm:px-8 py-2 text-sm font-medium rounded-t-lg" 
+                    <a href="apps/teacherlistsavailable.html" 
+                            id="view-teachers-tab-link"
+                            class="tab-button flex-1 sm:flex-none px-4 sm:px-8 py-2 text-sm font-medium rounded-t-lg text-ivs-neutral-700 dark:text-ivs-neutral-300 hover:text-ivs-primary-dark dark:hover:text-ivs-secondary no-underline" 
                             data-lang-key="hub_tab_view_teachers">
-                        <i class="fas fa-users mr-1.5 sm:mr-2 text-base"></i>Xem Danh sách Giáo viên
-                    </button>
+                        <i class="fas fa-users mr-1.5 sm:mr-2 text-base"></i>View Teacher Roster
+                    </a>
                 </div>
             </div>
         </nav>
@@ -247,97 +248,67 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
             <section id="teacher-application-section" class="max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="100">
                 <header class="mb-8 md:mb-10 text-center">
-                    <h2 class="text-3xl sm:text-4xl font-display font-semibold text-ivs-primary dark:text-ivs-secondary mb-3" data-lang-key="hub_apply_form_title_enhanced">Trở thành Nhà Giáo dục Toàn cầu của IVS</h2>
-                    <p class="text-ivs-neutral-600 dark:text-ivs-neutral-400 text-sm sm:text-base" data-lang-key="hub_apply_form_desc_enhanced">Hoàn thành biểu mẫu dưới đây để mở khóa những cơ hội nghề nghiệp hấp dẫn. Thông tin của bạn sẽ được chuyển đến Google Form để hoàn tất.</p>
+                    <h2 class="text-3xl sm:text-4xl font-display font-semibold text-ivs-primary dark:text-ivs-secondary mb-3" data-lang-key="hub_apply_form_title_enhanced">Become an IVS Global Educator</h2>
+                    <p class="text-ivs-neutral-600 dark:text-ivs-neutral-400 text-sm sm:text-base" data-lang-key="hub_apply_form_desc_enhanced">Complete the form below to unlock exciting career opportunities. Your information will be directed to a Google Form for completion.</p>
                 </header>
 
                 <form id="teacher-application-form" class="space-y-6 sm:space-y-8 bg-white dark:bg-ivs-neutral-800 p-6 sm:p-8 md:p-10 rounded-xl shadow-2xl border border-ivs-neutral-200 dark:border-ivs-neutral-700">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-5">
                         <div>
-                            <label for="fullName" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_fullName">Họ và Tên</label>
-                            <input type="text" id="fullName" name="entry.1992502008" class="form-input block w-full rounded-lg shadow-sm" placeholder="Ví dụ: Nguyễn Văn An" required>
+                            <label for="fullName" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_fullName">Full Name</label>
+                            <input type="text" id="fullName" name="entry.1992502008" class="form-input block w-full rounded-lg shadow-sm" placeholder="e.g., John Doe" required>
                         </div>
                         <div>
-                            <label for="email" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_email">Địa chỉ Email</label>
-                            <input type="email" id="email" name="entry.1839894741" class="form-input block w-full rounded-lg shadow-sm" placeholder="emailcuaban@example.com" required>
+                            <label for="email" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_email">Email Address</label>
+                            <input type="email" id="email" name="entry.1839894741" class="form-input block w-full rounded-lg shadow-sm" placeholder="your.email@example.com" required>
                         </div>
                         <div>
-                            <label for="phoneNumber" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_phoneNumber">Số điện thoại</label>
-                            <input type="tel" id="phoneNumber" name="entry.1234567890" class="form-input block w-full rounded-lg shadow-sm" placeholder="+84 901 234 567" required> {/* Placeholder entry ID, CẦN THAY THẾ */}
+                            <label for="phoneNumber" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_phoneNumber">Phone Number</label>
+                            <input type="tel" id="phoneNumber" name="entry.1234567890" class="form-input block w-full rounded-lg shadow-sm" placeholder="+1 123 456 7890" required>
                         </div>
                         <div>
-                            <label for="nationality" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_nationality">Quốc tịch</label>
-                            <input type="text" id="nationality" name="entry.0987654321" class="form-input block w-full rounded-lg shadow-sm" placeholder="Ví dụ: Việt Nam, Mỹ" required> {/* Placeholder entry ID, CẦN THAY THẾ */}
+                            <label for="nationality" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_nationality">Nationality</label>
+                            <input type="text" id="nationality" name="entry.0987654321" class="form-input block w-full rounded-lg shadow-sm" placeholder="e.g., American, British" required>
                         </div>
                         <div>
-                            <label for="qualification" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_qualification">Bằng cấp cao nhất</label>
-                            <input type="text" id="qualification" name="entry.1122334455" class="form-input block w-full rounded-lg shadow-sm" placeholder="Ví dụ: Thạc sĩ Giáo dục, TESOL" required> {/* Placeholder entry ID, CẦN THAY THẾ */}
+                            <label for="qualification" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_qualification">Highest Qualification</label>
+                            <input type="text" id="qualification" name="entry.1122334455" class="form-input block w-full rounded-lg shadow-sm" placeholder="e.g., Master's in Education, TESOL" required>
                         </div>
                         <div>
-                            <label for="experience" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_experience">Số năm kinh nghiệm giảng dạy</label>
-                            <input type="number" id="experience" name="entry.6677889900" class="form-input block w-full rounded-lg shadow-sm" placeholder="Ví dụ: 5" min="0" step="0.5" required> {/* Placeholder entry ID, CẦN THAY THẾ */}
+                            <label for="experience" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_experience">Years of Teaching Experience</label>
+                            <input type="number" id="experience" name="entry.6677889900" class="form-input block w-full rounded-lg shadow-sm" placeholder="e.g., 5" min="0" step="0.5" required>
                         </div>
                     </div>
 
                     <div>
-                        <label for="subjects" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_subjects">Môn học có thể giảng dạy (cách nhau bởi dấu phẩy)</label>
-                        <input type="text" id="subjects" name="entry.1212121212" class="form-input block w-full rounded-lg shadow-sm" placeholder="Ví dụ: Tiếng Anh Giao tiếp, IELTS, Toán, Khoa học" required> {/* Placeholder entry ID, CẦN THAY THẾ */}
+                        <label for="subjects" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_subjects">Subjects You Can Teach (comma-separated)</label>
+                        <input type="text" id="subjects" name="entry.1212121212" class="form-input block w-full rounded-lg shadow-sm" placeholder="e.g., General English, IELTS, Math, Science" required>
                     </div>
 
                     <div>
-                        <label for="bio" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_bio">Giới thiệu bản thân (tối đa 1500 ký tự)</label>
-                        <textarea id="bio" name="entry.3434343434" rows="5" class="form-textarea block w-full rounded-lg shadow-sm" placeholder="Nêu bật kinh nghiệm giảng dạy, phong cách, và các chứng chỉ liên quan..." maxlength="1500" required></textarea> {/* Placeholder entry ID, CẦN THAY THẾ */}
+                        <label for="bio" class="required block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1.5" data-lang-key="form_bio">Short Bio (max 1500 characters)</label>
+                        <textarea id="bio" name="entry.3434343434" rows="5" class="form-textarea block w-full rounded-lg shadow-sm" placeholder="Highlight your teaching experience, style, and relevant certifications..." maxlength="1500" required></textarea>
                         <p id="bio-char-count" class="text-xs text-ivs-neutral-500 dark:text-ivs-neutral-400 mt-1 text-right">0/1500</p>
                     </div>
 
                     <div class="border-t border-ivs-neutral-200 dark:border-ivs-neutral-700 pt-6 space-y-5">
-                        <p class="text-sm text-ivs-neutral-600 dark:text-ivs-neutral-400 leading-relaxed" data-lang-key="form_upload_notice_enhanced_gform">Thông tin CV/Resume và Ảnh sẽ được yêu cầu cung cấp trực tiếp trên Google Form.</p>
+                        <p class="text-sm text-ivs-neutral-600 dark:text-ivs-neutral-400 leading-relaxed" data-lang-key="form_upload_notice_enhanced_gform">CV/Resume and Photo information will be requested directly on the Google Form.</p>
                     </div>
 
                     <div class="pt-5">
                         <button type="submit" 
                                 class="w-full flex items-center justify-center py-3.5 px-6 border border-transparent rounded-xl shadow-lg text-base font-semibold text-white bg-ivs-accent hover:bg-ivs-accent-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivs-accent dark:focus:ring-offset-ivs-neutral-800 transition-all duration-200 ease-in-out group transform hover:scale-105 active:scale-95" 
                                 data-lang-key="form_button_proceed_gform">
-                            <i class="fab fa-google mr-2.5"></i>Tiếp tục với Google Form
+                            <i class="fab fa-google mr-2.5"></i>Proceed to Google Form
                         </button>
                     </div>
                 </form>
-            </section>
-
-            <section id="teacher-overview-section" class="hidden" data-aos="fade-up" data-aos-delay="100">
-                 <header class="mb-10 md:mb-12 text-center">
-                    <h2 class="text-3xl sm:text-4xl font-display font-semibold text-ivs-primary dark:text-ivs-secondary mb-3" data-lang-key="hub_teacher_list_title_enhanced">Mạng lưới Nhà Giáo dục Ưu tú</h2>
-                    <p class="text-ivs-neutral-600 dark:text-ivs-neutral-400 max-w-2xl mx-auto text-sm sm:text-base" data-lang-key="hub_teacher_list_desc_enhanced">Khám phá hồ sơ của các nhà giáo dục quốc tế giàu kinh nghiệm, hợp tác cùng IVS trong các dự án giáo dục chất lượng cao.</p>
-                </header>
-                <div class="flex justify-center mb-6">
-                    <input type="text" id="teacher-search-input" class="form-input w-full max-w-lg rounded-lg shadow-sm" placeholder="Tìm giáo viên theo tên, môn học, quốc tịch..." data-lang-key="search_teacher_placeholder">
-                </div>
-                <div id="teachers-list-container" class="max-h-[100vh] overflow-y-auto pb-8 pr-1 sm:pr-2"> 
-                    <div id="teachers-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
-                    </div>
-                </div>
-                <div id="no-teachers-message" class="text-ivs-neutral-500 dark:text-ivs-neutral-400 text-center col-span-full hidden py-12">
-                    <div class="flex flex-col items-center">
-                        <svg class="w-20 h-20 text-ivs-neutral-400 dark:text-ivs-neutral-500 mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                        </svg>
-                        <p class="text-xl font-medium mb-2" data-lang-key="hub_no_teachers">Hiện chưa có hồ sơ giáo viên nào được hiển thị.</p>
-                        <p class="text-sm" data-lang-key="hub_check_back_later_or_apply">Vui lòng quay lại sau hoặc cân nhắc ứng tuyển để tham gia mạng lưới của chúng tôi!</p>
-                    </div>
-                </div>
-                 <div id="roster-error-message" class="text-ivs-danger text-center col-span-full hidden py-12">
-                    <div class="flex flex-col items-center">
-                        <i class="fas fa-exclamation-triangle fa-3x text-ivs-danger mb-4"></i>
-                        <p class="text-xl font-medium mb-2" data-lang-key="error_teacher_list_load">Lỗi khi tải danh sách giáo viên.</p>
-                        <p class="text-sm" data-lang-key="error_teacher_list_load_detail">Không thể truy cập dữ liệu từ Google Sheet. Vui lòng kiểm tra lại đường dẫn CSV hoặc thử lại sau.</p>
-                    </div>
-                </div>
             </section>
         </div>
     </div>
 
     <div id="fab-container-placeholder"></div>
-    <div id="footer-placeholder" data-loading-text="Đang tải chân trang..."></div>
+    <div id="footer-placeholder" data-loading-text="Loading footer..."></div>
     
     <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 z-[1040] flex items-center justify-center w-12 h-12 rounded-full bg-ivs-primary text-white shadow-xl hover:bg-ivs-primary-dark active:bg-ivs-primary-darker transition-all duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-ivs-primary/50 dark:bg-ivs-secondary dark:text-ivs-neutral-900 dark:hover:bg-ivs-secondary-dark dark:focus:ring-ivs-secondary/50" aria-label="Scroll to top">
         <i class="fas fa-arrow-up text-xl" aria-hidden="true"></i>
@@ -351,13 +322,9 @@
     <script type="module">
         const el = {
             applyTabButton: document.getElementById('apply-tab-button'),
-            viewTeachersTabButton: document.getElementById('view-teachers-tab-button'),
+            viewTeachersTabLink: document.getElementById('view-teachers-tab-link'),
             teacherApplicationSection: document.getElementById('teacher-application-section'),
-            teacherOverviewSection: document.getElementById('teacher-overview-section'),
             teacherApplicationForm: document.getElementById('teacher-application-form'),
-            teachersList: document.getElementById('teachers-list'),
-            noTeachersMessage: document.getElementById('no-teachers-message'),
-            rosterErrorMessage: document.getElementById('roster-error-message'),
             loadingSpinner: document.getElementById('loading-spinner'),
             modal: document.getElementById('custom-modal'),
             modalTitle: document.getElementById('modal-title'),
@@ -368,14 +335,9 @@
             modalIconContainer: document.getElementById('modal-icon-container'),
             bioTextarea: document.getElementById('bio'),
             bioCharCount: document.getElementById('bio-char-count'),
-            teacherSearchInput: document.getElementById('teacher-search-input'),
         };
 
-        let currentActiveTab = 'apply';
-        let allFetchedTeachers = []; 
-
         const GOOGLE_FORM_PREFILL_VIEW_URL = "https://docs.google.com/forms/d/e/1FAIpQLSd_TJ-EstYhFVSEAHGzqG-36dsbkdxvYRuGHiCi5PvgUICjnA/viewform";
-        const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1nzSbohos7dmaT8WNZOwPNQD59My4agZkxS0pIJwnfWE/export?format=csv&gid=0"; // Thay đổi gid nếu cần
 
         function showAppModal(title, message, type = 'info', { showConfirm = false, confirmText = 'OK', onConfirm = () => {}, showCancel = false, cancelText = 'Cancel', onCancel = () => {} } = {}) {
             if (el.modalTitle) el.modalTitle.textContent = title;
@@ -454,94 +416,63 @@
         }
 
         function setActiveTab(tabName) {
-            currentActiveTab = tabName;
             if (tabName === 'apply') {
                 el.applyTabButton?.classList.add('tab-button-active');
-                el.viewTeachersTabButton?.classList.remove('tab-button-active');
+                el.viewTeachersTabLink?.classList.remove('tab-button-active');
                 el.teacherApplicationSection?.classList.remove('hidden');
-                el.teacherOverviewSection?.classList.add('hidden');
-            } else if (tabName === 'view') {
-                el.viewTeachersTabButton?.classList.add('tab-button-active');
-                el.applyTabButton?.classList.remove('tab-button-active');
-                el.teacherOverviewSection?.classList.remove('hidden');
-                el.teacherApplicationSection?.classList.add('hidden');
-                loadApprovedTeachers();
+            } else {
+                 el.applyTabButton?.classList.remove('tab-button-active');
+                 el.viewTeachersTabLink?.classList.add('tab-button-active'); 
+                 el.teacherApplicationSection?.classList.add('hidden');
             }
             AOS.refreshHard();
         }
 
         el.applyTabButton?.addEventListener('click', () => setActiveTab('apply'));
-        el.viewTeachersTabButton?.addEventListener('click', () => setActiveTab('view'));
+        
+        if(el.viewTeachersTabLink) {
+            el.viewTeachersTabLink.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                setActiveTab('view'); 
+                window.location.href = this.href; 
+            });
+        }
+
 
         function initializeAppCore() {
-            console.log("[APP CORE] Khởi tạo logic ứng dụng cốt lõi (Sử dụng Google Form & Sheet).");
             AOS.init({ duration: 700, once: true, offset: 30, easing: 'ease-out-cubic' });
             initializeScrollToTop();
             setActiveTab('apply'); 
             toggleLoadingSpinner(false); 
         }
-
-        // QUAN TRỌNG: Callback này sẽ được gọi bởi loadComponents.js SAU KHI
-        // header, footer đã tải XONG và HỆ THỐNG NGÔN NGỮ đã được KHỞI TẠO THÀNH CÔNG (window.langSystem.initialized === true)
+        
         window.onPageComponentsLoadedCallback = async () => {
-            console.log("------------------------------------------------------------------");
-            console.log("[HUB PAGE] SỰ KIỆN: onPageComponentsLoadedCallback được gọi (mong đợi từ loadComponents.js).");
-            console.log("[HUB PAGE] Khởi tạo ứng dụng Teacher Hub...");
-            console.log("------------------------------------------------------------------");
-
             if (window.langSystem && window.langSystem.initialized) {
-                console.log("[HUB PAGE] ✔️ Hệ thống ngôn ngữ đã được khởi tạo (kiểm tra langSystem.initialized).");
                 if (typeof window.applyTranslations === 'function') {
-                    console.log("[HUB PAGE] Áp dụng bản dịch cho toàn bộ nội dung body của trang Teacher Hub.");
                     window.applyTranslations(document.body); 
-                } else {
-                    console.warn("[HUB PAGE] CẢNH BÁO: window.applyTranslations không tồn tại! Bản dịch cho nội dung động có thể không hoạt động.");
                 }
-            } else {
-                 console.error("[HUB PAGE] LỖI NGHIÊM TRỌNG: Hệ thống ngôn ngữ CHƯA được khởi tạo (window.langSystem.initialized là false hoặc window.langSystem không tồn tại). Yêu cầu loadComponents.js phải gọi initializeLanguageSystem() và đặt cờ initialized=true TRƯỚC KHI gọi callback này.");
             }
-            
             initializeAppCore(); 
             window.pageComponentsCallbackCalled = true; 
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            console.log("[HUB PAGE] SỰ KIỆN: DOMContentLoaded.");
             setTimeout(() => {
-                if (!window.pageComponentsCallbackCalled) { // Nếu loadComponents.js không gọi callback ở trên
-                    console.warn("******************************************************************");
-                    console.warn("[HUB PAGE - Fallback DOMContentLoaded]");
-                    console.warn("window.onPageComponentsLoadedCallback KHÔNG được gọi bởi loadComponents.js. Điều này có thể do lỗi nghiêm trọng trong language.js hoặc loadComponents.js.");
-                    console.warn("Sẽ cố gắng khởi tạo Teacher Hub. KIỂM TRA KỸ CÁC TỆP JS BÊN NGOÀI!");
-                    console.warn("******************************************************************");
-                    
-                    // Kiểm tra sự tồn tại của window.langSystem trước khi làm gì liên quan đến ngôn ngữ
-                    if (typeof window.langSystem === 'undefined') {
-                        console.error('[HUB PAGE - Fallback] LỖI CỰC KỲ NGHIÊM TRỌNG: window.langSystem KHÔNG ĐƯỢC ĐỊNH NGHĨA. Tệp language.js có thể CHƯA ĐƯỢC TẢI hoặc có lỗi cú pháp nghiêm trọng từ đầu. Không thể khởi tạo hệ thống ngôn ngữ.');
-                        initializeAppCore(); // Vẫn thử khởi tạo app, nhưng không có dịch
-                    } else if (typeof window.initializeLanguageSystem === 'function') {
-                        console.log("[HUB PAGE - Fallback] Thử gọi window.initializeLanguageSystem().");
-                        window.initializeLanguageSystem().then(() => {
-                             console.log("[HUB PAGE - Fallback] initializeLanguageSystem đã hoàn thành.");
+                if (!window.pageComponentsCallbackCalled) { 
+                    if (typeof window.initializeLanguageSystem === 'function') {
+                        window.initializeLanguageSystem('en').then(() => { 
                              if (typeof window.applyTranslations === 'function') {
-                                console.log("[HUB PAGE - Fallback] Áp dụng bản dịch sau khi initializeLanguageSystem.");
                                 window.applyTranslations(document.body);
-                             } else {
-                                console.warn("[HUB PAGE - Fallback] window.applyTranslations không tồn tại sau khi initializeLanguageSystem.");
                              }
                              initializeAppCore();
                         }).catch(err => {
-                            console.error("[HUB PAGE - Fallback] Lỗi khi gọi initializeLanguageSystem trong fallback:", err);
                             initializeAppCore(); 
                         });
                     } else {
-                         console.error('[HUB PAGE - Fallback] LỖI NGHIÊM TRỌNG: initializeLanguageSystem VẪN KHÔNG TÌM THẤY (mặc dù window.langSystem có thể tồn tại). Sửa language.js để đảm bảo hàm được định nghĩa đúng và gán vào window!');
                          initializeAppCore(); 
                     }
-                } else {
-                    console.log("[HUB PAGE - DOMContentLoaded] window.onPageComponentsLoadedCallback đã được gọi. Không chạy fallback.");
                 }
-            }, 1500); // Tăng độ trễ hơn nữa để chắc chắn các script khác có cơ hội
+            }, 1500); 
         });
 
         function initializeScrollToTop(){
@@ -574,171 +505,24 @@
             
             const prefilledGoogleFormUrl = `${GOOGLE_FORM_PREFILL_VIEW_URL}?${params.toString()}`;
             
-            console.log("Chuyển hướng đến Google Form:", prefilledGoogleFormUrl);
-            
             showAppModal(
-                "Chuyển đến Google Form", 
-                "Bạn sẽ được chuyển hướng đến Google Form để hoàn tất hồ sơ. Vui lòng kiểm tra và nộp đơn trên đó. Các thông tin bạn đã điền sẽ được tự động điền trước.",
+                "Proceed to Google Form", 
+                "You will be redirected to a Google Form to complete your application. Please review and submit your details there. The information you've entered here will be pre-filled.",
                 "info", 
                 { 
                     showConfirm: true, 
-                    confirmText: "Đến Google Form", 
+                    confirmText: "Go to Google Form", 
                     onConfirm: () => {
                         window.open(prefilledGoogleFormUrl, '_blank');
                         el.teacherApplicationForm.reset();
                         if(el.bioCharCount) el.bioCharCount.textContent = "0/1500";
                     },
                     showCancel: true,
-                    cancelText: "Ở lại trang"
+                    cancelText: "Stay on Page"
                 }
             );
             toggleLoadingSpinner(false);
         });
-
-        async function parseCSV(csvText) {
-            const lines = csvText.split(/\r\n|\n/);
-            if (lines.length < 1) return [];
-            
-            const headers = lines[0].split(',').map(header => header.trim().replace(/^"|"$/g, '').trim());
-            const data = [];
-
-            for (let i = 1; i < lines.length; i++) {
-                if (!lines[i].trim()) continue; 
-                
-                const values = [];
-                let currentVal = '';
-                let inQuotes = false;
-                for (let char of lines[i]) {
-                    if (char === '"' && (lines[i][lines[i].indexOf(char) -1] !== '\\') ) { // Handle escaped quotes if any, though simple CSV usually doesn't have them
-                        inQuotes = !inQuotes;
-                    } else if (char === ',' && !inQuotes) {
-                        values.push(currentVal.trim().replace(/^"|"$/g, '').trim());
-                        currentVal = '';
-                    } else {
-                        currentVal += char;
-                    }
-                }
-                values.push(currentVal.trim().replace(/^"|"$/g, '').trim());
-
-
-                if (values.length === headers.length) {
-                    const entry = {};
-                    headers.forEach((header, index) => {
-                        entry[header] = values[index];
-                    });
-                    data.push(entry);
-                } else {
-                    console.warn("Dòng CSV không khớp số lượng header:", `"${lines[i]}"`, "Headers:", headers, "Values:", values);
-                }
-            }
-            return data;
-        }
-        
-        function filterTeachers(searchTerm) {
-            const lowerCaseSearchTerm = searchTerm.toLowerCase();
-            const filteredTeachers = allFetchedTeachers.filter(teacher => {
-                return (teacher["Họ và Tên"]?.toLowerCase().includes(lowerCaseSearchTerm) ||
-                        teacher["Môn dạy"]?.toLowerCase().includes(lowerCaseSearchTerm) ||
-                        teacher["Quốc tịch"]?.toLowerCase().includes(lowerCaseSearchTerm) ||
-                        teacher["Email"]?.toLowerCase().includes(lowerCaseSearchTerm) ); 
-            });
-            renderTeacherList(filteredTeachers);
-        }
-
-        if (el.teacherSearchInput) {
-            el.teacherSearchInput.addEventListener('input', (e) => {
-                filterTeachers(e.target.value);
-            });
-        }
-
-        function renderTeacherList(teachers) {
-            if (!el.teachersList || !el.noTeachersMessage || !el.rosterErrorMessage) {
-                console.error("[Render List] Một hoặc nhiều thành phần DOM cần thiết không tồn tại.");
-                return;
-            }
-            el.teachersList.innerHTML = '';
-            el.noTeachersMessage.classList.add('hidden');
-            el.rosterErrorMessage.classList.add('hidden');
-
-            if (teachers.length === 0) {
-                el.noTeachersMessage.classList.remove('hidden');
-                 if(typeof window.applyTranslations === 'function') window.applyTranslations(el.noTeachersMessage);
-            } else {
-                teachers.forEach(teacher => {
-                    const fullName = teacher["Họ và Tên"] || 'Chưa có tên';
-                    const photoUrl = teacher["Ảnh (URL)"] || '';
-                    const qualification = teacher["Bằng cấp cao nhất"] || 'Chưa có bằng cấp';
-                    const experience = teacher["Kinh nghiệm (năm)"] !== undefined ? `${teacher["Kinh nghiệm (năm)"]} năm` : 'N/A';
-                    const subjects = teacher["Môn dạy"] || 'N/A';
-                    const bio = teacher["Tiểu sử ngắn"] || 'Chưa có giới thiệu.';
-                    const nationality = teacher["Quốc tịch"] || 'N/A';
-
-                    const initial = encodeURIComponent(fullName.charAt(0).toUpperCase());
-                    const finalPhotoUrl = photoUrl || `https://placehold.co/128x128/004080/FFFFFF?text=${initial}&font=lexend`;
-
-                    const teacherCardHTML = `
-                        <article class="teacher-profile-card rounded-xl shadow-lg overflow-hidden flex flex-col items-center p-6 text-center dark:bg-ivs-neutral-800 border dark:border-ivs-neutral-700">
-                            <img src="${finalPhotoUrl}" 
-                                 alt="Ảnh chân dung của ${fullName}" 
-                                 class="teacher-avatar w-32 h-32 rounded-full object-cover mb-5" 
-                                 loading="lazy"
-                                 onerror="this.onerror=null; this.src='https://placehold.co/128x128/374151/FFFFFF?text=${initial}&font=lexend';">
-                            <h3 class="text-xl lg:text-2xl font-display font-semibold text-ivs-primary dark:text-ivs-secondary mb-1.5">${fullName}</h3>
-                            <p class="text-sm text-ivs-neutral-500 dark:text-ivs-neutral-400 mb-4 font-medium">${qualification}</p>
-                            
-                            <div class="w-full text-left text-xs sm:text-sm space-y-2.5 mb-5 border-t border-ivs-neutral-200 dark:border-ivs-neutral-700 pt-4">
-                                <p class="flex items-start"><i class="fas fa-flag fa-fw w-5 mr-2.5 text-ivs-primary dark:text-ivs-secondary pt-0.5"></i><span class="font-semibold mr-1.5">Quốc tịch:</span> <span class="text-ivs-neutral-600 dark:text-ivs-neutral-300">${nationality}</span></p>
-                                <p class="flex items-start"><i class="fas fa-briefcase fa-fw w-5 mr-2.5 text-ivs-primary dark:text-ivs-secondary pt-0.5"></i><span class="font-semibold mr-1.5">Kinh nghiệm:</span> <span class="text-ivs-neutral-600 dark:text-ivs-neutral-300">${experience}</span></p>
-                                <p class="flex items-start"><i class="fas fa-book-open fa-fw w-5 mr-2.5 text-ivs-primary dark:text-ivs-secondary pt-0.5"></i><span class="font-semibold mr-1.5">Môn dạy:</span> <span class="text-ivs-neutral-600 dark:text-ivs-neutral-300">${subjects}</span></p>
-                            </div>
-                            <p class="text-xs sm:text-sm text-ivs-neutral-600 dark:text-ivs-neutral-300 italic bg-ivs-neutral-50 dark:bg-ivs-neutral-700/50 p-4 rounded-lg w-full text-center leading-relaxed line-clamp-4">"${bio}"</p>
-                        </article>
-                    `;
-                    el.teachersList.insertAdjacentHTML('beforeend', teacherCardHTML);
-                });
-            }
-            if(el.teachersList.parentElement) { 
-                 if(typeof window.applyTranslations === 'function') window.applyTranslations(el.teachersList.parentElement);
-            }
-        }
-
-        async function loadApprovedTeachers() {
-            if (!el.teachersList || !el.noTeachersMessage || !el.rosterErrorMessage) return;
-            
-            toggleLoadingSpinner(true);
-            el.teachersList.innerHTML = ''; 
-            el.noTeachersMessage.classList.add('hidden');
-            el.rosterErrorMessage.classList.add('hidden');
-
-            try {
-                console.log(`[TEACHER LIST] Fetching CSV từ: ${GOOGLE_SHEET_CSV_URL}`);
-                const now = new Date().getTime();
-                const csvUrlWithCacheBust = `${GOOGLE_SHEET_CSV_URL}&t=${now}`;
-                const response = await fetch(csvUrlWithCacheBust);
-
-                if (!response.ok) {
-                    throw new Error(`Lỗi HTTP ${response.status} khi tải Google Sheet: ${response.statusText}. URL: ${csvUrlWithCacheBust}`);
-                }
-                const csvText = await response.text();
-                if (!csvText || csvText.trim() === "") {
-                    throw new Error("Dữ liệu CSV từ Google Sheet trống.");
-                }
-                const parsedTeachers = await parseCSV(csvText);
-                
-                allFetchedTeachers = parsedTeachers.filter(teacher => 
-                    teacher["Hiển thị công khai"] && teacher["Hiển thị công khai"].toUpperCase() === 'TRUE'
-                );
-                console.log(`[TEACHER LIST] Đã tải và xử lý ${allFetchedTeachers.length} giáo viên được phê duyệt.`);
-                renderTeacherList(allFetchedTeachers);
-
-            } catch (error) {
-                console.error("[TEACHER LIST] Lỗi khi tải hoặc xử lý danh sách giáo viên từ Google Sheet: ", error);
-                el.rosterErrorMessage.classList.remove('hidden');
-                if (typeof window.applyTranslations === 'function') window.applyTranslations(el.rosterErrorMessage);
-            } finally {
-                toggleLoadingSpinner(false);
-            }
-        }
 
     </script>
 </body>
