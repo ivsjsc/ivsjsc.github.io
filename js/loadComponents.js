@@ -10,14 +10,14 @@ window.componentState = window.componentState || {
 };
 
 function componentLog(message, type = 'log') {
-    const debugMode = true; // Bật true để xem log khi phát triển
+    const debugMode = true;
     if (debugMode || type === 'error' || type === 'warn') {
         console[type](`[IVS Components] ${message}`);
     }
 }
 
 function isMobileDevice() {
-    return window.innerWidth < 768; 
+    return window.innerWidth < 768;
 }
 
 function debounce(func, wait) {
@@ -54,7 +54,6 @@ async function loadComponent(componentName, placeholderId, filePath) {
     }
 }
 
-// --- KHỞI TẠO HEADER ---
 function initializeHeaderInternal() {
     if (window.componentState.headerInitialized) {
         componentLog('Header đã được khởi tạo trước đó.', 'warn');
@@ -67,10 +66,11 @@ function initializeHeaderInternal() {
         window.componentState.headerElement = header;
 
         const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenuBottomToggle = document.getElementById('mobile-menu-bottom-toggle');
         const mobileMenuPanel = document.getElementById('mobile-menu-panel');
         const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
-        const mobileMenuContainer = mobileMenuPanel ? mobileMenuPanel.querySelector('.mobile-menu-container') : null;
-        const mobileMenuCloseBtn = mobileMenuPanel ? mobileMenuPanel.querySelector('.mobile-menu-close-btn') : null; // Nút đóng mới trong mobile menu panel
+        const mobileMenuContainer = mobileMenuPanel ? mobileMenuPanel.querySelector('#mobile-menu-container') : null;
+        const mobileMenuCloseBtn = mobileMenuPanel ? mobileMenuPanel.querySelector('#mobile-menu-close-btn') : null;
         const iconOpen = mobileMenuButton ? mobileMenuButton.querySelector('.icon-menu-open') : null;
         const iconClose = mobileMenuButton ? mobileMenuButton.querySelector('.icon-menu-close') : null;
 
@@ -78,31 +78,26 @@ function initializeHeaderInternal() {
             componentLog('Một số phần tử của menu mobile bị thiếu. Chức năng điều hướng có thể bị ảnh hưởng.', 'warn');
         } else {
             const toggleMobileMenu = (forceClose = false) => {
-                const isOpen = mobileMenuPanel.classList.contains('active'); // Kiểm tra class 'active' trên panel
-                if (forceClose || isOpen) { 
-                    if (!window.componentState.isMobileMenuOpen && !forceClose) return; 
+                const isOpen = mobileMenuPanel.classList.contains('active');
+                if (forceClose || isOpen) {
+                    if (!window.componentState.isMobileMenuOpen && !forceClose) return;
                     window.componentState.isMobileMenuOpen = false;
-                    if (mobileMenuContainer) mobileMenuContainer.style.transform = 'translateX(100%)'; // Trượt ra
-                    mobileMenuPanel.classList.remove('active'); 
-                    if(mobileMenuBackdrop) mobileMenuBackdrop.classList.add('hidden'); 
-                    setTimeout(() => { mobileMenuPanel.classList.add('hidden'); }, 300); // Độ trễ khớp với transition
-
-                    iconOpen.classList.remove('hidden');
-                    iconClose.classList.add('hidden');
+                    mobileMenuPanel.classList.remove('active');
+                    setTimeout(() => { mobileMenuPanel.classList.add('hidden'); }, 300);
+                    if (iconOpen) iconOpen.classList.remove('hidden');
+                    if (iconClose) iconClose.classList.add('hidden');
                     document.body.style.overflow = '';
                     mobileMenuButton.setAttribute('aria-expanded', 'false');
                     componentLog('Menu mobile đã đóng.');
-                } else { 
-                    if (window.componentState.isMobileMenuOpen) return; 
+                } else {
+                    if (window.componentState.isMobileMenuOpen) return;
                     window.componentState.isMobileMenuOpen = true;
                     mobileMenuPanel.classList.remove('hidden');
-                    if(mobileMenuBackdrop) mobileMenuBackdrop.classList.remove('hidden'); 
-                    requestAnimationFrame(() => { // Đảm bảo DOM đã cập nhật trước khi thêm class active
+                    requestAnimationFrame(() => {
                         mobileMenuPanel.classList.add('active');
-                        if (mobileMenuContainer) mobileMenuContainer.style.transform = 'translateX(0%)'; // Trượt vào
                     });
-                    iconOpen.classList.add('hidden');
-                    iconClose.classList.remove('hidden');
+                    if (iconOpen) iconOpen.classList.add('hidden');
+                    if (iconClose) iconClose.classList.remove('hidden');
                     document.body.style.overflow = 'hidden';
                     mobileMenuButton.setAttribute('aria-expanded', 'true');
                     componentLog('Menu mobile đã mở.');
@@ -111,45 +106,49 @@ function initializeHeaderInternal() {
 
             mobileMenuButton.addEventListener('click', () => toggleMobileMenu());
             mobileMenuBackdrop.addEventListener('click', () => toggleMobileMenu(true));
-            mobileMenuCloseBtn.addEventListener('click', () => toggleMobileMenu(true)); // Sự kiện cho nút đóng mới
+            mobileMenuCloseBtn.addEventListener('click', () => toggleMobileMenu(true));
+            if (mobileMenuBottomToggle) {
+                mobileMenuBottomToggle.addEventListener('click', () => toggleMobileMenu());
+                componentLog('Đã gán sự kiện cho nút menu ở bottom bar.');
+            }
 
-            // Đóng menu khi click vào một link trong menu (trừ khi đó là submenu toggle)
             mobileMenuContainer.querySelectorAll('a:not(.mobile-submenu-toggle), button:not(.mobile-submenu-toggle)').forEach(link => {
                 link.addEventListener('click', (e) => {
-                    if (!link.closest('.mobile-submenu-toggle')) { 
-                        if(!e.target.closest('.mobile-submenu-content.expanded')) { // Không đóng nếu click vào submenu đang mở
-                           toggleMobileMenu(true);
+                    if (!link.closest('.mobile-submenu-toggle')) {
+                        if (!e.target.closest('.mobile-submenu-content.expanded')) {
+                            toggleMobileMenu(true);
                         }
                     }
                 });
             });
-            
-            // Xử lý submenu cho mobile
+
             mobileMenuContainer.querySelectorAll('.mobile-submenu-toggle').forEach(toggle => {
                 const submenuId = toggle.getAttribute('aria-controls');
                 const submenu = document.getElementById(submenuId);
                 const icon = toggle.querySelector('.mobile-submenu-icon');
                 if (submenu) {
                     submenu.style.transition = 'max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding-bottom 0.3s ease-in-out';
-                    submenu.style.maxHeight = '0px'; 
+                    submenu.style.maxHeight = '0px';
                     submenu.style.opacity = '0';
                     submenu.style.overflow = 'hidden';
                     submenu.classList.remove('expanded');
+                    submenu.style.paddingBottom = '0';
+
 
                     toggle.addEventListener('click', () => {
                         const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
                         toggle.setAttribute('aria-expanded', String(!isExpanded));
-                        if (!isExpanded) { 
+                        if (!isExpanded) {
                             submenu.style.maxHeight = submenu.scrollHeight + "px";
                             submenu.style.opacity = '1';
-                            submenu.style.paddingBottom = '0.25rem'; 
-                            if(icon) icon.style.transform = 'rotate(90deg)';
+                            submenu.style.paddingBottom = '0.25rem';
+                            if (icon) icon.style.transform = 'rotate(90deg)';
                             submenu.classList.add('expanded');
-                        } else { 
+                        } else {
                             submenu.style.maxHeight = '0px';
                             submenu.style.opacity = '0';
                             submenu.style.paddingBottom = '0';
-                            if(icon) icon.style.transform = 'rotate(0deg)';
+                            if (icon) icon.style.transform = 'rotate(0deg)';
                             submenu.classList.remove('expanded');
                         }
                     });
@@ -157,82 +156,122 @@ function initializeHeaderInternal() {
             });
         }
 
-        // Xử lý ẩn/hiện header khi cuộn trang (cho desktop)
         let lastScrollTop = 0;
-        const headerScrollThreshold = 80; 
-        const handleHeaderScroll = () => {
+        const scrollThreshold = 80;
+        const handleScroll = () => {
             if (!window.componentState.headerElement) return;
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (isMobileDevice() || scrollTop < lastScrollTop || scrollTop <= headerScrollThreshold) {
+
+            if (!isMobileDevice()) {
+                if (scrollTop < lastScrollTop || scrollTop <= scrollThreshold) {
+                    window.componentState.headerElement.classList.remove('header-hidden');
+                } else if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+                    window.componentState.headerElement.classList.add('header-hidden');
+                }
+            } else {
                 window.componentState.headerElement.classList.remove('header-hidden');
-            } else if (scrollTop > lastScrollTop && scrollTop > headerScrollThreshold) { 
-                window.componentState.headerElement.classList.add('header-hidden');
             }
+
+            const bottomNavBar = document.getElementById('bottom-nav-bar');
+            if (isMobileDevice() && bottomNavBar) {
+                if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+                    bottomNavBar.classList.add('bottom-nav-hidden');
+                } else {
+                    bottomNavBar.classList.remove('bottom-nav-hidden');
+                }
+            }
+
             lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
         };
-        const debouncedHeaderScroll = debounce(handleHeaderScroll, 50);
-        window.addEventListener('scroll', debouncedHeaderScroll, { passive: true });
-        
-        // Cập nhật biến CSS --header-height
+        const debouncedScroll = debounce(handleScroll, 50);
+        window.addEventListener('scroll', debouncedScroll, { passive: true });
+        handleScroll();
+
+
         const updateHeaderHeightVar = () => {
             if (window.componentState.headerElement) {
                 const wasHidden = window.componentState.headerElement.classList.contains('header-hidden');
-                if(wasHidden) window.componentState.headerElement.classList.remove('header-hidden'); // Tạm hiện để lấy chiều cao đúng
+                if(wasHidden) window.componentState.headerElement.classList.remove('header-hidden');
                 const height = window.componentState.headerElement.offsetHeight;
-                if(wasHidden) window.componentState.headerElement.classList.add('header-hidden'); // Ẩn lại nếu trước đó đã ẩn
-                if (height > 0) { 
-                    document.documentElement.style.setProperty('--header-height', `${height}px`);
+                if(wasHidden) window.componentState.headerElement.classList.add('header-hidden');
+                if (height > 0) {
+                    document.documentElement.style.setProperty('--header-actual-height', `${height}px`);
                     const placeholder = document.getElementById('header-placeholder');
-                    if (placeholder) placeholder.style.minHeight = `${height}px`; 
+                    if (placeholder) {
+                         placeholder.style.minHeight = `${height}px`;
+                         placeholder.style.height = `${height}px`;
+                    }
                 }
             }
         };
 
+
         if (window.ResizeObserver && window.componentState.headerElement) {
-            const resizeObserver = new ResizeObserver(debounce(updateHeaderHeightVar, 50)); 
-            resizeObserver.observe(window.componentState.headerElement);
+            new ResizeObserver(debounce(updateHeaderHeightVar, 50)).observe(window.componentState.headerElement);
         } else {
             window.addEventListener('resize', debounce(updateHeaderHeightVar, 200));
         }
-        setTimeout(updateHeaderHeightVar, 150); // Chờ một chút để DOM ổn định
+        updateHeaderHeightVar();
+        setTimeout(updateHeaderHeightVar, 150);
 
-        // Xử lý dropdown cho desktop menu
-        document.querySelectorAll('.relative.group').forEach(container => { // Target .relative.group (bao gồm cả dropdown ngôn ngữ)
+
+        document.querySelectorAll('.relative.group').forEach(container => {
             const button = container.querySelector('button[aria-haspopup="true"]');
-            // Target cả hai loại menu dropdown và mega menu
-            const menu = container.querySelector('.desktop-dropdown-menu, .mega-menu'); 
+            const menu = container.querySelector('.desktop-dropdown-content, .mega-menu-content');
             if (!button || !menu) return;
 
             let menuTimeout;
             const openMenu = () => {
                 clearTimeout(menuTimeout);
-                // Sử dụng class của Tailwind để hiển thị và transition
                 menu.classList.remove('opacity-0', 'invisible', 'pointer-events-none');
-                // Thêm class để kích hoạt transition (nếu cần, hoặc Tailwind tự xử lý)
                 button.setAttribute('aria-expanded', 'true');
             };
-            const closeMenu = (delay = 150) => { // Giảm delay một chút cho trải nghiệm nhanh hơn
+            const closeMenu = (delay = 150) => {
                 menuTimeout = setTimeout(() => {
                     menu.classList.add('opacity-0', 'invisible', 'pointer-events-none');
                     button.setAttribute('aria-expanded', 'false');
                 }, delay);
             };
-            
+
             container.addEventListener('mouseenter', openMenu);
             container.addEventListener('mouseleave', () => closeMenu());
-            button.addEventListener('focus', openMenu); // Cho accessibility
-            container.addEventListener('focusout', (e) => { // Đóng khi focus ra ngoài container
-                if (!container.contains(e.relatedTarget)) {
-                    closeMenu(50); 
-                }
+            button.addEventListener('focus', openMenu);
+            container.addEventListener('focusout', (e) => {
+                if (!container.contains(e.relatedTarget)) closeMenu(50);
             });
-            container.addEventListener('keydown', (e) => { // Đóng bằng phím Escape
+            container.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
                     closeMenu(0);
-                    button.focus(); // Trả focus về nút chính
+                    button.focus();
                 }
             });
         });
+
+        const setActiveBottomNavItem = () => {
+            const bottomNav = document.getElementById('bottom-nav-bar');
+            if (!bottomNav || !isMobileDevice()) return;
+
+            const currentPath = window.location.pathname;
+            const navItems = bottomNav.querySelectorAll('.bottom-nav-item');
+            let hasActive = false;
+
+            navItems.forEach(item => {
+                const itemPath = item.getAttribute('href');
+                item.classList.remove('active-bottom-nav');
+                if (itemPath && (currentPath === itemPath || (itemPath !== '/' && currentPath.startsWith(itemPath)))) {
+                     item.classList.add('active-bottom-nav');
+                     hasActive = true;
+                }
+            });
+            
+            if (!hasActive && (currentPath === '/' || currentPath.endsWith('/index.html') || currentPath.endsWith('/index'))) {
+                 const homeItem = bottomNav.querySelector('a[href="/index.html"]');
+                 if(homeItem) homeItem.classList.add('active-bottom-nav');
+            }
+        };
+        setActiveBottomNavItem();
+        window.addEventListener('popstate', setActiveBottomNavItem);
+
 
         window.componentState.headerInitialized = true;
         componentLog('Header đã được khởi tạo thành công.');
@@ -241,40 +280,36 @@ function initializeHeaderInternal() {
         window.componentState.headerInitialized = false;
     }
 }
-// Gán vào window để các hàm khác có thể gọi
-window.initializeHeader = initializeHeaderInternal; 
+window.initializeHeader = initializeHeaderInternal;
 
-// HÀM TẢI HEADER
 async function loadHeader() {
     const placeholder = document.getElementById('header-placeholder');
     if (!placeholder) {
         componentLog('Placeholder của Header không tìm thấy.', 'error');
-        return false; // Trả về false nếu không tải được
+        return false;
     }
     placeholder.setAttribute('aria-busy', 'true');
     try {
         const loaded = await loadComponent('Header', 'header-placeholder', '/components/header.html');
         if (!loaded) throw new Error('Nội dung HTML của Header không tải được.');
-        
-        // Gọi hàm khởi tạo SAU KHI HTML đã được chèn
+
         if (typeof initializeHeaderInternal === 'function') {
-            initializeHeaderInternal(); 
+            initializeHeaderInternal();
         } else {
             componentLog('Hàm initializeHeaderInternal không tồn tại.', 'error');
         }
 
         placeholder.setAttribute('aria-busy', 'false');
         componentLog('Header đã được tải và khởi tạo.');
-        return true; // Trả về true nếu tải thành công
+        return true;
     } catch (error) {
         componentLog(`Không thể tải và khởi tạo header: ${error.message}`, 'error');
-        if(placeholder) placeholder.innerHTML = `<div class="p-3 text-center text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/50 rounded-md">Lỗi tải header.</div>`;
+        if (placeholder) placeholder.innerHTML = `<div class="p-3 text-center text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/50 rounded-md">Lỗi tải header.</div>`;
         placeholder.setAttribute('aria-busy', 'false');
-        return false; // Trả về false nếu có lỗi
+        return false;
     }
 }
 
-// --- KHỞI TẠO FOOTER ---
 function initializeFooterInternal() {
     if (window.componentState.footerInitialized) {
         componentLog('Footer đã được khởi tạo trước đó.', 'warn');
@@ -283,24 +318,24 @@ function initializeFooterInternal() {
     componentLog("Bắt đầu khởi tạo Footer...");
     const currentYearSpan = document.getElementById('current-year');
     if (currentYearSpan) currentYearSpan.textContent = new Date().getFullYear();
-    
-    const newsletterForm = document.getElementById('newsletterForm'); 
+
+    const newsletterForm = document.getElementById('newsletterForm');
     if (newsletterForm) {
-        const newsletterMessage = document.getElementById('newsletterMessage'); 
-        newsletterForm.addEventListener('submit', async function(event) {
+        const newsletterMessage = document.getElementById('newsletterMessage');
+        newsletterForm.addEventListener('submit', async function (event) {
             event.preventDefault();
             const emailInput = newsletterForm.querySelector('input[name="email"]');
             if (!emailInput || !emailInput.value.trim()) {
-                if(newsletterMessage) {
-                    newsletterMessage.textContent = 'Vui lòng nhập địa chỉ email hợp lệ.'; 
+                if (newsletterMessage) {
+                    newsletterMessage.textContent = 'Vui lòng nhập địa chỉ email hợp lệ.';
                     newsletterMessage.className = 'mt-2 text-sm text-ivs-danger dark:text-ivs-danger';
                 } return;
             }
-            if(newsletterMessage) {
-                 newsletterMessage.textContent = 'Cảm ơn bạn đã đăng ký!';
-                 newsletterMessage.className = 'mt-2 text-sm text-ivs-success dark:text-ivs-success';
-                 newsletterForm.reset();
-                 setTimeout(() => { newsletterMessage.textContent = ''; }, 3000);
+            if (newsletterMessage) {
+                newsletterMessage.textContent = 'Cảm ơn bạn đã đăng ký!';
+                newsletterMessage.className = 'mt-2 text-sm text-ivs-success dark:text-ivs-success';
+                newsletterForm.reset();
+                setTimeout(() => { newsletterMessage.textContent = ''; }, 3000);
             }
         });
     }
@@ -310,13 +345,11 @@ function initializeFooterInternal() {
 window.initializeFooter = initializeFooterInternal;
 
 
-// --- KHỞI TẠO FAB BUTTONS ---
 function populateContactOptions(contactMenuElement) {
     if (!contactMenuElement) {
         componentLog("Phần tử menu liên hệ không tồn tại để điền nội dung.", "warn");
         return;
     }
-    // *** BẠN CẦN TÙY CHỈNH CÁC THÔNG TIN LIÊN HỆ THỰC TẾ VÀO ĐÂY ***
     const contacts = [
         { key: "fab_call_hotline", text: "Gọi Hotline", href: "tel:+84336791879", icon: "fas fa-phone", color: "text-ivs-accent" },
         { key: "fab_send_email", text: "Gửi Email", href: "mailto:info@ivs.edu.vn", icon: "fas fa-envelope", color: "text-ivs-accent" },
@@ -328,9 +361,9 @@ function populateContactOptions(contactMenuElement) {
     let contactHtml = '';
     contacts.forEach(contact => {
         contactHtml += `
-            <a href="${contact.href}" 
-               role="menuitem" 
-               class="fab-submenu-item group" 
+            <a href="${contact.href}"
+               role="menuitem"
+               class="fab-submenu-item group"
                data-lang-key="${contact.key}"
                ${contact.href.startsWith('http') || contact.href.startsWith('https://zalo.me') ? 'target="_blank" rel="noopener noreferrer"' : ''}>
                 <i class="${contact.icon} fa-fw ${contact.color} group-hover:${contact.color.replace('-500', '-600').replace('-accent', '-accent-dark')}"></i>
@@ -340,10 +373,9 @@ function populateContactOptions(contactMenuElement) {
     });
     contactMenuElement.innerHTML = contactHtml;
 
-    // Áp dụng bản dịch cho các mục vừa thêm (nếu hệ thống ngôn ngữ đã sẵn sàng)
     if (typeof window.applyTranslations === 'function' && window.langSystem && window.langSystem.initialized) {
         window.applyTranslations(contactMenuElement);
-    } else if (typeof window.applyLanguage === 'function' && window.langSystem && window.langSystem.initialized) { // Fallback cho tên hàm cũ
+    } else if (typeof window.applyLanguage === 'function' && window.langSystem && window.langSystem.initialized) {
         window.applyLanguage(contactMenuElement);
     }
 }
@@ -367,7 +399,7 @@ function populateShareOptions(shareMenuElement) {
     shares.forEach(share => {
         shareHtml += `
             <button role="menuitem" class="fab-submenu-item group w-full" onclick="${share.action}">
-                <i class="${share.icon} fa-fw ${share.color} group-hover:${share.color.replace('-500', '-600').replace('-600','-700')}"></i>
+                <i class="${share.icon} fa-fw ${share.color} group-hover:${share.color.replace('-500', '-600').replace('-600', '-700')}"></i>
                 <span>${share.text}</span>
             </button>
         `;
@@ -385,21 +417,20 @@ function initializeFabButtonsInternal() {
     const fabContainerHost = document.getElementById('fab-container-placeholder');
     if (!fabContainerHost) {
         componentLog("Placeholder FAB (#fab-container-placeholder) không tìm thấy.", 'error');
-        return; 
-    }
-    
-    const fabContainer = fabContainerHost.querySelector('#fab-container'); // Lấy #fab-container bên trong placeholder
-    if (!fabContainer) {
-        componentLog("#fab-container không tìm thấy trong placeholder. Đảm bảo fab-container.html được tải.", "error");
-        // Không nên đánh dấu fabInitialized = true ở đây nếu #fab-container còn không có.
         return;
     }
 
-    const scrollToTopFab = fabContainer.querySelector('#scroll-to-top-btn'); 
+    const fabContainer = fabContainerHost.querySelector('#fab-container');
+    if (!fabContainer) {
+        componentLog("#fab-container không tìm thấy trong placeholder. Đảm bảo fab-container.html được tải.", "error");
+        return;
+    }
+
+    const scrollToTopFab = fabContainer.querySelector('#scroll-to-top-btn');
     if (scrollToTopFab) {
         const fabScrollHandler = debounce(() => {
             const isVisible = window.scrollY > (isMobileDevice() ? 180 : 100);
-            scrollToTopFab.classList.toggle('hidden', !isVisible); // Dùng hidden của Tailwind
+            scrollToTopFab.classList.toggle('hidden', !isVisible);
             scrollToTopFab.classList.toggle('opacity-0', !isVisible);
             scrollToTopFab.classList.toggle('scale-90', !isVisible);
             scrollToTopFab.classList.toggle('pointer-events-none', !isVisible);
@@ -409,7 +440,7 @@ function initializeFabButtonsInternal() {
             scrollToTopFab.classList.toggle('pointer-events-auto', isVisible);
         }, 100);
         window.addEventListener('scroll', fabScrollHandler, { passive: true });
-        fabScrollHandler(); 
+        fabScrollHandler();
         scrollToTopFab.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
         componentLog('Nút cuộn lên đầu trang đã khởi tạo.');
     } else { componentLog('Nút #scroll-to-top-btn không tìm thấy.', 'warn'); }
@@ -417,20 +448,19 @@ function initializeFabButtonsInternal() {
     const fabButtonsWithSubmenu = fabContainer.querySelectorAll('button[aria-haspopup="true"]');
     fabButtonsWithSubmenu.forEach(btn => {
         const menuId = btn.getAttribute('aria-controls');
-        const menu = fabContainer.querySelector(`#${menuId}`); 
+        const menu = fabContainer.querySelector(`#${menuId}`);
         if (menu) {
-            // **QUAN TRỌNG: Điền nội dung cho menu con**
             if (menuId === 'contact-options') {
-                populateContactOptions(menu); // Gọi hàm điền nội dung
+                populateContactOptions(menu);
                 componentLog('Đã điền nội dung cho menu liên hệ.');
             } else if (menuId === 'share-options') {
-                populateShareOptions(menu); // Gọi hàm điền nội dung
+                populateShareOptions(menu);
                 componentLog('Đã điền nội dung cho menu chia sẻ.');
             }
 
             const openFabMenu = () => {
                 menu.classList.remove('hidden');
-                requestAnimationFrame(() => { // Đảm bảo DOM update trước khi áp dụng transition
+                requestAnimationFrame(() => {
                     ['opacity-0', 'scale-95', 'pointer-events-none'].forEach(cls => menu.classList.remove(cls));
                     ['opacity-100', 'scale-100', 'pointer-events-auto'].forEach(cls => menu.classList.add(cls));
                 });
@@ -441,31 +471,27 @@ function initializeFabButtonsInternal() {
             const closeFabMenu = () => {
                 ['opacity-100', 'scale-100', 'pointer-events-auto'].forEach(cls => menu.classList.remove(cls));
                 ['opacity-0', 'scale-95', 'pointer-events-none'].forEach(cls => menu.classList.add(cls));
-                
-                // Sử dụng sự kiện transitionend để thêm class 'hidden'
-                // Điều này đảm bảo hiệu ứng hoàn tất trước khi phần tử bị ẩn hoàn toàn.
+
                 const handleTransitionEnd = () => {
-                    if (menu.classList.contains('opacity-0')) { // Chỉ thêm 'hidden' nếu nó thực sự đã bị ẩn (opacity 0)
+                    if (menu.classList.contains('opacity-0')) {
                         menu.classList.add('hidden');
                     }
-                    menu.removeEventListener('transitionend', handleTransitionEnd); // Xóa listener sau khi chạy
+                    menu.removeEventListener('transitionend', handleTransitionEnd);
                 };
                 menu.addEventListener('transitionend', handleTransitionEnd, { once: true });
                 btn.setAttribute('aria-expanded', 'false');
                 componentLog(`Menu FAB '${menuId}' đã đóng.`);
             };
-            
+
             btn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Ngăn sự kiện click lan ra document và đóng menu ngay lập tức
+                e.stopPropagation();
                 const isCurrentlyOpen = btn.getAttribute('aria-expanded') === 'true';
-                
-                // Đóng tất cả các menu FAB khác trước
+
                 fabButtonsWithSubmenu.forEach(otherBtn => {
                     if (otherBtn !== btn) {
                         const otherMenuId = otherBtn.getAttribute('aria-controls');
                         const otherMenu = fabContainer.querySelector(`#${otherMenuId}`);
                         if (otherMenu && otherBtn.getAttribute('aria-expanded') === 'true') {
-                            // Áp dụng logic đóng tương tự như closeFabMenu
                             ['opacity-100', 'scale-100', 'pointer-events-auto'].forEach(cls => otherMenu.classList.remove(cls));
                             ['opacity-0', 'scale-95', 'pointer-events-none'].forEach(cls => otherMenu.classList.add(cls));
                             const handleOtherTransitionEnd = () => {
@@ -480,42 +506,40 @@ function initializeFabButtonsInternal() {
                     }
                 });
 
-                if(isCurrentlyOpen) {
-                    closeFabMenu(); 
+                if (isCurrentlyOpen) {
+                    closeFabMenu();
                 } else {
                     openFabMenu();
                 }
             });
-            
-            btn.addEventListener('keydown', (e) => { 
+
+            btn.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
-                    closeFabMenu(); 
-                    btn.focus(); // Trả focus về nút chính
+                    closeFabMenu();
+                    btn.focus();
                 }
             });
-        } else { 
+        } else {
             componentLog(`Không tìm thấy menu con #${menuId} cho nút FAB.`, 'warn');
         }
     });
-     
-    // Đóng tất cả menu FAB khi click ra ngoài #fab-container
-    document.addEventListener('click', (e) => { 
-        // Chỉ thực hiện nếu fabContainer tồn tại và click ra ngoài nó
+
+    document.addEventListener('click', (e) => {
         if (fabContainer && !fabContainer.contains(e.target)) {
             fabButtonsWithSubmenu.forEach(btn => {
-                 const menu = fabContainer.querySelector(`#${btn.getAttribute('aria-controls')}`);
-                 if (menu && btn.getAttribute('aria-expanded') === 'true') { // Chỉ đóng nếu đang mở
+                const menu = fabContainer.querySelector(`#${btn.getAttribute('aria-controls')}`);
+                if (menu && btn.getAttribute('aria-expanded') === 'true') {
                     ['opacity-100', 'scale-100', 'pointer-events-auto'].forEach(cls => menu.classList.remove(cls));
                     ['opacity-0', 'scale-95', 'pointer-events-none'].forEach(cls => menu.classList.add(cls));
                     const handleDocClickTransitionEnd = () => {
                         if (menu.classList.contains('opacity-0')) {
-                           menu.classList.add('hidden');
+                            menu.classList.add('hidden');
                         }
                         menu.removeEventListener('transitionend', handleDocClickTransitionEnd);
                     };
                     menu.addEventListener('transitionend', handleDocClickTransitionEnd, { once: true });
                     btn.setAttribute('aria-expanded', 'false');
-                 }
+                }
             });
         }
     });
@@ -523,95 +547,83 @@ function initializeFabButtonsInternal() {
     window.componentState.fabInitialized = true;
     componentLog("Các nút FAB đã được khởi tạo với nội dung động.");
 }
-// Gán vào window để có thể gọi từ nơi khác nếu cần (ví dụ: sau khi loadComponent)
 window.initializeFabButtons = initializeFabButtonsInternal;
 
-// --- HÀM CHÍNH ĐỂ TẢI TẤT CẢ CÁC THÀNH PHẦN ---
 async function loadCommonComponents() {
     if (window.componentState.componentsLoadedAndInitialized) {
         componentLog('Các thành phần chung đã được tải và khởi tạo.', 'info');
         return;
     }
     componentLog('Bắt đầu chuỗi tải các thành phần chung...');
-    
-    // 1. Tải Header, sau đó gọi hàm khởi tạo đã được định nghĩa ở trên
-    const headerLoaded = await loadHeader(); // loadHeader đã bao gồm initializeHeaderInternal
 
-    // 2. Khởi tạo hệ thống ngôn ngữ SAU KHI Header đã được tải và khởi tạo thành công
-    if(headerLoaded && window.componentState.headerInitialized) {
+    const headerLoaded = await loadHeader();
+
+    if (headerLoaded && window.componentState.headerInitialized) {
         if (typeof window.initializeLanguageSystem === 'function') {
             try {
-                await window.initializeLanguageSystem(); 
+                await window.initializeLanguageSystem();
                 componentLog('Hệ thống ngôn ngữ đã khởi tạo sau header.');
             } catch (langError) { componentLog(`Lỗi khởi tạo hệ thống ngôn ngữ: ${langError.message}`, 'error'); }
-        } else { 
+        } else {
             componentLog('Hàm initializeLanguageSystem không tồn tại. Thử fallback.', 'warn');
-            if (typeof window.applyTranslations === 'function') { 
-                try { window.applyTranslations(document.documentElement); } catch(e) { componentLog('Lỗi gọi applyTranslations fallback: ' + e.message, 'error');}
-            } else if (typeof window.applyLanguage === 'function') { // Dành cho tên hàm cũ hơn
-                try { window.applyLanguage(document.documentElement); } catch(e) { componentLog('Lỗi gọi applyLanguage fallback: ' + e.message, 'error');}
+            if (typeof window.applyTranslations === 'function') {
+                try { window.applyTranslations(document.documentElement); } catch (e) { componentLog('Lỗi gọi applyTranslations fallback: ' + e.message, 'error'); }
+            } else if (typeof window.applyLanguage === 'function') {
+                try { window.applyLanguage(document.documentElement); } catch (e) { componentLog('Lỗi gọi applyLanguage fallback: ' + e.message, 'error'); }
             } else {
-                 componentLog('Không tìm thấy hàm initializeLanguageSystem, applyTranslations, hoặc applyLanguage.', 'error');
+                componentLog('Không tìm thấy hàm initializeLanguageSystem, applyTranslations, hoặc applyLanguage.', 'error');
             }
         }
     } else {
         componentLog('Header không tải/khởi tạo thành công. Hệ thống ngôn ngữ có thể không hoạt động đúng.', 'error');
-        // Vẫn cố gắng khởi tạo ngôn ngữ nếu hàm tồn tại, phòng trường hợp language.js không phụ thuộc header
-        if (typeof window.initializeLanguageSystem === 'function') { 
-            try { await window.initializeLanguageSystem(); } catch (e) { componentLog('Lỗi khởi tạo ngôn ngữ (fallback khi header lỗi): '+e.message, 'error'); }
+        if (typeof window.initializeLanguageSystem === 'function') {
+            try { await window.initializeLanguageSystem(); } catch (e) { componentLog('Lỗi khởi tạo ngôn ngữ (fallback khi header lỗi): ' + e.message, 'error'); }
         }
     }
 
-    // 3. Tải Footer và khởi tạo Footer
     const footerPlaceholder = document.getElementById('footer-placeholder');
     if (footerPlaceholder) {
         const footerLoaded = await loadComponent('Footer', 'footer-placeholder', '/components/footer.html');
         if (footerLoaded && typeof initializeFooterInternal === 'function') {
             initializeFooterInternal();
         }
-        else if(footerLoaded) {
+        else if (footerLoaded) {
             componentLog("initializeFooterInternal không tìm thấy sau khi tải footer.", "warn");
         }
     } else { componentLog('Placeholder Footer không tìm thấy.', 'info'); }
-    
-    // 4. Tải FAB container và khởi tạo FABs
+
     const fabPlaceholder = document.getElementById('fab-container-placeholder');
     if (fabPlaceholder) {
         const fabLoaded = await loadComponent('FABs', 'fab-container-placeholder', '/components/fab-container.html');
         if (fabLoaded && typeof initializeFabButtonsInternal === 'function') {
-            initializeFabButtonsInternal(); 
-        } else if(fabLoaded) {
+            initializeFabButtonsInternal();
+        } else if (fabLoaded) {
             componentLog('initializeFabButtonsInternal không tìm thấy sau khi tải FABs.', 'warn');
         } else {
             componentLog('Không tải được fab-container.html.', 'error');
         }
     } else { componentLog('Placeholder FAB không tìm thấy.', 'info'); }
-    
+
     window.componentState.componentsLoadedAndInitialized = true;
     componentLog('Chuỗi tải các thành phần chung đã hoàn tất.');
 
-    // Gọi callback của trang cụ thể nếu có (ví dụ: onPageComponentsLoadedCallback)
-    // Đổi tên callback ở đây cho nhất quán với các trang khác nếu cần.
-    if (typeof window.onPageComponentsLoadedCallback === 'function') { 
+    if (typeof window.onPageComponentsLoadedCallback === 'function') {
         componentLog('Đang gọi onPageComponentsLoadedCallback của trang...');
         try {
-             // Đảm bảo DOM đã sẵn sàng cho callback của trang, đặc biệt nếu có thao tác DOM nặng
-             await new Promise(resolve => setTimeout(resolve, 0)); 
-            await window.onPageComponentsLoadedCallback(); 
-        } catch(pageCallbackError) {
+            await new Promise(resolve => setTimeout(resolve, 0));
+            await window.onPageComponentsLoadedCallback();
+        } catch (pageCallbackError) {
             componentLog(`Lỗi trong onPageComponentsLoadedCallback: ${pageCallbackError.message}`, 'error');
         }
     } else {
-         componentLog('Không tìm thấy onPageComponentsLoadedCallback của trang.', 'info');
+        componentLog('Không tìm thấy onPageComponentsLoadedCallback của trang.', 'info');
     }
 }
 
-// Đảm bảo loadCommonComponents được gọi sau khi DOM sẵn sàng
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', loadCommonComponents);
 } else {
-    // DOM đã sẵn sàng, nhưng kiểm tra xem components đã được load chưa để tránh chạy nhiều lần
-    if (!window.componentState.componentsLoadedAndInitialized) { 
+    if (!window.componentState.componentsLoadedAndInitialized) {
         loadCommonComponents();
     }
 }
