@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-lang-key="page_title_news_archive">IVS News - Tin tức tổng hợp</title>
+    <title data-lang-key="page_title_news_archive">IVS News - Dịch vụ công & Tin tức</title>
     <meta name="description" content="Tổng hợp tin tức, sự kiện mới nhất từ IVS JSC và các nguồn tin uy tín về Giáo dục, Kinh tế, Công nghệ, Dịch vụ công." data-lang-key="meta_description_news_archive">
     <meta name="keywords" content="IVS JSC, tin tức, sự kiện, giáo dục, kinh tế, công nghệ, dịch vụ công, IVS Academy" data-lang-key="meta_keywords_news_archive">
     <meta property="og:title" content="Kho Tin Tức & Cập Nhật - IVS JSC" data-lang-key="og_title_news_archive">
@@ -89,22 +89,15 @@
             border-color: #fb923c; /* orange-400 for dark mode */
             background-color: rgba(251, 146, 60, 0.15); /* Lighter orange for dark mode */
         }
-        /* Styling for Public Services tab to make it look more like an app */
+        
         .tab-button[data-tab="public-services-news"].active {
-            /* background-color: #004080; /* primary color */
-            /* color: white; */
             font-weight: 700;
-            /* border-bottom-width: 4px; */
         }
-        /* .dark .tab-button[data-tab="public-services-news"].active {
-            background-color: #003366; /* primary-dark color */
-            /* color: #f0f9ff; /* lighter text for dark primary */
-        /* } */
-
+        
         #public-services-news-panel.active {
             border: 1px solid #004080; /* primary color border */
             border-top: none;
-            padding: 1.5rem; /* More padding */
+            padding: 1.5rem; 
             background-color: #f0f9ff; /* Light blue background */
             border-bottom-left-radius: 0.5rem;
             border-bottom-right-radius: 0.5rem;
@@ -121,8 +114,51 @@
         }
         .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
         .min-h-content {
-            min-height: 300px; /* Adjust as needed to prevent collapsing */
+            min-height: 300px; 
         }
+
+        .service-link-card {
+            background-color: white;
+            border: 1px solid #D1D5DB; /* ivs-neutral-300 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
+        }
+        .service-link-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: #004080; /* primary */
+        }
+        .dark .service-link-card {
+            background-color: #1f2937; /* ivs-neutral-800 */
+            border-color: #4B5563; /* ivs-neutral-600 */
+        }
+        .dark .service-link-card:hover {
+            border-color: #3b82f6; /* blue-500 */
+        }
+        .service-link-card i {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            color: #004080; /* primary */
+        }
+        .dark .service-link-card i {
+            color: #3b82f6; /* blue-500 */
+        }
+        .service-link-card span {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #1f2937; /* ivs-neutral-800 */
+        }
+        .dark .service-link-card span {
+            color: #f3f4f6; /* ivs-neutral-100 */
+        }
+
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-300 antialiased font-inter" id="page-news-archive">
@@ -130,7 +166,7 @@
 
     <main class="flex-grow pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)]">
         <section class="relative bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 text-white py-20 md:py-32 overflow-hidden rounded-b-3xl shadow-xl">
-            <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/images/banners/news_hero_banner.webp');" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/004080/ffffff?text=IVS+News)'; this.classList.add('bg-slate-700');"></div>
+            <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('/images/banners/news_hero_banner.webp');" onerror="this.style.backgroundImage='url(https://placehold.co/1920x400/003366/ffffff?text=IVS+D%E1%BB%8Bch+V%E1%BB%A5+C%C3%B4ng+%26+Tin+T%E1%BB%A9c)'; this.classList.add('bg-slate-700');"></div>
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 hero-text-shadow" data-lang-key="news_archive_main_title" data-aos="fade-down">IVS News - Dịch vụ công & Tin tức</h1>
                 <p class="text-lg md:text-xl lg:text-2xl opacity-95 max-w-3xl mx-auto hero-text-shadow" data-lang-key="news_archive_subtitle_updated" data-aos="fade-up" data-aos-delay="200">
@@ -164,7 +200,46 @@
 
                 <div id="news-content-area">
                     <div id="public-services-news-panel" class="tab-content min-h-content" role="tabpanel" aria-labelledby="public-services-news-tab">
-                        <h2 class="text-2xl md:text-3xl font-bold text-primary dark:text-blue-400 mb-6" data-lang-key="public_services_section_title_main">Thông tin Dịch vụ công</h2>
+                        
+                        <div class="mb-10">
+                            <h3 class="text-xl md:text-2xl font-semibold text-primary dark:text-blue-400 mb-6 text-center" data-lang-key="featured_public_services_title">Cổng Dịch Vụ Công Nổi Bật</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                                <a href="https://dichvucong.gov.vn/" target="_blank" rel="noopener noreferrer" class="service-link-card group">
+                                    <i class="fas fa-landmark group-hover:text-header-orange transition-colors"></i>
+                                    <span data-lang-key="service_national_portal">Cổng Dịch vụ công Quốc gia</span>
+                                </a>
+                                <a href="https://thuongmaidientu.gov.vn/" target="_blank" rel="noopener noreferrer" class="service-link-card group">
+                                    <i class="fas fa-vote-yea group-hover:text-header-orange transition-colors"></i>
+                                    <span data-lang-key="service_vneid">Đăng ký Bộ Công Thương</span>
+                                </a>
+                                <a href="https://canhan.gdt.gov.vn/" target="_blank" rel="noopener noreferrer" class="service-link-card group">
+                                    <i class="fas fa-file-invoice-dollar group-hover:text-header-orange transition-colors"></i>
+                                    <span data-lang-key="service_etax">Thuế điện tử (eTax)</span>
+                                </a>
+                                <a href="https://baohiemxahoi.gov.vn/" target="_blank" rel="noopener noreferrer" class="service-link-card group">
+                                    <i class="fas fa-shield-alt group-hover:text-header-orange transition-colors"></i>
+                                    <span data-lang-key="service_vss">Bảo hiểm Xã hội Việt Nam</span>
+                                </a>
+                                <a href="https://vssid.gov.vn/" target="_blank" rel="noopener noreferrer" class="service-link-card group">
+                                    <i class="fas fa-mobile-alt group-hover:text-header-orange transition-colors"></i>
+                                    <span data-lang-key="service_vssid">VssID - BHXH Số</span>
+                                </a>
+                                <a href="https://dangkykinhdoanh.gov.vn/" target="_blank" rel="noopener noreferrer" class="service-link-card group">
+                                    <i class="fas fa-briefcase group-hover:text-header-orange transition-colors"></i>
+                                    <span data-lang-key="service_business_registration">Đăng ký kinh doanh</span>
+                                </a>
+                                <a href="https://htkk.gdt.gov.vn/" target="_blank" rel="noopener noreferrer" class="service-link-card group">
+                                    <i class="fas fa-calculator group-hover:text-header-orange transition-colors"></i>
+                                    <span data-lang-key="service_htkk">Hỗ trợ kê khai (HTKK)</span>
+                                </a>
+                                 <a href="https://csdlqgvedancu.gov.vn/" target="_blank" rel="noopener noreferrer" class="service-link-card group">
+                                    <i class="fas fa-id-card group-hover:text-header-orange transition-colors"></i>
+                                    <span data-lang-key="service_national_population_db">CSDL Quốc gia về Dân cư</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <h2 class="text-2xl md:text-3xl font-bold text-primary dark:text-blue-400 mb-6 border-t border-gray-300 dark:border-gray-700 pt-6" data-lang-key="public_services_section_title_main">Tin tức Dịch vụ công</h2>
                         <div id="public-services-rss-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 min-h-[200px]">
                              <p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" aria-busy="true" data-lang-key="loading_public_services_news">Đang tải tin Dịch vụ công...</p>
                         </div>
@@ -223,8 +298,10 @@
         <i class="fas fa-arrow-up text-lg md:text-xl" aria-hidden="true"></i>
     </button>
 
-    <script src="/js/loadComponents.js" defer></script>
+    <!-- Critical: Ensure language.js is loaded and parsed before loadComponents.js and other dependent scripts -->
     <script src="/js/language.js" defer></script>
+    <script src="/js/loadComponents.js" defer></script> 
+    <!-- General scripts -->
     <script src="./js/script.js" defer></script>
     <script src="./js/posts-loader.js" defer></script>
     <script src="./js/rss-loader.js" defer></script>
@@ -256,22 +333,29 @@
         };
 
         function loadContentForTab(tabId) {
-            console.log(`Loading content for tab: ${tabId}`);
+            console.log(`Attempting to load content for tab: ${tabId}`);
             const panelId = `${tabId}-panel`;
             const panelElement = document.getElementById(panelId);
 
             if (!panelElement) {
-                console.warn(`Panel element #${panelId} not found.`);
+                console.error(`Panel element #${panelId} not found. Cannot load content.`);
                 return;
             }
             
-            panelElement.classList.remove('hidden'); // Make sure panel is visible before loading
+            panelElement.classList.remove('hidden'); 
 
             if (tabId === 'ivs-news') {
+                const ivsNewsContainer = document.getElementById('ivs-news-container');
+                if (!ivsNewsContainer) {
+                    console.error('IVS news container (ivs-news-container) not found within the panel.');
+                    panelElement.innerHTML = '<p class="text-red-500 dark:text-red-400 col-span-full text-center py-10">Lỗi: Không tìm thấy vùng chứa tin IVS.</p>';
+                    return;
+                }
                 if (typeof window.loadPosts === 'function') {
                     window.loadPosts('ivs-news-container');
                 } else {
-                    console.warn('loadPosts function not found.');
+                    console.warn('loadPosts function is not defined. IVS news cannot be loaded.');
+                    ivsNewsContainer.innerHTML = '<p class="text-orange-500 dark:text-orange-400 col-span-full text-center py-10">Chức năng tải tin IVS chưa sẵn sàng.</p>';
                 }
             } else {
                 const configKey = tabId.replace('-news', '').replace(/-/g, '_');
@@ -280,46 +364,52 @@
                     const containerInPanel = document.querySelector(`#${panelId} > #${containerId}`);
 
                     if (containerInPanel) {
-                        // Clear previous content and show loading message
                         containerInPanel.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" aria-busy="true" data-lang-key="loading_${configKey}_news">Đang tải tin ${tabId.replace('-news', '').replace('-', ' ')}...</p>`;
                         
-                        let feedsLoaded = 0;
-                        const totalFeeds = window.rssFeeds[configKey].length;
-                        let allHtmlContent = '';
-
-                        window.rssFeeds[configKey].forEach(feed => {
+                        let feedsLoadedSuccessfully = 0;
+                        const feedPromises = window.rssFeeds[configKey].map(feed => {
                             if (typeof window.loadRssFeed === 'function') {
-                                // Modify loadRssFeed to return HTML or handle content accumulation
-                                window.loadRssFeed(containerId, feed.url, feed.name, feed.limit || 6, true) // Pass true to accumulate
+                                return window.loadRssFeed(containerId, feed.url, feed.name, feed.limit || 6, true)
                                     .then(html => {
-                                        if(feedsLoaded === 0) containerInPanel.innerHTML = ''; // Clear loading message on first successful load
-                                        allHtmlContent += html;
-                                        feedsLoaded++;
-                                        if (feedsLoaded === totalFeeds) {
-                                            if(allHtmlContent === '') {
-                                                containerInPanel.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" data-lang-key="no_news_available_rss">Không có tin tức nào từ các nguồn RSS.</p>`;
-                                            } else {
-                                                containerInPanel.innerHTML = allHtmlContent;
-                                            }
-                                        }
+                                        if (html && html.trim() !== "") feedsLoadedSuccessfully++;
+                                        return html;
                                     })
                                     .catch(error => {
-                                        console.error(`Error loading feed ${feed.name}:`, error);
-                                        feedsLoaded++;
-                                        if (feedsLoaded === totalFeeds && allHtmlContent === '') {
-                                            containerInPanel.innerHTML = `<p class="text-red-500 dark:text-red-400 col-span-full text-center py-10" data-lang-key="news_load_error_rss">Lỗi khi tải một số nguồn tin RSS.</p>`;
-                                        }
+                                        console.error(`Error promise loading feed ${feed.name}:`, error);
+                                        return ""; // Return empty string for failed feeds to not break Promise.all
                                     });
                             } else {
-                                console.warn('loadRssFeed function not found.');
+                                console.warn('loadRssFeed function is not defined. RSS feeds cannot be loaded.');
+                                return Promise.resolve("");
                             }
                         });
+
+                        Promise.all(feedPromises)
+                            .then(allHtmlContents => {
+                                const combinedHtml = allHtmlContents.join('');
+                                if (feedsLoadedSuccessfully === 0 || combinedHtml.trim() === "") {
+                                     containerInPanel.innerHTML = `<p class="text-gray-500 dark:text-gray-400 col-span-full text-center py-10" data-lang-key="no_news_available_rss_all">Không có tin tức nào từ các nguồn RSS cho mục này.</p>`;
+                                } else {
+                                    containerInPanel.innerHTML = combinedHtml;
+                                }
+                            })
+                            .catch(error => {
+                                console.error("Error loading one or more RSS feeds:", error);
+                                containerInPanel.innerHTML = `<p class="text-red-500 dark:text-red-400 col-span-full text-center py-10" data-lang-key="news_load_error_rss_combined">Lỗi khi tải một số nguồn tin RSS.</p>`;
+                            });
+
                     } else {
-                        console.warn(`Container #${containerId} not found inside #${panelId}`);
+                        console.error(`RSS container #${containerId} not found inside #${panelId}.`);
+                        panelElement.innerHTML = `<p class="text-red-500 dark:text-red-400 col-span-full text-center py-10">Lỗi: Không tìm thấy vùng chứa RSS cho mục này.</p>`;
                     }
                 } else {
                     console.warn(`No RSS feed configuration found for key: ${configKey}`);
+                     const containerInPanel = document.querySelector(`#${panelId} > #${tabId}-rss-container`);
+                     if(containerInPanel) containerInPanel.innerHTML = `<p class="text-orange-500 dark:text-orange-400 col-span-full text-center py-10">Không có cấu hình RSS cho mục này.</p>`;
                 }
+            }
+            if (typeof window.applyLanguage === 'function') {
+                 window.applyLanguage(panelElement); // Apply language to newly loaded content
             }
         }
 
@@ -327,9 +417,20 @@
         function setupTabs() {
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
-            let initialTabId = 'public-services-news'; // Default to public services
+            let initialTabId = 'public-services-news'; 
+
+            const activeTabButtonFromMarkup = document.querySelector('.tab-button[aria-selected="true"]');
+            if (activeTabButtonFromMarkup) {
+                initialTabId = activeTabButtonFromMarkup.dataset.tab;
+            } else if (tabButtons.length > 0) {
+                tabButtons[0].setAttribute('aria-selected', 'true'); 
+                initialTabId = tabButtons[0].dataset.tab;
+            }
+            console.log(`Initial tab to activate: ${initialTabId}`);
+
 
             const activateTab = (tabId) => {
+                console.log(`Activating tab: ${tabId}`);
                 tabButtons.forEach(button => {
                     const isActive = button.dataset.tab === tabId;
                     button.classList.toggle('active', isActive);
@@ -339,11 +440,12 @@
                     button.classList.toggle('dark:text-orange-400', isActive);
                     button.classList.toggle('border-header-orange', isActive);
                     button.classList.toggle('dark:border-orange-400', isActive);
-                    button.classList.toggle('bg-orange-50', isActive && button.dataset.tab !== 'public-services-news');
-                    button.classList.toggle('dark:bg-orange-500/20', isActive && button.dataset.tab !== 'public-services-news');
                     
-                    // Specific active style for public services tab
-                    if (button.dataset.tab === 'public-services-news') {
+                    const isPublicServiceTab = button.dataset.tab === 'public-services-news';
+                    button.classList.toggle('bg-orange-50', isActive && !isPublicServiceTab);
+                    button.classList.toggle('dark:bg-orange-500/20', isActive && !isPublicServiceTab);
+                    
+                    if (isPublicServiceTab) {
                          button.classList.toggle('bg-primary', isActive);
                          button.classList.toggle('text-white', isActive);
                          button.classList.toggle('dark:bg-blue-700', isActive);
@@ -352,52 +454,48 @@
                         button.classList.toggle('text-gray-600', !isActive);
                         button.classList.toggle('dark:text-gray-400', !isActive);
                     }
-                    button.classList.toggle('border-transparent', !isActive);
+                    button.classList.toggle('border-transparent', !isActive || (isPublicServiceTab && !isActive) );
 
                 });
 
                 tabContents.forEach(content => {
                     const isContentActive = content.id === `${tabId}-panel`;
                     content.classList.toggle('hidden', !isContentActive);
-                    content.classList.toggle('active', isContentActive); // For specific styling if needed
+                    content.classList.toggle('active', isContentActive); 
                 });
                 loadContentForTab(tabId);
             };
-
-            // Find the default active tab from HTML if any, otherwise use `initialTabId`
-            const activeTabButton = document.querySelector('.tab-button[aria-selected="true"]');
-            if (activeTabButton) {
-                initialTabId = activeTabButton.dataset.tab;
-            } else if (tabButtons.length > 0) {
-                 // If no tab is pre-selected as active, make the first one (which is now DVC) active
-                tabButtons[0].setAttribute('aria-selected', 'true');
-                initialTabId = tabButtons[0].dataset.tab;
-            }
-
-
+            
             tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const tabId = button.dataset.tab;
+                button.addEventListener('click', (event) => {
+                    const tabId = event.currentTarget.dataset.tab;
                     activateTab(tabId);
                 });
             });
             
-            // Activate the initial tab
             if (initialTabId) {
                 activateTab(initialTabId);
-            } else if (tabButtons.length > 0) {
-                // Fallback if initialTabId somehow is not set
-                activateTab(tabButtons[0].dataset.tab);
+            } else {
+                console.warn("No initial tab ID could be determined. No tab will be activated by default.");
             }
         }
 
         window.onPageComponentsLoadedCallback = function() {
-            console.log("[News Archive Page] Components loaded. Page specific JS can run now.");
+            console.log("[News Archive Page] Components loaded. Initializing page specific JS.");
             AOS.init({ duration: 800, once: true, offset: 50 });
-            if (typeof setupTabs === 'function') {
-                setupTabs(); // This will also load content for the initial active tab
+
+            if (typeof window.applyLanguage === 'function') {
+                console.log("Applying initial language to the whole document.");
+                window.applyLanguage(document.documentElement);
             } else {
-                console.warn('setupTabs function not found after components loaded.');
+                 console.warn('applyLanguage function not found globally. Language features may not work.');
+            }
+
+            if (typeof setupTabs === 'function') {
+                console.log("Setting up tabs.");
+                setupTabs(); 
+            } else {
+                console.error('setupTabs function not found. Tabs will not be functional.');
             }
         };
         
