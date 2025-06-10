@@ -588,7 +588,7 @@ async function loadCommonComponents() {
 
     const footerPlaceholder = document.getElementById('footer-placeholder');
     if (footerPlaceholder) {
-        const footerFilePath = `${basePath}footer.html`;
+        const footerFilePath = `/components/footer.html`;
         const footerLoaded = await loadComponent('Footer', 'footer-placeholder', footerFilePath);
         if (footerLoaded && typeof initializeFooterInternal === 'function') {
             initializeFooterInternal();
@@ -600,7 +600,7 @@ async function loadCommonComponents() {
 
     const fabPlaceholder = document.getElementById('fab-container-placeholder');
     if (fabPlaceholder) {
-        const fabFilePath = `${basePath}fab-container.html`;
+        const fabFilePath = `/components/fab-container.html`;
         const fabLoaded = await loadComponent('FABs', 'fab-container-placeholder', fabFilePath);
         if (fabLoaded && typeof initializeFabButtonsInternal === 'function') {
             initializeFabButtonsInternal();
