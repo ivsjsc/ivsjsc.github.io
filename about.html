@@ -34,66 +34,66 @@
                         display: ['Lexend', 'sans-serif'],
                     },
                     colors: {
-                        'ivs-dark-deep': '#010409',
-                        'ivs-dark': '#0D1117',
-                        'ivs-blue': '#3b82f6',
-                        'ivs-blue-dark': '#2563eb',
-                        'ivs-gold': '#ffc107',
-                        'ivs-light': '#f0f6fc',
-                        'ivs-gray': '#8b949e',
-                        'ivs-card-dark': '#161B22',
-                        'ivs-border-dark': '#30363d',
+                        // Bảng màu tối ưu độ tương phản
+                        'ivs-bg': '#0D1117',         // Nền chính, sâu hơn
+                        'ivs-card': '#161B22',       // Nền cho các card, component
+                        'ivs-border': '#30363d',     // Đường viền
+                        'ivs-text-primary': '#c9d1d9',  // Chữ chính, sáng, dễ đọc
+                        'ivs-text-secondary': '#8b949e', // Chữ phụ, xám hơn
+                        'ivs-blue': '#58a6ff',       // Xanh dương nhấn, sáng hơn cho nền tối
+                        'ivs-blue-darker': '#3b82f6', // Xanh cho hover
                     }
                 }
             }
         }
     </script>
     <style>
-        body { background-color: #010409; color: #e5e7eb; font-family: 'Inter', sans-serif; }
+        body { 
+            background-color: theme('colors.ivs-bg'); 
+            color: theme('colors.ivs-text-primary'); 
+            font-family: 'Inter', sans-serif; 
+        }
         .font-display { font-family: 'Lexend', sans-serif; }
         .hero-section {
             background: linear-gradient(rgba(1, 4, 9, 0.85), rgba(13, 17, 23, 0.7)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-            border-bottom: 1px solid #30363d;
+            border-bottom: 1px solid theme('colors.ivs-border');
         }
         .glass-card {
-            background: rgba(22, 27, 34, 0.6);
+            background: rgba(22, 27, 34, 0.7);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border: 1px solid #30363d;
+            border: 1px solid theme('colors.ivs-border');
             transition: all 0.3s ease;
         }
-        .glass-card:hover { border-color: #3b82f6; transform: translateY(-5px); }
-        .section-title { font-family: 'Lexend', sans-serif; }
+        .glass-card:hover { 
+            border-color: theme('colors.ivs-blue'); 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .section-title { font-family: 'Lexend', sans-serif; color: white; }
         .timeline::before {
             content: ''; position: absolute; left: 0.5rem; top: 0; bottom: 0; width: 2px;
-            background-image: linear-gradient(to bottom, #3b82f6, #30363d 70%);
+            background-image: linear-gradient(to bottom, theme('colors.ivs-blue'), theme('colors.ivs-border') 70%);
         }
         .timeline-dot {
             position: absolute; left: 0; top: 0; transform: translateX(-50%);
             width: 1rem; height: 1rem; border-radius: 9999px;
-            background-color: #0d1117; border: 3px solid #3b82f6;
+            background-color: theme('colors.ivs-bg'); border: 3px solid theme('colors.ivs-blue');
         }
-        .leader-card img { border: 4px solid #30363d; }
-        .leader-card:hover img { border-color: #3b82f6; }
+        .leader-card img { border: 4px solid theme('colors.ivs-border'); }
+        .leader-card:hover img { border-color: theme('colors.ivs-blue'); }
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            padding-bottom: 56.25%; /* 16:9 */
             height: 0;
             overflow: hidden;
             width: 100%;
             background-color: #000;
-            border-radius: 0.75rem; /* rounded-xl */
+            border-radius: 0.75rem;
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            border: 1px solid #30363d;
+            border: 1px solid theme('colors.ivs-border');
         }
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
     </style>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -106,7 +106,7 @@
                 <h1 class="text-4xl lg:text-5xl font-bold font-display text-white mb-4" data-aos="fade-down" data-lang-key="about_hero_title">
                     Về IVS JSC: Kiến Tạo Giá Trị Toàn Cầu
                 </h1>
-                <p class="text-lg text-ivs-gray max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200" data-lang-key="about_hero_subtitle">
+                <p class="text-lg text-ivs-text-secondary max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="200" data-lang-key="about_hero_subtitle">
                     Chúng tôi không chỉ cung cấp dịch vụ. Chúng tôi kiến tạo hệ sinh thái, tích hợp tầm nhìn và hợp lực sức mạnh để định hình tương lai giáo dục Việt Nam vươn tầm thế giới.
                 </p>
             </div>
@@ -116,11 +116,11 @@
             <div class="container mx-auto px-6">
                 <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                     <div data-aos="fade-right">
-                        <h2 class="section-title text-3xl md:text-4xl font-semibold text-white mb-4" data-lang-key="about_vision_title">Tầm Nhìn & Sứ Mệnh</h2>
-                        <p class="text-ivs-gray mb-6" data-lang-key="about_vision_desc">
+                        <h2 class="section-title text-3xl md:text-4xl font-semibold mb-4" data-lang-key="about_vision_title">Tầm Nhìn & Sứ Mệnh</h2>
+                        <p class="text-ivs-text-secondary mb-8 leading-relaxed" data-lang-key="about_vision_desc">
                             Trở thành nhà cung cấp giải pháp giáo dục hàng đầu Việt Nam và là thương hiệu được công nhận trên toàn cầu, tiên phong hiện thực hóa một tầm nhìn giáo dục đẳng cấp quốc tế. Sứ mệnh của chúng tôi là cung cấp các giải pháp giáo dục-đào tạo sáng tạo, chất lượng cao, kết hợp hài hòa giữa bản sắc dân tộc và tiêu chuẩn quốc tế, giúp mỗi cá nhân và cộng đồng phát huy tối đa tiềm năng.
                         </p>
-                        <a href="profile-company-ivsjsc.html" class="inline-block bg-ivs-blue hover:bg-ivs-blue-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors transform hover:scale-105">
+                        <a href="profile-company-ivsjsc.html" class="inline-block bg-ivs-blue hover:bg-ivs-blue-darker text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 shadow-lg shadow-blue-500/20">
                             <i class="fas fa-arrow-right mr-2"></i>
                             <span data-lang-key="about_cta_view_profile">Xem Hồ sơ năng lực chi tiết</span>
                         </a>
@@ -132,26 +132,26 @@
             </div>
         </section>
 
-        <section class="py-16 md:py-24 bg-ivs-card-dark border-y border-ivs-border-dark">
+        <section class="py-16 md:py-24 bg-ivs-card border-y border-ivs-border">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 md:mb-16">
-                    <h2 class="section-title text-3xl md:text-4xl font-semibold text-white" data-aos="fade-up" data-lang-key="about_philosophy_title">Triết Lý Cốt Lõi: I-V-S</h2>
+                    <h2 class="section-title text-3xl md:text-4xl font-semibold" data-aos="fade-up" data-lang-key="about_philosophy_title">Triết Lý Cốt Lõi: I-V-S</h2>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div data-aos="fade-up" data-aos-delay="100">
                         <div class="feature-icon w-12 h-12 rounded-lg flex items-center justify-center mb-5 text-2xl text-ivs-blue"><i class="fas fa-project-diagram"></i></div>
                         <h3 class="text-xl font-display font-semibold text-white mb-2" data-lang-key="about_philosophy_integrate">Integrate (Tích hợp)</h3>
-                        <p class="text-ivs-gray text-sm" data-lang-key="about_philosophy_integrate_desc">Kết nối chặt chẽ công nghệ, chương trình giáo dục và nhu cầu thực tiễn để tạo ra một hệ thống vận hành đồng bộ, hiệu quả và mang lại giá trị vượt trội.</p>
+                        <p class="text-ivs-text-secondary text-sm" data-lang-key="about_philosophy_integrate_desc">Kết nối chặt chẽ công nghệ, chương trình giáo dục và nhu cầu thực tiễn để tạo ra một hệ thống vận hành đồng bộ, hiệu quả và mang lại giá trị vượt trội.</p>
                     </div>
                     <div data-aos="fade-up" data-aos-delay="200">
                         <div class="feature-icon w-12 h-12 rounded-lg flex items-center justify-center mb-5 text-2xl text-ivs-blue"><i class="fas fa-eye"></i></div>
                         <h3 class="text-xl font-display font-semibold text-white mb-2" data-lang-key="about_philosophy_vision">Vision (Tầm nhìn)</h3>
-                        <p class="text-ivs-gray text-sm" data-lang-key="about_philosophy_vision_desc">Tiên phong định hình tương lai học tập, ứng dụng công nghệ để mở ra cơ hội phát triển toàn diện, giúp học viên sẵn sàng cho các thách thức của thế kỷ 21.</p>
+                        <p class="text-ivs-text-secondary text-sm" data-lang-key="about_philosophy_vision_desc">Tiên phong định hình tương lai học tập, ứng dụng công nghệ để mở ra cơ hội phát triển toàn diện, giúp học viên sẵn sàng cho các thách thức của thế kỷ 21.</p>
                     </div>
                     <div data-aos="fade-up" data-aos-delay="300">
                         <div class="feature-icon w-12 h-12 rounded-lg flex items-center justify-center mb-5 text-2xl text-ivs-blue"><i class="fas fa-hands-helping"></i></div>
                         <h3 class="text-xl font-display font-semibold text-white mb-2" data-lang-key="about_philosophy_synergy">Synergy (Hợp lực)</h3>
-                        <p class="text-ivs-gray text-sm" data-lang-key="about_philosophy_synergy_desc">Tạo dựng sức mạnh cộng hưởng từ mạng lưới đối tác, chuyên gia và cộng đồng để thúc đẩy sự phát triển bền vững và cùng nhau vươn xa.</p>
+                        <p class="text-ivs-text-secondary text-sm" data-lang-key="about_philosophy_synergy_desc">Tạo dựng sức mạnh cộng hưởng từ mạng lưới đối tác, chuyên gia và cộng đồng để thúc đẩy sự phát triển bền vững và cùng nhau vươn xa.</p>
                     </div>
                 </div>
             </div>
@@ -160,33 +160,33 @@
         <section class="py-16 md:py-24">
              <div class="container mx-auto px-6">
                 <div class="text-center mb-12 md:mb-16">
-                    <h2 class="section-title text-3xl md:text-4xl font-semibold text-white" data-aos="fade-up" data-lang-key="about_values_title">Giá Trị Cốt Lõi</h2>
+                    <h2 class="section-title text-3xl md:text-4xl font-semibold" data-aos="fade-up" data-lang-key="about_values_title">Giá Trị Cốt Lõi</h2>
                 </div>
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
                     <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="100">
-                        <div class="feature-icon w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-ivs-blue"><i class="fas fa-medal"></i></div>
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-ivs-blue"><i class="fas fa-medal"></i></div>
                         <h4 class="text-lg font-semibold text-white" data-lang-key="about_value_quality">Chất Lượng</h4>
                     </div>
                      <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="200">
-                        <div class="feature-icon w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-ivs-blue"><i class="fas fa-heart"></i></div>
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-ivs-blue"><i class="fas fa-heart"></i></div>
                         <h4 class="text-lg font-semibold text-white" data-lang-key="about_value_dedication">Tận Tâm</h4>
                     </div>
                      <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="300">
-                        <div class="feature-icon w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-ivs-blue"><i class="fas fa-lightbulb"></i></div>
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-ivs-blue"><i class="fas fa-lightbulb"></i></div>
                         <h4 class="text-lg font-semibold text-white" data-lang-key="about_value_creativity">Sáng Tạo</h4>
                     </div>
                      <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="400">
-                        <div class="feature-icon w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-ivs-blue"><i class="fas fa-balance-scale"></i></div>
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-ivs-blue"><i class="fas fa-balance-scale"></i></div>
                         <h4 class="text-lg font-semibold text-white" data-lang-key="about_value_equality">Bình Đẳng</h4>
                     </div>
                 </div>
             </div>
         </section>
         
-        <section class="py-16 md:py-24 bg-ivs-card-dark border-y border-ivs-border-dark">
+        <section class="py-16 md:py-24 bg-ivs-card border-y border-ivs-border">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 md:mb-16">
-                    <h2 class="section-title text-3xl md:text-4xl font-semibold text-white" data-aos="fade-up" data-lang-key="about_journey_title">Hành Trình Phát Triển</h2>
+                    <h2 class="section-title text-3xl md:text-4xl font-semibold" data-aos="fade-up" data-lang-key="about_journey_title">Hành Trình Phát Triển</h2>
                 </div>
                 <div class="relative max-w-2xl mx-auto">
                     <div class="timeline">
@@ -194,19 +194,19 @@
                             <div class="timeline-dot"></div>
                             <p class="text-sm text-ivs-blue font-semibold" data-lang-key="about_journey_phase1_date">Giai đoạn 1: 2024 - 2026</p>
                             <h4 class="font-semibold text-white mt-1" data-lang-key="about_journey_phase1_title">Nền Tảng Vững Chắc</h4>
-                            <p class="text-ivs-gray text-sm mt-1" data-lang-key="about_journey_phase1_desc">Hoàn thiện hệ sinh thái dịch vụ cốt lõi, mở rộng IVS Kindergarten, và khởi động chương trình IVS Primary School, tập trung vào song ngữ và STEAM.</p>
+                            <p class="text-ivs-text-secondary text-sm mt-1" data-lang-key="about_journey_phase1_desc">Hoàn thiện hệ sinh thái dịch vụ cốt lõi, mở rộng IVS Kindergarten, và khởi động chương trình IVS Primary School, tập trung vào song ngữ và STEAM.</p>
                         </div>
                         <div class="relative pl-8 pb-8" data-aos="fade-left">
                             <div class="timeline-dot"></div>
                             <p class="text-sm text-ivs-blue font-semibold" data-lang-key="about_journey_phase2_date">Giai đoạn 2: 2027 - 2030</p>
                             <h4 class="font-semibold text-white mt-1" data-lang-key="about_journey_phase2_title">Tăng Tốc & Mở Rộng</h4>
-                            <p class="text-ivs-gray text-sm mt-1" data-lang-key="about_journey_phase2_desc">Xây dựng IVS Secondary & High School. Tăng cường hợp tác quốc tế, triển khai chương trình trao đổi và định hướng nghề nghiệp chuyên sâu.</p>
+                            <p class="text-ivs-text-secondary text-sm mt-1" data-lang-key="about_journey_phase2_desc">Xây dựng IVS Secondary & High School. Tăng cường hợp tác quốc tế, triển khai chương trình trao đổi và định hướng nghề nghiệp chuyên sâu.</p>
                         </div>
                         <div class="relative pl-8" data-aos="fade-left">
                             <div class="timeline-dot"></div>
                             <p class="text-sm text-ivs-blue font-semibold" data-lang-key="about_journey_phase3_date">Giai đoạn 3: 2031 - 2034</p>
                             <h4 class="font-semibold text-white mt-1" data-lang-key="about_journey_phase3_title">Dẫn Đầu Toàn Cầu</h4>
-                            <p class="text-ivs-gray text-sm mt-1" data-lang-key="about_journey_phase3_desc">IVS Global School trở thành hệ thống giáo dục liên cấp hoàn chỉnh, được công nhận quốc tế, mở rộng các chương trình đào tạo chuyên sâu và hợp tác toàn cầu.</p>
+                            <p class="text-ivs-text-secondary text-sm mt-1" data-lang-key="about_journey_phase3_desc">IVS Global School trở thành hệ thống giáo dục liên cấp hoàn chỉnh, được công nhận quốc tế, mở rộng các chương trình đào tạo chuyên sâu và hợp tác toàn cầu.</p>
                         </div>
                     </div>
                 </div>
@@ -216,8 +216,8 @@
         <section class="py-16 md:py-24">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 md:mb-16">
-                    <h2 class="section-title text-3xl md:text-4xl font-semibold text-white" data-aos="fade-up" data-lang-key="about_team_title">Đội Ngũ Lãnh Đạo</h2>
-                    <p class="text-lg text-ivs-gray max-w-3xl mx-auto mt-4" data-aos="fade-up" data-aos-delay="100" data-lang-key="about_team_subtitle">
+                    <h2 class="section-title text-3xl md:text-4xl font-semibold" data-aos="fade-up" data-lang-key="about_team_title">Đội Ngũ Lãnh Đạo</h2>
+                    <p class="text-lg text-ivs-text-secondary max-w-3xl mx-auto mt-4" data-aos="fade-up" data-aos-delay="100" data-lang-key="about_team_subtitle">
                         Thành công của IVS được dẫn dắt bởi đội ngũ chuyên gia tận tâm, giàu kinh nghiệm và chung một tầm nhìn chiến lược.
                     </p>
                 </div>
@@ -246,14 +246,14 @@
             </div>
         </section>
 
-        <section class="py-16 md:py-24 bg-ivs-card-dark border-y border-ivs-border-dark">
+        <section class="py-16 md:py-24 bg-ivs-card border-y border-ivs-border">
             <div class="container mx-auto px-6">
                 <div class="glass-card p-8 md:p-12 rounded-2xl text-center">
                     <h2 class="section-title text-2xl md:text-3xl font-semibold text-white mb-4" data-aos="fade-up" data-lang-key="about_cta_final_title">Sẵn Sàng Đồng Hành Cùng IVS?</h2>
-                    <p class="text-ivs-gray max-w-2xl mx-auto mb-6" data-aos="fade-up" data-aos-delay="100" data-lang-key="about_cta_final_desc">
+                    <p class="text-ivs-text-secondary max-w-2xl mx-auto mb-6" data-aos="fade-up" data-aos-delay="100" data-lang-key="about_cta_final_desc">
                         Dù bạn là một tổ chức giáo dục, một doanh nghiệp đang tìm kiếm giải pháp, hay một cá nhân đầy nhiệt huyết, hãy kết nối với chúng tôi để cùng nhau kiến tạo những giá trị bền vững.
                     </p>
-                    <a href="contact.html" class="inline-block bg-ivs-blue hover:bg-ivs-blue-dark font-semibold text-white py-3 px-8 rounded-lg transition-colors" data-aos="fade-up" data-aos-delay="200" data-lang-key="about_cta_final_button">
+                    <a href="contact.html" class="inline-block bg-ivs-blue hover:bg-ivs-blue-darker font-semibold text-white py-3 px-8 rounded-lg transition-colors" data-aos="fade-up" data-aos-delay="200" data-lang-key="about_cta_final_button">
                         Liên Hệ Hợp Tác
                     </a>
                 </div>
