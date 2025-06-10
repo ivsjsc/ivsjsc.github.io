@@ -34,74 +34,51 @@
                         display: ['Lexend', 'sans-serif'],
                     },
                     colors: {
-                        // Bảng màu tối ưu độ tương phản
-                        'ivs-bg': '#0D1117',         // Nền chính, sâu hơn
-                        'ivs-card': '#161B22',       // Nền cho các card, component
-                        'ivs-border': '#30363d',     // Đường viền
-                        'ivs-text-primary': '#c9d1d9',  // Chữ chính, sáng, dễ đọc
-                        'ivs-text-secondary': '#8b949e', // Chữ phụ, xám hơn
-                        'ivs-blue': '#58a6ff',       // Xanh dương nhấn, sáng hơn cho nền tối
-                        'ivs-blue-darker': '#3b82f6', // Xanh cho hover
+                        'ivs-bg': '#0D1117',
+                        'ivs-card': '#161B22',
+                        'ivs-border': '#30363d',
+                        'ivs-text-primary': '#e6edf3',
+                        'ivs-text-secondary': '#a1aab4',
+                        'ivs-blue': '#58a6ff',
+                        'ivs-blue-darker': '#3b82f6',
                     }
                 }
             }
         }
     </script>
     <style>
-        body { 
-            background-color: theme('colors.ivs-bg'); 
-            color: theme('colors.ivs-text-primary'); 
-            font-family: 'Inter', sans-serif; 
-        }
         .font-display { font-family: 'Lexend', sans-serif; }
         .hero-section {
-            background: linear-gradient(rgba(1, 4, 9, 0.85), rgba(13, 17, 23, 0.7)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-            border-bottom: 1px solid theme('colors.ivs-border');
+            background: linear-gradient(rgba(13, 17, 23, 0.85), rgba(13, 17, 23, 0.7)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
         }
-        .glass-card {
-            background: rgba(22, 27, 34, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid theme('colors.ivs-border');
-            transition: all 0.3s ease;
-        }
-        .glass-card:hover { 
-            border-color: theme('colors.ivs-blue'); 
-            transform: translateY(-5px); 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        .section-title { font-family: 'Lexend', sans-serif; color: white; }
         .timeline::before {
             content: ''; position: absolute; left: 0.5rem; top: 0; bottom: 0; width: 2px;
-            background-image: linear-gradient(to bottom, theme('colors.ivs-blue'), theme('colors.ivs-border') 70%);
+            background-image: linear-gradient(to bottom, #58a6ff, #30363d 70%);
         }
         .timeline-dot {
             position: absolute; left: 0; top: 0; transform: translateX(-50%);
             width: 1rem; height: 1rem; border-radius: 9999px;
-            background-color: theme('colors.ivs-bg'); border: 3px solid theme('colors.ivs-blue');
         }
-        .leader-card img { border: 4px solid theme('colors.ivs-border'); }
-        .leader-card:hover img { border-color: theme('colors.ivs-blue'); }
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             width: 100%;
-            background-color: #000;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            border: 1px solid theme('colors.ivs-border');
         }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .feature-icon {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(13, 17, 23, 0.1));
+            border: 1px solid rgba(88, 166, 255, 0.2);
+        }
     </style>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body class="antialiased">
+<body class="bg-ivs-bg text-ivs-text-primary antialiased">
     <header id="header-placeholder"></header>
 
     <main>
-        <section class="hero-section pt-28 pb-16 md:pt-40 md:pb-24">
+        <section class="hero-section pt-28 pb-16 md:pt-40 md:pb-24 border-b border-ivs-border">
             <div class="container mx-auto px-6 text-center">
                 <h1 class="text-4xl lg:text-5xl font-bold font-display text-white mb-4" data-aos="fade-down" data-lang-key="about_hero_title">
                     Về IVS JSC: Kiến Tạo Giá Trị Toàn Cầu
@@ -116,7 +93,7 @@
             <div class="container mx-auto px-6">
                 <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
                     <div data-aos="fade-right">
-                        <h2 class="section-title text-3xl md:text-4xl font-semibold mb-4" data-lang-key="about_vision_title">Tầm Nhìn & Sứ Mệnh</h2>
+                        <h2 class="section-title text-3xl md:text-4xl font-semibold text-white mb-4" data-lang-key="about_vision_title">Tầm Nhìn & Sứ Mệnh</h2>
                         <p class="text-ivs-text-secondary mb-8 leading-relaxed" data-lang-key="about_vision_desc">
                             Trở thành nhà cung cấp giải pháp giáo dục hàng đầu Việt Nam và là thương hiệu được công nhận trên toàn cầu, tiên phong hiện thực hóa một tầm nhìn giáo dục đẳng cấp quốc tế. Sứ mệnh của chúng tôi là cung cấp các giải pháp giáo dục-đào tạo sáng tạo, chất lượng cao, kết hợp hài hòa giữa bản sắc dân tộc và tiêu chuẩn quốc tế, giúp mỗi cá nhân và cộng đồng phát huy tối đa tiềm năng.
                         </p>
@@ -125,7 +102,7 @@
                             <span data-lang-key="about_cta_view_profile">Xem Hồ sơ năng lực chi tiết</span>
                         </a>
                     </div>
-                    <div class="video-wrapper" data-aos="fade-left">
+                    <div class="video-wrapper bg-black rounded-xl shadow-2xl border border-ivs-border" data-aos="fade-left">
                         <iframe src="https://www.youtube.com/embed/WSFdBq4vprY?si=X1lIscHb06k3eJK_" title="YouTube video player: IVS JSC Company Profile" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
@@ -135,7 +112,7 @@
         <section class="py-16 md:py-24 bg-ivs-card border-y border-ivs-border">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 md:mb-16">
-                    <h2 class="section-title text-3xl md:text-4xl font-semibold" data-aos="fade-up" data-lang-key="about_philosophy_title">Triết Lý Cốt Lõi: I-V-S</h2>
+                    <h2 class="section-title text-3xl md:text-4xl font-semibold text-white" data-aos="fade-up" data-lang-key="about_philosophy_title">Triết Lý Cốt Lõi: I-V-S</h2>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
                     <div data-aos="fade-up" data-aos-delay="100">
@@ -162,20 +139,20 @@
                 <div class="text-center mb-12 md:mb-16">
                     <h2 class="section-title text-3xl md:text-4xl font-semibold" data-aos="fade-up" data-lang-key="about_values_title">Giá Trị Cốt Lõi</h2>
                 </div>
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                    <div class="glass-card p-6 text-center hover:border-ivs-blue" data-aos="fade-up" data-aos-delay="100">
                         <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-ivs-blue"><i class="fas fa-medal"></i></div>
                         <h4 class="text-lg font-semibold text-white" data-lang-key="about_value_quality">Chất Lượng</h4>
                     </div>
-                     <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="200">
+                     <div class="glass-card p-6 text-center hover:border-ivs-blue" data-aos="fade-up" data-aos-delay="200">
                         <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-ivs-blue"><i class="fas fa-heart"></i></div>
                         <h4 class="text-lg font-semibold text-white" data-lang-key="about_value_dedication">Tận Tâm</h4>
                     </div>
-                     <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="300">
+                     <div class="glass-card p-6 text-center hover:border-ivs-blue" data-aos="fade-up" data-aos-delay="300">
                         <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-ivs-blue"><i class="fas fa-lightbulb"></i></div>
                         <h4 class="text-lg font-semibold text-white" data-lang-key="about_value_creativity">Sáng Tạo</h4>
                     </div>
-                     <div class="glass-card p-6 text-center" data-aos="fade-up" data-aos-delay="400">
+                     <div class="glass-card p-6 text-center hover:border-ivs-blue" data-aos="fade-up" data-aos-delay="400">
                         <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-ivs-blue"><i class="fas fa-balance-scale"></i></div>
                         <h4 class="text-lg font-semibold text-white" data-lang-key="about_value_equality">Bình Đẳng</h4>
                     </div>
@@ -191,19 +168,19 @@
                 <div class="relative max-w-2xl mx-auto">
                     <div class="timeline">
                         <div class="relative pl-8 pb-8" data-aos="fade-left">
-                            <div class="timeline-dot"></div>
+                            <div class="timeline-dot bg-ivs-bg border-2 border-ivs-blue"></div>
                             <p class="text-sm text-ivs-blue font-semibold" data-lang-key="about_journey_phase1_date">Giai đoạn 1: 2024 - 2026</p>
                             <h4 class="font-semibold text-white mt-1" data-lang-key="about_journey_phase1_title">Nền Tảng Vững Chắc</h4>
                             <p class="text-ivs-text-secondary text-sm mt-1" data-lang-key="about_journey_phase1_desc">Hoàn thiện hệ sinh thái dịch vụ cốt lõi, mở rộng IVS Kindergarten, và khởi động chương trình IVS Primary School, tập trung vào song ngữ và STEAM.</p>
                         </div>
                         <div class="relative pl-8 pb-8" data-aos="fade-left">
-                            <div class="timeline-dot"></div>
+                            <div class="timeline-dot bg-ivs-bg border-2 border-ivs-blue"></div>
                             <p class="text-sm text-ivs-blue font-semibold" data-lang-key="about_journey_phase2_date">Giai đoạn 2: 2027 - 2030</p>
                             <h4 class="font-semibold text-white mt-1" data-lang-key="about_journey_phase2_title">Tăng Tốc & Mở Rộng</h4>
                             <p class="text-ivs-text-secondary text-sm mt-1" data-lang-key="about_journey_phase2_desc">Xây dựng IVS Secondary & High School. Tăng cường hợp tác quốc tế, triển khai chương trình trao đổi và định hướng nghề nghiệp chuyên sâu.</p>
                         </div>
                         <div class="relative pl-8" data-aos="fade-left">
-                            <div class="timeline-dot"></div>
+                            <div class="timeline-dot bg-ivs-bg border-2 border-ivs-blue"></div>
                             <p class="text-sm text-ivs-blue font-semibold" data-lang-key="about_journey_phase3_date">Giai đoạn 3: 2031 - 2034</p>
                             <h4 class="font-semibold text-white mt-1" data-lang-key="about_journey_phase3_title">Dẫn Đầu Toàn Cầu</h4>
                             <p class="text-ivs-text-secondary text-sm mt-1" data-lang-key="about_journey_phase3_desc">IVS Global School trở thành hệ thống giáo dục liên cấp hoàn chỉnh, được công nhận quốc tế, mở rộng các chương trình đào tạo chuyên sâu và hợp tác toàn cầu.</p>
@@ -223,22 +200,22 @@
                 </div>
                 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div class="text-center leader-card transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
-                        <img class="h-28 w-28 rounded-full object-cover mx-auto mb-4 transition-all duration-300" src="/images/team/nguyen-minh-triet.png" alt="[Ảnh chân dung ông Nguyễn Minh Triết]" onerror="this.onerror=null; this.src='https://placehold.co/112x112/161B22/FFFFFF?text=NMT';">
+                        <img class="h-28 w-28 rounded-full object-cover mx-auto mb-4 transition-all duration-300 border-ivs-border" src="/images/team/nguyen-minh-triet.png" alt="[Ảnh chân dung ông Nguyễn Minh Triết]" onerror="this.onerror=null; this.src='https://placehold.co/112x112/161B22/FFFFFF?text=NMT';">
                         <h4 class="font-semibold text-white" data-lang-key="about_team_member1_name">Ông Nguyễn Minh Triết</h4>
                         <p class="text-ivs-blue text-sm font-medium" data-lang-key="about_team_member1_title">CEO & Chủ tịch HĐQT</p>
                     </div>
                     <div class="text-center leader-card transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
-                        <img class="h-28 w-28 rounded-full object-cover mx-auto mb-4 transition-all duration-300" src="/images/team/rachid-belferar.png" alt="[Ảnh chân dung ông Rachid Belferar]" onerror="this.onerror=null; this.src='https://placehold.co/112x112/161B22/FFFFFF?text=RB';">
+                        <img class="h-28 w-28 rounded-full object-cover mx-auto mb-4 transition-all duration-300 border-ivs-border" src="/images/team/rachid-belferar.png" alt="[Ảnh chân dung ông Rachid Belferar]" onerror="this.onerror=null; this.src='https://placehold.co/112x112/161B22/FFFFFF?text=RB';">
                         <h4 class="font-semibold text-white" data-lang-key="about_team_member2_name">Ông Rachid Belferar</h4>
                         <p class="text-ivs-blue text-sm font-medium" data-lang-key="about_team_member2_title">Giám đốc Kỹ thuật, ParagonCoder</p>
                     </div>
                     <div class="text-center leader-card transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
-                        <img class="h-28 w-28 rounded-full object-cover mx-auto mb-4 transition-all duration-300" src="/images/team/salma-mahzoum.png" alt="[Ảnh chân dung bà Salma Mahzoum]" onerror="this.onerror=null; this.src='https://placehold.co/112x112/161B22/FFFFFF?text=SM';">
+                        <img class="h-28 w-28 rounded-full object-cover mx-auto mb-4 transition-all duration-300 border-ivs-border" src="/images/team/salma-mahzoum.png" alt="[Ảnh chân dung bà Salma Mahzoum]" onerror="this.onerror=null; this.src='https://placehold.co/112x112/161B22/FFFFFF?text=SM';">
                         <h4 class="font-semibold text-white" data-lang-key="about_team_member3_name">Bà Salma Mahzoum</h4>
                         <p class="text-ivs-blue text-sm font-medium" data-lang-key="about_team_member3_title">Giám đốc R&D</p>
                     </div>
                     <div class="text-center leader-card transition-all duration-300" data-aos="fade-up" data-aos-delay="400">
-                        <img class="h-28 w-28 rounded-full object-cover mx-auto mb-4 transition-all duration-300" src="/images/team/kimball-allen-thomson.png" alt="[Ảnh chân dung ông Kimball Allen Thomson]" onerror="this.onerror=null; this.src='https://placehold.co/112x112/161B22/FFFFFF?text=KAT';">
+                        <img class="h-28 w-28 rounded-full object-cover mx-auto mb-4 transition-all duration-300 border-ivs-border" src="/images/team/kimball-allen-thomson.png" alt="[Ảnh chân dung ông Kimball Allen Thomson]" onerror="this.onerror=null; this.src='https://placehold.co/112x112/161B22/FFFFFF?text=KAT';">
                         <h4 class="font-semibold text-white" data-lang-key="about_team_member4_name">Ông Kimball Allen Thomson</h4>
                         <p class="text-ivs-blue text-sm font-medium" data-lang-key="about_team_member4_title">Đại diện IIVSA tại Hoa Kỳ</p>
                     </div>
