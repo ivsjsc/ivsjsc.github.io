@@ -282,6 +282,16 @@
             gap: 20px;
             margin-bottom: 30px;
         }
+        
+        .section-title {
+            grid-column: 1 / -1;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2c3e50;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            margin-bottom: 10px;
+        }
 
         .form-group {
             display: flex;
@@ -474,7 +484,6 @@
             <button data-tab="dashboard" class="nav-tab active" onclick="showTab('dashboard')">📊 Tổng Quan</button>
             <button data-tab="teachers" class="nav-tab" onclick="showTab('teachers')">👩‍🏫 Quản Lý Giáo Viên</button>
             <button data-tab="children" class="nav-tab" onclick="showTab('children')">👶 Quản Lý Trẻ</button>
-            <button data-tab="parents" class="nav-tab" onclick="showTab('parents')">👨‍👩‍👧‍👦 Phụ Huynh</button>
             <button data-tab="users" class="nav-tab" onclick="showTab('users')">👥 Quản Lý User</button>
             <button data-tab="camera" class="nav-tab" onclick="showTab('camera')">📹 Camera</button>
         </div>
@@ -500,47 +509,43 @@
         </div>
         
         <div id="children" class="tab-content">
-            <h2 class="tab-title">👶 Quản Lý Thông Tin Trẻ Em</h2>
+            <h2 class="tab-title">👶 Quản Lý Hồ Sơ Trẻ & Phụ Huynh</h2>
+            <div class="success-message" id="childSuccessMessage"></div>
             <div id="childFormContainer">
                  <form id="childForm">
                     <div class="form-grid">
+                        <h3 class="section-title">Thông Tin Trẻ</h3>
                         <div class="form-group"><label>Họ và tên trẻ</label><input type="text" id="childName" required></div>
                         <div class="form-group"><label>Ngày sinh</label><input type="date" id="childBirthDate" required></div>
                         <div class="form-group"><label>Giới tính</label><select id="childGender" required><option value="">Chọn</option><option value="Nam">Nam</option><option value="Nữ">Nữ</option></select></div>
                         <div class="form-group"><label>Lớp học</label><select id="childClassChild" required><option value="">Chọn</option><option value="Lớp Chồi">Lớp Chồi</option><option value="Lớp Lá">Lớp Lá</option></select></div>
-                        <div class="form-group"><label>Địa chỉ</label><input type="text" id="childAddress" required></div>
-                        <div class="form-group"><label>Tình trạng sức khỏe</label><textarea id="childHealth" rows="2"></textarea></div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">💾 Lưu Thông Tin Trẻ</button>
-                </form>
-            </div>
-            <div class="table-container">
-                <table class="data-table">
-                    <thead><tr><th>Họ tên</th><th>Lớp</th><th>Địa chỉ</th><th>Thao tác</th></tr></thead>
-                    <tbody id="childrenTableBody"></tbody>
-                </table>
-            </div>
-        </div>
-        
-        <div id="parents" class="tab-content">
-            <h2 class="tab-title">👨‍👩‍👧‍👦 Quản Lý Thông Tin Phụ Huynh</h2>
-            <div id="parentFormContainer">
-                 <form id="parentForm">
-                    <div class="form-grid">
+                        <div class="form-group" style="grid-column: 1 / -1;"><label>Địa chỉ</label><input type="text" id="childAddress" required></div>
+                        <div class="form-group" style="grid-column: 1 / -1;"><label>Tình trạng sức khỏe</label><textarea id="childHealth" rows="2"></textarea></div>
+
+                        <h3 class="section-title">Thông Tin Phụ Huynh</h3>
                         <div class="form-group"><label>Họ tên cha</label><input type="text" id="fatherName"></div>
-                        <div class="form-group"><label>Họ tên mẹ</label><input type="text" id="motherName"></div>
                         <div class="form-group"><label>SĐT cha</label><input type="tel" id="fatherPhone"></div>
+                        <div class="form-group"><label>Họ tên mẹ</label><input type="text" id="motherName"></div>
                         <div class="form-group"><label>SĐT mẹ</label><input type="tel" id="motherPhone"></div>
-                        <div class="form-group"><label>Email</label><input type="email" id="parentEmail"></div>
-                        <div class="form-group"><label>Liên kết với trẻ</label><select id="relatedChild" required><option value="">Chọn trẻ</option></select></div>
+                        <div class="form-group" style="grid-column: 1 / -1;"><label>Email liên hệ</label><input type="email" id="parentEmail" required></div>
                     </div>
-                    <button type="submit" class="btn btn-primary">💾 Lưu Thông Tin Phụ Huynh</button>
+                    <button type="submit" class="btn btn-primary">💾 Lưu Hồ Sơ</button>
                 </form>
             </div>
             <div class="table-container">
                 <table class="data-table">
-                    <thead><tr><th>Họ tên cha/mẹ</th><th>Email</th><th>Trẻ liên quan</th><th>Thao tác</th></tr></thead>
-                    <tbody id="parentsTableBody"></tbody>
+                    <thead>
+                        <tr>
+                            <th>Họ tên Trẻ</th>
+                            <th>Lớp</th>
+                            <th>Họ tên Cha</th>
+                            <th>Họ tên Mẹ</th>
+                            <th>SĐT liên lạc</th>
+                            <th>Tài khoản KinderLink</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="childrenTableBody"></tbody>
                 </table>
             </div>
         </div>
@@ -572,7 +577,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-    const db = {
+    let db = {
         users: [
             { id: 1, username: 'admin', password: 'admin123', role: 'principal', name: 'Ban Giám Hiệu', linkedId: null },
             { id: 2, username: 'comai', password: '123456', role: 'teacher', name: 'Cô Mai', linkedId: 401 },
@@ -629,16 +634,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const setupPermissions = () => {
         document.querySelectorAll('.nav-tab').forEach(tab => { tab.style.display = 'flex'; });
-        const principalOnly = ['users', 'teachers'];
-        const teacherOnly = ['children'];
-        const parentOnly = ['camera'];
+        const principalOnly = ['users', 'teachers', 'children'];
 
         if (currentUser.role === 'principal') {
         } else if (currentUser.role === 'teacher') {
-            principalOnly.forEach(tab => document.querySelector(`[data-tab="${tab}"]`).style.display = 'none');
-            document.querySelector('[data-tab="parents"]').style.display = 'none';
+             document.querySelector('[data-tab="users"]').style.display = 'none';
+             document.querySelector('[data-tab="teachers"]').style.display = 'none';
         } else if (currentUser.role === 'parent') {
-            [...principalOnly, ...teacherOnly, 'parents'].forEach(tab => document.querySelector(`[data-tab="${tab}"]`).style.display = 'none');
+             [...principalOnly, 'teachers'].forEach(tab => document.querySelector(`[data-tab="${tab}"]`).style.display = 'none');
         }
         
         document.getElementById('currentUserName').textContent = currentUser.name;
@@ -651,9 +654,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderDashboard();
         renderTeachersTable();
         renderChildrenTable();
-        renderParentsTable();
         renderUsersTable();
-        populateRelatedChildDropdown();
     };
     
     const renderDashboard = () => {
@@ -695,21 +696,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderChildrenTable = () => {
         const tableBody = document.getElementById('childrenTableBody');
         tableBody.innerHTML = '';
-        let childrenToShow = (currentUser.role === 'teacher') 
-            ? db.children.filter(c => c.class === db.teachers.find(t=>t.id===currentUser.linkedId).assignedClass)
-            : db.children;
+        let childrenToShow = db.children;
+        if(currentUser.role === 'teacher') {
+            const teacher = db.teachers.find(t=>t.id===currentUser.linkedId);
+            if(teacher) {
+                childrenToShow = db.children.filter(c => c.class === teacher.assignedClass);
+            } else {
+                childrenToShow = [];
+            }
+        }
 
         childrenToShow.forEach(c => {
-            tableBody.innerHTML += `<tr><td>${c.name}</td><td>${c.class}</td><td>${c.address}</td><td><button class="btn btn-danger" onclick="deleteChild(${c.id})">Xóa</button></td></tr>`;
-        });
-    };
-
-    const renderParentsTable = () => {
-        const tableBody = document.getElementById('parentsTableBody');
-        tableBody.innerHTML = '';
-        db.parents.forEach(p => {
-            const childName = db.children.find(c => c.id === p.childId)?.name || "N/A";
-            tableBody.innerHTML += `<tr><td>${p.fatherName || p.motherName}</td><td>${p.email}</td><td>${childName}</td><td><button class="btn btn-danger" onclick="deleteParent(${p.id})">Xóa</button></td></tr>`;
+            const parentInfo = db.parents.find(p => p.childId === c.id) || {};
+            const userInfo = db.users.find(u => u.role === 'parent' && u.linkedId === c.id) || {};
+            const contactPhone = parentInfo.fatherPhone || parentInfo.motherPhone || 'N/A';
+            
+            tableBody.innerHTML += `<tr>
+                <td>${c.name}</td>
+                <td>${c.class}</td>
+                <td>${parentInfo.fatherName || 'N/A'}</td>
+                <td>${parentInfo.motherName || 'N/A'}</td>
+                <td>${contactPhone}</td>
+                <td>${userInfo.username || 'Chưa tạo'}</td>
+                <td><button class="btn btn-danger" onclick="deleteChild(${c.id})">Xóa</button></td>
+            </tr>`;
         });
     };
 
@@ -719,20 +729,16 @@ document.addEventListener('DOMContentLoaded', () => {
         db.users.filter(u => u.role !== 'principal').forEach(u => {
             let linkedName = "N/A";
             if (u.role === 'teacher') {
-                linkedName = `GV: ${db.teachers.find(t => t.id === u.linkedId)?.name}`;
+                const teacher = db.teachers.find(t => t.id === u.linkedId);
+                linkedName = teacher ? `GV: ${teacher.name}` : 'Không rõ';
             } else if (u.role === 'parent') {
-                linkedName = `PH bé: ${db.children.find(c => c.id === u.linkedId)?.name}`;
+                const child = db.children.find(c => c.id === u.linkedId);
+                linkedName = child ? `PH bé: ${child.name}` : 'Không rõ';
             }
             tableBody.innerHTML += `<tr><td>${u.id}</td><td>${u.username}</td><td>${u.role}</td><td>${linkedName}</td><td><button class="btn btn-danger" onclick="deleteUser(${u.id})">Xóa</button></td></tr>`;
         });
     };
     
-    const populateRelatedChildDropdown = () => {
-        const select = document.getElementById('relatedChild');
-        select.innerHTML = '<option value="">Chọn trẻ</option>';
-        db.children.forEach(child => { select.innerHTML += `<option value="${child.id}">${child.name}</option>`; });
-    };
-
     document.getElementById('teacherForm').addEventListener('submit', (e) => {
         e.preventDefault();
         db.teachers.push({ id: Date.now(), name: document.getElementById('teacherName').value, assignedClass: document.getElementById('teacherClass').value });
@@ -743,17 +749,32 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.getElementById('childForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        db.children.push({ id: Date.now(), name: document.getElementById('childName').value, birthDate: document.getElementById('childBirthDate').value, gender: document.getElementById('childGender').value, class: document.getElementById('childClassChild').value, address: document.getElementById('childAddress').value, health: document.getElementById('childHealth').value });
-        renderChildrenTable();
-        populateRelatedChildDropdown();
-        e.target.reset();
-    });
+        const childId = Date.now();
+        const newChild = {
+            id: childId,
+            name: document.getElementById('childName').value,
+            birthDate: document.getElementById('childBirthDate').value,
+            gender: document.getElementById('childGender').value,
+            class: document.getElementById('childClassChild').value,
+            address: document.getElementById('childAddress').value,
+            health: document.getElementById('childHealth').value
+        };
+        db.children.push(newChild);
 
-    document.getElementById('parentForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        db.parents.push({ id: Date.now(), fatherName: document.getElementById('fatherName').value, motherName: document.getElementById('motherName').value, fatherPhone: document.getElementById('fatherPhone').value, motherPhone: document.getElementById('motherPhone').value, email: document.getElementById('parentEmail').value, childId: parseInt(document.getElementById('relatedChild').value) });
-        renderParentsTable();
+        const newParent = {
+            id: Date.now() + 1,
+            fatherName: document.getElementById('fatherName').value,
+            motherName: document.getElementById('motherName').value,
+            fatherPhone: document.getElementById('fatherPhone').value,
+            motherPhone: document.getElementById('motherPhone').value,
+            email: document.getElementById('parentEmail').value,
+            childId: childId
+        };
+        db.parents.push(newParent);
+        
+        renderChildrenTable();
         e.target.reset();
+        showSuccessMessage('childSuccessMessage', '✅ Đã lưu hồ sơ trẻ và phụ huynh thành công!');
     });
 
     document.getElementById('userForm').addEventListener('submit', (e) => {
@@ -761,11 +782,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const role = document.getElementById('newUserRole').value;
         const linkedId = parseInt(document.getElementById('linkObject').value);
         let name = "";
-        if (role === 'teacher') name = db.teachers.find(t => t.id === linkedId)?.name;
-        else if (role === 'parent') name = `PH bé ${db.children.find(c => c.id === linkedId)?.name}`;
+        if (role === 'teacher') {
+             const teacher = db.teachers.find(t => t.id === linkedId);
+             if(teacher) name = teacher.name;
+        } else if (role === 'parent') {
+             const child = db.children.find(c => c.id === linkedId);
+             if(child) name = `PH bé ${child.name}`;
+        }
 
         db.users.push({ id: Date.now(), username: document.getElementById('newUsername').value, password: document.getElementById('newPassword').value, role, name, linkedId });
         renderUsersTable();
+        renderChildrenTable();
         e.target.reset();
         document.getElementById('linkObjectContainer').style.display = 'none';
         showSuccessMessage('userSuccessMessage', '✅ Tạo tài khoản thành công!');
@@ -779,11 +806,13 @@ document.addEventListener('DOMContentLoaded', () => {
         select.innerHTML = '';
         if (role === 'teacher') {
             label.textContent = "Liên kết với Giáo viên";
-            db.teachers.forEach(t => select.innerHTML += `<option value="${t.id}">${t.name}</option>`);
+            const unlinkedTeachers = db.teachers.filter(t => !db.users.some(u => u.role === 'teacher' && u.linkedId === t.id));
+            unlinkedTeachers.forEach(t => select.innerHTML += `<option value="${t.id}">${t.name}</option>`);
             container.style.display = 'block';
         } else if (role === 'parent') {
             label.textContent = "Liên kết với Trẻ";
-            db.children.forEach(c => select.innerHTML += `<option value="${c.id}">${c.name}</option>`);
+            const unlinkedChildren = db.children.filter(c => !db.users.some(u => u.role === 'parent' && u.linkedId === c.id));
+            unlinkedChildren.forEach(c => select.innerHTML += `<option value="${c.id}">${c.name}</option>`);
             container.style.display = 'block';
         } else {
             container.style.display = 'none';
@@ -792,7 +821,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     window.deleteTeacher = (id) => { if(confirm('Xóa giáo viên? Tài khoản liên kết cũng sẽ bị xóa.')) { db.teachers = db.teachers.filter(t=>t.id!==id); db.users = db.users.filter(u=>!(u.role==='teacher' && u.linkedId===id)); renderAll(); }};
     window.deleteChild = (id) => { if(confirm('Xóa trẻ? Toàn bộ thông tin phụ huynh và tài khoản liên kết sẽ bị xóa.')) { db.children = db.children.filter(c=>c.id!==id); db.parents = db.parents.filter(p=>p.childId!==id); db.users = db.users.filter(u=>!(u.role==='parent' && u.linkedId===id)); renderAll(); }};
-    window.deleteParent = (id) => { if(confirm('Xóa phụ huynh?')) { db.parents = db.parents.filter(p=>p.id!==id); renderAll(); }};
     window.deleteUser = (id) => { if(confirm('Xóa tài khoản?')) { db.users = db.users.filter(u=>u.id!==id); renderAll(); }};
 
     window.showTab = (tabName) => {
