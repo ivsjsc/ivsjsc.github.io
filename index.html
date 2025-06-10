@@ -211,94 +211,7 @@
         .button-primary:hover {
             background-color: var(--primary-dark-color);
         }
-        .chatbot-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-        .chatbot-button {
-            width: 50px; 
-            height: 50px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px; 
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-        @media (min-width: 768px) {
-            .chatbot-button {
-                width: 60px;
-                height: 60px;
-                font-size: 24px;
-            }
-        }
-        .chatbot-button:hover {
-            transform: scale(1.05);
-            background-color: var(--primary-dark-color);
-        }
-        .chatbot-window {
-            width: calc(100vw - 40px); 
-            max-width: 350px; 
-            height: 70vh; 
-            max-height: 500px;
-            background-color: var(--ivs-neutral-50-color);
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            margin-bottom: 10px; 
-            transform: translateY(10px);
-            opacity: 0;
-            visibility: hidden;
-            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0s linear 0.3s;
-        }
-        .chatbot-window.open {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-            transition-delay: 0s;
-        }
-        .chatbot-header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 0.75rem 1rem; 
-            font-size: 1rem; 
-            font-weight: 600;
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .chatbot-header .close-button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.25rem; 
-            cursor: pointer;
-            padding: 0.25rem;
-        }
-        .chatbot-messages {
-            flex-grow: 1;
-            padding: 0.75rem;
-            overflow-y: auto;
-            background-color: #ffffff;
-            border-bottom: 1px solid var(--ivs-neutral-200-color);
-        }
-        .dark .chatbot-messages {
-            background-color: var(--ivs-neutral-700-color);
-            border-bottom-color: var(--ivs-neutral-600-color);
-        }
+        
         .message {
             margin-bottom: 0.5rem; 
             padding: 0.5rem 0.75rem; 
@@ -328,51 +241,7 @@
             background-color: theme('colors.ivs-neutral-600');
             color: theme('colors.ivs-neutral-100');
         }
-        .chatbot-input-area {
-            display: flex;
-            padding: 0.75rem;
-            background-color: var(--ivs-neutral-50-color);
-            border-bottom-left-radius: 12px;
-            border-bottom-right-radius: 12px;
-        }
-        .dark .chatbot-input-area {
-            background-color: var(--ivs-neutral-700-color);
-        }
-        .chatbot-input-area input {
-            flex-grow: 1;
-            padding: 0.6rem; 
-            border: 1px solid var(--ivs-neutral-300-color);
-            border-radius: 6px; 
-            margin-right: 0.5rem; 
-            font-size: 0.875rem; 
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-        .dark .chatbot-input-area input {
-            background-color: var(--ivs-neutral-600-color);
-            border-color: var(--ivs-neutral-500-color);
-            color: var(--ivs-neutral-100);
-        }
-        .chatbot-input-area input:focus {
-            border-color: var(--primary-color);
-        }
-        .chatbot-input-area button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 0.6rem 1rem; 
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 0.875rem;
-        }
-        .chatbot-input-area button:hover {
-            background-color: var(--primary-dark-color);
-        }
-        .chatbot-input-area button:disabled {
-            background-color: theme('colors.ivs-neutral-400');
-            cursor: not-allowed;
-        }
+
         .ivs-games-cta-btn {
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease !important;
         }
@@ -935,25 +804,6 @@
     <button id="scrollToTopBtn" class="hidden fixed bottom-4 right-4 z-[90] items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-ivs-neutral-700 text-white shadow-lg hover:bg-ivs-neutral-600 transition-colors focus:outline-none focus:ring-2 focus:ring-ivs-neutral-500 dark:bg-ivs-neutral-600 dark:hover:bg-ivs-neutral-500" aria-label="Cuộn lên đầu trang">
         <i class="fas fa-arrow-up text-lg md:text-xl"></i>
     </button>
-
-    <div class="chatbot-container">
-        <div id="chatbot-window" class="chatbot-window">
-            <div class="chatbot-header">
-                <span data-lang-key="chatbot_title">IVS AI Assistant</span>
-                <button id="chatbot-close-button" class="close-button" aria-label="Đóng chatbot">&times;</button>
-            </div>
-            <div id="chatbot-messages" class="chatbot-messages flex flex-col space-y-3">
-                <div class="message bot" data-lang-key="chatbot_welcome">Welcome to IVS JSC! How can I help you today?</div>
-            </div>
-            <div class="chatbot-input-area">
-                <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn..." data-lang-key="chatbot_placeholder">
-                <button id="chatbot-send-button" aria-label="Gửi tin nhắn"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-        <button id="chatbot-open-button" class="chatbot-button" aria-label="Mở chatbot">
-            <i class="fas fa-robot"></i>
-        </button>
-    </div>
 
     <script src="/js/loadComponents.js"></script>
     <script src="/js/language.js" defer></script>
