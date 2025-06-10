@@ -282,7 +282,7 @@ function initializeHeaderInternal() {
 }
 window.initializeHeader = initializeHeaderInternal;
 
-async function loadHeader(basePath = './components/') {
+async function loadHeader(basePath = '/components/') {
     const placeholder = document.getElementById('header-placeholder');
     if (!placeholder) {
         componentLog('Placeholder của Header không tìm thấy.', 'error');
@@ -290,7 +290,7 @@ async function loadHeader(basePath = './components/') {
     }
     placeholder.setAttribute('aria-busy', 'true');
     try {
-        const filePath = `${basePath}header.html`;
+        const filePath = `/components/header.html`;
         const loaded = await loadComponent('Header', 'header-placeholder', filePath);
         if (!loaded) throw new Error('Nội dung HTML của Header không tải được.');
 
@@ -634,3 +634,4 @@ if (document.readyState === 'loading') {
         loadCommonComponents();
     }
 }
+hh
