@@ -420,11 +420,44 @@
             animation: fadeIn 0.5s;
         }
         
-        .parent-dashboard {
+        .parent-dashboard, .placeholder-tab {
              background: rgba(255, 255, 255, 0.8);
              padding: 25px;
              border-radius: 15px;
         }
+        
+        .ai-report-placeholder {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0, 0.05);
+        }
+        .ai-report-placeholder h4 {
+            font-size: 1.3em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .ai-report-placeholder .chart-placeholder {
+            background: #f0f2f5;
+            height: 150px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #adb5bd;
+            font-weight: 600;
+        }
+        
+        .app-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9em;
+        }
+
 
         @media (max-width: 768px) {
             .header, .nav-tabs {
@@ -485,6 +518,7 @@
             <button data-tab="dashboard" class="nav-tab active" onclick="showTab('dashboard')">📊 Tổng Quan</button>
             <button data-tab="teachers" class="nav-tab" onclick="showTab('teachers')">👩‍🏫 Quản Lý Giáo Viên</button>
             <button data-tab="children" class="nav-tab" onclick="showTab('children')">👶 Quản Lý Trẻ</button>
+            <button data-tab="finance_nutrition" class="nav-tab" onclick="showTab('finance_nutrition')">💰 Tài chính & Dinh dưỡng</button>
             <button data-tab="users" class="nav-tab" onclick="showTab('users')">👥 Quản Lý User</button>
             <button data-tab="camera" class="nav-tab" onclick="showTab('camera')">📹 Camera</button>
         </div>
@@ -551,17 +585,40 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Họ tên Trẻ</th>
-                            <th>Lớp</th>
-                            <th>Họ tên Cha</th>
-                            <th>Họ tên Mẹ</th>
-                            <th>SĐT liên lạc</th>
-                            <th>Tài khoản KinderLink</th>
-                            <th>Thao tác</th>
+                            <th>Họ tên Trẻ</th><th>Lớp</th><th>Họ tên Cha</th><th>Họ tên Mẹ</th><th>SĐT liên lạc</th><th>Tài khoản KinderLink</th><th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody id="childrenTableBody"></tbody>
                 </table>
+            </div>
+        </div>
+
+        <div id="finance_nutrition" class="tab-content">
+            <h2 class="tab-title">💰 Quản Lý Tài chính & Dinh dưỡng</h2>
+            <div class="placeholder-tab">
+                <h3 class="section-title">Quản lý Học phí (Demo)</h3>
+                <p>Khu vực này sẽ cho phép thiết lập biểu phí, theo dõi công nợ và tích hợp thanh toán trực tuyến.</p>
+                <div class="table-container" style="margin-top: 20px;">
+                    <table class="data-table">
+                        <thead><tr><th>Họ tên trẻ</th><th>Khoản thu</th><th>Số tiền</th><th>Hạn nộp</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+                        <tbody>
+                            <tr><td>Nguyễn An Nhiên</td><td>Học phí Tháng 06/2025</td><td>5.000.000 đ</td><td>15/06/2025</td><td style="color: green; font-weight: bold;">Đã nộp</td><td><button class="btn btn-primary btn-sm">Xem chi tiết</button></td></tr>
+                            <tr><td>Trần Minh Khang</td><td>Học phí Tháng 06/2025</td><td>5.000.000 đ</td><td>15/06/2025</td><td style="color: red; font-weight: bold;">Chưa nộp</td><td><button class="btn btn-primary btn-sm">Gửi nhắc nhở</button></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="section-title" style="margin-top: 40px;">Thực đơn & Dinh dưỡng (Demo)</h3>
+                <p>Hiển thị thực đơn hàng tuần, cho phép phụ huynh theo dõi chế độ dinh dưỡng của trẻ tại trường.</p>
+                <div class="table-container" style="margin-top: 20px;">
+                    <table class="data-table">
+                        <thead><tr><th>Thứ</th><th>Bữa sáng</th><th>Bữa trưa</th><th>Bữa xế</th><th>Lượng Calo (ước tính)</th></tr></thead>
+                        <tbody>
+                            <tr><td>Thứ Hai</td><td>Cháo yến mạch</td><td>Cơm, thịt kho, canh bí đỏ</td><td>Sữa chua</td><td>1200 Kcal</td></tr>
+                             <tr><td>Thứ Ba</td><td>Phở bò</td><td>Cơm, cá chiên, canh rau ngót</td><td>Bánh flan</td><td>1250 Kcal</td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -577,6 +634,11 @@
         </div>
 
         <div id="camera" class="tab-content"></div>
+        
+        <footer class="app-footer">
+            <p><strong>IVS KinderLink</strong> - Nền tảng kết nối toàn diện cho giáo dục mầm non.</p>
+            <p>Dữ liệu được bảo vệ bởi mã hóa AES-256. Sắp có trên App Store và Google Play.</p>
+        </footer>
 
     </div>
 
@@ -640,12 +702,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const setupPermissions = () => {
         document.querySelectorAll('.nav-tab').forEach(tab => { tab.style.display = 'flex'; });
-        const principalOnly = ['users', 'teachers', 'children'];
+        const principalOnly = ['users', 'teachers', 'children', 'finance_nutrition'];
 
         if (currentUser.role === 'principal') {
         } else if (currentUser.role === 'teacher') {
-             document.querySelector('[data-tab="users"]').style.display = 'none';
-             document.querySelector('[data-tab="teachers"]').style.display = 'none';
+             ['users', 'teachers', 'finance_nutrition'].forEach(tab => document.querySelector(`[data-tab="${tab}"]`).style.display = 'none');
         } else if (currentUser.role === 'parent') {
              [...principalOnly, 'teachers'].forEach(tab => document.querySelector(`[data-tab="${tab}"]`).style.display = 'none');
         }
@@ -670,8 +731,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const parentInfo = db.parents.find(p => p.childId === currentUser.linkedId);
             dashboardContent.innerHTML = `<h2 class="tab-title">🌟 Thông tin của bé ${child.name}</h2>
                 <div class="parent-dashboard" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div><h3>Thông tin cơ bản</h3><p><strong>Ngày sinh:</strong> ${child.birthDate}</p><p><strong>Lớp:</strong> ${child.class}</p><p><strong>Sức khỏe:</strong> ${child.health}</p><p><strong>Dị ứng:</strong> ${child.allergies}</p></div>
-                    <div><h3>Thông tin Phụ huynh & Khẩn cấp</h3><p><strong>Cha:</strong> ${parentInfo.fatherName} - ${parentInfo.fatherPhone}</p><p><strong>Mẹ:</strong> ${parentInfo.motherName} - ${parentInfo.motherPhone}</p><p><strong>Email:</strong> ${parentInfo.email}</p><p><strong>Liên hệ khẩn cấp:</strong> ${child.emergencyContactName} - ${child.emergencyContactPhone}</p></div>
+                    <div><h3>Thông tin cơ bản</h3><p><strong>Ngày sinh:</strong> ${child.birthDate}</p><p><strong>Lớp:</strong> ${child.class}</p><p><strong>Sức khỏe:</strong> ${child.health}</p><p><strong>Dị ứng:</strong> ${child.allergies || 'Không'}</p></div>
+                    <div><h3>Thông tin Phụ huynh & Khẩn cấp</h3><p><strong>Cha:</strong> ${parentInfo.fatherName} - ${parentInfo.fatherPhone}</p><p><strong>Mẹ:</strong> ${parentInfo.motherName} - ${parentInfo.motherPhone}</p><p><strong>Email:</strong> ${parentInfo.email}</p><p><strong>Liên hệ khẩn cấp:</strong> ${child.emergencyContactName || 'Chưa có'} - ${child.emergencyContactPhone || ''}</p></div>
                 </div>`;
         } else {
             dashboardContent.innerHTML = `<h2 class="tab-title">📊 Tổng Quan Hoạt Động</h2>
@@ -680,7 +741,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="stat-card"><div class="stat-number">${db.children.length}</div><div class="stat-label">Tổng số trẻ</div></div>
                     <div class="stat-card"><div class="stat-number">${db.users.filter(u=>u.role==='parent').length}</div><div class="stat-label">Tài khoản PH</div></div>
                     <div class="stat-card"><div class="stat-number">${db.cameras.length}</div><div class="stat-label">Camera</div></div>
-                </div>`;
+                </div>
+                <div class="ai-report-placeholder">
+                    <h4>Báo cáo Phân tích Thông minh (AI Demo)</h4>
+                    <div class="chart-placeholder">Biểu đồ phân tích xu hướng phát triển kỹ năng của trẻ</div>
+                </div>
+                `;
         }
     };
     
@@ -761,21 +827,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const teacherPassword = document.getElementById('teacherPassword').value;
 
         db.teachers.push({ 
-            id: teacherId, 
-            name: teacherName, 
-            phone: document.getElementById('teacherPhone').value,
-            cccd: document.getElementById('teacherCCCD').value,
-            address: document.getElementById('teacherAddress').value,
+            id: teacherId, name: teacherName, phone: document.getElementById('teacherPhone').value,
+            cccd: document.getElementById('teacherCCCD').value, address: document.getElementById('teacherAddress').value,
             assignedClass: document.getElementById('teacherClass').value 
         });
 
         db.users.push({
-            id: Date.now() + 1,
-            username: teacherUsername,
-            password: teacherPassword,
-            role: 'teacher',
-            name: teacherName,
-            linkedId: teacherId
+            id: Date.now() + 1, username: teacherUsername, password: teacherPassword,
+            role: 'teacher', name: teacherName, linkedId: teacherId
         });
 
         renderAll();
