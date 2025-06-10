@@ -353,7 +353,7 @@ function populateContactOptions(contactMenuElement) {
     }
     const contacts = [
         { key: "fab_call_hotline", text: "Gọi Hotline", href: "tel:+84336791879", icon: "fas fa-phone", color: "text-ivs-accent" },
-        { key: "fab_send_email", text: "Gửi Email", href: "mailto:info@ivs.edu.vn", icon: "fas fa-envelope", color: "text-ivs-accent" },
+        { key: "fab_send_email", text: "Gửi Email", href: "mailto:info@ivsacademy.edu.vn", icon: "fas fa-envelope", color: "text-ivs-accent" },
         { key: "fab_chat_zalo", text: "Chat Zalo", href: "https://zalo.me/0336791879", icon: "fas fa-comment-dots", color: "text-blue-500" },
         { key: "fab_fanpage_fb", text: "Fanpage Facebook", href: "https://www.facebook.com/IVSJSC/", icon: "fab fa-facebook-f", color: "text-blue-600" },
         { key: "fab_contact_page", text: "Trang Liên Hệ", href: "/contact.html", icon: "fas fa-map-marker-alt", color: "text-ivs-accent" }
