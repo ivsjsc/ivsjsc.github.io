@@ -64,40 +64,23 @@
         :root {
             --ivs-dark-bg: #111827;
             --ivs-dark-card: #1f2937;
-            --ivs-light-bg: #f9fafb;
-            --ivs-light-card: #ffffff;
-            --ivs-accent-gold: #ffc107;
-            --ivs-accent-blue: #60a5fa;
+            --ivs-accent-gold: #f59e0b;
+            --ivs-accent-blue: #3b82f6;
             --ivs-text-dark-primary: #e5e7eb;
             --ivs-text-dark-secondary: #9ca3af;
         }
-        html.dark {
-            color-scheme: dark;
-        }
-        .dark body {
-            background-color: var(--ivs-dark-bg);
-            color: var(--ivs-text-dark-primary);
-        }
-        .hero-section {
-            background: linear-gradient(rgba(10, 25, 47, 0.85), rgba(10, 25, 47, 0.85)), url('/images/pages/ivsjscbackgroundletter.jpg') no-repeat center center/cover;
-        }
-        .hero-overlay-shape {
-            position: absolute; bottom: -1px; left: 0; width: 100%; height: 80px; 
-            background: var(--ivs-light-bg);
-            clip-path: polygon(0 100%, 50% 40%, 100% 100%);
-        }
+        html.dark { color-scheme: dark; }
+        .dark body { background-color: var(--ivs-dark-bg); color: var(--ivs-text-dark-primary); }
+        .hero-section { background: linear-gradient(rgba(10, 25, 47, 0.85), rgba(10, 25, 47, 0.85)), url('/images/pages/ivsjscbackgroundletter.jpg') no-repeat center center/cover; }
+        .hero-overlay-shape { position: absolute; bottom: -1px; left: 0; width: 100%; height: 80px; background: #f9fafb; clip-path: polygon(0 100%, 50% 40%, 100% 100%); }
         .dark .hero-overlay-shape { background: var(--ivs-dark-bg); }
         .section-title { color: #003A64; font-weight: 800; }
         .dark .section-title { color: var(--ivs-accent-gold); }
-        
-        .card-hover { transition: transform 0.3s ease-out, box-shadow 0.4s ease-out, border-color 0.3s; border: 1px solid transparent; }
-        .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
-            border-color: #3b82f6;
-        }
-        .dark .card-hover:hover { border-color: var(--ivs-accent-gold); }
 
+        .dark .text-ivs-neutral-600 { color: var(--ivs-text-dark-secondary) !important; }
+        .dark .text-ivs-neutral-700 { color: var(--ivs-text-dark-primary) !important; }
+        .dark .text-ivs-primary { color: var(--ivs-accent-blue) !important; }
+        
         .tab-button { transition: all 0.3s ease-out; border-width: 2px; border-color: transparent; font-weight: 600; }
         .dark .tab-button:not(.active) { background-color: var(--ivs-neutral-700); color: var(--ivs-text-dark-secondary); }
         .dark .tab-button.active { background-color: var(--ivs-accent-gold); color: var(--ivs-neutral-900); box-shadow: 0 6px 12px -2px rgba(255, 193, 7, 0.3); }
@@ -106,21 +89,11 @@
         .tab-content.active { display: block; animation: fadeInEnhanced 0.5s ease-out; }
         @keyframes fadeInEnhanced { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         .accordion-item.active .accordion-icon { transform: rotate(135deg); }
         .accordion-icon { transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
-
-        .synergy-diagram { display: flex; justify-content: center; align-items: center; position: relative; width: clamp(280px, 80vw, 340px); height: clamp(280px, 80vw, 340px); margin: 2rem auto; }
-        .dark .synergy-center { background-color: var(--ivs-accent-blue); box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
-        .dark .synergy-node { background-color: var(--ivs-neutral-800); color: var(--ivs-text-dark-primary); border-color: var(--ivs-accent-blue); }
-        .synergy-node:hover, .synergy-node.active { transform: scale(1.15) rotate(4deg); background-color: var(--ivs-accent-gold); color: #451a03; border-color: #e0a800; box-shadow: 0 8px 16px rgba(255, 193, 7, 0.3); z-index: 11; }
-
-        .dark .timeline li::before { background-color: var(--ivs-accent-blue); border-color: var(--ivs-dark-bg); }
-
+        
         .dark .team-member-card img { border-color: var(--ivs-accent-gold); }
-        .dark .text-ivs-neutral-300 { color: var(--ivs-text-dark-secondary); }
-        .dark .text-ivs-neutral-600 { color: var(--ivs-text-dark-secondary); }
-        .dark .text-ivs-primary { color: var(--ivs-accent-blue); }
-        .dark .text-ivs-secondary { color: var(--ivs-accent-gold); }
     </style>
 </head>
 <body class="bg-ivs-neutral-50 dark:bg-ivs-dark-bg text-ivs-neutral-800 dark:text-ivs-text-dark-primary antialiased font-sans">
@@ -141,34 +114,69 @@
             <div class="container mx-auto px-4">
                 <div class="text-center mb-12 md:mb-16">
                     <h2 class="section-title text-3xl md:text-5xl mb-4" data-lang-key="about_title">Về IVS JSC</h2>
-                    <p class="max-w-3xl mx-auto text-ivs-neutral-600 md:text-lg" data-lang-key="about_intro">
+                    <p class="max-w-3xl mx-auto text-ivs-neutral-600 md:text-lg leading-relaxed" data-lang-key="about_intro">
                         IVS JSC là nhà cung cấp giải pháp giáo dục tiên phong, vận hành dựa trên các nguyên tắc Tích hợp, Tầm nhìn, và Sức mạnh tổng hợp. Chúng tôi kiến tạo một hệ sinh thái giáo dục toàn diện nhằm trang bị cho người học những kỹ năng của thế kỷ 21 để tự tin trong bối cảnh toàn cầu đầy cạnh tranh.
                     </p>
                 </div>
 
-                <div class="max-w-5xl mx-auto space-y-10 mb-12 md:mb-20">
+                <div class="max-w-5xl mx-auto space-y-8 mb-12 md:mb-20">
                     <div class="flex flex-col md:flex-row items-center gap-6 p-6 bg-white dark:bg-ivs-dark-card rounded-xl shadow-lg border-l-4 border-ivs-secondary" data-aos="fade-right">
                         <div class="flex-shrink-0 text-5xl text-ivs-secondary"><i class="fas fa-puzzle-piece"></i></div>
                         <div>
                             <h3 class="text-2xl font-semibold text-ivs-primary dark:text-ivs-secondary mb-2" data-lang-key="ivs_meaning_integrate_title">Integrate – Tích hợp</h3>
-                            <p class="leading-relaxed text-ivs-neutral-700 dark:text-ivs-text-dark-primary" data-lang-key="ivs_meaning_integrate_desc">IVS mang đến sự kết nối chặt chẽ giữa các nền tảng công nghệ, chương trình giáo dục và nhu cầu thực tiễn, tạo nên một hệ thống vận hành hiệu quả và đồng bộ. Chúng tôi không ngừng đổi mới để tối ưu hóa trải nghiệm học tập và quản lý, mang lại giá trị vượt trội cho học viên, đối tác và cộng đồng.</p>
+                            <p class="leading-relaxed text-ivs-neutral-700" data-lang-key="ivs_meaning_integrate_desc">IVS mang đến sự kết nối chặt chẽ giữa các nền tảng công nghệ, chương trình giáo dục và nhu cầu thực tiễn, tạo nên một hệ thống vận hành hiệu quả và đồng bộ. Chúng tôi không ngừng đổi mới để tối ưu hóa trải nghiệm học tập và quản lý, mang lại giá trị vượt trội cho học viên, đối tác và cộng đồng.</p>
                         </div>
                     </div>
                     <div class="flex flex-col md:flex-row items-center gap-6 p-6 bg-white dark:bg-ivs-dark-card rounded-xl shadow-lg border-l-4 border-ivs-secondary" data-aos="fade-left">
                         <div class="flex-shrink-0 text-5xl text-ivs-secondary"><i class="fas fa-eye"></i></div>
                         <div>
                             <h3 class="text-2xl font-semibold text-ivs-primary dark:text-ivs-secondary mb-2" data-lang-key="ivs_meaning_vision_title">Vision – Tầm nhìn</h3>
-                            <p class="leading-relaxed text-ivs-neutral-700 dark:text-ivs-text-dark-primary" data-lang-key="ivs_meaning_vision_desc">IVS không chỉ hướng đến việc cung cấp dịch vụ giáo dục mà còn tiên phong trong việc định hình tương lai học tập. Chúng tôi xây dựng các chương trình đào tạo tiên tiến, ứng dụng công nghệ hiện đại để mở ra cơ hội phát triển toàn diện, giúp học viên sẵn sàng đối mặt với những thách thức của thế kỷ 21.</p>
+                            <p class="leading-relaxed text-ivs-neutral-700" data-lang-key="ivs_meaning_vision_desc">IVS không chỉ hướng đến việc cung cấp dịch vụ giáo dục mà còn tiên phong trong việc định hình tương lai học tập. Chúng tôi xây dựng các chương trình đào tạo tiên tiến, ứng dụng công nghệ hiện đại để mở ra cơ hội phát triển toàn diện, giúp học viên sẵn sàng đối mặt với những thách thức của thế kỷ 21.</p>
                         </div>
                     </div>
                     <div class="flex flex-col md:flex-row items-center gap-6 p-6 bg-white dark:bg-ivs-dark-card rounded-xl shadow-lg border-l-4 border-ivs-secondary" data-aos="fade-right">
                            <div class="flex-shrink-0 text-5xl text-ivs-secondary"><i class="fas fa-handshake-angle"></i></div>
                         <div>
                             <h3 class="text-2xl font-semibold text-ivs-primary dark:text-ivs-secondary mb-2" data-lang-key="ivs_meaning_synergy_title">Synergy – Hợp lực</h3>
-                            <p class="leading-relaxed text-ivs-neutral-700 dark:text-ivs-text-dark-primary" data-lang-key="ivs_meaning_synergy_desc">Sự cộng hưởng giữa các tổ chức, cá nhân và cộng đồng tại IVS tạo nên sức mạnh tổng hợp, thúc đẩy sự phát triển bền vững và lâu dài. Chúng tôi xây dựng một hệ sinh thái giáo dục nơi mọi thành phần cùng hợp tác, chia sẻ giá trị và cùng nhau vươn xa.</p>
+                            <p class="leading-relaxed text-ivs-neutral-700" data-lang-key="ivs_meaning_synergy_desc">Sự cộng hưởng giữa các tổ chức, cá nhân và cộng đồng tại IVS tạo nên sức mạnh tổng hợp, thúc đẩy sự phát triển bền vững và lâu dài. Chúng tôi xây dựng một hệ sinh thái giáo dục nơi mọi thành phần cùng hợp tác, chia sẻ giá trị và cùng nhau vươn xa.</p>
                         </div>
                     </div>
                 </div>
+
+                <div class="grid lg:grid-cols-2 gap-8 md:gap-12 items-stretch mb-12 md:mb-16">
+                    <div class="bg-white dark:bg-ivs-dark-card p-6 rounded-lg shadow-xl border border-gray-200 dark:border-ivs-neutral-700" data-aos="fade-up">
+                        <h3 class="text-2xl md:text-3xl font-semibold text-ivs-primary dark:text-ivs-accent-blue mb-4" data-lang-key="vision_title">Tầm Nhìn Của Chúng Tôi</h3>
+                        <p class="text-ivs-neutral-700 mb-6 text-base leading-relaxed" data-lang-key="vision_text">Trở thành nhà cung cấp giải pháp giáo dục hàng đầu Việt Nam và một thương hiệu được công nhận toàn cầu, hiện thực hóa tầm nhìn giáo dục mang đẳng cấp quốc tế.</p>
+                        <h3 class="text-2xl md:text-3xl font-semibold text-ivs-primary dark:text-ivs-accent-blue mb-4" data-lang-key="mission_title">Sứ Mệnh Của Chúng Tôi</h3>
+                        <p class="text-ivs-neutral-700 text-base leading-relaxed" data-lang-key="mission_text">Cung cấp các giải pháp giáo dục và đào tạo chất lượng cao, sáng tạo, kết hợp hài hòa truyền thống dân tộc với tiêu chuẩn quốc tế, hỗ trợ các cá nhân và cộng đồng phát huy tối đa tiềm năng.</p>
+                    </div>
+                    <div class="bg-ivs-primary-dark dark:bg-ivs-primary p-6 rounded-lg shadow-xl text-white" data-aos="fade-up" data-aos-delay="150">
+                        <h3 class="text-2xl md:text-3xl font-semibold mb-6 text-ivs-secondary" data-lang-key="details_title">Thông Tin Công Ty</h3>
+                        <ul class="space-y-4 text-base">
+                            <li><strong><span data-lang-key="details_office_label"><i class="fas fa-map-marker-alt mr-2 w-4 text-center"></i> Trụ sở chính:</span></strong> <span data-lang-key="details_office_value">Huyện Long Thành, Tỉnh Đồng Nai, Việt Nam</span></li>
+                            <li><strong><span data-lang-key="details_website_label"><i class="fas fa-globe mr-2 w-4 text-center"></i> Website:</span></strong> <a href="https://ivsacademy.edu.vn" target="_blank" class="text-ivs-secondary hover:underline font-medium">ivsacademy.edu.vn</a></li>
+                            <li><strong><span data-lang-key="details_tax_label"><i class="fas fa-file-invoice-dollar mr-2 w-4 text-center"></i> Mã số thuế:</span></strong> <span data-lang-key="details_tax_value">3603960189</span></li>
+                            <li><strong><span data-lang-key="details_alliance_label"><i class="fas fa-users-cog mr-2 w-4 text-center"></i> Thành viên:</span></strong> <span data-lang-key="details_alliance_value">Liên minh Giáo dục Toàn cầu IIVSA</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl md:text-4xl font-semibold text-center text-ivs-primary dark:text-ivs-accent-gold mt-16 mb-10" data-lang-key="commitments_title">Cam Kết Của IVS</h3>
+                <ul class="space-y-4 max-w-3xl mx-auto">
+                    <li class="flex items-start gap-4 p-4 bg-white dark:bg-ivs-dark-card rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border-l-4 border-green-500" data-aos="fade-up">
+                        <i class="fas fa-globe-americas text-green-500 text-xl mt-1 flex-shrink-0 w-6 text-center"></i>
+                        <p class="text-ivs-neutral-700 text-base" data-lang-key="commitment_1_full"><strong>Xây dựng hệ sinh thái giáo dục toàn diện,</strong> kết nối các nguồn lực trong nước và quốc tế để tạo ra môi trường học tập đa dạng và phong phú.</p>
+                    </li>
+                    <li class="flex items-start gap-4 p-4 bg-white dark:bg-ivs-dark-card rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border-l-4 border-blue-500" data-aos="fade-up">
+                        <i class="fas fa-book-reader text-blue-500 text-xl mt-1 flex-shrink-0 w-6 text-center"></i>
+                         <p class="text-ivs-neutral-700 text-base" data-lang-key="commitment_2_full"><strong>Cung cấp chương trình đào tạo chất lượng cao,</strong> được thiết kế phù hợp với nhu cầu thực tiễn, giúp học viên phát triển kỹ năng và tư duy vượt trội.</p>
+                    </li>
+                    <li class="flex items-start gap-4 p-4 bg-white dark:bg-ivs-dark-card rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border-l-4 border-yellow-500" data-aos="fade-up">
+                        <i class="fas fa-users text-yellow-500 text-xl mt-1 flex-shrink-0 w-6 text-center"></i>
+                        <p class="text-ivs-neutral-700 text-base" data-lang-key="commitment_3_full"><strong>Hợp tác với các tổ chức giáo dục và doanh nghiệp hàng đầu</strong> trong và ngoài nước để mang đến cơ hội học tập, việc làm và phát triển sự nghiệp cho học viên.</p>
+                    </li>
+                </ul>
+
             </div>
         </section>
 
@@ -177,7 +185,7 @@
                 <div class="text-center mb-12 md:mb-16">
                     <h2 class="section-title text-3xl md:text-5xl mb-4" data-lang-key="leadership_title">Lãnh Đạo & Chuyên Gia</h2>
                     <p class="max-w-3xl mx-auto text-ivs-neutral-600 md:text-lg" data-lang-key="leadership_intro">
-                        Thành công của IVS JSC được xây dựng trên nền tảng đội ngũ nhân sự tài năng, giàu kinh nghiệm và nhiệt huyết, đến từ nhiều quốc gia và lĩnh vực khác nhau, cùng chung một tầm nhìn phát triển giáo dục bền vững.
+                        Thành công của IVS JSC được xây dựng trên nền tảng đội ngũ nhân sự tài năng, giàu kinh nghiệm và nhiệt huyết, cùng chung một tầm nhìn phát triển giáo dục bền vững.
                     </p>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -221,147 +229,6 @@
             </div>
         </section>
 
-        <section id="ecosystem" class="py-12 md:py-20">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12 md:mb-16">
-                    <h2 class="section-title text-3xl md:text-5xl mb-4" data-lang-key="ecosystem_title">Hệ Sinh Thái Cộng Hưởng</h2>
-                    <p class="max-w-3xl mx-auto text-ivs-neutral-600 md:text-lg" data-lang-key="ecosystem_intro">
-                        Hệ sinh thái của IVS JSC bao gồm các đơn vị chuyên biệt hợp tác chặt chẽ để cung cấp các giải pháp giáo dục toàn diện, tích hợp.
-                    </p>
-                </div>
-                
-                <div class="synergy-diagram" data-aos="zoom-in-out">
-                    <div class="synergy-center" data-lang-key="synergy_center_text">Sức Mạnh<br>Tổng Hợp</div>
-                    <div id="node-academy" class="synergy-node" style="transform: rotate(0deg) translate(clamp(130px, 32vw, 160px)) rotate(0deg);" data-target="ivs-academy" data-lang-key="node_academy_text">IVS Academy</div>
-                    <div id="node-education" class="synergy-node" style="transform: rotate(72deg) translate(clamp(130px, 32vw, 160px)) rotate(-72deg);" data-target="ivs-education" data-lang-key="node_education_text">IVS Education</div>
-                    <div id="node-consulting" class="synergy-node" style="transform: rotate(144deg) translate(clamp(130px, 32vw, 160px)) rotate(-144deg);" data-target="ivs-consulting" data-lang-key="node_consulting_text">IVS Consulting</div>
-                    <div id="node-media" class="synergy-node" style="transform: rotate(216deg) translate(clamp(130px, 32vw, 160px)) rotate(-216deg);" data-target="ivs-media" data-lang-key="node_media_text">IVS Media</div>
-                    <div id="node-lifeminds" class="synergy-node" style="transform: rotate(288deg) translate(clamp(130px, 32vw, 160px)) rotate(-288deg);" data-target="ivs-lifeminds" data-lang-key="node_lifeminds_text">IVSLife Minds</div>
-                </div>
-
-                <div class="flex flex-wrap justify-center gap-2 md:gap-4 mb-8" id="ecosystem-tabs-buttons" data-aos="fade-up">
-                    <button data-target="ivs-academy" class="tab-button active text-xs sm:text-sm px-4 py-2" data-lang-key="tab_academy">IVS Academy</button>
-                    <button data-target="ivs-education" class="tab-button text-xs sm:text-sm px-4 py-2" data-lang-key="tab_education">IVS Education</button>
-                    <button data-target="ivs-consulting" class="tab-button text-xs sm:text-sm px-4 py-2" data-lang-key="tab_consulting">IVS Consulting</button>
-                    <button data-target="ivs-media" class="tab-button text-xs sm:text-sm px-4 py-2" data-lang-key="tab_media">IVS Media</button>
-                    <button data-target="ivs-lifeminds" class="tab-button text-xs sm:text-sm px-4 py-2" data-lang-key="tab_lifeminds">IVSLifeMinds</button>
-                </div>
-
-                <div id="tab-content-wrapper" class="bg-ivs-neutral-100 dark:bg-ivs-dark-card/50 p-6 md:p-8 rounded-xl shadow-inner border border-ivs-neutral-200 dark:border-ivs-neutral-700 min-h-[320px]" data-aos="fade-up" data-aos-delay="100">
-                    <div id="ivs-academy" class="tab-content active">
-                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-ivs-primary" data-lang-key="academy_title">IVS Academy: Đào tạo Ngôn ngữ & Kỹ năng</h3>
-                        <p class="mb-4 text-sm md:text-base leading-relaxed text-ivs-neutral-700 dark:text-ivs-text-dark-primary" data-lang-key="academy_desc">Đơn vị này xây dựng năng lực cốt lõi thông qua phát triển ngôn ngữ và kỹ năng.</p>
-                        <ul class="list-disc list-inside space-y-2 text-sm md:text-base text-ivs-neutral-700 dark:text-ivs-text-dark-primary">
-                            <li data-lang-key="academy_item1"><strong>Đào tạo Ngoại ngữ:</strong> Các chương trình cho chứng chỉ IELTS, TOEFL, TOEIC, cùng tiếng Nhật, Hàn, Trung...</li>
-                            <li data-lang-key="academy_item2"><strong>Phát triển Kỹ năng:</strong> Khóa học về kỹ năng mềm, tư duy phản biện, tư duy thiết kế, và năng lực số.</li>
-                             <li data-lang-key="academy_item3"><strong>Kiểm tra Trình độ Tiếng Anh:</strong> Đánh giá khoa học cho lộ trình học tập cá nhân hóa.</li>
-                        </ul>
-                    </div>
-                    <div id="ivs-education" class="tab-content">
-                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-ivs-primary" data-lang-key="education_title">IVS Education: STEAM & Giải pháp Số</h3>
-                        <p class="mb-4 text-sm md:text-base leading-relaxed text-ivs-neutral-700 dark:text-ivs-text-dark-primary" data-lang-key="education_desc">Đơn vị này thúc đẩy đổi mới bằng cách tích hợp công nghệ vào giáo dục.</p>
-                        <ul class="list-disc list-inside space-y-2 text-sm md:text-base text-ivs-neutral-700 dark:text-ivs-text-dark-primary">
-                            <li data-lang-key="education_item1"><strong>STEAM by IVS:</strong> Chương trình tích hợp thúc đẩy giải quyết vấn đề và đam mê khoa học.</li>
-                            <li data-lang-key="education_item2"><strong>Bộ phận R&D:</strong> Liên tục cập nhật chương trình giảng dạy theo xu hướng toàn cầu.</li>
-                            <li data-lang-key="education_item3"><strong>IVSCelesTech:</strong> Cung cấp công cụ số như LMS, e-learning, và giải pháp dựa trên AI.</li>
-                            <li data-lang-key="education_item4"><strong>KinderLink25:</strong> Chương trình giáo dục mầm non chiến lược cho sự phát triển toàn diện.</li>
-                        </ul>
-                    </div>
-                    <div id="ivs-consulting" class="tab-content">
-                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-ivs-primary" data-lang-key="consulting_title">IVS Consulting: Tư vấn Toàn diện</h3>
-                        <p class="mb-4 text-sm md:text-base leading-relaxed text-ivs-neutral-700 dark:text-ivs-text-dark-primary" data-lang-key="consulting_desc">Cung cấp hỗ trợ chuyên môn cho cá nhân và tổ chức giáo dục.</p>
-                        <ul class="list-disc list-inside space-y-2 text-sm md:text-base text-ivs-neutral-700 dark:text-ivs-text-dark-primary">
-                            <li data-lang-key="consulting_item1"><strong>Tư vấn Giáo dục:</strong> Hỗ trợ chiến lược cho các trường về vận hành, chương trình, marketing.</li>
-                             <li data-lang-key="consulting_item2"><strong>Thành lập Trung tâm:</strong> Hướng dẫn toàn diện để thành lập các trung tâm giáo dục mới.</li>
-                            <li data-lang-key="consulting_item3"><strong>Chương trình Du học:</strong> Hướng dẫn cá nhân hóa cho các điểm đến hàng đầu toàn cầu.</li>
-                             <li data-lang-key="consulting_item4"><strong>Dịch vụ Giáo viên:</strong> Cung cấp và đào tạo giáo viên chất lượng theo phương pháp hiện đại.</li>
-                        </ul>
-                    </div>
-                    <div id="ivs-media" class="tab-content">
-                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-ivs-primary" data-lang-key="media_title">IVS Media: Truyền thông & Nội dung</h3>
-                        <p class="mb-4 text-sm md:text-base leading-relaxed text-ivs-neutral-700 dark:text-ivs-text-dark-primary" data-lang-key="media_desc">Xây dựng thương hiệu IVS và phổ biến kiến thức qua nội dung hấp dẫn.</p>
-                        <ul class="list-disc list-inside space-y-2 text-sm md:text-base text-ivs-neutral-700 dark:text-ivs-text-dark-primary">
-                            <li data-lang-key="media_item1"><strong>Nội dung Đa phương tiện:</strong> Sản xuất video bài giảng, podcast, và e-book chất lượng cao.</li>
-                            <li data-lang-key="media_item2"><strong>Website & Marketing:</strong> Thiết kế website tối ưu SEO và các giải pháp marketing số.</li>
-                            <li data-lang-key="media_item3"><strong>Kênh Thông tin:</strong> Quản lý blog và thư viện để chia sẻ kiến thức và câu chuyện thành công.</li>
-                        </ul>
-                    </div>
-                    <div id="ivs-lifeminds" class="tab-content">
-                        <h3 class="text-xl md:text-2xl font-bold mb-4 text-ivs-primary" data-lang-key="lifeminds_title">IVSLifeMinds: Phát triển Tư duy & Tiềm năng</h3>
-                        <p class="mb-4 text-sm md:text-base leading-relaxed text-ivs-neutral-700 dark:text-ivs-text-dark-primary" data-lang-key="lifeminds_desc">Khai phá tiềm năng cá nhân qua đào tạo kỹ năng nhận thức và kỹ năng sống.</p>
-                        <ul class="list-disc list-inside space-y-2 text-sm md:text-base text-ivs-neutral-700 dark:text-ivs-text-dark-primary">
-                            <li data-lang-key="lifeminds_item1"><strong>Chương trình Tư duy:</strong> Nâng cao tư duy phản biện, sáng tạo, logic, và hệ thống.</li>
-                            <li data-lang-key="lifeminds_item2"><strong>Kỹ năng Sống & Hướng nghiệp:</strong> Đào tạo quản lý tài chính, kỹ năng xã hội, và lập kế hoạch sự nghiệp.</li>
-                            <li data-lang-key="lifeminds_item3"><strong>Workshop & Kết nối:</strong> Tổ chức các diễn đàn học thuật và sự kiện với các chuyên gia đầu ngành.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="roadmap" class="py-12 md:py-20 bg-ivs-neutral-100 dark:bg-ivs-neutral-800/50">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12 md:mb-16">
-                    <h2 class="section-title text-3xl md:text-5xl mb-4" data-lang-key="roadmap_title">Lộ trình Phát triển IVS Global School</h2>
-                    <p class="max-w-3xl mx-auto text-ivs-neutral-600 md:text-lg" data-lang-key="roadmap_intro">IVS JSC đặt mục tiêu dài hạn xây dựng hệ thống giáo dục liên cấp <strong>IVS Global School</strong> theo tiêu chuẩn quốc tế.</p>
-                </div>
-                <ul class="timeline max-w-2xl mx-auto">
-                    <li data-aos="fade-left">
-                        <h3 class="text-lg font-semibold text-ivs-primary mb-1" data-lang-key="dev_plan_phase1_title">Giai đoạn 1 (2024-2026): Nền tảng</h3>
-                        <p class="text-ivs-neutral-600 dark:text-ivs-text-dark-secondary text-sm" data-lang-key="dev_plan_phase1_desc">Hoàn thiện và mở rộng IVS Kindergarten. Khởi động IVS Primary School, tập trung song ngữ và STEAM.</p>
-                    </li>
-                    <li data-aos="fade-right">
-                        <h3 class="text-lg font-semibold text-ivs-primary mb-1" data-lang-key="dev_plan_phase2_title">Giai đoạn 2 (2027-2030): Mở rộng</h3>
-                        <p class="text-ivs-neutral-600 dark:text-ivs-text-dark-secondary text-sm" data-lang-key="dev_plan_phase2_desc">Xây dựng IVS Secondary & High School. Tăng cường hợp tác quốc tế và định hướng nghề nghiệp.</p>
-                    </li>
-                    <li data-aos="fade-left">
-                        <h3 class="text-lg font-semibold text-ivs-primary mb-1" data-lang-key="dev_plan_phase3_title">Giai đoạn 3 (2031+): Hoàn thiện</h3>
-                        <p class="text-ivs-neutral-600 dark:text-ivs-text-dark-secondary text-sm" data-lang-key="dev_plan_phase3_desc">IVS Global School trở thành hệ thống giáo dục liên cấp hoàn chỉnh, được công nhận quốc tế.</p>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="strategy" class="py-12 md:py-20">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12 md:mb-16">
-                    <h2 class="section-title text-3xl md:text-5xl mb-4" data-lang-key="strategy_title">Ưu Tiên Chiến Lược</h2>
-                    <p class="max-w-3xl mx-auto text-ivs-neutral-600 md:text-lg" data-lang-key="strategy_intro">
-                        Để hiện thực hóa tầm nhìn, IVS JSC được định hướng bởi bảy ưu tiên chiến lược then chốt nhằm đảm bảo sự tăng trưởng bền vững, đổi mới và giá trị cộng đồng.
-                    </p>
-                </div>
-                <div class="max-w-3xl mx-auto space-y-3" id="accordion-container" data-aos="fade-up">
-                </div>
-            </div>
-        </section>
-
-        <section id="impact" class="py-12 md:py-20 bg-ivs-neutral-100 dark:bg-ivs-neutral-800/50">
-            <div class="container mx-auto px-4">
-                <div class="text-center mb-12 md:mb-16">
-                    <h2 class="section-title text-3xl md:text-5xl mb-4" data-lang-key="impact_title">Tác Động Cộng Đồng</h2>
-                     <p class="max-w-3xl mx-auto text-ivs-neutral-600 md:text-lg" data-lang-key="impact_intro">
-                        Chúng tôi cam kết mang lại lợi ích thiết thực và tạo ra giá trị xã hội bền vững, xây dựng một cộng đồng tiến bộ, tập trung vào học tập.
-                    </p>
-                </div>
-                <div class="chart-container bg-white dark:bg-ivs-dark-card p-4 md:p-6 rounded-lg shadow-xl" data-aos="zoom-in">
-                    <canvas id="impactChart"></canvas>
-                </div>
-            </div>
-        </section>
-        
-        <section id="contact-cta" class="py-12 md:py-20 bg-ivs-primary dark:bg-ivs-dark-card">
-            <div class="container mx-auto px-4 text-center">
-                 <h2 class="text-2xl md:text-4xl font-extrabold mb-4 text-white" data-lang-key="contact_capacity_title">Năng lực nền tảng, tầm nhìn và triết lý tích hợp</h2>
-                <p class="max-w-3xl mx-auto text-lg opacity-90 mb-8 leading-relaxed text-ivs-neutral-200" data-lang-key="contact_capacity_text">
-                    Sức mạnh của IVS JSC nằm ở cấu trúc đa dạng, tầm nhìn chiến lược và triết lý SYNERGY. Với nền tảng vững chắc và đội ngũ tận tâm, chúng tôi sẵn sàng vượt qua thử thách và thúc đẩy giáo dục Việt Nam.
-                </p>
-                <div class="mt-8">
-                     <a href="contact.html" class="inline-block bg-ivs-secondary hover:bg-ivs-secondary-dark text-ivs-primary-dark font-bold py-3 px-8 rounded-lg transition-transform transform hover:scale-105 shadow-lg" data-lang-key="contact_us_button_partner">
-                        <i class="fas fa-handshake mr-2"></i> Liên hệ hợp tác
-                    </a>
-                </div>
-            </div>
-        </section>
     </main>
     
     <div id="fab-container-placeholder"></div>
@@ -375,188 +242,7 @@
         window.onPageComponentsLoadedCallback = function() {
             AOS.init({ duration: 700, once: true, offset: 50 });
 
-            const translations = {
-                en: {
-                    contact_email1: "info@ivsacademy.edu.vn",
-                    strategy_item1_title: "Educational Excellence and Innovation",
-                    strategy_item1_desc: "Continuously improve program quality, integrate advanced technology, and foster a creative learning environment.",
-                    strategy_item2_title: "Learner-Centered Development",
-                    strategy_item2_desc: "Prioritize the holistic development of learners, from academic knowledge to life skills and critical thinking.",
-                    strategy_item3_title: "Global Partnership Expansion",
-                    strategy_item3_desc: "Strengthen collaborations with international institutions to enhance learning opportunities and global perspectives.",
-                    strategy_item4_title: "Community Engagement and Social Responsibility",
-                    strategy_item4_desc: "Actively contribute to community development through accessible education programs and scholarships.",
-                    strategy_item5_title: "Talent Development and Empowerment",
-                    strategy_item5_desc: "Invest in our educators and staff, providing professional development and fostering a supportive work environment.",
-                    strategy_item6_title: "Sustainable Operational Growth",
-                    strategy_item6_desc: "Ensure sustainable financial health and operational efficiency through strategic planning and resource optimization.",
-                    strategy_item7_title: "Brand Reputation and Trust Building",
-                    strategy_item7_desc: "Build a strong brand reputation based on quality, integrity, and transparency, earning community trust.",
-                    impact_labels: ["Local Education Enhancement", "Equal Access to Quality Education", "Workforce Readiness", "Lifelong Learning", "Support for Institutions", "Socio-Economic Growth", "Community Building"],
-                    impact_chart_title: "IVS JSC: Focus Areas of Social Responsibility",
-                    impact_chart_dataset_label: "Focus Rate (%)",
-                },
-                vi: {
-                    contact_email1: "info@ivsacademy.edu.vn",
-                    strategy_item1_title: "Chất lượng Giáo dục và Đổi mới Sáng tạo",
-                    strategy_item1_desc: "Không ngừng nâng cao chất lượng chương trình, tích hợp công nghệ tiên tiến và thúc đẩy môi trường học tập sáng tạo.",
-                    strategy_item2_title: "Phát triển Toàn diện Người học",
-                    strategy_item2_desc: "Ưu tiên phát triển toàn diện cho người học, từ kiến thức học thuật đến kỹ năng sống và tư duy phản biện.",
-                    strategy_item3_title: "Mở rộng Hợp tác Quốc tế",
-                    strategy_item3_desc: "Tăng cường hợp tác với các tổ chức quốc tế uy tín để nâng cao cơ hội học tập và mở rộng tầm nhìn toàn cầu.",
-                    strategy_item4_title: "Gắn kết Cộng đồng và Trách nhiệm Xã hội",
-                    strategy_item4_desc: "Tích cực đóng góp vào sự phát triển cộng đồng thông qua các chương trình giáo dục dễ tiếp cận và học bổng.",
-                    strategy_item5_title: "Phát triển và Trao quyền cho Nhân tài",
-                    strategy_item5_desc: "Đầu tư vào đội ngũ nhà giáo và nhân viên, cung cấp cơ hội phát triển chuyên môn và nuôi dưỡng môi trường làm việc hỗ trợ.",
-                    strategy_item6_title: "Tăng trưởng Hoạt động Bền vững",
-                    strategy_item6_desc: "Đảm bảo sức khỏe tài chính và hiệu quả hoạt động bền vững thông qua hoạch định chiến lược và tối ưu hóa nguồn lực.",
-                    strategy_item7_title: "Xây dựng Uy tín Thương hiệu và Niềm tin",
-                    strategy_item7_desc: "Xây dựng uy tín thương hiệu mạnh mẽ dựa trên chất lượng, sự chính trực và minh bạch, giành được sự tin tưởng của cộng đồng.",
-                    impact_labels: ["Nâng cao Giáo dục Địa phương", "Tiếp cận Bình đẳng", "Sẵn sàng cho Lực lượng LĐ", "Học tập Suốt đời", "Hỗ trợ Tổ chức GD", "Tăng trưởng KT-XH", "Xây dựng Cộng đồng"],
-                    impact_chart_title: "IVS JSC: Các Lĩnh vực Trọng tâm của Trách nhiệm Xã hội",
-                    impact_chart_dataset_label: "Mức độ Tập trung (%)",
-                }
-            };
-            
-            let impactChartInstance = null;
-            const impactChartRawData = { localEducation: 70, equalAccess: 85, workforce: 70, lifelongLearning: 99, supportInstitutions: 85, socioEconomicGrowth: 70, progressiveCommunity: 80 };
-            
-            function getPageText(key) {
-                const currentLang = window.langSystem?.getCurrentLanguage() || 'vi';
-                const langData = window.langSystem?.getLanguageData();
-                return langData?.[key] || translations[currentLang]?.[key] || key;
-            }
-
-            function setupPageInteractivity() {
-                const ecosystemTabsButtons = document.getElementById('ecosystem-tabs-buttons');
-                const tabContentWrapper = document.getElementById('tab-content-wrapper');
-                const synergyNodes = document.querySelectorAll('.synergy-node');
-                const accordionContainer = document.getElementById('accordion-container');
-
-                function setActiveTab(targetId) {
-                    if (!ecosystemTabsButtons || !tabContentWrapper || !synergyNodes) return;
-                    
-                    ecosystemTabsButtons.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-                    ecosystemTabsButtons.querySelector(`.tab-button[data-target="${targetId}"]`)?.classList.add('active');
-                    
-                    tabContentWrapper.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-                    document.getElementById(targetId)?.classList.add('active');
-                    
-                    synergyNodes.forEach(node => node.classList.remove('active'));
-                    document.querySelector(`.synergy-node[data-target="${targetId}"]`)?.classList.add('active');
-                }
-
-                if (ecosystemTabsButtons) {
-                    ecosystemTabsButtons.addEventListener('click', (e) => {
-                        const button = e.target.closest('.tab-button');
-                        if (button?.dataset.target) setActiveTab(button.dataset.target);
-                    });
-                }
-                synergyNodes.forEach(node => {
-                    if(node.dataset.target) node.addEventListener('click', () => setActiveTab(node.dataset.target));
-                });
-                
-                if (accordionContainer) {
-                    accordionContainer.addEventListener('click', (e) => {
-                        const header = e.target.closest('.accordion-header');
-                        if (!header) return;
-                        const item = header.parentElement;
-                        const content = header.nextElementSibling;
-                        const isActive = item.classList.contains('active');
-                        
-                        item.classList.toggle('active', !isActive);
-                        content.style.maxHeight = !isActive ? content.scrollHeight + "px" : null;
-                    });
-                }
-            }
-            
-            function createStrategyAccordions() {
-                const accordionContainer = document.getElementById('accordion-container');
-                if (!accordionContainer) return;
-                accordionContainer.innerHTML = '';
-                
-                for (let i = 1; i <= 7; i++) {
-                    const titleText = getPageText(`strategy_item${i}_title`);
-                    const descText = getPageText(`strategy_item${i}_desc`);
-                    if (titleText && titleText !== `strategy_item${i}_title`) {
-                        const div = document.createElement('div');
-                        div.className = 'accordion-item bg-white dark:bg-ivs-dark-card rounded-lg shadow-md border border-ivs-neutral-200 dark:border-ivs-neutral-700 overflow-hidden';
-                        div.innerHTML = `
-                            <div class="accordion-header flex justify-between items-center p-4 cursor-pointer hover:bg-ivs-neutral-100 dark:hover:bg-ivs-neutral-700/50">
-                                <h3 class="font-semibold text-sm md:text-lg text-ivs-primary dark:text-ivs-secondary">${titleText}</h3>
-                                <span class="accordion-icon text-xl text-ivs-primary dark:text-ivs-secondary transition-transform duration-300">+</span>
-                            </div>
-                            <div class="accordion-content px-4">
-                                <p class="py-4 text-ivs-neutral-700 dark:text-ivs-text-dark-primary text-sm leading-relaxed">${descText}</p>
-                            </div>
-                        `;
-                        accordionContainer.appendChild(div);
-                    }
-                }
-            }
-            
-            function initializeImpactChart() {
-                const ctxImpact = document.getElementById('impactChart')?.getContext('2d');
-                if (!ctxImpact) return;
-                
-                const labels = getPageText('impact_labels');
-                if (typeof labels === 'string' || !labels?.length) return;
-
-                if (impactChartInstance) impactChartInstance.destroy();
-                
-                const isDarkMode = document.documentElement.classList.contains('dark');
-                const titleColor = isDarkMode ? '#fde047' : '#003A64';
-                const ticksColor = isDarkMode ? '#9ca3af' : '#4b5563';
-                const gridColor = isDarkMode ? '#374151' : '#e5e7eb';
-                const barColor = isDarkMode ? 'rgba(255, 193, 7, 0.7)' : 'rgba(59, 130, 246, 0.7)';
-                const borderColor = isDarkMode ? 'rgba(255, 193, 7, 1)' : 'rgba(59, 130, 246, 1)';
-
-
-                impactChartInstance = new Chart(ctxImpact, {
-                    type: 'bar',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            label: getPageText('impact_chart_dataset_label'),
-                            data: Object.values(impactChartRawData),
-                            backgroundColor: barColor,
-                            borderColor: borderColor,
-                            borderWidth: 1, borderRadius: 4, borderSkipped: false,
-                        }]
-                    },
-                    options: {
-                        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false },
-                            title: { display: true, text: getPageText('impact_chart_title'), font: { size: 16, weight: '600' }, color: titleColor, padding: { top: 5, bottom: 15 } },
-                            tooltip: {
-                                callbacks: {
-                                    label: (context) => `${context.dataset.label || ''}: ${context.parsed.x}%`
-                                }
-                            }
-                        },
-                        scales: {
-                            x: { beginAtZero: true, max: 100, ticks: { color: ticksColor, callback: (value) => value + '%' } , grid: { color: gridColor } },
-                            y: { ticks: { font: { size: 11 }, color: ticksColor }, grid: { display: false } }
-                        }
-                    }
-                });
-            }
-
-            function reRenderDynamicContent() {
-                createStrategyAccordions();
-                initializeImpactChart();
-            }
-            
-            setupPageInteractivity();
-            reRenderDynamicContent();
-            
-            document.addEventListener('languageChanged', (e) => {
-                reRenderDynamicContent();
-            });
-             document.documentElement.addEventListener('themeChanged', () => {
-                initializeImpactChart();
-            });
+            // Page-specific logic can go here
         };
     </script>
 </body>
