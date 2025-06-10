@@ -1,11 +1,24 @@
 <!-- 
-  Tệp thành phần Header - Đã được tối ưu hóa theo phương pháp Mobile-First.
-  - Tích hợp đầy đủ HTML, CSS và JavaScript để hoạt động độc lập.
-  - Cấu trúc CSS và HTML ưu tiên cho màn hình di động, mở rộng cho desktop.
-  - Đảm bảo khả năng truy cập (accessibility) với các thuộc tính ARIA.
-  - Bảo toàn toàn bộ chức năng, ID, và các thuộc tính data-lang-key.
+  Thành phần Header Tối ưu cho IVS JSC
+  Phiên bản: 2.0 (Mobile-First, All-in-One)
+  Ngày cập nhật: 2024-06-10
+
+  Mô tả:
+  - Thành phần này bao gồm đầy đủ HTML, CSS, và JavaScript cho header.
+  - Được xây dựng theo phương pháp Mobile-First: Giao diện ưu tiên cho di động, 
+    sau đó mở rộng cho máy tính bảng và máy tính để bàn.
+  - Tích hợp sẵn:
+    + Top navigation bar (Desktop) với mega menu và dropdown.
+    + Side navigation panel (Mobile - off-canvas).
+    + Bottom navigation bar (Mobile) để truy cập nhanh.
+  - Đảm bảo tính nhất quán và hiệu suất cao bằng cách loại bỏ việc tải tệp bất đồng bộ.
+  - Hướng dẫn tích hợp: Sao chép và dán toàn bộ nội dung của tệp này vào đầu thẻ <body> của mỗi trang HTML.
 -->
 <style>
+    /*
+      CSS Variables for consistent theming.
+      Using CSS variables allows for easy maintenance and theme switching (e.g., dark mode).
+    */
     :root {
         --header-target-height-mobile: 64px;
         --header-target-height-desktop: 80px;
@@ -20,12 +33,13 @@
         --ivs-accent: #F97316;
     }
 
-    /* Base Styles */
+    /* Base Styles for the main header container */
     #main-header {
         height: var(--header-target-height-mobile);
         background-color: var(--ivs-neutral-900);
     }
 
+    /* Desktop Navigation Links & Dropdowns */
     .nav-link, .nav-link-dropdown {
         display: inline-flex;
         align-items: center;
@@ -53,6 +67,7 @@
         transform: rotate(180deg);
     }
     
+    /* Special Buttons: Contact & Language */
     .nav-contact-btn, .nav-lang-btn {
         display: inline-flex;
         align-items: center;
@@ -69,7 +84,7 @@
     .nav-lang-btn { border: 1px solid var(--ivs-neutral-700); color: var(--ivs-neutral-300); }
     .nav-lang-btn:hover { background-color: var(--ivs-neutral-700); border-color: var(--ivs-neutral-600); color: white; }
 
-    /* Dropdown & Mega Menu */
+    /* Styling for Dropdown & Mega Menu Panels */
     .desktop-dropdown-content, .mega-menu-content {
         position: absolute;
         top: 100%;
@@ -99,6 +114,7 @@
 
     .mega-menu-heading { font-size: 0.95rem; font-weight: 700; color: var(--ivs-secondary); padding: 4px 8px; margin-bottom: 8px; border-bottom: 1px solid var(--ivs-neutral-700); }
     
+    /* Styling for items within dropdowns */
     .desktop-dropdown-item, .mega-menu-item { display: flex; align-items: center; width: 100%; padding: 10px 12px; font-size: 0.875rem; color: var(--ivs-neutral-300); transition: background-color 0.2s, color 0.2s; border-radius: 0.375rem; }
     .desktop-dropdown-item:hover, .mega-menu-item:hover { background-color: var(--ivs-neutral-700); color: white; }
     .mega-menu-icon { margin-right: 10px; width: 16px; color: var(--ivs-neutral-400); transition: color 0.2s; }
@@ -108,7 +124,7 @@
     .lang-option-item:hover { background-color: var(--ivs-neutral-700); color: white; }
     .lang-flag-icon { width: 20px; height: 12px; margin-right: 12px; object-fit: cover; border-radius: 2px; }
 
-    /* Mobile Menu */
+    /* Mobile Off-canvas Menu */
     .mobile-menu-overlay { position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); z-index: 1001; opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
     body.mobile-menu-active .mobile-menu-overlay { opacity: 1; visibility: visible; }
     
@@ -132,14 +148,14 @@
     .lang-option-mobile:hover { background-color: var(--ivs-neutral-600); color: white; }
     .lang-flag-icon-mobile { width: 20px; height: 12px; margin-right: 10px; border-radius: 2px; }
 
-    /* Bottom Nav Bar */
+    /* Mobile Bottom Navigation Bar */
     #bottom-nav-bar { background: rgba(17, 24, 39, 0.95); backdrop-filter: blur(8px); border-top: 1px solid var(--ivs-neutral-700); box-shadow: 0 -4px 15px -3px rgba(0, 0, 0, 0.4); }
     .bottom-nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--ivs-neutral-400); padding: 4px 0; transition: color 0.3s; height: 100%; }
     .bottom-nav-item.active, .bottom-nav-item:hover { color: var(--ivs-secondary); }
     .bottom-nav-icon { font-size: 1.25rem; margin-bottom: 2px; }
     .bottom-nav-text { font-size: 0.65rem; font-weight: 500; }
 
-    /* Desktop Styles */
+    /* Desktop-specific adjustments */
     @media (min-width: 768px) {
         #main-header { height: var(--header-target-height-desktop); }
     }
@@ -148,6 +164,7 @@
 <header id="main-header" role="banner" class="w-full shadow-lg fixed top-0 left-0 right-0 z-[1001]">
     <div class="container mx-auto px-3 sm:px-4 lg:px-6">
         <div class="flex items-center justify-between h-full">
+            <!-- Logo Section -->
             <a href="/index.html" class="flex items-center space-x-2 group shrink-0" aria-label="IVS JSC Homepage" data-lang-key="aria_label_homepage_link">
                 <img src="/images/logo/logo.png" alt="IVS JSC Logo" class="h-8 w-8 md:h-10 md:w-10 object-contain transition-transform duration-300 group-hover:scale-110"
                      loading="eager" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9IiMwMDQwODAiLz48dGV4dCB4PSIyMCIgeT0iMjQiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPklWUzwvdGV4dD48L3N2Zz4='; this.alt='IVS Placeholder Logo';">
@@ -156,10 +173,12 @@
                 </span>
             </a>
 
+            <!-- Desktop Navigation -->
             <nav role="navigation" aria-label="Main desktop navigation" class="hidden md:flex items-center space-x-1 lg:space-x-1.5">
                 <a href="/index.html" class="nav-link" data-lang-key="nav_home">Trang Chủ</a>
                 <a href="/about.html" class="nav-link" data-lang-key="nav_about">Về IVS</a>
 
+                <!-- Mega Menu for Services -->
                 <div class="relative group" id="desktop-services-dropdown">
                     <button type="button" class="nav-link-dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="services-mega-menu" data-lang-key="nav_services">
                         Dịch Vụ <i class="fas fa-chevron-down nav-link-icon"></i>
@@ -188,6 +207,7 @@
                     </div>
                 </div>
 
+                <!-- Dropdown for Solutions -->
                 <div class="relative group" id="desktop-solutions-dropdown">
                     <button type="button" class="nav-link-dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="solutions-dropdown-menu" data-lang-key="nav_solutions">
                         Giải pháp <i class="fas fa-chevron-down nav-link-icon"></i>
@@ -201,7 +221,8 @@
                         </ul>
                     </div>
                 </div>
-
+                
+                <!-- Dropdown for Library -->
                 <div class="relative group" id="desktop-library-dropdown">
                     <button type="button" class="nav-link-dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="library-dropdown-menu" data-lang-key="nav_library">
                         Thư Viện <i class="fas fa-chevron-down nav-link-icon"></i>
@@ -221,6 +242,7 @@
                 <a href="/news-archive.html" class="nav-link" data-lang-key="nav_news_archive">Tin tức</a>
                 <a href="/contact.html" class="nav-contact-btn" data-lang-key="contact">Liên Hệ</a>
 
+                <!-- Language Selector Dropdown -->
                 <div class="relative group" id="desktop-language-dropdown">
                     <button type="button" class="nav-lang-btn" aria-haspopup="true" aria-expanded="false" aria-controls="language-dropdown-menu-desktop">
                         <i class="fas fa-globe mr-1.5 text-base"></i> <span id="current-lang-desktop">VI</span> <i class="fas fa-chevron-down nav-link-icon"></i>
@@ -234,12 +256,14 @@
                 </div>
             </nav>
 
+            <!-- Mobile Menu Toggle Button -->
             <button type="button" id="mobile-menu-button" class="md:hidden p-2 rounded-full hover:bg-ivs-neutral-700 transition-colors" aria-label="Mở menu" data-lang-key-aria="aria_label_open_mobile_menu">
                 <i class="fas fa-bars text-xl" id="mobile-menu-open-icon"></i>
             </button>
         </div>
     </div>
 
+    <!-- Mobile Off-canvas Menu Panel -->
     <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
     <div id="mobile-menu-panel" class="mobile-menu-panel">
         <div class="flex items-center justify-between p-4 border-b border-ivs-neutral-700 sticky top-0 bg-ivs-neutral-800 z-10">
@@ -275,6 +299,7 @@
         </nav>
     </div>
     
+    <!-- Bottom Navigation Bar (Mobile Only) -->
     <nav role="navigation" aria-label="Bottom mobile navigation" id="bottom-nav-bar" class="md:hidden fixed bottom-0 left-0 w-full grid grid-cols-5 h-16 z-[1000]">
         <a href="/index.html" class="bottom-nav-item" data-lang-key="bottom_nav_home" aria-label="Trang chủ" data-lang-key-aria="aria_label_home_bottom_nav"><i class="fas fa-home bottom-nav-icon"></i><span class="bottom-nav-text" data-lang-key="bottom_nav_home_short">Home</span></a>
         <a href="/solutions.html" class="bottom-nav-item" data-lang-key="bottom_nav_solutions" aria-label="Giải pháp" data-lang-key-aria="aria_label_solutions_bottom_nav"><i class="fas fa-tools bottom-nav-icon"></i><span class="bottom-nav-text" data-lang-key="bottom_nav_solutions_short">Giải pháp</span></a>
@@ -285,19 +310,24 @@
 </header>
 
 <script>
+    // This script should be placed right before the closing </body> tag
+    // Or included in your main JavaScript bundle.
     document.addEventListener('DOMContentLoaded', () => {
         let activeDropdown = null;
 
+        // Function to toggle desktop dropdowns
         const toggleDropdown = (button) => {
             const dropdown = button.closest('.group');
             if (!dropdown) return;
 
+            // Close any other active dropdown
             if (activeDropdown && activeDropdown !== dropdown) {
                 activeDropdown.classList.remove('dropdown-active');
                 const prevButton = activeDropdown.querySelector('[aria-haspopup="true"]');
                 if (prevButton) prevButton.setAttribute('aria-expanded', 'false');
             }
 
+            // Toggle the current dropdown
             if (dropdown.classList.contains('dropdown-active')) {
                 dropdown.classList.remove('dropdown-active');
                 button.setAttribute('aria-expanded', 'false');
@@ -309,13 +339,15 @@
             }
         };
 
+        // Attach event listeners to all desktop dropdown buttons
         document.querySelectorAll('#main-header nav .group > button').forEach(button => {
             button.addEventListener('click', (e) => {
-                e.stopPropagation();
+                e.stopPropagation(); // Prevent the document click from firing immediately
                 toggleDropdown(button);
             });
         });
 
+        // Close dropdowns when clicking outside
         document.addEventListener('click', (e) => {
             if (activeDropdown && !activeDropdown.contains(e.target)) {
                 activeDropdown.classList.remove('dropdown-active');
@@ -325,6 +357,7 @@
             }
         });
         
+        // Close dropdowns with the Escape key for accessibility
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && activeDropdown) {
                  activeDropdown.classList.remove('dropdown-active');
@@ -334,6 +367,7 @@
             }
         });
 
+        // --- Mobile Menu Logic ---
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenuCloseButton = document.getElementById('mobile-menu-close-btn');
         const mobileMenuBottomToggle = document.getElementById('mobile-menu-bottom-toggle');
@@ -341,7 +375,7 @@
 
         const openMobileMenu = () => {
             document.body.classList.add('mobile-menu-active');
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
         };
 
         const closeMobileMenu = () => {
@@ -349,39 +383,50 @@
             document.body.style.overflow = '';
         };
 
-        [mobileMenuButton, mobileMenuBottomToggle].forEach(btn => btn.addEventListener('click', openMobileMenu));
-        [mobileMenuCloseButton, mobileMenuOverlay].forEach(btn => btn.addEventListener('click', closeMobileMenu));
+        // Event listeners for opening and closing the mobile menu
+        [mobileMenuButton, mobileMenuBottomToggle].forEach(btn => {
+            if (btn) btn.addEventListener('click', openMobileMenu);
+        });
+        [mobileMenuCloseButton, mobileMenuOverlay].forEach(btn => {
+            if (btn) btn.addEventListener('click', closeMobileMenu);
+        });
 
+        // Logic for mobile submenus (accordion style)
         document.querySelectorAll('.mobile-submenu-toggle').forEach(button => {
             button.addEventListener('click', () => {
                 const submenu = document.getElementById(button.getAttribute('aria-controls'));
                 const isExpanded = button.getAttribute('aria-expanded') === 'true';
+                
+                // Close other submenus for a cleaner accordion effect
+                document.querySelectorAll('.mobile-submenu-content.active').forEach(activeSubmenu => {
+                    if (activeSubmenu !== submenu) {
+                        activeSubmenu.classList.remove('active');
+                        activeSubmenu.previousElementSibling.setAttribute('aria-expanded', 'false');
+                    }
+                });
+                
                 button.setAttribute('aria-expanded', !isExpanded);
                 submenu.classList.toggle('active');
             });
         });
         
+        // Function to highlight the active navigation link based on the current URL
         function updateActiveNav() {
-            const currentPath = window.location.pathname.endsWith('/') 
-                ? window.location.pathname.slice(0, -1) 
-                : window.location.pathname;
+            const currentPath = window.location.pathname.replace(/\/$/, ""); // Remove trailing slash
 
-            document.querySelectorAll('#main-header a').forEach(link => {
-                const linkPath = new URL(link.href).pathname.endsWith('/')
-                    ? new URL(link.href).pathname.slice(0, -1)
-                    : new URL(link.href).pathname;
-
+            // Update top navigation
+            document.querySelectorAll('#main-header nav a.nav-link').forEach(link => {
+                const linkPath = new URL(link.href).pathname.replace(/\/$/, "");
                 if (linkPath === currentPath) {
                     link.classList.add('active');
                 } else {
                     link.classList.remove('active');
                 }
             });
-             document.querySelectorAll('#bottom-nav-bar a').forEach(link => {
-                 const linkPath = new URL(link.href).pathname.endsWith('/')
-                    ? new URL(link.href).pathname.slice(0, -1)
-                    : new URL(link.href).pathname;
 
+            // Update bottom navigation
+             document.querySelectorAll('#bottom-nav-bar a').forEach(link => {
+                 const linkPath = new URL(link.href).pathname.replace(/\/$/, "");
                 if (linkPath === currentPath) {
                     link.classList.add('active');
                 } else {
@@ -389,6 +434,7 @@
                 }
             });
         }
+        
         updateActiveNav();
     });
 </script>
