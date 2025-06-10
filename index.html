@@ -67,6 +67,9 @@
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid #30363d;
             transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
         .glass-card:hover {
             background: rgba(30, 36, 44, 0.7);
@@ -108,6 +111,11 @@
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(1, 4, 9, 0.1));
             border: 1px solid rgba(59, 130, 246, 0.2);
             color: #60a5fa;
+        }
+        .testimonial-quote {
+            border-left: 3px solid #3b82f6;
+            padding-left: 1rem;
+            font-style: italic;
         }
     </style>
     <link rel="stylesheet" href="/css/styles.css">
@@ -178,61 +186,39 @@
         
         <section class="py-20 md:py-28 bg-ivs-card-dark border-y border-ivs-border-dark">
             <div class="container mx-auto px-6">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div data-aos="fade-right">
-                        <img src="images/banners/ivs_profile_banner.jpg" alt="[Ảnh minh họa văn phòng IVS JSC]" class="rounded-2xl shadow-2xl object-cover w-full h-full" onerror="this.onerror=null; this.src='https://placehold.co/600x450/161B22/FFFFFF?text=IVS+Profile';">
+                 <div class="text-center mb-16">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up" data-lang-key="index_core_services_title">Dịch Vụ Cốt Lõi Của IVS</h2>
+                    <p class="section-subtitle text-lg" data-aos="fade-up" data-aos-delay="100" data-lang-key="index_core_services_subtitle">
+                        Từ giáo dục nền tảng đến các giải pháp công nghệ và tư vấn chiến lược, IVS cung cấp một hệ sinh thái dịch vụ toàn diện.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon w-12 h-12 rounded-lg flex items-center justify-center mb-5 text-2xl"><i class="fas fa-school"></i></div>
+                        <h3 class="font-display text-xl font-semibold mb-3 text-white" data-lang-key="index_service_edupartnership_title">Giáo Dục Liên Kết</h3>
+                        <p class="text-ivs-gray text-sm leading-relaxed mb-5 flex-grow" data-lang-key="index_service_edupartnership_desc">Hợp tác triển khai các chương trình giáo dục tiên tiến từ Mầm non đến THPT, tích hợp STEAM và kỹ năng tương lai.</p>
+                        <a href="education.html" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm mt-auto">Tìm hiểu thêm <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
                     </div>
-                    <div data-aos="fade-left">
-                        <h2 class="section-title text-3xl md:text-4xl font-bold mb-4" data-lang-key="index_profile_title">Về IVS JSC: Tầm Nhìn & Sứ Mệnh</h2>
-                        <p class="section-subtitle text-lg mb-6" data-lang-key="index_profile_desc">
-                            IVS JSC được thành lập với khát vọng kiến tạo một hệ sinh thái giáo dục toàn diện, kết hợp hài hòa giá trị truyền thống và tiêu chuẩn quốc tế, trang bị cho thế hệ trẻ hành trang vững chắc để tự tin hội nhập toàn cầu.
-                        </p>
-                        <a href="profile-company-ivsjsc.html" class="btn-primary font-semibold py-3 px-6 rounded-lg">
-                            <i class="fas fa-arrow-right mr-2"></i> <span data-lang-key="index_profile_cta">Xem Hồ Sơ Năng Lực</span>
-                        </a>
+                    <!-- Service Card 2 -->
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-icon w-12 h-12 rounded-lg flex items-center justify-center mb-5 text-2xl"><i class="fas fa-cogs"></i></div>
+                        <h3 class="font-display text-xl font-semibold mb-3 text-white" data-lang-key="index_service_tech_title">Giải Pháp Công Nghệ</h3>
+                        <p class="text-ivs-gray text-sm leading-relaxed mb-5 flex-grow" data-lang-key="index_service_tech_desc">Cung cấp dịch vụ thiết kế website chuyên nghiệp và phát triển giải pháp EdTech đột phá dưới thương hiệu IVS Celestech.</p>
+                        <a href="webdesign.html" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm mt-auto">Tìm hiểu thêm <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="400">
+                        <div class="feature-icon w-12 h-12 rounded-lg flex items-center justify-center mb-5 text-2xl"><i class="fas fa-gavel"></i></div>
+                        <h3 class="font-display text-xl font-semibold mb-3 text-white" data-lang-key="index_service_legalbiz_title">Tư Vấn Doanh Nghiệp & Pháp Lý</h3>
+                        <p class="text-ivs-gray text-sm leading-relaxed mb-5 flex-grow" data-lang-key="index_service_legalbiz_desc">Tư vấn thành lập trung tâm, doanh nghiệp; hỗ trợ thủ tục pháp lý, giấy phép lao động (Work Permit) và các vấn đề dân sự.</p>
+                        <a href="consulting.html" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm mt-auto">Tìm hiểu thêm <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="py-20 md:py-28">
-            <div class="container mx-auto px-6">
-                 <div class="text-center mb-16">
-                    <h2 class="section-title text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up" data-lang-key="index_services_title">Giải Pháp Dẫn Đầu Của Chúng Tôi</h2>
-                    <p class="section-subtitle text-lg" data-aos="fade-up" data-aos-delay="100" data-lang-key="index_services_subtitle">
-                        Từ công nghệ, giáo dục đến tư vấn pháp lý, IVS cung cấp các dịch vụ chuyên biệt, được "may đo" để đáp ứng chính xác nhu cầu của bạn.
-                    </p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="glass-card p-8 rounded-2xl" data-aos="zoom-in-up" data-aos-delay="200">
-                        <div class="feature-icon w-12 h-12 rounded-lg flex items-center justify-center mb-5 text-2xl">
-                           <i class="fas fa-drafting-compass"></i>
-                        </div>
-                        <h3 class="font-display text-xl font-semibold mb-3 text-white" data-lang-key="index_service_webdesign">Thiết Kế Website & EdTech</h3>
-                        <p class="text-ivs-gray text-sm leading-relaxed mb-5" data-lang-key="index_service_webdesign_desc">IVS Celestech kiến tạo các website chuyên nghiệp và giải pháp EdTech đột phá, nâng tầm thương hiệu số của bạn.</p>
-                        <a href="webdesign.html" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm">Xem chi tiết <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
-                    </div>
-                     <div class="glass-card p-8 rounded-2xl" data-aos="zoom-in-up" data-aos-delay="300">
-                        <div class="feature-icon w-12 h-12 rounded-lg flex items-center justify-center mb-5 text-2xl">
-                           <i class="fas fa-balance-scale"></i>
-                        </div>
-                        <h3 class="font-display text-xl font-semibold mb-3 text-white" data-lang-key="index_service_legal">Tư Vấn Pháp Lý Toàn Diện</h3>
-                        <p class="text-ivs-gray text-sm leading-relaxed mb-5" data-lang-key="index_service_legal_desc">Đồng hành cùng cá nhân và doanh nghiệp với các dịch vụ tư vấn pháp lý dân sự, thành lập công ty chuyên sâu, an toàn.</p>
-                        <a href="litigation_consulting.html" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm">Xem chi tiết <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
-                    </div>
-                     <div class="glass-card p-8 rounded-2xl" data-aos="zoom-in-up" data-aos-delay="400">
-                        <div class="feature-icon w-12 h-12 rounded-lg flex items-center justify-center mb-5 text-2xl">
-                           <i class="fas fa-chalkboard-teacher"></i>
-                        </div>
-                        <h3 class="font-display text-xl font-semibold mb-3 text-white" data-lang-key="index_service_education">Chương Trình Giáo Dục Liên Kết</h3>
-                        <p class="text-ivs-gray text-sm leading-relaxed mb-5" data-lang-key="index_service_education_desc">Hợp tác triển khai các chương trình giáo dục tiên tiến từ mầm non đến THPT, tích hợp STEAM và kỹ năng tương lai.</p>
-                        <a href="education.html" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm">Xem chi tiết <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-20 md:py-28 bg-ivs-card-dark border-y border-ivs-border-dark">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
                     <h2 class="section-title text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up" data-lang-key="index_ecosystem_title">Khám Phá Hệ Sinh Thái Số Của IVS</h2>
@@ -259,6 +245,39 @@
                         <p class="text-ivs-gray text-sm leading-relaxed flex-grow" data-lang-key="index_ecosystem_games_desc">Học mà chơi, chơi mà học với bộ sưu tập trò chơi giáo dục tương tác và sáng tạo độc quyền.</p>
                          <span class="mt-4 font-semibold text-ivs-blue text-sm">Khám Phá Ngay <i class="fas fa-arrow-right ml-1"></i></span>
                     </a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="py-20 md:py-28 bg-ivs-card-dark border-y border-ivs-border-dark">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up" data-lang-key="index_testimonial_title">Đối Tác & Cộng Đồng Nói Gì Về IVS</h2>
+                    <p class="section-subtitle text-lg" data-aos="fade-up" data-aos-delay="100" data-lang-key="index_testimonial_subtitle">
+                        Niềm tin của đối tác và sự hài lòng của khách hàng là thước đo thành công và là động lực để chúng tôi không ngừng hoàn thiện.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-up">
+                        <p class="testimonial-quote text-ivs-light-gray mb-6" data-lang-key="index_testimonial_1">"Giải pháp EdTech và chương trình liên kết từ IVS đã thực sự thay đổi cách chúng tôi vận hành và giảng dạy. Sự chuyên nghiệp và tầm nhìn chiến lược của họ thật đáng kinh ngạc."</p>
+                        <div class="flex items-center">
+                            <img class="h-12 w-12 rounded-full object-cover mr-4" src="https://placehold.co/100x100/3b82f6/FFFFFF?text=L" alt="[Ảnh đại diện bà Lan]">
+                            <div>
+                                <h4 class="font-semibold text-white" data-lang-key="index_testimonial_1_name">Bà Nguyễn Thị Lan</h4>
+                                <p class="text-xs text-ivs-gray" data-lang-key="index_testimonial_1_title">Hiệu trưởng, Hệ thống Trường Quốc tế Ánh Dương</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
+                        <p class="testimonial-quote text-ivs-light-gray mb-6" data-lang-key="index_testimonial_2">"IVS JSC không chỉ là một nhà cung cấp dịch vụ, họ là một đối tác chiến lược thực thụ. Sự hỗ trợ về pháp lý và tư vấn vận hành của họ đã giúp chúng tôi phát triển bền vững."</p>
+                        <div class="flex items-center">
+                            <img class="h-12 w-12 rounded-full object-cover mr-4" src="https://placehold.co/100x100/ffc107/0D1117?text=H" alt="[Ảnh đại diện ông Hùng]">
+                            <div>
+                                <h4 class="font-semibold text-white" data-lang-key="index_testimonial_2_name">Ông Lê Văn Hùng</h4>
+                                <p class="text-xs text-ivs-gray" data-lang-key="index_testimonial_2_title">Giám đốc, Công ty Giáo dục Việt</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
