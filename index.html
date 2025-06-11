@@ -118,8 +118,88 @@
             font-style: italic;
         }
         .eov-section-bg {
-            background: linear-gradient(to right, rgba(1, 4, 9, 0.8), rgba(1, 4, 9, 0.6)), url('/images/banners/eov_section_bg.jpg') no-repeat center center/cover; /* Placeholder. Replace with actual EOV section background image if available */
+            background: linear-gradient(to right, rgba(1, 4, 9, 0.8), rgba(1, 4, 9, 0.6)), url('/images/banners/eov_section_bg.jpg') no-repeat center center/cover;
         }        
+        /* CSS cho FAB Container */
+        #fab-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+        .fab-button {
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 9999px; /* Vòng tròn */
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none; /* Đảm bảo không có gạch chân cho thẻ <a> */
+        }
+        .fab-button:hover {
+            background-color: #2563eb;
+            transform: scale(1.1);
+        }
+        .fab-button.chat { background-color: #28a745; } /* Màu xanh lá cho chat */
+        .fab-button.chat:hover { background-color: #218838; }
+        .fab-button.phone { background-color: #dc3545; } /* Màu đỏ cho phone */
+        .fab-button.phone:hover { background-color: #c82333; }
+        .fab-button.main {
+            background-color: #58a6ff; /* Màu chính cho nút FAB */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .fab-button.main:hover {
+            background-color: #3b82f6;
+        }
+        .fab-menu {
+            display: none; /* Mặc định ẩn */
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-end;
+        }
+        .fab-container.open .fab-menu {
+            display: flex; /* Hiện khi có class 'open' */
+        }
+        .fab-button span {
+            display: none; /* Ẩn văn bản trên mobile theo mặc định, chỉ hiển thị icon */
+        }
+
+        /* Responsive adjustments for FAB */
+        @media (min-width: 768px) { /* On larger screens, show text for sub-buttons */
+            .fab-button {
+                width: auto;
+                padding: 10px 20px;
+                border-radius: 28px; /* Slightly less rounded for wider buttons */
+                font-size: 18px;
+            }
+            .fab-button i {
+                margin-right: 8px;
+            }
+            .fab-button span {
+                display: inline;
+            }
+            .fab-button.main {
+                width: 56px;
+                height: 56px;
+                padding: 0;
+            }
+            .fab-button.main i {
+                margin-right: 0;
+            }
+            .fab-button.main span {
+                display: none;
+            }
+        }
     </style>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -203,7 +283,113 @@
             </div>
         </section>
         
+        <!-- Section: Ứng dụng quản lý mầm non (IVS KinderLink) và trung tâm ngoại ngữ (IVS CenterCare) -->
         <section class="py-20 md:py-28 bg-ivs-card-dark border-y border-ivs-border-dark">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up">Giải Pháp Quản Lý Giáo Dục Toàn Diện</h2>
+                    <p class="section-subtitle text-lg" data-aos="fade-up" data-aos-delay="100">
+                        Tối ưu hóa vận hành, nâng cao chất lượng quản lý với các ứng dụng chuyên biệt của IVS.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-right">
+                        <img src="images/apps/kinderlink.png" class="rounded-lg mb-6 w-full h-48 object-cover" alt="Hình ảnh minh họa IVS KinderLink" onerror="this.onerror=null; this.src='https://placehold.co/400x200/161B22/FFFFFF?text=IVS+KinderLink';">
+                        <h3 class="font-display text-xl font-semibold mb-3 text-white">IVS KinderLink: Ứng Dụng Quản Lý Mầm Non</h3>
+                        <p class="text-ivs-gray text-sm leading-relaxed mb-5 flex-grow">
+                            Giải pháp toàn diện giúp các trường mầm non quản lý học sinh, lịch học, thông báo, tương tác phụ huynh hiệu quả, mang lại trải nghiệm số liền mạch.
+                        </p>
+                        <a href="solutions.html#kinderlink" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm mt-auto">Tìm hiểu thêm <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-left">
+                        <img src="images/apps/centercare.png" class="rounded-lg mb-6 w-full h-48 object-cover" alt="Hình ảnh minh họa IVS CenterCare" onerror="this.onerror=null; this.src='https://placehold.co/400x200/161B22/FFFFFF?text=IVS+CenterCare';">
+                        <h3 class="font-display text-xl font-semibold mb-3 text-white">IVS CenterCare: Ứng Dụng Quản Lý Trung Tâm Ngoại Ngữ</h3>
+                        <p class="text-ivs-gray text-sm leading-relaxed mb-5 flex-grow">
+                            Hệ thống chuyên biệt hỗ trợ trung tâm ngoại ngữ quản lý khóa học, giảng viên, học viên, tài chính và tự động hóa các quy trình hành chính.
+                        </p>
+                        <a href="solutions.html#centercare" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm mt-auto">Tìm hiểu thêm <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Liên kết Giáo dục với IVS Academy -->
+        <section class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up">Liên Kết Giáo Dục Cùng IVS Academy</h2>
+                    <p class="section-subtitle text-lg" data-aos="fade-up" data-aos-delay="100">
+                        IVS Academy mở rộng cơ hội học tập thông qua các chương trình liên kết đa dạng, chuẩn bị hành trang vững chắc cho học sinh.
+                    </p>
+                </div>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold mb-2 text-white">Liên Kết Mầm Non</h3>
+                        <p class="text-ivs-gray text-sm leading-relaxed">Phát triển chương trình song ngữ, STEM và kỹ năng sống cho các trường mầm non theo chuẩn quốc tế.</p>
+                        <a href="education.html#kindergarten" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm mt-4">Chi tiết <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-icon w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold mb-2 text-white">Liên Kết Tiểu Học & Trung Học</h3>
+                        <p class="text-ivs-gray text-sm leading-relaxed">Chương trình tích hợp tiếng Anh chuyên sâu, STEAM, và kỹ năng tư duy phản biện cho học sinh phổ thông.</p>
+                        <a href="education.html#k12" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm mt-4">Chi tiết <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="400">
+                        <div class="feature-icon w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold mb-2 text-white">Chuyển Tiếp Đại Học & Du Học</h3>
+                        <p class="text-ivs-gray text-sm leading-relaxed">Tư vấn và hỗ trợ học sinh chuyển tiếp vào các trường đại học quốc tế, cung cấp chương trình dự bị chất lượng cao.</p>
+                        <a href="education.html#higher-ed" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm mt-4">Chi tiết <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Tài liệu giáo dục, kho truyện, v.v. -->
+        <section class="py-20 md:py-28 bg-ivs-card-dark border-y border-ivs-border-dark">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up">Kho Tài Nguyên Giáo Dục IVS</h2>
+                    <p class="section-subtitle text-lg" data-aos="fade-up" data-aos-delay="100">
+                        Khám phá thư viện tài liệu phong phú, truyện đọc tương tác và các nguồn học liệu đa phương tiện từ IVS.
+                    </p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
+                        <img src="images/resources/digital-library.png" class="rounded-lg mb-6 w-full h-40 object-cover" alt="Hình ảnh minh họa Thư viện số" onerror="this.onerror=null; this.src='https://placehold.co/400x200/161B22/FFFFFF?text=Thư+Viện+Số';">
+                        <h3 class="font-display text-xl font-semibold mb-2 text-white">Thư Viện Số IVS</h3>
+                        <p class="text-ivs-gray text-sm leading-relaxed flex-grow">
+                            Truy cập hàng ngàn tài liệu học thuật, giáo trình, báo cáo nghiên cứu và các bài viết chuyên sâu về giáo dục, công nghệ.
+                        </p>
+                        <a href="gallery.html#library" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm mt-4">Khám phá <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="300">
+                        <img src="images/resources/interactive-stories.png" class="rounded-lg mb-6 w-full h-40 object-cover" alt="Hình ảnh minh họa Kho truyện tương tác" onerror="this.onerror=null; this.src='https://placehold.co/400x200/161B22/FFFFFF?text=Truyện+Tương+Tác';">
+                        <h3 class="font-display text-xl font-semibold mb-2 text-white">Kho Truyện Tương Tác</h3>
+                        <p class="text-ivs-gray text-sm leading-relaxed flex-grow">
+                            Đọc và học tiếng Anh qua các câu chuyện được thiết kế tương tác, phù hợp với mọi lứa tuổi, giúp phát triển kỹ năng đọc hiểu và từ vựng.
+                        </p>
+                        <a href="gallery.html#stories" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm mt-4">Truy cập <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
+                    </div>
+                    <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="400">
+                        <img src="images/resources/multimedia-resources.png" class="rounded-lg mb-6 w-full h-40 object-cover" alt="Hình ảnh minh họa Tài nguyên đa phương tiện" onerror="this.onerror=null; this.src='https://placehold.co/400x200/161B22/FFFFFF?text=Đa+Phương+Tiện';">
+                        <h3 class="font-display text-xl font-semibold mb-2 text-white">Tài Nguyên Đa Phương Tiện</h3>
+                        <p class="text-ivs-gray text-sm leading-relaxed flex-grow">
+                            Kho video bài giảng, podcast, và các công cụ học tập trực tuyến khác, mang lại trải nghiệm học tập phong phú và hiệu quả.
+                        </p>
+                        <a href="gallery.html#multimedia" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm mt-4">Tìm hiểu <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 md:py-28">
             <div class="container mx-auto px-6">
                  <div class="text-center mb-16">
                     <h2 class="section-title text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up" data-lang-key="index_core_services_title">Dịch Vụ Cốt Lõi Của IVS</h2>
@@ -214,7 +400,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Service Card 1 -->
                     <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
-                        <div class="feature-icon w-12 h-12 rounded-lg flex items-center justify-center mb-5 text-2xl"><i class="fas fa-school"></i></div>
+                        <div class="feature-icon w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-5 text-2xl"><i class="fas fa-school"></i></div>
                         <h3 class="font-display text-xl font-semibold mb-3 text-white" data-lang-key="index_service_edupartnership_title">Giáo Dục Liên Kết</h3>
                         <p class="text-ivs-gray text-sm leading-relaxed mb-5 flex-grow" data-lang-key="index_service_edupartnership_desc">Hợp tác triển khai các chương trình giáo dục tiên tiến từ Mầm non đến THPT, tích hợp STEAM và kỹ năng tương lai.</p>
                         <a href="education.html" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm mt-auto">Tìm hiểu thêm <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
@@ -233,6 +419,52 @@
                         <p class="text-ivs-gray text-sm leading-relaxed mb-5 flex-grow" data-lang-key="index_service_legalbiz_desc">Tư vấn thành lập trung tâm, doanh nghiệp; hỗ trợ thủ tục pháp lý, giấy phép lao động (Work Permit) và các vấn đề dân sự.</p>
                         <a href="consulting.html" class="font-semibold text-ivs-blue hover:text-ivs-blue-dark text-sm mt-auto">Tìm hiểu thêm <i class="fas fa-chevron-right ml-1 text-xs"></i></a>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Giới thiệu các trang chính -->
+        <section class="py-20 md:py-28 bg-ivs-card-dark border-y border-ivs-border-dark">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold mb-4" data-aos="fade-up">Khám Phá Các Lĩnh Vực Của IVS</h2>
+                    <p class="section-subtitle text-lg" data-aos="fade-up" data-aos-delay="100">
+                        Tìm hiểu sâu hơn về các giải pháp và dịch vụ chuyên biệt của chúng tôi.
+                    </p>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <a href="consulting.html" class="glass-card p-8 rounded-2xl flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon w-16 h-16 rounded-full flex items-center justify-center mb-4 text-3xl">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold mb-2 text-white">Tư Vấn</h3>
+                        <p class="text-ivs-gray text-sm flex-grow">Giải pháp tư vấn chiến lược, pháp lý và doanh nghiệp.</p>
+                        <span class="mt-4 font-semibold text-ivs-blue text-sm">Xem Chi Tiết <i class="fas fa-arrow-right ml-1"></i></span>
+                    </a>
+                    <a href="education.html" class="glass-card p-8 rounded-2xl flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-icon w-16 h-16 rounded-full flex items-center justify-center mb-4 text-3xl">
+                            <i class="fas fa-book-reader"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold mb-2 text-white">Giáo Dục</h3>
+                        <p class="text-ivs-gray text-sm flex-grow">Chương trình liên kết, đào tạo kỹ năng và ngoại ngữ.</p>
+                        <span class="mt-4 font-semibold text-ivs-blue text-sm">Xem Chi Tiết <i class="fas fa-arrow-right ml-1"></i></span>
+                    </a>
+                    <a href="solutions.html" class="glass-card p-8 rounded-2xl flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="400">
+                        <div class="feature-icon w-16 h-16 rounded-full flex items-center justify-center mb-4 text-3xl">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold mb-2 text-white">Giải Pháp</h3>
+                        <p class="text-ivs-gray text-sm flex-grow">Ứng dụng quản lý, công nghệ giáo dục (EdTech).</p>
+                        <span class="mt-4 font-semibold text-ivs-blue text-sm">Xem Chi Tiết <i class="fas fa-arrow-right ml-1"></i></span>
+                    </a>
+                    <a href="ivs-partners.html" class="glass-card p-8 rounded-2xl flex flex-col items-center text-center" data-aos="fade-up" data-aos-delay="500">
+                        <div class="feature-icon w-16 h-16 rounded-full flex items-center justify-center mb-4 text-3xl">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3 class="font-display text-xl font-semibold mb-2 text-white">Đối Tác Quốc Tế</h3>
+                        <p class="text-ivs-gray text-sm flex-grow">Mở rộng hợp tác, cơ hội du học và trao đổi văn hóa.</p>
+                        <span class="mt-4 font-semibold text-ivs-blue text-sm">Xem Chi Tiết <i class="fas fa-arrow-right ml-1"></i></span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -346,7 +578,24 @@
 
     <footer id="footer-placeholder"></footer>
 
-    <div id="fab-container-placeholder"></div>
+    <!-- Floating Action Button Container -->
+    <div id="fab-container" class="fab-container">
+        <a href="tel:+84908053356" class="fab-button phone" data-aos="fade-left" data-aos-delay="300">
+            <i class="fas fa-phone"></i>
+            <span>Gọi điện</span>
+        </a>
+        <a href="https://zalo.me/84908053356" target="_blank" class="fab-button chat" data-aos="fade-left" data-aos-delay="200">
+            <i class="fas fa-comment-dots"></i>
+            <span>Zalo</span>
+        </a>
+        <a href="mailto:contact@ivsacademy.edu.vn" class="fab-button" data-aos="fade-left" data-aos-delay="100">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        <div class="fab-button main" id="fab-toggle" data-aos="fade-in">
+            <i class="fas fa-comments"></i>
+        </div>
+    </div>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="/js/language.js"></script>
@@ -364,6 +613,14 @@
             if (typeof window.loadPosts === 'function') {
                 window.loadPosts('news-container', '/data/posts.json', 3);
             }
+
+            // JavaScript cho FAB
+            const fabToggle = document.getElementById('fab-toggle');
+            const fabContainer = document.getElementById('fab-container');
+
+            fabToggle.addEventListener('click', () => {
+                fabContainer.classList.toggle('open');
+            });
         });
     </script>
 </body>
