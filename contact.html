@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,67 +18,90 @@
     <link rel="apple-touch-icon" href="/images/logo/logo-192.png">
     <link rel="manifest" href="/manifest.json">
 
-    <script src="https://cdn.tailwindcss.com?plugins=typography,forms,aspect-ratio"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/styles.css"> 
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        :root {
-            --header-height: 80px; /* Default, will be updated by JS */
-            --ivs-primary-color: #004080;
-            --ivs-secondary-color: #ffc107;
-            --ivs-accent-color: #F97316;
-            --ivs-text-dark: #1f2937;
-            --ivs-text-light: #f9fafb;
-            --ivs-bg-light: #f9fafb;
-            --ivs-bg-dark: #111827;
-        }
+        /* Tailwind CSS configuration */
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Lexend', 'sans-serif'],
+                    },
+                    colors: {
+                        'ivs-dark': '#0D1117',
+                        'ivs-dark-blue': '#010409',
+                        'ivs-blue': '#3b82f6',
+                        'ivs-blue-dark': '#2563eb',
+                        'ivs-gold': '#ffc107',
+                        'ivs-gold-dark': '#e0a800',
+                        'ivs-light-gray': '#e5e7eb',
+                        'ivs-gray': '#9ca3af',
+                        'ivs-dark-gray': '#4b5563',
+                        'ivs-card-dark': '#161B22',
+                        'ivs-border-dark': '#30363d',
+                        /* Existing contact-specific colors remapped for consistency */
+                        'ivs-primary': '#3b82f6', /* Main blue */
+                        'ivs-secondary': '#ffc107', /* Gold */
+                        'ivs-accent': '#F97316', /* Orange */
+                        'ivs-text-dark': '#1f2937', /* Dark text for light mode */
+                        'ivs-text-light': '#f9fafb', /* Light text for dark mode */
+                        'ivs-bg-light': '#f9fafb', /* Light background */
+                        'ivs-bg-dark': '#010409', /* Dark background */
+                        'ivs-neutral-50': '#f9fafb', /* Light neutral */
+                        'ivs-neutral-100': '#f3f4f6',
+                        'ivs-neutral-200': '#e5e7eb',
+                        'ivs-neutral-300': '#d1d5db',
+                        'ivs-neutral-400': '#9ca3af',
+                        'ivs-neutral-500': '#6b7280',
+                        'ivs-neutral-600': '#4b5563',
+                        'ivs-neutral-700': '#374151',
+                        'ivs-neutral-800': '#1f2937',
+                        'ivs-neutral-900': '#111827',
+                    }
+                }
+            }
+        };
+
+        /* Base styles */
         body {
             font-family: 'Inter', sans-serif;
-            color: var(--ivs-text-dark);
+            background-color: #010409; /* Dark background */
+            color: #e5e7eb; /* Light text */
         }
-        .dark body {
-            color: var(--ivs-text-light);
-        }
-        h1, h2, h3, .font-display {
-            font-family: 'Lexend', sans-serif;
-        }
+        .font-display { font-family: 'Lexend', sans-serif; }
         .hero-contact {
-            background-color: var(--ivs-primary-color);
+            background-color: #010409; /* Ensure dark background for hero */
         }
         .contact-icon {
-            color: var(--ivs-primary-color);
-        }
-        .dark .contact-icon {
-            color: var(--ivs-secondary-color);
+            color: #ffc107; /* Gold color for icons in dark mode */
         }
         .form-input-custom, .form-textarea-custom {
-            border-color: #D1D5DB; /* ivs-neutral-300 */
+            border-color: #4b5563; /* Darker border for inputs */
+            background-color: #161B22; /* Card dark background for inputs */
+            color: #e5e7eb; /* Light text for inputs */
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 0.5rem; /* Rounded corners */
         }
         .form-input-custom:focus, .form-textarea-custom:focus {
-            border-color: var(--ivs-primary-color);
-            box-shadow: 0 0 0 3px rgba(0, 64, 128, 0.25);
+            border-color: #3b82f6; /* Blue focus border */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
             outline: none;
         }
-        .dark .form-input-custom, .dark .form-textarea-custom {
-            background-color: #374151; /* ivs-neutral-700 */
-            border-color: #4B5563; /* ivs-neutral-600 */
-            color: var(--ivs-text-light);
-        }
-        .dark .form-input-custom::placeholder, .dark .form-textarea-custom::placeholder {
-            color: #9CA3AF; /* ivs-neutral-400 */
-        }
-        .dark .form-input-custom:focus, .dark .form-textarea-custom:focus {
-            border-color: var(--ivs-secondary-color);
-            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.25);
+        .form-input-custom::placeholder, .form-textarea-custom::placeholder {
+            color: #9ca3af; /* Gray placeholder text */
         }
         .btn-submit-contact {
-            background-color: var(--ivs-accent-color);
+            background-color: #3b82f6; /* Blue button */
             transition: background-color 0.3s ease, transform 0.2s ease;
+            border-radius: 0.5rem; /* Rounded corners */
         }
         .btn-submit-contact:hover {
-            background-color: #DD6B20; /* Darker orange */
+            background-color: #2563eb; /* Darker blue on hover */
             transform: translateY(-2px);
         }
         .social-icon-link {
@@ -87,22 +110,63 @@
         .social-icon-link:hover {
             transform: scale(1.1);
         }
+        /* General section title styling */
+        .section-title {
+            font-family: 'Lexend', sans-serif;
+            letter-spacing: -0.025em;
+            color: #ffffff;
+        }
+        .section-subtitle {
+            color: #9ca3af;
+        }
+        .glass-card {
+            background: rgba(22, 27, 34, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid #30363d;
+            transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .glass-card:hover {
+            background: rgba(30, 36, 44, 0.7);
+            border-color: #4b5563;
+            transform: translateY(-8px);
+        }
+        .map-container {
+            position: relative;
+            padding-bottom: 75%; /* 4:3 aspect ratio, adjust as needed */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem; /* Rounded corners */
+            border: 1px solid #30363d;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body class="flex flex-col min-h-screen bg-ivs-neutral-50 dark:bg-ivs-neutral-900">
-    <div id="header-placeholder" data-loading-text="Đang tải menu..."></div>
+<body class="flex flex-col min-h-screen bg-ivs-dark-blue">
+    <header id="header-placeholder"></header>
 
-    <main class="flex-grow pt-[var(--header-height)] md:pt-[calc(var(--header-height)+1rem)]">
-        <section class="hero-contact text-white py-20 md:py-28 text-center relative overflow-hidden shadow-2xl">
+    <main class="flex-grow pt-20 md:pt-24"> <!-- Adjusted padding top for header -->
+        <section class="hero-contact text-white py-20 md:py-28 text-center relative overflow-hidden">
             <div class="absolute inset-0">
                 <img src="/images/pages/ivs-contact-banner.png" 
                      alt="IVS Connection Banner" 
                      class="w-full h-full object-cover opacity-20"
-                     onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#003366';">
+                     onerror="this.style.display='none'; this.parentElement.style.backgroundColor='#010409';"> <!-- Fallback to dark-blue -->
             </div>
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold mb-6" data-lang-key="contact_hero_title">Kết Nối Với IVS JSC</h1>
-                <p class="text-lg sm:text-xl max-w-3xl mx-auto text-gray-200 dark:text-ivs-neutral-200" data-lang-key="contact_hero_subtitle">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold mb-6" data-aos="fade-down" data-lang-key="contact_hero_title">Kết Nối Với IVS JSC</h1>
+                <p class="text-lg sm:text-xl max-w-3xl mx-auto text-ivs-light-gray" data-aos="fade-up" data-aos-delay="100" data-lang-key="contact_hero_subtitle">
                     Chúng tôi luôn sẵn sàng lắng nghe, tư vấn và đồng hành cùng quý vị trên hành trình chinh phục tri thức và phát triển bền vững.
                 </p>
             </div>
@@ -111,122 +175,115 @@
         <section class="py-16 md:py-24">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <header class="text-center mb-12 md:mb-16">
-                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-ivs-primary dark:text-ivs-secondary mb-4" data-lang-key="contact_main_title">Chúng Tôi Luôn Sẵn Lòng Hỗ Trợ</h2>
-                    <p class="text-ivs-neutral-600 dark:text-ivs-neutral-400 max-w-2xl mx-auto" data-lang-key="contact_main_subtitle">
+                    <h2 class="section-title text-3xl sm:text-4xl font-bold mb-4" data-aos="fade-up" data-lang-key="contact_main_title">Chúng Tôi Luôn Sẵn Lòng Hỗ Trợ</h2>
+                    <p class="section-subtitle text-lg max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100" data-lang-key="contact_main_subtitle">
                         Dù bạn có câu hỏi, cần tư vấn, hay muốn tìm hiểu cơ hội hợp tác, đội ngũ IVS luôn ở đây để hỗ trợ.
                     </p>
                 </header>
                 
-                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 bg-white dark:bg-ivs-neutral-800 p-6 sm:p-8 md:p-10 rounded-xl shadow-2xl">
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 glass-card p-6 sm:p-8 md:p-10 rounded-xl shadow-2xl">
                     <div class="lg:col-span-2 space-y-8">
-                        <div>
-                            <h3 class="text-2xl font-display font-semibold text-ivs-neutral-800 dark:text-ivs-neutral-100 mb-5" data-lang-key="contact_details_title">Thông Tin Liên Hệ Chính Thức</h3>
-                            <div class="space-y-5 text-base text-ivs-neutral-700 dark:text-ivs-neutral-300">
+                        <div data-aos="fade-right">
+                            <h3 class="text-2xl font-display font-semibold text-white mb-5" data-lang-key="contact_details_title">Thông Tin Liên Hệ Chính Thức</h3>
+                            <div class="space-y-5 text-base text-ivs-light-gray">
                                 <div class="flex items-start space-x-4">
                                     <i class="fas fa-map-marker-alt contact-icon text-xl mt-1 w-6 text-center"></i>
                                     <div>
-                                        <p class="font-medium text-ivs-neutral-800 dark:text-ivs-neutral-100" data-lang-key="contact_address_label">Trụ sở chính:</p>
+                                        <p class="font-medium text-white" data-lang-key="contact_address_label">Trụ sở chính:</p>
                                         <p data-lang-key="contact_address_value">1104, Tổ 6, Ấp Đất Mới, Xã Long Phước, Huyện Long Thành, Tỉnh Đồng Nai, Việt Nam.</p>
                                     </div>
                                 </div>
                                 <div class="flex items-start space-x-4">
                                     <i class="fas fa-phone-alt contact-icon text-xl mt-1 w-6 text-center"></i>
                                     <div>
-                                        <p class="font-medium text-ivs-neutral-800 dark:text-ivs-neutral-100" data-lang-key="contact_hotline_label">Hotline Tư vấn:</p>
-                                        <p><a href="tel:+84896920547" class="hover:text-ivs-accent dark:hover:text-ivs-secondary transition-colors" data-lang-key="contact_hotline_1_value">(+84) 896 920 547</a></p>
-                                        <p><a href="tel:+84795555789" class="hover:text-ivs-accent dark:hover:text-ivs-secondary transition-colors" data-lang-key="contact_hotline_2_value">(+84) 795 555 789</a></p>
+                                        <p class="font-medium text-white" data-lang-key="contact_hotline_label">Hotline Tư vấn:</p>
+                                        <p><a href="tel:+84896920547" class="hover:text-ivs-blue transition-colors" data-lang-key="contact_hotline_1_value">(+84) 896 920 547</a></p>
+                                        <p><a href="tel:+84795555789" class="hover:text-ivs-blue transition-colors" data-lang-key="contact_hotline_2_value">(+84) 795 555 789</a></p>
                                     </div>
                                 </div>
                                 <div class="flex items-start space-x-4">
                                     <i class="fas fa-envelope contact-icon text-xl mt-1 w-6 text-center"></i>
                                     <div>
-                                        <p class="font-medium text-ivs-neutral-800 dark:text-ivs-neutral-100" data-lang-key="contact_email_label">Email Doanh nghiệp:</p>
-                                        <p><a href="mailto:info@ivsacademy.edu.vn" class="hover:text-ivs-accent dark:hover:text-ivs-secondary transition-colors" data-lang-key="contact_email_value">info@ivsacademy.edu.vn</a></p>
+                                        <p class="font-medium text-white" data-lang-key="contact_email_label">Email Doanh nghiệp:</p>
+                                        <p><a href="mailto:info@ivsacademy.edu.vn" class="hover:text-ivs-blue transition-colors" data-lang-key="contact_email_value">info@ivsacademy.edu.vn</a></p>
                                     </div>
                                 </div>
                                 <div class="flex items-start space-x-4">
                                     <i class="fas fa-globe contact-icon text-xl mt-1 w-6 text-center"></i>
                                     <div>
-                                        <p class="font-medium text-ivs-neutral-800 dark:text-ivs-neutral-100" data-lang-key="contact_website_label">Website Chính thức:</p>
-                                        <p><a href="https://ivsacademy.edu.vn" target="_blank" rel="noopener noreferrer" class="hover:text-ivs-accent dark:hover:text-ivs-secondary transition-colors" data-lang-key="contact_website_value">ivsacademy.edu.vn</a></p>
+                                        <p class="font-medium text-white" data-lang-key="contact_website_label">Website Chính thức:</p>
+                                        <p><a href="https://ivsacademy.edu.vn" target="_blank" rel="noopener noreferrer" class="hover:text-ivs-blue transition-colors" data-lang-key="contact_website_value">ivsacademy.edu.vn</a></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div>
-                            <h3 class="text-xl font-display font-semibold text-ivs-neutral-800 dark:text-ivs-neutral-100 mb-4" data-lang-key="contact_social_title">Kết Nối Với IVS Trên Mạng Xã Hội</h3>
+                        <div data-aos="fade-right" data-aos-delay="100">
+                            <h3 class="text-xl font-display font-semibold text-white mb-4" data-lang-key="contact_social_title">Kết Nối Với IVS Trên Mạng Xã Hội</h3>
                             <div class="flex flex-wrap gap-x-5 gap-y-3">
-                                <a href="https://www.youtube.com/@IVSJSC" target="_blank" rel="noopener noreferrer" class="social-icon-link text-ivs-neutral-500 dark:text-ivs-neutral-400 hover:text-red-600 dark:hover:text-red-500" aria-label="YouTube">
+                                <a href="https://www.youtube.com/@IVSJSC" target="_blank" rel="noopener noreferrer" class="social-icon-link text-ivs-gray hover:text-red-600" aria-label="YouTube">
                                     <i class="fab fa-youtube fa-2x"></i>
                                 </a>
-                                <a href="https://www.facebook.com/hr.ivsacademy/" target="_blank" rel="noopener noreferrer" class="social-icon-link text-ivs-neutral-500 dark:text-ivs-neutral-400 hover:text-blue-600 dark:hover:text-blue-400" aria-label="Facebook HR IVS Academy">
+                                <a href="https://www.facebook.com/hr.ivsacademy/" target="_blank" rel="noopener noreferrer" class="social-icon-link text-ivs-gray hover:text-blue-600" aria-label="Facebook HR IVS Academy">
                                     <i class="fab fa-facebook-square fa-2x"></i>
                                 </a>
-                                <a href="https://www.facebook.com/ivsmastery/" target="_blank" rel="noopener noreferrer" class="social-icon-link text-ivs-neutral-500 dark:text-ivs-neutral-400 hover:text-blue-600 dark:hover:text-blue-400" aria-label="Facebook IVS Mastery">
+                                <a href="https://www.facebook.com/ivsmastery/" target="_blank" rel="noopener noreferrer" class="social-icon-link text-ivs-gray hover:text-blue-600" aria-label="Facebook IVS Mastery">
                                     <i class="fab fa-facebook-square fa-2x"></i>
                                 </a>
-                                <a href="https://www.tiktok.com/@congty.ivsjsc" target="_blank" rel="noopener noreferrer" class="social-icon-link text-ivs-neutral-500 dark:text-ivs-neutral-400 hover:text-black dark:hover:text-white" aria-label="TikTok">
+                                <a href="https://www.tiktok.com/@congty.ivsjsc" target="_blank" rel="noopener noreferrer" class="social-icon-link text-ivs-gray hover:text-white" aria-label="TikTok">
                                     <i class="fab fa-tiktok fa-2x"></i>
                                 </a>
-                                <a href="https://zalo.me/ivsjsc" target="_blank" rel="noopener noreferrer" class="social-icon-link text-ivs-neutral-500 dark:text-ivs-neutral-400 hover:text-blue-500 dark:hover:text-blue-300" aria-label="Zalo OA IVS JSC">
+                                <a href="https://zalo.me/ivsjsc" target="_blank" rel="noopener noreferrer" class="social-icon-link text-ivs-gray hover:text-ivs-blue" aria-label="Zalo OA IVS JSC">
                                     <i class="fas fa-comment-dots fa-2x"></i> <span class="ml-1 text-xs hidden sm:inline">IVS JSC OA</span>
                                 </a>
-                                 <a href="https://wa.me/84795555789" target="_blank" rel="noopener noreferrer" class="social-icon-link text-ivs-neutral-500 dark:text-ivs-neutral-400 hover:text-green-500 dark:hover:text-green-400" aria-label="WhatsApp">
+                                 <a href="https://wa.me/84795555789" target="_blank" rel="noopener noreferrer" class="social-icon-link text-ivs-gray hover:text-green-500" aria-label="WhatsApp">
                                     <i class="fab fa-whatsapp fa-2x"></i>
                                 </a>
-                                <!-- Add LinkedIn when available -->
-                                <!-- <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon-link text-ivs-neutral-500 dark:text-ivs-neutral-400 hover:text-blue-700 dark:hover:text-blue-500" aria-label="LinkedIn">
-                                    <i class="fab fa-linkedin fa-2x"></i>
-                                </a> -->
                             </div>
                         </div>
                     </div>
 
-                    <div class="lg:col-span-3 bg-ivs-neutral-50 dark:bg-ivs-neutral-700/50 p-6 sm:p-8 rounded-xl shadow-inner">
-                        <h3 class="text-2xl font-display font-semibold text-ivs-neutral-800 dark:text-ivs-neutral-100 mb-6" data-lang-key="contact_form_title">Gửi Yêu Cầu Tư Vấn Trực Tuyến</h3>
+                    <div class="lg:col-span-3 glass-card p-6 sm:p-8 rounded-xl shadow-inner" data-aos="fade-left">
+                        <h3 class="text-2xl font-display font-semibold text-white mb-6" data-lang-key="contact_form_title">Gửi Yêu Cầu Tư Vấn Trực Tuyến</h3>
                         <form id="contactForm" class="space-y-6">
                             <div>
-                                <label for="name" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="contact_form_name_label">Họ và Tên</label>
-                                <input type="text" id="name" name="name" class="form-input-custom block w-full rounded-md shadow-sm py-2.5 px-3.5" placeholder="Ví dụ: Nguyễn Văn An" required data-lang-key="contact_form_name_placeholder">
+                                <label for="name" class="block text-sm font-medium text-ivs-light-gray mb-1" data-lang-key="contact_form_name_label">Họ và Tên</label>
+                                <input type="text" id="name" name="name" class="form-input-custom block w-full shadow-sm py-2.5 px-3.5" placeholder="Ví dụ: Nguyễn Văn An" required data-lang-key="contact_form_name_placeholder">
                             </div>
                             <div>
-                                <label for="email" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="contact_form_email_label">Email</label>
-                                <input type="email" id="email" name="email" class="form-input-custom block w-full rounded-md shadow-sm py-2.5 px-3.5" placeholder="your.email@example.com" required data-lang-key="contact_form_email_placeholder">
+                                <label for="email" class="block text-sm font-medium text-ivs-light-gray mb-1" data-lang-key="contact_form_email_label">Email</label>
+                                <input type="email" id="email" name="email" class="form-input-custom block w-full shadow-sm py-2.5 px-3.5" placeholder="your.email@example.com" required data-lang-key="contact_form_email_placeholder">
                             </div>
                             <div>
-                                <label for="phone" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="contact_form_phone_label">Số điện thoại (Tùy chọn)</label>
-                                <input type="tel" id="phone" name="phone" class="form-input-custom block w-full rounded-md shadow-sm py-2.5 px-3.5" placeholder="Ví dụ: 090 123 4567" data-lang-key="contact_form_phone_placeholder">
+                                <label for="phone" class="block text-sm font-medium text-ivs-light-gray mb-1" data-lang-key="contact_form_phone_label">Số điện thoại (Tùy chọn)</label>
+                                <input type="tel" id="phone" name="phone" class="form-input-custom block w-full shadow-sm py-2.5 px-3.5" placeholder="Ví dụ: 090 123 4567" data-lang-key="contact_form_phone_placeholder">
                             </div>
                             <div>
-                                <label for="subject" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="contact_form_subject_label">Chủ đề liên hệ</label>
-                                <input type="text" id="subject" name="subject" class="form-input-custom block w-full rounded-md shadow-sm py-2.5 px-3.5" placeholder="Ví dụ: Tư vấn chương trình STEAM" required data-lang-key="contact_form_subject_placeholder">
+                                <label for="subject" class="block text-sm font-medium text-ivs-light-gray mb-1" data-lang-key="contact_form_subject_label">Chủ đề liên hệ</label>
+                                <input type="text" id="subject" name="subject" class="form-input-custom block w-full shadow-sm py-2.5 px-3.5" placeholder="Ví dụ: Tư vấn chương trình STEAM" required data-lang-key="contact_form_subject_placeholder">
                             </div>
                             <div>
-                                <label for="message" class="block text-sm font-medium text-ivs-neutral-700 dark:text-ivs-neutral-300 mb-1" data-lang-key="contact_form_message_label">Nội dung chi tiết</label>
-                                <textarea id="message" name="message" rows="5" class="form-textarea-custom block w-full rounded-md shadow-sm py-2.5 px-3.5" placeholder="Vui lòng mô tả rõ yêu cầu hoặc câu hỏi của bạn..." required data-lang-key="contact_form_message_placeholder"></textarea>
+                                <label for="message" class="block text-sm font-medium text-ivs-light-gray mb-1" data-lang-key="contact_form_message_label">Nội dung chi tiết</label>
+                                <textarea id="message" name="message" rows="5" class="form-textarea-custom block w-full shadow-sm py-2.5 px-3.5" placeholder="Vui lòng mô tả rõ yêu cầu hoặc câu hỏi của bạn..." required data-lang-key="contact_form_message_placeholder"></textarea>
                             </div>
                             <button type="submit" 
-                                    class="btn-submit-contact w-full flex items-center justify-center text-white px-6 py-3 rounded-lg font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivs-accent dark:focus:ring-offset-ivs-neutral-800" 
+                                    class="btn-submit-contact w-full flex items-center justify-center text-white px-6 py-3 font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ivs-blue" 
                                     data-lang-key="contact_form_submit_button">
                                 <i class="fas fa-paper-plane mr-2"></i>Gửi Yêu Cầu
                             </button>
                         </form>
-                        <p id="form-status" class="mt-4 text-sm text-center"></p>
+                        <p id="form-status" class="mt-4 text-sm text-center text-blue-400"></p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-16 md:py-20 bg-ivs-neutral-100 dark:bg-ivs-neutral-800/50">
+        <section class="py-16 md:py-20 bg-ivs-card-dark border-y border-ivs-border-dark">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl sm:text-4xl font-display font-bold text-ivs-primary dark:text-ivs-secondary mb-10 text-center" data-lang-key="contact_map_title">Ghé Thăm Văn Phòng IVS</h2>
-                <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-2xl border-4 border-white dark:border-ivs-neutral-700">
+                <h2 class="section-title text-3xl sm:text-4xl font-bold mb-10 text-center" data-aos="fade-up" data-lang-key="contact_map_title">Ghé Thăm Văn Phòng IVS</h2>
+                <div class="map-container" data-aos="fade-up" data-aos-delay="100">
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.599723223126!2d106.94508927503142!3d10.84157128931168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d1c4a0f4a0a1%3A0x8f2d5c3d7e8e7e8e!2zQ8O0bm%20Ty%20CP%20R%E1%BB%8B%20V%E1%BB%A5%20Th%C6%B0%C6%A1ng%20M%E1%BA%A1i%20Integrate%20Vision%20Synergy%20(IVS%20JSC)!5e0!3m2!1svi!2s!4v1717142400000!5m2!1svi!2s"
-                        width="100%"
-                        height="100%" 
-                        style="border:0;"
                         allowfullscreen=""
                         loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"
@@ -237,40 +294,43 @@
         </section>
     </main>
 
+    <footer id="footer-placeholder"></footer>
     <div id="fab-container-placeholder"></div>
-    <div id="footer-placeholder" data-loading-text="Đang tải chân trang..."></div>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="/js/loadComponents.js"></script>
     <script src="/js/language.js"></script>
-    <script src="/js/script.js"></script>
     <script>
-        // Add specific script for contact form submission if needed
-        const contactForm = document.getElementById('contactForm');
-        const formStatus = document.getElementById('form-status');
-
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                // Basic form submission status display (replace with actual submission logic)
-                if (formStatus) {
-                    formStatus.textContent = 'Đang gửi yêu cầu...';
-                    formStatus.className = 'mt-4 text-sm text-center text-blue-600 dark:text-blue-400';
-                }
-
-                // Simulate API call
-                setTimeout(() => {
-                    // const formData = new FormData(contactForm);
-                    // for (let [key, value] of formData.entries()) {
-                    //     console.log(key, value);
-                    // }
-                    if (formStatus) {
-                        formStatus.textContent = 'Yêu cầu của bạn đã được gửi thành công! Chúng tôi sẽ sớm liên hệ lại.';
-                        formStatus.className = 'mt-4 text-sm text-center text-green-600 dark:text-green-400';
-                    }
-                    contactForm.reset();
-                }, 2000);
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 50,
+                easing: 'ease-out-quad',
             });
-        }
+
+            const contactForm = document.getElementById('contactForm');
+            const formStatus = document.getElementById('form-status');
+
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    if (formStatus) {
+                        formStatus.textContent = 'Đang gửi yêu cầu...';
+                        formStatus.className = 'mt-4 text-sm text-center text-blue-400';
+                    }
+
+                    // Simulate API call
+                    setTimeout(() => {
+                        if (formStatus) {
+                            formStatus.textContent = 'Yêu cầu của bạn đã được gửi thành công! Chúng tôi sẽ sớm liên hệ lại.';
+                            formStatus.className = 'mt-4 text-sm text-center text-green-400';
+                        }
+                        contactForm.reset();
+                    }, 2000);
+                });
+            }
+        });
     </script>
 </body>
 </html>
