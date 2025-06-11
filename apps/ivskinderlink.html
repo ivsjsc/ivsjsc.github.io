@@ -614,6 +614,29 @@
             box-shadow: 0 5px 20px rgba(0,0,0, 0.05);
             margin-bottom: 20px;
         }
+        /* AI report specific styles */
+        .ai-report-content {
+            background-color: #f9f9f9;
+            border: 1px solid #e1e8ed;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        .ai-report-content p {
+            margin-bottom: 10px;
+        }
+        .ai-report-content h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .ai-report-loading {
+            text-align: center;
+            padding: 20px;
+            font-weight: 600;
+            color: #667eea;
+        }
 
         @media (max-width: 768px) {
             .header, .nav-tabs {
@@ -748,12 +771,13 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Họ tên Trẻ</th><th>Lớp</th><th>Họ tên Cha</th><th>Họ tên Mẹ</th><th>SĐT liên lạc</th><th>Tài khoản KinderLink</th><th>Thao tác</th>
+                            <th>Họ tên Trẻ</th><th>Lớp</th><th>Họ tên Cha</th><th>Họ tên Mẹ</th><th>SĐT liên lạc</th><th>Tài khoản KinderLink</th><th>Thao tác</th><th>Báo cáo AI</th>
                         </tr>
                     </thead>
                     <tbody id="childrenTableBody"></tbody>
                 </table>
             </div>
+            <div id="aiChildReportContainer" class="ai-report-placeholder" style="display: none;"></div>
         </div>
 
         <div id="finance_nutrition" class="tab-content">
@@ -1022,6 +1046,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${parentInfo.fatherPhone || parentInfo.motherPhone || 'N/A'}</td>
                 <td>${userInfo.username || 'Chưa tạo'}</td>
                 <td><button class="btn btn-danger" onclick="deleteChild(${c.id})">Xóa</button></td>
+                <td><button class="btn btn-primary" onclick="generateChildReport(${c.id})">✨ Báo Cáo AI</button></td>
             </tr>`;
         });
     };
@@ -1493,6 +1518,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('teacherFormContainer').style.display = 'none';
         } else if (tabName === 'children') {
             document.getElementById('childFormContainer').style.display = 'none';
+            document.getElementById('aiChildReportContainer').style.display = 'none'; // Also hide AI report
         }
     };
 
@@ -1516,7 +1542,66 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('addChildBtn').addEventListener('click', () => {
         const formContainer = document.getElementById('childFormContainer');
         formContainer.style.display = formContainer.style.display === 'block' ? 'none' : 'block';
+        document.getElementById('aiChildReportContainer').style.display = 'none'; // Hide AI report when showing form
     });
+
+    // Hàm tạo báo cáo AI cho trẻ
+    window.generateChildReport = async (childId) => {
+        const child = db.children.find(c => c.id === childId);
+        const parentInfo = db.parents.find(p => p.childId === childId);
+        const aiReportContainer = document.getElementById('aiChildReportContainer');
+        
+        if (!child) {
+            aiReportContainer.innerHTML = '<p style="color: red;">Không tìm thấy thông tin trẻ.</p>';
+            aiReportContainer.style.display = 'block';
+            return;
+        }
+
+        // Display loading indicator
+        aiReportContainer.innerHTML = `<div class="ai-report-loading">Đang tạo báo cáo cho bé ${child.name}... ✨</div>`;
+        aiReportContainer.style.display = 'block';
+
+        const prompt = `Tạo một báo cáo tóm tắt phát triển cho trẻ mầm non dựa trên thông tin sau:
+        Tên: ${child.name}
+        Ngày sinh: ${child.birthDate}
+        Giới tính: ${child.gender}
+        Lớp: ${child.class}
+        Tình trạng sức khỏe: ${child.health || 'Bình thường'}
+        Dị ứng: ${child.allergies || 'Không có'}
+        Người liên hệ khẩn cấp: ${child.emergencyContactName || 'Không có'} - ${child.emergencyContactPhone || ''}
+        Thông tin phụ huynh: Cha - ${parentInfo.fatherName || 'N/A'}, Mẹ - ${parentInfo.motherName || 'N/A'}, Email: ${parentInfo.email || 'N/A'}.
+
+        Báo cáo nên tập trung vào các điểm mạnh, khả năng phát triển, và đưa ra những gợi ý tích cực, chuyên nghiệp. Độ dài khoảng 150-200 từ, được định dạng thành các đoạn văn rõ ràng.`;
+
+        try {
+            const chatHistory = [];
+            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+            const payload = { contents: chatHistory };
+            const apiKey = ""; // Canvas will provide this at runtime
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+
+            if (result.candidates && result.candidates.length > 0 && result.candidates[0].content && result.candidates[0].content.parts && result.candidates[0].content.parts.length > 0) {
+                const text = result.candidates[0].content.parts[0].text;
+                aiReportContainer.innerHTML = `
+                    <h3>Báo cáo phát triển của bé ${child.name} (AI tạo)</h3>
+                    <div class="ai-report-content">${text.replace(/\n/g, '<br>')}</div>
+                    <button class="btn btn-primary" style="margin-top: 15px;" onclick="document.getElementById('aiChildReportContainer').style.display = 'none';">Đóng báo cáo</button>
+                `;
+            } else {
+                aiReportContainer.innerHTML = `<p style="color: red;">Không thể tạo báo cáo AI. Vui lòng thử lại sau.</p>`;
+            }
+        } catch (error) {
+            console.error("Error generating AI report:", error);
+            aiReportContainer.innerHTML = `<p style="color: red;">Đã xảy ra lỗi khi tạo báo cáo AI. Chi tiết lỗi: ${error.message}</p>`;
+        }
+    };
 });
 </script>
 </body>
