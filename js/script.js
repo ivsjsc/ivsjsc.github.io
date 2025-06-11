@@ -5,7 +5,7 @@ window.debounce = function(func, delay) {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => func.apply(context, args), delay);
     };
-};
+}
 // stars.js
 const starBackground = document.getElementById('star-background');
 const numberOfStars = 200;
