@@ -13,9 +13,24 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #f0f2f5;
             min-height: 100vh;
             color: #333;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('https://images.pexels.com/photos/159844/school-books-school-knowledge-learning-159844.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.6);
+            z-index: -1;
         }
 
         .container {
@@ -252,7 +267,7 @@
         }
         
         .tab-content {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
@@ -449,6 +464,30 @@
             font-weight: 600;
         }
         
+        .permission-matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .permission-group {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .permission-group h4 {
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .permission-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .permission-item label {
+            margin-left: 8px;
+        }
+        
         .app-footer {
             text-align: center;
             margin-top: 40px;
@@ -519,7 +558,7 @@
             <button data-tab="teachers" class="nav-tab" onclick="showTab('teachers')">👩‍🏫 Quản Lý Giáo Viên</button>
             <button data-tab="children" class="nav-tab" onclick="showTab('children')">👶 Quản Lý Trẻ</button>
             <button data-tab="finance_nutrition" class="nav-tab" onclick="showTab('finance_nutrition')">💰 Tài chính & Dinh dưỡng</button>
-            <button data-tab="users" class="nav-tab" onclick="showTab('users')">👥 Quản Lý User</button>
+            <button data-tab="permissions" class="nav-tab" onclick="showTab('permissions')">🔑 Phân Quyền & Bảo Mật</button>
             <button data-tab="camera" class="nav-tab" onclick="showTab('camera')">📹 Camera</button>
         </div>
         
@@ -621,6 +660,17 @@
                 </div>
             </div>
         </div>
+        
+        <div id="permissions" class="tab-content">
+            <h2 class="tab-title">🔑 Phân Quyền & Bảo Mật</h2>
+            <p>Lựa chọn một nhóm hoặc tài khoản cụ thể để tùy chỉnh quyền truy cập chi tiết vào các module của hệ thống.</p>
+            <div class="form-group" style="max-width: 400px; margin-top: 20px;">
+                <label for="permissionTarget">Chọn đối tượng phân quyền</label>
+                <select id="permissionTarget" class="form-control"></select>
+            </div>
+            <div class="success-message" id="permissionSuccessMessage"></div>
+            <div id="permissionMatrixContainer" class="permission-matrix" style="margin-top:20px;"></div>
+        </div>
 
         <div id="users" class="tab-content">
             <h2 class="tab-title">👥 Quản Lý Tài Khoản Đăng Nhập</h2>
@@ -668,6 +718,25 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 301, name: 'Sân chơi', class: 'Chung', url: 'https://placehold.co/600x400/000000/FFFFFF?text=Sân+Chơi' },
             { id: 302, name: 'Lớp Chồi - Góc học tập', class: 'Lớp Chồi', url: 'https://placehold.co/600x400/000000/FFFFFF?text=Lớp+Chồi' },
             { id: 303, name: 'Lớp Lá - Giờ ăn', class: 'Lớp Lá', url: 'https://placehold.co/600x400/000000/FFFFFF?text=Lớp+Lá' }
+        ],
+        permissions: {
+            roles: {
+                teacher: {
+                    dashboard: true, teachers: false, children: true, finance_nutrition: false, users: false, camera: true
+                },
+                parent: {
+                    dashboard: true, teachers: false, children: false, finance_nutrition: true, users: false, camera: true
+                }
+            },
+            users: {} 
+        },
+        modules: [
+            { id: 'dashboard', name: 'Tổng Quan' },
+            { id: 'teachers', name: 'Quản lý Giáo viên' },
+            { id: 'children', name: 'Quản lý Trẻ' },
+            { id: 'finance_nutrition', name: 'Tài chính & Dinh dưỡng' },
+            { id: 'users', name: 'Quản lý User' },
+            { id: 'camera', name: 'Camera' }
         ]
     };
 
@@ -679,9 +748,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-
         const foundUser = db.users.find(user => user.username === username && user.password === password);
-
         if (foundUser) {
             currentUser = foundUser;
             loginScreen.style.display = 'none';
@@ -701,15 +768,16 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const setupPermissions = () => {
-        document.querySelectorAll('.nav-tab').forEach(tab => { tab.style.display = 'flex'; });
-        const principalOnly = ['users', 'teachers', 'children', 'finance_nutrition'];
-
-        if (currentUser.role === 'principal') {
-        } else if (currentUser.role === 'teacher') {
-             ['users', 'teachers', 'finance_nutrition'].forEach(tab => document.querySelector(`[data-tab="${tab}"]`).style.display = 'none');
-        } else if (currentUser.role === 'parent') {
-             [...principalOnly, 'teachers'].forEach(tab => document.querySelector(`[data-tab="${tab}"]`).style.display = 'none');
-        }
+        const userPermissions = db.permissions.users[currentUser.id] || db.permissions.roles[currentUser.role];
+        
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            const tabId = tab.getAttribute('data-tab');
+            if (currentUser.role === 'principal' || (userPermissions && userPermissions[tabId])) {
+                tab.style.display = 'flex';
+            } else {
+                tab.style.display = 'none';
+            }
+        });
         
         document.getElementById('currentUserName').textContent = currentUser.name;
         document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
@@ -722,6 +790,8 @@ document.addEventListener('DOMContentLoaded', () => {
         renderTeachersTable();
         renderChildrenTable();
         renderUsersTable();
+        populatePermissionTargets();
+        renderPermissionMatrix();
     };
     
     const renderDashboard = () => {
@@ -745,8 +815,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="ai-report-placeholder">
                     <h4>Báo cáo Phân tích Thông minh (AI Demo)</h4>
                     <div class="chart-placeholder">Biểu đồ phân tích xu hướng phát triển kỹ năng của trẻ</div>
-                </div>
-                `;
+                </div>`;
         }
     };
     
@@ -754,7 +823,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const el = document.getElementById(elementId);
         el.textContent = message;
         el.style.display = 'block';
-        setTimeout(() => { el.style.display = 'none'; }, 3000);
+        setTimeout(() => { el.style.display = 'none'; }, 2000);
     };
 
     const renderTeachersTable = () => {
@@ -763,10 +832,7 @@ document.addEventListener('DOMContentLoaded', () => {
         db.teachers.forEach(t => {
             const userAccount = db.users.find(u => u.role === 'teacher' && u.linkedId === t.id);
             tableBody.innerHTML += `<tr>
-                <td>${t.name}</td>
-                <td>${t.assignedClass}</td>
-                <td>${t.phone}</td>
-                <td>${t.address}</td>
+                <td>${t.name}</td><td>${t.assignedClass}</td><td>${t.phone}</td><td>${t.address}</td>
                 <td>${userAccount ? userAccount.username : 'Chưa tạo'}</td>
                 <td><button class="btn btn-danger" onclick="deleteTeacher(${t.id})">Xóa</button></td>
             </tr>`;
@@ -779,24 +845,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let childrenToShow = db.children;
         if(currentUser.role === 'teacher') {
             const teacher = db.teachers.find(t=>t.id===currentUser.linkedId);
-            if(teacher) {
-                childrenToShow = db.children.filter(c => c.class === teacher.assignedClass);
-            } else {
-                childrenToShow = [];
-            }
+            childrenToShow = teacher ? db.children.filter(c => c.class === teacher.assignedClass) : [];
         }
-
         childrenToShow.forEach(c => {
             const parentInfo = db.parents.find(p => p.childId === c.id) || {};
             const userInfo = db.users.find(u => u.role === 'parent' && u.linkedId === c.id) || {};
-            const contactPhone = parentInfo.fatherPhone || parentInfo.motherPhone || 'N/A';
-            
             tableBody.innerHTML += `<tr>
-                <td>${c.name}</td>
-                <td>${c.class}</td>
-                <td>${parentInfo.fatherName || 'N/A'}</td>
-                <td>${parentInfo.motherName || 'N/A'}</td>
-                <td>${contactPhone}</td>
+                <td>${c.name}</td><td>${c.class}</td><td>${parentInfo.fatherName || 'N/A'}</td><td>${parentInfo.motherName || 'N/A'}</td>
+                <td>${parentInfo.fatherPhone || parentInfo.motherPhone || 'N/A'}</td>
                 <td>${userInfo.username || 'Chưa tạo'}</td>
                 <td><button class="btn btn-danger" onclick="deleteChild(${c.id})">Xóa</button></td>
             </tr>`;
@@ -808,35 +864,90 @@ document.addEventListener('DOMContentLoaded', () => {
         tableBody.innerHTML = '';
         db.users.filter(u => u.role !== 'principal').forEach(u => {
             let linkedName = "N/A";
-            if (u.role === 'teacher') {
-                const teacher = db.teachers.find(t => t.id === u.linkedId);
-                linkedName = teacher ? `GV: ${teacher.name}` : 'Không rõ';
-            } else if (u.role === 'parent') {
-                const child = db.children.find(c => c.id === u.linkedId);
-                linkedName = child ? `PH bé: ${child.name}` : 'Không rõ';
-            }
+            if (u.role === 'teacher') linkedName = `GV: ${db.teachers.find(t => t.id === u.linkedId)?.name || 'Không rõ'}`;
+            else if (u.role === 'parent') linkedName = `PH bé: ${db.children.find(c => c.id === u.linkedId)?.name || 'Không rõ'}`;
             tableBody.innerHTML += `<tr><td>${u.id}</td><td>${u.username}</td><td>${u.role}</td><td>${linkedName}</td><td><button class="btn btn-danger" onclick="deleteUser(${u.id})">Xóa</button></td></tr>`;
         });
     };
+    
+    const populatePermissionTargets = () => {
+        const select = document.getElementById('permissionTarget');
+        select.innerHTML = '<option value="">Chọn đối tượng...</option>';
+        select.innerHTML += '<optgroup label="Nhóm Vai trò">';
+        Object.keys(db.permissions.roles).forEach(role => {
+            select.innerHTML += `<option value="role_${role}">Nhóm: ${role}</option>`;
+        });
+        select.innerHTML += '</optgroup><optgroup label="Tài khoản cá nhân">';
+        db.users.filter(u => u.role !== 'principal').forEach(user => {
+            select.innerHTML += `<option value="user_${user.id}">Tài khoản: ${user.name} (${user.username})</option>`;
+        });
+        select.innerHTML += '</optgroup>';
+    };
+    
+    const renderPermissionMatrix = () => {
+        const target = document.getElementById('permissionTarget').value;
+        const container = document.getElementById('permissionMatrixContainer');
+        container.innerHTML = '';
+        if (!target) return;
+
+        const [type, id] = target.split('_');
+        const targetPermissions = (type === 'user') 
+            ? (db.permissions.users[id] || db.permissions.roles[db.users.find(u=>u.id==id).role])
+            : db.permissions.roles[id];
+        
+        const moduleGroups = {
+            'Quản lý chung': ['dashboard', 'teachers', 'children', 'users'],
+            'Nghiệp vụ': ['finance_nutrition', 'camera']
+        };
+
+        for (const groupName in moduleGroups) {
+            const groupDiv = document.createElement('div');
+            groupDiv.className = 'permission-group';
+            groupDiv.innerHTML = `<h4>${groupName}</h4>`;
+            moduleGroups[groupName].forEach(moduleId => {
+                const module = db.modules.find(m => m.id === moduleId);
+                if (module) {
+                    const isChecked = targetPermissions[moduleId] ? 'checked' : '';
+                    groupDiv.innerHTML += `
+                        <div class="permission-item">
+                            <input type="checkbox" id="perm_${moduleId}" data-module="${moduleId}" ${isChecked}>
+                            <label for="perm_${moduleId}">${module.name}</label>
+                        </div>`;
+                }
+            });
+            container.appendChild(groupDiv);
+        }
+
+        container.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                const moduleId = e.target.getAttribute('data-module');
+                const isChecked = e.target.checked;
+                if (type === 'user') {
+                    if (!db.permissions.users[id]) db.permissions.users[id] = {};
+                    db.permissions.users[id][moduleId] = isChecked;
+                } else {
+                    db.permissions.roles[id][moduleId] = isChecked;
+                }
+                showSuccessMessage('permissionSuccessMessage', '✅ Đã cập nhật quyền thành công!');
+            });
+        });
+    };
+    
+    document.getElementById('permissionTarget').addEventListener('change', renderPermissionMatrix);
     
     document.getElementById('teacherForm').addEventListener('submit', (e) => {
         e.preventDefault();
         const teacherId = Date.now();
         const teacherName = document.getElementById('teacherName').value;
-        const teacherUsername = document.getElementById('teacherUsername').value;
-        const teacherPassword = document.getElementById('teacherPassword').value;
-
         db.teachers.push({ 
             id: teacherId, name: teacherName, phone: document.getElementById('teacherPhone').value,
             cccd: document.getElementById('teacherCCCD').value, address: document.getElementById('teacherAddress').value,
             assignedClass: document.getElementById('teacherClass').value 
         });
-
         db.users.push({
-            id: Date.now() + 1, username: teacherUsername, password: teacherPassword,
+            id: Date.now() + 1, username: document.getElementById('teacherUsername').value, password: document.getElementById('teacherPassword').value,
             role: 'teacher', name: teacherName, linkedId: teacherId
         });
-
         renderAll();
         e.target.reset();
         showSuccessMessage('teacherSuccessMessage', '✅ Đã lưu hồ sơ và tạo tài khoản giáo viên thành công!');
@@ -844,26 +955,20 @@ document.addEventListener('DOMContentLoaded', () => {
     
     document.getElementById('childForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        const childId = Date.now();
-        const password = document.getElementById('parentPassword').value;
-        const fatherPhone = document.getElementById('fatherPhone').value;
-        const motherPhone = document.getElementById('motherPhone').value;
+        const childId = Date.now(), password = document.getElementById('parentPassword').value;
+        const fatherPhone = document.getElementById('fatherPhone').value, motherPhone = document.getElementById('motherPhone').value;
         const childName = document.getElementById('childName').value;
-
         db.children.push({
             id: childId, name: childName, birthDate: document.getElementById('childBirthDate').value,
             gender: document.getElementById('childGender').value, class: document.getElementById('childClassChild').value,
             address: document.getElementById('childAddress').value, health: document.getElementById('childHealth').value,
             allergies: document.getElementById('childAllergies').value,
-            emergencyContactName: document.getElementById('emergencyContactName').value,
-            emergencyContactPhone: document.getElementById('emergencyContactPhone').value
+            emergencyContactName: document.getElementById('emergencyContactName').value, emergencyContactPhone: document.getElementById('emergencyContactPhone').value
         });
-
         db.parents.push({
             id: Date.now() + 1, fatherName: document.getElementById('fatherName').value, motherName: document.getElementById('motherName').value,
             fatherPhone: fatherPhone, motherPhone: motherPhone, email: document.getElementById('parentEmail').value, childId: childId
         });
-        
         const username = fatherPhone || motherPhone;
         if (password && username) {
             db.users.push({
@@ -871,7 +976,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 role: 'parent', name: `PH bé ${childName}`, linkedId: childId
             });
         }
-        
         renderAll();
         e.target.reset();
         showSuccessMessage('childSuccessMessage', '✅ Đã lưu hồ sơ thành công!');
@@ -882,10 +986,11 @@ document.addEventListener('DOMContentLoaded', () => {
     window.deleteUser = (id) => { if(confirm('Xóa tài khoản?')) { db.users = db.users.filter(u=>u.id!==id); renderAll(); }};
 
     window.showTab = (tabName) => {
-        if(document.querySelector(`[data-tab="${tabName}"]`).style.display === 'none') return;
+        const tabButton = document.querySelector(`[data-tab="${tabName}"]`);
+        if(!tabButton || tabButton.style.display === 'none') return;
         document.querySelectorAll('.tab-content, .nav-tab').forEach(el => el.classList.remove('active'));
         document.getElementById(tabName).classList.add('active');
-        document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+        tabButton.classList.add('active');
     };
 
     window.logout = () => {
