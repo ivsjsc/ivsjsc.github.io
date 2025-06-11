@@ -26,7 +26,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-image: url('https://images.pexels.com/photos/159844/school-books-school-knowledge-learning-159844.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-image: url('/images/apps/ivskinderlink.png');
             background-size: cover;
             background-position: center;
             filter: brightness(0.6);
@@ -542,7 +542,14 @@
             color: rgba(255,255,255,0.8);
             font-size: 0.9em;
         }
-
+        .app-footer a {
+            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .app-footer a:hover {
+            text-decoration: underline;
+        }
 
         @media (max-width: 768px) {
             .header, .nav-tabs {
@@ -561,7 +568,7 @@
             </div>
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="username">� Tên đăng nhập (SĐT)</label>
+                    <label for="username">👤 Tên đăng nhập (SĐT)</label>
                     <input type="text" id="username" required placeholder="Tên tài khoản do trường cấp">
                 </div>
                 <div class="form-group">
@@ -716,6 +723,14 @@
             </div>
             <div class="success-message" id="permissionSuccessMessage"></div>
             <div id="permissionMatrixContainer" class="permission-matrix" style="margin-top:20px;"></div>
+            <div id="passwordResetContainer" style="display:none; margin-top: 20px; background: #fff; padding: 20px; border-radius: 10px;">
+                <h3 class="section-title">Đặt lại mật khẩu</h3>
+                <div class="form-group">
+                    <label for="newPasswordForUser">Mật khẩu mới</label>
+                    <input type="password" id="newPasswordForUser" class="form-control">
+                </div>
+                <button id="resetPasswordBtn" class="btn btn-danger">Xác nhận Đặt lại Mật khẩu</button>
+            </div>
         </div>
 
         <div id="users" class="tab-content">
@@ -737,7 +752,7 @@
         
         <footer class="app-footer">
             <p><strong>IVS KinderLink</strong> - Nền tảng kết nối toàn diện cho giáo dục mầm non.</p>
-            <p>Dữ liệu được bảo vệ bởi mã hóa AES-256. Sắp có trên App Store và Google Play.</p>
+            <p>Dữ liệu được bảo vệ bởi mã hóa AES-256. | Theo dõi chúng tôi trên <a href="https://www.facebook.com/ivs.edu.vn" target="_blank">Fanpage Facebook</a>.</p>
         </footer>
 
     </div>
@@ -965,7 +980,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderPermissionMatrix = () => {
         const target = document.getElementById('permissionTarget').value;
         const container = document.getElementById('permissionMatrixContainer');
+        const passwordResetContainer = document.getElementById('passwordResetContainer');
         container.innerHTML = '';
+        passwordResetContainer.style.display = 'none';
         if (!target) return;
 
         const [type, id] = target.split('_');
@@ -995,6 +1012,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             container.appendChild(groupDiv);
+        }
+
+        if (type === 'user') {
+            passwordResetContainer.style.display = 'block';
         }
 
         container.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
@@ -1057,6 +1078,23 @@ document.addEventListener('DOMContentLoaded', () => {
         showSuccessMessage('childSuccessMessage', '✅ Đã lưu hồ sơ thành công!');
     });
     
+    document.getElementById('resetPasswordBtn').addEventListener('click', () => {
+        const target = document.getElementById('permissionTarget').value;
+        const newPassword = document.getElementById('newPasswordForUser').value;
+        if (!target || !newPassword || !target.startsWith('user_')) {
+            alert('Vui lòng chọn một tài khoản và nhập mật khẩu mới.');
+            return;
+        }
+
+        const userId = parseInt(target.split('_')[1]);
+        const user = db.users.find(u => u.id === userId);
+        if (user) {
+            user.password = newPassword;
+            document.getElementById('newPasswordForUser').value = '';
+            showSuccessMessage('permissionSuccessMessage', `✅ Đã đặt lại mật khẩu cho tài khoản ${user.username} thành công!`);
+        }
+    });
+
     window.deleteTeacher = (id) => { if(confirm('Xóa giáo viên? Tài khoản liên kết cũng sẽ bị xóa.')) { db.teachers = db.teachers.filter(t=>t.id!==id); db.users = db.users.filter(u=>!(u.role==='teacher' && u.linkedId===id)); renderAll(); }};
     window.deleteChild = (id) => { if(confirm('Xóa trẻ? Toàn bộ thông tin phụ huynh và tài khoản liên kết sẽ bị xóa.')) { db.children = db.children.filter(c=>c.id!==id); db.parents = db.parents.filter(p=>p.childId!==id); db.users = db.users.filter(u=>!(u.role==='parent' && u.linkedId===id)); renderAll(); }};
     window.deleteUser = (id) => { if(confirm('Xóa tài khoản?')) { db.users = db.users.filter(u=>u.id!==id); renderAll(); }};
@@ -1080,4 +1118,3 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
-�
