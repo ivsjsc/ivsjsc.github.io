@@ -324,21 +324,59 @@
             const formStatus = document.getElementById('form-status');
 
             if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault(); // Ngăn chặn form submit mặc định
+
                     if (formStatus) {
                         formStatus.textContent = 'Đang gửi yêu cầu...';
                         formStatus.className = 'mt-4 text-sm text-center text-blue-400';
                     }
 
-                    // Simulate API call
-                    setTimeout(() => {
-                        if (formStatus) {
-                            formStatus.textContent = 'Yêu cầu của bạn đã được gửi thành công! Chúng tôi sẽ sớm liên hệ lại.';
-                            formStatus.className = 'mt-4 text-sm text-center text-green-400';
+                    // Thu thập dữ liệu từ form
+                    const formData = {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        subject: document.getElementById('subject').value,
+                        message: document.getElementById('message').value
+                    };
+
+                    // Thay thế URL này bằng URL Cloud Function đã triển khai của bạn
+                    // Bạn sẽ tìm thấy URL này trong Firebase console > Functions > submitContactForm
+                    const functionUrl = 'YOUR_CLOUD_FUNCTION_HTTP_TRIGGER_URL'; 
+
+                    try {
+                        const response = await fetch(functionUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(formData)
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok) { // Kiểm tra nếu phản hồi là 2xx (thành công)
+                            if (formStatus) {
+                                formStatus.textContent = result.message || 'Yêu cầu của bạn đã được gửi thành công!';
+                                formStatus.className = 'mt-4 text-sm text-center text-green-400';
+                            }
+                            contactForm.reset(); // Xóa form sau khi gửi thành công
+                        } else {
+                            // Xử lý lỗi từ backend
+                            if (formStatus) {
+                                formStatus.textContent = result.message || 'Đã xảy ra lỗi khi gửi yêu cầu. Vui lòng thử lại.';
+                                formStatus.className = 'mt-4 text-sm text-center text-red-400';
+                            }
                         }
-                        contactForm.reset();
-                    }, 2000);
+                    } catch (error) {
+                        // Xử lý lỗi mạng hoặc lỗi không mong muốn
+                        console.error('Lỗi khi gửi form:', error);
+                        if (formStatus) {
+                            formStatus.textContent = 'Lỗi kết nối. Vui lòng kiểm tra mạng và thử lại.';
+                            formStatus.className = 'mt-4 text-sm text-center text-red-400';
+                        }
+                    }
                 });
             }
         });
