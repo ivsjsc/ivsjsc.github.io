@@ -307,6 +307,26 @@
             border-bottom: 2px solid #667eea;
             margin-bottom: 10px;
         }
+        
+        .week-navigator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .week-navigator button {
+            background: none;
+            border: 1px solid #ccc;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+         .week-navigator span {
+            margin: 0 20px;
+            font-weight: 600;
+            font-size: 1.2em;
+         }
+
 
         .form-group {
             display: flex;
@@ -774,7 +794,7 @@
         
         <footer class="app-footer">
             <p><strong>IVS KinderLink</strong> - Nền tảng kết nối toàn diện cho giáo dục mầm non.</p>
-            <p>Dữ liệu được bảo vệ bởi mã hóa AES-256. | Theo dõi chúng tôi trên <a href="https://www.facebook.com/hr.ivsacademy" target="_blank">Fanpage Facebook</a>.</p>
+            <p>Dữ liệu được bảo vệ bởi mã hóa AES-256. | Theo dõi chúng tôi trên <a href="https://www.facebook.com/ivs.edu.vn" target="_blank">Fanpage Facebook</a>.</p>
         </footer>
 
     </div>
@@ -808,8 +828,16 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         menus: [
              { day: 'Thứ Hai', breakfast: 'Cháo yến mạch', lunch: 'Cơm, thịt kho, canh bí đỏ', snack: 'Sữa chua', calories: 1200 },
-             { day: 'Thứ Ba', breakfast: 'Phở bò', lunch: 'Cơm, cá chiên, canh rau ngót', snack: 'Bánh flan', calories: 1250 }
+             { day: 'Thứ Ba', breakfast: 'Phở bò', lunch: 'Cơm, cá chiên, canh rau ngót', snack: 'Bánh flan', calories: 1250 },
+             { day: 'Thứ Tư', breakfast: 'Bún bò Huế', lunch: 'Cơm gà xối mỡ', snack: 'Trái cây', calories: 1300 },
+             { day: 'Thứ Năm', breakfast: 'Xôi gấc', lunch: 'Mì Ý sốt bò bằm', snack: 'Đậu hũ non', calories: 1150 },
+             { day: 'Thứ Sáu', breakfast: 'Bánh mì ốp la', lunch: 'Cơm tấm sườn bì chả', snack: 'Chè hạt sen', calories: 1400 },
         ],
+        foodOptions: {
+            breakfast: ['Cháo yến mạch', 'Phở bò', 'Bún bò Huế', 'Xôi gấc', 'Bánh mì ốp la', 'Hủ tiếu'],
+            lunch: ['Cơm, thịt kho, canh bí đỏ', 'Cơm, cá chiên, canh rau ngót', 'Cơm gà xối mỡ', 'Mì Ý sốt bò bằm', 'Cơm tấm sườn bì chả', 'Bò lúc lắc khoai tây chiên'],
+            snack: ['Sữa chua', 'Bánh flan', 'Trái cây', 'Đậu hũ non', 'Chè hạt sen', 'Sữa tươi']
+        },
         notes: [
             { id: 601, content: 'Họp phụ huynh toàn trường vào 8:00 sáng T7 tuần này.', createdBy: 'Ban Giám Hiệu', createdAt: '2025-06-10' }
         ],
@@ -841,6 +869,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let currentUser = null;
+    let currentWeekOffset = 0; 
     const loginScreen = document.getElementById('loginScreen');
     const mainApp = document.getElementById('mainApp');
     
@@ -973,6 +1002,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     
+    const getWeekDateRange = (offset) => {
+        const now = new Date();
+        now.setDate(now.getDate() + offset * 7);
+        const dayOfWeek = now.getDay();
+        const diffToMonday = now.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
+        const monday = new Date(now.setDate(diffToMonday));
+        const friday = new Date(new Date(monday).setDate(monday.getDate() + 4));
+        const formatDate = (date) => `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+        return `Tuần từ ${formatDate(monday)} đến ${formatDate(friday)}, ${monday.getFullYear()}`;
+    };
+
     const renderFinanceAndNutrition = () => {
         const container = document.getElementById('finance_nutrition');
         let content = `<h2 class="tab-title">💰 Tài chính & Dinh dưỡng</h2>`;
@@ -1001,17 +1041,46 @@ document.addEventListener('DOMContentLoaded', () => {
         feeTable += '</tbody></table></div>';
         content += feeTable;
 
-        content += `<h3 class="section-title" style="margin-top: 40px;">Thực đơn & Dinh dưỡng tuần này</h3>
+        content += `<h3 class="section-title" style="margin-top: 40px;">Thực đơn & Dinh dưỡng</h3>
+            <div class="week-navigator">
+                <button id="prevWeekBtn">Tuần trước</button>
+                <span id="weekDisplay">${getWeekDateRange(currentWeekOffset)}</span>
+                <button id="nextWeekBtn">Tuần sau</button>
+            </div>
             <div class="table-container"><table class="data-table">
             <thead><tr><th>Thứ</th><th>Bữa sáng</th><th>Bữa trưa</th><th>Bữa xế</th><th>Lượng Calo (ước tính)</th></tr></thead>
-            <tbody>`;
-
+            <tbody id="menuTableBody">`;
+        
         db.menus.forEach(menu => {
-            content += `<tr><td>${menu.day}</td><td>${menu.breakfast}</td><td>${menu.lunch}</td><td>${menu.snack}</td><td>${menu.calories} Kcal</td></tr>`;
+            if (currentUser.role === 'principal') {
+                 content += `<tr><td>${menu.day}</td>
+                    <td><select class="form-control" data-day="${menu.day}" data-meal="breakfast">${db.foodOptions.breakfast.map(f => `<option ${f === menu.breakfast ? 'selected' : ''}>${f}</option>`).join('')}</select></td>
+                    <td><select class="form-control" data-day="${menu.day}" data-meal="lunch">${db.foodOptions.lunch.map(f => `<option ${f === menu.lunch ? 'selected' : ''}>${f}</option>`).join('')}</select></td>
+                    <td><select class="form-control" data-day="${menu.day}" data-meal="snack">${db.foodOptions.snack.map(f => `<option ${f === menu.snack ? 'selected' : ''}>${f}</option>`).join('')}</select></td>
+                    <td>${menu.calories} Kcal</td></tr>`;
+            } else {
+                content += `<tr><td>${menu.day}</td><td>${menu.breakfast}</td><td>${menu.lunch}</td><td>${menu.snack}</td><td>${menu.calories} Kcal</td></tr>`;
+            }
         });
         content += '</tbody></table></div>';
         
         container.innerHTML = content;
+        
+        document.getElementById('prevWeekBtn').addEventListener('click', () => { currentWeekOffset--; renderFinanceAndNutrition(); });
+        document.getElementById('nextWeekBtn').addEventListener('click', () => { currentWeekOffset++; renderFinanceAndNutrition(); });
+        
+        if (currentUser.role === 'principal') {
+            container.querySelectorAll('select[data-day]').forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const day = e.target.getAttribute('data-day');
+                    const meal = e.target.getAttribute('data-meal');
+                    const value = e.target.value;
+                    const menuItem = db.menus.find(m => m.day === day);
+                    if(menuItem) menuItem[meal] = value;
+                    showSuccessMessage('permissionSuccessMessage', 'Đã cập nhật thực đơn!');
+                });
+            });
+        }
     };
     
     const renderNotes = () => {
