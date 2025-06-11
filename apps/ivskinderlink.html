@@ -615,7 +615,7 @@
 <body>
     <div id="loginScreen" class="login-container">
         <div class="login-box">
-            <h1>� Đăng Nhập</h1>
+            <h1>👋 Đăng Nhập</h1>
             <div class="school-info-login">
                 <p class="school-name">Hệ thống Mầm non IVS</p>
                 <p class="school-details">Cơ sở Long Thành | Hotline: 0912.345.678</p>
@@ -744,7 +744,7 @@
         </div>
         
         <div id="notes" class="tab-content">
-            <h2 class="tab-title">📝 Ghi Chú & Nhắc Việc</h2>
+            <h2 class="tab-title">� Ghi Chú & Nhắc Việc</h2>
             <div class="success-message" id="noteSuccessMessage"></div>
             <form id="noteForm">
                 <div class="form-group">
@@ -844,18 +844,31 @@ document.addEventListener('DOMContentLoaded', () => {
         cameras: [
             { id: 301, name: 'Sân chơi', class: 'Chung', url: 'https://placehold.co/600x400/000000/FFFFFF?text=Sân+Chơi+(Live)' },
             { id: 302, name: 'Lớp Chồi - Góc học tập', class: 'Lớp Chồi', url: 'https://placehold.co/600x400/000000/FFFFFF?text=Lớp+Chồi+(Live)' },
-            { id: 303, name: 'Lớp Lá - Giờ ăn', class: 'Lớp Lá', url: 'https://placehold.co/600x400/000000/FFFFFF?text=Lớp+Lá+(Live)' }
+            { id: 303, name: 'Lớp Lá - Giờ ăn', class: 'Lớp Lá', url: 'https://placehold.co/600x400/000000/FFFFFF?text=Lớp+Lá+(Live)' },
+            { id: 304, name: 'Khu vệ sinh', class: 'Chung', url: 'https://placehold.co/600x400/000000/FFFFFF?text=Khu+Vệ+Sinh+(Live)' }
         ],
         permissions: {
             roles: {
+                principal: {
+                    dashboard: true, teachers: true, children: true, finance_nutrition: true, notes: true, users: true, permissions: true, camera: true,
+                    cameras: [301, 302, 303, 304] // Quyền xem tất cả camera
+                },
                 teacher: {
-                    dashboard: true, teachers: false, children: true, finance_nutrition: false, notes: true, users: false, permissions: false, camera: true
+                    dashboard: true, teachers: false, children: true, finance_nutrition: false, notes: true, users: false, permissions: false, camera: true,
+                    cameras: [301, 302] // Giáo viên lớp Chồi mặc định xem Sân chơi và Lớp Chồi
                 },
                 parent: {
-                    dashboard: true, teachers: false, children: false, finance_nutrition: true, notes: false, users: false, permissions: false, camera: true
+                    dashboard: true, teachers: false, children: false, finance_nutrition: true, notes: false, users: false, permissions: false, camera: true,
+                    cameras: [301, 302] // Phụ huynh bé An Nhiên (lớp Chồi) mặc định xem Sân chơi và Lớp Chồi
                 }
             },
-            users: {} 
+            users: {
+                // Quyền của từng người dùng cụ thể sẽ ghi đè lên quyền của vai trò
+                // Ví dụ: user_3 (phụ huynh) có thể được cấp quyền xem camera khác nếu cần
+                3: { // ID của phụ huynh bé An Nhiên (0901234567)
+                    cameras: [301, 302] // Mặc định như vai trò, có thể sửa đổi
+                }
+            } 
         },
         modules: [
             { id: 'dashboard', name: 'Tổng Quan' },
@@ -873,6 +886,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginScreen = document.getElementById('loginScreen');
     const mainApp = document.getElementById('mainApp');
     
+    // Xử lý đăng nhập
     const handleLogin = (e) => {
         e.preventDefault();
         const username = document.getElementById('username').value;
@@ -890,15 +904,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // Khởi tạo ứng dụng sau khi đăng nhập thành công
     const initializeApp = () => {
         setupPermissions();
         renderAll();
         showTab('dashboard');
     };
     
+    // Thiết lập quyền cho người dùng hiện tại
     const setupPermissions = () => {
+        // Lấy quyền của người dùng hiện tại, ưu tiên quyền riêng lẻ nếu có
         const userPermissions = db.permissions.users[currentUser.id] || db.permissions.roles[currentUser.role];
         
+        // Ẩn/hiện các tab dựa trên quyền
         document.querySelectorAll('.nav-tab').forEach(tab => {
             const tabId = tab.getAttribute('data-tab');
             if (currentUser.role === 'principal' || (userPermissions && userPermissions[tabId])) {
@@ -908,12 +926,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         
+        // Cập nhật thông tin người dùng trên header
         document.getElementById('currentUserName').textContent = currentUser.name;
         document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
         const roleNames = { principal: 'Hiệu trưởng', teacher: 'Giáo viên', parent: 'Phụ huynh' };
         document.getElementById('currentUserRole').textContent = roleNames[currentUser.role];
     };
 
+    // Render tất cả các phần của ứng dụng
     const renderAll = () => {
         renderDashboard();
         renderTeachersTable();
@@ -926,6 +946,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPermissionMatrix();
     };
     
+    // Render trang tổng quan (Dashboard)
     const renderDashboard = () => {
         const dashboardContent = document.getElementById('dashboard');
         if (currentUser.role === 'parent') {
@@ -951,6 +972,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     
+    // Hiển thị thông báo thành công
     const showSuccessMessage = (elementId, message) => {
         const el = document.getElementById(elementId);
         el.textContent = message;
@@ -958,6 +980,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { el.style.display = 'none'; }, 2000);
     };
 
+    // Render bảng giáo viên
     const renderTeachersTable = () => {
         const tableBody = document.getElementById('teachersTableBody');
         tableBody.innerHTML = '';
@@ -971,6 +994,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     
+    // Render bảng trẻ em
     const renderChildrenTable = () => {
         const tableBody = document.getElementById('childrenTableBody');
         tableBody.innerHTML = '';
@@ -991,6 +1015,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    // Render bảng tài khoản người dùng
     const renderUsersTable = () => {
         const tableBody = document.getElementById('usersTableBody');
         tableBody.innerHTML = '';
@@ -1002,6 +1027,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     
+    // Lấy khoảng ngày trong tuần
     const getWeekDateRange = (offset) => {
         const now = new Date();
         now.setDate(now.getDate() + offset * 7);
@@ -1013,6 +1039,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return `Tuần từ ${formatDate(monday)} đến ${formatDate(friday)}, ${monday.getFullYear()}`;
     };
 
+    // Render phần tài chính và dinh dưỡng
     const renderFinanceAndNutrition = () => {
         const container = document.getElementById('finance_nutrition');
         let content = `<h2 class="tab-title">💰 Tài chính & Dinh dưỡng</h2>`;
@@ -1083,6 +1110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
     
+    // Render ghi chú
     const renderNotes = () => {
         const container = document.getElementById('notes-container');
         container.innerHTML = '';
@@ -1098,39 +1126,50 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    // Render camera dựa trên quyền của người dùng
     const renderCameras = () => {
         const cameraGrid = document.getElementById('cameraGrid');
         const permissionNotice = document.getElementById('cameraPermissionNotice');
         cameraGrid.innerHTML = '';
         permissionNotice.style.display = 'none';
         
-        let camerasToShow = db.cameras;
-        if(currentUser.role === 'teacher'){
-            const teacherClass = db.teachers.find(t => t.id === currentUser.linkedId)?.assignedClass;
-            camerasToShow = db.cameras.filter(cam => cam.class === teacherClass || cam.class === 'Chung');
-        } else if (currentUser.role === 'parent') {
-            permissionNotice.textContent = '⚠️ Vì lý do bảo mật, phụ huynh chỉ có quyền xem camera của lớp con em mình và các khu vực sinh hoạt chung.';
+        const userPermissions = db.permissions.users[currentUser.id] || db.permissions.roles[currentUser.role];
+        const allowedCameraIds = userPermissions.cameras || [];
+
+        if (currentUser.role === 'principal' || (userPermissions && userPermissions.camera)) {
+            const camerasToShow = db.cameras.filter(cam => allowedCameraIds.includes(cam.id));
+
+            if (currentUser.role === 'parent') {
+                permissionNotice.textContent = '⚠️ Vì lý do bảo mật, phụ huynh chỉ có quyền xem camera của lớp con em mình và các khu vực sinh hoạt chung.';
+                permissionNotice.style.display = 'block';
+            }
+
+            if (camerasToShow.length === 0 && currentUser.role !== 'principal') {
+                cameraGrid.innerHTML = `<p style="text-align: center; color: #7f8c8d;">Bạn không có quyền xem camera nào.</p>`;
+            } else {
+                camerasToShow.forEach(cam => {
+                    cameraGrid.innerHTML += `
+                        <div class="camera-feed">
+                            <img src="${cam.url}" alt="${cam.name}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/000000/FFFFFF?text=Error';">
+                            <div class="camera-label">${cam.name}</div>
+                        </div>
+                    `;
+                });
+            }
+        } else {
+            permissionNotice.textContent = '⛔ Bạn không có quyền truy cập vào mục Camera.';
             permissionNotice.style.display = 'block';
-            const childClass = db.children.find(c => c.id === currentUser.linkedId)?.class;
-            camerasToShow = db.cameras.filter(cam => cam.class === childClass || cam.class === 'Chung');
         }
-        
-        camerasToShow.forEach(cam => {
-            cameraGrid.innerHTML += `
-                <div class="camera-feed">
-                    <img src="${cam.url}" alt="${cam.name}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/000000/FFFFFF?text=Error';">
-                    <div class="camera-label">${cam.name}</div>
-                </div>
-            `;
-        });
     };
     
+    // Điền danh sách đối tượng phân quyền (vai trò và tài khoản)
     const populatePermissionTargets = () => {
         const select = document.getElementById('permissionTarget');
         select.innerHTML = '<option value="">Chọn đối tượng...</option>';
         select.innerHTML += '<optgroup label="Nhóm Vai trò">';
         Object.keys(db.permissions.roles).forEach(role => {
-            select.innerHTML += `<option value="role_${role}">Nhóm: ${role}</option>`;
+            const roleName = { principal: 'Hiệu trưởng', teacher: 'Giáo viên', parent: 'Phụ huynh' }[role] || role;
+            select.innerHTML += `<option value="role_${role}">Nhóm: ${roleName}</option>`;
         });
         select.innerHTML += '</optgroup><optgroup label="Tài khoản cá nhân">';
         db.users.filter(u => u.role !== 'principal').forEach(user => {
@@ -1139,6 +1178,7 @@ document.addEventListener('DOMContentLoaded', () => {
         select.innerHTML += '</optgroup>';
     };
     
+    // Render ma trận phân quyền
     const renderPermissionMatrix = () => {
         const target = document.getElementById('permissionTarget').value;
         const container = document.getElementById('permissionMatrixContainer');
@@ -1148,14 +1188,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!target) return;
 
         const [type, id] = target.split('_');
-        const targetPermissions = (type === 'user') 
-            ? (db.permissions.users[id] || db.permissions.roles[db.users.find(u=>u.id==id).role])
+        let targetPermissions = (type === 'user') 
+            ? (db.permissions.users[id] || { ...db.permissions.roles[db.users.find(u=>u.id==id).role] }) // Copy role permissions for user if not existing
             : db.permissions.roles[id];
-        
+
+        // Ensure cameras array exists for user permissions
+        if (type === 'user' && !db.permissions.users[id]) {
+            db.permissions.users[id] = { ...targetPermissions }; // Initialize user permissions if not set
+        }
+        if (type === 'user' && !db.permissions.users[id].cameras) {
+            db.permissions.users[id].cameras = [];
+        }
+        if (type === 'role' && !db.permissions.roles[id].cameras) {
+            db.permissions.roles[id].cameras = [];
+        }
+
+
         const moduleGroups = {
             'Quản lý chung': ['dashboard', 'teachers', 'children'],
-            'Nghiệp vụ': ['finance_nutrition', 'camera', 'notes'],
-            'Hệ thống': ['permissions']
+            'Nghiệp vụ': ['finance_nutrition', 'notes'],
+            'Hệ thống': ['permissions', 'camera']
         };
 
         for (const groupName in moduleGroups) {
@@ -1176,6 +1228,22 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(groupDiv);
         }
 
+        // Add Camera permissions section
+        const cameraGroupDiv = document.createElement('div');
+        cameraGroupDiv.className = 'permission-group';
+        cameraGroupDiv.innerHTML = `<h4>Quyền xem Camera</h4>`;
+        db.cameras.forEach(camera => {
+            // Check if targetPermissions.cameras is defined and includes the camera id
+            const isChecked = targetPermissions.cameras && targetPermissions.cameras.includes(camera.id) ? 'checked' : '';
+            cameraGroupDiv.innerHTML += `
+                <div class="permission-item">
+                    <input type="checkbox" id="camera_perm_${camera.id}" data-camera-id="${camera.id}" ${isChecked}>
+                    <label for="camera_perm_${camera.id}">${camera.name}</label>
+                </div>`;
+        });
+        container.appendChild(cameraGroupDiv);
+
+
         if (type === 'user') {
             passwordResetContainer.style.display = 'block';
         }
@@ -1183,20 +1251,53 @@ document.addEventListener('DOMContentLoaded', () => {
         container.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', (e) => {
                 const moduleId = e.target.getAttribute('data-module');
+                const cameraId = parseInt(e.target.getAttribute('data-camera-id')); // Parse to int
                 const isChecked = e.target.checked;
+
                 if (type === 'user') {
-                    if (!db.permissions.users[id]) db.permissions.users[id] = {};
-                    db.permissions.users[id][moduleId] = isChecked;
-                } else {
-                    db.permissions.roles[id][moduleId] = isChecked;
+                    // Initialize user permissions if not present
+                    if (!db.permissions.users[id]) {
+                        db.permissions.users[id] = { ...db.permissions.roles[db.users.find(u=>u.id==id).role] };
+                    }
+                    if (moduleId) { // For module permissions
+                        db.permissions.users[id][moduleId] = isChecked;
+                    } else if (cameraId) { // For camera permissions
+                        if (!db.permissions.users[id].cameras) {
+                            db.permissions.users[id].cameras = [];
+                        }
+                        if (isChecked && !db.permissions.users[id].cameras.includes(cameraId)) {
+                            db.permissions.users[id].cameras.push(cameraId);
+                        } else if (!isChecked) {
+                            db.permissions.users[id].cameras = db.permissions.users[id].cameras.filter(c => c !== cameraId);
+                        }
+                    }
+                } else { // For role permissions
+                    if (moduleId) {
+                        db.permissions.roles[id][moduleId] = isChecked;
+                    } else if (cameraId) {
+                        if (!db.permissions.roles[id].cameras) {
+                            db.permissions.roles[id].cameras = [];
+                        }
+                        if (isChecked && !db.permissions.roles[id].cameras.includes(cameraId)) {
+                            db.permissions.roles[id].cameras.push(cameraId);
+                        } else if (!isChecked) {
+                            db.permissions.roles[id].cameras = db.permissions.roles[id].cameras.filter(c => c !== cameraId);
+                        }
+                    }
                 }
                 showSuccessMessage('permissionSuccessMessage', '✅ Đã cập nhật quyền thành công!');
+                // Re-render cameras in case current user's permissions were changed
+                if (currentUser.role === 'principal' || currentUser.id == id) {
+                    renderCameras();
+                }
             });
         });
     };
     
+    // Lắng nghe sự kiện thay đổi đối tượng phân quyền để render lại ma trận
     document.getElementById('permissionTarget').addEventListener('change', renderPermissionMatrix);
     
+    // Xử lý submit form giáo viên
     document.getElementById('teacherForm').addEventListener('submit', (e) => {
         e.preventDefault();
         const teacherId = Date.now(), teacherName = document.getElementById('teacherName').value;
@@ -1213,6 +1314,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showSuccessMessage('teacherSuccessMessage', '✅ Đã lưu hồ sơ và tạo tài khoản giáo viên thành công!');
     });
     
+    // Xử lý submit form trẻ em
     document.getElementById('childForm').addEventListener('submit', (e) => {
         e.preventDefault();
         const childId = Date.now(), password = document.getElementById('parentPassword').value;
@@ -1240,6 +1342,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showSuccessMessage('childSuccessMessage', '✅ Đã lưu hồ sơ thành công!');
     });
     
+    // Xử lý submit form ghi chú
     document.getElementById('noteForm').addEventListener('submit', (e) => {
         e.preventDefault();
         const content = document.getElementById('noteContent').value;
@@ -1255,11 +1358,23 @@ document.addEventListener('DOMContentLoaded', () => {
         showSuccessMessage('noteSuccessMessage', '✅ Đã thêm ghi chú thành công!');
     });
 
+    // Xử lý đặt lại mật khẩu
     document.getElementById('resetPasswordBtn').addEventListener('click', () => {
         const target = document.getElementById('permissionTarget').value;
         const newPassword = document.getElementById('newPasswordForUser').value;
         if (!target || !newPassword || !target.startsWith('user_')) {
-            alert('Vui lòng chọn một tài khoản và nhập mật khẩu mới.');
+            // Thay đổi alert bằng modal UI để tuân thủ quy định
+            const modalMessage = document.createElement('div');
+            modalMessage.style.cssText = `
+                position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.5);
+                z-index: 1000; text-align: center;
+            `;
+            modalMessage.innerHTML = `
+                <p>Vui lòng chọn một tài khoản và nhập mật khẩu mới.</p>
+                <button onclick="this.parentNode.remove()">Đóng</button>
+            `;
+            document.body.appendChild(modalMessage);
             return;
         }
 
@@ -1272,11 +1387,96 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    window.deleteTeacher = (id) => { if(confirm('Xóa giáo viên? Tài khoản liên kết cũng sẽ bị xóa.')) { db.teachers = db.teachers.filter(t=>t.id!==id); db.users = db.users.filter(u=>!(u.role==='teacher' && u.linkedId===id)); renderAll(); }};
-    window.deleteChild = (id) => { if(confirm('Xóa trẻ? Toàn bộ thông tin phụ huynh và tài khoản liên kết sẽ bị xóa.')) { db.children = db.children.filter(c=>c.id!==id); db.parents = db.parents.filter(p=>p.childId!==id); db.users = db.users.filter(u=>!(u.role==='parent' && u.linkedId===id)); renderAll(); }};
-    window.deleteUser = (id) => { if(confirm('Xóa tài khoản?')) { db.users = db.users.filter(u=>u.id!==id); renderAll(); }};
-    window.deleteNote = (id) => { if(confirm('Xóa ghi chú này?')) { db.notes = db.notes.filter(n=>n.id!==id); renderNotes(); }};
+    // Các hàm xóa dữ liệu
+    window.deleteTeacher = (id) => { 
+        // Thay đổi confirm bằng modal UI
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 1000; text-align: center;
+        `;
+        modal.innerHTML = `
+            <p>Xóa giáo viên? Tài khoản liên kết cũng sẽ bị xóa.</p>
+            <button class="btn btn-danger" onclick="window.confirmAction(true, ${id}, 'teacher')">Xác nhận</button>
+            <button class="btn" onclick="window.confirmAction(false)">Hủy</button>
+        `;
+        document.body.appendChild(modal);
+    };
 
+    window.deleteChild = (id) => { 
+        // Thay đổi confirm bằng modal UI
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 1000; text-align: center;
+        `;
+        modal.innerHTML = `
+            <p>Xóa trẻ? Toàn bộ thông tin phụ huynh và tài khoản liên kết sẽ bị xóa.</p>
+            <button class="btn btn-danger" onclick="window.confirmAction(true, ${id}, 'child')">Xác nhận</button>
+            <button class="btn" onclick="window.confirmAction(false)">Hủy</button>
+        `;
+        document.body.appendChild(modal);
+    };
+
+    window.deleteUser = (id) => { 
+        // Thay đổi confirm bằng modal UI
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 1000; text-align: center;
+        `;
+        modal.innerHTML = `
+            <p>Xóa tài khoản?</p>
+            <button class="btn btn-danger" onclick="window.confirmAction(true, ${id}, 'user')">Xác nhận</button>
+            <button class="btn" onclick="window.confirmAction(false)">Hủy</button>
+        `;
+        document.body.appendChild(modal);
+    };
+
+    window.deleteNote = (id) => { 
+        // Thay đổi confirm bằng modal UI
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 1000; text-align: center;
+        `;
+        modal.innerHTML = `
+            <p>Xóa ghi chú này?</p>
+            <button class="btn btn-danger" onclick="window.confirmAction(true, ${id}, 'note')">Xác nhận</button>
+            <button class="btn" onclick="window.confirmAction(false)">Hủy</button>
+        `;
+        document.body.appendChild(modal);
+    };
+
+    // Hàm xử lý xác nhận từ modal tùy chỉnh
+    window.confirmAction = (confirmed, id, type) => {
+        const modal = document.querySelector('body > div[style*="position: fixed"]'); // Find the modal
+        if (modal) modal.remove(); // Remove modal
+
+        if (confirmed) {
+            if (type === 'teacher') {
+                db.teachers = db.teachers.filter(t=>t.id!==id);
+                db.users = db.users.filter(u=>!(u.role==='teacher' && u.linkedId===id));
+            } else if (type === 'child') {
+                db.children = db.children.filter(c=>c.id!==id);
+                db.parents = db.parents.filter(p=>p.childId!==id);
+                db.users = db.users.filter(u=>!(u.role==='parent' && u.linkedId===id));
+            } else if (type === 'user') {
+                db.users = db.users.filter(u=>u.id!==id);
+            } else if (type === 'note') {
+                db.notes = db.notes.filter(n=>n.id!==id);
+                renderNotes(); // Only render notes if a note is deleted
+                return; // Exit after rendering notes
+            }
+            renderAll();
+        }
+    };
+
+    // Hiển thị tab
     window.showTab = (tabName) => {
         const tabButton = document.querySelector(`[data-tab="${tabName}"]`);
         if(!tabButton || tabButton.style.display === 'none') return;
@@ -1285,12 +1485,14 @@ document.addEventListener('DOMContentLoaded', () => {
         tabButton.classList.add('active');
     };
 
+    // Đăng xuất
     window.logout = () => {
         currentUser = null;
         mainApp.style.display = 'none';
         loginScreen.style.display = 'flex';
     };
 
+    // Lắng nghe sự kiện submit form đăng nhập
     document.getElementById('loginForm').addEventListener('submit', handleLogin);
 });
 </script>
