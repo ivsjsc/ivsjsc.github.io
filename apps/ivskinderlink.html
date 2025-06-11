@@ -605,6 +605,16 @@
             text-decoration: underline;
         }
 
+        /* Styles for hidden forms */
+        .hidden-form-container {
+            display: none;
+            padding: 20px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0, 0.05);
+            margin-bottom: 20px;
+        }
+
         @media (max-width: 768px) {
             .header, .nav-tabs {
                 flex-direction: column;
@@ -675,21 +685,25 @@
         <div id="teachers" class="tab-content">
             <h2 class="tab-title">👩‍🏫 Quản Lý Hồ Sơ Giáo Viên</h2>
             <div class="success-message" id="teacherSuccessMessage"></div>
-            <form id="teacherForm">
-                <div class="form-grid">
-                    <h3 class="section-title">Thông Tin Cá Nhân</h3>
-                    <div class="form-group"><label for="teacherName">Họ và tên</label><input type="text" id="teacherName" required></div>
-                    <div class="form-group"><label for="teacherPhone">Số điện thoại</label><input type="tel" id="teacherPhone" required></div>
-                    <div class="form-group"><label for="teacherCCCD">Số CCCD</label><input type="text" id="teacherCCCD" required></div>
-                    <div class="form-group" style="grid-column: 1 / -1;"><label for="teacherAddress">Địa chỉ</label><input type="text" id="teacherAddress" required></div>
-                    
-                    <h3 class="section-title">Thông Tin Công Tác & Tài Khoản</h3>
-                    <div class="form-group"><label for="teacherClass">Lớp phụ trách</label><select id="teacherClass" required><option value="">Chọn lớp</option><option value="Lớp Chồi">Lớp Chồi</option><option value="Lớp Lá">Lớp Lá</option></select></div>
-                    <div class="form-group"><label for="teacherUsername">Tên đăng nhập KinderLink</label><input type="text" id="teacherUsername" placeholder="Ví dụ: comai, thayhung..." required></div>
-                    <div class="form-group"><label for="teacherPassword">Mật khẩu</label><input type="password" id="teacherPassword" required></div>
-                </div>
-                <button type="submit" class="btn btn-primary">💾 Lưu Hồ Sơ Giáo Viên</button>
-            </form>
+            <button class="btn btn-primary" id="addTeacherBtn" style="margin-bottom: 20px;">+ Thêm Giáo Viên</button>
+            <div id="teacherFormContainer" class="hidden-form-container">
+                <h3 class="section-title">Thêm Giáo Viên Mới</h3>
+                <form id="teacherForm">
+                    <div class="form-grid">
+                        <h3 class="section-title">Thông Tin Cá Nhân</h3>
+                        <div class="form-group"><label for="teacherName">Họ và tên</label><input type="text" id="teacherName" required></div>
+                        <div class="form-group"><label for="teacherPhone">Số điện thoại</label><input type="tel" id="teacherPhone" required></div>
+                        <div class="form-group"><label for="teacherCCCD">Số CCCD</label><input type="text" id="teacherCCCD" required></div>
+                        <div class="form-group" style="grid-column: 1 / -1;"><label for="teacherAddress">Địa chỉ</label><input type="text" id="teacherAddress" required></div>
+                        
+                        <h3 class="section-title">Thông Tin Công Tác & Tài Khoản</h3>
+                        <div class="form-group"><label for="teacherClass">Lớp phụ trách</label><select id="teacherClass" required><option value="">Chọn lớp</option><option value="Lớp Chồi">Lớp Chồi</option><option value="Lớp Lá">Lớp Lá</option></select></div>
+                        <div class="form-group"><label for="teacherUsername">Tên đăng nhập KinderLink</label><input type="text" id="teacherUsername" placeholder="Ví dụ: comai, thayhung..." required></div>
+                        <div class="form-group"><label for="teacherPassword">Mật khẩu</label><input type="password" id="teacherPassword" required></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">💾 Lưu Hồ Sơ Giáo Viên</button>
+                </form>
+            </div>
             <div class="table-container">
                 <table class="data-table">
                     <thead><tr><th>Họ tên</th><th>Lớp</th><th>SĐT</th><th>Địa chỉ</th><th>Tài khoản KinderLink</th><th>Thao tác</th></tr></thead>
@@ -701,7 +715,9 @@
         <div id="children" class="tab-content">
             <h2 class="tab-title">👶 Quản Lý Hồ Sơ Trẻ & Phụ Huynh</h2>
             <div class="success-message" id="childSuccessMessage"></div>
-            <div id="childFormContainer">
+            <button class="btn btn-primary" id="addChildBtn" style="margin-bottom: 20px;">+ Thêm Trẻ</button>
+            <div id="childFormContainer" class="hidden-form-container">
+                 <h3 class="section-title">Thêm Hồ Sơ Trẻ Mới</h3>
                  <form id="childForm">
                     <div class="form-grid">
                         <h3 class="section-title">Thông Tin Trẻ</h3>
@@ -744,7 +760,7 @@
         </div>
         
         <div id="notes" class="tab-content">
-            <h2 class="tab-title">� Ghi Chú & Nhắc Việc</h2>
+            <h2 class="tab-title">📝 Ghi Chú & Nhắc Việc</h2>
             <div class="success-message" id="noteSuccessMessage"></div>
             <form id="noteForm">
                 <div class="form-group">
@@ -851,22 +867,20 @@ document.addEventListener('DOMContentLoaded', () => {
             roles: {
                 principal: {
                     dashboard: true, teachers: true, children: true, finance_nutrition: true, notes: true, users: true, permissions: true, camera: true,
-                    cameras: [301, 302, 303, 304] // Quyền xem tất cả camera
+                    cameras: [301, 302, 303, 304] 
                 },
                 teacher: {
                     dashboard: true, teachers: false, children: true, finance_nutrition: false, notes: true, users: false, permissions: false, camera: true,
-                    cameras: [301, 302] // Giáo viên lớp Chồi mặc định xem Sân chơi và Lớp Chồi
+                    cameras: [301, 302] 
                 },
                 parent: {
                     dashboard: true, teachers: false, children: false, finance_nutrition: true, notes: false, users: false, permissions: false, camera: true,
-                    cameras: [301, 302] // Phụ huynh bé An Nhiên (lớp Chồi) mặc định xem Sân chơi và Lớp Chồi
+                    cameras: [301, 302] 
                 }
             },
             users: {
-                // Quyền của từng người dùng cụ thể sẽ ghi đè lên quyền của vai trò
-                // Ví dụ: user_3 (phụ huynh) có thể được cấp quyền xem camera khác nếu cần
-                3: { // ID của phụ huynh bé An Nhiên (0901234567)
-                    cameras: [301, 302] // Mặc định như vai trò, có thể sửa đổi
+                3: { 
+                    cameras: [301, 302] 
                 }
             } 
         },
@@ -913,10 +927,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Thiết lập quyền cho người dùng hiện tại
     const setupPermissions = () => {
-        // Lấy quyền của người dùng hiện tại, ưu tiên quyền riêng lẻ nếu có
         const userPermissions = db.permissions.users[currentUser.id] || db.permissions.roles[currentUser.role];
         
-        // Ẩn/hiện các tab dựa trên quyền
         document.querySelectorAll('.nav-tab').forEach(tab => {
             const tabId = tab.getAttribute('data-tab');
             if (currentUser.role === 'principal' || (userPermissions && userPermissions[tabId])) {
@@ -926,7 +938,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         
-        // Cập nhật thông tin người dùng trên header
         document.getElementById('currentUserName').textContent = currentUser.name;
         document.getElementById('userAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
         const roleNames = { principal: 'Hiệu trưởng', teacher: 'Giáo viên', parent: 'Phụ huynh' };
@@ -1189,12 +1200,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const [type, id] = target.split('_');
         let targetPermissions = (type === 'user') 
-            ? (db.permissions.users[id] || { ...db.permissions.roles[db.users.find(u=>u.id==id).role] }) // Copy role permissions for user if not existing
+            ? (db.permissions.users[id] || { ...db.permissions.roles[db.users.find(u=>u.id==id).role] }) 
             : db.permissions.roles[id];
 
-        // Ensure cameras array exists for user permissions
         if (type === 'user' && !db.permissions.users[id]) {
-            db.permissions.users[id] = { ...targetPermissions }; // Initialize user permissions if not set
+            db.permissions.users[id] = { ...targetPermissions }; 
         }
         if (type === 'user' && !db.permissions.users[id].cameras) {
             db.permissions.users[id].cameras = [];
@@ -1228,12 +1238,10 @@ document.addEventListener('DOMContentLoaded', () => {
             container.appendChild(groupDiv);
         }
 
-        // Add Camera permissions section
         const cameraGroupDiv = document.createElement('div');
         cameraGroupDiv.className = 'permission-group';
         cameraGroupDiv.innerHTML = `<h4>Quyền xem Camera</h4>`;
         db.cameras.forEach(camera => {
-            // Check if targetPermissions.cameras is defined and includes the camera id
             const isChecked = targetPermissions.cameras && targetPermissions.cameras.includes(camera.id) ? 'checked' : '';
             cameraGroupDiv.innerHTML += `
                 <div class="permission-item">
@@ -1251,17 +1259,16 @@ document.addEventListener('DOMContentLoaded', () => {
         container.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
             checkbox.addEventListener('change', (e) => {
                 const moduleId = e.target.getAttribute('data-module');
-                const cameraId = parseInt(e.target.getAttribute('data-camera-id')); // Parse to int
+                const cameraId = parseInt(e.target.getAttribute('data-camera-id')); 
                 const isChecked = e.target.checked;
 
                 if (type === 'user') {
-                    // Initialize user permissions if not present
                     if (!db.permissions.users[id]) {
                         db.permissions.users[id] = { ...db.permissions.roles[db.users.find(u=>u.id==id).role] };
                     }
-                    if (moduleId) { // For module permissions
+                    if (moduleId) { 
                         db.permissions.users[id][moduleId] = isChecked;
-                    } else if (cameraId) { // For camera permissions
+                    } else if (cameraId) { 
                         if (!db.permissions.users[id].cameras) {
                             db.permissions.users[id].cameras = [];
                         }
@@ -1271,7 +1278,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             db.permissions.users[id].cameras = db.permissions.users[id].cameras.filter(c => c !== cameraId);
                         }
                     }
-                } else { // For role permissions
+                } else { 
                     if (moduleId) {
                         db.permissions.roles[id][moduleId] = isChecked;
                     } else if (cameraId) {
@@ -1286,7 +1293,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 showSuccessMessage('permissionSuccessMessage', '✅ Đã cập nhật quyền thành công!');
-                // Re-render cameras in case current user's permissions were changed
                 if (currentUser.role === 'principal' || currentUser.id == id) {
                     renderCameras();
                 }
@@ -1310,7 +1316,9 @@ document.addEventListener('DOMContentLoaded', () => {
             id: Date.now() + 1, username: document.getElementById('teacherUsername').value, password: document.getElementById('teacherPassword').value,
             role: 'teacher', name: teacherName, linkedId: teacherId
         });
-        renderAll(); e.target.reset();
+        renderAll(); 
+        e.target.reset();
+        document.getElementById('teacherFormContainer').style.display = 'none'; // Hide form after submission
         showSuccessMessage('teacherSuccessMessage', '✅ Đã lưu hồ sơ và tạo tài khoản giáo viên thành công!');
     });
     
@@ -1338,7 +1346,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 role: 'parent', name: `PH bé ${childName}`, linkedId: childId
             });
         }
-        renderAll(); e.target.reset();
+        renderAll(); 
+        e.target.reset();
+        document.getElementById('childFormContainer').style.display = 'none'; // Hide form after submission
         showSuccessMessage('childSuccessMessage', '✅ Đã lưu hồ sơ thành công!');
     });
     
@@ -1363,7 +1373,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const target = document.getElementById('permissionTarget').value;
         const newPassword = document.getElementById('newPasswordForUser').value;
         if (!target || !newPassword || !target.startsWith('user_')) {
-            // Thay đổi alert bằng modal UI để tuân thủ quy định
             const modalMessage = document.createElement('div');
             modalMessage.style.cssText = `
                 position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -1389,7 +1398,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Các hàm xóa dữ liệu
     window.deleteTeacher = (id) => { 
-        // Thay đổi confirm bằng modal UI
         const modal = document.createElement('div');
         modal.style.cssText = `
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -1405,7 +1413,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.deleteChild = (id) => { 
-        // Thay đổi confirm bằng modal UI
         const modal = document.createElement('div');
         modal.style.cssText = `
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -1421,7 +1428,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.deleteUser = (id) => { 
-        // Thay đổi confirm bằng modal UI
         const modal = document.createElement('div');
         modal.style.cssText = `
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -1437,7 +1443,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.deleteNote = (id) => { 
-        // Thay đổi confirm bằng modal UI
         const modal = document.createElement('div');
         modal.style.cssText = `
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -1454,8 +1459,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Hàm xử lý xác nhận từ modal tùy chỉnh
     window.confirmAction = (confirmed, id, type) => {
-        const modal = document.querySelector('body > div[style*="position: fixed"]'); // Find the modal
-        if (modal) modal.remove(); // Remove modal
+        const modal = document.querySelector('body > div[style*="position: fixed"]'); 
+        if (modal) modal.remove(); 
 
         if (confirmed) {
             if (type === 'teacher') {
@@ -1469,8 +1474,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 db.users = db.users.filter(u=>u.id!==id);
             } else if (type === 'note') {
                 db.notes = db.notes.filter(n=>n.id!==id);
-                renderNotes(); // Only render notes if a note is deleted
-                return; // Exit after rendering notes
+                renderNotes(); 
+                return; 
             }
             renderAll();
         }
@@ -1483,6 +1488,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.tab-content, .nav-tab').forEach(el => el.classList.remove('active'));
         document.getElementById(tabName).classList.add('active');
         tabButton.classList.add('active');
+        // Reset form visibility when switching tabs
+        if (tabName === 'teachers') {
+            document.getElementById('teacherFormContainer').style.display = 'none';
+        } else if (tabName === 'children') {
+            document.getElementById('childFormContainer').style.display = 'none';
+        }
     };
 
     // Đăng xuất
@@ -1494,8 +1505,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lắng nghe sự kiện submit form đăng nhập
     document.getElementById('loginForm').addEventListener('submit', handleLogin);
+
+    // Lắng nghe sự kiện click nút "+ Thêm Giáo Viên"
+    document.getElementById('addTeacherBtn').addEventListener('click', () => {
+        const formContainer = document.getElementById('teacherFormContainer');
+        formContainer.style.display = formContainer.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Lắng nghe sự kiện click nút "+ Thêm Trẻ"
+    document.getElementById('addChildBtn').addEventListener('click', () => {
+        const formContainer = document.getElementById('childFormContainer');
+        formContainer.style.display = formContainer.style.display === 'block' ? 'none' : 'block';
+    });
 });
 </script>
 </body>
 </html>
-�
