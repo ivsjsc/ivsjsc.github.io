@@ -17,8 +17,29 @@
         "*.local"
       ],
       "predeploy": [
-        "npm --prefix \"$RESOURCE_DIR\" run lint"
+        "npm --prefix %RESOURCE_DIR% run lint"
       ]
     }
-  ]
+  ],
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "firestore.indexes.json",
+      "firestore.rules",
+      "functions",
+      "ivs-website",
+      "node_modules",
+      ".firebaserc",
+      ".git",
+      ".github",
+      ".vscode"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
 }
